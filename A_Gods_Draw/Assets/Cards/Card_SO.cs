@@ -5,10 +5,12 @@ using UnityEngine.UI;
 
 //[CreateAssetMenu(menuName = "ScriptableObjects/Card_Abs")]
 
-public class Card_SO : ScriptableObject
+public abstract class Card_SO : ScriptableObject
 {
     public Sprite image;
     public string cardname;
     public string description;
+
+    public virtual void Init(GameObject a) { }
 }
 
