@@ -26,7 +26,7 @@ public class Card_Loader : MonoBehaviour
         {
             God_Card test = card_so as God_Card;
             health.text = test.health.ToString();
-            image.transform.position -= image.transform.position / 2;
+            image.transform.position -= image.transform.position;
         }
         cardname.text = card_so.cardname;
         image.sprite = card_so.image;
@@ -35,6 +35,7 @@ public class Card_Loader : MonoBehaviour
 
     private void Update()
     {
-        transform.Rotate(Vector3.up, 0.7f);
+        transform.Rotate(Vector3.up, 0.5f);
+        //transform.Rotate(Vector3.left, 0.5f);
     }
 }
