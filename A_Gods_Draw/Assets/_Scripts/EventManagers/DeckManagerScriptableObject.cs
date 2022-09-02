@@ -1,0 +1,162 @@
+using System.Collections;
+using System.Collections.Generic;
+using UnityEngine;
+using UnityEngine.Events;
+using System.Linq;
+
+
+[CreateAssetMenu(menuName = "Events/TurnManager")]
+public class DeckManagerScriptableObject : ScriptableObject
+{
+    [SerializeField]
+    List<Card_SO> deckList;
+    [SerializeField]
+    List<Card_SO> pLibrary;
+    [SerializeField]
+    List<Card_SO> pDiscard;
+    [SerializeField]
+    List<Card_SO> pHand;
+
+
+    [System.NonSerialized]
+    public UnityEvent deckListChangeEvent; 
+    [System.NonSerialized]
+    public UnityEvent pLibraryChangeEvent;
+    [System.NonSerialized]
+    public UnityEvent pDiscardChangeEvent;
+    [System.NonSerialized]
+    public UnityEvent pHandChangeEvent;
+
+    void OnEnable()
+    {
+        deckList = new List<Card_SO>();
+        if(deckListChangeEvent == null)
+            deckListChangeEvent = new UnityEvent();
+
+        pLibrary = new List<Card_SO>();
+        if(pLibraryChangeEvent == null)
+            pLibraryChangeEvent = new UnityEvent();
+        
+        pDiscard = new List<Card_SO>();
+        if(pDiscardChangeEvent == null)
+            pDiscardChangeEvent = new UnityEvent();
+        
+        pHand = new List<Card_SO>();
+        if(pHandChangeEvent == null)
+            pHandChangeEvent = new UnityEvent();
+    }
+
+    public void addCardToDeck(Card_SO card)
+    {
+        deckList.Add(card);
+        deckListChangeEvent.Invoke();
+    }
+
+    public void removeCardFromDeck(Card_SO card)
+    {
+        deckList.Remove(card);
+        deckListChangeEvent.Invoke();
+    }
+
+    public void resetLibrary()
+    {
+        pLibrary = new List<Card_SO>();
+        for (int i = 0; i < deckList.Count; i++)
+        {
+            pLibrary.Add(deckList[i]);
+        }
+        pHand = new List<Card_SO>();
+        pDiscard = new List<Card_SO>();
+    }
+
+    public void addCardToLibrary(Card_SO card)
+    {
+        pLibrary.Add(card);
+        pLibraryChangeEvent.Invoke();
+    }
+
+    public void removeCardFromLibrary(Card_SO card)
+    {
+        pLibrary.Remove(card);
+        pLibraryChangeEvent.Invoke();
+    }
+
+    public void addCardToDiscard(Card_SO card)
+    {
+        pDiscard.Add(card);
+        pDiscardChangeEvent.Invoke();
+    }
+
+    public void removeCardFromDiscard(Card_SO card)
+    {
+        pDiscard.Remove(card);
+        pDiscardChangeEvent.Invoke();
+    }
+    
+    public void addCardToHand(Card_SO card)
+    {
+        pHand.Add(card);
+        pHandChangeEvent.Invoke();
+    }
+
+    public void removeCardFromHand(Card_SO card)
+    {
+        pHand.Remove(card);
+        pHandChangeEvent.Invoke();
+    }
+
+    public void drawCard(int amount)
+    {
+        for (int i = 0; i < amount; i++)
+        {
+            pHand.Add(pLibrary[0]);
+            pLibrary.Remove(pLibrary[0]);
+        }
+        pLibraryChangeEvent.Invoke();
+        pHandChangeEvent.Invoke();
+    }
+
+    public void discardCard(Card_SO card)
+    {
+        if(pHand.Contains(card))
+        {
+            pHand.Remove(card);
+            pDiscard.Add(card);
+        }
+        pHandChangeEvent.Invoke();
+        pDiscardChangeEvent.Invoke();
+    }
+
+    public void shuffleLibrary()
+    {
+        List<Card_SO> libraryCopy = new List<Card_SO>();
+        for (int i = 0; i < pLibrary.Count; i++)
+        {
+            libraryCopy.Add(pLibrary[i]);
+        }
+        pLibrary = new List<Card_SO>();
+        for (int i = 0; i < libraryCopy.Count; i++)
+        {
+            int rnd = Random.Range(0, libraryCopy.Count);
+            while(libraryCopy[rnd] == null)
+            {
+                rnd = Random.Range(0, libraryCopy.Count);
+            }
+            pLibrary.Add(libraryCopy[rnd]);
+            libraryCopy[rnd] = null;
+        }
+        // pLibrary = randomized;
+        pLibraryChangeEvent.Invoke();
+    }
+    
+    public void shuffleDiscard()
+    {
+        foreach (var card in pDiscard)
+        {
+            pLibrary.Add(card);
+        }
+        pDiscard = new List<Card_SO>();
+        pDiscardChangeEvent.Invoke();
+        shuffleLibrary();
+    }
+}
