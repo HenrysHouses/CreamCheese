@@ -6,5 +6,5 @@ using UnityEngine;
 
 public class God_Card : Card_SO
 {
-    public int health;
+    public short health;
 }
