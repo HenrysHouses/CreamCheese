@@ -1,8 +1,14 @@
+//Charlie Script 02.09.22
+
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Map_Class
+namespace Map
 {
-   
+    public class Map_Class
+    {
+
+    }
 }
+
