@@ -27,8 +27,8 @@ namespace Map
 
         private void ClearMap()
         {
-            Map_Nodes.Clear();
-            LineConnection.Clear();
+            // Map_Nodes.Clear();
+            // LineConnection.Clear();
         }
 
         public void MapShow(Map m)
@@ -52,10 +52,10 @@ namespace Map
 
         }
 
-        private Map_Nodes CreateMapNode(Node node)
-        {
+        // private Map_Nodes CreateMapNode(Node node)
+        // {
 
-        }
+        // }
 
         public void SetPickableNodes()
         {
@@ -83,24 +83,24 @@ namespace Map
         }
         #endregion
 
-        private Map_Nodes GetNodes(Dot dot)
-        {
+        // private Map_Nodes GetNodes(Dot dot)
+        // {
 
-        }
+        // }
 
-        private Map_Configuration GetConfiguration(string configName)
-        {
+        // private Map_Configuration GetConfiguration(string configName)
+        // {
 
-        }
+        // }
 
-        public NodeBlueprint GetNodeBlueprint(NodeType nodeType)
-        {
+        // public NodeBlueprint GetNodeBlueprint(NodeType nodeType)
+        // {
 
-        }
+        // }
 
-        public NodeBlueprint GetNodeBlueprint(string blueprintName)
-        {
+        // public NodeBlueprint GetNodeBlueprint(string blueprintName)
+        // {
 
-        }
+        // }
     }
 }

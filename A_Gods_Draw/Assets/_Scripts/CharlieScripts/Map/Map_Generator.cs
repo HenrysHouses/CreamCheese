@@ -15,22 +15,22 @@ namespace Map
 
         private static readonly List<List<Node>> nodes = new List<List <Node>>();
 
-        public static Map GetMap(Map_Configuration configuration)
-        {
-            if (configuration == null)
-            {
-                return null;
-            }
+        // public static Map GetMap(Map_Configuration configuration)
+        // {
+        //     if (configuration == null)
+        //     {
+        //         return null;
+        //     }
 
-            config = configuration;
-            nodes.Clear();
+        //     config = configuration;
+        //     nodes.Clear();
 
-            GeneratePath();
-            RandomNodePos();
+        //     GeneratePath();
+        //     RandomNodePos();
 
-            var bossNodeName = config.nodeBlueprint.Where(boss.nodeType == NodeType.Boss).ToList().Random().name;
-            return new Map(configuration.name, bossNodeName, nodeList, new List<Point>());
-        }
+        //     var bossNodeName = config.nodeBlueprint.Where(boss.nodeType == NodeType.Boss).ToList().Random().name;
+        //     return new Map(configuration.name, bossNodeName, nodeList, new List<Point>());
+        // }
 
         private static void GeneratePath()
         {
@@ -39,10 +39,10 @@ namespace Map
 
         private static void RandomNodePos()
         {
-            for(var index = 0;)
-            {
+            // for(var index = 0;)
+            // {
 
-            }
+            // }
         }
 
         private static NodeType GetRandomNodes()

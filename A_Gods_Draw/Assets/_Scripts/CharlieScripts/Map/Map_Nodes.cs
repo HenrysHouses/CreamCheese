@@ -56,8 +56,8 @@ namespace Map
                     spriteRenderer.color = Color.white;
                     break;
 
-                default:
-                    throw new ArgumentOutOfRangeExepction(nameof(states), states, null);
+                // default:
+                //     throw new ArgumentOutOfRangeExepction(nameof(states), states, null);
             }
         }
 
