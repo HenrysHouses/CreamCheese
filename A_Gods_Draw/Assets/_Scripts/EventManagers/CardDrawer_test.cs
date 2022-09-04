@@ -6,7 +6,7 @@ using UnityEngine.Events;
 public class CardDrawer_test : MonoBehaviour
 {
     [SerializeField]
-    private DeckManagerScriptableObject deckManager;
+    private DeckManager_SO deckManager;
     [SerializeField]
     private Card_SO selectedCard;
 
@@ -17,7 +17,7 @@ public class CardDrawer_test : MonoBehaviour
 
     public void createLibrary()
     {
-        deckManager.resetLibrary();
+        deckManager.reset();
     }
 
     public void DrawACard(int amount)
@@ -28,6 +28,11 @@ public class CardDrawer_test : MonoBehaviour
     public void DiscardACard()
     {
         deckManager.discardCard(selectedCard);
+    }
+
+    public void DiscardHand()
+    {
+        deckManager.discardAll();
     }
 
     public void Shuffle()

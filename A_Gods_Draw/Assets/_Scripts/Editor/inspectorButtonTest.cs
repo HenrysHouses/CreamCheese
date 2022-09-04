@@ -46,5 +46,10 @@ public class inspectorButtonTest : Editor
         {
             script.DiscardACard();
         }
+
+        if(GUILayout.Button("Discard hand"))
+        {
+            script.DiscardHand();
+        }
     }
 }
