@@ -1,6 +1,6 @@
 //Charlie Script 02.09.22
 
-using System.Collections;
+/*using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
@@ -24,17 +24,23 @@ namespace Map
         public SpriteRenderer visitedSpriteImage;
         public Image visitedImage; //image showing that you have visited that node
 
-        public Node node { get; private set; }
-        public NodeBlueprint blueprint { get; private set; }
+        public Node Node { get; private set; }
+        public NodeBlueprint Blueprint { get; private set; }
 
         private float mouseClicked;
         private const float clickDuration = 0.5f;
 
-        public void SetUp()
+        public void SetUp(Node node, NodeBlueprint blueprint)
         {
-            node = node;
-            blueprint = blueprint;
-            spriteRenderer.sprite = blueprint.sprite;
+            Node = node;
+            Blueprint = blueprint;
+            //spriteRenderer.sprite = blueprint.sprite;
+
+            if(node.nodeType == NodeType.Boss)
+            {
+
+            }
+
             visitedSpriteImage.gameObject.SetActive(false);
             SetState(NodeStates.Locked);
         }
@@ -56,8 +62,9 @@ namespace Map
                     spriteRenderer.color = Color.white;
                     break;
 
-                // default:
-                //     throw new ArgumentOutOfRangeExepction(nameof(states), states, null);
+                default:
+                    //throw new ArgumentOutOfRangeExepction(nameof(states), states, null);
+                    break;
             }
         }
 
@@ -75,5 +82,5 @@ namespace Map
             }
         }
     }
-}
+}*/
 
