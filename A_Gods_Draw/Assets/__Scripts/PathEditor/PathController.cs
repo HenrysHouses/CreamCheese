@@ -68,6 +68,13 @@ public class PathController : MonoBehaviour
 	{
 		if(controlPointsEnabled)
 			DrawControlPoints();
+		
+		// Draw GetPathOP tTest
+		if(DrawtTest)
+		{
+			OrientedPoint testPoint = GetPathOP(tTest);
+			Handles.PositionHandle(testPoint.pos, testPoint.rot);
+		}
 	}
 
 
@@ -170,12 +177,6 @@ public class PathController : MonoBehaviour
 				Gizmos.DrawLine(GetPos(j, 1), GetPos(j, 0));
 				Gizmos.DrawLine(GetPos(j, 2), GetPos(j, 3));
 			}	
-		}
-		// Draw GetPathOP tTest
-		if(DrawtTest)
-		{
-			OrientedPoint testPoint = GetPathOP(tTest);
-			Handles.PositionHandle(testPoint.pos, testPoint.rot);
 		}
 	}
 #endif

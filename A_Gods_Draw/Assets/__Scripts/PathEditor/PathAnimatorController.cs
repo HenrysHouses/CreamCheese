@@ -7,27 +7,32 @@ public class PathAnimatorController : MonoBehaviour
 {
 
     public PathController path;
+    public AnimationCurve _speedCurve = new AnimationCurve();
+    public float Multiplier = 1;
+
+    [HideInInspector]
+    public bool isAnimating;
+    [SerializeField]
+    bool DbugPositions;
+
+    public GameObject testAnimationobj;
 
     public class AnimatorMovement
     {
         public GameObject AnimationTarget;
         public Transform AnimationTransform;
         public float t;
-        public float speed;
+        public AnimationCurve speedCurve;
+        public float speedMultiplier;
         public int index;
         public UnityEvent CompletionTrigger;
 
-        public AnimatorMovement(float animationSpeed)
+        public AnimatorMovement()
         {
             CompletionTrigger = new UnityEvent();
             AnimationTransform = new GameObject("AnimationHolder").transform;
-            speed = animationSpeed;
         }
     }
-
-    public float _speed;
-    [SerializeField]
-    bool isAnimating;
 
     List<AnimatorMovement> _Animations = new List<AnimatorMovement>();
 
@@ -38,14 +43,16 @@ public class PathAnimatorController : MonoBehaviour
     {
         animator.AnimationTransform.SetParent(transform);
 
-        if(_speed > 0)
+        if(animator.speedMultiplier > 0)
             animator.AnimationTransform.position = path.controlPoints[0].position;
-        else
+        else if(animator.speedMultiplier < 0)
         {
             int n = path.controlPoints.Count -1;
             animator.AnimationTransform.position = path.controlPoints[n].position;
             animator.t = 1;
         }
+        else
+            Debug.LogWarning("animation has 0 in start speed");
         _Animations.Add(animator);
 
         int index = _Animations.IndexOf(animator);
@@ -61,27 +68,42 @@ public class PathAnimatorController : MonoBehaviour
     IEnumerator Animate(int index)
     {
         bool state = true;
+        float _timer = 0;
 
         while(state)
         {
             isAnimating = true;
-            if(_Animations[index].speed > 0) {
+            
+            float currentSpeed = 0;
+
+            if(_Animations[index].speedMultiplier > 0) {
                 if(_Animations[index].t < 1) 
+                {
                     state = true;
+                    currentSpeed = _Animations[index].speedCurve.Evaluate(_timer) * _Animations[index].speedMultiplier;
+                    if(DbugPositions)
+                        Debug.Log(_timer);
+                }
                 else
                     state = false;
             }
-            else if(_Animations[index].speed < 0) {
+            else if(_Animations[index].speedMultiplier < 0) {
                 if(_Animations[index].t > 0) 
+                {
                     state = true;
+                    currentSpeed = _Animations[index].speedCurve.Evaluate(1-_timer) * _Animations[index].speedMultiplier;
+                    if(DbugPositions)
+                        Debug.Log(1-_timer);
+                }
                 else
                     state = false;
             }
 
-            _Animations[index].t = Mathf.Clamp(_Animations[index].t + Time.deltaTime * _Animations[index].speed, 0, 1);
+            _Animations[index].t = Mathf.Clamp(_Animations[index].t + currentSpeed, 0, 1);
             OrientedPoint OP = path.GetEvenPathOP(_Animations[index].t); 
             _Animations[index].AnimationTransform.position = OP.pos;
             _Animations[index].AnimationTransform.rotation = OP.rot;
+            _timer += Time.deltaTime;
             yield return new WaitForEndOfFrame();
         }
         completeAnimation(index);
@@ -89,18 +111,23 @@ public class PathAnimatorController : MonoBehaviour
 
     void completeAnimation(int index)
     {
-        Debug.Log("animation Complete: " + index);
-        _Animations[index].CompletionTrigger.Invoke();
-        Debug.Log(_Animations[index].CompletionTrigger.GetPersistentEventCount());
+        _Animations[index].CompletionTrigger?.Invoke();
         Destroy(_Animations[index].AnimationTransform.gameObject);
         for (int i = 0; i < transform.childCount; i++)
         {
-            if(!transform.GetChild(i).name.Equals("AnimationHolder"))
+            if(!transform.GetChild(i).name.Equals("AnimationHolder") && !isAnimating)
             {
                 isAnimating = false;
-                _Animations = new List<AnimatorMovement>();
+                StartCoroutine(refreshAnimationList());
             }        
         }
+    }
+
+    IEnumerator refreshAnimationList()
+    {
+        yield return new WaitForEndOfFrame();
+        if(!isAnimating)
+                _Animations = new List<AnimatorMovement>();
     }
 
     public void debugTestCompletion()

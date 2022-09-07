@@ -10,30 +10,35 @@ public class PathAnimator_Editor : Editor
 {
    private PathAnimatorController script;
 
+    AnimationCurve curve;
+
     private void OnEnable()
     {
         script = target as PathAnimatorController;
     }
 
-    AnimationCurve curve = new AnimationCurve();
 
     public override void OnInspectorGUI()
     {
         base.OnInspectorGUI();
 
-        EditorGUILayout.CurveField("Speed Curve", curve);
-
-
         if(GUILayout.Button("Animate"))
         {
-            PathAnimatorController.AnimatorMovement animation = new PathAnimatorController.AnimatorMovement(script._speed);
-            animation.AnimationTarget = new GameObject("Test Target");
-            animation.AnimationTarget.transform.SetParent(animation.AnimationTransform);
-            animation.AnimationTarget.transform.position = new Vector3();   
-            animation.index = script.CreateAnimation(animation);
-            animation.CompletionTrigger.AddListener(script.debugTestCompletion);
+            if(EditorApplication.isPlaying)
+            {
+                PathAnimatorController.AnimatorMovement animation = new PathAnimatorController.AnimatorMovement();
+                animation.AnimationTarget = Instantiate(script.testAnimationobj);
+                // animation.AnimationTarget = GameObject.CreatePrimitive(PrimitiveType.Sphere);
+                // animation.AnimationTarget.transform.localScale = new Vector3(0.01f, 0.01f, 0.01f);
+                animation.AnimationTarget.transform.SetParent(animation.AnimationTransform);
+                animation.AnimationTarget.transform.position = new Vector3();   
+                animation.speedCurve = script._speedCurve;
+                animation.speedMultiplier = script.Multiplier;
+                animation.index = script.CreateAnimation(animation);
+                animation.CompletionTrigger.AddListener(script.debugTestCompletion);
+            }
+            else
+                Debug.LogWarning("Play the editor to test the animation");
         }
     }
-
-
 }
