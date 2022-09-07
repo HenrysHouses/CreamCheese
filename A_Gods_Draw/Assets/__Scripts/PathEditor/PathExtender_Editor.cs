@@ -9,7 +9,7 @@ using UnityEditor;
 #if UNITY_EDITOR	
 
 [CustomEditor( typeof( PathExtender ) )]
-public class PathEditor : Editor
+public class PathExtender_Editor : Editor
 {
 	private PathController newSegment;
 	void OnSceneGUI()
