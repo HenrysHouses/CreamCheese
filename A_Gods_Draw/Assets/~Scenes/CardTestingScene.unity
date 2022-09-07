@@ -217,7 +217,7 @@ MonoBehaviour:
   selectedCard: {fileID: 0}
 --- !u!1 &160788496
 GameObject:
-  m_ObjectHideFlags: 0
+  m_ObjectHideFlags: 9
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
@@ -234,7 +234,7 @@ GameObject:
   m_IsActive: 1
 --- !u!4 &160788497
 Transform:
-  m_ObjectHideFlags: 0
+  m_ObjectHideFlags: 9
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
@@ -249,7 +249,7 @@ Transform:
   m_LocalEulerAnglesHint: {x: -90, y: -270, z: 90}
 --- !u!114 &160788498
 MonoBehaviour:
-  m_ObjectHideFlags: 0
+  m_ObjectHideFlags: 9
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
@@ -615,7 +615,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
 --- !u!1 &1022526766
 GameObject:
-  m_ObjectHideFlags: 0
+  m_ObjectHideFlags: 9
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
@@ -632,7 +632,7 @@ GameObject:
   m_IsActive: 1
 --- !u!4 &1022526767
 Transform:
-  m_ObjectHideFlags: 0
+  m_ObjectHideFlags: 9
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
@@ -647,7 +647,7 @@ Transform:
   m_LocalEulerAnglesHint: {x: 0, y: -90.593, z: 0}
 --- !u!114 &1022526768
 MonoBehaviour:
-  m_ObjectHideFlags: 0
+  m_ObjectHideFlags: 9
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
@@ -815,37 +815,6 @@ MonoBehaviour:
   - {fileID: 80544674}
   - {fileID: 1427122355}
   - {fileID: 694519886}
-  evenlySpacedPoints:
-  - pos: {x: -2.4135113, y: -2.2959726, z: 14.72138}
-    rot: {x: 0, y: 0, z: 0, w: 1}
-  - pos: {x: -2.4135113, y: -2.2467449, z: 14.72138}
-    rot: {x: 0, y: 0.7071068, z: 0.7071068, w: 0}
-  - pos: {x: -2.4135113, y: -2.1975174, z: 14.72138}
-    rot: {x: 0, y: 0.98090667, z: 0, w: -0.19447932}
-  - pos: {x: -2.4140706, y: -2.1502588, z: 14.719492}
-    rot: {x: 0, y: 0.7071068, z: 0.7071068, w: 0}
-  - pos: {x: -2.4323704, y: -2.1502588, z: 14.673868}
-    rot: {x: 0, y: 0.7071068, z: 0.7071068, w: 0}
-  - pos: {x: -2.4565313, y: -2.1502588, z: 14.63104}
-    rot: {x: 0, y: 0.7071068, z: 0.7071068, w: 0}
-  - pos: {x: -2.4860046, y: -2.1502588, z: 14.591682}
-    rot: {x: 0, y: 0, z: 0, w: 1}
-  - pos: {x: -2.5202706, y: -2.1502588, z: 14.556476}
-    rot: {x: 0, y: 0.98090667, z: 0, w: -0.19447932}
-  - pos: {x: -2.5584798, y: -2.1502588, z: 14.525692}
-    rot: {x: 0, y: 0.95533603, z: 0, w: -0.2955219}
-  - pos: {x: -2.5997016, y: -2.1502588, z: 14.498944}
-    rot: {x: 0, y: 0.90339625, z: 0, w: -0.4288067}
-  - pos: {x: -2.6445384, y: -2.1502588, z: 14.478621}
-    rot: {x: 0, y: 0.90339625, z: 0, w: -0.4288067}
-  - pos: {x: -2.691058, y: -2.1502588, z: 14.463095}
-    rot: {x: 0, y: -0.816211, z: 0, w: 0.577754}
-  - pos: {x: -2.7387655, y: -2.1502588, z: 14.450956}
-    rot: {x: 0, y: -0.816211, z: 0, w: 0.577754}
-  - pos: {x: -2.787579, y: -2.1502588, z: 14.445463}
-    rot: {x: 0, y: 0.7071068, z: 0.7071068, w: 0}
-  - pos: {x: -2.8366466, y: -2.1502588, z: 14.441495}
-    rot: {x: 0, y: 0.7071068, z: 0.7071068, w: 0}
   Recalculate: 0
 --- !u!4 &1380188234 stripped
 Transform:
@@ -1163,7 +1132,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _DrawBezierCurve: 1
-  controlPointsEnabled: 1
+  controlPointsEnabled: 0
   VertexPathAccuracy: 8
   DrawEvenPoints: 0
   DrawUpVector: 0
@@ -1175,35 +1144,6 @@ MonoBehaviour:
   - {fileID: 160788497}
   - {fileID: 1785248737}
   - {fileID: 1022526767}
-  evenlySpacedPoints:
-  - pos: {x: -2.3702114, y: -2.2959726, z: 14.72138}
-    rot: {x: 0, y: 0, z: 0, w: 1}
-  - pos: {x: -2.3702114, y: -2.243584, z: 14.72138}
-    rot: {x: 0, y: 0.7071068, z: 0.7071068, w: 0}
-  - pos: {x: -2.3702114, y: -2.191195, z: 14.72138}
-    rot: {x: 0, y: 0.9664535, z: 0, w: -0.2568418}
-  - pos: {x: -2.3751101, y: -2.1502588, z: 14.711033}
-    rot: {x: 0, y: 0.7071068, z: 0.7071068, w: 0}
-  - pos: {x: -2.4016497, y: -2.1502588, z: 14.665905}
-    rot: {x: 0, y: 0.7071068, z: 0.7071068, w: 0}
-  - pos: {x: -2.4330075, y: -2.1502588, z: 14.623964}
-    rot: {x: 0, y: 0.7071068, z: 0.7071068, w: 0}
-  - pos: {x: -2.468893, y: -2.1502588, z: 14.585806}
-    rot: {x: 0, y: 0, z: 0, w: 1}
-  - pos: {x: -2.5087562, y: -2.1502588, z: 14.551875}
-    rot: {x: 0, y: 0.9664535, z: 0, w: -0.2568418}
-  - pos: {x: -2.5518386, y: -2.1502588, z: 14.522271}
-    rot: {x: 0, y: 0.93928707, z: 0, w: -0.34313235}
-  - pos: {x: -2.5973594, y: -2.1502588, z: 14.4965725}
-    rot: {x: 0, y: 0.8904012, z: 0, w: -0.4551766}
-  - pos: {x: -2.64561, y: -2.1502588, z: 14.476165}
-    rot: {x: 0, y: 0.8904012, z: 0, w: -0.4551766}
-  - pos: {x: -2.6957285, y: -2.1502588, z: 14.461393}
-    rot: {x: 0, y: -0.8113828, z: 0, w: 0.58451515}
-  - pos: {x: -2.7466164, y: -2.1502588, z: 14.448943}
-    rot: {x: 0, y: -0.8113828, z: 0, w: 0.58451515}
-  - pos: {x: -2.798812, y: -2.1502588, z: 14.444604}
-    rot: {x: 0, y: 0.7071068, z: 0.7071068, w: 0}
   Recalculate: 0
 --- !u!4 &1709361204
 Transform:
@@ -1225,7 +1165,7 @@ Transform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1785248736
 GameObject:
-  m_ObjectHideFlags: 0
+  m_ObjectHideFlags: 9
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
@@ -1242,7 +1182,7 @@ GameObject:
   m_IsActive: 1
 --- !u!4 &1785248737
 Transform:
-  m_ObjectHideFlags: 0
+  m_ObjectHideFlags: 9
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
@@ -1257,7 +1197,7 @@ Transform:
   m_LocalEulerAnglesHint: {x: 0, y: -102.916, z: 0}
 --- !u!114 &1785248738
 MonoBehaviour:
-  m_ObjectHideFlags: 0
+  m_ObjectHideFlags: 9
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
