@@ -23,7 +23,7 @@ public class PathController : MonoBehaviour
 	[HideInInspector] public Transform endPoint;
 	public List<Transform> controlPoints = new List<Transform>();
 	
-	[SerializeField] private OrientedPoint[] evenlySpacedPoints;
+	private OrientedPoint[] evenlySpacedPoints;
 	private float length;
 	[SerializeField] bool Recalculate;
 	

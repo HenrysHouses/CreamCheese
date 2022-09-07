@@ -1,3 +1,8 @@
+/*
+ * Written by:
+ * Henrik
+*/
+
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -26,7 +31,7 @@ public class PathAnimator_Editor : Editor
         {
             if(EditorApplication.isPlaying)
             {
-                PathAnimatorController.AnimatorMovement animation = new PathAnimatorController.AnimatorMovement();
+                PathAnimatorController.pathAnimation animation = new PathAnimatorController.pathAnimation();
                 animation.AnimationTarget = Instantiate(script.testAnimationobj);
                 // animation.AnimationTarget = GameObject.CreatePrimitive(PrimitiveType.Sphere);
                 // animation.AnimationTarget.transform.localScale = new Vector3(0.01f, 0.01f, 0.01f);

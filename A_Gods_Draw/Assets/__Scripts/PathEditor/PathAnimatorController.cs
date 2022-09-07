@@ -1,3 +1,8 @@
+/*
+ * Written by:
+ * Henrik
+*/
+
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -17,7 +22,7 @@ public class PathAnimatorController : MonoBehaviour
 
     public GameObject testAnimationobj;
 
-    public class AnimatorMovement
+    public class pathAnimation
     {
         public GameObject AnimationTarget;
         public Transform AnimationTransform;
@@ -27,35 +32,35 @@ public class PathAnimatorController : MonoBehaviour
         public int index;
         public UnityEvent CompletionTrigger;
 
-        public AnimatorMovement()
+        public pathAnimation()
         {
             CompletionTrigger = new UnityEvent();
             AnimationTransform = new GameObject("AnimationHolder").transform;
         }
     }
 
-    List<AnimatorMovement> _Animations = new List<AnimatorMovement>();
+    List<pathAnimation> _Animations = new List<pathAnimation>();
 
     /// <summary>Starts an animation and returns its index from animations on the path</summary>
-    /// <param name="animator">Data class for the animation</param>
+    /// <param name="animation">Data class for the animation</param>
     /// <returns>Animation index</returns>
-    public int CreateAnimation(AnimatorMovement animator)
+    public int CreateAnimation(pathAnimation animation)
     {
-        animator.AnimationTransform.SetParent(transform);
+        animation.AnimationTransform.SetParent(transform);
 
-        if(animator.speedMultiplier > 0)
-            animator.AnimationTransform.position = path.controlPoints[0].position;
-        else if(animator.speedMultiplier < 0)
+        if(animation.speedMultiplier > 0)
+            animation.AnimationTransform.position = path.controlPoints[0].position;
+        else if(animation.speedMultiplier < 0)
         {
             int n = path.controlPoints.Count -1;
-            animator.AnimationTransform.position = path.controlPoints[n].position;
-            animator.t = 1;
+            animation.AnimationTransform.position = path.controlPoints[n].position;
+            animation.t = 1;
         }
         else
             Debug.LogWarning("animation has 0 in start speed");
-        _Animations.Add(animator);
+        _Animations.Add(animation);
 
-        int index = _Animations.IndexOf(animator);
+        int index = _Animations.IndexOf(animation);
         StartCoroutine(Animate(index));
         return index;
     }
@@ -127,7 +132,7 @@ public class PathAnimatorController : MonoBehaviour
     {
         yield return new WaitForEndOfFrame();
         if(!isAnimating)
-                _Animations = new List<AnimatorMovement>();
+                _Animations = new List<pathAnimation>();
     }
 
     public void debugTestCompletion()
