@@ -4,10 +4,14 @@ using UnityEngine;
 
 public abstract class Card_Behaviour : MonoBehaviour
 {
+    Card_SO card;
+
     public void Initialize(Card_SO card)
     {
-        
+        this.card = card;
     }
+
+    public Card_SO GetCardSO() { return card; }
     public virtual void OnPlay() { }
     public virtual void OnAction() { }
 }

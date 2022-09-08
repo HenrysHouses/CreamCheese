@@ -62,7 +62,7 @@ public class CardDrawer_test : MonoBehaviour
 
     public void deckPrint()
     {
-        Debug.Log(selectedCard + "changed in deck");
+        Debug.Log(selectedCard + " changed in deck");
     }
 
 

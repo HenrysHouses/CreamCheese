@@ -138,6 +138,10 @@ public class DeckManager_SO : ScriptableObject
 
     public void drawCard(int amount)
     {
+        if (pLibrary.Count < amount)
+        {
+            shuffleDiscard();
+        }
         for (int i = 0; i < amount; i++)
         {
             pHand.Add(pLibrary[0]);
@@ -200,8 +204,13 @@ public class DeckManager_SO : ScriptableObject
         {
             pLibrary.Add(card);
         }
-        pDiscard = new List<Card_SO>();
+        pDiscard.Clear();
         pDiscardChangeEvent.Invoke();
         shuffleLibrary();
+    }
+
+    public List<Card_SO> GetCurrentHand()
+    {
+        return pHand;
     }
 }

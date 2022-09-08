@@ -4,15 +4,21 @@ using UnityEngine;
 
 public abstract class God_Behaviour : Card_Behaviour
 {
-    public new void OnPlay()
+    public void SearchToBuff(List<NonGod_Behaviour> currentLane)
     {
-        SearchToBuff();
+        foreach (NonGod_Behaviour card in currentLane)
+        {
+            card.GetGodBuff(true, 2);
+        }
+    }
+    public void OnRetire(List<NonGod_Behaviour> currentLane)
+    {
+        //foreach (NonGod_Behaviour card in currentLane)
+        //{
+        //    card.GetGodBuff(true, 0.5f);
+        //}
     }
 
-    void SearchToBuff()
-    {
-        //for each current nongod-card: getgodbuff
-    }
-
+    public virtual void OnTurnStart() { }
 
 }
