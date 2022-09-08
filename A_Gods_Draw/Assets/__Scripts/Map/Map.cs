@@ -5,6 +5,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using System.Linq;
 using System.Drawing;
+using Newtonsoft.Json;
 
 namespace Map
 {
@@ -36,7 +37,7 @@ namespace Map
 
             if(bossNode == null || firstLayerNode == null)
             {
-                return 0;
+                return 0f;
             }
 
             return bossNode.pos.y - firstLayerNode.pos.y;
@@ -49,7 +50,7 @@ namespace Map
 
         public string ToJson()
         {
-            return JsonUtility.ToJson(this);
+            return JsonConvert.SerializeObject(this, Formatting.Indented);
         }
     }
 }

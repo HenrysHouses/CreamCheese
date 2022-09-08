@@ -6,6 +6,8 @@ using UnityEngine;
 using System;
 using System.Linq;
 using System.Drawing;
+using Newtonsoft.Json;
+using Newtonsoft.Json.Converters;
 
 namespace Map
 {
@@ -14,6 +16,7 @@ namespace Map
         public readonly Point point;
         public readonly List<Point> incoming = new List<Point>();
         public readonly List<Point> outgoing = new List<Point>();
+        [JsonConverter(typeof(StringEnumConverter))]
         public readonly NodeType nodeType;
         public readonly string blueprintName;
         public Vector2 pos;
@@ -28,7 +31,7 @@ namespace Map
         #region ADDING points
         public void AddingIncoming(Point point)
         {
-            if(incoming.Any(x => x.Equals(point)))
+            if (incoming.Any(element => element.Equals(point)))
             {
                 return;
             }
@@ -37,7 +40,7 @@ namespace Map
 
         public void AddingOutgoing(Point point)
         {
-            if (outgoing.Any(x => x.Equals(point)))
+            if (outgoing.Any(element => element.Equals(point)))
             {
                 return;
             }
@@ -46,12 +49,12 @@ namespace Map
         #endregion
 
         #region REMOVING points
-        public void RemovingIncoming()
+        public void RemovingIncoming(Point point)
         {
             incoming.RemoveAll(x => x.Equals(point));
         }
 
-        public void RemovingOutgoing()
+        public void RemovingOutgoing(Point point)
         {
             outgoing.RemoveAll(x => x.Equals(point));
         }

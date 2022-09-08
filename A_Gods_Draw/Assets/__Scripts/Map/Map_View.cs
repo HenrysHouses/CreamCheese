@@ -1,5 +1,4 @@
 //CHARLIE SCRIPT
-using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using System.Linq;
@@ -63,7 +62,8 @@ namespace Map
 
         private void ClearMap()
         {
-            if (firstParent != null) {
+            if (firstParent != null) 
+            {
                 Destroy(firstParent);
             }
 
@@ -71,22 +71,22 @@ namespace Map
             path.Clear();
         }
 
-        public void MapShow(Map m)
+        public void MapShow(Map map)
         {
-            if (m == null)
+            if (map == null)
             {
                 return;
             }
 
             ClearMap();
             CreateParent();
-            //CreateMapNode(m.nodes);
+            //CreateMapNode();
             DrawPath();
             Orientation();
             ResetRotation();
             SetPickableNodes();
             SetPathColor();
-            CreateBackground(m);
+            CreateBackground(map);
         }
 
         private void CreateBackground(Map m)

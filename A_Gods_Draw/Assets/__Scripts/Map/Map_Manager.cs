@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using System.Linq;
 using System;
+using Newtonsoft.Json;
 
 namespace Map
 {
@@ -17,10 +18,11 @@ namespace Map
         // Start is called before the first frame update
         private void Start()
         {
-            var m_map = PlayerPrefs.GetString("Map");
-            var map = JsonUtility.FromJson<Map>(m_map);
             if (PlayerPrefs.HasKey("Map")) //needs to be added into the playerprefs
             {
+                var m_map = PlayerPrefs.GetString("Map");
+                var map = JsonConvert.DeserializeObject<Map>(m_map);
+
                 if (map.path.Any(p => p.Equals(map.GetBossNode().point))) //dont know how to fix this yet
                 {
                     GenerateNewMap();
@@ -42,6 +44,7 @@ namespace Map
         {
             var map = Map_Generator.GetMap(configuration);
             currentMap = map;
+            Debug.Log(map.ToJson());
             view.MapShow(map);
         }
 
@@ -52,7 +55,7 @@ namespace Map
                 return;
             }
 
-            var json = JsonUtility.ToJson(currentMap);
+            var json = JsonConvert.SerializeObject(currentMap);
             PlayerPrefs.SetString("Map", json);
             PlayerPrefs.Save();
             Debug.Log("map has been saved");

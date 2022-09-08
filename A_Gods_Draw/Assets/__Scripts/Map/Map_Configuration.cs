@@ -1,9 +1,8 @@
 //CHARLIE SCrIPT
-using System.Collections;
 using System.Collections.Generic;
-using UnityEditorInternal;
 using UnityEngine;
 using System;
+using UnityEditorInternal;
 
 namespace Map
 {
@@ -16,10 +15,11 @@ namespace Map
 
         public MinMaxInt numOfPreBossNodes;
         public MinMaxInt numOfStartingNodes;
+
         public ListOfMapLayers layers;
 
         [System.Serializable]
-        public class ListOfMapLayers : List<Map_Layer>
+        public class ListOfMapLayers : List<Map_Layer> // needs to be fixed
         {
         }
     }

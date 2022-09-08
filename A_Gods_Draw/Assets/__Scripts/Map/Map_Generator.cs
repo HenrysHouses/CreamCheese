@@ -141,7 +141,70 @@ namespace Map
 
         private static void RemoveCrossConnections()
         {
+            for(var i = 0; i < config.GridWidth - 1; i++)
+            {
+                for (var j = 0; j < config.layers.Count - 1; j++)
+                {
+                    var node = GetNode(new Point(i, j));
+                    if (node == null || node.ItHasNoConnections())
+                    {
+                        continue;
+                    }
 
+                    var right = GetNode(new Point(i + 1, j));
+                    if (right == null || right.ItHasNoConnections())
+                    {
+                        continue;
+                    }
+
+                    var top = GetNode(new Point(i, j + 1));
+                    if(top == null || top.ItHasNoConnections())
+                    {
+                        continue;
+                    }
+
+                    var topRight = GetNode(new Point(i + 1, j + 1));
+                    if(topRight == null || topRight.ItHasNoConnections())
+                    {
+                        continue;
+                    }
+
+                    if(!node.outgoing.Any(element => element.Equals(topRight.point)))
+                    {
+                        continue;
+                    }
+
+                    if(!right.outgoing.Any(element => element.Equals(top.point)))
+                    {
+                        continue;
+                    }
+
+                    top.AddingIncoming(node.point);
+                    node.AddingOutgoing(top.point);
+                    right.AddingOutgoing(topRight.point);
+                    topRight.AddingIncoming(right.point);
+
+                    var random = Random.Range(0f, 1f);
+                    if(random < 0.2f)
+                    {
+                        node.RemovingOutgoing(topRight.point);
+                        topRight.RemovingIncoming(node.point);
+
+                        right.RemovingOutgoing(top.point);
+                        top.RemovingIncoming(right.point);
+                    }
+                    else if(random < 0.6f)
+                    {
+                        node.RemovingOutgoing(topRight.point);
+                        topRight.RemovingIncoming(node.point);
+                    }
+                    else
+                    {
+                        right.RemovingOutgoing(top.point);
+                        top.RemovingIncoming(right.point);
+                    }
+                }
+            }
         }
 
         private static Node GetNode(Point p)
@@ -176,6 +239,84 @@ namespace Map
         {
             var finalNode = GetFinalNode();
             paths = new List<List<Point>>();
+            var numberOfStartingNodes = config.numOfStartingNodes.Value();
+            var numberOfBossNodes = config.numOfPreBossNodes.Value();
+
+            var candidateX = new List<int>();
+            for(var i = 0; i < config.GridWidth; i++)
+            {
+                candidateX.Add(i);
+            }
+
+            candidateX.Shuffling();
+            var preBossX = candidateX.Take(numberOfBossNodes);
+            var preBossPoints = (from x in preBossX select new Point(x, finalNode.Y - 1)).ToList();
+            var attempts = 0;
+
+            foreach(var point in preBossPoints)
+            {
+                var path = Path(point, 0, config.GridWidth);
+                path.Insert(0, finalNode);
+                paths.Add(path);
+                attempts++;
+            }
+
+            while(!PathToDiffPoints(paths, numberOfStartingNodes) && attempts < 100)
+            {
+                var rndPreBossPoint = preBossPoints[Random.Range(0, preBossPoints.Count)];
+                var path = Path(rndPreBossPoint, 0, config.GridWidth);
+                path.Insert(0, finalNode);
+                paths.Add(path);
+                attempts++;
+            }
+        }
+
+        private static bool PathToDiffPoints(IEnumerable<List<Point>> paths, int n)
+        {
+            return (from path in paths select path[path.Count - 1].X).Distinct().Count() >= n;
+        }
+
+        private static List<Point> Path(Point from, int toY, int width, bool firstStepUnconstrained = false)
+        {
+            if(from.Y == toY)
+            {
+                return null;
+            }
+
+            var dir = from.Y > toY ? -1 : 1;
+            var path = new List<Point> { from };
+            while (path[path.Count - 1].Y != toY)
+            {
+                var lastPoint = path[path.Count - 1];
+                var candidateX = new List<int>();
+
+                if(firstStepUnconstrained && lastPoint.Equals(from))
+                {
+                    for(var i = 0; i < width; i++)
+                    {
+                        candidateX.Add(i);
+                    }
+                }
+                else
+                {
+                    candidateX.Add(lastPoint.X);
+
+                    if(lastPoint.X - 1 >= 0)
+                    {
+                        candidateX.Add(lastPoint.X - 1);
+                    }
+
+                    if(lastPoint.X + 1 < width)
+                    {
+                        candidateX.Add(lastPoint.X + 1);
+                    }
+                }
+
+                var nextPoint = new Point(candidateX[Random.Range(0, candidateX.Count)], lastPoint.Y + dir);
+                path.Add(nextPoint);
+            }
+
+            return path;
         }
 
         private static NodeType GetRandomNodes()
