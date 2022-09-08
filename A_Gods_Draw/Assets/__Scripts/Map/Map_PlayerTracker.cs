@@ -1,5 +1,6 @@
 //CHARLIE SCRIPT
-/*using System.Collections;
+
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using System.Linq;
@@ -84,5 +85,5 @@ namespace Map
             Debug.Log("Node can not be accessed");
         }
     }
-}*/
+}
 

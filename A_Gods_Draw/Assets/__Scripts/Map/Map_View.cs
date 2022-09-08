@@ -1,10 +1,11 @@
 //CHARLIE SCRIPT
-/*using System.Collections;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using System.Linq;
 using System;
 using System.Drawing;
+using Color = UnityEngine.Color;
 
 namespace Map
 {
@@ -18,22 +19,31 @@ namespace Map
             LeftToRight
         }
 
-        public MapOrientations orientations;
         public Map_Manager mapManager;
+        public MapOrientations orientations;
 
         public List<Map_Configuration> allMapConfigs;
-        public GameObject nodePrefabs;
+        public GameObject nodePrefab;
 
         public float orientationOffset;
 
         [Header("Background Settings")]
         [Tooltip("If the background sprite is null, background will not be shown")]
         public Sprite background;
-        public Color32 backgroundColor = UnityEngine.Color.white;
+        public Color bgColor = Color.white;
         public float xSize;
         public float yOffset;
 
         public GameObject linePrefab;
+        [Range(3, 10)]
+        public int linePointCount = 10;
+        public float offsetFromNodes = 0.5f;
+
+        [Header("colors")]
+        public Color visitedColor = Color.white;
+        public Color lockedColor = Color.gray;
+        public Color lineVisitedColor = Color.white;
+        public Color lineLockedColor = Color.gray;
 
         private GameObject firstParent;
         private GameObject mapParent;
@@ -41,9 +51,8 @@ namespace Map
         private Camera cam;
 
         public readonly List<Map_Nodes> MapNodes = new List<Map_Nodes>();
-        private readonly List<Path> path = new List<Path>();
+        private readonly List<Path> path = new List<Path>(); //the path is the same as a line connection!
 
-        //
         public static Map_View instance;
 
         private void Awake()
@@ -64,20 +73,22 @@ namespace Map
 
         public void MapShow(Map m)
         {
-            if (m == null) return;
+            if (m == null)
+            {
+                return;
+            }
 
             ClearMap();
             CreateParent();
-            CreateMapNode(m.node);
+            //CreateMapNode(m.nodes);
             DrawPath();
             Orientation();
             ResetRotation();
+            SetPickableNodes();
             SetPathColor();
             CreateBackground(m);
-            SetPickableNodes();
         }
 
-        #region CREATION of map
         private void CreateBackground(Map m)
         {
             if (background == null)
@@ -95,7 +106,7 @@ namespace Map
             bgObj.transform.localRotation = Quaternion.identity;
 
             var spriteRenderer = bgObj.AddComponent<SpriteRenderer>();
-            spriteRenderer.color = backgroundColor;
+            spriteRenderer.color = bgColor;
             spriteRenderer.drawMode = SpriteDrawMode.Sliced;
             spriteRenderer.sprite = background;
             spriteRenderer.size = new Vector2(xSize, span + yOffset * 2f);
@@ -107,26 +118,26 @@ namespace Map
             mapParent = new GameObject("MapParentScrolling");
             mapParent.transform.SetParent(firstParent.transform);
 
-            var scrollNonUI = mapParent.AddComponent<ScrollNonUI>();
-            scrollNonUI.freezeX = orientations == MapOrientations.BottomToTop || orientations == MapOrientations.TopToBottom;
-            scrollNonUI.freezeY = orientations == MapOrientations.LeftToRight || orientations == MapOrientations.RightToLeft;
+            var scrollNonUI = mapParent.AddComponent<ScrollNonUI>(); //???
+            //scrollNonUI.freezeX = orientations == MapOrientations.BottomToTop || orientations == MapOrientations.TopToBottom;
+            //scrollNonUI.freezeY = orientations == MapOrientations.LeftToRight || orientations == MapOrientations.RightToLeft;
 
             var boxColl = mapParent.AddComponent<BoxCollider>();
             boxColl.size = new Vector3(100, 100, 1); //can be changed
         }
 
-        private void CreateNode(IEnumerable<Node> nodes)
+        private void CreateNodes(IEnumerable<Node> nodes)
         {
             foreach (var node in nodes)
             {
                 var mapNode = CreateMapNode(node);
-                Map_Nodes.Add(mapNode);
+                MapNodes.Add(mapNode);
             }
         }
 
         private Map_Nodes CreateMapNode(Node node)
         {
-            var mapNodeObj = Instantiate(nodePrefabs, mapParent.transform);
+            var mapNodeObj = Instantiate(nodePrefab, mapParent.transform);
             var mapNode = mapNodeObj.GetComponent<Map_Nodes>();
             var blueprint = GetNodeBlueprint(node.blueprintName);
 
@@ -146,7 +157,7 @@ namespace Map
 
             if (mapManager.currentMap.path.Count == 0)
             {
-                foreach (var node in MapNodes.Where(n => n.Node.point.y == 0))
+                foreach (var node in MapNodes.Where(n => n.Node.point.Y == 0))
                 {
                     node.SetState(NodeStates.Taken);
                 }
@@ -163,49 +174,161 @@ namespace Map
                 }
 
                 var currentPoint = mapManager.currentMap.path[mapManager.currentMap.path.Count - 1];
-                var currentNode = mapManager.currentMap.GetNodes(currentPoint);
-            }
+                var currentNode = mapManager.currentMap.GetNode(currentPoint);
 
-            public void SetPathColor()
-            {
-
-            }
-
-            private void Orientation()
-            {
-
-            }
-
-            private void DrawPath()
-            {
-
-            }
-
-            private void ResetRotation() //node rot
-            {
-
-            }
-            #endregion
-
-            private Map_Nodes GetNodes(Dot dot)
-            {
-
-            }
-
-            private Map_Configuration GetConfiguration(string configName)
-            {
-
-            }
-
-            public NodeBlueprint GetNodeBlueprint(NodeType nodeType)
-            {
-
-            }
-
-            public NodeBlueprint GetNodeBlueprint(string blueprintName)
-            {
-
+                foreach(var point in currentNode.outgoing)
+                {
+                    var mapNode = GetNodes(point);
+                    if(mapNode != null)
+                    {
+                        mapNode.SetState(NodeStates.Taken);
+                    }
+                }
             }
         }
+        public void SetPathColor()
+        {
+            foreach(var connection in path) //path is line connections
+            {
+                connection.SetColor(lineLockedColor);
+            }
+
+            if(mapManager.currentMap.path.Count == 0)
+            {
+                return;
+            }
+
+            var currentPoint = mapManager.currentMap.path[mapManager.currentMap.path.Count - 1];
+            var currentNode = mapManager.currentMap.GetNode(currentPoint);
+
+            foreach(var point in currentNode.outgoing)
+            {
+                var pathConnection = path.FirstOrDefault(conn => conn.from.Node == currentNode && conn.to.Node.point.Equals(point));
+                pathConnection?.SetColor(lineVisitedColor);
+            }
+
+            if(mapManager.currentMap.path.Count <= 1)
+            {
+                return;
+            }
+
+            for(var i = 0; i < mapManager.currentMap.path.Count - 1; i++)
+            {
+                var current = mapManager.currentMap.path[i];
+                var next = mapManager.currentMap.path[i + 1];
+                var pathConnection = path.FirstOrDefault(conn => conn.from.Node.point.Equals(current) && conn.to.Node.point.Equals(next));
+                pathConnection?.SetColor(lineVisitedColor);
+            }
+        }
+
+        private void Orientation()
+        {
+            //var scrollNonUI = mapParent.GetComponent<ScollNonUI>();
+            var span = mapManager.currentMap.DistLayers();
+            var bossNode = MapNodes.FirstOrDefault(node => node.Node.nodeType == NodeType.Boss);
+            //Debug.Log("")
+
+            firstParent.transform.position = new Vector3(cam.transform.position.x, cam.transform.position.y, 0f);
+            var offset = orientationOffset;
+
+            switch (orientations)
+            {
+                case MapOrientations.BottomToTop:
+                    //if(scrollNonUI != null)
+                    {
+
+                    }
+
+                    firstParent.transform.localPosition += new Vector3(0, offset, 0);
+                    break;
+
+                case MapOrientations.TopToBottom:
+                    mapParent.transform.eulerAngles = new Vector3(0, 0, 180);
+                    firstParent.transform.localPosition += new Vector3(0, -offset, 0);
+                    break;
+
+                case MapOrientations.RightToLeft:
+                    offset *= cam.aspect;
+                    mapParent.transform.eulerAngles = new Vector3(0, 0, 90);
+                    firstParent.transform.localPosition -= new Vector3(offset, bossNode.transform.position.y, 0);
+                    break;
+
+                case MapOrientations.LeftToRight:
+                    offset *= cam.aspect;
+                    mapParent.transform.eulerAngles = new Vector3(0, 0, -90);
+                    firstParent.transform.localPosition += new Vector3(offset, -bossNode.transform.position.y, 0);
+                    break;
+
+                default:
+                    throw new ArgumentOutOfRangeException();
+            }
+        }
+
+        private void DrawPath()
+        {
+            foreach(var node in MapNodes)
+            {
+                foreach(var connection in node.Node.outgoing)
+                {
+                    AddPathConnection(node, GetNodes(connection));
+                }
+            }
+        }
+
+        private void ResetRotation() //node rot
+        {
+            foreach(var node in MapNodes)
+            {
+                node.transform.rotation = Quaternion.identity;
+            }
+        }
+
+        public void AddPathConnection(Map_Nodes from, Map_Nodes to)
+        {
+            var pathObj = Instantiate(linePrefab, mapParent.transform);
+            var lineRenderer = pathObj.GetComponent<LineRenderer>();
+            var fromPoint = from.transform.position + (to.transform.position - from.transform.position).normalized * offsetFromNodes;
+            var toPoint = to.transform.position + (from.transform.position - to.transform.position).normalized * offsetFromNodes;
+
+            pathObj.transform.position = fromPoint;
+            lineRenderer.useWorldSpace = false;
+            lineRenderer.positionCount = linePointCount;
+
+            for(var i = 0; i < linePointCount; i++)
+            {
+                lineRenderer.SetPosition(i, Vector3.Lerp(Vector3.zero, toPoint - fromPoint, (float)i / (linePointCount - 1)));
+            }
+
+            var dottetLine = pathObj.GetComponent<DottetPath>();
+            
+            if(dottetLine != null)
+            {
+                dottetLine.ScaleMat();
+            }
+
+            path.Add(new Path(lineRenderer, from, to));
+        }
+
+        private Map_Nodes GetNodes(Point p)
+        {
+            return MapNodes.FirstOrDefault(n => n.Node.point.Equals(p));
+        }
+
+        private Map_Configuration GetConfiguration(string configName)
+        {
+            return allMapConfigs.FirstOrDefault(c => c.name == configName);
+        }
+
+        public NodeBlueprint GetNodeBlueprint(NodeType nodeType)
+        {
+            var config = GetConfiguration(mapManager.currentMap.configName);
+            return config.nodeBlueprints.FirstOrDefault(n => n.nodeType == nodeType);
+        }
+
+        public NodeBlueprint GetNodeBlueprint(string blueprintName)
+        {
+            var config = GetConfiguration(mapManager.currentMap.configName);
+            return config.nodeBlueprints.FirstOrDefault(n => n.name == blueprintName);
+        }
     }
-}*/
+}

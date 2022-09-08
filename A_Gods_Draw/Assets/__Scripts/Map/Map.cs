@@ -1,6 +1,6 @@
 //Charlie Script 02.09.22
 
-/*using System.Collections;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using System.Linq;
@@ -52,5 +52,4 @@ namespace Map
             return JsonUtility.ToJson(this);
         }
     }
-}*/
-
+}

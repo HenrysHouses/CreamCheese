@@ -1,6 +1,5 @@
-//Charlie Script 02.09.22
+//Charlie Script 
 
-/*
 using System.Collections;
 using System.Collections.Generic;
 using System.Drawing;
@@ -17,7 +16,7 @@ namespace Map
         private static List<float> layerDist;
         private static List<List<Point>> paths;
 
-        private static readonly List<List<Node>> nodes = new List<List <Node>>();
+        private static readonly List<List<Node>> nodes = new List<List<Node>>();
 
         public static Map GetMap(Map_Configuration configuration)
         {
@@ -54,16 +53,18 @@ namespace Map
 
             foreach(var layer in config.layers)
             {
-                layerDist.Add(layer.distFromPrevLayer.Value());
+                layerDist.Add(layer.distLayers.Value());
             }
         }
 
-        private static floar GetDistToPlayer(int layerIndex)
+        private static float GetDistToPlayer(int layerIndex)
         {
             if(layerIndex < 0 || layerIndex > layerDist.Count)
             {
-                return layerDist.Take(layerIndex + 1).Sum();
+                return 0f;
             }
+
+            return layerDist.Take(layerIndex + 1).Sum();
         }
 
         private static void PlaceLayer(int layerIndex)
@@ -75,14 +76,15 @@ namespace Map
 
             for(var i = 0; i < config.GridWidth; i++)
             {
-                var nodeType = Random.Range(0f, 1f) < layer.randomNode ? GetRandomNodes() : layer.nodeType;
+                var nodeType = Random.Range(0f, 1f) < layer.randomNodes ? GetRandomNodes() : layer.nodeType;
                 var blueprintName = config.nodeBlueprints.Where(b => b.nodeType == nodeType).ToList().Random().name;
+
                 var node = new Node(nodeType, blueprintName, new Point(i, layerIndex))
                 {
-                    pos = new Vector2(-offset + i * layer.nodesApartDist, GetDistToPlayer(layer))
+                    pos = new Vector2(-offset + i * layer.nodesApartDist, GetDistToPlayer(layerIndex))
                 };
+
                 nodesOnThisLayer.Add(node);
-                
             }
 
             nodes.Add(nodesOnThisLayer);
@@ -107,7 +109,7 @@ namespace Map
                     var x = xRandom * layer.nodesApartDist / 2f;
                     var y = yRandom < 0 ? distToPrevLayer * yRandom / 2f : distToNextLayer * yRandom / 2f;
 
-                    node.pos = new Vector2(x, y) * layer.randomPos;
+                    node.pos += new Vector2(x, y) * layer.randomPos;
                 }
             }
         }
@@ -119,19 +121,19 @@ namespace Map
                 for(var i = 0; i < path.Count; i++)
                 {
                     var node = GetNode(path[i]);
-
-                    if (i > 0)
+                    
+                    if(i > 0)
                     {
                         var nextNode = GetNode(path[i - 1]);
-                        nextNode.AddIncoming(node.point);
-                        node.AddOutgoing(nextNode.point);
+                        nextNode.AddingIncoming(node.point);
+                        node.AddingOutgoing(nextNode.point);
                     }
 
                     if(i < path.Count - 1)
                     {
-                        var prevNode = GetNode(path[i + 1]);
-                        prevNode.AddOutgoing(node.point);
-                        node.AddIncoming(prevNode.point);
+                        var previousNode = GetNode(path[i + 1]);
+                        previousNode.AddingOutgoing(node.point);
+                        node.AddingIncoming(previousNode.point);
                     }
                 }
             }
@@ -139,15 +141,7 @@ namespace Map
 
         private static void RemoveCrossConnections()
         {
-            for(var i = 0; i < config.GridWidth - 1; i++)
-            {
-                for(var j = 0; j < config.layers.Count - 1; j++)
-                {
-                    var node = GetNode(new Point(i, j));
 
-
-                }
-            }
         }
 
         private static Node GetNode(Point p)
@@ -161,6 +155,8 @@ namespace Map
             {
                 return null;
             }
+
+            return nodes[p.Y][p.X];
         }
 
         private static Point GetFinalNode()
@@ -187,5 +183,4 @@ namespace Map
             return RandomNodes[Random.Range(0, RandomNodes.Count)];
         }
     }
-}*/
-
+}

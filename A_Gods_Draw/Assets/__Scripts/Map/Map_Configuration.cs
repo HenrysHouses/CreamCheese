@@ -1,7 +1,9 @@
 //CHARLIE SCrIPT
 using System.Collections;
 using System.Collections.Generic;
+using UnityEditorInternal;
 using UnityEngine;
+using System;
 
 namespace Map
 {
@@ -9,6 +11,7 @@ namespace Map
     public class Map_Configuration : ScriptableObject
     {
         public List<NodeBlueprint> nodeBlueprints;
+
         public int GridWidth => Mathf.Max(numOfPreBossNodes.max, numOfStartingNodes.max);
 
         public MinMaxInt numOfPreBossNodes;
@@ -16,7 +19,7 @@ namespace Map
         public ListOfMapLayers layers;
 
         [System.Serializable]
-        public class ListOfMapLayers : ArrayList
+        public class ListOfMapLayers : List<Map_Layer>
         {
         }
     }
