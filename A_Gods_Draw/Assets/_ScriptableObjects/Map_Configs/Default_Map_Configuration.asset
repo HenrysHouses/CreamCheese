@@ -15,17 +15,56 @@ MonoBehaviour:
   nodeBlueprints:
   - {fileID: 11400000, guid: cdb3e9ac72286704fb80edb9406391b7, type: 2}
   - {fileID: 11400000, guid: 2edbd40d9ec948046a5c3661ced2a8ec, type: 2}
-  - {fileID: 11400000, guid: 2edbd40d9ec948046a5c3661ced2a8ec, type: 2}
   - {fileID: 11400000, guid: e3cbc250ae2a63c4d81e1c68f4c04cac, type: 2}
-  - {fileID: 11400000, guid: e3cbc250ae2a63c4d81e1c68f4c04cac, type: 2}
-  - {fileID: 11400000, guid: e3cbc250ae2a63c4d81e1c68f4c04cac, type: 2}
-  - {fileID: 11400000, guid: 32200c04960d9ad4b938c20d3442a743, type: 2}
-  - {fileID: 11400000, guid: 32200c04960d9ad4b938c20d3442a743, type: 2}
   - {fileID: 11400000, guid: 959b204575092f247bea181980a2e306, type: 2}
-  - {fileID: 11400000, guid: 959b204575092f247bea181980a2e306, type: 2}
+  - {fileID: 11400000, guid: 32200c04960d9ad4b938c20d3442a743, type: 2}
   numOfPreBossNodes:
     min: 1
     max: 5
   numOfStartingNodes:
     min: 1
     max: 10
+  layers:
+    array:
+    - nodeType: 0
+      distLayers:
+        min: 0
+        max: 0
+      nodesApartDist: 2
+      randomPos: 0
+      randomNodes: 0
+    - nodeType: 0
+      distLayers:
+        min: 2
+        max: 3
+      nodesApartDist: 2
+      randomPos: 0.5
+      randomNodes: 0.7
+    - nodeType: 0
+      distLayers:
+        min: 2
+        max: 3
+      nodesApartDist: 2
+      randomPos: 0
+      randomNodes: 0
+    - nodeType: 1
+      distLayers:
+        min: 2
+        max: 3
+      nodesApartDist: 2
+      randomPos: 0.599
+      randomNodes: 0.791
+    - nodeType: 3
+      distLayers:
+        min: 2
+        max: 3
+      nodesApartDist: 2
+      randomPos: 0.478
+      randomNodes: 0
+    - nodeType: 4
+      distLayers:
+        min: 4
+        max: 5
+      nodesApartDist: 2
+      randomPos: 0.125
+      randomNodes: 0

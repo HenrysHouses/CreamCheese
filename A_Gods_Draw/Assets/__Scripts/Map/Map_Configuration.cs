@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using System;
 using UnityEditorInternal;
+using Malee;
 
 namespace Map
 {
@@ -16,11 +17,13 @@ namespace Map
         public MinMaxInt numOfPreBossNodes;
         public MinMaxInt numOfStartingNodes;
 
+        [Reorderable]
         public ListOfMapLayers layers;
 
         [System.Serializable]
-        public class ListOfMapLayers : List<Map_Layer> // needs to be fixed
+        public class ListOfMapLayers : ReorderableArray<Map_Layer>
         {
+
         }
     }
 }
