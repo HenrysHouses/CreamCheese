@@ -23,7 +23,7 @@ public class PathController : MonoBehaviour
 	[HideInInspector] public Transform endPoint;
 	public List<Transform> controlPoints = new List<Transform>();
 	
-	private OrientedPoint[] evenlySpacedPoints;
+	public OrientedPoint[] evenlySpacedPoints;
 	private float length;
 	[SerializeField] bool Recalculate;
 	
@@ -182,7 +182,7 @@ public class PathController : MonoBehaviour
 #endif
 	
 	/// <summary>Get a OrientedPoint of a specific bezier curve within the path</summary>
-	/// <param name="pair">One of the control points for the curve wanted</param>
+	/// <param name="pair">Pair Index of control points thats creating the curve</param>
 	/// <param name="t">path position range(0,1)</param>
 	/// <returns>OrientedPoint, contains transform data</returns>
 	OrientedPoint GetBezierOP(int pair, float t)
@@ -203,6 +203,9 @@ public class PathController : MonoBehaviour
 		Vector3 tangent = (e-d).normalized;
 		
 		Vector3 up = Vector3.Lerp(startPoint.up, endPoint.up, t).normalized;
+
+		if(tangent == Vector3.zero)
+			Debug.Log("tang: " + tangent);
 		Quaternion rot = Quaternion.LookRotation(tangent, up);
 		
 		return new OrientedPoint(pos, rot);

@@ -6,9 +6,11 @@ using System.Linq;
 
 
 
-[CreateAssetMenu(menuName = "Events/TurnManager")]
+[CreateAssetMenu(menuName = "Events/DeckManager")]
 public class DeckManager_SO : ScriptableObject
 {
+    [SerializeField]
+    AnimationManager_SO animationManager;
     [SerializeField]
     DeckList_SO deckList;
     [SerializeField]
@@ -61,6 +63,7 @@ public class DeckManager_SO : ScriptableObject
 
         if(DrawEvent == null)
             DrawEvent = new UnityEvent();
+        // DrawEvent += 
 
         if(DiscardEvent == null)
             DiscardEvent = new UnityEvent();
@@ -146,7 +149,8 @@ public class DeckManager_SO : ScriptableObject
         {
             pHand.Add(pLibrary[0]);
             pLibrary.Remove(pLibrary[0]);
-            DrawEvent.Invoke();
+            GameObject card = new GameObject("TestDrawer");
+            animationManager.requestAnimation("Library-Hand", card);
         }
         pLibraryChangeEvent.Invoke();
         pHandChangeEvent.Invoke();

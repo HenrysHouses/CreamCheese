@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Events;
 
-public class CardDrawer_test : MonoBehaviour
+public class CardDrawer_debugger : MonoBehaviour
 {
     [SerializeField]
     private DeckManager_SO deckManager;
@@ -64,6 +64,4 @@ public class CardDrawer_test : MonoBehaviour
     {
         Debug.Log(selectedCard + " changed in deck");
     }
-
-
 }

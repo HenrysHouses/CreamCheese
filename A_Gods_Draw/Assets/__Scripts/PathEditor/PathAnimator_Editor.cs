@@ -35,11 +35,14 @@ public class PathAnimator_Editor : Editor
                 animation.AnimationTarget = Instantiate(script.testAnimationobj);
                 // animation.AnimationTarget = GameObject.CreatePrimitive(PrimitiveType.Sphere);
                 // animation.AnimationTarget.transform.localScale = new Vector3(0.01f, 0.01f, 0.01f);
+                animation.FreezeRotationX = script.FreezeRotationX;
+                animation.FreezeRotationY = script.FreezeRotationY;
+                animation.FreezeRotationZ = script.FreezeRotationZ;
                 animation.AnimationTarget.transform.SetParent(animation.AnimationTransform);
                 animation.AnimationTarget.transform.position = new Vector3();   
                 animation.speedCurve = script._speedCurve;
                 animation.speedMultiplier = script.Multiplier;
-                animation.index = script.CreateAnimation(animation);
+                // animation.index = script.CreateAnimation(animation);
                 animation.CompletionTrigger.AddListener(script.debugTestCompletion);
             }
             else

@@ -8,14 +8,14 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEditor;
 
-[CustomEditor(typeof(CardDrawer_test))]
+[CustomEditor(typeof(CardDrawer_debugger))]
 public class inspectorButtonTest : Editor
 {
-    private CardDrawer_test script;
+    private CardDrawer_debugger script;
 
     private void OnEnable()
     {
-        script = target as CardDrawer_test;
+        script = target as CardDrawer_debugger;
     }
 
     public override void OnInspectorGUI()
