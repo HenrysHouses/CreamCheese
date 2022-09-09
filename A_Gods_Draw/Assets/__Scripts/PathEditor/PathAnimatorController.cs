@@ -14,7 +14,8 @@ public class PathAnimatorController : MonoBehaviour
     [SerializeField]
     AnimationManager_SO manager_SO;
     [SerializeField]
-    string PathName;
+    string _pathName;
+    public string PathName => _pathName;
     public PathController path;
     public AnimationCurve _speedCurve = new AnimationCurve();
     public float Multiplier = 1;
@@ -28,7 +29,7 @@ public class PathAnimatorController : MonoBehaviour
     [SerializeField]
     bool DbugPositions;
 
-    public GameObject testAnimationobj;
+    public GameObject testAnimationObj;
 
     public class pathAnimation
     {
@@ -70,7 +71,6 @@ public class PathAnimatorController : MonoBehaviour
     void readRequests()
     {
         List<string> completedRequests = new List<string>();
-        Debug.Log("reading");
         foreach (var request in manager_SO.requests)
         {
             if(request.requestName.Equals(PathName))
@@ -84,6 +84,8 @@ public class PathAnimatorController : MonoBehaviour
             manager_SO.removeRequest(completed);
         }
     }
+
+    public AnimationManager_SO getAnimManagerSO(){ return manager_SO; }
 
     public pathAnimation getAnimation()
     {
@@ -110,7 +112,7 @@ public class PathAnimatorController : MonoBehaviour
             request.anim = getAnimation();
 
         request.anim.AnimationTarget = GameObject.Find(request.target);
-        Debug.Log(request.target);
+        // Debug.Log(request.target);
         request.anim.AnimationTarget.transform.SetParent(request.anim.AnimationTransform);
         request.anim.AnimationTarget.transform.position = new Vector3();  
 

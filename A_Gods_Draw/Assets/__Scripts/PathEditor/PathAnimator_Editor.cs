@@ -31,19 +31,8 @@ public class PathAnimator_Editor : Editor
         {
             if(EditorApplication.isPlaying)
             {
-                PathAnimatorController.pathAnimation animation = new PathAnimatorController.pathAnimation();
-                animation.AnimationTarget = Instantiate(script.testAnimationobj);
-                // animation.AnimationTarget = GameObject.CreatePrimitive(PrimitiveType.Sphere);
-                // animation.AnimationTarget.transform.localScale = new Vector3(0.01f, 0.01f, 0.01f);
-                animation.FreezeRotationX = script.FreezeRotationX;
-                animation.FreezeRotationY = script.FreezeRotationY;
-                animation.FreezeRotationZ = script.FreezeRotationZ;
-                animation.AnimationTarget.transform.SetParent(animation.AnimationTransform);
-                animation.AnimationTarget.transform.position = new Vector3();   
-                animation.speedCurve = script._speedCurve;
-                animation.speedMultiplier = script.Multiplier;
-                // animation.index = script.CreateAnimation(animation);
-                animation.CompletionTrigger.AddListener(script.debugTestCompletion);
+                GameObject card = Instantiate(script.testAnimationObj);
+                script.getAnimManagerSO().requestAnimation(script.PathName, card);
             }
             else
                 Debug.LogWarning("Play the editor to test the animation");

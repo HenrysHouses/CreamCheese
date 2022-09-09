@@ -12,6 +12,8 @@ public abstract class Card_Behaviour : MonoBehaviour
     }
 
     public Card_SO GetCardSO() { return card; }
+    // public void setCardSO(Card_SO Stats) { card = Stats; }
+
     public virtual void OnPlay() { }
     public virtual void OnAction() { }
 }

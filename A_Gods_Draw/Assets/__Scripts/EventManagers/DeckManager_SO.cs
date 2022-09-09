@@ -9,16 +9,12 @@ using System.Linq;
 [CreateAssetMenu(menuName = "Events/DeckManager")]
 public class DeckManager_SO : ScriptableObject
 {
-    [SerializeField]
-    AnimationManager_SO animationManager;
-    [SerializeField]
-    DeckList_SO deckList;
-    [SerializeField]
-    List<Card_SO> pLibrary;
-    [SerializeField]
-    List<Card_SO> pDiscard;
-    [SerializeField]
-    List<Card_SO> pHand;
+    [SerializeField] AnimationManager_SO animationManager;
+    [SerializeField] GameObject CardPrefab;
+    [SerializeField] DeckList_SO deckList;
+    [SerializeField] List<Card_SO> pLibrary;
+    [SerializeField] List<Card_SO> pDiscard;
+    [SerializeField] List<Card_SO> pHand;
 
 
     [System.NonSerialized]
@@ -148,8 +144,9 @@ public class DeckManager_SO : ScriptableObject
         for (int i = 0; i < amount; i++)
         {
             pHand.Add(pLibrary[0]);
+            GameObject card = Instantiate(CardPrefab);
+            // card.GetComponent<Card_Behaviour>().setCardSO(pLibrary[0]);
             pLibrary.Remove(pLibrary[0]);
-            GameObject card = new GameObject("TestDrawer");
             animationManager.requestAnimation("Library-Hand", card);
         }
         pLibraryChangeEvent.Invoke();
