@@ -35,6 +35,7 @@ public class PathAnimatorController : MonoBehaviour
     {
         public GameObject AnimationTarget;
         public Transform AnimationTransform;
+        public float _Time;
         public float t;
         public AnimationCurve speedCurve;
         public float speedMultiplier;
@@ -145,7 +146,7 @@ public class PathAnimatorController : MonoBehaviour
     IEnumerator Animate(int index)
     {
         bool state = true;
-        float _timer = 0;
+        _Animations[index]._Time = 0;
 
         while(state)
         {
@@ -157,9 +158,9 @@ public class PathAnimatorController : MonoBehaviour
                 if(_Animations[index].t < 1) 
                 {
                     state = true;
-                    currentSpeed = _Animations[index].speedCurve.Evaluate(_timer) * _Animations[index].speedMultiplier; // ! Needs to change this to be more consistent
+                    currentSpeed = _Animations[index].speedCurve.Evaluate(_Animations[index]._Time) * _Animations[index].speedMultiplier; // ! Needs to change this to be more consistent
                     if(DbugPositions)
-                        Debug.Log(_timer);
+                        Debug.Log(_Animations[index]._Time);
                 }
                 else
                     state = false;
@@ -168,9 +169,9 @@ public class PathAnimatorController : MonoBehaviour
                 if(_Animations[index].t > 0) 
                 {
                     state = true;
-                    currentSpeed = _Animations[index].speedCurve.Evaluate(1-_timer) * _Animations[index].speedMultiplier;
+                    currentSpeed = _Animations[index].speedCurve.Evaluate(1-_Animations[index]._Time) * _Animations[index].speedMultiplier;
                     if(DbugPositions)
-                        Debug.Log(1-_timer);
+                        Debug.Log(1-_Animations[index]._Time);
                 }
                 else
                     state = false;
@@ -196,7 +197,7 @@ public class PathAnimatorController : MonoBehaviour
                 euler = _Animations[index].AnimationTransform.eulerAngles;
             }
                 
-            _timer += Time.deltaTime;
+            _Animations[index]._Time += Time.deltaTime;
             yield return new WaitForEndOfFrame();
         }
         completeAnimation(index);
