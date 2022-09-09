@@ -5,8 +5,9 @@ using UnityEngine;
 
 public class Card_Selector : MonoBehaviour
 {
+    [SerializeField] Card_SO card_SO;
     private Vector3 HoverCardpos;
-    private bool holdingOver;
+    public bool holdingOver;
     private bool holdsOverForLonger;
     public float smoothTime = 0.1f; // How much time it takes for the card to op up
     public float BackInHandTime = 0.003f; //Amounts of time it takes to get back in hand, 
@@ -14,22 +15,36 @@ public class Card_Selector : MonoBehaviour
     float yVelocity = 0f;
     private float zVelocity = 0f;
     private bool isDragging;
-    private Vector3 startPosition;
+    private Vector3 startPosition; // Change to handPos
     private Vector3 mousePos;
     private Vector3 Target;
+    private GameObject camera;
+    public Hand _hand;
+    public float tiltAngle;
 
     // Start is called before the first frame update
     void Start()
     {
+        camera = GameObject.FindGameObjectWithTag("MainCamera");
         startPosition = gameObject.transform.position;
         Target = new Vector3(startPosition.x, startPosition.y + 0.03f, startPosition.z - 0.15f);
+
+        Hand.CardInHand instance = new Hand.CardInHand();
+        instance.cards_SO = card_SO;
+        instance.gameObject = gameObject;
+        instance.hoverTrigger.AddListener(OnMouseDown);
+        _hand.AddCard(instance);
+        
     }
 
     // Update is called once per frame
     void Update()
     {
+        
+        
+       // gameObject.transform.LookAt(camera.transform,Vector3.up);
         if (holdingOver)
-        {
+        {   Debug.Log("Holding Over");
             float newX = Mathf.SmoothDamp(transform.position.x, Target.x, ref xVelocity, smoothTime);
             float newY = Mathf.SmoothDamp(transform.position.y, Target.y, ref yVelocity, smoothTime);
             float newZ = Mathf.SmoothDamp(transform.position.z, Target.z, ref zVelocity, smoothTime);
@@ -47,8 +62,10 @@ public class Card_Selector : MonoBehaviour
         }
         else
         {
-            transform.position = Vector3.MoveTowards(transform.position, startPosition, 0.003f);
+            
+          
         }
+        
     }
 
     void OnMouseOver()
