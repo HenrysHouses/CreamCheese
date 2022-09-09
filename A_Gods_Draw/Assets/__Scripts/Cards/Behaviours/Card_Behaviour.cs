@@ -9,6 +9,7 @@ public abstract class Card_Behaviour : MonoBehaviour
     public void Initialize(Card_SO card)
     {
         this.card = card;
+        //card.Init(this.gameObject);
     }
 
     public Card_SO GetCardSO() { return card; }

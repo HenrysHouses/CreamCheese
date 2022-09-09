@@ -9,6 +9,11 @@ public class TurnManager : MonoBehaviour
     [SerializeField]
     DeckManager_SO deckManager;
 
+    [SerializeField]
+    Transform[] lanes;
+    [SerializeField]
+    Transform godLane;
+
     Card_Behaviour playedCard;
 
     God_Behaviour currentGod;
@@ -24,7 +29,7 @@ public class TurnManager : MonoBehaviour
     void Start()
     {
         lane = new List<NonGod_Behaviour>();
-        StartCoroutine(OnTurnStart());
+        //StartCoroutine(OnTurnStart());
     }
 
     private void Update()
@@ -33,9 +38,21 @@ public class TurnManager : MonoBehaviour
         {
             case State.StartTurn:
                 {
+                    currentState = State.PlayerTurn;
                     deckManager.drawCard(5);
                     if (currentGod) { currentGod.OnTurnStart(); }
-                    currentState = State.PlayerTurn;
+                    for (int i = 0; i < lanes.Length; i++)
+                    {
+                        if (i >= deckManager.GetCurrentHand().Count)
+                            break;
+                        deckManager.GetCurrentHand()[0].cardObject.transform.position = lanes[i].position;
+
+                        Debug.Log(i + " = " + lanes[i].position);
+
+                        Debug.Log("card " + i + " = " + deckManager.GetCurrentHand()[i].cardObject.name);
+
+                        //deckManager.GetCurrentHand().RemoveAt(0);
+                    }
                 }
                 break;
 
@@ -72,6 +89,7 @@ public class TurnManager : MonoBehaviour
 
             case State.EndTurn:
                 {
+                    lane.Clear();
                     deckManager.discardAll();
                     currentState = State.StartTurn;
                 }

@@ -5,7 +5,6 @@ using UnityEngine.UI;
 
 public class Card_Loader : MonoBehaviour
 {
-    [SerializeField]
     Card_SO card_so;
 
     [SerializeField]
@@ -22,8 +21,9 @@ public class Card_Loader : MonoBehaviour
     Text strengh;
 
     // Start is called before the first frame update
-    void Start()
+    public void Set(Card_SO card)
     {
+        card_so = card;
 
         if (card_so as God_Card)
         {

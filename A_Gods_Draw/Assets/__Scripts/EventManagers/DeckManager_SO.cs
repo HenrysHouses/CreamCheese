@@ -38,14 +38,18 @@ public class DeckManager_SO : ScriptableObject
             deckList = Resources.Load<DeckList_SO>("DeckLists/DeckList");
     }
 
-
-
     void OnEnable()
     {
-        if(deckListChangeEvent == null)
+
+        if (deckListChangeEvent == null)
             deckListChangeEvent = new UnityEvent();
 
         pLibrary = new List<Card_SO>();
+        for (int i = 0; i < deckList.Deck.Count; i++)
+        {
+            pLibrary.Add(deckList.Deck[i]);
+        }
+
         if(pLibraryChangeEvent == null)
             pLibraryChangeEvent = new UnityEvent();
         
@@ -82,13 +86,13 @@ public class DeckManager_SO : ScriptableObject
 
     public void reset()
     {
-        pLibrary = new List<Card_SO>();
+        pLibrary.Clear();
         for (int i = 0; i < deckList.Deck.Count; i++)
         {
             pLibrary.Add(deckList.Deck[i]);
         }
-        pHand = new List<Card_SO>();
-        pDiscard = new List<Card_SO>();
+        pHand.Clear();
+        pDiscard.Clear();
     }
 
     public void clear()
@@ -145,7 +149,7 @@ public class DeckManager_SO : ScriptableObject
         {
             pHand.Add(pLibrary[0]);
             GameObject card = Instantiate(CardPrefab);
-            // card.GetComponent<Card_Behaviour>().setCardSO(pLibrary[0]);
+            card.GetComponent<Card_Loader>().Set(pLibrary[0]);
             pLibrary.Remove(pLibrary[0]);
             animationManager.requestAnimation("Library-Hand", card);
         }
