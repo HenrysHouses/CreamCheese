@@ -1,4 +1,4 @@
-//Charlie Script 02.09.22
+    //Charlie Script 02.09.22
 
 using System.Collections;
 using System.Collections.Generic;
@@ -16,6 +16,7 @@ namespace Map
         public readonly Point point;
         public readonly List<Point> incoming = new List<Point>();
         public readonly List<Point> outgoing = new List<Point>();
+
         [JsonConverter(typeof(StringEnumConverter))]
         public readonly NodeType nodeType;
         public readonly string blueprintName;
@@ -51,12 +52,12 @@ namespace Map
         #region REMOVING points
         public void RemovingIncoming(Point point)
         {
-            incoming.RemoveAll(x => x.Equals(point));
+            incoming.RemoveAll(element => element.Equals(point));
         }
 
         public void RemovingOutgoing(Point point)
         {
-            outgoing.RemoveAll(x => x.Equals(point));
+            outgoing.RemoveAll(element => element.Equals(point));
         }
 
         #endregion

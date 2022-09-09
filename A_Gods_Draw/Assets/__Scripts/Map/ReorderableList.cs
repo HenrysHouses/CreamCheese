@@ -9,7 +9,7 @@ using System;
 using UnityEngine.UIElements;
 using System.Collections;
 using System.Reflection;
-using Object = System.Object;
+using Object = UnityEngine.Object;
 
 namespace Malee.Editor
 {
@@ -218,9 +218,9 @@ namespace Malee.Editor
 
                 foreach (Object targetObject in list.serializedObject.targetObjects)
                 {
-                    //SerializedObject serializedObject = new SerializedObject(targetObject);
-                    //SerializedProperty property = serializedObject.FindProperty(list.propertyPath);
-                    //smallerArraySize = Mathf.Min(property.arraySize, smallerArraySize);
+                    SerializedObject serializedObject = new SerializedObject(targetObject);
+                    SerializedProperty property = serializedObject.FindProperty(list.propertyPath);
+                    smallerArraySize = Mathf.Min(property.arraySize, smallerArraySize);
                 }
 
                 return smallerArraySize;
@@ -349,7 +349,7 @@ namespace Malee.Editor
             EditorGUI.indentLevel = indent;
         }
 
-        /*public SerializedProperty AddItem<T>(T item) where T : Object
+        public SerializedProperty AddItem<T>(T item) where T : Object
         {
             SerializedProperty property = AddItem();
 
@@ -359,7 +359,7 @@ namespace Malee.Editor
             }
 
             return property;
-        }*/
+        }
 
         public SerializedProperty AddItem()
         {
@@ -2365,14 +2365,14 @@ namespace Malee.Editor
 
             private static int CompareObjects(Object object1, Object object2, bool descending)
             {
-                /*if (object1 && object2)
+                if (object1 && object2)
                 {
                     return object1.name.CompareTo(object2.name);
                 }
                 else if (object1)
                 {
                     return descending ? 1 : -1;
-                }*/
+                }
 
                 return descending ? -1 : 1;
             }

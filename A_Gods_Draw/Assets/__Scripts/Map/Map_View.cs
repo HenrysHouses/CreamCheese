@@ -23,7 +23,6 @@ namespace Map
 
         public List<Map_Configuration> allMapConfigs;
         public GameObject nodePrefab;
-
         public float orientationOffset;
 
         [Header("Background Settings")]
@@ -33,16 +32,18 @@ namespace Map
         public float xSize;
         public float yOffset;
 
+        [Header("Line Settings")]
         public GameObject linePrefab;
+
         [Range(3, 10)]
         public int linePointCount = 10;
         public float offsetFromNodes = 0.5f;
 
         [Header("colors")]
-        public Color visitedColor = Color.white;
-        public Color lockedColor = Color.gray;
-        public Color lineVisitedColor = Color.white;
-        public Color lineLockedColor = Color.gray;
+        public Color32 visitedColor = Color.white;
+        public Color32 lockedColor = Color.gray;
+        public Color32 lineVisitedColor = Color.white;
+        public Color32 lineLockedColor = Color.gray;
 
         private GameObject firstParent;
         private GameObject mapParent;
@@ -71,22 +72,23 @@ namespace Map
             path.Clear();
         }
 
-        public void MapShow(Map map)
+        public void MapShow(Map m)
         {
-            if (map == null)
+            if (m == null)
             {
+                Debug.LogWarning("Map was null in MapView.MapShow()");
                 return;
             }
 
             ClearMap();
             CreateParent();
-            //CreateMapNode();
+            //CreateMapNode(m.nodes);
             DrawPath();
             Orientation();
             ResetRotation();
             SetPickableNodes();
             SetPathColor();
-            CreateBackground(map);
+            CreateBackground(m); //fix
         }
 
         private void CreateBackground(Map m)
@@ -96,16 +98,16 @@ namespace Map
                 return;
             }
 
-            var bgObj = new GameObject("Background");
-            bgObj.transform.SetParent(mapParent.transform);
+            var backgroundObject = new GameObject("Background");
+            backgroundObject.transform.SetParent(mapParent.transform);
 
             var bossNode = MapNodes.FirstOrDefault(node => node.Node.nodeType == NodeType.Boss);
             var span = m.DistLayers(); //distance between first and last layers
 
-            bgObj.transform.localPosition = new Vector3(bossNode.transform.localPosition.x, span / 2f, 0f);
-            bgObj.transform.localRotation = Quaternion.identity;
+            backgroundObject.transform.localPosition = new Vector3(bossNode.transform.localPosition.x, span / 2f, 0f); //fix
+            backgroundObject.transform.localRotation = Quaternion.identity;
 
-            var spriteRenderer = bgObj.AddComponent<SpriteRenderer>();
+            var spriteRenderer = backgroundObject.AddComponent<SpriteRenderer>();
             spriteRenderer.color = bgColor;
             spriteRenderer.drawMode = SpriteDrawMode.Sliced;
             spriteRenderer.sprite = background;
@@ -118,9 +120,9 @@ namespace Map
             mapParent = new GameObject("MapParentScrolling");
             mapParent.transform.SetParent(firstParent.transform);
 
-            var scrollNonUI = mapParent.AddComponent<ScrollNonUI>(); //???
-            //scrollNonUI.freezeX = orientations == MapOrientations.BottomToTop || orientations == MapOrientations.TopToBottom;
-            //scrollNonUI.freezeY = orientations == MapOrientations.LeftToRight || orientations == MapOrientations.RightToLeft;
+            var scrollNonUI = mapParent.AddComponent<ScrollNonUI>();
+            scrollNonUI.freezeX = orientations == MapOrientations.BottomToTop || orientations == MapOrientations.TopToBottom;
+            scrollNonUI.freezeY = orientations == MapOrientations.LeftToRight || orientations == MapOrientations.RightToLeft;
 
             var boxColl = mapParent.AddComponent<BoxCollider>();
             boxColl.size = new Vector3(100, 100, 1); //can be changed
@@ -137,12 +139,13 @@ namespace Map
 
         private Map_Nodes CreateMapNode(Node node)
         {
-            var mapNodeObj = Instantiate(nodePrefab, mapParent.transform);
-            var mapNode = mapNodeObj.GetComponent<Map_Nodes>();
+            var mapNodeObject = Instantiate(nodePrefab, mapParent.transform);
+            var mapNode = mapNodeObject.GetComponent<Map_Nodes>();
             var blueprint = GetNodeBlueprint(node.blueprintName);
 
             mapNode.SetUp(node, blueprint);
             mapNode.transform.localPosition = node.pos;
+
             return mapNode;
         }
 
@@ -155,7 +158,7 @@ namespace Map
                 node.SetState(NodeStates.Locked);
             }
 
-            if (mapManager.currentMap.path.Count == 0)
+            if (mapManager.CurrentMap.path.Count == 0)
             {
                 foreach (var node in MapNodes.Where(n => n.Node.point.Y == 0))
                 {
@@ -164,7 +167,7 @@ namespace Map
             }
             else
             {
-                foreach (var point in mapManager.currentMap.path)
+                foreach (var point in mapManager.CurrentMap.path)
                 {
                     var mapNodes = GetNodes(point);
                     if (mapNodes != null)
@@ -173,8 +176,8 @@ namespace Map
                     }
                 }
 
-                var currentPoint = mapManager.currentMap.path[mapManager.currentMap.path.Count - 1];
-                var currentNode = mapManager.currentMap.GetNode(currentPoint);
+                var currentPoint = mapManager.CurrentMap.path[mapManager.CurrentMap.path.Count - 1];
+                var currentNode = mapManager.CurrentMap.GetNode(currentPoint);
 
                 foreach(var point in currentNode.outgoing)
                 {
@@ -193,13 +196,13 @@ namespace Map
                 connection.SetColor(lineLockedColor);
             }
 
-            if(mapManager.currentMap.path.Count == 0)
+            if(mapManager.CurrentMap.path.Count == 0)
             {
                 return;
             }
 
-            var currentPoint = mapManager.currentMap.path[mapManager.currentMap.path.Count - 1];
-            var currentNode = mapManager.currentMap.GetNode(currentPoint);
+            var currentPoint = mapManager.CurrentMap.path[mapManager.CurrentMap.path.Count - 1];
+            var currentNode = mapManager.CurrentMap.GetNode(currentPoint);
 
             foreach(var point in currentNode.outgoing)
             {
@@ -207,15 +210,15 @@ namespace Map
                 pathConnection?.SetColor(lineVisitedColor);
             }
 
-            if(mapManager.currentMap.path.Count <= 1)
+            if(mapManager.CurrentMap.path.Count <= 1)
             {
                 return;
             }
 
-            for(var i = 0; i < mapManager.currentMap.path.Count - 1; i++)
+            for(var i = 0; i < mapManager.CurrentMap.path.Count - 1; i++)
             {
-                var current = mapManager.currentMap.path[i];
-                var next = mapManager.currentMap.path[i + 1];
+                var current = mapManager.CurrentMap.path[i];
+                var next = mapManager.CurrentMap.path[i + 1];
                 var pathConnection = path.FirstOrDefault(conn => conn.from.Node.point.Equals(current) && conn.to.Node.point.Equals(next));
                 pathConnection?.SetColor(lineVisitedColor);
             }
@@ -223,10 +226,9 @@ namespace Map
 
         private void Orientation()
         {
-            //var scrollNonUI = mapParent.GetComponent<ScollNonUI>();
-            var span = mapManager.currentMap.DistLayers();
+            var scrollNonUI = mapParent.GetComponent<ScrollNonUI>();
+            var span = mapManager.CurrentMap.DistLayers();
             var bossNode = MapNodes.FirstOrDefault(node => node.Node.nodeType == NodeType.Boss);
-            //Debug.Log("")
 
             firstParent.transform.position = new Vector3(cam.transform.position.x, cam.transform.position.y, 0f);
             var offset = orientationOffset;
@@ -234,16 +236,21 @@ namespace Map
             switch (orientations)
             {
                 case MapOrientations.BottomToTop:
-                    //if(scrollNonUI != null)
+                    if(scrollNonUI != null)
                     {
-
+                        scrollNonUI.yConst.max = 0;
+                        scrollNonUI.yConst.min = -(span + 2f * offset);
                     }
-
                     firstParent.transform.localPosition += new Vector3(0, offset, 0);
                     break;
 
                 case MapOrientations.TopToBottom:
                     mapParent.transform.eulerAngles = new Vector3(0, 0, 180);
+                    if(scrollNonUI != null)
+                    {
+                        scrollNonUI.yConst.min = 0;
+                        scrollNonUI.yConst.max = span + 2f * offset;
+                    }
                     firstParent.transform.localPosition += new Vector3(0, -offset, 0);
                     break;
 
@@ -251,12 +258,22 @@ namespace Map
                     offset *= cam.aspect;
                     mapParent.transform.eulerAngles = new Vector3(0, 0, 90);
                     firstParent.transform.localPosition -= new Vector3(offset, bossNode.transform.position.y, 0);
+                    if(scrollNonUI != null)
+                    {
+                        scrollNonUI.xConst.max = span + 2f * offset;
+                        scrollNonUI.xConst.min = 0;
+                    }
                     break;
 
                 case MapOrientations.LeftToRight:
                     offset *= cam.aspect;
                     mapParent.transform.eulerAngles = new Vector3(0, 0, -90);
                     firstParent.transform.localPosition += new Vector3(offset, -bossNode.transform.position.y, 0);
+                    if(scrollNonUI != null)
+                    {
+                        scrollNonUI.xConst.max = 0;
+                        scrollNonUI.xConst.min = -(span + 2 * offset);
+                    }
                     break;
 
                 default:
@@ -285,12 +302,12 @@ namespace Map
 
         public void AddPathConnection(Map_Nodes from, Map_Nodes to)
         {
-            var pathObj = Instantiate(linePrefab, mapParent.transform);
-            var lineRenderer = pathObj.GetComponent<LineRenderer>();
+            var pathObject = Instantiate(linePrefab, mapParent.transform);
+            var lineRenderer = pathObject.GetComponent<LineRenderer>();
             var fromPoint = from.transform.position + (to.transform.position - from.transform.position).normalized * offsetFromNodes;
             var toPoint = to.transform.position + (from.transform.position - to.transform.position).normalized * offsetFromNodes;
 
-            pathObj.transform.position = fromPoint;
+            pathObject.transform.position = fromPoint;
             lineRenderer.useWorldSpace = false;
             lineRenderer.positionCount = linePointCount;
 
@@ -299,8 +316,8 @@ namespace Map
                 lineRenderer.SetPosition(i, Vector3.Lerp(Vector3.zero, toPoint - fromPoint, (float)i / (linePointCount - 1)));
             }
 
-            var dottetLine = pathObj.GetComponent<DottetPath>();
-            
+            var dottetLine = pathObject.GetComponent<DottetPath>();
+
             if(dottetLine != null)
             {
                 dottetLine.ScaleMat();
@@ -321,13 +338,13 @@ namespace Map
 
         public NodeBlueprint GetNodeBlueprint(NodeType nodeType)
         {
-            var config = GetConfiguration(mapManager.currentMap.configName);
+            var config = GetConfiguration(mapManager.CurrentMap.configName);
             return config.nodeBlueprints.FirstOrDefault(n => n.nodeType == nodeType);
         }
 
         public NodeBlueprint GetNodeBlueprint(string blueprintName)
         {
-            var config = GetConfiguration(mapManager.currentMap.configName);
+            var config = GetConfiguration(mapManager.CurrentMap.configName);
             return config.nodeBlueprints.FirstOrDefault(n => n.name == blueprintName);
         }
     }

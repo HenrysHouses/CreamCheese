@@ -1,6 +1,5 @@
 //Charlie Script 
 
-using System.Collections;
 using System.Collections.Generic;
 using System.Drawing;
 using System.Linq;
@@ -12,7 +11,9 @@ namespace Map
     {
         private static Map_Configuration config;
 
-        private static readonly List<NodeType> RandomNodes = new List<NodeType> { NodeType.RestPlace, NodeType.Reward, NodeType.Enemy };
+        private static readonly List<NodeType> RandomNodes = new List<NodeType> 
+        { NodeType.RestPlace, NodeType.Reward, NodeType.Enemy };
+
         private static List<float> layerDist;
         private static List<List<Point>> paths;
 
@@ -22,7 +23,7 @@ namespace Map
         {
             if (configuration == null)
             {
-                Debug.Log("nulled");
+                Debug.LogWarning("nulled");
                 return null;
             }
 
@@ -43,7 +44,7 @@ namespace Map
 
             var nodeList = nodes.SelectMany(n => n).Where(n => n.incoming.Count > 0 || n.outgoing.Count > 0).ToList();
 
-            var bossNodeName = configuration.nodeBlueprints.Where(b => b.nodeType == NodeType.Boss).ToList().Random().name;
+            var bossNodeName = config.nodeBlueprints.Where(b => b.nodeType == NodeType.Boss).ToList().Random().name;
             return new Map(configuration.name, bossNodeName, nodeList, new List<Point>());
         }
 
@@ -83,7 +84,6 @@ namespace Map
                 {
                     pos = new Vector2(-offset + i * layer.nodesApartDist, GetDistToPlayer(layerIndex))
                 };
-
                 nodesOnThisLayer.Add(node);
             }
 
@@ -179,8 +179,8 @@ namespace Map
                         continue;
                     }
 
-                    top.AddingIncoming(node.point);
                     node.AddingOutgoing(top.point);
+                    top.AddingIncoming(node.point);
                     right.AddingOutgoing(topRight.point);
                     topRight.AddingIncoming(right.point);
 
@@ -213,7 +213,6 @@ namespace Map
             {
                 return null;
             }
-
             if(p.X >= nodes[p.Y].Count)
             {
                 return null;
@@ -242,14 +241,14 @@ namespace Map
             var numberOfStartingNodes = config.numOfStartingNodes.Value();
             var numberOfBossNodes = config.numOfPreBossNodes.Value();
 
-            var candidateX = new List<int>();
+            var candidateXs = new List<int>();
             for(var i = 0; i < config.GridWidth; i++)
             {
-                candidateX.Add(i);
+                candidateXs.Add(i);
             }
 
-            candidateX.Shuffling();
-            var preBossX = candidateX.Take(numberOfBossNodes);
+            candidateXs.Shuffling();
+            var preBossX = candidateXs.Take(numberOfBossNodes);
             var preBossPoints = (from x in preBossX select new Point(x, finalNode.Y - 1)).ToList();
             var attempts = 0;
 
@@ -285,34 +284,35 @@ namespace Map
 
             var dir = from.Y > toY ? -1 : 1;
             var path = new List<Point> { from };
+
             while (path[path.Count - 1].Y != toY)
             {
                 var lastPoint = path[path.Count - 1];
-                var candidateX = new List<int>();
+                var candidateXs = new List<int>();
 
                 if(firstStepUnconstrained && lastPoint.Equals(from))
                 {
                     for(var i = 0; i < width; i++)
                     {
-                        candidateX.Add(i);
+                        candidateXs.Add(i);
                     }
                 }
                 else
                 {
-                    candidateX.Add(lastPoint.X);
+                    candidateXs.Add(lastPoint.X);
 
                     if(lastPoint.X - 1 >= 0)
                     {
-                        candidateX.Add(lastPoint.X - 1);
+                        candidateXs.Add(lastPoint.X - 1);
                     }
 
                     if(lastPoint.X + 1 < width)
                     {
-                        candidateX.Add(lastPoint.X + 1);
+                        candidateXs.Add(lastPoint.X + 1);
                     }
                 }
 
-                var nextPoint = new Point(candidateX[Random.Range(0, candidateX.Count)], lastPoint.Y + dir);
+                var nextPoint = new Point(candidateXs[Random.Range(0, candidateXs.Count)], lastPoint.Y + dir);
                 path.Add(nextPoint);
             }
 

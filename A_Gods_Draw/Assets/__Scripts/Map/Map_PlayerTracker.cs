@@ -5,6 +5,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using System.Linq;
 using System;
+using System.Drawing;
 
 namespace Map
 {
@@ -31,7 +32,7 @@ namespace Map
                 return;
             }
 
-            if(mapM.currentMap.path.Count == 0)
+            if(mapM.CurrentMap.path.Count == 0)
             {
                 if(map_Nodes.Node.point.Y == 0)
                 {
@@ -44,19 +45,29 @@ namespace Map
             }
             else
             {
+                var currentPoint = mapM.CurrentMap.path[mapM.CurrentMap.path.Count - 1];
+                var currentNode = mapM.CurrentMap.GetNode(currentPoint);
 
+                if (currentNode != null && currentNode.outgoing.Any(point => point.Equals(map_Nodes.Node.point)))
+                {
+                    SendPlayerToNode(map_Nodes);
+                }
+                else
+                {
+                    PlayerWarningNodeNotAccasable();
+                }
             }
         }
 
         private void SendPlayerToNode(Map_Nodes map_Nodes)
         {
             Locked = lockAfterSelect;
-            mapM.currentMap.path.Add(map_Nodes.Node.point);
+            mapM.CurrentMap.path.Add(map_Nodes.Node.point);
             mapM.SavingMap();
 
             view.SetPickableNodes();
-            //view.SetPathColors();
-            //map_Nodes.ShowSwirlAnim();
+            view.SetPathColor();
+            map_Nodes.ShowSwirlAnimation();
         }
 
         private static void EnterNode(Map_Nodes map_Nodes)

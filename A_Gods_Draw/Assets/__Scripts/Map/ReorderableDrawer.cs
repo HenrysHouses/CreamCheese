@@ -93,7 +93,7 @@ namespace Malee.Editor
                         if(attribute.surrogateType != null)
                         {
                             SurrogateCallback callback = new SurrogateCallback(attribute.surrogateProperty);
-                            //list.surrogate = new ReorderableList.Surrogate(attribute.surrogateType, callback.SetReference);
+                            list.surrogate = new ReorderableList.Surrogate(attribute.surrogateType, callback.SetReference);
                         }
                     }
                     else

@@ -27,21 +27,25 @@ namespace Map
         public Node Node { get; private set; }
         public NodeBlueprint Blueprint { get; private set; }
 
+        private float initialScale;
+        private const float HoverScaleFactor = 1.2f;
         private float mouseClicked;
-        private const float clickDuration = 0.5f;
+        private const float maxClickDuration = 0.5f;
 
         public void SetUp(Node node, NodeBlueprint blueprint)
         {
             Node = node;
             Blueprint = blueprint;
-            //spriteRenderer.sprite = blueprint.sprite;
-
-            if(node.nodeType == NodeType.Boss)
+            spriteRenderer.sprite = blueprint.sprite;
+            if (node.nodeType == NodeType.Boss)
             {
-
+                transform.localScale *= 1.5f;
             }
 
+            initialScale = spriteRenderer.transform.localScale.x;
+            visitedSpriteImage.color = Map_View.instance.visitedColor;
             visitedSpriteImage.gameObject.SetActive(false);
+
             SetState(NodeStates.Locked);
         }
 
@@ -63,9 +67,20 @@ namespace Map
                     break;
 
                 default:
-                    //throw new ArgumentOutOfRangeExepction(nameof(states), states, null);
-                    break;
+                    throw new ArgumentOutOfRangeException(nameof(states), states, null);
             }
+        }
+
+        private void OnMouseEnter()
+        {
+            //spriteRenderer.transform.Dok();
+            //spriteRenderer.transform.DOScale(initialScale * HoverScaleFactor, 0.3f);
+        }
+
+        private void OnMouseExit()
+        {
+            //spriteRenderer.transform.DOKill();
+            //spriteRenderer.transform.DOScale(initialScale, 0.3f);
         }
 
         private void OnMouseDown()
@@ -75,11 +90,22 @@ namespace Map
 
         private void OnMouseUp()
         {
-            if (Time.time - mouseClicked < clickDuration)
+            if (Time.time - mouseClicked < maxClickDuration)
             {
                 //the player has now clicked on this mode and will continue on this path (i guess)
-
+                Map_PlayerTracker.Instance.SelectNode(this);
             }
+        }
+
+        public void ShowSwirlAnimation()
+        {
+            if (visitedImage == null)
+            {
+                return;
+            }
+
+            //const float fillDuration = 0.3f;
+            visitedImage.fillAmount = 0;
         }
     }
 }

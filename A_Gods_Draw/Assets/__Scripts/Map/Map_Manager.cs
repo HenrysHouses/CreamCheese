@@ -13,29 +13,29 @@ namespace Map
         public Map_Configuration configuration;
         public Map_View view;
 
-        public Map currentMap { get; private set; }
+        public Map CurrentMap { get; private set; }
 
         // Start is called before the first frame update
         private void Start()
         {
             if (PlayerPrefs.HasKey("Map")) //needs to be added into the playerprefs
             {
-                var m_map = PlayerPrefs.GetString("Map");
-                var map = JsonConvert.DeserializeObject<Map>(m_map);
+                var mapJson = PlayerPrefs.GetString("Map");
+                var map = JsonConvert.DeserializeObject<Map>(mapJson);
 
-                if (map.path.Any(p => p.Equals(map.GetBossNode().point))) //dont know how to fix this yet
+                if (map.path.Any(p => p.Equals(map.GetBossNode().point)))
                 {
                     GenerateNewMap();
                 }
                 else
                 {
-                    currentMap = map;
+                    CurrentMap = map;
                     view.MapShow(map);
                 }
             }
             else
             {
-                GenerateNewMap();
+                GenerateNewMap(); //fix
             }
             
         }
@@ -43,22 +43,21 @@ namespace Map
         public void GenerateNewMap()
         {
             var map = Map_Generator.GetMap(configuration);
-            currentMap = map;
+            CurrentMap = map;
             Debug.Log(map.ToJson());
-            view.MapShow(map);
+            view.MapShow(map); //fix
         }
 
         public void SavingMap()
         {
-            if(currentMap == null)
+            if(CurrentMap == null)
             {
                 return;
             }
 
-            var json = JsonConvert.SerializeObject(currentMap);
+            var json = JsonConvert.SerializeObject(CurrentMap);
             PlayerPrefs.SetString("Map", json);
             PlayerPrefs.Save();
-            Debug.Log("map has been saved");
         }
 
         private void OnApplicationQuit()
