@@ -15,6 +15,7 @@ public class DeckManager_SO : ScriptableObject
     [SerializeField] List<Card_SO> pLibrary;
     [SerializeField] List<Card_SO> pDiscard;
     [SerializeField] List<Card_SO> pHand;
+    List<Card_Loader> pHandloaders;
 
 
     [System.NonSerialized]
@@ -58,7 +59,8 @@ public class DeckManager_SO : ScriptableObject
             pDiscardChangeEvent = new UnityEvent();
         
         pHand = new List<Card_SO>();
-        if(pHandChangeEvent == null)
+        pHandloaders = new List<Card_Loader>();
+        if (pHandChangeEvent == null)
             pHandChangeEvent = new UnityEvent();
 
         if(DrawEvent == null)
@@ -150,6 +152,7 @@ public class DeckManager_SO : ScriptableObject
             pHand.Add(pLibrary[0]);
             GameObject card = Instantiate(CardPrefab);
             card.GetComponent<Card_Loader>().Set(pLibrary[0]);
+            pHandloaders.Add(card.GetComponent<Card_Loader>());
             pLibrary.Remove(pLibrary[0]);
             animationManager.requestAnimation("Library-Hand", card);
         }
@@ -214,8 +217,8 @@ public class DeckManager_SO : ScriptableObject
         shuffleLibrary();
     }
 
-    public List<Card_SO> GetCurrentHand()
+    public List<Card_Loader> GetCurrentHand()
     {
-        return pHand;
+        return pHandloaders;
     }
 }

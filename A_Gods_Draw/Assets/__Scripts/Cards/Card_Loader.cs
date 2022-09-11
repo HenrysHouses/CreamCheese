@@ -48,12 +48,7 @@ public class Card_Loader : MonoBehaviour
         image.sprite = card_so.image;
         desc.text = card_so.description;
 
-        card_so.Init(gameObject);
+        card_so.Init(this.gameObject);
     }
 
-    private void Update()
-    {
-        transform.Rotate(Vector3.up, 70 * Time.deltaTime);
-        //transform.Rotate(Vector3.left, 0.5f);
-    }
 }
