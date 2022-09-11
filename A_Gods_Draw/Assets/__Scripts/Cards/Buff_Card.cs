@@ -11,6 +11,5 @@ public class Buff_Card : NonGod_Card
     {
         Buff_Behaviour behaviour = a.AddComponent<Buff_Behaviour>();
         behaviour.Initialize(this);
-        cardObject = a;
     }
 }

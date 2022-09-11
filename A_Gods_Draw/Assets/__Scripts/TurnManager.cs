@@ -39,17 +39,21 @@ public class TurnManager : MonoBehaviour
             case State.StartTurn:
                 {
                     currentState = State.PlayerTurn;
+
                     deckManager.drawCard(5);
+
                     if (currentGod) { currentGod.OnTurnStart(); }
+
                     for (int i = 0; i < lanes.Length; i++)
                     {
                         if (i >= deckManager.GetCurrentHand().Count)
                             break;
-                        deckManager.GetCurrentHand()[0].cardObject.transform.position = lanes[i].position;
+                        deckManager.GetCurrentHand()[i].gameObject.transform.position = lanes[i].position;
+                        deckManager.GetCurrentHand()[i].gameObject.transform.rotation = lanes[i].rotation;
 
                         Debug.Log(i + " = " + lanes[i].position);
 
-                        Debug.Log("card " + i + " = " + deckManager.GetCurrentHand()[i].cardObject.name);
+                        Debug.Log("card " + i + " = " + deckManager.GetCurrentHand()[i].gameObject.name);
 
                         //deckManager.GetCurrentHand().RemoveAt(0);
                     }

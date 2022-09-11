@@ -10,6 +10,5 @@ public class Attack_Card : NonGod_Card
     {
         Attack_Behaviour behaviour = a.AddComponent<Attack_Behaviour>();
         behaviour.Initialize(this);
-        cardObject = a;
     }
 }
