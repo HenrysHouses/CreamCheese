@@ -1,3 +1,8 @@
+/*
+ * Written by:
+ * Henrik
+*/
+
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -15,17 +20,33 @@ public class AnimationManager_SO : ScriptableObject
     public UnityEvent AnimationRequestChangeEvent = new UnityEvent(); 
     int animNum;
 
-    public void requestAnimation(string pathName, GameObject target, PathAnimatorController.pathAnimation animation = null)
+    public void requestAnimation(string pathName, GameObject target, float delay = 0, float coolDown = 0, PathAnimatorController.pathAnimation animation = null)
     {
         target.name += "_pathAnim" + animNum;
-        DynamicAnimation anim = new DynamicAnimation(pathName, target.name, animation);
+        DynamicAnimation anim = new DynamicAnimation(pathName, target.name, delay, coolDown, animation);
         // Debug.Log(target.transform.position);
         AnimationRequest.Add(anim);
-        Debug.Log(AnimationRequestChangeEvent);
         AnimationRequestChangeEvent?.Invoke();
         animNum++;
     }
-    
+
+    public void requestAnimation(string pathName, GameObject[] targets, float delay = 0, float coolDown = 0, PathAnimatorController.pathAnimation[] animations = null)
+    {
+        for (int i = 0; i < targets.Length; i++)
+        {
+            targets[i].name += "_pathAnim" + animNum;
+            DynamicAnimation anim;
+            if(animations != null)
+                anim = new DynamicAnimation(pathName, targets[i].name, delay, coolDown, animations[i]);
+            else
+                anim = new DynamicAnimation(pathName, targets[i].name, delay, coolDown, null);
+            AnimationRequest.Add(anim);
+            animNum++;
+            Debug.Log("input: " + coolDown + " output: " + anim.coolDown);
+        }
+        AnimationRequestChangeEvent?.Invoke();
+    }
+
     public void removeRequest(string targetName)
     {
         for (int i = 0; i < AnimationRequest.Count; i++)
@@ -59,11 +80,15 @@ public class DynamicAnimation
     public string requestName;
     public string target;
     public PathAnimatorController.pathAnimation anim;
+    public float coolDown;
+    public float delay;
 
-    public DynamicAnimation(string pathName, string targetName, PathAnimatorController.pathAnimation animation)
+    public DynamicAnimation(string pathName, string targetName, float delay, float coolDown, PathAnimatorController.pathAnimation animation)
     {
         this.requestName = pathName;
         this.target = targetName;
+        this.delay = delay;
+        this.coolDown = coolDown;
         this.anim = animation;
     }
 }

@@ -1,3 +1,8 @@
+/*
+ * Written by:
+ * Henrik
+*/
+
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -26,12 +31,6 @@ public class DeckManager_SO : ScriptableObject
     public UnityEvent pDiscardChangeEvent;
     [System.NonSerialized]
     public UnityEvent pHandChangeEvent;
-    [System.NonSerialized]
-    public UnityEvent DrawEvent;
-    [System.NonSerialized]
-    public UnityEvent DiscardEvent;
-    [System.NonSerialized]
-    public UnityEvent RecycleEvent;
 
     void OnValidate()
     {
@@ -62,16 +61,6 @@ public class DeckManager_SO : ScriptableObject
         pHandloaders = new List<Card_Loader>();
         if (pHandChangeEvent == null)
             pHandChangeEvent = new UnityEvent();
-
-        if(DrawEvent == null)
-            DrawEvent = new UnityEvent();
-        // DrawEvent += 
-
-        if(DiscardEvent == null)
-            DiscardEvent = new UnityEvent();
-
-        if(RecycleEvent == null)
-            RecycleEvent = new UnityEvent();
     }
 
     public void addCardToDeck(Card_SO card)
@@ -99,9 +88,9 @@ public class DeckManager_SO : ScriptableObject
 
     public void clear()
     {
-        pLibrary = new List<Card_SO>();
-        pDiscard = new List<Card_SO>();
-        pHand = new List<Card_SO>();
+        pLibrary.Clear();
+        pDiscard.Clear();
+        pHand.Clear();
     }
 
 
@@ -151,8 +140,8 @@ public class DeckManager_SO : ScriptableObject
         {
             pHand.Add(pLibrary[0]);
             GameObject card = Instantiate(CardPrefab);
-            card.GetComponent<Card_Loader>().Set(pLibrary[0]);
-            pHandloaders.Add(card.GetComponent<Card_Loader>());
+            card.GetComponentInChildren<Card_Loader>().Set(pLibrary[0]);
+            pHandloaders.Add(card.GetComponentInChildren<Card_Loader>());
             pLibrary.Remove(pLibrary[0]);
             animationManager.requestAnimation("Library-Hand", card);
         }
@@ -162,12 +151,16 @@ public class DeckManager_SO : ScriptableObject
 
     public void discardAll()
     {
+        GameObject[] cards = new GameObject[pHand.Count];
         for (int i = 0; i < pHand.Count; i++)
         {
             pDiscard.Add(pHand[i]);
-            DiscardEvent.Invoke();
+            cards[i] = Instantiate(CardPrefab);
+            Debug.Log("Requested: " + cards[i] + " _" + i);
+            cards[i].GetComponentInChildren<Card_Loader>().Set(pHand[i]);
         }
-        pHand = new List<Card_SO>();
+        animationManager.requestAnimation("Hand-Discard", cards, 0, 0.25f);
+        pHand.Clear();
         pHandChangeEvent.Invoke();
         pDiscardChangeEvent.Invoke();
     }
@@ -181,7 +174,6 @@ public class DeckManager_SO : ScriptableObject
         }
         pHandChangeEvent.Invoke();
         pDiscardChangeEvent.Invoke();
-        DiscardEvent.Invoke();
     }
 
     public void shuffleLibrary()

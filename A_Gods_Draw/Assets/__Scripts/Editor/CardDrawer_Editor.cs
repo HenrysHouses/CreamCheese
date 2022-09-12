@@ -9,7 +9,7 @@ using UnityEngine;
 using UnityEditor;
 
 [CustomEditor(typeof(CardDrawer_debugger))]
-public class inspectorButtonTest : Editor
+public class CardDrawer_Editor : Editor
 {
     private CardDrawer_debugger script;
 

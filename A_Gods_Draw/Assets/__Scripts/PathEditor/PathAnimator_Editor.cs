@@ -25,6 +25,8 @@ public class PathAnimator_Editor : Editor
 
     public override void OnInspectorGUI()
     {
+        EditorGUILayout.FloatField(new GUIContent("Animation Length:", "Time in seconds"), script.getAnimLength(), EditorStyles.boldLabel);
+
         base.OnInspectorGUI();
 
         if(GUILayout.Button("Animate"))
@@ -32,7 +34,7 @@ public class PathAnimator_Editor : Editor
             if(EditorApplication.isPlaying)
             {
                 GameObject card = Instantiate(script.testAnimationObj);
-                script.getAnimManagerSO().requestAnimation(script.PathName, card);
+                script.getAnimManagerSO().requestAnimation(script.AnimationName, card);
             }
             else
                 Debug.LogWarning("Play the editor to test the animation");
