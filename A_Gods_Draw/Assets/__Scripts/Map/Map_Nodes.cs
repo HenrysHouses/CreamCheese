@@ -103,9 +103,6 @@ namespace Map
             {
                 return;
             }
-
-            //const float fillDuration = 0.3f;
-            visitedImage.fillAmount = 0;
         }
     }
 }

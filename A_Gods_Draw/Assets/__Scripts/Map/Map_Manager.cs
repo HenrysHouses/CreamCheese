@@ -1,9 +1,7 @@
 //Charlie SCRIPT
-using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
+
 using System.Linq;
-using System;
+using UnityEngine;
 using Newtonsoft.Json;
 
 namespace Map

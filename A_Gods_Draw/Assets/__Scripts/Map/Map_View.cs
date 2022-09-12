@@ -82,13 +82,13 @@ namespace Map
 
             ClearMap();
             CreateParent();
-            //CreateMapNode(m.nodes);
+            CreateNodes(m.nodes);
             DrawPath();
             Orientation();
             ResetRotation();
             SetPickableNodes();
             SetPathColor();
-            CreateBackground(m); //fix
+            CreateBackground(m);
         }
 
         private void CreateBackground(Map m)
@@ -126,6 +126,7 @@ namespace Map
 
             var boxColl = mapParent.AddComponent<BoxCollider>();
             boxColl.size = new Vector3(100, 100, 1); //can be changed
+
         }
 
         private void CreateNodes(IEnumerable<Node> nodes)
@@ -336,10 +337,10 @@ namespace Map
             return allMapConfigs.FirstOrDefault(c => c.name == configName);
         }
 
-        public NodeBlueprint GetNodeBlueprint(NodeType nodeType)
+        public NodeBlueprint GetNodeBlueprint(NodeType type)
         {
             var config = GetConfiguration(mapManager.CurrentMap.configName);
-            return config.nodeBlueprints.FirstOrDefault(n => n.nodeType == nodeType);
+            return config.nodeBlueprints.FirstOrDefault(n => n.nodeType == type);
         }
 
         public NodeBlueprint GetNodeBlueprint(string blueprintName)
