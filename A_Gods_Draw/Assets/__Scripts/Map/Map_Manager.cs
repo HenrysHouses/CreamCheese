@@ -16,10 +16,15 @@ namespace Map
         // Start is called before the first frame update
         private void Start()
         {
-            if (PlayerPrefs.HasKey("Map")) //needs to be added into the playerprefs
+            if (PlayerPrefs.HasKey("Map"))
             {
                 var mapJson = PlayerPrefs.GetString("Map");
                 var map = JsonConvert.DeserializeObject<Map>(mapJson);
+
+                /*if (map.path.Contains(map.GetBossNode().point))
+                {
+                    GenerateNewMap();
+                }*/
 
                 if (map.path.Any(p => p.Equals(map.GetBossNode().point)))
                 {
@@ -28,6 +33,8 @@ namespace Map
                 else
                 {
                     CurrentMap = map;
+
+                    //the player has not reached the boss yet so lets load the current map
                     view.MapShow(map);
                 }
             }
@@ -42,7 +49,6 @@ namespace Map
         {
             var map = Map_Generator.GetMap(configuration);
             CurrentMap = map;
-            Debug.Log(map.ToJson());
             view.MapShow(map); //fix
         }
 

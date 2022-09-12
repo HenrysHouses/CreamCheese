@@ -24,13 +24,13 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1546521131970900257}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 1546521132764156747}
-  m_RootOrder: 1
+  m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &1546521131970900263
 MonoBehaviour:
@@ -50,7 +50,7 @@ MonoBehaviour:
   - {fileID: 11400000, guid: a36dc31373151164697ee303ee56d8a2, type: 2}
   nodePrefab: {fileID: 4103951109066623447, guid: f8ff5e57b0a6d7d44a7efdbaa8f439d0, type: 3}
   orientationOffset: -4
-  background: {fileID: 0}
+  background: {fileID: 21300000, guid: 00290dfc8d8a5454fbfba3dc4cddcfbe, type: 3}
   bgColor: {r: 0.8962264, g: 0.83088094, b: 0.63834995, a: 1}
   xSize: 11.5
   yOffset: 2
@@ -97,8 +97,8 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
-  - {fileID: 1546521133555939265}
   - {fileID: 1546521131970900262}
+  - {fileID: 1546521133555939265}
   - {fileID: 1546521133572886879}
   m_Father: {fileID: 0}
   m_RootOrder: 0
@@ -133,7 +133,7 @@ Transform:
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 1546521132764156747}
-  m_RootOrder: 0
+  m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &1546521133555939270
 MonoBehaviour:
@@ -193,7 +193,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c7e6e6887b076c94ab0b804f1e521755, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  lockAfterSelect: 0
+  lockAfterSelect: 1
   enterNodeDelay: 1
-  mapM: {fileID: 1546521133555939270}
+  mapManager: {fileID: 0}
   view: {fileID: 1546521131970900263}

@@ -1,11 +1,8 @@
 //CHARLIE SCRIPT
 
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 using System.Linq;
 using System;
-using System.Drawing;
 
 namespace Map
 {
@@ -13,7 +10,7 @@ namespace Map
     {
         public bool lockAfterSelect = false;
         public float enterNodeDelay = 1f;
-        public Map_Manager mapM;
+        public Map_Manager mapManager;
         public Map_View view;
 
         public static Map_PlayerTracker Instance;
@@ -25,18 +22,21 @@ namespace Map
             Instance = this;
         }
 
-        public void SelectNode(Map_Nodes map_Nodes)
+        public void SelectNode(Map_Nodes mapNode)
         {
             if (Locked)
             {
                 return;
             }
 
-            if(mapM.CurrentMap.path.Count == 0)
+            Debug.Log("Selected node: " + mapNode.Node.point);
+
+            if (mapManager.CurrentMap.path.Count == 0)
             {
-                if(map_Nodes.Node.point.Y == 0)
+                //the player has not selected the node yet, they can select any of the nodes with y = 0
+                if (mapNode.Node.point.Y == 0)
                 {
-                    SendPlayerToNode(map_Nodes);
+                    SendPlayerToNode(mapNode);
                 }
                 else
                 {
@@ -45,12 +45,12 @@ namespace Map
             }
             else
             {
-                var currentPoint = mapM.CurrentMap.path[mapM.CurrentMap.path.Count - 1];
-                var currentNode = mapM.CurrentMap.GetNode(currentPoint);
+                var currentPoint = mapManager.CurrentMap.path[mapManager.CurrentMap.path.Count - 1];
+                var currentNode = mapManager.CurrentMap.GetNode(currentPoint);
 
-                if (currentNode != null && currentNode.outgoing.Any(point => point.Equals(map_Nodes.Node.point)))
+                if (currentNode != null && currentNode.outgoing.Any(point => point.Equals(mapNode.Node.point)))
                 {
-                    SendPlayerToNode(map_Nodes);
+                    SendPlayerToNode(mapNode);
                 }
                 else
                 {
@@ -62,19 +62,19 @@ namespace Map
         private void SendPlayerToNode(Map_Nodes map_Nodes)
         {
             Locked = lockAfterSelect;
-            mapM.CurrentMap.path.Add(map_Nodes.Node.point);
-            mapM.SavingMap();
+            mapManager.CurrentMap.path.Add(map_Nodes.Node.point);
+            mapManager.SavingMap();
 
             view.SetPickableNodes();
             view.SetPathColor();
             map_Nodes.ShowSwirlAnimation();
         }
 
-        private static void EnterNode(Map_Nodes map_Nodes)
+        private static void EnterNode(Map_Nodes mapNode)
         {
-            Debug.Log("Node: " + map_Nodes.Node.blueprintName + " of type " + map_Nodes.Node.nodeType);
+            Debug.Log("Node: " + mapNode.Node.blueprintName + " of type " + mapNode.Node.nodeType);
 
-            switch (map_Nodes.Node.nodeType)
+            switch (mapNode.Node.nodeType)
             {
                 case NodeType.Enemy:
                     break;
