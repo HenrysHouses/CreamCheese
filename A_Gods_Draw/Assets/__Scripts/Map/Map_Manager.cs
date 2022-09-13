@@ -49,7 +49,7 @@ namespace Map
         {
             var map = Map_Generator.GetMap(configuration);
             CurrentMap = map;
-            view.MapShow(map); //fix
+            view.MapShow(map);
         }
 
         public void SavingMap()
@@ -58,15 +58,24 @@ namespace Map
             {
                 return;
             }
+            // scuffed fix for now, should def check if there a better way of fixing this
+            var json = JsonConvert.SerializeObject(CurrentMap, Formatting.None,
+                        new JsonSerializerSettings()
+                        {
+                            ReferenceLoopHandling = ReferenceLoopHandling.Ignore
+                        });
 
-            var json = JsonConvert.SerializeObject(CurrentMap);
             PlayerPrefs.SetString("Map", json);
             PlayerPrefs.Save();
+
+            Debug.Log("map has been saved");
         }
 
         private void OnApplicationQuit()
         {
             SavingMap();
+
+            Debug.Log("map has been saved on quit");
         }
     }
 }

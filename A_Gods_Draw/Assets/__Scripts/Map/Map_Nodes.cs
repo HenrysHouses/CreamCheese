@@ -97,7 +97,7 @@ namespace Map
             if (Time.time - mouseDownTime < maxClickDuration)
             {
                 //the player has now clicked on this mode and will continue on this path (i guess)
-                Map_PlayerTracker.Instance.SelectNode(this);
+                Map_PlayerTracker.Instance.SelectNode(this); //
             }
         }
 

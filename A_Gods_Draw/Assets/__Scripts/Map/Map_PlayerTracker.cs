@@ -37,7 +37,7 @@ namespace Map
                 //the player has not selected the node yet, they can select any of the nodes with y = 0
                 if (mapNode.Node.point.Y == 0)
                 {
-                    SendPlayerToNode(mapNode);
+                    SendPlayerToNode(mapNode); //
                 }
                 else
                 {
@@ -64,7 +64,7 @@ namespace Map
         {
             Locked = lockAfterSelect;
             mapManager.CurrentMap.path.Add(map_Nodes.Node.point);
-            mapManager.SavingMap();
+            mapManager.SavingMap(); //
 
             view.SetPickableNodes();
             view.SetPathColor();
