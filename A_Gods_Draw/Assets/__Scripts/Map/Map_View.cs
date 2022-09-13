@@ -151,7 +151,7 @@ namespace Map
         }
 
 
-        public void SetPickableNodes()
+        public void SetPickableNodes() //fix
         {
             //here we are putting all the map nodes as locked/non pickable
             foreach (var node in MapNodes)

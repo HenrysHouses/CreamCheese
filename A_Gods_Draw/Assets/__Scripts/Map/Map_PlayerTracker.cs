@@ -3,6 +3,7 @@
 using UnityEngine;
 using System.Linq;
 using System;
+using UnityEngine.SceneManagement;
 
 namespace Map
 {
@@ -70,6 +71,8 @@ namespace Map
             map_Nodes.ShowSwirlAnimation();
         }
 
+        /*i guess this is where we would put the player into "scene fitting to the node type"
+         * so when selecting a node you enter the one meant for it*/
         private static void EnterNode(Map_Nodes mapNode)
         {
             Debug.Log("Node: " + mapNode.Node.blueprintName + " of type " + mapNode.Node.nodeType);
