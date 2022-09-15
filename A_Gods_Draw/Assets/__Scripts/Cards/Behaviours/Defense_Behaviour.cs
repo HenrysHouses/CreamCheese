@@ -5,7 +5,6 @@ using UnityEngine;
 public class Defense_Behaviour : NonGod_Behaviour
 {
     //Damageable a;
-    int strengh;
     Defense_Card currentCard;
 
     public void Initialize(Defense_Card card)
@@ -14,15 +13,16 @@ public class Defense_Behaviour : NonGod_Behaviour
         currentCard = card;
     }
 
-    public new void OnAction()
+    public override void OnAction()
     {
         //????????????
     }
 
-    public new void OnPlay()
+    public override IEnumerator OnPlay(List<Enemy> enemies, List<NonGod_Behaviour> currLane, PlayerController player, God_Behaviour god)
     {
         //Select player/god (Damageable = manager.selectwhotodefend())
         //a.defend
+        yield return new WaitUntil(() => { return true; });
     }
 
 

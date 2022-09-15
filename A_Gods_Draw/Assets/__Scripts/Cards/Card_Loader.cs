@@ -21,8 +21,9 @@ public class Card_Loader : MonoBehaviour
     Text strengh;
 
     // Start is called before the first frame update
-    public void Set(Card_SO card)
+    public void Set(Card_SO card, TurnManager manager)
     {
+
         card_so = card;
 
         if (card_so as God_Card)
@@ -48,7 +49,7 @@ public class Card_Loader : MonoBehaviour
         image.sprite = card_so.image;
         desc.text = card_so.description;
 
-        card_so.Init(this.gameObject);
+        card_so.Init(this.gameObject).SetManager(manager);
     }
 
 }

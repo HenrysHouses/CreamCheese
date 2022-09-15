@@ -12,8 +12,9 @@ public abstract class Card_SO : ScriptableObject
     public string description;
 
 
-    public virtual void Init(GameObject a)
+    public virtual Card_Behaviour Init(GameObject a)
     {
+        return null;
     }
 
 }

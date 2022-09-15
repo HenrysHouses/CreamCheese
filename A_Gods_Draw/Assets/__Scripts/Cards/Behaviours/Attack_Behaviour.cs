@@ -4,24 +4,36 @@ using UnityEngine;
 
 public class Attack_Behaviour : NonGod_Behaviour
 {
-    Enemy a;
-    int strengh;
-    Attack_Card currentCard;
+    List<Enemy> targets = new List<Enemy>();
 
     public void Initialize(Attack_Card card)
     {
         strengh = card.baseStrengh;
-        currentCard = card;
     }
 
-    public new void OnAction()
+    public override void OnAction()
     {
-        //enemy.dealdamage
+        foreach (Enemy target in targets)
+        {
+            target.DealDamage(strengh);
+            Debug.Log("Dealt damage to " + target);
+        }
     }
 
-    public new void OnPlay()
+    public override IEnumerator OnPlay(List<Enemy> enemies, List<NonGod_Behaviour> currLane, PlayerController player, God_Behaviour god)
     {
-        //Select enemy (enemy = manager.getclickedenemy())
+        foreach (Enemy enemy in enemies)
+        {
+            enemy.IsObjectiveTo(this);
+        }
+
+        Debug.Log("SelectEnemies");
+
+        yield return new WaitUntil(() => { return targets.Count == 1; });
+
+        manager.FinishedPlay(this);
+
+        Debug.Log("readyto act");
     }
 
 
@@ -37,7 +49,12 @@ public class Attack_Behaviour : NonGod_Behaviour
         }
     }
 
-    public new void GetGodBuff(bool isMultiplier, short amount)
+    public void AddTarget(Enemy enemy)
+    {
+        targets.Add(enemy);
+    }
+
+    public void GetGodBuff(bool isMultiplier, short amount)
     {
         //if (manager.currentgod == currentcard.god)
             if (isMultiplier)

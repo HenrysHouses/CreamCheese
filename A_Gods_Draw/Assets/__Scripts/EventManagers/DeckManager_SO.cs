@@ -14,13 +14,13 @@ using System.Linq;
 [CreateAssetMenu(menuName = "Events/DeckManager")]
 public class DeckManager_SO : ScriptableObject
 {
+    [SerializeField] TurnManager turnManager;
     [SerializeField] AnimationManager_SO animationManager;
     [SerializeField] GameObject CardPrefab;
     [SerializeField] DeckList_SO deckList;
     [SerializeField] List<Card_SO> pLibrary;
     [SerializeField] List<Card_SO> pDiscard;
     [SerializeField] List<Card_SO> pHand;
-    List<Card_Loader> pHandLoaders;
 
 
     [System.NonSerialized]
@@ -31,6 +31,11 @@ public class DeckManager_SO : ScriptableObject
     public UnityEvent pDiscardChangeEvent;
     [System.NonSerialized]
     public UnityEvent pHandChangeEvent;
+
+    public void SetTurnManager(TurnManager manager)
+    {
+        turnManager = manager;
+    }
 
     void OnValidate()
     {
@@ -58,7 +63,6 @@ public class DeckManager_SO : ScriptableObject
             pDiscardChangeEvent = new UnityEvent();
         
         pHand = new List<Card_SO>();
-        pHandLoaders = new List<Card_Loader>();
         if (pHandChangeEvent == null)
             pHandChangeEvent = new UnityEvent();
     }
@@ -146,10 +150,13 @@ public class DeckManager_SO : ScriptableObject
         {
             pHand.Add(pLibrary[0]);
             GameObject card = Instantiate(CardPrefab);
-            card.GetComponentInChildren<Card_Loader>().Set(pLibrary[0]);
-            pHandLoaders.Add(card.GetComponentInChildren<Card_Loader>());
+            card.GetComponentInChildren<Card_Loader>().Set(pLibrary[0], turnManager);
             pLibrary.Remove(pLibrary[0]);
             animationManager.requestAnimation("Library-Hand", card);
+
+            //Just to make them clickable
+            card.transform.position = new Vector3(-3.2f + i * 0.3f, -2f, 15.2f);
+            card.transform.rotation = Quaternion.Euler(0, 90, 0);
         }
         pLibraryChangeEvent.Invoke();
         pHandChangeEvent.Invoke();
@@ -162,7 +169,7 @@ public class DeckManager_SO : ScriptableObject
         {
             pDiscard.Add(pHand[i]);
             cards[i] = Instantiate(CardPrefab);
-            cards[i].GetComponentInChildren<Card_Loader>().Set(pHand[i]);
+            cards[i].GetComponentInChildren<Card_Loader>().Set(pHand[i], turnManager);
         }
         animationManager.requestAnimation("Hand-Discard", cards, 0, 0.25f);
         pHand.Clear();
@@ -175,7 +182,7 @@ public class DeckManager_SO : ScriptableObject
         if(pHand.Contains(card))
         {
             GameObject _card = Instantiate(CardPrefab);
-            _card.GetComponentInChildren<Card_Loader>().Set(card);
+            _card.GetComponentInChildren<Card_Loader>().Set(card, turnManager);
             animationManager.requestAnimation("Hand-Discard", _card);
             
             pHand.Remove(card);
@@ -215,7 +222,7 @@ public class DeckManager_SO : ScriptableObject
         {
             pLibrary.Add(pDiscard[i]);
             cards[i] = Instantiate(CardPrefab);
-            cards[i].GetComponentInChildren<Card_Loader>().Set(pDiscard[i]);
+            cards[i].GetComponentInChildren<Card_Loader>().Set(pDiscard[i], turnManager);
         }
         animationManager.requestAnimation("ShuffleDiscard", cards, 0, 0.18f);
         pDiscard.Clear();
@@ -223,8 +230,8 @@ public class DeckManager_SO : ScriptableObject
         shuffleLibrary();
     }
 
-    public List<Card_Loader> GetCurrentHand()
+    public List<Card_SO> GetCurrentHand()
     {
-        return pHandLoaders;
+        return pHand;
     }
 }

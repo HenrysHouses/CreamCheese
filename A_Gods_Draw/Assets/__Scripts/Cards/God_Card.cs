@@ -7,7 +7,8 @@ using UnityEngine;
 public class God_Card : Card_SO
 {
     public short health;
-    public override void Init(GameObject a)
+    public override Card_Behaviour Init(GameObject a)
     {
+        return null;
     }
 }
