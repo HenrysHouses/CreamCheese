@@ -44,7 +44,7 @@ public class DeckManager_SO : ScriptableObject
         if (deckListChangeEvent == null)
             deckListChangeEvent = new UnityEvent();
 
-        pLibrary.Clear();
+        pLibrary = new List<Card_SO>();
         for (int i = 0; i < deckList.Deck.Count; i++)
         {
             pLibrary.Add(deckList.Deck[i]);
@@ -57,8 +57,8 @@ public class DeckManager_SO : ScriptableObject
         if(pDiscardChangeEvent == null)
             pDiscardChangeEvent = new UnityEvent();
         
-        pHand.Clear();
-        pHandLoaders.Clear();
+        pHand = new List<Card_SO>();
+        pHandLoaders = new List<Card_Loader>();
         if (pHandChangeEvent == null)
             pHandChangeEvent = new UnityEvent();
     }
