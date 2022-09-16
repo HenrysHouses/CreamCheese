@@ -23,6 +23,8 @@
     float _ShadeDetail_B; \
     float _PatternOffset; 
 
+#define TAU 6.28318530
+
 #define DECLARE_SCRNPOS_COORDS(idx) float4 scrPos : TEXCOORD##idx;
 #define TRANSFER_SCREENPOSITION(o) o.scrPos = ComputeScreenPos(o.pos);
 

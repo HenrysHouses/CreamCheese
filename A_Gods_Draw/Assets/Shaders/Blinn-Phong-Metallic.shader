@@ -1,22 +1,30 @@
-Shader "HenryCustom/Lit/Blinn-Phong_V2"
+Shader "HenryCustom/Lit/Blinn-Phong-Metallic"
 {
     Properties
     {
         _MainTex ("Texture", 2D) = "white" {}
         _MainColor ("Color", Color) = (1,1,1,1)
-        _ColorRimLight ("fresnel Color", Color) = (1,1,1,1)
+        [NoScaleOffset] _NormalMap ("Normal Map", 2D) = "bump" {}
+        [NoScaleOffset] _MetallicMap ("Metallic Map", 2D) = "bump" {}
+        [NoScaleOffset] _SpecularMap ("Specular Map", 2D) = "bump" {}
+        [NoScaleOffset] _DiffuseIBL ("Diffuse IBL", 2D) = "Black" {}
+        _GlossIntensity ("Gloss", Range(0, 1)) = 1
+        _MetallicIntensity ("Metallic", Range(0, 2)) = 1
+        _MetallicRoughness ("Roughness", Range(0, 10)) = 1
         [Toggle] _RimLightToggle ("fresnel Toggle", float) = 1
+        _ColorRimLight ("fresnel Color", Color) = (1,1,1,1)
         _RimLightIntensity ("fresnel Strength", Range(0, 2)) = 1
-        _Gloss ("Gloss", Range(0, 1)) = 1
         _MaskLayer ("Mask Layer", int) = 1 
     }
+
+
     SubShader
     {
         Tags { "RenderType"="Opaque" }
 
         Stencil {
             Ref [_MaskLayer]
-            Comp Equal
+            Comp NotEqual
             Pass Keep
         }
 
@@ -28,7 +36,7 @@ Shader "HenryCustom/Lit/Blinn-Phong_V2"
             #pragma vertex vert
             #pragma fragment frag
             #pragma multi_compile_fwdbase
-
+            #define IS_IN_BASEPASS
             #include "HHLighting.cginc"
 
             ENDCG
