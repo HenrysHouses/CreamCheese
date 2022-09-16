@@ -7,7 +7,7 @@ Shader "HenryCustom/Lit/Diffuse-PBR"
         [NoScaleOffset] _NormalMap ("Normal Map", 2D) = "bump" {}
         [NoScaleOffset] _MetallicMap ("Metallic Map", 2D) = "bump" {}
         [NoScaleOffset] _SpecularMap ("Specular Map", 2D) = "bump" {}
-        [NoScaleOffset] _DiffuseIBL ("Diffuse IBL", 2D) = "Black" {}
+        // [NoScaleOffset] _DiffuseIBL ("Diffuse IBL", 2D) = "Black" {}
         _LightIntensity ("Light Multiplier", float) = 1
         _AmbientColor ("Ambient Light Color", Color) = (1,1,1,1)
         // _GlossIntensity ("Gloss", Range(0, 1)) = 1

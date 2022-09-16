@@ -37,7 +37,7 @@ float _LightIntensity;
 
 float4 _AmbientColor;
 
-sampler2D _DiffuseIBL;
+// sampler2D _DiffuseIBL;
 
 float _GlossIntensity;
 
@@ -140,7 +140,7 @@ fixed4 frag (Interpolators i) : SV_Target
         #ifdef IS_IN_BASEPASS
             // float3 reflection = tex2Dlod(_DiffuseIBL, float4(DirToRectilinear(N),0,metallicMap * _MetallicRoughness)); // Texture IBL
             float3 reflectionDir = reflect(-V, i.worldNormal);
-            float roughness = 1 - _GlossIntensity;
+            float roughness = 1 - metallicMap.a;
             roughness *= 1.7 - 0.7 * roughness;
             float4 envSample = UNITY_SAMPLE_TEXCUBE_LOD(unity_SpecCube0, reflectionDir, _MetallicRoughness * metallicMap * UNITY_SPECCUBE_LOD_STEPS); // Skybox Reflection
 		    float3 reflection = DecodeHDR(envSample, unity_SpecCube0_HDR) * _MetallicIntensity;
@@ -151,8 +151,8 @@ fixed4 frag (Interpolators i) : SV_Target
 
     // specular lighting
     float3 NdotL_Specular = saturate(dot(H, N)); 
-    float specularExponent = exp2(_GlossIntensity * 6 + 2 ); // might not be best to do this math in the shader
-    float3 specularLight = pow( NdotL_Specular, specularExponent ) * _GlossIntensity * attenuation; // can time with _GlossIntensity for energy conservation aproximation // look into BRDF and inisopotic lense flaire
+    float specularExponent = exp2(metallicMap.a * 6 + 2 ); // might not be best to do this math in the shader
+    float3 specularLight = pow( NdotL_Specular, specularExponent ) * metallicMap.a * attenuation; // can time with _GlossIntensity for energy conservation aproximation // look into BRDF and inisopotic lense flaire
     specularLight *= light; // using lambert to remove specular in situations when its on the back of the model
     
     #ifdef USE_TOON
