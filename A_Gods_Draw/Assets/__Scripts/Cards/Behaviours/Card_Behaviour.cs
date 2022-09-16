@@ -7,6 +7,8 @@ public abstract class Card_Behaviour : MonoBehaviour
     protected Card_SO card;
     protected TurnManager manager;
 
+    protected bool played = false;
+
     public readonly bool isReady = false;
 
     public virtual void Initialize(Card_SO card)
@@ -21,7 +23,11 @@ public abstract class Card_Behaviour : MonoBehaviour
 
     protected virtual void OnMouseDown()
     {
-        manager.SelectedCard(this);
+        if (!played)
+        {
+            manager.SelectedCard(this);
+            played = true;
+        }
     }
 
     public Card_SO GetCardSO() { return card; }

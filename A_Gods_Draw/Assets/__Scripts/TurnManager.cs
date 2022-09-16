@@ -6,6 +6,7 @@ public class TurnManager : MonoBehaviour
 {
 
     bool turnEnd;
+    bool cardOnPlay = false;
     [SerializeField]
     DeckManager_SO deckManager;
 
@@ -67,7 +68,10 @@ public class TurnManager : MonoBehaviour
                         playedCard.gameObject.transform.position = lanes[currentLane].position;
                         playedCard.gameObject.transform.rotation = lanes[currentLane].rotation;
                         currentLane++;
+                        if (playedCard as NonGod_Behaviour)
+                            lane.Add(playedCard as NonGod_Behaviour);
                         playedCard = null;
+                        cardOnPlay = false;
                         Debug.Log("Select another card");
                     }
 
@@ -125,6 +129,8 @@ public class TurnManager : MonoBehaviour
             God_Behaviour a = card as God_Behaviour;
             NonGod_Behaviour b = card as NonGod_Behaviour;
 
+            cardOnPlay = true;
+
             StartCoroutine(card.OnPlay(enemies, lane, player, currentGod));
 
             if (a)
@@ -134,7 +140,6 @@ public class TurnManager : MonoBehaviour
             }
             else if (b)
             {
-                lane.Add(b);
             }
             else
             {
@@ -151,5 +156,15 @@ public class TurnManager : MonoBehaviour
     public State GetState()
     {
         return currentState;
+    }
+
+    public bool IsACardSelected()
+    {
+        return cardOnPlay;
+    }
+
+    public List<NonGod_Behaviour> CurrentLane()
+    {
+        return lane;
     }
 }

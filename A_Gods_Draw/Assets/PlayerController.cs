@@ -11,13 +11,20 @@ public class PlayerController : MonoBehaviour
 
     int defendedFor = 0;
 
+    Defense_Behaviour defender;
+
     // Start is called before the first frame update
     void Start()
     {
         health = maxHealth;
     }
 
-    void Defend(int value)
+    public void CanBeDefended(Defense_Behaviour beh)
+    {
+        defender = beh;
+    }
+
+    public void Defend(int value)
     {
         defendedFor += value;
     }
@@ -31,5 +38,15 @@ public class PlayerController : MonoBehaviour
         {
             Debug.Log("You Died lmao noob");
         }
+    }
+
+    private void OnMouseDown()
+    {
+        if (defender)
+        {
+            defender.ItDefends(this);
+            Debug.Log(defender + " is going to defend this");
+        }
+        defender = null;
     }
 }

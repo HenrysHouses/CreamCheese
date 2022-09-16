@@ -5,33 +5,42 @@ using UnityEngine;
 public abstract class NonGod_Behaviour : Card_Behaviour
 {
     protected int strengh;
+    protected Buff_Behaviour theCardCANThatBuffThis;
+    protected Buff_Behaviour theCardThatBuffsThis;
 
-    Buff_Behaviour possibleBuff;
+    protected NonGod_Card current;
 
     public override void Initialize(Card_SO card)
     {
         this.card = card;
-        strengh = (card as NonGod_Card).baseStrengh;
+        current = card as NonGod_Card;
+        strengh = current.baseStrengh;
     }
 
     public void CanBeBuffedBy(Buff_Behaviour buff_)
     {
-        possibleBuff = buff_;
+        theCardCANThatBuffThis = buff_;
         Debug.Log(this + " can be buffed by " + buff_);
     }
 
     protected override void OnMouseDown()
     {
-        if (possibleBuff && possibleBuff != this)
-        {
-            strengh = possibleBuff.GetBuffedStat(strengh);
-            Debug.Log(possibleBuff + " is going to buff this to " + strengh);
-        }
-        else if (manager.GetState() == TurnManager.State.PlayerTurn)
+        if (manager.GetState() == TurnManager.State.PlayerTurn && !played && !manager.IsACardSelected())
         {
             manager.SelectedCard(this);
+            played = true;
         }
     }
-    public virtual void GetGodBuff(bool isMultiplier, float amount) { }
-    public virtual void GetBuff(bool isMultiplier, short amount) { }
+
+    public virtual void GetBuff(bool isMultiplier, int amount)
+    {
+        if (isMultiplier)
+        {
+            strengh *= amount;
+        }
+        else
+        {
+            strengh += amount;
+        }
+    }
 }

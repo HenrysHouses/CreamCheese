@@ -4,67 +4,34 @@ using UnityEngine;
 
 public class Buff_Behaviour : NonGod_Behaviour
 {
-    bool selectedToBuff = false;
     Buff_Card currentCard;
 
-    public void Initialize(Buff_Card card)
-    {
-        strengh = card.baseStrengh;
-        currentCard = card;
-    }
+    int posInLane;
 
-    public int GetBuffedStat(int orStrengh)
+    public override void Initialize(Card_SO card)
     {
-        selectedToBuff = true;
-        if (currentCard.isMult)
-            return orStrengh * strengh;
-        else
-            return orStrengh + strengh;
+        current = (card as NonGod_Card);
+        currentCard = card as Buff_Card;
+        strengh = currentCard.baseStrengh;
+        this.card = card;
     }
 
     public override void OnAction()
     {
-        //????????????
+        if (posInLane < manager.CurrentLane().Count - 1)
+        {
+            manager.CurrentLane()[posInLane + 1].GetBuff(currentCard.isMult, strengh);
+        }
     }
 
     public override IEnumerator OnPlay(List<Enemy> enemies, List<NonGod_Behaviour> currLane, PlayerController player, God_Behaviour god)
     {
-        foreach (NonGod_Behaviour card in currLane)
-        {
-            card.CanBeBuffedBy(this);
-        }
+        posInLane = manager.CurrentLane().Count;
 
-        yield return new WaitUntil(() => { return selectedToBuff; });
-
-        selectedToBuff = false;
+        yield return new WaitUntil(() => { return true; });
 
         manager.FinishedPlay(this);
     }
 
-
-    public new void GetBuff(bool isMultiplier, short amount)
-    {
-        //if (isMultiplier)
-        //{
-        //    strengh *= amount;
-        //}
-        //else
-        //{
-        //    strengh += amount;
-        //}
-    }
-
-    public new void GetGodBuff(bool isMultiplier, short amount)
-    {
-        ////if (manager.currentgod == currentcard.god)
-        //if (isMultiplier)
-        //{
-        //    strengh *= amount;
-        //}
-        //else
-        //{
-        //    strengh += amount;
-        //}
-    }
 }
 

@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -7,47 +8,40 @@ public class Defense_Behaviour : NonGod_Behaviour
     //Damageable a;
     Defense_Card currentCard;
 
-    public void Initialize(Defense_Card card)
+    PlayerController player;
+    God_Behaviour god_card;
+
+    public override void Initialize(Card_SO card)
     {
-        strengh = card.baseStrengh;
-        currentCard = card;
+        current = (card as NonGod_Card);
+        currentCard = card as Defense_Card;
+        strengh = currentCard.baseStrengh;
+        this.card = card;
     }
 
     public override void OnAction()
     {
-        //????????????
+        if (player)
+        {
+            player.Defend(strengh);
+            Debug.Log("Defended " + player + " for " + strengh);
+        }
     }
 
     public override IEnumerator OnPlay(List<Enemy> enemies, List<NonGod_Behaviour> currLane, PlayerController player, God_Behaviour god)
     {
-        //Select player/god (Damageable = manager.selectwhotodefend())
-        //a.defend
-        yield return new WaitUntil(() => { return true; });
+        player.CanBeDefended(this);
+
+        yield return new WaitUntil(() => { return this.player || this.god_card; });
+
+        manager.FinishedPlay(this);
     }
 
-
-    public new void GetBuff(bool isMultiplier, short amount)
+    internal void ItDefends(PlayerController playerController = null, God_Behaviour god = null)
     {
-        if (isMultiplier)
+        if (playerController)
         {
-            strengh *= amount;
-        }
-        else
-        {
-            strengh += amount;
-        }
-    }
-
-    public new void GetGodBuff(bool isMultiplier, short amount)
-    {
-        //if (manager.currentgod == currentcard.god)
-        if (isMultiplier)
-        {
-            strengh *= amount;
-        }
-        else
-        {
-            strengh += amount;
+            player = playerController;
         }
     }
 }

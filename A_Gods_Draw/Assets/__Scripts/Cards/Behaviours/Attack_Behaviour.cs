@@ -5,10 +5,14 @@ using UnityEngine;
 public class Attack_Behaviour : NonGod_Behaviour
 {
     List<Enemy> targets = new List<Enemy>();
+    Attack_Card currentCard;
 
-    public void Initialize(Attack_Card card)
+    public override void Initialize(Card_SO card)
     {
-        strengh = card.baseStrengh;
+        current = (card as NonGod_Card);
+        currentCard = card as Attack_Card;
+        strengh = currentCard.baseStrengh;
+        this.card = card;
     }
 
     public override void OnAction()
@@ -36,34 +40,8 @@ public class Attack_Behaviour : NonGod_Behaviour
         Debug.Log("readyto act");
     }
 
-
-    public new void GetBuff(bool isMultiplier, short amount)
-    {
-        if (isMultiplier)
-        {
-            strengh *= amount;
-        }
-        else
-        {
-            strengh += amount;
-        }
-    }
-
     public void AddTarget(Enemy enemy)
     {
         targets.Add(enemy);
-    }
-
-    public void GetGodBuff(bool isMultiplier, short amount)
-    {
-        //if (manager.currentgod == currentcard.god)
-            if (isMultiplier)
-            {
-                strengh *= amount;
-            }
-            else
-            {
-                strengh += amount;
-            }
     }
 }
