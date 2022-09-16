@@ -1,4 +1,4 @@
-Shader "HenryCustom/Lit/Blinn-Phong-Metallic"
+Shader "HenryCustom/Lit/Diffuse-PBR Stencil_Equal"
 {
     Properties
     {
@@ -24,7 +24,7 @@ Shader "HenryCustom/Lit/Blinn-Phong-Metallic"
 
         Stencil {
             Ref [_MaskLayer]
-            Comp NotEqual
+            Comp Equal
             Pass Keep
         }
 

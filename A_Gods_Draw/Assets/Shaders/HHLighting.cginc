@@ -71,8 +71,6 @@ float2 DirToRectilinear(float3 dir) {
     return float2(x, y);
 }
 
-
-
 fixed4 frag (Interpolators i) : SV_Target
 {
     float3 tangentSpaceNormal = UnpackNormal(tex2D( _NormalMap, i.uv));
@@ -137,15 +135,21 @@ fixed4 frag (Interpolators i) : SV_Target
         float3 light = saturate( dot( N, L ) ) * shadow;
         light = (light * attenuation) * _LightColor0.xyz; // saturate is the same as max(0, (dot))
         #ifdef IS_IN_BASEPASS
-            // float3 diffuseIBL = tex2Dlod(_DiffuseIBL, float4(DirToRectilinear(N),0,metallicMap * _MetallicRoughness)); // unity_SpecCube0
+            // float3 reflection = tex2Dlod(_DiffuseIBL, float4(DirToRectilinear(N),0,metallicMap * _MetallicRoughness)); // Texture IBL
             float3 reflectionDir = reflect(-V, i.worldNormal);
             float roughness = 1 - _GlossIntensity;
             roughness *= 1.7 - 0.7 * roughness;
-            float4 envSample = UNITY_SAMPLE_TEXCUBE_LOD(unity_SpecCube0, reflectionDir, _MetallicRoughness * metallicMap * UNITY_SPECCUBE_LOD_STEPS);
-		    float3 diffuseIBL = DecodeHDR(envSample, unity_SpecCube0_HDR) * _MetallicIntensity;
-            // return float4(diffuseIBL * _MetallicIntensity, 0);
-            // light += diffuseIBL * _MetallicIntensity;
-            // return float4(diffuseIBL * _MetallicIntensity, 0);
+            float4 envSample = UNITY_SAMPLE_TEXCUBE_LOD(unity_SpecCube0, reflectionDir, _MetallicRoughness * metallicMap * UNITY_SPECCUBE_LOD_STEPS); // Skybox Reflection
+		    float3 reflection = DecodeHDR(envSample, unity_SpecCube0_HDR) * _MetallicIntensity;
+
+            // reflection = reflection * metallicMap;
+            reflection = lerp(reflection, float3(1,1,1), metallicMap);
+            // reflection = metallicMap > 0 ? float3(1,1,1) : reflection;
+
+
+            // return float4(reflection * _MetallicIntensity, 0);
+            // light += reflection * _MetallicIntensity;
+            // return float4(reflection * _MetallicIntensity, 0);
         #endif
 
     #endif
@@ -184,7 +188,7 @@ fixed4 frag (Interpolators i) : SV_Target
         output += float4(rimLight, 1);
     #else
         #ifdef IS_IN_BASEPASS
-            float4 output = float4(tex.xyz * diffuseIBL * (light * _MainColor + specularLight + saturate(fresnel) * _ColorRimLight * _ColorRimLight.a), 1);
+            float4 output = float4(tex.xyz * reflection * (light * _MainColor + specularLight + saturate(fresnel) * _ColorRimLight * _ColorRimLight.a), 1);
         #else
             float4 output = float4(tex.xyz * (light * _MainColor + specularLight + saturate(fresnel) * _ColorRimLight * _ColorRimLight.a), 1);
         #endif
