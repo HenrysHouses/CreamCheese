@@ -145,7 +145,7 @@ fixed4 frag (Interpolators i) : SV_Target
             float4 envSample = UNITY_SAMPLE_TEXCUBE_LOD(unity_SpecCube0, reflectionDir, _MetallicRoughness * metallicMap * UNITY_SPECCUBE_LOD_STEPS); // Skybox Reflection
 		    float3 reflection = DecodeHDR(envSample, unity_SpecCube0_HDR) * _MetallicIntensity;
 
-            reflection = reflection * light * metallicMap;
+            reflection = reflection * tex.xyz * light * metallicMap;
         #endif
     #endif
 
