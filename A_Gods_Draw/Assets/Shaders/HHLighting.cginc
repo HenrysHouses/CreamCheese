@@ -33,6 +33,9 @@ float _MetallicRoughness;
 sampler2D _MainTex;
 float4 _MainTex_ST;
 float3 _MainColor;
+float _LightIntensity;
+
+float4 _AmbientColor;
 
 sampler2D _DiffuseIBL;
 
@@ -84,7 +87,7 @@ fixed4 frag (Interpolators i) : SV_Target
     float3 N = mul( mtxTangToWorld, tangentSpaceNormal);
     
     float4 specularMap = tex2D(_SpecularMap, i.uv);
-    float metallicMap = tex2D(_MetallicMap, i.uv) * 10; 
+    float4 metallicMap = tex2D(_MetallicMap, i.uv); 
     fixed4 tex = tex2D(_MainTex, i.uv);
     float metallic = tex * _MetallicIntensity;
 
@@ -133,7 +136,7 @@ fixed4 frag (Interpolators i) : SV_Target
         float4 DiffuseToon = (light + _AmbientColor) *_LightIntensity + _Brightness;
     #else    
         float3 light = saturate( dot( N, L ) ) * shadow;
-        light = (light * attenuation) * _LightColor0.xyz; // saturate is the same as max(0, (dot))
+        light = (light * attenuation) * _LightColor0.xyz * _LightIntensity; // saturate is the same as max(0, (dot))
         #ifdef IS_IN_BASEPASS
             // float3 reflection = tex2Dlod(_DiffuseIBL, float4(DirToRectilinear(N),0,metallicMap * _MetallicRoughness)); // Texture IBL
             float3 reflectionDir = reflect(-V, i.worldNormal);
@@ -142,18 +145,8 @@ fixed4 frag (Interpolators i) : SV_Target
             float4 envSample = UNITY_SAMPLE_TEXCUBE_LOD(unity_SpecCube0, reflectionDir, _MetallicRoughness * metallicMap * UNITY_SPECCUBE_LOD_STEPS); // Skybox Reflection
 		    float3 reflection = DecodeHDR(envSample, unity_SpecCube0_HDR) * _MetallicIntensity;
 
-            reflection = reflection * light * metallicMap ;
-            // reflection = lerp(reflection * tex.xyz, 0, metallicMap); 
-            
-            
-            // reflection = 1-metallicMap > 0 ? float3(0,0,0) : reflection;
-
-
-            // return float4(reflection * _MetallicIntensity, 0);
-            // light += reflection * _MetallicIntensity;
-            // return float4(reflection * _MetallicIntensity, 0);
+            reflection = reflection * light * metallicMap;
         #endif
-
     #endif
 
     // specular lighting
@@ -167,7 +160,7 @@ fixed4 frag (Interpolators i) : SV_Target
         specularLight = float4(smoothstep(_GlossAntiAlias ,0.01, specularLight) * sCol * _GlossInensity, 1); // removes gradient
         specularLight = saturate(specularLight);
     #else
-        specularLight *= _LightColor0.xyz; // * metallic;
+        specularLight *= _LightColor0.xyz;
     #endif
     specularLight *= specularMap;
 
@@ -182,17 +175,15 @@ fixed4 frag (Interpolators i) : SV_Target
     
     fresnel *= _RimLightToggle;
 
-
-
     #ifdef USE_TOON
         float4 output =  tex * float4(_MainColor, 1) * DiffuseToon;
         output += float4(specularLight, 1) * (_GlossLayer < DiffuseToon);
         output += float4(rimLight, 1);
     #else
         #ifdef IS_IN_BASEPASS
-            float4 output = float4(tex.xyz * (light * _MainColor + specularLight + saturate(fresnel) * _ColorRimLight * _ColorRimLight.a) + reflection, 1);
+            float4 output = float4(tex.xyz * (light * _MainColor + specularLight + saturate(fresnel) * _ColorRimLight * _ColorRimLight.a) + _AmbientColor * _AmbientColor.a + reflection, 1);
         #else
-            float4 output = float4(tex.xyz * (light * _MainColor + specularLight + saturate(fresnel) * _ColorRimLight * _ColorRimLight.a), 1);
+            float4 output = float4(tex.xyz * (light * _MainColor  + specularLight + saturate(fresnel) * _ColorRimLight * _ColorRimLight.a), 1);
         #endif
     #endif
     return output;

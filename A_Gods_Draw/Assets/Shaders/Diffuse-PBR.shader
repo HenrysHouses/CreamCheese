@@ -3,14 +3,16 @@ Shader "HenryCustom/Lit/Diffuse-PBR"
     Properties
     {
         _MainTex ("Texture", 2D) = "white" {}
-        _MainColor ("Color", Color) = (1,1,1,1)
+        _MainColor ("Main Color", Color) = (1,1,1,1)
         [NoScaleOffset] _NormalMap ("Normal Map", 2D) = "bump" {}
         [NoScaleOffset] _MetallicMap ("Metallic Map", 2D) = "bump" {}
         [NoScaleOffset] _SpecularMap ("Specular Map", 2D) = "bump" {}
         [NoScaleOffset] _DiffuseIBL ("Diffuse IBL", 2D) = "Black" {}
-        _GlossIntensity ("Gloss", Range(0, 1)) = 1
-        _MetallicIntensity ("Metallic", Range(0, 0.2)) = 1
-        _MetallicRoughness ("Roughness", Range(0, 10)) = 1
+        _LightIntensity ("Light Multiplier", float) = 1
+        _AmbientColor ("Ambient Light Color", Color) = (1,1,1,1)
+        // _GlossIntensity ("Gloss", Range(0, 1)) = 1
+        _MetallicIntensity ("Metallic", Range(0, 1)) = 1
+        _MetallicRoughness ("Roughness", Range(0, 1)) = 0
         [Toggle] _RimLightToggle ("fresnel Toggle", float) = 1
         _ColorRimLight ("fresnel Color", Color) = (1,1,1,1)
         _RimLightIntensity ("fresnel Strength", Range(0, 2)) = 1
@@ -54,7 +56,7 @@ Shader "HenryCustom/Lit/Diffuse-PBR"
             
             #include "HHLighting.cginc"
 
-            ENDCG
+            ENDCG 
         }
 
         // shadow caster rendering pass, implemented manually
