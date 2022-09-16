@@ -142,9 +142,11 @@ fixed4 frag (Interpolators i) : SV_Target
             float4 envSample = UNITY_SAMPLE_TEXCUBE_LOD(unity_SpecCube0, reflectionDir, _MetallicRoughness * metallicMap * UNITY_SPECCUBE_LOD_STEPS); // Skybox Reflection
 		    float3 reflection = DecodeHDR(envSample, unity_SpecCube0_HDR) * _MetallicIntensity;
 
-            // reflection = reflection * metallicMap;
-            reflection = lerp(reflection, float3(1,1,1), metallicMap);
-            // reflection = metallicMap > 0 ? float3(1,1,1) : reflection;
+            reflection = reflection * light * metallicMap ;
+            // reflection = lerp(reflection * tex.xyz, 0, metallicMap); 
+            
+            
+            // reflection = 1-metallicMap > 0 ? float3(0,0,0) : reflection;
 
 
             // return float4(reflection * _MetallicIntensity, 0);
@@ -188,7 +190,7 @@ fixed4 frag (Interpolators i) : SV_Target
         output += float4(rimLight, 1);
     #else
         #ifdef IS_IN_BASEPASS
-            float4 output = float4(tex.xyz * reflection * (light * _MainColor + specularLight + saturate(fresnel) * _ColorRimLight * _ColorRimLight.a), 1);
+            float4 output = float4(tex.xyz * (light * _MainColor + specularLight + saturate(fresnel) * _ColorRimLight * _ColorRimLight.a) + reflection, 1);
         #else
             float4 output = float4(tex.xyz * (light * _MainColor + specularLight + saturate(fresnel) * _ColorRimLight * _ColorRimLight.a), 1);
         #endif

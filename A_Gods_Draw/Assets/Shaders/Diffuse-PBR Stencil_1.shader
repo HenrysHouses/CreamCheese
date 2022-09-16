@@ -9,7 +9,7 @@ Shader "HenryCustom/Lit/Diffuse-PBR Stencil_NotEqual"
         [NoScaleOffset] _SpecularMap ("Specular Map", 2D) = "bump" {}
         [NoScaleOffset] _DiffuseIBL ("Diffuse IBL", 2D) = "Black" {}
         _GlossIntensity ("Gloss", Range(0, 1)) = 1
-        _MetallicIntensity ("Metallic", Range(0, 2)) = 1
+        _MetallicIntensity ("Metallic", Range(0, 0.2)) = 1
         _MetallicRoughness ("Roughness", Range(0, 10)) = 1
         [Toggle] _RimLightToggle ("fresnel Toggle", float) = 1
         _ColorRimLight ("fresnel Color", Color) = (1,1,1,1)
