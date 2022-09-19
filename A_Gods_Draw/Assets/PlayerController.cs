@@ -7,6 +7,7 @@ public class PlayerController : MonoBehaviour
 
     [SerializeField]
     int maxHealth = 10;
+    [SerializeField]
     int health;
 
     int defendedFor = 0;
@@ -29,7 +30,7 @@ public class PlayerController : MonoBehaviour
         defendedFor += value;
     }
 
-    void DealDamage(int amount)
+    public void DealDamage(int amount)
     {
         if (amount > defendedFor)
             health = health - (amount - defendedFor);

@@ -8,8 +8,12 @@ public class Enemy : MonoBehaviour
 {
 
     public int health;
+    int intentStrengh;
 
     Attack_Behaviour attacker;
+
+    PlayerController player;
+    God_Behaviour god = null;
 
     [SerializeField]
     Image image;
@@ -27,6 +31,15 @@ public class Enemy : MonoBehaviour
     void Update()
     {
         
+    }
+
+    public void SetPlayer(PlayerController controller)
+    {
+        player = controller;
+    }
+    public void SetGod(God_Behaviour beh = null)
+    {
+        god = beh;
     }
 
     private void OnMouseDown()
@@ -48,11 +61,26 @@ public class Enemy : MonoBehaviour
     {
         image.enabled = true;
         strengh.enabled = true;
+
+        intentStrengh = UnityEngine.Random.Range(1, 100);
+        strengh.text = intentStrengh.ToString();
     }
 
     public void IsObjectiveTo(Attack_Behaviour attack_Behaviour)
     {
         attacker = attack_Behaviour;
         Debug.Log(this + " can be attacked by " + attack_Behaviour);
+    }
+
+    public void Act()
+    {
+        if (UnityEngine.Random.Range(0, 2) == 0)
+        {
+            player.DealDamage(intentStrengh);
+        }
+        else
+        {
+            //god.dealdamage();
+        }
     }
 }

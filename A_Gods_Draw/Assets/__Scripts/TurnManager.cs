@@ -37,7 +37,11 @@ public class TurnManager : MonoBehaviour
     {
         lane = new List<NonGod_Behaviour>();
         deckManager.SetTurnManager(this);
-        //StartCoroutine(OnTurnStart());
+
+        foreach (Enemy enemy in enemies)
+        {
+            enemy.SetPlayer(player);
+        }
     }
 
     private void Update()
@@ -95,12 +99,11 @@ public class TurnManager : MonoBehaviour
 
             case State.EnemiesTurn:
                 {
-                    /*
-                     foreach (enemy)
+                    foreach (Enemy enemy in enemies)
                     {
-                        Act
+                        enemy.Act();
                     }
-                    */
+
                     currentState = State.EndTurn;
                 }
                 break;
@@ -137,6 +140,10 @@ public class TurnManager : MonoBehaviour
             {
                 if (currentGod) { currentGod.OnRetire(lane); }
                 currentGod = a;
+                foreach (Enemy enemy in enemies)
+                {
+                    enemy.SetGod(currentGod);
+                }
             }
             else if (b)
             {
