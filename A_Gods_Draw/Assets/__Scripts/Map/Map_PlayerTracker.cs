@@ -30,8 +30,6 @@ namespace Map
                 return;
             }
 
-            Debug.Log("Selected node: " + mapNode.Node.point);
-
             if (mapManager.CurrentMap.path.Count == 0)
             {
                 //the player has not selected the node yet, they can select any of the nodes with y = 0
@@ -69,6 +67,8 @@ namespace Map
             view.SetPickableNodes();
             view.SetPathColor();
             map_Nodes.ShowSwirlAnimation();
+
+            EnterNode(map_Nodes);
         }
 
         /*i guess this is where we would put the player into "scene fitting to the node type"
@@ -80,6 +80,7 @@ namespace Map
             switch (mapNode.Node.nodeType)
             {
                 case NodeType.Enemy:
+                    SceneManager.LoadScene(0);
                     break;
                 case NodeType.Elite:
                     break;
