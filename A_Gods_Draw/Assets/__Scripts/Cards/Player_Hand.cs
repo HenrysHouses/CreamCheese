@@ -4,6 +4,9 @@ using UnityEngine;
 
 public class Player_Hand : MonoBehaviour
 {
+    [SerializeField]
+    Transform handPlace;
+
     public TurnManager _turnManager;
     private float cardRotation = 10; 
     public List<CardInHand> CAH = new List<CardInHand>();
@@ -23,11 +26,14 @@ public class Player_Hand : MonoBehaviour
     }
 
     public void AddCard(Card_SO card)
-    {  
-        GameObject spawn = Instantiate(CardinHandPrefab);
+    {
+        float posX = handPlace.position.x;
+        handPlace.position += Vector3.right * (-0.2f + CAH.Count * 0.1f);
+        GameObject spawn = Instantiate(CardinHandPrefab, handPlace.position, Quaternion.identity);
         Card_Loader _loader = spawn.GetComponentInChildren<Card_Loader>();
         _loader.Set(card, _turnManager);
         CardInHand _card = new CardInHand(spawn.GetComponentInChildren<Card_Selector>());
+        handPlace.position = new Vector3(posX, handPlace.position.y, handPlace.position.z);
         CAH.Add(_card);  
         
         UpdateCards();
