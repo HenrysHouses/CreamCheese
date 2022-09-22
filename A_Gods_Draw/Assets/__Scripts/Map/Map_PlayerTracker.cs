@@ -80,7 +80,7 @@ namespace Map
             switch (mapNode.Node.nodeType)
             {
                 case NodeType.Enemy:
-                    SceneManager.LoadScene(0);
+                    SceneManager.LoadScene(1); //sends me to javi's scene since that has card stuff
                     break;
                 case NodeType.Elite:
                     break;

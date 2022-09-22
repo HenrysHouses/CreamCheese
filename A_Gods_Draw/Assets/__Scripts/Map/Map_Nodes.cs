@@ -1,4 +1,4 @@
-//Charlie Script 02.09.22
+//Charlie Script
 
 using System.Collections;
 using System.Collections.Generic;
