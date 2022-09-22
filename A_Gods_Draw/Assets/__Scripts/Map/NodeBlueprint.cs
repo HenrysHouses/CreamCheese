@@ -23,6 +23,7 @@ namespace Map
     public class NodeBlueprint : ScriptableObject
     {
         public Sprite sprite;
+        public GameObject models;
         public NodeType nodeType;
     }
 }

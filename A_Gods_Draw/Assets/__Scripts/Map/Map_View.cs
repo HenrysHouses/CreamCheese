@@ -104,7 +104,7 @@ namespace Map
             var bossNode = MapNodes.FirstOrDefault(node => node.Node.nodeType == NodeType.Boss);
             var span = m.DistLayers(); //distance between first and last layers
 
-            backgroundObject.transform.localPosition = new Vector3(bossNode.transform.localPosition.x, span / 2f, 0f); //fix
+            backgroundObject.transform.localPosition = new Vector3(bossNode.transform.localPosition.x, span / 2f, -2f);
             backgroundObject.transform.localRotation = Quaternion.identity;
 
             var spriteRenderer = backgroundObject.AddComponent<SpriteRenderer>();
@@ -112,6 +112,9 @@ namespace Map
             spriteRenderer.drawMode = SpriteDrawMode.Sliced;
             spriteRenderer.sprite = background;
             spriteRenderer.size = new Vector2(xSize, span + yOffset * 2f);
+            //for changing the angle tilting of the background
+            //spriteRenderer.transform.rotation = Quaternion.Euler(65f, 0f, 0f);
+            spriteRenderer.transform.position = new Vector3(0f, 0f, 5f);
         }
 
         private void CreateParent()

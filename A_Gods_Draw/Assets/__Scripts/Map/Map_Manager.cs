@@ -40,7 +40,7 @@ namespace Map
             }
             else
             {
-                GenerateNewMap(); //fix
+                GenerateNewMap();
             }
             
         }

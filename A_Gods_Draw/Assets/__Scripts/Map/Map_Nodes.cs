@@ -26,6 +26,11 @@ namespace Map
         public SpriteRenderer visitedSprite;
         public Image visitedImage; //image showing that you have visited that node
 
+        //for models as nodes of the map
+        public Renderer rd;
+        public Renderer visitedNode;
+        public GameObject visitedGO;
+
         public Node Node { get; private set; }
         public NodeBlueprint Blueprint { get; private set; }
 
@@ -39,6 +44,7 @@ namespace Map
             Node = node;
             Blueprint = blueprint;
             sr.sprite = blueprint.sprite;
+            
 
             if (node.nodeType == NodeType.Boss)
             {
@@ -73,18 +79,6 @@ namespace Map
                 default:
                     throw new ArgumentOutOfRangeException(nameof(states), states, null);
             }
-        }
-
-        private void OnMouseEnter()
-        {
-            //spriteRenderer.transform.Dok();
-            //spriteRenderer.transform.DOScale(initialScale * HoverScaleFactor, 0.3f);
-        }
-
-        private void OnMouseExit()
-        {
-            //spriteRenderer.transform.DOKill();
-            //spriteRenderer.transform.DOScale(initialScale, 0.3f);
         }
 
         private void OnMouseDown()
