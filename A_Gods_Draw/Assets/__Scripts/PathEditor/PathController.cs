@@ -25,7 +25,6 @@ public class PathController : MonoBehaviour
 	
 	public OrientedPoint[] evenlySpacedPoints;
 	private float length;
-	[SerializeField] bool Recalculate;
 	
 	/// <summary>Get position of control points</summary>
 	/// <param name="pair">curve point</param>
@@ -79,13 +78,10 @@ public class PathController : MonoBehaviour
 
 
 	/// <summary>
-	/// Callback to draw gizmos that are pickable and always drawn.
+	/// Callback to draw gizmos that are selectable and always drawn.
 	/// </summary>
 	void OnDrawGizmos()
-	{
-		if(Recalculate)
-			OnValidate();
-		
+	{	
 		refreshControlPoints();
 		if(_DrawBezierCurve)
 			DrawBezierCurve();
@@ -374,7 +370,7 @@ public class PathController : MonoBehaviour
 			DestroyImmediate(gameObject);
 	}
 	
-	// ? BUILD DEBUGGING METHOD
+	// # BUILD DEBUGGING METHOD
 	public void SpawnCubeMeshesAtEvenPoints()
 	{
 		evenlySpacedPoints = calculateEvenlySpacedPoints(length/LOD);
@@ -420,6 +416,17 @@ public class PathController : MonoBehaviour
 		return points.ToArray();
 	}
 	
+	public void recalculatePath()
+	{
+		LOD = VertexPathAccuracy*3;
+		length = GetApproxLength();
+			
+		evenlySpacedPoints = calculateEvenlySpacedPoints(length/LOD);
+
+		// OnValidate();
+	}
+
+
 #if UNITY_EDITOR	
 
 	/// <summary>
@@ -428,13 +435,10 @@ public class PathController : MonoBehaviour
 	/// </summary>
 	void OnValidate()
 	{
-		if(Recalculate)
-		{
-			LOD = VertexPathAccuracy*3;
-			length = GetApproxLength();
+		// if(Recalculate)
+		// {
 			
-			evenlySpacedPoints = calculateEvenlySpacedPoints(length/LOD);
-		}
+		// }
 		
 		if(controlPoints.Count != transform.childCount)
 		{
@@ -444,7 +448,7 @@ public class PathController : MonoBehaviour
 					controlPoints.Add(transform.GetChild(i));
 			}
 		}
-		Recalculate = false;
+		// Recalculate = false;
 		
 		if(!controlPointsEnabled)
 		{

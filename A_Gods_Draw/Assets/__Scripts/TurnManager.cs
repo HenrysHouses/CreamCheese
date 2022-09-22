@@ -39,7 +39,7 @@ public class TurnManager : MonoBehaviour
     void Start()
     {
         lane = new List<NonGod_Behaviour>();
-        deckManager.SetTurnManager(this);
+        // deckManager.SetTurnManager(this);
 
         foreach (Enemy enemy in enemies)
         {
