@@ -274,8 +274,8 @@ Transform:
   m_Children:
   - {fileID: 662355960}
   - {fileID: 1228086056}
-  m_Father: {fileID: 2100381818}
-  m_RootOrder: 2
+  m_Father: {fileID: 1299495810}
+  m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &87338892
 MonoBehaviour:
@@ -567,7 +567,6 @@ GameObject:
   m_Component:
   - component: {fileID: 662355960}
   - component: {fileID: 662355962}
-  - component: {fileID: 662355961}
   m_Layer: 0
   m_Name: Library
   m_TagString: Untagged
@@ -592,18 +591,6 @@ Transform:
   m_Father: {fileID: 87338891}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &662355961
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 662355959}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 5acb7fe3f6ba4344eb2d65e413c00175, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!114 &662355962
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -616,8 +603,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a1bc08f72c27c2e4ca93c4330283c48a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  manager_SO: {fileID: 0}
-  _pathName: 
+  manager_SO: {fileID: 11400000, guid: c819ad97e2edda747b2fd65c048f3bf9, type: 2}
+  _pathName: Library-Hand
   path: {fileID: 1709361203}
   _speedCurve:
     serializedVersion: 2
@@ -670,13 +657,13 @@ MonoBehaviour:
     m_PreInfinity: 2
     m_PostInfinity: 2
     m_RotationOrder: 4
-  Multiplier: 0.003
+  Multiplier: 0.1
   FreezeRotationX: 0
   FreezeRotationY: 0
   FreezeRotationZ: 0
   isAnimating: 1
   DbugPositions: 0
-  testAnimationObj: {fileID: 0}
+  testAnimationObj: {fileID: 713724922}
 --- !u!1 &694519885
 GameObject:
   m_ObjectHideFlags: 9
@@ -754,8 +741,13 @@ Transform:
   - {fileID: 2099572618}
   - {fileID: 1584770088}
   m_Father: {fileID: 2100381818}
-  m_RootOrder: 4
+  m_RootOrder: 3
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &713724922 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 2971810859967100332, guid: e4f70975b43c2e448939ff9483e25f06, type: 3}
+  m_PrefabInstance: {fileID: 6923396813764307695}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1 &867169052
 GameObject:
   m_ObjectHideFlags: 0
@@ -951,6 +943,7 @@ MonoBehaviour:
   player: {fileID: 867169053}
   enemies:
   - {fileID: 1666808573}
+  _hand: {fileID: 1299495809}
 --- !u!4 &1222430438
 Transform:
   m_ObjectHideFlags: 0
@@ -1026,7 +1019,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   manager_SO: {fileID: 0}
-  _pathName: 
+  _pathName: Hand-Discard
   path: {fileID: 1276232970}
   _speedCurve:
     serializedVersion: 2
@@ -1159,7 +1152,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4068c5a5a881c804aa0e0a50010936b3, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  spawnCard: {fileID: 6442596572218373804, guid: 4bf9de04b4e5b754781a2ea0b433379b, type: 3}
+  _turnManager: {fileID: 1222430437}
+  behaviours: []
+  CardinHandPrefab: {fileID: 6442596572218373804, guid: 4bf9de04b4e5b754781a2ea0b433379b, type: 3}
 --- !u!4 &1299495810
 Transform:
   m_ObjectHideFlags: 0
@@ -1167,13 +1162,14 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1299495808}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
-  m_Children: []
-  m_Father: {fileID: 0}
-  m_RootOrder: 8
+  m_Children:
+  - {fileID: 87338891}
+  m_Father: {fileID: 2100381818}
+  m_RootOrder: 4
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1427122354
 GameObject:
@@ -1983,7 +1979,7 @@ Transform:
   m_Children:
   - {fileID: 659882076}
   m_Father: {fileID: 2100381818}
-  m_RootOrder: 3
+  m_RootOrder: 2
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1836067435
 GameObject:
@@ -2199,8 +2195,8 @@ Camera:
     y: 0
     width: 1
     height: 1
-  near clip plane: 0.3
-  far clip plane: 1000
+  near clip plane: 0.1
+  far clip plane: 10
   field of view: 60
   orthographic: 0
   orthographic size: 5
@@ -2295,9 +2291,9 @@ Transform:
   m_Children:
   - {fileID: 1977812615}
   - {fileID: 2111516311}
-  - {fileID: 87338891}
   - {fileID: 1832836547}
   - {fileID: 709311717}
+  - {fileID: 1299495810}
   m_Father: {fileID: 0}
   m_RootOrder: 4
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
