@@ -55,7 +55,7 @@ public class TurnManager : MonoBehaviour
                 {
                     currentState = State.PlayerTurn;
 
-                    _hand.behaviours = deckManager.drawCard(5);
+                    deckManager.drawCard(5);
 
                     if (currentGod) { currentGod.OnTurnStart(); }
 
@@ -78,8 +78,17 @@ public class TurnManager : MonoBehaviour
                         if (playedCard as NonGod_Behaviour)
                             lane.Add(playedCard as NonGod_Behaviour);
 
+                        int i = 0;
+                        foreach (Card_Behaviour a in _hand.behaviours)
+                        {
+                            if (a == playedCard)
+                            {
+                                break;
+                            }
+                            i++;
+                        }
                         _hand.behaviours.Remove(playedCard);
-
+                        _hand.RemoveCard(i);
                         playedCard = null;
                         cardOnPlay = false;
                         Debug.Log("Select another card");
@@ -95,19 +104,7 @@ public class TurnManager : MonoBehaviour
                     {
                         card.OnAction();
                         deckManager.discardCard(card.GetCardSO());
-                        Destroy(card.gameObject);
-                        Destroy(card.transform.parent.gameObject);
-                        Destroy(card.transform.parent.parent.gameObject);
                     }
-                    foreach (Card_Behaviour card in _hand.behaviours)
-                    {
-                        Destroy(card.gameObject);
-                        Destroy(card.transform.parent.gameObject);
-                        Destroy(card.transform.parent.parent.gameObject);
-                    }
-                    _hand.behaviours.Clear();
-                    deckManager.discardAll();
-                    lane.Clear();
                     currentState = State.EnemiesTurn;
                     currentLane = 0;
                 }
@@ -126,8 +123,20 @@ public class TurnManager : MonoBehaviour
 
             case State.EndTurn:
                 {
-                    lane.Clear();
+                    _hand.RemoveAllCards();
                     deckManager.discardAll();
+                    for (int i = lane.Count - 1; i >= 0; i--)
+                    {
+                        Destroy(lane[i].transform.parent.parent.gameObject);
+                    }
+
+                    for (int i = _hand.behaviours.Count - 1; i >= 0; i--)
+                    {
+                        Destroy(_hand.behaviours[i].transform.parent.parent.gameObject);
+                    }
+
+                    _hand.behaviours.Clear();
+                    lane.Clear();
                     currentState = State.StartTurn;
                 }
                 break;

@@ -34,7 +34,9 @@ public class Player_Hand : MonoBehaviour
         _loader.Set(card, _turnManager);
         CardInHand _card = new CardInHand(spawn.GetComponentInChildren<Card_Selector>());
         handPlace.position = new Vector3(posX, handPlace.position.y, handPlace.position.z);
-        CAH.Add(_card);  
+        CAH.Add(_card);
+
+        behaviours.Add(spawn.GetComponentInChildren<Card_Behaviour>());
         
         UpdateCards();
 
@@ -44,12 +46,19 @@ public class Player_Hand : MonoBehaviour
 
     public void RemoveCard(int pos)
     {
-         
+        if (pos >= CAH.Count)
+        {
+            return;
+        }
         CAH.RemoveAt(pos);
-        UpdateCards();     
-        
+        UpdateCards();
     }
 
+    public void RemoveAllCards()
+    {
+        CAH.Clear();
+        UpdateCards();
+    }
     private void Start()
     {   
 
@@ -87,7 +96,6 @@ public class Player_Hand : MonoBehaviour
     }
     void StopHover(int card)
     {
-        
         CAH[card].CS.transform.rotation = Quaternion.Euler(cardRotation * card, 0, 0);
         CAH[card].cardAnimation.SetBool("ShowCard", false);
     }

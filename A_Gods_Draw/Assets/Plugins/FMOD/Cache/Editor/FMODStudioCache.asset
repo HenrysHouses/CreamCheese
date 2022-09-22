@@ -15,7 +15,7 @@ MonoBehaviour:
   Path: Assets/Plugins/FMOD/Builds/Desktop/Desktop/Ambience.bank
   Name: Desktop/Desktop/Ambience
   StudioPath: bank:/Ambience
-  lastModified: 637988330091935205
+  lastModified: 637990337632622999
   FileSizes: []
   Exists: 1
 --- !u!114 &-8590553419344979470
@@ -65,8 +65,8 @@ MonoBehaviour:
     Data3: -213709634
     Data4: 419368703
   Banks:
-  - {fileID: -1380224039739675224}
   - {fileID: -1212481837018914764}
+  - {fileID: -1380224039739675224}
   IsStream: 0
   Is3D: 0
   IsOneShot: 1
@@ -89,7 +89,7 @@ MonoBehaviour:
   Path: Assets/Plugins/FMOD/Builds/Desktop/Desktop/Master.bank
   Name: Desktop/Desktop/Master
   StudioPath: bank:/Master
-  lastModified: 637988330092213931
+  lastModified: 637990337632622999
   FileSizes: []
   Exists: 1
 --- !u!114 &-5446313757340201607
@@ -190,7 +190,7 @@ MonoBehaviour:
   Path: Assets/Plugins/FMOD/Builds/Master.strings.bank
   Name: Master.strings
   StudioPath: bank:/Master.strings
-  lastModified: 637994503342105219
+  lastModified: 637994600784211089
   FileSizes:
   - Name: 
     Value: 1082
@@ -210,7 +210,7 @@ MonoBehaviour:
   Path: Assets/Plugins/FMOD/Builds/Effects.bank
   Name: Effects
   StudioPath: bank:/Effects
-  lastModified: 637994503342050822
+  lastModified: 637994600783931408
   FileSizes: []
   Exists: 1
 --- !u!114 &-1212481837018914764
@@ -228,7 +228,7 @@ MonoBehaviour:
   Path: Assets/Plugins/FMOD/Builds/Desktop/Desktop/Effects.bank
   Name: Desktop/Desktop/Effects
   StudioPath: bank:/Effects
-  lastModified: 637988330092193944
+  lastModified: 637990337632622999
   FileSizes: []
   Exists: 1
 --- !u!114 &11400000
@@ -254,18 +254,73 @@ MonoBehaviour:
   EditorEvents:
   - {fileID: -5446313757340201607}
   - {fileID: -8165771974713689898}
-  - {fileID: -3323845798706992319}
+  - {fileID: 1827452391673505328}
   EditorParameters:
-  - {fileID: 4397346419007708870}
-  - {fileID: 4898418010710496918}
-  - {fileID: -4761841632386063501}
+  - {fileID: 7015917610846352276}
+  - {fileID: 3980462140076746937}
+  - {fileID: 4786743526122700174}
   MasterBanks:
   - {fileID: 3804898840605614548}
   - {fileID: -7630433362532832905}
   StringsBanks:
   - {fileID: -2040933519674291656}
-  cacheTime: 637994503342105219
+  cacheTime: 637994600784211089
   cacheVersion: 131591
+--- !u!114 &1827452391673505328
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ceb653cd98e289a4e8697a1af55201f2, type: 3}
+  m_Name: event:/card Effects
+  m_EditorClassIdentifier: 
+  Path: event:/card Effects
+  Guid:
+    Data1: 1422550897
+    Data2: 1245034776
+    Data3: -763743860
+    Data4: -295363119
+  Banks:
+  - {fileID: -1380224039739675224}
+  IsStream: 1
+  Is3D: 1
+  IsOneShot: 1
+  Parameters:
+  - {fileID: 6088221469339009014}
+  - {fileID: 2649324027930358547}
+  MinDistance: 1
+  MaxDistance: 20
+  Length: 0
+--- !u!114 &2649324027930358547
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fecb8ef7f94ca804a8ab72049b86782e, type: 3}
+  m_Name: parameter:/card Effects/Parameter 1
+  m_EditorClassIdentifier: 
+  Name: Parameter 1
+  StudioPath: 
+  Min: 0
+  Max: 1
+  Default: 0
+  ID:
+    data1: 2761957964
+    data2: 3403347211
+  Type: 2
+  IsGlobal: 1
+  Labels:
+  - Drawing
+  - Drawn
+  Exists: 1
 --- !u!114 &3804898840605614548
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -281,8 +336,36 @@ MonoBehaviour:
   Path: Assets/Plugins/FMOD/Builds/Master.bank
   Name: Master
   StudioPath: bank:/Master
-  lastModified: 637994503342084240
+  lastModified: 637994600784101384
   FileSizes: []
+  Exists: 1
+--- !u!114 &3980462140076746937
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fecb8ef7f94ca804a8ab72049b86782e, type: 3}
+  m_Name: parameter:/Card Effects
+  m_EditorClassIdentifier: 
+  Name: Card Effects
+  StudioPath: parameter:/Card Effects
+  Min: 0
+  Max: 3
+  Default: 0
+  ID:
+    data1: 3823256222
+    data2: 1950744258
+  Type: 2
+  IsGlobal: 1
+  Labels:
+  - Card Scrolling
+  - Reshuffle
+  - DrawCards
+  - Pickcards
   Exists: 1
 --- !u!114 &4397346419007708870
 MonoBehaviour:
@@ -311,6 +394,32 @@ MonoBehaviour:
   - Enemy grunt
   - Enemy Defend
   Exists: 1
+--- !u!114 &4786743526122700174
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fecb8ef7f94ca804a8ab72049b86782e, type: 3}
+  m_Name: parameter:/Parameter 1
+  m_EditorClassIdentifier: 
+  Name: Parameter 1
+  StudioPath: parameter:/Parameter 1
+  Min: 0
+  Max: 1
+  Default: 0
+  ID:
+    data1: 2761957964
+    data2: 3403347211
+  Type: 2
+  IsGlobal: 1
+  Labels:
+  - Drawing
+  - Drawn
+  Exists: 1
 --- !u!114 &4854143110440014163
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -326,7 +435,7 @@ MonoBehaviour:
   Path: Assets/Plugins/FMOD/Builds/Ambience.bank
   Name: Ambience
   StudioPath: bank:/Ambience
-  lastModified: 637994503340336113
+  lastModified: 637990337632622999
   FileSizes: []
   Exists: 1
 --- !u!114 &4898418010710496918
@@ -356,6 +465,61 @@ MonoBehaviour:
   - Reshuffle
   - DrawCards
   - Pickcards
+  Exists: 1
+--- !u!114 &6088221469339009014
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fecb8ef7f94ca804a8ab72049b86782e, type: 3}
+  m_Name: parameter:/card Effects/Card Effects
+  m_EditorClassIdentifier: 
+  Name: Card Effects
+  StudioPath: 
+  Min: 0
+  Max: 3
+  Default: 0
+  ID:
+    data1: 3823256222
+    data2: 1950744258
+  Type: 2
+  IsGlobal: 1
+  Labels:
+  - Card Scrolling
+  - Reshuffle
+  - DrawCards
+  - Pickcards
+  Exists: 1
+--- !u!114 &7015917610846352276
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fecb8ef7f94ca804a8ab72049b86782e, type: 3}
+  m_Name: parameter:/Enemies
+  m_EditorClassIdentifier: 
+  Name: Enemies
+  StudioPath: parameter:/Enemies
+  Min: 0
+  Max: 2
+  Default: 0
+  ID:
+    data1: 1099183825
+    data2: 3830818947
+  Type: 2
+  IsGlobal: 1
+  Labels:
+  - Enemy Attack
+  - Enemy grunt
+  - Enemy Defend
   Exists: 1
 --- !u!114 &8267567345640515358
 MonoBehaviour:
