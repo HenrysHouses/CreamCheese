@@ -110,7 +110,7 @@ public class Card_Selector : MonoBehaviour
 
     private void OnMouseDown()
     {
-        gameObject.GetComponentInChildren<Card_Behaviour>().OnClick();
+        gameObject.GetComponentInChildren<Card_Behaviour>(true).OnClick();
     }
 
 

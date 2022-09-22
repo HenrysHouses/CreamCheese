@@ -7,6 +7,7 @@ public class Player_Hand : MonoBehaviour
     public TurnManager _turnManager;
     private float cardRotation = 10; 
     public List<CardInHand> CAH = new List<CardInHand>();
+    public List<Card_Behaviour> behaviours = new();
 
     public GameObject CardinHandPrefab;
     public class CardInHand
@@ -43,7 +44,7 @@ public class Player_Hand : MonoBehaviour
         
     }
 
-     private void Start()
+    private void Start()
     {   
 
 

@@ -19,6 +19,9 @@ public class TurnManager : MonoBehaviour
     [SerializeField]
     List<Enemy> enemies;
 
+    [SerializeField]
+    Player_Hand _hand;
+
     short currentLane = 0;
 
     Card_Behaviour playedCard;
@@ -52,7 +55,7 @@ public class TurnManager : MonoBehaviour
                 {
                     currentState = State.PlayerTurn;
 
-                    deckManager.drawCard(5);
+                    _hand.behaviours = deckManager.drawCard(5);
 
                     if (currentGod) { currentGod.OnTurnStart(); }
 
@@ -74,6 +77,9 @@ public class TurnManager : MonoBehaviour
                         currentLane++;
                         if (playedCard as NonGod_Behaviour)
                             lane.Add(playedCard as NonGod_Behaviour);
+
+                        _hand.behaviours.Remove(playedCard);
+
                         playedCard = null;
                         cardOnPlay = false;
                         Debug.Log("Select another card");
@@ -89,8 +95,18 @@ public class TurnManager : MonoBehaviour
                     {
                         card.OnAction();
                         deckManager.discardCard(card.GetCardSO());
-                        card.gameObject.SetActive(false);
+                        Destroy(card.gameObject);
+                        Destroy(card.transform.parent.gameObject);
+                        Destroy(card.transform.parent.parent.gameObject);
                     }
+                    foreach (Card_Behaviour card in _hand.behaviours)
+                    {
+                        Destroy(card.gameObject);
+                        Destroy(card.transform.parent.gameObject);
+                        Destroy(card.transform.parent.parent.gameObject);
+                    }
+                    _hand.behaviours.Clear();
+                    deckManager.discardAll();
                     lane.Clear();
                     currentState = State.EnemiesTurn;
                     currentLane = 0;

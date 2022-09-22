@@ -139,12 +139,13 @@ public class DeckManager_SO : ScriptableObject
         pHandChangeEvent.Invoke();
     }
 
-    public void drawCard(int amount)
+    public List<Card_Behaviour> drawCard(int amount)
     {
+        List<Card_Behaviour> behaviours = new();
         if (pLibrary.Count < amount)
         {
             shuffleDiscard();
-            return;
+            return behaviours;
         }
         for (int i = 0; i < amount; i++)
         {
@@ -161,11 +162,14 @@ public class DeckManager_SO : ScriptableObject
             animationManager.requestAnimation("Library-Hand", card, 0, 0.25f, animation);
 
             //Just to make them clickable
-            card.transform.position = new Vector3(-0.2f + i * 0.1f, 0.1f, -0.3f);
+            card.transform.position = new Vector3(-0.2f + i * 0.1f, 0.13f, -0.7f);
             //card.transform.rotation = Quaternion.Euler(-20 + i * 10, 90, 0);
+
+            behaviours.Add(card.GetComponentInChildren<Transform>().GetComponentInChildren<Card_Behaviour>());
         }
         pLibraryChangeEvent.Invoke();
         pHandChangeEvent.Invoke();
+        return behaviours;
     }
 
     public void discardAll()
@@ -173,9 +177,11 @@ public class DeckManager_SO : ScriptableObject
         GameObject[] cards = new GameObject[pHand.Count];
         for (int i = 0; i < pHand.Count; i++)
         {
+            GameObject _card = Instantiate(CardPrefab);
+            _card.GetComponentInChildren<Card_Loader>().Set(pHand[i], turnManager);
+            cards[i] = _card;
+
             pDiscard.Add(pHand[i]);
-            cards[i] = Instantiate(CardPrefab);
-            cards[i].GetComponentInChildren<Card_Loader>().Set(pHand[i], turnManager);
         }
         animationManager.requestAnimation("Hand-Discard", cards, 0, 0.25f);
         pHand.Clear();
@@ -190,9 +196,9 @@ public class DeckManager_SO : ScriptableObject
             GameObject _card = Instantiate(CardPrefab);
             _card.GetComponentInChildren<Card_Loader>().Set(card, turnManager);
             animationManager.requestAnimation("Hand-Discard", _card);
-            
-            pHand.Remove(card);
+
             pDiscard.Add(card);
+            pHand.Remove(card);
         }
         pHandChangeEvent.Invoke();
         pDiscardChangeEvent.Invoke();
