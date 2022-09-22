@@ -128,7 +128,7 @@ public class PathAnimatorController : MonoBehaviour
         }
     }
 
-    // * Used for the editor script
+    // # Used for the editor script
     public AnimationManager_SO getAnimManagerSO(){ return manager_SO; }
 
     /// <summary>Get all the current settings for the animation</summary>
