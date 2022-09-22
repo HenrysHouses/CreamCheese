@@ -262,19 +262,19 @@ public class PathAnimatorController : MonoBehaviour
                     _Animations[i]._Time += Time.deltaTime;
                 // }
                 if(!state)
-                    StartCoroutine(completeAnimation(i));
+                    completeAnimation(i);
             }
         }
     }
 
 
-    IEnumerator completeAnimation(int index)
+    void completeAnimation(int index)
     {
         _Animations[index].CompletionTrigger?.Invoke();
         
 
-        yield return new WaitForEndOfFrame(); // ! card is deleted before it can be moved
-        yield return new WaitForEndOfFrame();
+        // yield return new WaitForEndOfFrame(); // ! card is deleted before it can be moved
+        // yield return new WaitForEndOfFrame();
         
         if(_Animations.Count > index && _Animations[index].AnimationTransform != null)
             Destroy(_Animations[index].AnimationTransform.gameObject);

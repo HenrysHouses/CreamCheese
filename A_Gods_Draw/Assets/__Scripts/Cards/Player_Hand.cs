@@ -4,10 +4,11 @@ using UnityEngine;
 
 public class Player_Hand : MonoBehaviour
 {
+    public TurnManager _turnManager;
     private float cardRotation = 10; 
     public List<CardInHand> CAH = new List<CardInHand>();
 
-    public GameObject spawnCard;
+    public GameObject CardinHandPrefab;
     public class CardInHand
     {
         public Card_Selector CS;
@@ -19,12 +20,15 @@ public class Player_Hand : MonoBehaviour
             this.CS = selector;
         }
     }
-    public void AddCard(CardInHand card)
+
+    public void AddCard(Card_SO card)
     {  
+        GameObject spawn = Instantiate(CardinHandPrefab);
+        Card_Loader _loader = spawn.GetComponentInChildren<Card_Loader>();
+        _loader.Set(card, _turnManager);
+        CardInHand _card = new CardInHand(spawn.GetComponentInChildren<Card_Selector>());
+        CAH.Add(_card);  
         
-        CAH.Add(card);  
-        
-    
         UpdateCards();
 
         Debug.Log("Card Added to hand");
@@ -50,8 +54,7 @@ public class Player_Hand : MonoBehaviour
     {
         for (int i = 0; i < CAH.Count; i++)
         {
-            if(CAH[i].CS.holdingOver)
-            
+            if(CAH[i].CS.holdingOver)   
             {
                 HoverOverCard(i);
             }
@@ -60,7 +63,6 @@ public class Player_Hand : MonoBehaviour
                 StopHover(i);
             }
         }
-
     }
     private void UpdateCards()
     {

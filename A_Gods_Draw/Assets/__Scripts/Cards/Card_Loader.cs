@@ -59,9 +59,7 @@ public class Card_Loader : MonoBehaviour
 
     public void moveCardToHand()
     {
-        Card_Selector selector = GetComponentInParent<Card_Selector>();
-        Player_Hand.CardInHand card = new Player_Hand.CardInHand(selector);
-        SendMessageUpwards("AddCard", card);
+        SendMessageUpwards("AddCard", card_so);
         Debug.Log("Message sent");
     }
 }

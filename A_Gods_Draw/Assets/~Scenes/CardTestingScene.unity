@@ -448,6 +448,55 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7e793af4fd58a3e44aac4720f1787cf8, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!1 &377018565
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 377018567}
+  - component: {fileID: 377018566}
+  m_Layer: 0
+  m_Name: TurnManager
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!114 &377018566
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 377018565}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 794f58104ef7c6a488d6fc1d5bf2ab2b, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  deckManager: {fileID: 0}
+  lanes: []
+  godLane: {fileID: 0}
+  player: {fileID: 0}
+  enemies: []
+--- !u!4 &377018567
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 377018565}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 2.5031962, y: -0.69177306, z: 2.5126562}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_RootOrder: 6
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!4 &488658966 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: -8679921383154817045, guid: 9bbba2c31c64fa2419ebe0cb535604ca, type: 3}
@@ -1910,4 +1959,5 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4068c5a5a881c804aa0e0a50010936b3, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  spawnCard: {fileID: 0}
+  _turnManager: {fileID: 0}
+  CardinHandPrefab: {fileID: 6442596572218373804, guid: 4bf9de04b4e5b754781a2ea0b433379b, type: 3}
