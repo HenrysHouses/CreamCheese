@@ -17,9 +17,7 @@ public class Player_Hand : MonoBehaviour
         {
             this.cardAnimation = selector.GetComponentInChildren<Animator>();
             this.CS = selector;
-            
         }
-
     }
     public void AddCard(CardInHand card)
     {  
@@ -28,6 +26,8 @@ public class Player_Hand : MonoBehaviour
         
     
         UpdateCards();
+
+        Debug.Log("Card Added to hand");
     }
     
 

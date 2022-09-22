@@ -136,14 +136,40 @@ public class PathAnimatorController : MonoBehaviour
         return animation;
     }
 
+
+    public pathAnimation fillMissingInAnimation(pathAnimation anim)
+    {
+        Debug.Log("filling animation");
+        anim.FreezeRotationX = FreezeRotationX;
+        anim.FreezeRotationY = FreezeRotationY;
+        anim.FreezeRotationZ = FreezeRotationZ;
+        
+        if(anim.length == 0)
+            anim.length = AnimLength;
+        if(anim.speedCurve == null)
+            anim.speedCurve = _speedCurve;
+        if(anim.speedMultiplier == 0)
+            anim.speedMultiplier = Multiplier;
+
+        anim.CompletionTrigger.AddListener(debugTestCompletion);
+
+        return anim;
+    }
+
     /// <summary>Starts an animation and returns its index from animations on the path</summary>
     /// <param name="request">Data class for the animation request</param>
     /// <returns>Animation index</returns>
     public IEnumerator CreateAnimation(DynamicAnimation request)
     {
         yield return new WaitForSeconds(request.delay);
+
+        Debug.Log(request.anim);
         if(request.anim == null)
             request.anim = getAnimation();
+        else
+            request.anim = fillMissingInAnimation(request.anim);
+
+
 
         request.anim.AnimationTarget = GameObject.Find(request.target);
         request.anim.AnimationTarget.transform.SetParent(request.anim.AnimationTransform);
@@ -236,17 +262,24 @@ public class PathAnimatorController : MonoBehaviour
                     _Animations[i]._Time += Time.deltaTime;
                 // }
                 if(!state)
-                    completeAnimation(i);
+                    StartCoroutine(completeAnimation(i));
             }
         }
     }
 
 
-    void completeAnimation(int index)
+    IEnumerator completeAnimation(int index)
     {
         _Animations[index].CompletionTrigger?.Invoke();
+        
+
+        yield return new WaitForEndOfFrame(); // ! card is deleted before it can be moved
+        yield return new WaitForEndOfFrame();
+        
         if(_Animations.Count > index && _Animations[index].AnimationTransform != null)
             Destroy(_Animations[index].AnimationTransform.gameObject);
+
+
         for (int i = 0; i < transform.childCount; i++)
         {
             if(!transform.GetChild(i).name.Equals("AnimationHolder") && !isAnimating)
@@ -255,6 +288,7 @@ public class PathAnimatorController : MonoBehaviour
                 StartCoroutine(refreshAnimationList());
             }        
         }
+        
     }
 
     IEnumerator refreshAnimationList()

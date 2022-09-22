@@ -204,8 +204,8 @@ public class PathController : MonoBehaviour
 		
 		Vector3 up = Vector3.Lerp(startPoint.up, endPoint.up, t).normalized;
 
-		if(tangent == Vector3.zero)
-			Debug.Log("tang: " + tangent);
+		// if(tangent == Vector3.zero)
+		// 	Debug.Log("tang: " + tangent);
 		Quaternion rot = Quaternion.LookRotation(tangent, up);
 		
 		return new OrientedPoint(pos, rot);

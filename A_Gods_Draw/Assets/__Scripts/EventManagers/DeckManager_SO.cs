@@ -154,9 +154,11 @@ public class DeckManager_SO : ScriptableObject
             pLibrary.Remove(pLibrary[0]);
 
             PathAnimatorController.pathAnimation animation = new PathAnimatorController.pathAnimation();
-            animation.CompletionTrigger.AddListener(AnimationComplete);
+            
+            Card_Loader _Loader = card.GetComponentInChildren<Card_Loader>();
+            animation.CompletionTrigger.AddListener(_Loader.moveCardToHand);
 
-            animationManager.requestAnimation("Library-Hand", card);
+            animationManager.requestAnimation("Library-Hand", card, 0, 0.25f, animation);
 
             //Just to make them clickable
             card.transform.position = new Vector3(-0.2f + i * 0.1f, 0.1f, -0.3f);
