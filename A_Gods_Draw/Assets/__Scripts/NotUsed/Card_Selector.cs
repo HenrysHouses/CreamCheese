@@ -108,6 +108,11 @@ public class Card_Selector : MonoBehaviour
         holdingOver = false;
     }
 
+    private void OnMouseDown()
+    {
+        gameObject.GetComponentInChildren<Card_Behaviour>().OnClick();
+    }
+
 
 
 

@@ -9,6 +9,7 @@ public class Enemy : MonoBehaviour
 
     public int health;
     int intentStrengh;
+    bool attacking;
 
     Attack_Behaviour attacker;
 
@@ -19,6 +20,11 @@ public class Enemy : MonoBehaviour
     Image image;
     [SerializeField]
     Text strengh;
+
+    [SerializeField]
+    Sprite attackIcon;
+    [SerializeField]
+    Sprite defendIcon;
 
     // Start is called before the first frame update
     void Start()
@@ -54,7 +60,15 @@ public class Enemy : MonoBehaviour
 
     public void DealDamage(int amount)
     {
-        health -= amount;
+        if (!attacking)
+        {
+            if (amount > intentStrengh)
+                health -= (amount - intentStrengh);
+        }
+        else
+        {
+            health -= amount;
+        }
     }
 
     public void DecideIntent()
@@ -62,8 +76,18 @@ public class Enemy : MonoBehaviour
         image.enabled = true;
         strengh.enabled = true;
 
-        intentStrengh = UnityEngine.Random.Range(1, 100);
+        intentStrengh = UnityEngine.Random.Range(3, 40);
         strengh.text = intentStrengh.ToString();
+
+        attacking = UnityEngine.Random.Range(0, 2) == 1;
+        if (attacking)
+        {
+            image.sprite = attackIcon;
+        }
+        else
+        {
+            image.sprite = defendIcon;
+        }
     }
 
     public void IsObjectiveTo(Attack_Behaviour attack_Behaviour)
@@ -74,13 +98,16 @@ public class Enemy : MonoBehaviour
 
     public void Act()
     {
-        if (UnityEngine.Random.Range(0, 2) == 0)
+        if (attacking)
         {
-            player.DealDamage(intentStrengh);
-        }
-        else
-        {
-            //god.dealdamage();
+            if (UnityEngine.Random.Range(0, 2) == 0)
+            {
+                player.DealDamage(intentStrengh);
+            }
+            else
+            {
+                //god.dealdamage();
+            }
         }
     }
 }

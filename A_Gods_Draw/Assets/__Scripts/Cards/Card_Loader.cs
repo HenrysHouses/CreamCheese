@@ -20,6 +20,11 @@ public class Card_Loader : MonoBehaviour
     [SerializeField]
     Text strengh;
 
+    private void Start()
+    {
+        GetComponent<Canvas>().worldCamera = Camera.main;
+    }
+
     // Start is called before the first frame update
     public void Set(Card_SO card, TurnManager manager)
     {

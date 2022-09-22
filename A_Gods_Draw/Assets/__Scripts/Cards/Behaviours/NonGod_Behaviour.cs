@@ -23,7 +23,7 @@ public abstract class NonGod_Behaviour : Card_Behaviour
         Debug.Log(this + " can be buffed by " + buff_);
     }
 
-    protected override void OnMouseDown()
+    public override void OnClick()
     {
         if (manager.GetState() == TurnManager.State.PlayerTurn && !played && !manager.IsACardSelected())
         {

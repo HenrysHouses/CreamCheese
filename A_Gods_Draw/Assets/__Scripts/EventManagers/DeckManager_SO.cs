@@ -150,13 +150,17 @@ public class DeckManager_SO : ScriptableObject
         {
             pHand.Add(pLibrary[0]);
             GameObject card = Instantiate(CardPrefab);
-            card.GetComponentInChildren<Card_Loader>().Set(pLibrary[0], turnManager);
+            card.GetComponentInChildren<Transform>().GetComponentInChildren<Card_Loader>().Set(pLibrary[0], turnManager);
             pLibrary.Remove(pLibrary[0]);
+
+            PathAnimatorController.pathAnimation animation = new PathAnimatorController.pathAnimation();
+            animation.CompletionTrigger.AddListener(AnimationComplete);
+
             animationManager.requestAnimation("Library-Hand", card);
 
             //Just to make them clickable
-            card.transform.position = new Vector3(-3.2f + i * 0.3f, -2f, 15.2f);
-            card.transform.rotation = Quaternion.Euler(0, 90, 0);
+            card.transform.position = new Vector3(-0.2f + i * 0.1f, 0.1f, -0.3f);
+            //card.transform.rotation = Quaternion.Euler(-20 + i * 10, 90, 0);
         }
         pLibraryChangeEvent.Invoke();
         pHandChangeEvent.Invoke();
@@ -234,4 +238,7 @@ public class DeckManager_SO : ScriptableObject
     {
         return pHand;
     }
+
+    public void AnimationComplete() { }
+
 }

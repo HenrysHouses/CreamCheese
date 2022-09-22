@@ -21,7 +21,7 @@ public abstract class Card_Behaviour : MonoBehaviour
         this.manager = manager;
     }
 
-    protected virtual void OnMouseDown()
+    public virtual void OnClick()
     {
         if (!played)
         {
