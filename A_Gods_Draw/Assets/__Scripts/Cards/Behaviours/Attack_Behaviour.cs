@@ -20,7 +20,7 @@ public class Attack_Behaviour : NonGod_Behaviour
         foreach (Enemy target in targets)
         {
             target.DealDamage(strengh);
-            Debug.Log("Dealt damage to " + target);
+            Debug.Log("Dealt " + strengh + " damage to " + target);
         }
     }
 
@@ -31,13 +31,13 @@ public class Attack_Behaviour : NonGod_Behaviour
             enemy.IsObjectiveTo(this);
         }
 
-        Debug.Log("SelectEnemies");
+        //Debug.Log("SelectEnemies");
 
         yield return new WaitUntil(() => { return targets.Count == 1; });
 
         manager.FinishedPlay(this);
 
-        Debug.Log("readyto act");
+        //Debug.Log("readyto act");
     }
 
     public void AddTarget(Enemy enemy)

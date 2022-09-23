@@ -20,7 +20,7 @@ public abstract class NonGod_Behaviour : Card_Behaviour
     public void CanBeBuffedBy(Buff_Behaviour buff_)
     {
         theCardCANThatBuffThis = buff_;
-        Debug.Log(this + " can be buffed by " + buff_);
+        //Debug.Log(this + " can be buffed by " + buff_);
     }
 
     public override void OnClick()

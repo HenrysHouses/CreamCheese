@@ -177,9 +177,13 @@ public class PathAnimatorController : MonoBehaviour
 
         // get animation settings if there is no overridden settings
         if(request.anim == null)
+        {
             request.anim = getAnimation();
+        }
         else
+        {
             request.anim = fillMissingInAnimation(request.anim);
+        }
 
         // Finds and moves the target that should be animated
         request.anim.AnimationTarget = GameObject.Find(request.target);
@@ -196,8 +200,8 @@ public class PathAnimatorController : MonoBehaviour
             request.anim.AnimationTransform.position = path.controlPoints[n].position;
             request.anim.t = 1;
         }
-        else
-            Debug.LogWarning("animation has 0 in start speed");
+        //else
+        //    Debug.LogWarning("animation has 0 in start speed");
         
         // Adds the animation to current animations
         _Animations.Add(request.anim);
@@ -237,8 +241,8 @@ public class PathAnimatorController : MonoBehaviour
                         {
                             state = true;
                             currentSpeed = _Animations[i].speedCurve.Evaluate(_Animations[i]._Time/_Animations[i].length) * _Animations[i].speedMultiplier; // ! Needs to change this to be more consistent
-                            if(DbugPositions)
-                                Debug.Log(_Animations[i].t);
+                            //if(DbugPositions)
+                                //Debug.Log(_Animations[i].t);
                         }
                         else
                             state = false;

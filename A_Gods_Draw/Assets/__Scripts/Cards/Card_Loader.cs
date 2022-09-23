@@ -48,7 +48,7 @@ public class Card_Loader : MonoBehaviour
         }
         else
         {
-            Debug.LogError("wtfff don't use the Card_SO objects i might cry");
+            //Debug.LogError("wtfff don't use the Card_SO objects i might cry");
         }
         cardname.text = card_so.cardname;
         image.sprite = card_so.image;
@@ -60,6 +60,6 @@ public class Card_Loader : MonoBehaviour
     public void moveCardToHand()
     {
         SendMessageUpwards("AddCard", card_so);
-        Debug.Log("Message sent");
+        Debug.Log("Message sent from " + this.gameObject.GetComponent<Card_Behaviour>());
     }
 }

@@ -184,13 +184,11 @@ public class DeckManager_SO : ScriptableObject
     /// <summary>Move the top card/s of the player library to the player hand. Trigger card draw animations</summary>
     /// <param name="amount">The amount of cards to draw</param>
     /// ! <returns></returns> // Missing return summary
-    public List<Card_Behaviour> drawCard(int amount)
+    public void drawCard(int amount)
     {
-        List<Card_Behaviour> behaviours = new();
         if (pLibrary.Count < amount) // if there is no cards in library to draw, shuffle the discard into the library and return
         {
             shuffleDiscard();
-            return behaviours;
         }
         for (int i = 0; i < amount; i++) 
         {
@@ -208,15 +206,13 @@ public class DeckManager_SO : ScriptableObject
             animationManager.requestAnimation("Library-Hand", card, 0, 0.25f, animation);
 
             //Just to make them clickable
-            card.transform.position = new Vector3(-0.2f + i * 0.1f, 0.13f, -0.7f);
+            card.transform.position = new Vector3(20, 0, 0);
             //card.transform.rotation = Quaternion.Euler(-20 + i * 10, 90, 0);
-
-            behaviours.Add(card.GetComponentInChildren<Transform>().GetComponentInChildren<Card_Behaviour>());
         }
         // ? change events may not be used
         pLibraryChangeEvent.Invoke();
         pHandChangeEvent.Invoke();
-        return behaviours;
+        return;
     }
 
     /// <summary>Moves all cards currently in player hand to player discard. Trigger discard animations</summary>
@@ -310,4 +306,6 @@ public class DeckManager_SO : ScriptableObject
     {
         return pHand;
     }
+
+    public void wtf() { Debug.Log("aaaa"); }
 }

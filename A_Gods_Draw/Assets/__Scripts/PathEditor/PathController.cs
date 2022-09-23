@@ -202,7 +202,9 @@ public class PathController : MonoBehaviour
 
 		// if(tangent == Vector3.zero)
 		// 	Debug.Log("tang: " + tangent);
-		Quaternion rot = Quaternion.LookRotation(tangent, up);
+		Quaternion rot = new();
+		if (tangent != Vector3.zero)
+			rot = Quaternion.LookRotation(tangent, up);
 		
 		return new OrientedPoint(pos, rot);
 	}

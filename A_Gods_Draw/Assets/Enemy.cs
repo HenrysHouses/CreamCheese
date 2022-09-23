@@ -53,7 +53,7 @@ public class Enemy : MonoBehaviour
         if (attacker)
         {
             attacker.AddTarget(this);
-            Debug.Log(attacker + " is going to attack this");
+            //Debug.Log(attacker + " is going to attack this");
         }
         attacker = null;
     }
@@ -93,7 +93,7 @@ public class Enemy : MonoBehaviour
     public void IsObjectiveTo(Attack_Behaviour attack_Behaviour)
     {
         attacker = attack_Behaviour;
-        Debug.Log(this + " can be attacked by " + attack_Behaviour);
+        //Debug.Log(this + " can be attacked by " + attack_Behaviour);
     }
 
     public void Act()

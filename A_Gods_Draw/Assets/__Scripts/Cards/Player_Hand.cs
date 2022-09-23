@@ -28,7 +28,7 @@ public class Player_Hand : MonoBehaviour
     public void AddCard(Card_SO card)
     {
         float posX = handPlace.position.x;
-        handPlace.position += Vector3.right * (-0.2f + CAH.Count * 0.1f);
+        handPlace.position += Vector3.right * (-0.15f + CAH.Count * 0.075f);
         GameObject spawn = Instantiate(CardinHandPrefab, handPlace.position, Quaternion.identity);
         Card_Loader _loader = spawn.GetComponentInChildren<Card_Loader>();
         _loader.Set(card, _turnManager);
@@ -40,7 +40,7 @@ public class Player_Hand : MonoBehaviour
         
         UpdateCards();
 
-        Debug.Log("Card Added to hand");
+        //Debug.Log("Card Added to hand");
     }
     
 
@@ -82,21 +82,23 @@ public class Player_Hand : MonoBehaviour
     }
     private void UpdateCards()
     {
+        float count = (float)CAH.Count;
         for (int i = 0; i < CAH.Count; i++)
         {
-            CAH[i].CS.transform.rotation = Quaternion.Euler(cardRotation * i,0,0);
+            CAH[i].CS.transform.rotation = Quaternion.Euler(0, 0, (cardRotation * ((count - 1) / 2f)) - cardRotation * i);
         }
     }
     
     void HoverOverCard(int card)
     {
-        Debug.Log("HoveringOver");
+        //Debug.Log("HoveringOver");
         CAH[card].CS.transform.rotation = Quaternion.Euler(0,0,0);
         CAH[card].cardAnimation.SetBool("ShowCard",true);
     }
     void StopHover(int card)
     {
-        CAH[card].CS.transform.rotation = Quaternion.Euler(cardRotation * card, 0, 0);
+        float rot = (float)cardRotation, count = (float)CAH.Count;
+        CAH[card].CS.transform.rotation = Quaternion.Euler(0, 0, (rot * ((count - 1) / 2f)) - rot * card);
         CAH[card].cardAnimation.SetBool("ShowCard", false);
     }
 }
