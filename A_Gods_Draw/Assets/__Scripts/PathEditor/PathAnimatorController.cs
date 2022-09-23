@@ -141,21 +141,21 @@ public class PathAnimatorController : MonoBehaviour
         }
 
         List<string> completedRequests = new List<string>();
-        foreach (var request in currentRequests)
+        
+        for (int i = 0; i < currentRequests.Count; i++)
         {
-            if(request.requestName.Equals(AnimationName) && !request.requestAccepted)
+            if(currentRequests[i].requestName.Equals(AnimationName) && !currentRequests[i].requestAccepted)
             {
                 // Make sure the request is not read multiple times
-                int n = currentRequests.IndexOf(request);
-                manager_SO.requests[n].requestAccepted = true;  
+                manager_SO.requests[i].requestAccepted = true;  
                 // create animation
-                StartCoroutine(CreateAnimation(request));
+                StartCoroutine(CreateAnimation(currentRequests[i]));
                 // prep remove accepted request
-                completedRequests.Add(request.target);
-                yield return new WaitForSeconds(request.coolDown);
-
+                completedRequests.Add(currentRequests[i].target);
+                yield return new WaitForSeconds(currentRequests[i].coolDown);
             }
         }
+        
         foreach (var completed in completedRequests)
         {
             manager_SO.removeRequest(completed);
