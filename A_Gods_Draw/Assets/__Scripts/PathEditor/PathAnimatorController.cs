@@ -21,7 +21,7 @@ public class PathAnimatorController : MonoBehaviour
 
 
     /// <summary>Current animations on this path</summary>
-    List<pathAnimation> _Animations = new List<pathAnimation>();
+    [SerializeField] List<pathAnimation> _Animations = new List<pathAnimation>();
 
     [SerializeField, Tooltip("Name of this path, Used to identify which path accepts requested animations")]
     string _pathName;
@@ -42,9 +42,6 @@ public class PathAnimatorController : MonoBehaviour
     public bool isAnimating;
     /// <summary>Prevents lists from updating while being used</summary>
     public bool isReadingRequests;
-
-    [SerializeField]
-    bool DbugPositions;
 
     [Tooltip("The GameObject used in the test animation")]
     public GameObject testAnimationObj;
@@ -68,7 +65,7 @@ public class PathAnimatorController : MonoBehaviour
     }
 
     /// <summary>Data class for path animations, can be used to override the path's settings</summary>
-    public class pathAnimation
+    [System.Serializable] public class pathAnimation
     {
         /// <summary>The GameObject that will be animated</summary>
         public GameObject AnimationTarget;
@@ -125,9 +122,8 @@ public class PathAnimatorController : MonoBehaviour
     /// <summary>Reads requests and waits for animation cool downs</summary>
     void checkUpdatedRequests()
     {
-        if(!isReadingRequests)
+        // if(!isReadingRequests)
             StartCoroutine(readRequests());
-        Debug.Log("reading");
     }
 
     IEnumerator readRequests()
@@ -144,9 +140,12 @@ public class PathAnimatorController : MonoBehaviour
         
         for (int i = 0; i < currentRequests.Count; i++)
         {
+            
             if(currentRequests[i].requestName.Equals(AnimationName) && !currentRequests[i].requestAccepted)
             {
                 // Make sure the request is not read multiple times
+                if(i> manager_SO.requests.Count-1)
+                    break;
                 manager_SO.requests[i].requestAccepted = true;  
                 // create animation
                 StartCoroutine(CreateAnimation(currentRequests[i]));
@@ -163,7 +162,7 @@ public class PathAnimatorController : MonoBehaviour
         isReadingRequests = false;
     }
 
-    // # Used for the editor script
+    // ! Used for the editor script, probably wont be needed for much longer
     public AnimationManager_SO getAnimManagerSO(){ return manager_SO; }
 
     /// <summary>Get all the current settings for the animation</summary>
@@ -235,8 +234,8 @@ public class PathAnimatorController : MonoBehaviour
             request.anim.AnimationTransform.position = path.controlPoints[n].position;
             request.anim.t = 1;
         }
-        //else
-        //    Debug.LogWarning("animation has 0 in start speed");
+        else
+           Debug.LogWarning("animation has 0 in start speed");
         
         // Adds the animation to current animations
         _Animations.Add(request.anim);
@@ -287,8 +286,6 @@ public class PathAnimatorController : MonoBehaviour
                         {
                             state = true;
                             currentSpeed = _Animations[i].speedCurve.Evaluate(1-_Animations[i]._Time/_Animations[i].length) * _Animations[i].speedMultiplier;
-                            if(DbugPositions)
-                                Debug.Log(1-_Animations[i].t);
                         }
                         else
                             state = false;
