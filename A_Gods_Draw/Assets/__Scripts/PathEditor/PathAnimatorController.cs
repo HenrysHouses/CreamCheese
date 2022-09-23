@@ -18,6 +18,11 @@ public class PathAnimatorController : MonoBehaviour
 {
     [SerializeField, Tooltip("Required to read animation requests")]
     AnimationManager_SO manager_SO;
+
+
+    /// <summary>Current animations on this path</summary>
+    List<pathAnimation> _Animations = new List<pathAnimation>();
+
     [SerializeField, Tooltip("Name of this path, Used to identify which path accepts requested animations")]
     string _pathName;
     public string AnimationName => _pathName;
@@ -93,8 +98,6 @@ public class PathAnimatorController : MonoBehaviour
         }
     }
 
-    /// <summary>Current animations on this path</summary>
-    List<pathAnimation> _Animations = new List<pathAnimation>();
 
     void Start()
     {
@@ -122,26 +125,35 @@ public class PathAnimatorController : MonoBehaviour
     /// <summary>Reads requests and waits for animation cool downs</summary>
     void checkUpdatedRequests()
     {
-        // if(!isReadingRequests)
+        if(!isReadingRequests)
             StartCoroutine(readRequests());
+        Debug.Log("reading");
     }
 
     IEnumerator readRequests()
     {
         isReadingRequests = true;
-        while(isAnimating)
+
+        List<animRequestData> currentRequests = new List<animRequestData>();
+        foreach (var request in manager_SO.requests)
         {
-            yield return new WaitForEndOfFrame();
+            currentRequests.Add(request);
         }
 
         List<string> completedRequests = new List<string>();
-        foreach (var request in manager_SO.requests)
+        foreach (var request in currentRequests)
         {
-            if(request.requestName.Equals(AnimationName))
+            if(request.requestName.Equals(AnimationName) && !request.requestAccepted)
             {
-                StartCoroutine(CreateAnimation(request));            
+                // Make sure the request is not read multiple times
+                int n = currentRequests.IndexOf(request);
+                manager_SO.requests[n].requestAccepted = true;  
+                // create animation
+                StartCoroutine(CreateAnimation(request));
+                // prep remove accepted request
                 completedRequests.Add(request.target);
                 yield return new WaitForSeconds(request.coolDown);
+
             }
         }
         foreach (var completed in completedRequests)

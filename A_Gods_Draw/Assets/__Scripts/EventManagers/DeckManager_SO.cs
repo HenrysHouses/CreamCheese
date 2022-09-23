@@ -190,25 +190,32 @@ public class DeckManager_SO : ScriptableObject
         {
             shuffleDiscard();
         }
+
+        // Instantiate the object that will be animated.
+        GameObject[] cards = new GameObject[amount]; 
+        // Animation setup, Sets the event to spawn the card when animation is completed, requests the animation
+        PathAnimatorController.pathAnimation[] animations = new PathAnimatorController.pathAnimation[amount];
+            
         for (int i = 0; i < amount; i++) 
         {
             // adds the top card to player hand
             pHand.Add(pLibrary[0]); 
-            // Instantiate the object that will be animated.
-            GameObject card = Instantiate(CardAnimationPrefab);
-            Card_Loader _Loader = card.GetComponentInChildren<Card_Loader>();
+            cards[i] = Instantiate(CardAnimationPrefab);
+
+            Card_Loader _Loader = cards[i].GetComponentInChildren<Card_Loader>();
             _Loader.Set(pLibrary[0], null);
             pLibrary.Remove(pLibrary[0]);
 
-            // Animation setup, Sets the event to spawn the card when animation is completed, requests the animation
-            PathAnimatorController.pathAnimation animation = new PathAnimatorController.pathAnimation();
-            animation.CompletionTrigger.AddListener(_Loader.moveCardToHand);
-            animationManager.requestAnimation("Library-Hand", card, 0, 0.25f, animation);
+
+            animations[i] = new PathAnimatorController.pathAnimation();
+            animations[i].CompletionTrigger.AddListener(_Loader.moveCardToHand);
 
             //Just to make them clickable
-            card.transform.position = new Vector3(20, 0, 0);
+            cards[i].transform.position = new Vector3(20, 0, 0);
             //card.transform.rotation = Quaternion.Euler(-20 + i * 10, 90, 0);
         }
+        animationManager.requestAnimation("Library-Hand", cards, 0, 0.25f, animations);
+        
         // ? change events may not be used
         pLibraryChangeEvent.Invoke();
         pHandChangeEvent.Invoke();

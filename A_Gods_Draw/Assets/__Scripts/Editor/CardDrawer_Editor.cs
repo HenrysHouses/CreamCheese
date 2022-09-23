@@ -13,7 +13,7 @@ public class CardDrawer_Editor : Editor
 {
     private CardDrawer_debugger script;
 
-    int drawNum = 1;
+    private SerializedProperty drawAmountProperty;
 
     private void OnEnable()
     {
@@ -26,39 +26,74 @@ public class CardDrawer_Editor : Editor
 
         if(GUILayout.Button("Add Card"))
         {
-            script.addCardTest();
+            if(EditorApplication.isPlaying)
+            {
+                script.addCardTest();
+            }
+            else
+                Debug.Log("Editor needs to be in play to use this button");
         }
 
         if(GUILayout.Button("Reset library"))
         {
-            script.createLibrary();
+            if(EditorApplication.isPlaying)
+            {
+                script.createLibrary();
+            }
+            else
+                Debug.Log("Editor needs to be in play to use this button");
         }
 
         if(GUILayout.Button("shuffle Library"))
         {
-            script.Shuffle();
+            if(EditorApplication.isPlaying)
+            {
+                script.Shuffle();
+            }
+            else
+                Debug.Log("Editor needs to be in play to use this button");
         }
 
         if(GUILayout.Button("recycle discard"))
         {
-            script.Recycle();
+            if(EditorApplication.isPlaying)
+            {
+                script.Recycle();
+            }            
+            else
+                Debug.Log("Editor needs to be in play to use this button");
         }
 
-        drawNum = EditorGUILayout.IntField("Draw X cards", drawNum);
+        script.editor_drawAmount = EditorGUILayout.IntField("Draw X cards", script.editor_drawAmount);
 
         if(GUILayout.Button("Draw card"))
         {
-            script.DrawACard(drawNum);
+            if(EditorApplication.isPlaying)
+            {
+                script.DrawACard(script.editor_drawAmount);
+            }
+            else
+                Debug.Log("Editor needs to be in play to use this button");
         }
 
         if(GUILayout.Button("Discard card"))
         {
-            script.DiscardACard();
+            if(EditorApplication.isPlaying)
+            {
+                script.DiscardACard();
+            }
+            else
+                Debug.Log("Editor needs to be in play to use this button");
         }
 
         if(GUILayout.Button("Discard hand"))
         {
-            script.DiscardHand();
+            if(EditorApplication.isPlaying)
+            {
+                script.DiscardHand();
+            }
+            else
+                Debug.Log("Editor needs to be in play to use this button");
         }
     }
 }
