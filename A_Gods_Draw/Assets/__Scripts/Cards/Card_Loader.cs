@@ -60,6 +60,6 @@ public class Card_Loader : MonoBehaviour
     public void moveCardToHand()
     {
         SendMessageUpwards("AddCard", card_so);
-        Debug.Log("Message sent from " + this.gameObject.GetComponent<Card_Behaviour>());
+        // Debug.Log("Message sent from " + this.gameObject.GetComponent<Card_Behaviour>());
     }
 }

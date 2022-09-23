@@ -14,6 +14,12 @@ public class CardDrawer_debugger : MonoBehaviour
     private DeckManager_SO deckManager;
     [SerializeField]
     private Card_SO selectedCard;
+    
+#if UNITY_EDITOR
+    [SerializeField]
+    [HideInInspector]
+    public int editor_drawAmount;
+#endif
 
     public void addCardTest()
     {
