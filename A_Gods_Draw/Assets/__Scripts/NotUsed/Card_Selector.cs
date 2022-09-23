@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using Unity.VisualScripting;
 using UnityEngine;
-using FMODUnity;
+//using FMODUnity;
 
 public class Card_Selector : MonoBehaviour
 { 
