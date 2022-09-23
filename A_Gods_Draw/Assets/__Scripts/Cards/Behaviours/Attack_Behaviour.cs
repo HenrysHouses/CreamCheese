@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class Attack_Behaviour : NonGod_Behaviour
 {
-    List<Enemy> targets = new List<Enemy>();
+    List<IMonster> targets = new List<IMonster>();
     Attack_Card currentCard;
 
     public override void Initialize(Card_SO card)
@@ -17,16 +17,16 @@ public class Attack_Behaviour : NonGod_Behaviour
 
     public override void OnAction()
     {
-        foreach (Enemy target in targets)
+        foreach (IMonster target in targets)
         {
             target.DealDamage(strengh);
             Debug.Log("Dealt " + strengh + " damage to " + target);
         }
     }
 
-    public override IEnumerator OnPlay(List<Enemy> enemies, List<NonGod_Behaviour> currLane, PlayerController player, God_Behaviour god)
+    public override IEnumerator OnPlay(List<IMonster> enemies, List<TurnManager.LaneInfo> currLane, PlayerController player, God_Behaviour god)
     {
-        foreach (Enemy enemy in enemies)
+        foreach (IMonster enemy in enemies)
         {
             enemy.IsObjectiveTo(this);
         }
@@ -40,7 +40,7 @@ public class Attack_Behaviour : NonGod_Behaviour
         //Debug.Log("readyto act");
     }
 
-    public void AddTarget(Enemy enemy)
+    public void AddTarget(IMonster enemy)
     {
         targets.Add(enemy);
     }

@@ -544,11 +544,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 63b4f53e12e6ce44a88508d867044726, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  health: 0
+  minAttack: 0
+  maxAttack: 0
+  maxHealth: 0
   image: {fileID: 825447184}
   strengh: {fileID: 317272553}
   attackIcon: {fileID: 21300000, guid: c2ed8da03f68f4f459201390b1e765d8, type: 3}
-  defendIcon: {fileID: 21300000, guid: 9c1c6e9aeceea5b49b1b041906490e45, type: 3}
+  abilityIcon: {fileID: 0}
 --- !u!65 &483725781
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -2034,7 +2036,7 @@ GameObject:
   - component: {fileID: 1666808574}
   - component: {fileID: 1666808573}
   m_Layer: 0
-  m_Name: Enemy
+  m_Name: LokiMonster1
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -2052,11 +2054,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 63b4f53e12e6ce44a88508d867044726, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  health: 0
+  minAttack: 1
+  maxAttack: 3
+  maxHealth: 6
   image: {fileID: 81053995}
   strengh: {fileID: 1680787541}
   attackIcon: {fileID: 21300000, guid: c2ed8da03f68f4f459201390b1e765d8, type: 3}
-  defendIcon: {fileID: 21300000, guid: 9c1c6e9aeceea5b49b1b041906490e45, type: 3}
+  abilityIcon: {fileID: 0}
 --- !u!65 &1666808574
 BoxCollider:
   m_ObjectHideFlags: 0

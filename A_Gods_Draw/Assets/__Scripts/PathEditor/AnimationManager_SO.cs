@@ -49,6 +49,11 @@ public class AnimationManager_SO : ScriptableObject
     /// <param name="animationOverrideOptions">Overrides the settings that are not null</param>
     public void requestAnimation(string pathName, GameObject[] targets, float delay = 0, float coolDown = 0, PathAnimatorController.pathAnimation[] animationOverrideOptions = null)
     {
+        foreach (var item in targets)
+        {
+            Debug.Log(item);
+        }
+
         for (int i = 0; i < targets.Length; i++)
         {
             targets[i].name += "_pathAnim" + animNum;
@@ -99,6 +104,7 @@ public class animRequestData
     public PathAnimatorController.pathAnimation anim;
     public float coolDown;
     public float delay;
+    public bool requestAccepted;
 
     public animRequestData(string pathName, string targetName, float delay, float coolDown, PathAnimatorController.pathAnimation animation)
     {

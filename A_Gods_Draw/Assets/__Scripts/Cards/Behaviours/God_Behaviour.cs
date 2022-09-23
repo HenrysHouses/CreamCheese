@@ -8,7 +8,7 @@ public abstract class God_Behaviour : Card_Behaviour
     {
         
     }
-    public void OnRetire(List<NonGod_Behaviour> currentLane)
+    public void OnRetire(List<TurnManager.LaneInfo> currentLane)
     {
         //foreach (NonGod_Behaviour card in currentLane)
         //{
