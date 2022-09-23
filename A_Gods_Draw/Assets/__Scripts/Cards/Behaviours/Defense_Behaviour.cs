@@ -30,6 +30,10 @@ public class Defense_Behaviour : NonGod_Behaviour
 
     public override IEnumerator OnPlay(List<IMonster> enemies, List<NonGod_Behaviour> currLane, PlayerController player, God_Behaviour god)
     {
+        if (god)
+        {
+            god.CanBeDefendedBy(this);
+        }
         player.CanBeDefended(this);
 
         yield return new WaitUntil(() => { return this.player || this.god_card; });
@@ -42,6 +46,10 @@ public class Defense_Behaviour : NonGod_Behaviour
         if (playerController)
         {
             player = playerController;
+        }
+        else if (god)
+        {
+            god_card = god;
         }
     }
 }

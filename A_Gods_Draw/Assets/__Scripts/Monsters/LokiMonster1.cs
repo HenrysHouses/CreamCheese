@@ -6,7 +6,7 @@ using UnityEngine.UI;
 
 public class LokiMonster1 : IMonster
 {
-    private IMonster toDefend;
+    IMonster toDefend;
     bool playerAttacked;
 
     public override void IsObjectiveTo(Attack_Behaviour attack_Behaviour)
@@ -24,7 +24,6 @@ public class LokiMonster1 : IMonster
             return true;
         }
         playerAttacked = false;
-
 
         List<IMonster> weakMonsters = new();
         foreach (IMonster a in enemies)

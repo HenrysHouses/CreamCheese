@@ -62,4 +62,9 @@ public class Card_Loader : MonoBehaviour
         SendMessageUpwards("AddCard", card_so);
         // Debug.Log("Message sent from " + this.gameObject.GetComponent<Card_Behaviour>());
     }
+
+    public void ChangeStrengh(int newValue)
+    {
+        strengh.text = newValue.ToString();
+    }
 }
