@@ -20,7 +20,7 @@ public class Buff_Behaviour : NonGod_Behaviour
     {
         if (posInLane < manager.CurrentLane().Count - 1)
         {
-            manager.CurrentLane()[posInLane + 1].GetBuff(currentCard.isMult, strengh);
+            manager.CurrentLane()[posInLane + 1].GetBuff(currentCard.multiplyOGValue, strengh);
         }
     }
 
