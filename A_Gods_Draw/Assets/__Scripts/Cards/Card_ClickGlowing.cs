@@ -2,31 +2,25 @@
 
 using System.Collections;
 using System.Collections.Generic;
+using System.Drawing;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class Card_ClickGlowing : MonoBehaviour
 {
-    public Material nonGlow;
-    public Material glow;
+    public GameObject glowBorder;
+    bool canSpawn;
 
-    bool nonGlowing = true;
-    bool glowing = false;
-
-
-    void OnMouseDown()
+    public void Glowing()
     {
-        if (nonGlow)
+        if(Input.GetMouseButtonDown(0) && !canSpawn)
         {
-            gameObject.GetComponent<Renderer>().material = glow;
-            nonGlowing = true;
-            glowing = false;
+            glowBorder.SetActive(true);
+            canSpawn = true;
         }
-        else if (glow && glowing)
+        else
         {
-            gameObject.GetComponent<Renderer>().material = nonGlow;
-            nonGlowing = true;
-            glowing = false;
+            glowBorder.SetActive(false);
         }
     }
-
 }
