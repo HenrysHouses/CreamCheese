@@ -9,12 +9,14 @@ public class Enemy : MonoBehaviour
 
     public int health;
     int intentStrengh;
+    int defendedFor;
     bool attacking;
 
     Attack_Behaviour attacker;
 
     PlayerController player;
     God_Behaviour god = null;
+    Enemy toDefend;
 
     [SerializeField]
     Image image;
@@ -62,16 +64,17 @@ public class Enemy : MonoBehaviour
     {
         if (!attacking)
         {
-            if (amount > intentStrengh)
-                health -= (amount - intentStrengh);
+            if (amount > intentStrengh + defendedFor)
+                health -= (amount - intentStrengh - defendedFor);
         }
         else
         {
-            health -= amount;
+            if (amount > defendedFor)
+                health -= (amount - defendedFor);
         }
     }
 
-    public void DecideIntent()
+    public void DecideIntent(List<Enemy> enemies)
     {
         image.enabled = true;
         strengh.enabled = true;
@@ -87,6 +90,7 @@ public class Enemy : MonoBehaviour
         else
         {
             image.sprite = defendIcon;
+            enemies[UnityEngine.Random.Range(0, enemies.Count)].Defend(intentStrengh);
         }
     }
 
@@ -94,6 +98,11 @@ public class Enemy : MonoBehaviour
     {
         attacker = attack_Behaviour;
         //Debug.Log(this + " can be attacked by " + attack_Behaviour);
+    }
+
+    public void Defend(int amount)
+    {
+        defendedFor += amount;
     }
 
     public void Act()
@@ -109,5 +118,6 @@ public class Enemy : MonoBehaviour
                 //god.dealdamage();
             }
         }
+        defendedFor = 0;
     }
 }

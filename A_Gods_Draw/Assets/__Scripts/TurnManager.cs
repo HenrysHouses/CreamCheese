@@ -61,7 +61,7 @@ public class TurnManager : MonoBehaviour
 
                     foreach (Enemy enemy in enemies)
                     {
-                        enemy.DecideIntent();
+                        enemy.DecideIntent(enemies);
                     }
                     
                 }
