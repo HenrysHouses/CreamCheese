@@ -43,9 +43,6 @@ public class PathAnimatorController : MonoBehaviour
     /// <summary>Prevents lists from updating while being used</summary>
     public bool isReadingRequests;
 
-    [SerializeField]
-    bool DbugPositions;
-
     [Tooltip("The GameObject used in the test animation")]
     public GameObject testAnimationObj;
 
@@ -125,9 +122,8 @@ public class PathAnimatorController : MonoBehaviour
     /// <summary>Reads requests and waits for animation cool downs</summary>
     void checkUpdatedRequests()
     {
-        if(!isReadingRequests)
+        // if(!isReadingRequests)
             StartCoroutine(readRequests());
-        Debug.Log("reading");
     }
 
     IEnumerator readRequests()
@@ -141,21 +137,24 @@ public class PathAnimatorController : MonoBehaviour
         }
 
         List<string> completedRequests = new List<string>();
-        foreach (var request in currentRequests)
+        
+        for (int i = 0; i < currentRequests.Count; i++)
         {
-            if(request.requestName.Equals(AnimationName) && !request.requestAccepted)
+            
+            if(currentRequests[i].requestName.Equals(AnimationName) && !currentRequests[i].requestAccepted)
             {
                 // Make sure the request is not read multiple times
-                int n = currentRequests.IndexOf(request);
-                manager_SO.requests[n].requestAccepted = true;  
+                if(i> manager_SO.requests.Count-1)
+                    break;
+                manager_SO.requests[i].requestAccepted = true;  
                 // create animation
-                StartCoroutine(CreateAnimation(request));
+                StartCoroutine(CreateAnimation(currentRequests[i]));
                 // prep remove accepted request
-                completedRequests.Add(request.target);
-                yield return new WaitForSeconds(request.coolDown);
-
+                completedRequests.Add(currentRequests[i].target);
+                yield return new WaitForSeconds(currentRequests[i].coolDown);
             }
         }
+        
         foreach (var completed in completedRequests)
         {
             manager_SO.removeRequest(completed);
@@ -163,7 +162,7 @@ public class PathAnimatorController : MonoBehaviour
         isReadingRequests = false;
     }
 
-    // # Used for the editor script
+    // ! Used for the editor script, probably wont be needed for much longer
     public AnimationManager_SO getAnimManagerSO(){ return manager_SO; }
 
     /// <summary>Get all the current settings for the animation</summary>
@@ -235,8 +234,8 @@ public class PathAnimatorController : MonoBehaviour
             request.anim.AnimationTransform.position = path.controlPoints[n].position;
             request.anim.t = 1;
         }
-        //else
-        //    Debug.LogWarning("animation has 0 in start speed");
+        else
+           Debug.LogWarning("animation has 0 in start speed");
         
         // Adds the animation to current animations
         _Animations.Add(request.anim);
@@ -287,8 +286,6 @@ public class PathAnimatorController : MonoBehaviour
                         {
                             state = true;
                             currentSpeed = _Animations[i].speedCurve.Evaluate(1-_Animations[i]._Time/_Animations[i].length) * _Animations[i].speedMultiplier;
-                            if(DbugPositions)
-                                Debug.Log(1-_Animations[i].t);
                         }
                         else
                             state = false;

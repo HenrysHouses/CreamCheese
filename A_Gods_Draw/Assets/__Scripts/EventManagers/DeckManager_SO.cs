@@ -16,10 +16,6 @@ using UnityEngine.Events;
 [CreateAssetMenu(menuName = "Events/DeckManager")]
 public class DeckManager_SO : ScriptableObject
 {
-    // [SerializeField] TurnManager turnManager;
-    [SerializeField, Tooltip("needed to request animations")] 
-    AnimationManager_SO animationManager;
-    
     [SerializeField, Tooltip("Prefab used in animations for cards")] 
     GameObject CardAnimationPrefab;
     
@@ -214,8 +210,8 @@ public class DeckManager_SO : ScriptableObject
             cards[i].transform.position = new Vector3(20, 0, 0);
             //card.transform.rotation = Quaternion.Euler(-20 + i * 10, 90, 0);
         }
-        animationManager.requestAnimation("Library-Hand", cards, 0, 0.25f, animations);
-        
+        AnimationManager_SO.getInstance.requestAnimation("Library-Hand", cards, 0, 0.25f, animations);
+
         // ? change events may not be used
         pLibraryChangeEvent.Invoke();
         pHandChangeEvent.Invoke();
@@ -237,7 +233,7 @@ public class DeckManager_SO : ScriptableObject
             pDiscard.Add(pHand[i]);
         }
         // requests animations for all discarded cards
-        animationManager.requestAnimation("Hand-Discard", cards, 0, 0.25f);
+        AnimationManager_SO.getInstance.requestAnimation("Hand-Discard", cards, 0, 0.25f);
 
         pHand.Clear();
         // ? change events may not be used
@@ -253,7 +249,7 @@ public class DeckManager_SO : ScriptableObject
             // preps the discard animation
             GameObject _card = Instantiate(CardAnimationPrefab);
             _card.GetComponentInChildren<Card_Loader>().Set(card, null);
-            animationManager.requestAnimation("Hand-Discard", _card);
+            AnimationManager_SO.getInstance.requestAnimation("Hand-Discard", _card);
 
             pDiscard.Add(card);
             pHand.Remove(card);
@@ -301,7 +297,7 @@ public class DeckManager_SO : ScriptableObject
             cards[i].GetComponentInChildren<Card_Loader>().Set(pDiscard[i], null);
         }
         // Request discard to library animations
-        animationManager.requestAnimation("ShuffleDiscard", cards, 0, 0.18f);
+        AnimationManager_SO.getInstance.requestAnimation("ShuffleDiscard", cards, 0, 0.18f);
         pDiscard.Clear();
         // ? change events may not be used
         pDiscardChangeEvent.Invoke();

@@ -6,8 +6,6 @@
  * Receive and handle animation requests for PathAnimatorController's / and maybe other animations later?
 */
 
-// ! should this be a singleton??
-
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Events;
@@ -16,6 +14,10 @@ using UnityEngine.Events;
 [CreateAssetMenu(menuName = "Events/DynamicAnimationManager")]
 public class AnimationManager_SO : ScriptableObject
 {
+    static AnimationManager_SO instance;
+    public static AnimationManager_SO getInstance => instance;
+
+
     [SerializeField, Tooltip("Current Unhandled Requests")]
     List<animRequestData> AnimationRequest = new List<animRequestData>();
     public List<animRequestData> requests => AnimationRequest;
@@ -85,6 +87,11 @@ public class AnimationManager_SO : ScriptableObject
         animNum = 0;
         if(AnimationRequestChangeEvent == null)
             AnimationRequestChangeEvent = new UnityEvent();
+
+        if(!instance)
+            instance = this;
+        else
+            Debug.LogWarning("There are multiple AnimationManager_SO objects. please remove duplicates");
     }
 
     // remove all requests when not used
