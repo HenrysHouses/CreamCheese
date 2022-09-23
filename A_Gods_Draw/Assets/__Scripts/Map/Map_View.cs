@@ -112,9 +112,7 @@ namespace Map
             spriteRenderer.drawMode = SpriteDrawMode.Sliced;
             spriteRenderer.sprite = background;
             spriteRenderer.size = new Vector2(xSize, span + yOffset * 2f);
-            //for changing the angle tilting of the background
-            //spriteRenderer.transform.rotation = Quaternion.Euler(65f, 0f, 0f);
-            spriteRenderer.transform.position = new Vector3(0f, 0f, 5f);
+            spriteRenderer.transform.position = new Vector3(0f, 5f, 2f);
         }
 
         private void CreateParent()
