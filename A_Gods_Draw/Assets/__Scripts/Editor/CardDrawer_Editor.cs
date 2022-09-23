@@ -13,6 +13,8 @@ public class CardDrawer_Editor : Editor
 {
     private CardDrawer_debugger script;
 
+    int drawNum = 1;
+
     private void OnEnable()
     {
         script = target as CardDrawer_debugger;
@@ -42,9 +44,11 @@ public class CardDrawer_Editor : Editor
             script.Recycle();
         }
 
+        drawNum = EditorGUILayout.IntField("Draw X cards", drawNum);
+
         if(GUILayout.Button("Draw card"))
         {
-            script.DrawACard(1);
+            script.DrawACard(drawNum);
         }
 
         if(GUILayout.Button("Discard card"))

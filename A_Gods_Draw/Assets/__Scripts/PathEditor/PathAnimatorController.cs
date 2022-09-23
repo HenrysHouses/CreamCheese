@@ -34,8 +34,10 @@ public class PathAnimatorController : MonoBehaviour
     public bool FreezeRotationZ;
 
     /// <summary>Prevents lists from updating while being used</summary>
-    [HideInInspector]
     public bool isAnimating;
+    /// <summary>Prevents lists from updating while being used</summary>
+    public bool isReadingRequests;
+
     [SerializeField]
     bool DbugPositions;
 
@@ -76,17 +78,29 @@ public class PathAnimatorController : MonoBehaviour
         public int index;
         public bool FreezeRotationX, FreezeRotationY, FreezeRotationZ;
         public UnityEvent CompletionTrigger;
+        public bool _Complete;
 
         public pathAnimation()
         {
             CompletionTrigger = new UnityEvent();
             AnimationTransform = new GameObject("AnimationHolder").transform;
         }
+
+        public void completionTrigger()
+        {
+            CompletionTrigger?.Invoke();
+            _Complete = true;
+        }
     }
 
     /// <summary>Current animations on this path</summary>
     List<pathAnimation> _Animations = new List<pathAnimation>();
 
+    void Start()
+    {
+        isAnimating = false;
+        isReadingRequests = false;
+    }
 
     void OnEnable()
     {
@@ -96,6 +110,7 @@ public class PathAnimatorController : MonoBehaviour
             return;    
         // Listen to when the animation manager has new animation requests
         manager_SO.AnimationRequestChangeEvent.AddListener(checkUpdatedRequests);
+
     }
 
     void OnDisable()
@@ -107,11 +122,18 @@ public class PathAnimatorController : MonoBehaviour
     /// <summary>Reads requests and waits for animation cool downs</summary>
     void checkUpdatedRequests()
     {
-        StartCoroutine(readRequests());
+        // if(!isReadingRequests)
+            StartCoroutine(readRequests());
     }
 
     IEnumerator readRequests()
     {
+        isReadingRequests = true;
+        while(isAnimating)
+        {
+            yield return new WaitForEndOfFrame();
+        }
+
         List<string> completedRequests = new List<string>();
         foreach (var request in manager_SO.requests)
         {
@@ -126,6 +148,7 @@ public class PathAnimatorController : MonoBehaviour
         {
             manager_SO.removeRequest(completed);
         }
+        isReadingRequests = false;
     }
 
     // # Used for the editor script
@@ -142,7 +165,7 @@ public class PathAnimatorController : MonoBehaviour
         animation.length = AnimLength;
         animation.speedCurve = _speedCurve;
         animation.speedMultiplier = Multiplier;
-        animation.CompletionTrigger.AddListener(debugTestCompletion);
+        // animation.CompletionTrigger.AddListener(debugTestCompletion);
         return animation;
     }
 
@@ -231,8 +254,7 @@ public class PathAnimatorController : MonoBehaviour
 
                 // while(state) // was used then this was not in update
                 // {
-                    isAnimating = true;
-                    
+
                     float currentSpeed = 0;
 
                     // if animation should move in // # positive direction
@@ -260,6 +282,9 @@ public class PathAnimatorController : MonoBehaviour
                             state = false;
                     }
 
+                    if(state)
+                        isAnimating = true;
+                    
                     // Update the animation's position on the path
                     _Animations[i].t = Mathf.Clamp(_Animations[i].t + currentSpeed, 0, 1);
                     OrientedPoint OP = path.GetEvenPathOP(_Animations[i].t); 
@@ -299,23 +324,24 @@ public class PathAnimatorController : MonoBehaviour
     /// <param name="index">Index of current animations on the controller</param>
     void completeAnimation(int index)
     {
-        _Animations[index].CompletionTrigger?.Invoke();
+        if(!_Animations[index]._Complete)
+        {
+            _Animations[index].completionTrigger();
+        }
         
         // Destroys the animation transform        
         if(_Animations.Count > index && _Animations[index].AnimationTransform != null)
             Destroy(_Animations[index].AnimationTransform.gameObject);
 
-
         // Checks if there are still ongoing animations in order to clear the animation list
         for (int i = 0; i < transform.childCount; i++)
         {
-            if(!transform.GetChild(i).name.Equals("AnimationHolder") && !isAnimating)
+            if(!transform.GetChild(i).name.Equals("AnimationHolder") && isAnimating)
             {
                 isAnimating = false;
                 StartCoroutine(refreshAnimationList());
             }        
         }
-        
     }
 
     /// <summary>Clears the list of current animations if all animations are done</summary>

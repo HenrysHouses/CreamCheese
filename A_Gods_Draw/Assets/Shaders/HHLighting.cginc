@@ -3,6 +3,7 @@
 #include "AutoLight.cginc"
 #include "HHMacros.cginc"
 
+
 struct MeshData
 {
     float4 vertex : POSITION;
@@ -28,7 +29,6 @@ sampler2D _SpecularMap;
 
 sampler2D _MetallicMap;
 float _MetallicIntensity;
-float _MetallicRoughness;
 
 sampler2D _MainTex;
 float4 _MainTex_ST;
@@ -39,7 +39,7 @@ float4 _AmbientColor;
 
 // sampler2D _DiffuseIBL;
 
-float _GlossIntensity;
+// float _GlossIntensity;
 
 float4 _ColorRimLight;
 float _RimLightToggle;
@@ -77,19 +77,26 @@ float2 DirToRectilinear(float3 dir) {
 fixed4 frag (Interpolators i) : SV_Target
 {
     float3 tangentSpaceNormal = UnpackNormal(tex2D( _NormalMap, i.uv));
-    
+
     float3x3 mtxTangToWorld = {
         i.tangent.x, i.bitangent.x, i.worldNormal.x,
         i.tangent.y, i.bitangent.y, i.worldNormal.y,
         i.tangent.z, i.bitangent.z, i.worldNormal.z,
     };
 
-    float3 N = mul( mtxTangToWorld, tangentSpaceNormal);
+    #ifdef _NORMALMAP
+        float3 N = mul( mtxTangToWorld, tangentSpaceNormal);
+    #else
+        float3 N = normalize(i.worldNormal);
+    #endif
+    // float3 N = normalize(i.worldNormal);
+    // return float4(N, 1);
+
     
     float4 specularMap = tex2D(_SpecularMap, i.uv);
     float4 metallicMap = tex2D(_MetallicMap, i.uv); 
-    fixed4 tex = tex2D(_MainTex, i.uv);
-    float metallic = tex * _MetallicIntensity;
+    fixed4 albedo = tex2D(_MainTex, i.uv);
+    float metallic = _MetallicIntensity;
 
 
     // #ifdef IS_IN_BASEPASS
@@ -138,21 +145,23 @@ fixed4 frag (Interpolators i) : SV_Target
         float3 light = saturate( dot( N, L ) ) * shadow;
         light = (light * attenuation) * _LightColor0.xyz * _LightIntensity; // saturate is the same as max(0, (dot))
         #ifdef IS_IN_BASEPASS
-            // float3 reflection = tex2Dlod(_DiffuseIBL, float4(DirToRectilinear(N),0,metallicMap * _MetallicRoughness)); // Texture IBL
+            // float3 reflection = tex2Dlod(_DiffuseIBL, float4(DirToRectilinear(N),0,metallicMap * metallicMap.a)); // Texture IBL
             float3 reflectionDir = reflect(-V, i.worldNormal);
             float roughness = 1 - metallicMap.a;
             roughness *= 1.7 - 0.7 * roughness;
-            float4 envSample = UNITY_SAMPLE_TEXCUBE_LOD(unity_SpecCube0, reflectionDir, _MetallicRoughness * metallicMap * UNITY_SPECCUBE_LOD_STEPS); // Skybox Reflection
+            float4 envSample = UNITY_SAMPLE_TEXCUBE_LOD(unity_SpecCube0, reflectionDir, metallicMap.a * metallicMap * UNITY_SPECCUBE_LOD_STEPS); // Skybox Reflection
 		    float3 reflection = DecodeHDR(envSample, unity_SpecCube0_HDR) * _MetallicIntensity;
 
-            reflection = reflection * tex.xyz * light * metallicMap;
+            // reflection = reflection * metallicMap * light;
+            reflection = reflection * light * metallicMap.rgb * albedo.rgb * _MainColor;
+            // return float4 (reflection, 1);
         #endif
     #endif
 
     // specular lighting
-    float3 NdotL_Specular = saturate(dot(H, N)); 
+    float3 HdotN_Specular =  max(dot(H, N), 0.0); 
     float specularExponent = exp2(metallicMap.a * 6 + 2 ); // might not be best to do this math in the shader
-    float3 specularLight = pow( NdotL_Specular, specularExponent ) * metallicMap.a * attenuation; // can time with _GlossIntensity for energy conservation aproximation // look into BRDF and inisopotic lense flaire
+    float3 specularLight = pow( HdotN_Specular, specularExponent ) * attenuation; // can time with metallicMap.a for energy conservation aproximation // look into BRDF and inisopotic lense flaire
     specularLight *= light; // using lambert to remove specular in situations when its on the back of the model
     
     #ifdef USE_TOON
@@ -168,7 +177,7 @@ fixed4 frag (Interpolators i) : SV_Target
     float3 rimLight = float3(fresnel, fresnel, fresnel);
 
     #ifdef USE_TOON
-        rimLight = fresnel * NdotL_Specular;
+        rimLight = fresnel * HdotN_Specular;
         rimLight = smoothstep(_RimLightCutOff - _RimLightAntiAlias, _RimLightCutOff + _RimLightAntiAlias, rimLight); // removes gradient 
         rimLight *= 1-_UseSpecularLightColor > 0 ? _LightColor0.xyz : (_ColorRimLight * _ColorRimLight.a);
     #endif
@@ -176,15 +185,15 @@ fixed4 frag (Interpolators i) : SV_Target
     fresnel *= _RimLightToggle;
 
     #ifdef USE_TOON
-        float4 output =  tex * float4(_MainColor, 1) * DiffuseToon;
+        float4 output =  albedo * float4(_MainColor, 1) * DiffuseToon;
         output += float4(specularLight, 1) * (_GlossLayer < DiffuseToon);
         output += float4(rimLight, 1);
     #else
         #ifdef IS_IN_BASEPASS
-            float4 output = float4(tex.xyz * (light * _MainColor + specularLight + saturate(fresnel) * _ColorRimLight * _ColorRimLight.a) + _AmbientColor * _AmbientColor.a + reflection, 1);
+            float3 output = albedo.xyz * reflection * (light * _MainColor + specularLight + saturate(fresnel) * _ColorRimLight * _ColorRimLight.a * light) + _AmbientColor * _AmbientColor.a;
         #else
-            float4 output = float4(tex.xyz * (light * _MainColor  + specularLight + saturate(fresnel) * _ColorRimLight * _ColorRimLight.a), 1);
+            float3 output = albedo.xyz * (light * _MainColor  + specularLight + saturate(fresnel) * _ColorRimLight * _ColorRimLight.a * light);
         #endif
     #endif
-    return output;
+    return float4(output, 1);
 }

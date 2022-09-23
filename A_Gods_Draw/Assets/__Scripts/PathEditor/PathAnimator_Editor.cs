@@ -22,7 +22,6 @@ public class PathAnimator_Editor : Editor
         script = target as PathAnimatorController;
     }
 
-
     public override void OnInspectorGUI()
     {
         EditorGUILayout.FloatField(new GUIContent("Animation Length:", "Time in seconds"), script.getAnimLength(), EditorStyles.boldLabel);

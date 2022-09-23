@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 0}
-  m_IndirectSpecularColor: {r: 0.44657898, g: 0.4964133, b: 0.5748178, a: 1}
+  m_IndirectSpecularColor: {r: 0.44657874, g: 0.49641258, b: 0.5748172, a: 1}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
@@ -403,6 +403,37 @@ MeshFilter:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 200908215}
   m_Mesh: {fileID: 10202, guid: 0000000000000000e000000000000000, type: 0}
+--- !u!1 &269262702
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 269262703}
+  m_Layer: 0
+  m_Name: HandPos
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &269262703
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 269262702}
+  m_LocalRotation: {x: -0.39634687, y: -0, z: -0, w: 0.91810083}
+  m_LocalPosition: {x: 0.013, y: 0.06, z: 0.435}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 2111516311}
+  m_RootOrder: 1
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &341823391
 GameObject:
   m_ObjectHideFlags: 0
@@ -764,7 +795,8 @@ MonoBehaviour:
   FreezeRotationX: 1
   FreezeRotationY: 0
   FreezeRotationZ: 1
-  isAnimating: 1
+  isAnimating: 0
+  isReadingRequests: 0
   DbugPositions: 0
   testAnimationObj: {fileID: 7228989487826272107, guid: e4f70975b43c2e448939ff9483e25f06, type: 3}
 --- !u!1 &694519885
@@ -1003,6 +1035,7 @@ MonoBehaviour:
   FreezeRotationY: 1
   FreezeRotationZ: 1
   isAnimating: 0
+  isReadingRequests: 0
   DbugPositions: 0
   testAnimationObj: {fileID: 5573152896087516946, guid: 9271d508c8441744284316e4d72f2702, type: 3}
 --- !u!1 &1228086055
@@ -1083,6 +1116,7 @@ MonoBehaviour:
   FreezeRotationY: 0
   FreezeRotationZ: 0
   isAnimating: 0
+  isReadingRequests: 0
   DbugPositions: 0
   testAnimationObj: {fileID: 7228989487826272107, guid: e4f70975b43c2e448939ff9483e25f06, type: 3}
 --- !u!1 &1276232968
@@ -1972,6 +2006,7 @@ Transform:
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 87338891}
+  - {fileID: 269262703}
   m_Father: {fileID: 2100381818}
   m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 46.7, y: 0, z: 0}
@@ -1987,6 +2022,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4068c5a5a881c804aa0e0a50010936b3, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  handPlace: {fileID: 269262703}
   _turnManager: {fileID: 0}
   behaviours: []
   CardinHandPrefab: {fileID: 6442596572218373804, guid: 4bf9de04b4e5b754781a2ea0b433379b, type: 3}

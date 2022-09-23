@@ -4,15 +4,16 @@ Shader "HenryCustom/Lit/Diffuse-PBR"
     {
         _MainTex ("Texture", 2D) = "white" {}
         _MainColor ("Main Color", Color) = (1,1,1,1)
+        [Toggle(_NORMALMAP)] _NormalMapToggle ("Normal Mapping", Float) = 0
         [NoScaleOffset] _NormalMap ("Normal Map", 2D) = "bump" {}
-        [NoScaleOffset] _MetallicMap ("Metallic Map", 2D) = "bump" {}
-        [NoScaleOffset] _SpecularMap ("Specular Map", 2D) = "bump" {}
+        [NoScaleOffset] _MetallicMap ("Metallic Map", 2D) = "white" {}
+        [NoScaleOffset] _SpecularMap ("Specular Map", 2D) = "white" {}
         // [NoScaleOffset] _DiffuseIBL ("Diffuse IBL", 2D) = "Black" {}
         _LightIntensity ("Light Multiplier", float) = 1
         _AmbientColor ("Ambient Light Color", Color) = (0,0,0,0)
-        // _GlossIntensity ("Gloss", Range(0, 1)) = 1
+        // _GlossIntensity ("Gloss", float) = 1
         _MetallicIntensity ("Metallic", Range(0, 1)) = 1
-        _MetallicRoughness ("Roughness", Range(0, 1)) = 0
+        // _MetallicRoughness ("Roughness", Range(0, 1)) = 0
         [Toggle] _RimLightToggle ("fresnel Toggle", float) = 1
         _ColorRimLight ("fresnel Color", Color) = (1,1,1,1)
         _RimLightIntensity ("fresnel Strength", Range(0, 2)) = 1
@@ -38,6 +39,7 @@ Shader "HenryCustom/Lit/Diffuse-PBR"
             #pragma vertex vert
             #pragma fragment frag
             #pragma multi_compile_fwdbase
+            #pragma shader_feature_local _NORMALMAP
             #define IS_IN_BASEPASS
             #include "HHLighting.cginc"
 
