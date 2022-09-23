@@ -6,17 +6,18 @@ using UnityEngine.UI;
 public abstract class IMonster : MonoBehaviour
 {
     [SerializeField]
+    int maxHealth;
+    int health;
+
+    [SerializeField]
     short minAttack, maxAttack;
 
     bool attacking;
 
     bool attackingPlayer;
 
-    [SerializeField]
-    int maxHealth;
-    int health;
 
-    int intentStrengh;
+    protected int intentStrengh;
     int defendedFor;
 
     protected Attack_Behaviour attacker;
@@ -70,7 +71,7 @@ public abstract class IMonster : MonoBehaviour
             health -= (amount - defendedFor);
     }
 
-    public void DecideIntent(List<IMonster> enemies, List<TurnManager.LaneInfo> currentLane, PlayerController player, God_Behaviour currentGod)
+    public void DecideIntent(List<IMonster> enemies, List<NonGod_Behaviour> currentLane, PlayerController player, God_Behaviour currentGod)
     {
         if (!UsesAbility(enemies, currentLane, player, currentGod))
         {
@@ -125,8 +126,8 @@ public abstract class IMonster : MonoBehaviour
 
     public virtual void OnTurnBegin() { }
     public virtual void PreAbilityDecide() { }
-    protected virtual bool UsesAbility(List<IMonster> enemies, List<TurnManager.LaneInfo> currentLane, PlayerController player, God_Behaviour currentGod) { return false; }
-    protected virtual void AbilityDecided(List<IMonster> enemies, List<TurnManager.LaneInfo> currentLane, PlayerController player, God_Behaviour currentGod) { }
+    protected virtual bool UsesAbility(List<IMonster> enemies, List<NonGod_Behaviour> currentLane, PlayerController player, God_Behaviour currentGod) { return false; }
+    protected virtual void AbilityDecided(List<IMonster> enemies, List<NonGod_Behaviour> currentLane, PlayerController player, God_Behaviour currentGod) { }
     protected virtual bool AttackingPlayer(PlayerController player, God_Behaviour god) { return UnityEngine.Random.Range(0, 2) == 1; }
     protected virtual void DoAbility() { }
     public virtual void OnTurnEnd() { }

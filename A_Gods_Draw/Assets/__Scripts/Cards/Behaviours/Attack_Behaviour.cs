@@ -24,7 +24,7 @@ public class Attack_Behaviour : NonGod_Behaviour
         }
     }
 
-    public override IEnumerator OnPlay(List<IMonster> enemies, List<TurnManager.LaneInfo> currLane, PlayerController player, God_Behaviour god)
+    public override IEnumerator OnPlay(List<IMonster> enemies, List<NonGod_Behaviour> currLane, PlayerController player, God_Behaviour god)
     {
         foreach (IMonster enemy in enemies)
         {
