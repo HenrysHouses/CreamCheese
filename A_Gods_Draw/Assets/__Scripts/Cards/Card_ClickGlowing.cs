@@ -9,18 +9,36 @@ using UnityEngine.UI;
 public class Card_ClickGlowing : MonoBehaviour
 {
     public GameObject glowBorder;
-    bool canSpawn;
+    public Transform parent;
+    bool isCreated;
+    public static Component currentlySelected;
 
-    public void Glowing()
+
+    private void OnMouseOver()
     {
-        if(Input.GetMouseButtonDown(0) && !canSpawn)
+        if (!isCreated)
         {
+            currentlySelected = this;
+            
             glowBorder.SetActive(true);
-            canSpawn = true;
-        }
-        else
-        {
-            glowBorder.SetActive(false);
+            isCreated = true;
+
         }
     }
+
+    private void OnMouseExit()
+    {
+        if (isCreated)
+        {
+            glowBorder.SetActive(false);
+            isCreated = false;
+        }
+        
+    }
+
+    /*public void Deselect()
+    {
+        glowBorder.SetActive(false);
+        isCreated = false;
+    }*/
 }
