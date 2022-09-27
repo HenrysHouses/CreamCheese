@@ -12,6 +12,8 @@ GameObject:
   - component: {fileID: 1152444231}
   - component: {fileID: 1152444233}
   - component: {fileID: 3128194101185536685}
+  - component: {fileID: 8676498334209484457}
+  - component: {fileID: 4148925715097907177}
   m_Layer: 0
   m_Name: AnimationCubeTest
   m_TagString: Untagged
@@ -81,6 +83,62 @@ Animator:
   m_HasTransformHierarchy: 1
   m_AllowConstantClipSamplingOptimization: 1
   m_KeepAnimatorControllerStateOnDisable: 0
+--- !u!23 &8676498334209484457
+MeshRenderer:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7228989487826272107}
+  m_Enabled: 1
+  m_CastShadows: 1
+  m_ReceiveShadows: 1
+  m_DynamicOccludee: 1
+  m_StaticShadowCaster: 0
+  m_MotionVectors: 1
+  m_LightProbeUsage: 1
+  m_ReflectionProbeUsage: 1
+  m_RayTracingMode: 2
+  m_RayTraceProcedural: 0
+  m_RenderingLayerMask: 1
+  m_RendererPriority: 0
+  m_Materials:
+  - {fileID: 2100000, guid: 20142378612a5104ebf06fdf8a4fa628, type: 2}
+  m_StaticBatchInfo:
+    firstSubMesh: 0
+    subMeshCount: 0
+  m_StaticBatchRoot: {fileID: 0}
+  m_ProbeAnchor: {fileID: 0}
+  m_LightProbeVolumeOverride: {fileID: 0}
+  m_ScaleInLightmap: 1
+  m_ReceiveGI: 1
+  m_PreserveUVs: 0
+  m_IgnoreNormalsForChartDetection: 0
+  m_ImportantGI: 0
+  m_StitchLightmapSeams: 1
+  m_SelectedEditorRenderState: 3
+  m_MinimumChartSize: 4
+  m_AutoUVMaxDistance: 0.5
+  m_AutoUVMaxAngle: 89
+  m_LightmapParameters: {fileID: 0}
+  m_SortingLayerID: 0
+  m_SortingLayer: 0
+  m_SortingOrder: 0
+  m_AdditionalVertexStreams: {fileID: 0}
+--- !u!114 &4148925715097907177
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7228989487826272107}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 3f52db380e158da4cbb72ea0812a31e6, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  glowBorder: {fileID: 8627387504602343877}
+  parent: {fileID: 3388434937942088849}
 --- !u!1001 &9114715318172623301
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -181,5 +239,10 @@ PrefabInstance:
 --- !u!224 &2971810859967100329 stripped
 RectTransform:
   m_CorrespondingSourceObject: {fileID: 6287033262116246636, guid: 8d1e21834bc021b42841bee8fd5d71cc, type: 3}
+  m_PrefabInstance: {fileID: 9114715318172623301}
+  m_PrefabAsset: {fileID: 0}
+--- !u!1 &8627387504602343877 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 704631320953407488, guid: 8d1e21834bc021b42841bee8fd5d71cc, type: 3}
   m_PrefabInstance: {fileID: 9114715318172623301}
   m_PrefabAsset: {fileID: 0}

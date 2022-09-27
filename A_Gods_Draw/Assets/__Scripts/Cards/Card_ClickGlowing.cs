@@ -2,31 +2,43 @@
 
 using System.Collections;
 using System.Collections.Generic;
+using System.Drawing;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class Card_ClickGlowing : MonoBehaviour
 {
-    public Material nonGlow;
-    public Material glow;
+    public GameObject glowBorder;
+    public Transform parent;
+    bool isCreated;
+    public static Component currentlySelected;
 
-    bool nonGlowing = true;
-    bool glowing = false;
 
-
-    void OnMouseDown()
+    private void OnMouseOver()
     {
-        if (nonGlow)
+        if (!isCreated)
         {
-            gameObject.GetComponent<Renderer>().material = glow;
-            nonGlowing = true;
-            glowing = false;
-        }
-        else if (glow && glowing)
-        {
-            gameObject.GetComponent<Renderer>().material = nonGlow;
-            nonGlowing = true;
-            glowing = false;
+            currentlySelected = this;
+            
+            glowBorder.SetActive(true);
+            isCreated = true;
+
         }
     }
 
+    private void OnMouseExit()
+    {
+        if (isCreated)
+        {
+            glowBorder.SetActive(false);
+            isCreated = false;
+        }
+        
+    }
+
+    /*public void Deselect()
+    {
+        glowBorder.SetActive(false);
+        isCreated = false;
+    }*/
 }
