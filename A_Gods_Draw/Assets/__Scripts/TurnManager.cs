@@ -78,6 +78,7 @@ public class TurnManager : MonoBehaviour
                         {
                             playedCard.gameObject.transform.position = lanes[currentLane].position;
                             playedCard.gameObject.transform.rotation = lanes[currentLane].rotation;
+                            
 
                             lane.Add(nonGodPlayed);
 
@@ -99,6 +100,7 @@ public class TurnManager : MonoBehaviour
                         {
                             if (a == playedCard)
                             {
+                                a.GetComponentInParent<BoxCollider>().enabled = false;
                                 break;
                             }
                             i++;
