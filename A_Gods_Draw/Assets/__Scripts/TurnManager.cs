@@ -100,7 +100,15 @@ public class TurnManager : MonoBehaviour
                         {
                             if (a == playedCard)
                             {
+                                Animator anim  = GetComponentInParent<Animator>();
                                 a.GetComponentInParent<BoxCollider>().enabled = false;
+                                if(anim)
+                                {
+                                    anim.SetBool("ShowCard",false);
+                                    anim.Play("Default");
+                                    Destroy(anim);
+
+                                }
                                 break;
                             }
                             i++;
