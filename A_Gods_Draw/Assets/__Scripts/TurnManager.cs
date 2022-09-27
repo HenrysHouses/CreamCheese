@@ -73,13 +73,26 @@ public class TurnManager : MonoBehaviour
 
                     if (playedCard)
                     {
-                        playedCard.gameObject.transform.position = lanes[currentLane].position;
-                        playedCard.gameObject.transform.rotation = lanes[currentLane].rotation;
+                        NonGod_Behaviour nonGodPlayed = playedCard as NonGod_Behaviour;
+                        if (nonGodPlayed)
+                        {
+                            playedCard.gameObject.transform.position = lanes[currentLane].position;
+                            playedCard.gameObject.transform.rotation = lanes[currentLane].rotation;
 
-                        if (playedCard as NonGod_Behaviour)
-                            lane.Add(playedCard as NonGod_Behaviour);
+                            lane.Add(nonGodPlayed);
 
-                        currentLane++;
+                            if (currentGod)
+                                nonGodPlayed.CheckForGod(currentGod);
+
+                            currentLane++;
+                        }
+                        else
+                        {
+                            God_Behaviour godPlayed = playedCard as God_Behaviour;
+                            godPlayed.transform.position = godLane.position;
+                            godPlayed.transform.rotation = godLane.rotation;
+                            godPlayed.SearchToBuff(lane);
+                        }
 
                         int i = 0;
                         foreach (Card_Behaviour a in _hand.behaviours)

@@ -114,7 +114,7 @@ public abstract class IMonster : MonoBehaviour
             }
             else
             {
-                //god.dealdamage();
+                god.DealDamage(intentStrengh);
             }
         }
         else
@@ -128,7 +128,7 @@ public abstract class IMonster : MonoBehaviour
     public virtual void PreAbilityDecide() { }
     protected virtual bool UsesAbility(List<IMonster> enemies, List<NonGod_Behaviour> currentLane, PlayerController player, God_Behaviour currentGod) { return false; }
     protected virtual void AbilityDecided(List<IMonster> enemies, List<NonGod_Behaviour> currentLane, PlayerController player, God_Behaviour currentGod) { }
-    protected virtual bool AttackingPlayer(PlayerController player, God_Behaviour god) { return UnityEngine.Random.Range(0, 2) == 1; }
+    protected virtual bool AttackingPlayer(PlayerController player, God_Behaviour god) { return !god || UnityEngine.Random.Range(0, 2) == 1; }
     protected virtual void DoAbility() { }
     public virtual void OnTurnEnd() { }
     
