@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
+using TMPro;
 
 public abstract class IMonster : MonoBehaviour
 {
@@ -29,6 +30,8 @@ public abstract class IMonster : MonoBehaviour
     Image image;
     [SerializeField]
     Text strengh;
+    [SerializeField]
+    TMP_Text healthTxt;
 
     [SerializeField]
     Sprite attackIcon;
@@ -39,6 +42,8 @@ public abstract class IMonster : MonoBehaviour
     void Start()
     {
         health = maxHealth;
+
+        healthTxt.text = "HP: " + health.ToString();
 
         image.enabled = false;
         strengh.enabled = false;
@@ -68,7 +73,16 @@ public abstract class IMonster : MonoBehaviour
     public void DealDamage(int amount)
     {
         if (amount > defendedFor)
-            health -= (amount - defendedFor);
+        {
+            health = health - (amount - defendedFor);
+            defendedFor = 0;
+        }
+        else
+        {
+            defendedFor -= amount;
+        }
+
+        healthTxt.text = "HP: " + health.ToString();
     }
 
     public void DecideIntent(List<IMonster> enemies, List<NonGod_Behaviour> currentLane, PlayerController player, God_Behaviour currentGod)
