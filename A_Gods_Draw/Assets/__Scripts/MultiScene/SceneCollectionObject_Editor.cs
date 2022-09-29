@@ -46,4 +46,17 @@ public class SceneCollectionObject_Editor : Editor
         // Save the changes back to the object
         EditorUtility.SetDirty(target);
     }
+
+    void OnInspectorUpdate()
+    {
+        int sceneCount = SceneManager.sceneCountInBuildSettings;     
+        Debug.Log(sceneCount);
+        string[] scenes = new string[sceneCount];
+
+        for( int i = 0; i < sceneCount; i++ )
+        {
+            scenes[i] = System.IO.Path.GetFileNameWithoutExtension( SceneUtility.GetScenePathByBuildIndex( i ) );
+        }
+        script.setSceneOptions(scenes);
+    }
 }
