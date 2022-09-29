@@ -1,8 +1,6 @@
 //CHARLIE SCrIPT
 using System.Collections.Generic;
 using UnityEngine;
-using System;
-using UnityEditorInternal;
 using Malee;
 
 namespace Map
