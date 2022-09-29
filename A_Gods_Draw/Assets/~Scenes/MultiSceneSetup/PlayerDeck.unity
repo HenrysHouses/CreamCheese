@@ -473,7 +473,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 589350813}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalPosition: {x: 0, y: 0.021, z: -0.502}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
@@ -631,6 +631,7 @@ MonoBehaviour:
   FreezeRotationY: 0
   FreezeRotationZ: 1
   isAnimating: 1
+  isReadingRequests: 0
   DbugPositions: 0
   testAnimationObj: {fileID: 7228989487826272107, guid: e4f70975b43c2e448939ff9483e25f06, type: 3}
 --- !u!1 &874030727
@@ -737,6 +738,7 @@ MonoBehaviour:
   FreezeRotationY: 1
   FreezeRotationZ: 1
   isAnimating: 0
+  isReadingRequests: 0
   DbugPositions: 0
   testAnimationObj: {fileID: 5573152896087516946, guid: 9271d508c8441744284316e4d72f2702, type: 3}
 --- !u!1 &911157442
@@ -1222,6 +1224,7 @@ MonoBehaviour:
   FreezeRotationY: 0
   FreezeRotationZ: 0
   isAnimating: 0
+  isReadingRequests: 0
   DbugPositions: 0
   testAnimationObj: {fileID: 7228989487826272107, guid: e4f70975b43c2e448939ff9483e25f06, type: 3}
 --- !u!1 &1373987649
@@ -1569,6 +1572,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   deckManager: {fileID: 11400000, guid: a9ef532ce763b474e868648e2e3843ac, type: 2}
   selectedCard: {fileID: 0}
+  editor_drawAmount: 0
 --- !u!4 &1774195748
 Transform:
   m_ObjectHideFlags: 0

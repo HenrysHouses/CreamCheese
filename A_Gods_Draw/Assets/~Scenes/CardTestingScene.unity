@@ -1596,6 +1596,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   deckManager: {fileID: 11400000, guid: a9ef532ce763b474e868648e2e3843ac, type: 2}
   selectedCard: {fileID: 0}
+  editor_drawAmount: 0
 --- !u!1 &1635365566
 GameObject:
   m_ObjectHideFlags: 0
@@ -1868,7 +1869,6 @@ GameObject:
   m_Component:
   - component: {fileID: 2026212021}
   - component: {fileID: 2026212020}
-  - component: {fileID: 2026212019}
   m_Layer: 0
   m_Name: Main Camera
   m_TagString: MainCamera
@@ -1876,14 +1876,6 @@ GameObject:
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
---- !u!81 &2026212019
-AudioListener:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2026212018}
-  m_Enabled: 1
 --- !u!20 &2026212020
 Camera:
   m_ObjectHideFlags: 0
