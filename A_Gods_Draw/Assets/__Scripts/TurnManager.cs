@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class TurnManager : MonoBehaviour
 {
@@ -9,6 +10,9 @@ public class TurnManager : MonoBehaviour
     bool cardOnPlay = false;
     [SerializeField]
     DeckManager_SO deckManager;
+
+    [SerializeField]
+    UIManager ui;
 
     [SerializeField]
     Transform[] lanes;
@@ -44,7 +48,7 @@ public class TurnManager : MonoBehaviour
 
         foreach (IMonster enemy in enemies)
         {
-            enemy.SetPlayer(player);
+            enemy.Initialize(this, player);
         }
     }
 
@@ -131,6 +135,7 @@ public class TurnManager : MonoBehaviour
                         card.OnAction();
                         deckManager.discardCard(card.GetCardSO());
                     }
+                    CheckIfPlayerWon();
                     currentState = State.EnemiesTurn;
                     currentLane = 0;
                 }
@@ -141,6 +146,11 @@ public class TurnManager : MonoBehaviour
                     foreach (IMonster enemy in enemies)
                     {
                         enemy.Act();
+                        if (player.GetHealth() <= 0)
+                        {
+                            PlayerLost();
+                            break;
+                        }
                     }
 
                     currentState = State.EndTurn;
@@ -224,5 +234,31 @@ public class TurnManager : MonoBehaviour
     public List<NonGod_Behaviour> CurrentLane()
     {
         return lane;
+    }
+
+    void CheckIfPlayerWon()
+    {
+        if (enemies.Count == 0)
+        {
+            ui.ShowwinningPanel();
+            this.gameObject.SetActive(false);
+        }
+    }
+
+    public void EnemyDied(IMonster enemy)
+    {
+        enemies.Remove(enemy);
+    }
+
+    public void PlayerLost()
+    {
+        //Play audio
+        ui.ShowLoosingPanel();
+        this.gameObject.SetActive(false);
+    }
+
+    public void GoToNextScene()
+    {
+        SceneManager.LoadScene(SceneManager.GetActiveScene().name);
     }
 }

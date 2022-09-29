@@ -19,8 +19,11 @@ public class Attack_Behaviour : NonGod_Behaviour
     {
         foreach (IMonster target in targets)
         {
-            target.DealDamage(strengh);
-            Debug.Log("Dealt " + strengh + " damage to " + target);
+            if (target != null)
+            {
+                target.DealDamage(strengh);
+                Debug.Log("Dealt " + strengh + " damage to " + target);
+            }
         }
     }
 

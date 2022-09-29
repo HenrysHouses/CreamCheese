@@ -23,6 +23,8 @@ public abstract class IMonster : MonoBehaviour
 
     protected Attack_Behaviour attacker;
 
+    TurnManager manager;
+
     PlayerController player;
     God_Behaviour god = null;
 
@@ -61,10 +63,12 @@ public abstract class IMonster : MonoBehaviour
         attacker = null;
     }
 
-    public void SetPlayer(PlayerController controller)
+    public void Initialize(TurnManager man, PlayerController controller)
     {
+        manager = man;
         player = controller;
     }
+
     public void SetGod(God_Behaviour beh = null)
     {
         god = beh;
@@ -82,6 +86,13 @@ public abstract class IMonster : MonoBehaviour
             defendedFor -= amount;
         }
 
+        if (health <= 0)
+        {
+            health = 0;
+            manager.EnemyDied(this);
+            Destroy(this.gameObject);
+        }
+
         healthTxt.text = "HP: " + health.ToString();
     }
 
@@ -96,6 +107,7 @@ public abstract class IMonster : MonoBehaviour
         }
         else
         {
+            attacking = false;
             image.sprite = abilityIcon;
             AbilityDecided(enemies, currentLane, player, currentGod);
         }
