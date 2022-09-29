@@ -1,9 +1,13 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using FMODUnity;
 
 public abstract class NonGod_Behaviour : Card_Behaviour
 {
+    [SerializeField]
+    EventReference SoundClick;
+
     protected int strengh;
     protected Buff_Behaviour theCardCANThatBuffThis;
     protected Buff_Behaviour theCardThatBuffsThis;

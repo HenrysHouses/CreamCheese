@@ -1,31 +1,5 @@
 %YAML 1.1
 %TAG !u! tag:unity3d.com,2011:
---- !u!114 &-9172967959939972424
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: fecb8ef7f94ca804a8ab72049b86782e, type: 3}
-  m_Name: parameter:/card Effects/DrawCards
-  m_EditorClassIdentifier: 
-  Name: DrawCards
-  StudioPath: 
-  Min: 0
-  Max: 1
-  Default: 0
-  ID:
-    data1: 4219009450
-    data2: 3718968038
-  Type: 2
-  IsGlobal: 1
-  Labels:
-  - Draw Card
-  - Draw Last cards
-  Exists: 1
 --- !u!114 &-7223240126236466965
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -54,6 +28,33 @@ MonoBehaviour:
   MinDistance: 1
   MaxDistance: 20
   Length: 89864
+--- !u!114 &-6789853674765932468
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ceb653cd98e289a4e8697a1af55201f2, type: 3}
+  m_Name: event:/Card Effects/Card Scrolling
+  m_EditorClassIdentifier: 
+  Path: event:/Card Effects/Card Scrolling
+  Guid:
+    Data1: 1925774154
+    Data2: 1228889240
+    Data3: -1063256898
+    Data4: 1449369350
+  Banks:
+  - {fileID: 8184623646903633296}
+  IsStream: 1
+  Is3D: 0
+  IsOneShot: 1
+  Parameters: []
+  MinDistance: 1
+  MaxDistance: 20
+  Length: 225
 --- !u!114 &-5483046311908628078
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -82,7 +83,7 @@ MonoBehaviour:
   MinDistance: 1
   MaxDistance: 20
   Length: 0
---- !u!114 &-4560001496121266286
+--- !u!114 &-3830963355005355320
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -92,26 +93,24 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: ceb653cd98e289a4e8697a1af55201f2, type: 3}
-  m_Name: event:/card Effects
+  m_Name: snapshot:/SlowDownSoundTest
   m_EditorClassIdentifier: 
-  Path: event:/card Effects
+  Path: snapshot:/SlowDownSoundTest
   Guid:
-    Data1: 1422550897
-    Data2: 1245034776
-    Data3: -763743860
-    Data4: -295363119
+    Data1: 2042714898
+    Data2: 1231183997
+    Data3: -1403003756
+    Data4: -56587560
   Banks:
-  - {fileID: 8184623646903633296}
-  IsStream: 1
-  Is3D: 1
-  IsOneShot: 1
-  Parameters:
-  - {fileID: -4451712305793717857}
-  - {fileID: -9172967959939972424}
-  MinDistance: 1
-  MaxDistance: 20
+  - {fileID: 5012756205305382112}
+  IsStream: 0
+  Is3D: 0
+  IsOneShot: 0
+  Parameters: []
+  MinDistance: 0
+  MaxDistance: 0
   Length: 0
---- !u!114 &-4451712305793717857
+--- !u!114 &-2711741172367947030
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -121,51 +120,22 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: fecb8ef7f94ca804a8ab72049b86782e, type: 3}
-  m_Name: parameter:/card Effects/Card Effects
+  m_Name: parameter:/Card Effects/DrawCards
   m_EditorClassIdentifier: 
-  Name: Card Effects
+  Name: DrawCards
   StudioPath: 
   Min: 0
-  Max: 3
+  Max: 1
   Default: 0
   ID:
-    data1: 3823256222
-    data2: 1950744258
+    data1: 4219009450
+    data2: 3718968038
   Type: 2
   IsGlobal: 1
   Labels:
-  - Card Scrolling
-  - Reshuffle
-  - DrawCards
-  - Pickcards
+  - Draw Card
+  - Draw Last cards
   Exists: 1
---- !u!114 &-2776332615575239103
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: ceb653cd98e289a4e8697a1af55201f2, type: 3}
-  m_Name: event:/Test
-  m_EditorClassIdentifier: 
-  Path: event:/Test
-  Guid:
-    Data1: 1176331767
-    Data2: 1193659217
-    Data3: 185939846
-    Data4: 1051933652
-  Banks:
-  - {fileID: 2531545277426688767}
-  IsStream: 0
-  Is3D: 0
-  IsOneShot: 1
-  Parameters: []
-  MinDistance: 1
-  MaxDistance: 20
-  Length: 4837
 --- !u!114 &-1042663962445955293
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -209,13 +179,16 @@ MonoBehaviour:
   - {fileID: 5369256758144588360}
   - {fileID: 8184623646903633296}
   - {fileID: 5012756205305382112}
-  - {fileID: 2531545277426688767}
   EditorEvents:
   - {fileID: -7223240126236466965}
   - {fileID: -5483046311908628078}
   - {fileID: 8998689533696705367}
-  - {fileID: -4560001496121266286}
-  - {fileID: -2776332615575239103}
+  - {fileID: -6789853674765932468}
+  - {fileID: 1754814211252460458}
+  - {fileID: 5628598093241865815}
+  - {fileID: 3834247848173568349}
+  - {fileID: 3957873798858669803}
+  - {fileID: -3830963355005355320}
   EditorParameters:
   - {fileID: -1042663962445955293}
   - {fileID: 1100449970642523002}
@@ -226,7 +199,7 @@ MonoBehaviour:
   - {fileID: 5012756205305382112}
   StringsBanks:
   - {fileID: 7629260002998660822}
-  cacheTime: 637995417012160040
+  cacheTime: 638000690484563545
   cacheVersion: 131592
 --- !u!114 &1100449970642523002
 MonoBehaviour:
@@ -255,7 +228,7 @@ MonoBehaviour:
   - Enemy grunt
   - Enemy Defend
   Exists: 1
---- !u!114 &2531545277426688767
+--- !u!114 &1300400766465658937
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -264,15 +237,108 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: c18180ecb35941f4682ae60107b85b7c, type: 3}
-  m_Name: bank:/Tests.bank
+  m_Script: {fileID: 11500000, guid: fecb8ef7f94ca804a8ab72049b86782e, type: 3}
+  m_Name: parameter:/Card Effects/Card Effects
   m_EditorClassIdentifier: 
-  Path: ../../../../FmodBanks/Desktop/Tests.bank
-  Name: Tests
-  StudioPath: bank:/Tests
-  lastModified: 637995417012160040
-  FileSizes: []
+  Name: Card Effects
+  StudioPath: 
+  Min: 0
+  Max: 3
+  Default: 0
+  ID:
+    data1: 3823256222
+    data2: 1950744258
+  Type: 2
+  IsGlobal: 1
+  Labels:
+  - Card Scrolling
+  - Reshuffle
+  - DrawCards
+  - Pickcards
   Exists: 1
+--- !u!114 &1754814211252460458
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ceb653cd98e289a4e8697a1af55201f2, type: 3}
+  m_Name: event:/Card Effects/Card Effects
+  m_EditorClassIdentifier: 
+  Path: event:/Card Effects/Card Effects
+  Guid:
+    Data1: 1422550897
+    Data2: 1245034776
+    Data3: -763743860
+    Data4: -295363119
+  Banks:
+  - {fileID: 8184623646903633296}
+  IsStream: 0
+  Is3D: 0
+  IsOneShot: 1
+  Parameters:
+  - {fileID: 1300400766465658937}
+  - {fileID: -2711741172367947030}
+  MinDistance: 1
+  MaxDistance: 20
+  Length: 305
+--- !u!114 &3834247848173568349
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ceb653cd98e289a4e8697a1af55201f2, type: 3}
+  m_Name: event:/Card Effects/Click Card
+  m_EditorClassIdentifier: 
+  Path: event:/Card Effects/Click Card
+  Guid:
+    Data1: 1178499744
+    Data2: 1135240324
+    Data3: -1252100417
+    Data4: 1216301398
+  Banks:
+  - {fileID: 8184623646903633296}
+  IsStream: 1
+  Is3D: 0
+  IsOneShot: 1
+  Parameters: []
+  MinDistance: 1
+  MaxDistance: 20
+  Length: 130
+--- !u!114 &3957873798858669803
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ceb653cd98e289a4e8697a1af55201f2, type: 3}
+  m_Name: event:/Card Effects/ClickEnemy
+  m_EditorClassIdentifier: 
+  Path: event:/Card Effects/ClickEnemy
+  Guid:
+    Data1: 199999973
+    Data2: 1228848883
+    Data3: 234812576
+    Data4: 601707487
+  Banks:
+  - {fileID: 8184623646903633296}
+  IsStream: 1
+  Is3D: 0
+  IsOneShot: 1
+  Parameters: []
+  MinDistance: 1
+  MaxDistance: 20
+  Length: 130
 --- !u!114 &5012756205305382112
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -288,7 +354,7 @@ MonoBehaviour:
   Path: ../../../../FmodBanks/Desktop/Master.bank
   Name: Master
   StudioPath: bank:/Master
-  lastModified: 637995417011984611
+  lastModified: 638000690484543543
   FileSizes: []
   Exists: 1
 --- !u!114 &5369256758144588360
@@ -306,7 +372,7 @@ MonoBehaviour:
   Path: ../../../../FmodBanks/Desktop/Ambience.bank
   Name: Ambience
   StudioPath: bank:/Ambience
-  lastModified: 637995417011247777
+  lastModified: 638000690483733898
   FileSizes: []
   Exists: 1
 --- !u!114 &5618613026224991910
@@ -333,6 +399,33 @@ MonoBehaviour:
   IsGlobal: 1
   Labels: []
   Exists: 1
+--- !u!114 &5628598093241865815
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ceb653cd98e289a4e8697a1af55201f2, type: 3}
+  m_Name: event:/Card Effects/DrawCards
+  m_EditorClassIdentifier: 
+  Path: event:/Card Effects/DrawCards
+  Guid:
+    Data1: -1855550642
+    Data2: 1183617777
+    Data3: -1438661999
+    Data4: 1883429168
+  Banks:
+  - {fileID: 8184623646903633296}
+  IsStream: 1
+  Is3D: 0
+  IsOneShot: 1
+  Parameters: []
+  MinDistance: 1
+  MaxDistance: 20
+  Length: 902
 --- !u!114 &5752603083316656644
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -428,10 +521,10 @@ MonoBehaviour:
   Path: ../../../../FmodBanks/Desktop/Master.strings.bank
   Name: Master.strings
   StudioPath: bank:/Master.strings
-  lastModified: 637995417011994614
+  lastModified: 638000690484563545
   FileSizes:
   - Name: 
-    Value: 1274
+    Value: 1478
   Exists: 1
 --- !u!114 &8184623646903633296
 MonoBehaviour:
@@ -448,7 +541,7 @@ MonoBehaviour:
   Path: ../../../../FmodBanks/Desktop/Effects.bank
   Name: Effects
   StudioPath: bank:/Effects
-  lastModified: 637995417011954612
+  lastModified: 638000690484513534
   FileSizes: []
   Exists: 1
 --- !u!114 &8607894708110779818

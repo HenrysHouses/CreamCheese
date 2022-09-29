@@ -2,9 +2,12 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
+using FMODUnity;
 
 public class TurnManager : MonoBehaviour
 {
+    [SerializeField]
+    private EventReference SoundSelectCard, SoundDrawCards,SoundClickEnemy;
 
     bool turnEnd;
     bool cardOnPlay = false;
@@ -58,6 +61,7 @@ public class TurnManager : MonoBehaviour
         {
             case State.StartTurn:
                 {
+                    SoundManager.Instance.Playsound(SoundDrawCards,gameObject);
                     currentState = State.PlayerTurn;
 
                     deckManager.drawCard(5);
@@ -80,6 +84,7 @@ public class TurnManager : MonoBehaviour
                         NonGod_Behaviour nonGodPlayed = playedCard as NonGod_Behaviour;
                         if (nonGodPlayed)
                         {
+                            SoundManager.Instance.Playsound(SoundClickEnemy,gameObject);
                             playedCard.gameObject.transform.position = lanes[currentLane].position;
                             playedCard.gameObject.transform.rotation = lanes[currentLane].rotation;
                             
@@ -228,6 +233,7 @@ public class TurnManager : MonoBehaviour
 
     public bool IsACardSelected()
     {
+        SoundManager.Instance.Playsound(SoundSelectCard,gameObject);
         return cardOnPlay;
     }
 

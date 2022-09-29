@@ -8,7 +8,7 @@ public class Player_Hand : MonoBehaviour
     Transform handPlace;
 
     public TurnManager _turnManager;
-    private float cardRotation = 10; 
+    private float cardRotation = 20; 
     public List<CardInHand> CAH = new List<CardInHand>();
     public List<Card_Behaviour> behaviours = new();
 

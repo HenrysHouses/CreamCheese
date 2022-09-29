@@ -1019,6 +1019,7 @@ GameObject:
   - component: {fileID: 867169055}
   - component: {fileID: 867169054}
   - component: {fileID: 867169053}
+  - component: {fileID: 867169058}
   m_Layer: 0
   m_Name: Player
   m_TagString: Untagged
@@ -1120,6 +1121,18 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 10
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &867169058
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 867169052}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 120d314a93e8cad4580fc34eab2d459f, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &914404586
 GameObject:
   m_ObjectHideFlags: 0
@@ -1581,6 +1594,27 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 794f58104ef7c6a488d6fc1d5bf2ab2b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  SoundSelectCard:
+    Guid:
+      Data1: 1178499744
+      Data2: 1135240324
+      Data3: -1252100417
+      Data4: 1216301398
+    Path: event:/Card Effects/Click Card
+  SoundDrawCards:
+    Guid:
+      Data1: -1855550642
+      Data2: 1183617777
+      Data3: -1438661999
+      Data4: 1883429168
+    Path: event:/Card Effects/DrawCards
+  SoundClickEnemy:
+    Guid:
+      Data1: 199999973
+      Data2: 1228848883
+      Data3: 234812576
+      Data4: 601707487
+    Path: event:/Card Effects/ClickEnemy
   deckManager: {fileID: 11400000, guid: a9ef532ce763b474e868648e2e3843ac, type: 2}
   ui: {fileID: 914404587}
   lanes:
@@ -3062,6 +3096,7 @@ GameObject:
   m_Component:
   - component: {fileID: 2026212021}
   - component: {fileID: 2026212020}
+  - component: {fileID: 2026212022}
   m_Layer: 0
   m_Name: Main Camera
   m_TagString: MainCamera
@@ -3119,14 +3154,27 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 2026212018}
-  m_LocalRotation: {x: -0.24029456, y: 0.009315907, z: -0.0023065798, w: -0.9706526}
-  m_LocalPosition: {x: -0.024, y: 0.836, z: -1.205}
+  m_LocalRotation: {x: -0.24022913, y: -0.0058586868, z: -0.0060626357, w: -0.9706796}
+  m_LocalPosition: {x: -0.027, y: 0.967, z: -1.365}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 0}
   m_RootOrder: 0
-  m_LocalEulerAnglesHint: {x: 27.809, y: -1.1, z: 0}
+  m_LocalEulerAnglesHint: {x: 27.794, y: 0.925, z: 0.945}
+--- !u!114 &2026212022
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2026212018}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 86c6556701af9e04380698b89f691b6e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  attenuationObject: {fileID: 0}
 --- !u!1 &2062952293
 GameObject:
   m_ObjectHideFlags: 0

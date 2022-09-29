@@ -6,28 +6,29 @@ using FMODUnity;
 
 public class Card_Selector : MonoBehaviour
 { 
-    [SerializeField] StudioEventEmitter cardflip;
+    [SerializeField] EventReference cardflip;
+    public ParamRef pp;
     
     
     public bool holdingOver;
-    public string cardsound;
     
 
      private void Start()
     {
         
-
-     //  cardflip = GetComponent<FMODUnity.StudioEventEmitter>();
+        
+      
 
     }
 
     
 
-  public void OnMouseOver()
+  public void OnMouseEnter()
     {
         holdingOver = true;
-        //cardflip.SetParameter("Card Effects" , 0);
-//        RuntimeManager.PlayOneShot(cardsound,transform.position);
+        
+        SoundManager.Instance.Playsound(cardflip, gameObject);
+       // Debug.Log("Called");
         
         
         
@@ -36,6 +37,7 @@ public class Card_Selector : MonoBehaviour
     public void OnMouseExit()
     {
         holdingOver = false;
+       // SoundManager.Instance.StopSound(cardflip,gameObject);
     }
 
     private void OnMouseDown()
