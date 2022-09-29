@@ -79,6 +79,7 @@ public class AnimationManager_SO : ScriptableObject
             if(AnimationRequest[i].target == targetName)
                 AnimationRequest.RemoveAt(i);
         }
+        AnimationRequestChangeEvent?.Invoke();
     }
 
     // setup

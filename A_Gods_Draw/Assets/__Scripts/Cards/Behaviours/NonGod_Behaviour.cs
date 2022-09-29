@@ -10,6 +10,8 @@ public abstract class NonGod_Behaviour : Card_Behaviour
 
     protected NonGod_Card current;
 
+    public NonGod_Card GetNonGod() { return current; }
+
     public override void Initialize(Card_SO card)
     {
         this.card = card;
@@ -32,15 +34,25 @@ public abstract class NonGod_Behaviour : Card_Behaviour
         }
     }
 
-    public virtual void GetBuff(bool isMultiplier, int amount)
+    public virtual void GetBuff(bool isMultiplier, float amount)
     {
         if (isMultiplier)
         {
-            strengh *= amount;
+            strengh = (int)(strengh * amount);
         }
         else
         {
-            strengh += amount;
+            strengh = (int)(strengh + amount);
+        }
+
+        GetComponent<Card_Loader>().ChangeStrengh(strengh);
+    }
+
+    public void CheckForGod(God_Behaviour god)
+    {
+        if (current.correspondingGod == god.GetName())
+        {
+            god.Buff(this);
         }
     }
 }

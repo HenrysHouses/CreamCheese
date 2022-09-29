@@ -2,9 +2,14 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
+using TMPro;
 
 public abstract class IMonster : MonoBehaviour
 {
+    [SerializeField]
+    int maxHealth;
+    int health;
+
     [SerializeField]
     short minAttack, maxAttack;
 
@@ -12,11 +17,8 @@ public abstract class IMonster : MonoBehaviour
 
     bool attackingPlayer;
 
-    [SerializeField]
-    int maxHealth;
-    int health;
 
-    int intentStrengh;
+    protected int intentStrengh;
     int defendedFor;
 
     protected Attack_Behaviour attacker;
@@ -28,6 +30,8 @@ public abstract class IMonster : MonoBehaviour
     Image image;
     [SerializeField]
     Text strengh;
+    [SerializeField]
+    TMP_Text healthTxt;
 
     [SerializeField]
     Sprite attackIcon;
@@ -38,6 +42,8 @@ public abstract class IMonster : MonoBehaviour
     void Start()
     {
         health = maxHealth;
+
+        healthTxt.text = "HP: " + health.ToString();
 
         image.enabled = false;
         strengh.enabled = false;
@@ -67,10 +73,19 @@ public abstract class IMonster : MonoBehaviour
     public void DealDamage(int amount)
     {
         if (amount > defendedFor)
-            health -= (amount - defendedFor);
+        {
+            health = health - (amount - defendedFor);
+            defendedFor = 0;
+        }
+        else
+        {
+            defendedFor -= amount;
+        }
+
+        healthTxt.text = "HP: " + health.ToString();
     }
 
-    public void DecideIntent(List<IMonster> enemies, List<TurnManager.LaneInfo> currentLane, PlayerController player, God_Behaviour currentGod)
+    public void DecideIntent(List<IMonster> enemies, List<NonGod_Behaviour> currentLane, PlayerController player, God_Behaviour currentGod)
     {
         if (!UsesAbility(enemies, currentLane, player, currentGod))
         {
@@ -113,7 +128,7 @@ public abstract class IMonster : MonoBehaviour
             }
             else
             {
-                //god.dealdamage();
+                god.DealDamage(intentStrengh);
             }
         }
         else
@@ -125,9 +140,9 @@ public abstract class IMonster : MonoBehaviour
 
     public virtual void OnTurnBegin() { }
     public virtual void PreAbilityDecide() { }
-    protected virtual bool UsesAbility(List<IMonster> enemies, List<TurnManager.LaneInfo> currentLane, PlayerController player, God_Behaviour currentGod) { return false; }
-    protected virtual void AbilityDecided(List<IMonster> enemies, List<TurnManager.LaneInfo> currentLane, PlayerController player, God_Behaviour currentGod) { }
-    protected virtual bool AttackingPlayer(PlayerController player, God_Behaviour god) { return UnityEngine.Random.Range(0, 2) == 1; }
+    protected virtual bool UsesAbility(List<IMonster> enemies, List<NonGod_Behaviour> currentLane, PlayerController player, God_Behaviour currentGod) { return false; }
+    protected virtual void AbilityDecided(List<IMonster> enemies, List<NonGod_Behaviour> currentLane, PlayerController player, God_Behaviour currentGod) { }
+    protected virtual bool AttackingPlayer(PlayerController player, God_Behaviour god) { return !god || UnityEngine.Random.Range(0, 2) == 1; }
     protected virtual void DoAbility() { }
     public virtual void OnTurnEnd() { }
     

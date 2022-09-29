@@ -6,7 +6,7 @@ using UnityEngine.UI;
 
 public class LokiMonster1 : IMonster
 {
-    private IMonster toDefend;
+    IMonster toDefend;
     bool playerAttacked;
 
     public override void IsObjectiveTo(Attack_Behaviour attack_Behaviour)
@@ -15,7 +15,7 @@ public class LokiMonster1 : IMonster
         playerAttacked = true;
         //Debug.Log(this + " can be attacked by " + attack_Behaviour);
     }
-    protected override bool UsesAbility(List<IMonster> enemies, List<TurnManager.LaneInfo> currentLane, PlayerController player, God_Behaviour currentGod) 
+    protected override bool UsesAbility(List<IMonster> enemies, List<NonGod_Behaviour> currentLane, PlayerController player, God_Behaviour currentGod) 
     {
         if (playerAttacked && GetMaxHealth() > GetHealth())
         {
@@ -24,7 +24,6 @@ public class LokiMonster1 : IMonster
             return true;
         }
         playerAttacked = false;
-
 
         List<IMonster> weakMonsters = new();
         foreach (IMonster a in enemies)
@@ -44,9 +43,10 @@ public class LokiMonster1 : IMonster
             return false;
         }
     }
-    protected override void AbilityDecided(List<IMonster> enemies, List<TurnManager.LaneInfo> currentLane, PlayerController player, God_Behaviour currentGod)
+    protected override void AbilityDecided(List<IMonster> enemies, List<NonGod_Behaviour> currentLane, PlayerController player, God_Behaviour currentGod)
     {
-        toDefend.Defend(2);
+        intentStrengh = 2;
+        toDefend.Defend(intentStrengh);
     }
 
 }

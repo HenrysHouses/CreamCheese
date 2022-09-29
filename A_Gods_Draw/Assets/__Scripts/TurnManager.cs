@@ -5,22 +5,6 @@ using UnityEngine;
 public class TurnManager : MonoBehaviour
 {
 
-    public struct LaneInfo
-    {
-        public NonGod_Behaviour card;
-        public bool active;
-
-        public void Begin(bool active)
-        {
-            this.active = active;
-        }
-
-        public void SetCard(NonGod_Behaviour a)
-        {
-            card = a;
-        }
-    }
-
     bool turnEnd;
     bool cardOnPlay = false;
     [SerializeField]
@@ -43,7 +27,7 @@ public class TurnManager : MonoBehaviour
     Card_Behaviour playedCard;
 
     God_Behaviour currentGod;
-    List<LaneInfo> lane;
+    List<NonGod_Behaviour> lane;
 
     public enum State
     {
@@ -54,12 +38,7 @@ public class TurnManager : MonoBehaviour
 
     void Start()
     {
-        lane = new List<LaneInfo>(4);
-
-        foreach (LaneInfo a in lane)
-        {
-            a.Begin(true);
-        }
+        lane = new List<NonGod_Behaviour>();
 
         // deckManager.SetTurnManager(this);
 
@@ -94,19 +73,42 @@ public class TurnManager : MonoBehaviour
 
                     if (playedCard)
                     {
-                        playedCard.gameObject.transform.position = lanes[currentLane].position;
-                        playedCard.gameObject.transform.rotation = lanes[currentLane].rotation;
+                        NonGod_Behaviour nonGodPlayed = playedCard as NonGod_Behaviour;
+                        if (nonGodPlayed)
+                        {
+                            playedCard.gameObject.transform.position = lanes[currentLane].position;
+                            playedCard.gameObject.transform.rotation = lanes[currentLane].rotation;
+                            
 
-                        if (playedCard as NonGod_Behaviour)
-                            lane[currentLane].SetCard(playedCard as NonGod_Behaviour);
+                            lane.Add(nonGodPlayed);
 
-                        currentLane++;
+                            if (currentGod)
+                                nonGodPlayed.CheckForGod(currentGod);
+
+                            currentLane++;
+                        }
+                        else
+                        {
+                            God_Behaviour godPlayed = playedCard as God_Behaviour;
+                            godPlayed.transform.position = godLane.position;
+                            godPlayed.transform.rotation = godLane.rotation;
+                            godPlayed.SearchToBuff(lane);
+                        }
 
                         int i = 0;
                         foreach (Card_Behaviour a in _hand.behaviours)
                         {
                             if (a == playedCard)
                             {
+                                Animator anim  = GetComponentInParent<Animator>();
+                                a.GetComponentInParent<BoxCollider>().enabled = false;
+                                if(anim)
+                                {
+                                    anim.SetBool("ShowCard",false);
+                                    anim.Play("Default");
+                                    Destroy(anim);
+
+                                }
                                 break;
                             }
                             i++;
@@ -124,12 +126,10 @@ public class TurnManager : MonoBehaviour
 
             case State.Action:
                 {
-                    foreach (LaneInfo laneInfo in lane)
+                    foreach (NonGod_Behaviour card in lane)
                     {
-                        if (laneInfo.active)
-                            laneInfo.card.OnAction();
-                        deckManager.discardCard(laneInfo.card.GetCardSO());
-                        laneInfo.Begin(true);
+                        card.OnAction();
+                        deckManager.discardCard(card.GetCardSO());
                     }
                     currentState = State.EnemiesTurn;
                     currentLane = 0;
@@ -153,7 +153,7 @@ public class TurnManager : MonoBehaviour
                     deckManager.discardAll();
                     for (int i = lane.Count - 1; i >= 0; i--)
                     {
-                        Destroy(lane[i].card.transform.parent.parent.gameObject);
+                        Destroy(lane[i].transform.parent.parent.gameObject);
                     }
 
                     for (int i = _hand.behaviours.Count - 1; i >= 0; i--)
@@ -223,11 +223,6 @@ public class TurnManager : MonoBehaviour
 
     public List<NonGod_Behaviour> CurrentLane()
     {
-        List<NonGod_Behaviour> a = new();
-        foreach (LaneInfo info in lane)
-        {
-            a.Add(info.card);
-        }
-        return a;
+        return lane;
     }
 }

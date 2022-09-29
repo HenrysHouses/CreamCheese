@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using TMPro;
 
 public class PlayerController : MonoBehaviour
 {
@@ -9,6 +10,8 @@ public class PlayerController : MonoBehaviour
     int maxHealth = 10;
     [SerializeField]
     int health;
+    [SerializeField]
+    TMP_Text healthTxt;
 
     int defendedFor = 0;
 
@@ -18,6 +21,7 @@ public class PlayerController : MonoBehaviour
     void Start()
     {
         health = maxHealth;
+        healthTxt.text = "HP: " + health.ToString();
     }
 
     public void CanBeDefended(Defense_Behaviour beh)
@@ -33,12 +37,20 @@ public class PlayerController : MonoBehaviour
     public void DealDamage(int amount)
     {
         if (amount > defendedFor)
+        {
             health = health - (amount - defendedFor);
+            defendedFor = 0;
+        }
+        else
+        {
+            defendedFor -= amount;
+        }
 
         if (health <= 0)
         {
             Debug.Log("You Died lmao noob");
         }
+        healthTxt.text = "HP: " + health.ToString();
     }
 
     private void OnMouseDown()

@@ -21,7 +21,7 @@ public class PathAnimatorController : MonoBehaviour
 
 
     /// <summary>Current animations on this path</summary>
-    List<pathAnimation> _Animations = new List<pathAnimation>();
+    [SerializeField] List<pathAnimation> _Animations = new List<pathAnimation>();
 
     [SerializeField, Tooltip("Name of this path, Used to identify which path accepts requested animations")]
     string _pathName;

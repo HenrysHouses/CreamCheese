@@ -45,7 +45,6 @@ public class PathController : MonoBehaviour
 		Debug.LogWarning("GetPos was out of range");
 		return default;
 	}
-	// Vector3 GetPos(int i ) => controlPoints[i].position;
 
 	void Start()
 	{
@@ -56,6 +55,20 @@ public class PathController : MonoBehaviour
 	#if UNITY_EDITOR	
 		evenlySpacedPoints = calculateEvenlySpacedPoints(length/LOD);
 	#endif
+
+		recalculatePath();
+
+		if(DrawEvenPoints && evenlySpacedPoints != null)
+		{
+			for (int i = 0; i < evenlySpacedPoints.Length; i++)
+			{
+				GameObject obj = GameObject.CreatePrimitive(PrimitiveType.Sphere);
+				obj.transform.position = evenlySpacedPoints[i].pos;
+				obj.transform.SetGlobalScale(new Vector3(0.03f, 0.03f, 0.03f));
+
+				// Gizmos.DrawCube(evenlySpacedPoints[i].pos, new Vector3(0.02f,0.02f,0.02f));
+			}
+		}
 	}
 
 #if UNITY_EDITOR

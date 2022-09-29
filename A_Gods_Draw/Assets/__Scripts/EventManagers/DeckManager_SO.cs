@@ -233,6 +233,7 @@ public class DeckManager_SO : ScriptableObject
             pDiscard.Add(pHand[i]);
         }
         // requests animations for all discarded cards
+
         AnimationManager_SO.getInstance.requestAnimation("Hand-Discard", cards, 0, 0.25f);
 
         pHand.Clear();

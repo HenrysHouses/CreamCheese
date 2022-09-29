@@ -2,21 +2,22 @@ using System.Collections;
 using System.Collections.Generic;
 using Unity.VisualScripting;
 using UnityEngine;
-//using FMODUnity;
+using FMODUnity;
 
 public class Card_Selector : MonoBehaviour
 { 
-   // [SerializeField] StudioEventEmitter cardSounds;
+    [SerializeField] StudioEventEmitter cardflip;
     
     
     public bool holdingOver;
+    public string cardsound;
     
 
      private void Start()
     {
         
 
-     //  cardSounds = GetComponent<StudioEventEmitter>();
+     //  cardflip = GetComponent<FMODUnity.StudioEventEmitter>();
 
     }
 
@@ -25,8 +26,10 @@ public class Card_Selector : MonoBehaviour
   public void OnMouseOver()
     {
         holdingOver = true;
-       //cardSounds.Play();
-        //cardSounds.SetParameter("Card Effects" , 0);
+        //cardflip.SetParameter("Card Effects" , 0);
+//        RuntimeManager.PlayOneShot(cardsound,transform.position);
+        
+        
         
     }
 
