@@ -3,6 +3,8 @@
  * Henrik
 */
 
+#if UNITY_EDITOR
+
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -33,10 +35,11 @@ public class PathAnimator_Editor : Editor
             if(EditorApplication.isPlaying)
             {
                 GameObject card = Instantiate(script.testAnimationObj);
-                script.getAnimManagerSO().requestAnimation(script.AnimationName, card);
+                AnimationManager_SO.getInstance.requestAnimation(script.AnimationName, card);
             }
-            //else
-                //Debug.LogWarning("Play the editor to test the animation");
+            else
+                Debug.LogWarning("Play the editor to test the animation");
         }
     }
 }
+#endif

@@ -65,7 +65,7 @@ public class PathAnimatorController : MonoBehaviour
     }
 
     /// <summary>Data class for path animations, can be used to override the path's settings</summary>
-    [System.Serializable] public class pathAnimation
+    public class pathAnimation
     {
         /// <summary>The GameObject that will be animated</summary>
         public GameObject AnimationTarget;
