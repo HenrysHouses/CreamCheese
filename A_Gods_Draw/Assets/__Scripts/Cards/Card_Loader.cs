@@ -37,7 +37,7 @@ public class Card_Loader : MonoBehaviour
             strengh.enabled = false;
             God_Card test = card_so as God_Card;
             health.text = test.health.ToString();
-            image.transform.position -= image.transform.position;
+            image.transform.localPosition -= image.transform.localPosition;
         }
         else if (card_so as NonGod_Card)
         {

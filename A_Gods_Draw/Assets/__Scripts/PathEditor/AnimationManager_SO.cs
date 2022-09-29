@@ -53,7 +53,7 @@ public class AnimationManager_SO : ScriptableObject
     {
         foreach (var item in targets)
         {
-            Debug.Log(item);
+            //Debug.Log(item);
         }
 
         for (int i = 0; i < targets.Length; i++)

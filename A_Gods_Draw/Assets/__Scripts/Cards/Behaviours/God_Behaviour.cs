@@ -8,6 +8,8 @@ public class God_Behaviour : Card_Behaviour
     public int maxHealth;
     int health;
 
+    IGodActions actions;
+
     God_Card god_SO;
 
     Defense_Behaviour posibleDefender;
@@ -19,6 +21,17 @@ public class God_Behaviour : Card_Behaviour
         god_SO = card as God_Card;
         maxHealth = god_SO.health;
         health = maxHealth;
+
+        actions = god_SO.god;
+    }
+
+    public override IEnumerator OnPlay(List<IMonster> enemies, List<NonGod_Behaviour> currLane, PlayerController player, God_Behaviour god)
+    {
+        gameObject.AddComponent<BoxCollider>();
+        //actions.OnPlay(this, enemies, player, currLane);
+
+        //Wait for animations, etc
+        return base.OnPlay(enemies, currLane, player, god);
     }
 
     public void SearchToBuff(List<NonGod_Behaviour> currentLane)
@@ -48,6 +61,8 @@ public class God_Behaviour : Card_Behaviour
         {
             health -= amount + defendFor;
         }
+
+        Debug.Log("God damaged");
     }
 
     public void CanBeDefendedBy(Defense_Behaviour defense_Behaviour)
