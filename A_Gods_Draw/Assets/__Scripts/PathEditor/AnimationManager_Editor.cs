@@ -1,4 +1,6 @@
 using UnityEngine;
+
+#if UNITY_EDITOR
 using UnityEditor;
 
 [CustomEditor(typeof(AnimationManager_SO))]
@@ -21,3 +23,5 @@ public class AnimationManager_Editor : Editor
         }
     }
 }
+
+#endif
