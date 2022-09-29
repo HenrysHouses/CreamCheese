@@ -8,11 +8,10 @@ using UnityEngine.UI;
 
 public class Card_ClickGlowing : MonoBehaviour
 {
-    public GameObject glowBorder;
+    public GameObject[] glowBorders;
     public Transform parent;
     bool isCreated;
     public static Component currentlySelected;
-
 
     private void OnMouseOver()
     {
@@ -20,7 +19,7 @@ public class Card_ClickGlowing : MonoBehaviour
         {
             currentlySelected = this;
             
-            glowBorder.SetActive(true);
+            glowBorders[0].SetActive(true);
             isCreated = true;
 
         }
@@ -30,15 +29,9 @@ public class Card_ClickGlowing : MonoBehaviour
     {
         if (isCreated)
         {
-            glowBorder.SetActive(false);
+            glowBorders[0].SetActive(false);
             isCreated = false;
         }
         
     }
-
-    /*public void Deselect()
-    {
-        glowBorder.SetActive(false);
-        isCreated = false;
-    }*/
 }
