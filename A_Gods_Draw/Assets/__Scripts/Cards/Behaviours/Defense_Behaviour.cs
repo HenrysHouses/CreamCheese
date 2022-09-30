@@ -17,6 +17,8 @@ public class Defense_Behaviour : NonGod_Behaviour
         currentCard = card as Defense_Card;
         strengh = currentCard.baseStrengh;
         this.card = card;
+
+        SendMessageUpwards("setBorder", Card_ClickGlowing.CardType.Defence);
     }
 
     public override void OnAction()

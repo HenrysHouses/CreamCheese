@@ -1,12 +1,9 @@
 //charlie
-
+#if UNITY_EDITOR
 using System.Collections.Generic;
 using UnityEngine;
 using System.Linq;
 using UnityEditor;
-using UnityEditorInternal;
-using System;
-using UnityEngine.UIElements;
 using System.Collections;
 using System.Reflection;
 using Object = UnityEngine.Object;
@@ -2475,3 +2472,4 @@ namespace Malee.Editor
         }
     }
 }
+#endif
