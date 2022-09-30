@@ -13,8 +13,6 @@ public class Attack_Behaviour : NonGod_Behaviour
         currentCard = card as Attack_Card;
         strengh = currentCard.baseStrengh;
         this.card = card;
-
-        SendMessageUpwards("setBorder", Card_ClickGlowing.CardType.Attack);
     }
 
     public override void OnAction()
