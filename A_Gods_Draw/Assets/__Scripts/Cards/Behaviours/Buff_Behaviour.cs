@@ -14,6 +14,8 @@ public class Buff_Behaviour : NonGod_Behaviour
         currentCard = card as Buff_Card;
         strengh = currentCard.baseStrengh;
         this.card = card;
+
+        SendMessageUpwards("setBorder", Card_ClickGlowing.CardType.Buff);
     }
 
     public override void OnAction()
