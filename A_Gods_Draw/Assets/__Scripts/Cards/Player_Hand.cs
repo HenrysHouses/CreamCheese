@@ -50,6 +50,7 @@ public class Player_Hand : MonoBehaviour
         {
             return;
         }
+        CAH[pos].cardAnimation.enabled = false;
         CAH.RemoveAt(pos);
         UpdateCards();
     }

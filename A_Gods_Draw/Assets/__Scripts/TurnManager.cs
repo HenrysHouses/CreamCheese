@@ -39,6 +39,9 @@ public class TurnManager : MonoBehaviour
     Card_Behaviour playedCard;
     Card_Behaviour selectedCard;
 
+    [SerializeField]
+    Canvas endTurn;
+
 
     public enum State
     {
@@ -99,6 +102,8 @@ public class TurnManager : MonoBehaviour
                                 nonGodPlayed.CheckForGod(board.currentGod);
 
                             currentLane++;
+
+                            if (currentLane >= lanes.Length) endTurn.enabled = true;
                         }
                         else
                         {
@@ -139,6 +144,7 @@ public class TurnManager : MonoBehaviour
 
             case State.Action:
                 {
+                    endTurn.enabled = false;
                     foreach (NonGod_Behaviour card in board.lane)
                     {
                         card.OnAction();
