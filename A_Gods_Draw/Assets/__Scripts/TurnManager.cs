@@ -65,7 +65,7 @@ public class TurnManager : MonoBehaviour
         {
             case State.StartTurn:
                 {
-                    SoundManager.Instance.Playsound(SoundDrawCards,gameObject);
+                    //SoundManager.Instance.Playsound(SoundDrawCards,gameObject);
                     currentState = State.PlayerTurn;
 
                     board.deckManager.drawCard(5);
@@ -228,11 +228,11 @@ public class TurnManager : MonoBehaviour
             }
             else if (isNotGod)
             {
-                if (currentLane == board.lane.Count)
-                {
-                    selectedCard = null;
-                    return;
-                }
+                //if (currentLane == board.lane.Count)
+                //{
+                //    selectedCard = null;
+                //    return;
+                //}
             }
             else
             {
@@ -252,6 +252,7 @@ public class TurnManager : MonoBehaviour
 
     public Card_Behaviour CurrentlySelectedCard()
     {
+        SoundManager.Instance.Playsound(SoundSelectCard, gameObject);
         return selectedCard;
     }
 
@@ -263,12 +264,6 @@ public class TurnManager : MonoBehaviour
     public State GetState()
     {
         return currentState;
-    }
-
-    public bool IsACardSelected()
-    {
-        SoundManager.Instance.Playsound(SoundSelectCard,gameObject);
-        return cardOnPlay;
     }
 
     public List<NonGod_Behaviour> CurrentLane()
