@@ -224,7 +224,6 @@ public class SceneManager_window : EditorWindow
         }
         // Storing loaded scenes
         int sceneCount = EditorSceneManager.sceneCount;     
-        // # Get loaded scene assets not scenes
 
         LoadedScenes = new Scene[sceneCount+1];
         buildSceneOptions = new string[sceneCount+1];
