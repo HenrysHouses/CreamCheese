@@ -8,6 +8,8 @@ public class God_Behaviour : Card_Behaviour
     public int maxHealth;
     int health;
 
+    IGodAction action;
+
     God_Card god_SO;
 
     Defense_Behaviour posibleDefender;
@@ -19,6 +21,17 @@ public class God_Behaviour : Card_Behaviour
         god_SO = card as God_Card;
         maxHealth = god_SO.health;
         health = maxHealth;
+
+        action = GetComponent<IGodAction>();
+    }
+
+    public override IEnumerator OnPlay(BoardState board)
+    {
+        gameObject.AddComponent<BoxCollider>();
+        action.OnPlay(board);
+
+        //Wait for animations, etc
+        return base.OnPlay(board);
     }
 
     public void SearchToBuff(List<NonGod_Behaviour> currentLane)
@@ -47,6 +60,14 @@ public class God_Behaviour : Card_Behaviour
         if (amount > defendFor)
         {
             health -= amount + defendFor;
+        }
+
+        Debug.Log("God damaged, health left: " + health);
+
+        if (health <= 0)
+        {
+            health = 0;
+            manager.GodDied();
         }
     }
 

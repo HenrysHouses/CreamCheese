@@ -241,6 +241,31 @@ public class DeckManager_SO : ScriptableObject
         pHandChangeEvent.Invoke();
         pDiscardChangeEvent.Invoke();
     }
+    public void discardAll(Card_SO exceptFor)
+    {
+        // Moves cards in hand to discard
+        List<GameObject> cards = new();
+
+        for (int i = 0; i < pHand.Count; i++)
+        {
+            if (pHand[i] != exceptFor)
+            {
+                // preps the discard animations
+                GameObject _card = Instantiate(CardAnimationPrefab);
+                _card.GetComponentInChildren<Card_Loader>().Set(pHand[i], null);
+                cards.Add(_card);
+                pDiscard.Add(pHand[i]);
+            }
+        }
+        // requests animations for all discarded cards
+
+        AnimationManager_SO.getInstance.requestAnimation("Hand-Discard", cards.ToArray(), 0, 0.25f);
+
+        pHand.Clear();
+        // ? change events may not be used
+        pHandChangeEvent.Invoke();
+        pDiscardChangeEvent.Invoke();
+    }
 
     /// <summary>Moves a card currently in player hand to player discard. Trigger discard animation</summary>
     public void discardCard(Card_SO card)

@@ -15,7 +15,7 @@ public class LokiMonster1 : IMonster
         playerAttacked = true;
         //Debug.Log(this + " can be attacked by " + attack_Behaviour);
     }
-    protected override bool UsesAbility(List<IMonster> enemies, List<NonGod_Behaviour> currentLane, PlayerController player, God_Behaviour currentGod) 
+    protected override bool UsesAbility(BoardState board) 
     {
         if (playerAttacked && GetMaxHealth() > GetHealth())
         {
@@ -26,7 +26,7 @@ public class LokiMonster1 : IMonster
         playerAttacked = false;
 
         List<IMonster> weakMonsters = new();
-        foreach (IMonster a in enemies)
+        foreach (IMonster a in board.enemies)
         {
             if (a.GetHealth() < a.GetMaxHealth() * 0.75f)
             {
@@ -43,7 +43,7 @@ public class LokiMonster1 : IMonster
             return false;
         }
     }
-    protected override void AbilityDecided(List<IMonster> enemies, List<NonGod_Behaviour> currentLane, PlayerController player, God_Behaviour currentGod)
+    protected override void AbilityDecided(BoardState board)
     {
         intentStrengh = 2;
         toDefend.Defend(intentStrengh);

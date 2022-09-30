@@ -24,9 +24,14 @@ public abstract class Card_Behaviour : MonoBehaviour
 
     public virtual void OnClick()
     {
-        if (!played)
+        if (manager.CurrentlySelectedCard() == this)
         {
-            manager.SelectedCard(this);
+            manager.CancelSelection();
+            return;
+        }
+        if (!played && !manager.CurrentlySelectedCard())
+        {
+            manager.SelectCard(this);
             played = true;
         }
     }
@@ -34,7 +39,7 @@ public abstract class Card_Behaviour : MonoBehaviour
     public Card_SO GetCardSO() { return card; }
     // public void setCardSO(Card_SO Stats) { card = Stats; }
 
-    public virtual IEnumerator OnPlay(List<IMonster> enemies, List<NonGod_Behaviour> currLane, PlayerController player, God_Behaviour god)
+    public virtual IEnumerator OnPlay(BoardState board)
     {
         yield return new WaitUntil(() => { return true; });
         manager.FinishedPlay(this);

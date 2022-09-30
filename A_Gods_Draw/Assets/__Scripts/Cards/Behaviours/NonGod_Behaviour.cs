@@ -31,9 +31,15 @@ public abstract class NonGod_Behaviour : Card_Behaviour
 
     public override void OnClick()
     {
-        if (manager.GetState() == TurnManager.State.PlayerTurn && !played && !manager.IsACardSelected())
+        if (manager.CurrentlySelectedCard() == this)
         {
-            manager.SelectedCard(this);
+            manager.CancelSelection();
+            played = false;
+            return;
+        }
+        if (manager.GetState() == TurnManager.State.PlayerTurn && !played && !manager.CurrentlySelectedCard())
+        {
+            manager.SelectCard(this);
             played = true;
         }
     }
