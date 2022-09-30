@@ -62,7 +62,7 @@ public class God_Behaviour : Card_Behaviour
             health -= amount + defendFor;
         }
 
-        Debug.Log("God damaged");
+        Debug.Log("God damaged, health left: " + health);
     }
 
     public void CanBeDefendedBy(Defense_Behaviour defense_Behaviour)
