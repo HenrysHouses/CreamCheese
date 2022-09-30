@@ -57,11 +57,14 @@ public abstract class IMonster : MonoBehaviour
 
     private void OnMouseDown()
     {
-        if (attacker)
+        if (manager.CurrentlySelectedCard())
         {
-            attacker.AddTarget(this);
+            if (attacker)
+            {
+                attacker.AddTarget(this);
+            }
+            attacker = null;
         }
-        attacker = null;
     }
 
     public void Initialize(TurnManager man, PlayerController controller)

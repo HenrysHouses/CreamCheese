@@ -24,9 +24,14 @@ public abstract class Card_Behaviour : MonoBehaviour
 
     public virtual void OnClick()
     {
-        if (!played)
+        if (manager.CurrentlySelectedCard() == this)
         {
-            manager.SelectedCard(this);
+            manager.CancelSelection();
+            return;
+        }
+        if (!played && !manager.CurrentlySelectedCard())
+        {
+            manager.SelectCard(this);
             played = true;
         }
     }

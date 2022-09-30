@@ -1594,7 +1594,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 794f58104ef7c6a488d6fc1d5bf2ab2b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  deckManager: {fileID: 11400000, guid: a9ef532ce763b474e868648e2e3843ac, type: 2}
   ui: {fileID: 914404587}
   lanes:
   - {fileID: 1495312244}
@@ -1602,11 +1601,15 @@ MonoBehaviour:
   - {fileID: 2099572618}
   - {fileID: 1584770088}
   godLane: {fileID: 1582442418}
-  player: {fileID: 867169053}
-  enemies:
-  - {fileID: 1666808573}
-  - {fileID: 1474549792}
-  _hand: {fileID: 1299495809}
+  board:
+    player: {fileID: 867169053}
+    deckManager: {fileID: 11400000, guid: a9ef532ce763b474e868648e2e3843ac, type: 2}
+    enemies:
+    - {fileID: 1666808573}
+    - {fileID: 1474549792}
+    _hand: {fileID: 1299495809}
+    currentGod: {fileID: 0}
+    lane: []
 --- !u!4 &1222430438
 Transform:
   m_ObjectHideFlags: 0

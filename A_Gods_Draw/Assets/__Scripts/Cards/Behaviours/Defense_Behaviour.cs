@@ -34,7 +34,7 @@ public class Defense_Behaviour : NonGod_Behaviour
         {
             board.currentGod.CanBeDefendedBy(this);
         }
-        player.CanBeDefended(this);
+        board.player.CanBeDefended(this);
 
         yield return new WaitUntil(() => { return this.player || this.god_card; });
 

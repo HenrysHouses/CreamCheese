@@ -19,7 +19,6 @@ public class TurnManager : MonoBehaviour
 {
 
     bool turnEnd;
-    bool cardOnPlay = false;
 
     [SerializeField]
     UIManager ui;
@@ -35,7 +34,7 @@ public class TurnManager : MonoBehaviour
     short currentLane = 0;
 
     Card_Behaviour playedCard;
-
+    Card_Behaviour selectedCard;
 
 
     public enum State
@@ -125,7 +124,7 @@ public class TurnManager : MonoBehaviour
                         board._hand.behaviours.Remove(playedCard);
                         board._hand.RemoveCard(i);
                         playedCard = null;
-                        cardOnPlay = false;
+                        selectedCard = null;
                         Debug.Log("Select another card");
                     }
 
@@ -203,34 +202,52 @@ public class TurnManager : MonoBehaviour
         turnEnd = true;
     }
 
-    public void SelectedCard(Card_Behaviour card)
+    public void SelectCard(Card_Behaviour card)
     {
         if (currentState == State.PlayerTurn)
         {
-            God_Behaviour a = card as God_Behaviour;
-            NonGod_Behaviour b = card as NonGod_Behaviour;
+            selectedCard = card;
 
-            cardOnPlay = true;
+            God_Behaviour isGod = card as God_Behaviour;
+            NonGod_Behaviour isNotGod = card as NonGod_Behaviour;
 
-            StartCoroutine(card.OnPlay(board));
 
-            if (a)
+            if (isGod)
             {
                 if (board.currentGod) { board.currentGod.OnRetire(board.lane); }
-                board.currentGod = a;
+                board.currentGod = isGod;
                 foreach (IMonster enemy in board.enemies)
                 {
                     enemy.SetGod(board.currentGod);
                 }
             }
-            else if (b)
+            else if (isNotGod)
             {
+                if (currentLane == board.lane.Count)
+                {
+                    selectedCard = null;
+                    return;
+                }
             }
             else
             {
                 Debug.Log("WTF have you done");
             }
+
+            StartCoroutine(card.OnPlay(board));
         }
+    }
+
+    public void CancelSelection()
+    {
+        StopCoroutine(selectedCard.OnPlay(board));
+
+        selectedCard = null;
+    }
+
+    public Card_Behaviour CurrentlySelectedCard()
+    {
+        return selectedCard;
     }
 
     public void FinishedPlay(Card_Behaviour card)
@@ -241,11 +258,6 @@ public class TurnManager : MonoBehaviour
     public State GetState()
     {
         return currentState;
-    }
-
-    public bool IsACardSelected()
-    {
-        return cardOnPlay;
     }
 
     public List<NonGod_Behaviour> CurrentLane()
@@ -277,5 +289,10 @@ public class TurnManager : MonoBehaviour
     public void GoToNextScene()
     {
         SceneManager.LoadScene(SceneManager.GetActiveScene().name);
+    }
+
+    public BoardState GetCurrentBoard()
+    {
+        return board;
     }
 }
