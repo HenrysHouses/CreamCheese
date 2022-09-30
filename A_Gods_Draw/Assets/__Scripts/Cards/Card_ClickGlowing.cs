@@ -10,8 +10,10 @@ public class Card_ClickGlowing : MonoBehaviour
 {
     public GameObject[] glowBorders;
     public Transform parent;
-    bool isCreated;
+    bool isCreated, hasArrow;
     public static Component currentlySelected;
+
+    TurnManager turnManager;
 
     public enum CardType 
     {
@@ -27,6 +29,11 @@ public class Card_ClickGlowing : MonoBehaviour
     /// </summary>
     private void OnMouseOver()
     {
+        if(turnManager == null)
+        {
+            turnManager = GetComponentInChildren<Card_Behaviour>().GetManager();
+        }
+
         //glow borders
         if (!isCreated)
         {
@@ -35,21 +42,54 @@ public class Card_ClickGlowing : MonoBehaviour
             {
                 case CardType.Attack:
                     AttackCardBorder();
+                    if (!hasArrow)
+                    {
+                        DrawArrowsEnemies();
+                    }
                     break;
                 case CardType.Defence:
                     DefenceCardBorder();
+                    if (!hasArrow)
+                    {
+                        DrawArrowsPlayer();
+                    }
                     break;
                 case CardType.Buff:
                     BuffCardBorder();
+                    if (!hasArrow)
+                    {
+                        DrawArrowsCards();
+                    }
                     break;
             }
-
         }
     }
 
     public void setBorder(CardType type)
     {
         currType = type;
+    }
+
+    //when you have an attack card draw arrow over enemies
+    public void DrawArrowsEnemies()
+    {
+        foreach(IMonster monster in turnManager.GetCurrentBoard().enemies)
+        {
+            monster.ShowArrow();
+        }
+        hasArrow = true;
+    }
+
+    //when you have a defence card draw arrow over player health and God card
+    public void DrawArrowsPlayer()
+    {
+        hasArrow = true;
+    }
+
+    //when you have a buff card draw arrow over the place the card will be
+    public void DrawArrowsCards()
+    {
+        hasArrow = true;
     }
 
     public void AttackCardBorder()
@@ -75,11 +115,25 @@ public class Card_ClickGlowing : MonoBehaviour
     {
         if (isCreated)
         {
-            glowBorders[0].SetActive(false);
-            glowBorders[1].SetActive(false);
-            glowBorders[2].SetActive(false);
-            glowBorders[3].SetActive(false);
+            for(int i = 0; i < 4; i++)
+            {
+                glowBorders[i].SetActive(false);
+            }
             isCreated = false;
+        }
+
+        if (hasArrow)
+        {
+            //enemies
+            foreach (IMonster monster in turnManager.GetCurrentBoard().enemies)
+            {
+                monster.HideArrow();
+                hasArrow = false;
+            }
+
+            //player
+
+            //card
         }
     }
 }

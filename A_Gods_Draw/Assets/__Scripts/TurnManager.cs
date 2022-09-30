@@ -99,6 +99,11 @@ public class TurnManager : MonoBehaviour
                                 nonGodPlayed.CheckForGod(board.currentGod);
 
                             currentLane++;
+
+                            foreach(IMonster enemy in board.enemies)
+                            {
+                                enemy.HideArrow();
+                            }
                         }
                         else
                         {

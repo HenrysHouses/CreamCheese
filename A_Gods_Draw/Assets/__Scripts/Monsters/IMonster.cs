@@ -41,6 +41,9 @@ public abstract class IMonster : MonoBehaviour
     [SerializeField]
     Sprite abilityIcon;
 
+    [SerializeField]
+    Image arrowImage;
+
     // Start is called before the first frame update
     void Start()
     {
@@ -64,6 +67,7 @@ public abstract class IMonster : MonoBehaviour
                 attacker.AddTarget(this);
             }
             attacker = null;
+            HideArrow();
         }
     }
 
@@ -126,6 +130,7 @@ public abstract class IMonster : MonoBehaviour
     public virtual void IsObjectiveTo(Attack_Behaviour attack_Behaviour)
     {
         attacker = attack_Behaviour;
+        ShowArrow();
         //Debug.Log(this + " can be attacked by " + attack_Behaviour);
     }
 
@@ -152,6 +157,16 @@ public abstract class IMonster : MonoBehaviour
             DoAbility();
         }
         defendedFor = 0;
+    }
+
+    public void ShowArrow()
+    {
+        arrowImage.enabled = true;
+    }
+
+    public void HideArrow()
+    {
+        arrowImage.enabled = false;
     }
 
     public virtual void OnTurnBegin() { }
