@@ -101,8 +101,11 @@ public class SceneManager_window : EditorWindow
         GUILayout.Space(8);
         GUILayout.Label("Un-Loading", EditorStyles.boldLabel);
 
-        if(currScenes.Length > 0)
-            UnloadScene = EditorGUILayout.Popup(UnloadScene, currScenes);
+        if(currScenes != null)
+        {
+            if(currScenes.Length > 0)
+                UnloadScene = EditorGUILayout.Popup(UnloadScene, currScenes);
+        }
         else
             EditorGUILayout.Popup(0, new string[]{"Unload Select"});
 
