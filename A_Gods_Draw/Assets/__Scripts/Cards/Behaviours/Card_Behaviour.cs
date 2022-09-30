@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -45,4 +46,9 @@ public abstract class Card_Behaviour : MonoBehaviour
         manager.FinishedPlay(this);
     }
     public virtual void OnAction() { }
+
+    internal TurnManager GetManager()
+    {
+        return manager;
+    }
 }

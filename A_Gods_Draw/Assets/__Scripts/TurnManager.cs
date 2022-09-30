@@ -104,6 +104,11 @@ public class TurnManager : MonoBehaviour
                             currentLane++;
 
                             if (currentLane >= lanes.Length) endTurn.enabled = true;
+
+                            foreach(IMonster enemy in board.enemies)
+                            {
+                                enemy.HideArrow();
+                            }
                         }
                         else
                         {
