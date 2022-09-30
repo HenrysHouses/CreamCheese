@@ -30,12 +30,12 @@ public class Card_Loader : MonoBehaviour
     {
 
         card_so = card;
-
-        if (card_so as God_Card)
+        var godCard = card_so as God_Card;
+        if (godCard)
         {
             typeIcon.enabled = false;
             strengh.enabled = false;
-            God_Card test = card_so as God_Card;
+            God_Card test = godCard;
             health.text = test.health.ToString();
             image.transform.localPosition -= image.transform.localPosition;
         }

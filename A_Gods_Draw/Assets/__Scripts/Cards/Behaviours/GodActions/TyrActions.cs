@@ -2,10 +2,11 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class TyrActions : IGodActions
+public class TyrActions : IGodAction
 {
-    public override void OnPlay(God_Behaviour current, List<IMonster> enemies, PlayerController player, List<NonGod_Behaviour> lane)
+    public override void OnPlay(BoardState board)
     {
-        base.OnPlay(current, enemies, player, lane);
+        Debug.Log("I am tyr i wanto you to dei");
+        base.OnPlay(board);
     }
 }

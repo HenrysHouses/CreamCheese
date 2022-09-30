@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 using TMPro;
+using System;
 
 public abstract class IMonster : MonoBehaviour
 {
@@ -96,27 +97,27 @@ public abstract class IMonster : MonoBehaviour
         healthTxt.text = "HP: " + health.ToString();
     }
 
-    public void DecideIntent(List<IMonster> enemies, List<NonGod_Behaviour> currentLane, PlayerController player, God_Behaviour currentGod)
+    internal void DecideIntent(BoardState board)
     {
-        if (!UsesAbility(enemies, currentLane, player, currentGod))
+        if (!UsesAbility(board))
         {
             attacking = true;
             image.sprite = attackIcon;
             intentStrengh = UnityEngine.Random.Range(minAttack, maxAttack + 1);
-            attackingPlayer = AttackingPlayer(player, currentGod);
+            attackingPlayer = AttackingPlayer(board);
+            Debug.Log("Is attacking player?: " + attackingPlayer + " for: " + intentStrengh + " damage");
         }
         else
         {
             attacking = false;
             image.sprite = abilityIcon;
-            AbilityDecided(enemies, currentLane, player, currentGod);
+            AbilityDecided(board);
         }
 
         strengh.text = intentStrengh.ToString();
 
         image.enabled = true;
         strengh.enabled = true;
-
     }
 
     public virtual void IsObjectiveTo(Attack_Behaviour attack_Behaviour)
@@ -152,9 +153,9 @@ public abstract class IMonster : MonoBehaviour
 
     public virtual void OnTurnBegin() { }
     public virtual void PreAbilityDecide() { }
-    protected virtual bool UsesAbility(List<IMonster> enemies, List<NonGod_Behaviour> currentLane, PlayerController player, God_Behaviour currentGod) { return false; }
-    protected virtual void AbilityDecided(List<IMonster> enemies, List<NonGod_Behaviour> currentLane, PlayerController player, God_Behaviour currentGod) { }
-    protected virtual bool AttackingPlayer(PlayerController player, God_Behaviour god) { return !god || UnityEngine.Random.Range(0, 2) == 1; }
+    protected virtual bool UsesAbility(BoardState board) { return false; }
+    protected virtual void AbilityDecided(BoardState board) { }
+    protected virtual bool AttackingPlayer(BoardState board) { return !board.currentGod || UnityEngine.Random.Range(0, 2) == 1; }
     protected virtual void DoAbility() { }
     public virtual void OnTurnEnd() { }
     

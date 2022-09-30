@@ -8,7 +8,7 @@ public class God_Behaviour : Card_Behaviour
     public int maxHealth;
     int health;
 
-    IGodActions actions;
+    IGodAction action;
 
     God_Card god_SO;
 
@@ -22,16 +22,16 @@ public class God_Behaviour : Card_Behaviour
         maxHealth = god_SO.health;
         health = maxHealth;
 
-        actions = god_SO.god;
+        action = GetComponent<IGodAction>();
     }
 
-    public override IEnumerator OnPlay(List<IMonster> enemies, List<NonGod_Behaviour> currLane, PlayerController player, God_Behaviour god)
+    public override IEnumerator OnPlay(BoardState board)
     {
         gameObject.AddComponent<BoxCollider>();
-        //actions.OnPlay(this, enemies, player, currLane);
+        action.OnPlay(board);
 
         //Wait for animations, etc
-        return base.OnPlay(enemies, currLane, player, god);
+        return base.OnPlay(board);
     }
 
     public void SearchToBuff(List<NonGod_Behaviour> currentLane)
@@ -63,6 +63,12 @@ public class God_Behaviour : Card_Behaviour
         }
 
         Debug.Log("God damaged, health left: " + health);
+
+        if (health <= 0)
+        {
+            health = 0;
+            manager.GodDied();
+        }
     }
 
     public void CanBeDefendedBy(Defense_Behaviour defense_Behaviour)

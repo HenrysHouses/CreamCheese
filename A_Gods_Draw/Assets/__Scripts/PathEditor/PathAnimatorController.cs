@@ -366,6 +366,6 @@ public class PathAnimatorController : MonoBehaviour
 
     public void debugTestCompletion()
     {
-        Debug.Log("TestAnimation Complete");
+        //Debug.Log("TestAnimation Complete");
     }
 }

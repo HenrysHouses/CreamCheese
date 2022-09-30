@@ -27,9 +27,9 @@ public class Attack_Behaviour : NonGod_Behaviour
         }
     }
 
-    public override IEnumerator OnPlay(List<IMonster> enemies, List<NonGod_Behaviour> currLane, PlayerController player, God_Behaviour god)
+    public override IEnumerator OnPlay(BoardState board)
     {
-        foreach (IMonster enemy in enemies)
+        foreach (IMonster enemy in board.enemies)
         {
             enemy.IsObjectiveTo(this);
         }
