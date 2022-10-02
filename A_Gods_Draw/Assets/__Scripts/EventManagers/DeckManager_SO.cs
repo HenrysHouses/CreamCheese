@@ -212,6 +212,8 @@ public class DeckManager_SO : ScriptableObject
                     (mngr.HandFull);
             }
 
+            Debug.Log("Sent card: " + cards[i].name + " with animation: " + animations[i].index + ", number " + i);
+
             //Just to make them clickable
             //cards[i].transform.position = new Vector3(20, 0, 0);
             //card.transform.rotation = Quaternion.Euler(-20 + i * 10, 90, 0);

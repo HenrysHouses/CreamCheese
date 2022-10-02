@@ -40,7 +40,7 @@ public class Player_Hand : MonoBehaviour
 
         behaviours.Add(spawn.GetComponentInChildren<Card_Behaviour>());
 
-        Debug.Log("Card in hand: " + spawn.name);
+        Debug.Log("Card in hand: " + spawn.name + ", this one is number: " + (CAH.Count - 1));
         
         UpdateCards();
 
