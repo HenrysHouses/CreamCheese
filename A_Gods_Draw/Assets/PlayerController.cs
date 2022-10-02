@@ -60,7 +60,7 @@ public class PlayerController : MonoBehaviour
         if (defender)
         {
             defender.ItDefends(this);
-            Debug.Log(defender + " is going to defend this");
+            //Debug.Log(defender + " is going to defend this");
         }
         defender = null;
     }

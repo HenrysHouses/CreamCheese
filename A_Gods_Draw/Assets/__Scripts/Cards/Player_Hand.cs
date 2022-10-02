@@ -36,7 +36,11 @@ public class Player_Hand : MonoBehaviour
         handPlace.position = new Vector3(posX, handPlace.position.y, handPlace.position.z);
         CAH.Add(_card);
 
+        spawn.transform.GetChild(0).GetComponent<BoxCollider>().enabled = true;
+
         behaviours.Add(spawn.GetComponentInChildren<Card_Behaviour>());
+
+        Debug.Log("Card in hand: " + spawn.name);
         
         UpdateCards();
 

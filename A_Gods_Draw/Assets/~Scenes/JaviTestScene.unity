@@ -601,7 +601,7 @@ GameObject:
   - component: {fileID: 659882077}
   - component: {fileID: 659882080}
   m_Layer: 0
-  m_Name: Cube
+  m_Name: EndTurnButton
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -614,12 +614,13 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 659882075}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0.0541, y: 0, z: 0.0242}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 0.4101, y: 0.018899992, z: -0.6288}
   m_LocalScale: {x: 0.045404, y: 0.045404, z: 0.045404}
   m_ConstrainProportionsScale: 0
-  m_Children: []
-  m_Father: {fileID: 1832836547}
+  m_Children:
+  - {fileID: 2031427342}
+  m_Father: {fileID: 2100381818}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!65 &659882077
@@ -1222,7 +1223,6 @@ GameObject:
   - component: {fileID: 914404589}
   - component: {fileID: 914404588}
   - component: {fileID: 914404587}
-  - component: {fileID: 914404592}
   m_Layer: 5
   m_Name: UI
   m_TagString: Untagged
@@ -1329,18 +1329,6 @@ RectTransform:
   m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: 0, y: 0}
   m_Pivot: {x: 0, y: 0}
---- !u!114 &914404592
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 914404586}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: cc79a5b971548004295012a3b24fa44f, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!1 &983950875
 GameObject:
   m_ObjectHideFlags: 0
@@ -1855,7 +1843,7 @@ MonoBehaviour:
     _hand: {fileID: 1299495809}
     currentGod: {fileID: 0}
     lane: []
-  endTurn: {fileID: 2031427339}
+  endTurn: {fileID: 659882080}
 --- !u!4 &1222430438
 Transform:
   m_ObjectHideFlags: 0
@@ -3113,39 +3101,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7e793af4fd58a3e44aac4720f1787cf8, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
---- !u!1 &1832836546
-GameObject:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  serializedVersion: 6
-  m_Component:
-  - component: {fileID: 1832836547}
-  m_Layer: 0
-  m_Name: EndTurnButton
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
---- !u!4 &1832836547
-Transform:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1832836546}
-  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0.356, y: 0.0189, z: -0.653}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_ConstrainProportionsScale: 0
-  m_Children:
-  - {fileID: 659882076}
-  - {fileID: 2031427342}
-  m_Father: {fileID: 2100381818}
-  m_RootOrder: 0
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1836067435
 GameObject:
   m_ObjectHideFlags: 0
@@ -3492,18 +3447,18 @@ RectTransform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 2031427338}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_LocalPosition: {x: 0, y: 0, z: -0.5329927}
+  m_LocalScale: {x: 22.024492, y: 22.024492, z: 22.024492}
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 707866105}
   - {fileID: 983950876}
-  m_Father: {fileID: 1832836547}
-  m_RootOrder: 1
+  m_Father: {fileID: 659882076}
+  m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 0, y: 0}
-  m_AnchoredPosition: {x: 0.32703, y: 0.025}
+  m_AnchoredPosition: {x: 6.0111456, y: 0.55061215}
   m_SizeDelta: {x: 0.50706, y: 0.1}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!1 &2062952293
@@ -3702,7 +3657,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
-  - {fileID: 1832836547}
+  - {fileID: 659882076}
   - {fileID: 709311717}
   - {fileID: 1299495810}
   m_Father: {fileID: 0}

@@ -5,7 +5,8 @@ using UnityEngine;
 
 public class God_Behaviour : Card_Behaviour
 {
-    public int maxHealth;
+    int maxHealth;
+    [SerializeField]
     int health;
 
     IGodAction action;
@@ -34,7 +35,7 @@ public class God_Behaviour : Card_Behaviour
         return base.OnPlay(board);
     }
 
-    public void SearchToBuff(List<NonGod_Behaviour> currentLane)
+    public void AfterBeingPlayed(List<NonGod_Behaviour> currentLane)
     {
         gameObject.AddComponent<BoxCollider>();
         foreach (NonGod_Behaviour card in currentLane)
@@ -58,7 +59,7 @@ public class God_Behaviour : Card_Behaviour
 
     public void DealDamage(int amount)
     {
-        Debug.Log("God damaged, defended for: " + defendFor);
+        //Debug.Log("God damaged, defended for: " + defendFor);
 
         if (amount > defendFor)
         {
@@ -70,7 +71,7 @@ public class God_Behaviour : Card_Behaviour
             defendFor -= amount;
         }
 
-        Debug.Log("God damaged, health left: " + health);
+        //Debug.Log("God damaged, health left: " + health);
 
         if (health <= 0)
         {

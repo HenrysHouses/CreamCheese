@@ -180,7 +180,7 @@ public class DeckManager_SO : ScriptableObject
     /// <summary>Move the top card/s of the player library to the player hand. Trigger card draw animations</summary>
     /// <param name="amount">The amount of cards to draw</param>
     /// ! <returns></returns> // Missing return summary
-    public void drawCard(int amount)
+    public void drawCard(int amount, TurnManager mngr = null)
     {
         if (pLibrary.Count < amount) // if there is no cards in library to draw, shuffle the discard into the library and return
         {
@@ -206,8 +206,14 @@ public class DeckManager_SO : ScriptableObject
             animations[i] = new PathAnimatorController.pathAnimation();
             animations[i].CompletionTrigger.AddListener(_Loader.moveCardToHand);
 
+            if (i == amount - 1 && mngr != null)
+            {
+                animations[i].CompletionTrigger.AddListener
+                    (mngr.HandFull);
+            }
+
             //Just to make them clickable
-            cards[i].transform.position = new Vector3(20, 0, 0);
+            //cards[i].transform.position = new Vector3(20, 0, 0);
             //card.transform.rotation = Quaternion.Euler(-20 + i * 10, 90, 0);
         }
         AnimationManager_SO.getInstance.requestAnimation("Library-Hand", cards, 0, 0.25f, animations);
@@ -336,5 +342,5 @@ public class DeckManager_SO : ScriptableObject
         return pHand;
     }
 
-    public void wtf() { Debug.Log("aaaa"); }
+    public List<Card_SO> wtf() { return pHand; }
 }

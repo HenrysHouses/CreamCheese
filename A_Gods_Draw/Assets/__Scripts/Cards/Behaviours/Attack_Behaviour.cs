@@ -24,7 +24,7 @@ public class Attack_Behaviour : NonGod_Behaviour
             if (target != null)
             {
                 target.DealDamage(strengh);
-                Debug.Log("Dealt " + strengh + " damage to " + target);
+                //Debug.Log("Dealt " + strengh + " damage to " + target);
             }
         }
     }

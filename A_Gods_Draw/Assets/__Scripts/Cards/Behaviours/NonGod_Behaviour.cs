@@ -36,17 +36,17 @@ public abstract class NonGod_Behaviour : Card_Behaviour
             manager.CancelSelection();
             played = false;
 
-            Debug.Log("you clicked me, and im not being played");
+            //Debug.Log("you clicked me, and im not being played");
             return;
         }
         if (manager.GetState() == TurnManager.State.PlayerTurn && !played && !manager.CurrentlySelectedCard())
         {
             manager.SelectCard(this);
             played = true;
-            Debug.Log("you clicked me, and im being played");
+            //Debug.Log("you clicked me, and im being played");
         }
 
-        Debug.Log(manager.CurrentlySelectedCard().gameObject);
+        //Debug.Log(manager.CurrentlySelectedCard().gameObject);
     }
 
     public virtual void GetBuff(bool isMultiplier, float amount)

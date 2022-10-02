@@ -29,7 +29,7 @@ public class Card_ClickGlowing : MonoBehaviour
     /// </summary>
     private void OnMouseOver()
     {
-        if(turnManager == null)
+        if (turnManager == null && gameObject.transform.childCount != 0)
         {
             turnManager = GetComponentInChildren<Card_Behaviour>().GetManager();
         }
@@ -73,11 +73,14 @@ public class Card_ClickGlowing : MonoBehaviour
     //when you have an attack card draw arrow over enemies
     public void DrawArrowsEnemies()
     {
-        foreach(IMonster monster in turnManager.GetCurrentBoard().enemies)
+        if (turnManager != null)
         {
-            monster.ShowArrow();
+            foreach (IMonster monster in turnManager.GetCurrentBoard().enemies)
+            {
+                monster.ShowArrow();
+            }
+            hasArrow = true;
         }
-        hasArrow = true;
     }
 
     //when you have a defence card draw arrow over player health and God card
@@ -125,10 +128,13 @@ public class Card_ClickGlowing : MonoBehaviour
         if (hasArrow)
         {
             //enemies
-            foreach (IMonster monster in turnManager.GetCurrentBoard().enemies)
+            if (turnManager != null)
             {
-                monster.HideArrow();
-                hasArrow = false;
+                foreach (IMonster monster in turnManager.GetCurrentBoard().enemies)
+                {
+                    monster.HideArrow();
+                    hasArrow = false;
+                }
             }
 
             //player

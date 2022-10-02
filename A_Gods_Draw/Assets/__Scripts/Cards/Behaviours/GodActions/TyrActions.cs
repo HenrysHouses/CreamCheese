@@ -6,7 +6,7 @@ public class TyrActions : IGodAction
 {
     public override void OnPlay(BoardState board)
     {
-        Debug.Log("I am tyr i wanto you to dei");
+        //Debug.Log("I am tyr i wanto you to dei");
         base.OnPlay(board);
     }
 }

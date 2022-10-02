@@ -112,7 +112,7 @@ public abstract class IMonster : MonoBehaviour
             image.sprite = attackIcon;
             intentStrengh = UnityEngine.Random.Range(minAttack, maxAttack + 1);
             attackingPlayer = AttackingPlayer(board);
-            Debug.Log("Is attacking player?: " + attackingPlayer + " for: " + intentStrengh + " damage");
+            //Debug.Log("Is attacking player?: " + attackingPlayer + " for: " + intentStrengh + " damage");
         }
         else
         {
