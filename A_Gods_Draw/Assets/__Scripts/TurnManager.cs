@@ -88,6 +88,25 @@ public class TurnManager : MonoBehaviour
 
                     if (playedCard)
                     {
+
+                        int i = 0;
+                        foreach (Card_Behaviour a in board._hand.behaviours)
+                        {
+                            if (a == playedCard)
+                            {
+                                Animator anim = GetComponentInParent<Animator>();
+                                a.GetComponentInParent<BoxCollider>().enabled = false;
+                                if (anim)
+                                {
+                                    anim.SetBool("ShowCard", false);
+                                    anim.Play("Default");
+                                    Destroy(anim);
+                                }
+                                break;
+                            }
+                            i++;
+                        }
+
                         NonGod_Behaviour nonGodPlayed = playedCard as NonGod_Behaviour;
                         if (nonGodPlayed)
                         {
@@ -118,24 +137,6 @@ public class TurnManager : MonoBehaviour
                             godPlayed.SearchToBuff(board.lane);
                         }
 
-                        int i = 0;
-                        foreach (Card_Behaviour a in board._hand.behaviours)
-                        {
-                            if (a == playedCard)
-                            {
-                                Animator anim  = GetComponentInParent<Animator>();
-                                a.GetComponentInParent<BoxCollider>().enabled = false;
-                                if(anim)
-                                {
-                                    anim.SetBool("ShowCard",false);
-                                    anim.Play("Default");
-                                    Destroy(anim);
-
-                                }
-                                break;
-                            }
-                            i++;
-                        }
                         board._hand.behaviours.Remove(playedCard);
                         board._hand.RemoveCard(i);
                         playedCard = null;

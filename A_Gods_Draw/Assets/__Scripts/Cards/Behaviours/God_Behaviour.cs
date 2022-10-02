@@ -27,7 +27,7 @@ public class God_Behaviour : Card_Behaviour
 
     public override IEnumerator OnPlay(BoardState board)
     {
-        gameObject.AddComponent<BoxCollider>();
+        //gameObject.GetComponentInParent<BoxCollider>().enabled = false;
         action.OnPlay(board);
 
         //Wait for animations, etc
@@ -36,6 +36,7 @@ public class God_Behaviour : Card_Behaviour
 
     public void SearchToBuff(List<NonGod_Behaviour> currentLane)
     {
+        gameObject.AddComponent<BoxCollider>();
         foreach (NonGod_Behaviour card in currentLane)
         {
             if (card.GetNonGod().correspondingGod == this.card.name)
@@ -57,9 +58,16 @@ public class God_Behaviour : Card_Behaviour
 
     public void DealDamage(int amount)
     {
+        Debug.Log("God damaged, defended for: " + defendFor);
+
         if (amount > defendFor)
         {
             health -= amount + defendFor;
+            defendFor = 0;
+        }
+        else
+        {
+            defendFor -= amount;
         }
 
         Debug.Log("God damaged, health left: " + health);
