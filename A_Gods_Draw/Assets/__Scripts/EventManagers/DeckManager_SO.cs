@@ -227,10 +227,13 @@ public class DeckManager_SO : ScriptableObject
     }
 
     /// <summary>Moves all cards currently in player hand to player discard. Trigger discard animations</summary>
-    public void discardAll()
+    public void discardAll(TurnManager mngr = null)
     {
         // Moves cards in hand to discard
         GameObject[] cards = new GameObject[pHand.Count];
+
+        PathAnimatorController.pathAnimation[] animations = new PathAnimatorController.pathAnimation[pHand.Count];
+
         for (int i = 0; i < pHand.Count; i++)
         {
             // preps the discard animations
@@ -239,20 +242,30 @@ public class DeckManager_SO : ScriptableObject
             cards[i] = _card;
 
             pDiscard.Add(pHand[i]);
+
+            animations[i] = new PathAnimatorController.pathAnimation();
+
+            if (i == pHand.Count - 1 && mngr != null)
+            {
+                animations[i].CompletionTrigger.AddListener
+                    (mngr.FinishedAnimations);
+            }
         }
         // requests animations for all discarded cards
 
-        AnimationManager_SO.getInstance.requestAnimation("Hand-Discard", cards, 0, 0.25f);
+        AnimationManager_SO.getInstance.requestAnimation("Hand-Discard", cards, 0, 0.25f, animations);
 
         pHand.Clear();
         // ? change events may not be used
         pHandChangeEvent.Invoke();
         pDiscardChangeEvent.Invoke();
     }
-    public void discardAll(Card_SO exceptFor)
+    public void discardAll(Card_SO exceptFor, TurnManager mngr = null)
     {
         // Moves cards in hand to discard
         List<GameObject> cards = new();
+
+        PathAnimatorController.pathAnimation[] animations = new PathAnimatorController.pathAnimation[pHand.Count];
 
         for (int i = 0; i < pHand.Count; i++)
         {
@@ -264,10 +277,13 @@ public class DeckManager_SO : ScriptableObject
                 cards.Add(_card);
                 pDiscard.Add(pHand[i]);
             }
+            animations[i] = new PathAnimatorController.pathAnimation();
         }
         // requests animations for all discarded cards
 
-        AnimationManager_SO.getInstance.requestAnimation("Hand-Discard", cards.ToArray(), 0, 0.25f);
+
+        animations[0].CompletionTrigger.AddListener(mngr.FinishedAnimations);
+        AnimationManager_SO.getInstance.requestAnimation("Hand-Discard", cards.ToArray(), 0, 0.25f, animations);
 
         pHand.Clear();
         // ? change events may not be used

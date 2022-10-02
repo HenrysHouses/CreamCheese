@@ -45,10 +45,14 @@ public class TurnManager : MonoBehaviour
     bool hasPlayedAGod = false;
     public enum State
     {
-        StartTurn, PlayerTurn, GodAction, Action, EnemiesTurn, EndTurn
+        StartTurn, PlayerTurn, GodAction, Action, EnemiesTurn, EndTurn, WaitForAnims
     }
 
     State currentState = State.StartTurn;
+
+    //----------Temporary
+    bool endWait;
+    //-------------------
 
     void Start()
     {
@@ -183,9 +187,9 @@ public class TurnManager : MonoBehaviour
                     board._hand.RemoveAllCards();
 
                     if (hasPlayedAGod)
-                        board.deckManager.discardAll(board.currentGod.GetCardSO());
+                        board.deckManager.discardAll(board.currentGod.GetCardSO(), this);
                     else
-                        board.deckManager.discardAll();
+                        board.deckManager.discardAll(this);
 
                     for (int i = board.lane.Count - 1; i >= 0; i--)
                     {
@@ -197,12 +201,28 @@ public class TurnManager : MonoBehaviour
                         Destroy(board._hand.behaviours[i].transform.parent.parent.gameObject);
                     }
 
+                    hasPlayedAGod = false;
                     board._hand.behaviours.Clear();
                     board.lane.Clear();
-                    currentState = State.StartTurn;
+                    currentState = State.WaitForAnims;
+                }
+                break;
+
+            case State.WaitForAnims:
+                {
+                    if (endWait)
+                    {
+                        currentState = State.StartTurn;
+                        endWait = false;
+                    }
                 }
                 break;
         }
+    }
+
+    public void FinishedAnimations()
+    {
+        endWait = true;
     }
 
     internal void GodDied()
