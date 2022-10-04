@@ -5,8 +5,11 @@ using UnityEngine;
 
 public class God_Behaviour : Card_Behaviour
 {
-    public int maxHealth;
+    int maxHealth;
+    [SerializeField]
     int health;
+
+    IGodAction action;
 
     God_Card god_SO;
 
@@ -19,10 +22,22 @@ public class God_Behaviour : Card_Behaviour
         god_SO = card as God_Card;
         maxHealth = god_SO.health;
         health = maxHealth;
+
+        action = GetComponent<IGodAction>();
     }
 
-    public void SearchToBuff(List<NonGod_Behaviour> currentLane)
+    public override IEnumerator OnPlay(BoardState board)
     {
+        //gameObject.GetComponentInParent<BoxCollider>().enabled = false;
+        action.OnPlay(board);
+
+        //Wait for animations, etc
+        return base.OnPlay(board);
+    }
+
+    public void AfterBeingPlayed(List<NonGod_Behaviour> currentLane)
+    {
+        gameObject.AddComponent<BoxCollider>();
         foreach (NonGod_Behaviour card in currentLane)
         {
             if (card.GetNonGod().correspondingGod == this.card.name)
@@ -44,9 +59,24 @@ public class God_Behaviour : Card_Behaviour
 
     public void DealDamage(int amount)
     {
+        //Debug.Log("God damaged, defended for: " + defendFor);
+
         if (amount > defendFor)
         {
             health -= amount + defendFor;
+            defendFor = 0;
+        }
+        else
+        {
+            defendFor -= amount;
+        }
+
+        //Debug.Log("God damaged, health left: " + health);
+
+        if (health <= 0)
+        {
+            health = 0;
+            manager.GodDied();
         }
     }
 

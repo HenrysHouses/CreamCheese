@@ -8,7 +8,7 @@ public class Player_Hand : MonoBehaviour
     Transform handPlace;
 
     public TurnManager _turnManager;
-    private float cardRotation = 10; 
+    private float cardRotation = 20; 
     public List<CardInHand> CAH = new List<CardInHand>();
     public List<Card_Behaviour> behaviours = new();
 
@@ -28,7 +28,7 @@ public class Player_Hand : MonoBehaviour
     public void AddCard(Card_SO card)
     {
         float posX = handPlace.position.x;
-        handPlace.position += Vector3.right * (-0.15f + CAH.Count * 0.075f);
+        handPlace.position += Vector3.right * (-0.3f + CAH.Count * 0.15f);
         GameObject spawn = Instantiate(CardinHandPrefab, handPlace.position, Quaternion.identity);
         Card_Loader _loader = spawn.GetComponentInChildren<Card_Loader>();
         _loader.Set(card, _turnManager);
@@ -36,7 +36,11 @@ public class Player_Hand : MonoBehaviour
         handPlace.position = new Vector3(posX, handPlace.position.y, handPlace.position.z);
         CAH.Add(_card);
 
+        spawn.transform.GetChild(0).GetComponent<BoxCollider>().enabled = true;
+
         behaviours.Add(spawn.GetComponentInChildren<Card_Behaviour>());
+
+        Debug.Log("Card in hand: " + spawn.name + ", this one is number: " + (CAH.Count - 1));
         
         UpdateCards();
 
@@ -50,6 +54,7 @@ public class Player_Hand : MonoBehaviour
         {
             return;
         }
+        CAH[pos].cardAnimation.enabled = false;
         CAH.RemoveAt(pos);
         UpdateCards();
     }

@@ -14,6 +14,8 @@ public class Buff_Behaviour : NonGod_Behaviour
         currentCard = card as Buff_Card;
         strengh = currentCard.baseStrengh;
         this.card = card;
+
+        SendMessageUpwards("setBorder", Card_ClickGlowing.CardType.Buff);
     }
 
     public override void OnAction()
@@ -24,7 +26,7 @@ public class Buff_Behaviour : NonGod_Behaviour
         }
     }
 
-    public override IEnumerator OnPlay(List<IMonster> enemies, List<NonGod_Behaviour> currLane, PlayerController player, God_Behaviour god)
+    public override IEnumerator OnPlay(BoardState board)
     {
         posInLane = manager.CurrentLane().Count;
 

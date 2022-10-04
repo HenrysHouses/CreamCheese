@@ -1,50 +1,68 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
+using FMODUnity;
+
+[Serializable]
+public struct BoardState
+{
+    public PlayerController player;
+    public DeckManager_SO deckManager;
+    public List<IMonster> enemies;
+    public Player_Hand _hand;
+    public God_Behaviour currentGod;
+    public List<NonGod_Behaviour> lane;
+}
 
 public class TurnManager : MonoBehaviour
 {
+    [SerializeField]
+    private EventReference SoundSelectCard, SoundDrawCards,SoundClickEnemy;
 
     bool turnEnd;
-    bool cardOnPlay = false;
+
     [SerializeField]
-    DeckManager_SO deckManager;
+    UIManager ui;
 
     [SerializeField]
     Transform[] lanes;
     [SerializeField]
     Transform godLane;
-    [SerializeField]
-    PlayerController player;
-    [SerializeField]
-    List<IMonster> enemies;
 
     [SerializeField]
-    Player_Hand _hand;
+    BoardState board;
 
     short currentLane = 0;
 
     Card_Behaviour playedCard;
+    Card_Behaviour selectedCard;
 
-    God_Behaviour currentGod;
-    List<NonGod_Behaviour> lane;
+    [SerializeField]
+    EndTurnButton endTurn;
 
+    bool hasPlayedAGod = false;
     public enum State
     {
-        StartTurn, PlayerTurn, GodAction, Action, EnemiesTurn, EndTurn
+        StartTurn, PlayerTurn, GodAction, Action, EnemiesTurn, EndTurn, WaitForAnims
     }
 
     State currentState = State.StartTurn;
 
+    //----------Temporary
+    bool endWait;
+    //-------------------
+
     void Start()
     {
-        lane = new List<NonGod_Behaviour>();
+        board.lane = new List<NonGod_Behaviour>();
 
         // deckManager.SetTurnManager(this);
 
-        foreach (IMonster enemy in enemies)
+        foreach (IMonster enemy in board.enemies)
         {
-            enemy.SetPlayer(player);
+            enemy.Initialize(this, board.player);
         }
     }
 
@@ -54,15 +72,17 @@ public class TurnManager : MonoBehaviour
         {
             case State.StartTurn:
                 {
+                    endTurn.GetComponent<BoxCollider>().enabled = false;
+                    //SoundManager.Instance.Playsound(SoundDrawCards,gameObject);
                     currentState = State.PlayerTurn;
 
-                    deckManager.drawCard(5);
+                    board.deckManager.drawCard(5, this);
 
-                    if (currentGod) { currentGod.OnTurnStart(); }
+                    if (board.currentGod) { board.currentGod.OnTurnStart(); }
 
-                    foreach (IMonster enemy in enemies)
+                    foreach (IMonster enemy in board.enemies)
                     {
-                        enemy.DecideIntent(enemies, lane, player, currentGod);
+                        enemy.DecideIntent(board);
                     }
                     
                 }
@@ -70,67 +90,77 @@ public class TurnManager : MonoBehaviour
 
             case State.PlayerTurn:
                 {
-
                     if (playedCard)
                     {
+                        int i = 0;
+                        foreach (Card_Behaviour a in board._hand.behaviours)
+                        {
+                            if (a == playedCard)
+                            {
+                                Animator anim = GetComponentInParent<Animator>();
+                                a.GetComponentInParent<BoxCollider>().enabled = false;
+                                if (anim)
+                                {
+                                    anim.SetBool("ShowCard", false);
+                                    anim.Play("Default");
+                                    Destroy(anim);
+                                }
+                                break;
+                            }
+                            i++;
+                        }
+
                         NonGod_Behaviour nonGodPlayed = playedCard as NonGod_Behaviour;
                         if (nonGodPlayed)
                         {
+                            SoundManager.Instance.Playsound(SoundClickEnemy,gameObject);
                             playedCard.gameObject.transform.position = lanes[currentLane].position;
                             playedCard.gameObject.transform.rotation = lanes[currentLane].rotation;
-                            
 
-                            lane.Add(nonGodPlayed);
+                            board.lane.Add(nonGodPlayed);
 
-                            if (currentGod)
-                                nonGodPlayed.CheckForGod(currentGod);
+                            if (board.currentGod)
+                                nonGodPlayed.CheckForGod(board.currentGod);
 
                             currentLane++;
+
+                            if (currentLane >= lanes.Length) endTurn.GetComponentInChildren<Canvas>().enabled = true;
+
+                            foreach(IMonster enemy in board.enemies)
+                            {
+                                enemy.HideArrow();
+                            }
                         }
                         else
                         {
                             God_Behaviour godPlayed = playedCard as God_Behaviour;
                             godPlayed.transform.position = godLane.position;
                             godPlayed.transform.rotation = godLane.rotation;
-                            godPlayed.SearchToBuff(lane);
+                            godPlayed.AfterBeingPlayed(board.lane);
+
+                            hasPlayedAGod = true;
                         }
 
-                        int i = 0;
-                        foreach (Card_Behaviour a in _hand.behaviours)
-                        {
-                            if (a == playedCard)
-                            {
-                                Animator anim  = GetComponentInParent<Animator>();
-                                a.GetComponentInParent<BoxCollider>().enabled = false;
-                                if(anim)
-                                {
-                                    anim.SetBool("ShowCard",false);
-                                    anim.Play("Default");
-                                    Destroy(anim);
-
-                                }
-                                break;
-                            }
-                            i++;
-                        }
-                        _hand.behaviours.Remove(playedCard);
-                        _hand.RemoveCard(i);
+                        board._hand.behaviours.Remove(playedCard);
+                        board._hand.RemoveCard(i);
                         playedCard = null;
-                        cardOnPlay = false;
-                        Debug.Log("Select another card");
+                        selectedCard = null;
+                        //Debug.Log("Select another card");
                     }
 
-                    if (turnEnd || currentLane == lanes.Length) { currentState = State.Action; turnEnd = false; }
+                    if (turnEnd) { currentState = State.Action; turnEnd = false; }
                 }
                 break;
 
             case State.Action:
                 {
-                    foreach (NonGod_Behaviour card in lane)
+                    endTurn.GetComponentInChildren<Canvas>().enabled = false;
+                    foreach (NonGod_Behaviour card in board.lane)
                     {
                         card.OnAction();
-                        deckManager.discardCard(card.GetCardSO());
+                        board.deckManager.discardCard(card.GetCardSO());
                     }
+                    CheckIfPlayerWon();
                     currentState = State.EnemiesTurn;
                     currentLane = 0;
                 }
@@ -138,9 +168,14 @@ public class TurnManager : MonoBehaviour
 
             case State.EnemiesTurn:
                 {
-                    foreach (IMonster enemy in enemies)
+                    foreach (IMonster enemy in board.enemies)
                     {
                         enemy.Act();
+                        if (board.player.GetHealth() <= 0)
+                        {
+                            PlayerLost();
+                            break;
+                        }
                     }
 
                     currentState = State.EndTurn;
@@ -149,61 +184,109 @@ public class TurnManager : MonoBehaviour
 
             case State.EndTurn:
                 {
-                    _hand.RemoveAllCards();
-                    deckManager.discardAll();
-                    for (int i = lane.Count - 1; i >= 0; i--)
+                    board._hand.RemoveAllCards();
+
+                    if (hasPlayedAGod)
+                        board.deckManager.discardAll(board.currentGod.GetCardSO(), this);
+                    else
+                        board.deckManager.discardAll(this);
+
+                    for (int i = board.lane.Count - 1; i >= 0; i--)
                     {
-                        Destroy(lane[i].transform.parent.parent.gameObject);
+                        Destroy(board.lane[i].transform.parent.parent.gameObject);
                     }
 
-                    for (int i = _hand.behaviours.Count - 1; i >= 0; i--)
+                    for (int i = board._hand.behaviours.Count - 1; i >= 0; i--)
                     {
-                        Destroy(_hand.behaviours[i].transform.parent.parent.gameObject);
+                        Destroy(board._hand.behaviours[i].transform.parent.parent.gameObject);
                     }
 
-                    _hand.behaviours.Clear();
-                    lane.Clear();
-                    currentState = State.StartTurn;
+                    hasPlayedAGod = false;
+                    board._hand.behaviours.Clear();
+                    board.lane.Clear();
+                    currentState = State.WaitForAnims;
+                }
+                break;
+
+            case State.WaitForAnims:
+                {
+                    if (endWait)
+                    {
+                        currentState = State.StartTurn;
+                        endWait = false;
+                    }
                 }
                 break;
         }
     }
 
-    
+    public void FinishedAnimations()
+    {
+        endWait = true;
+    }
+
+    internal void GodDied()
+    {
+        board.currentGod.OnRetire(board.lane);
+
+        board.deckManager.discardCard(board.currentGod.GetCardSO());
+
+        Destroy(board.currentGod.transform.parent.parent.gameObject);
+        board.currentGod = null;
+    }
 
     public void EndTurn()
     {
         turnEnd = true;
     }
 
-    public void SelectedCard(Card_Behaviour card)
+    public void SelectCard(Card_Behaviour card)
     {
         if (currentState == State.PlayerTurn)
         {
-            God_Behaviour a = card as God_Behaviour;
-            NonGod_Behaviour b = card as NonGod_Behaviour;
+            selectedCard = card;
 
-            cardOnPlay = true;
+            God_Behaviour isGod = card as God_Behaviour;
+            NonGod_Behaviour isNotGod = card as NonGod_Behaviour;
 
-            StartCoroutine(card.OnPlay(enemies, lane, player, currentGod));
 
-            if (a)
+            if (isGod)
             {
-                if (currentGod) { currentGod.OnRetire(lane); }
-                currentGod = a;
-                foreach (IMonster enemy in enemies)
+                if (board.currentGod) { GodDied(); }
+                board.currentGod = isGod;
+                foreach (IMonster enemy in board.enemies)
                 {
-                    enemy.SetGod(currentGod);
+                    enemy.SetGod(board.currentGod);
                 }
             }
-            else if (b)
+            else if (isNotGod)
             {
+                //if (currentLane == board.lane.Count)
+                //{
+                //    selectedCard = null;
+                //    return;
+                //}
             }
             else
             {
                 Debug.Log("WTF have you done");
             }
+
+            StartCoroutine(card.OnPlay(board));
         }
+    }
+
+    public void CancelSelection()
+    {
+        StopCoroutine(selectedCard.OnPlay(board));
+
+        selectedCard = null;
+    }
+
+    public Card_Behaviour CurrentlySelectedCard()
+    {
+        SoundManager.Instance.Playsound(SoundSelectCard, gameObject);
+        return selectedCard;
     }
 
     public void FinishedPlay(Card_Behaviour card)
@@ -216,13 +299,44 @@ public class TurnManager : MonoBehaviour
         return currentState;
     }
 
-    public bool IsACardSelected()
-    {
-        return cardOnPlay;
-    }
-
     public List<NonGod_Behaviour> CurrentLane()
     {
-        return lane;
+        return board.lane;
+    }
+
+    void CheckIfPlayerWon()
+    {
+        if (board.enemies.Count == 0)
+        {
+            ui.ShowwinningPanel();
+            this.gameObject.SetActive(false);
+        }
+    }
+
+    public void EnemyDied(IMonster enemy)
+    {
+        board.enemies.Remove(enemy);
+    }
+
+    public void PlayerLost()
+    {
+        //Play audio
+        ui.ShowLoosingPanel();
+        this.gameObject.SetActive(false);
+    }
+
+    public void GoToNextScene()
+    {
+        SceneManager.LoadScene(SceneManager.GetActiveScene().name);
+    }
+
+    public BoardState GetCurrentBoard()
+    {
+        return board;
+    }
+
+    public void HandFull()
+    {
+        endTurn.GetComponent<BoxCollider>().enabled = true;
     }
 }

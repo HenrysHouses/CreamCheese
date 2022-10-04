@@ -5,7 +5,6 @@ using TMPro;
 
 public class PlayerController : MonoBehaviour
 {
-
     [SerializeField]
     int maxHealth = 10;
     [SerializeField]
@@ -23,6 +22,8 @@ public class PlayerController : MonoBehaviour
         health = maxHealth;
         healthTxt.text = "HP: " + health.ToString();
     }
+
+    public int GetHealth() { return health; }
 
     public void CanBeDefended(Defense_Behaviour beh)
     {
@@ -48,7 +49,8 @@ public class PlayerController : MonoBehaviour
 
         if (health <= 0)
         {
-            Debug.Log("You Died lmao noob");
+            health = 0;
+            
         }
         healthTxt.text = "HP: " + health.ToString();
     }

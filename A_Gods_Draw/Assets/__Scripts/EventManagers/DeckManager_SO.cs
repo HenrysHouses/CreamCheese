@@ -180,7 +180,7 @@ public class DeckManager_SO : ScriptableObject
     /// <summary>Move the top card/s of the player library to the player hand. Trigger card draw animations</summary>
     /// <param name="amount">The amount of cards to draw</param>
     /// ! <returns></returns> // Missing return summary
-    public void drawCard(int amount)
+    public void drawCard(int amount, TurnManager mngr = null)
     {
         if (pLibrary.Count < amount) // if there is no cards in library to draw, shuffle the discard into the library and return
         {
@@ -206,8 +206,16 @@ public class DeckManager_SO : ScriptableObject
             animations[i] = new PathAnimatorController.pathAnimation();
             animations[i].CompletionTrigger.AddListener(_Loader.moveCardToHand);
 
+            if (i == amount - 1 && mngr != null)
+            {
+                animations[i].CompletionTrigger.AddListener
+                    (mngr.HandFull);
+            }
+
+            Debug.Log("Sent card: " + cards[i].name + " with animation: " + animations[i].index + ", number " + i);
+
             //Just to make them clickable
-            cards[i].transform.position = new Vector3(20, 0, 0);
+            //cards[i].transform.position = new Vector3(20, 0, 0);
             //card.transform.rotation = Quaternion.Euler(-20 + i * 10, 90, 0);
         }
         AnimationManager_SO.getInstance.requestAnimation("Library-Hand", cards, 0, 0.25f, animations);
@@ -219,10 +227,13 @@ public class DeckManager_SO : ScriptableObject
     }
 
     /// <summary>Moves all cards currently in player hand to player discard. Trigger discard animations</summary>
-    public void discardAll()
+    public void discardAll(TurnManager mngr = null)
     {
         // Moves cards in hand to discard
         GameObject[] cards = new GameObject[pHand.Count];
+
+        PathAnimatorController.pathAnimation[] animations = new PathAnimatorController.pathAnimation[pHand.Count];
+
         for (int i = 0; i < pHand.Count; i++)
         {
             // preps the discard animations
@@ -231,10 +242,48 @@ public class DeckManager_SO : ScriptableObject
             cards[i] = _card;
 
             pDiscard.Add(pHand[i]);
+
+            animations[i] = new PathAnimatorController.pathAnimation();
+
+            if (i == pHand.Count - 1 && mngr != null)
+            {
+                animations[i].CompletionTrigger.AddListener
+                    (mngr.FinishedAnimations);
+            }
         }
         // requests animations for all discarded cards
 
-        AnimationManager_SO.getInstance.requestAnimation("Hand-Discard", cards, 0, 0.25f);
+        AnimationManager_SO.getInstance.requestAnimation("Hand-Discard", cards, 0, 0.25f, animations);
+
+        pHand.Clear();
+        // ? change events may not be used
+        pHandChangeEvent.Invoke();
+        pDiscardChangeEvent.Invoke();
+    }
+    public void discardAll(Card_SO exceptFor, TurnManager mngr = null)
+    {
+        // Moves cards in hand to discard
+        List<GameObject> cards = new();
+
+        PathAnimatorController.pathAnimation[] animations = new PathAnimatorController.pathAnimation[pHand.Count];
+
+        for (int i = 0; i < pHand.Count; i++)
+        {
+            if (pHand[i] != exceptFor)
+            {
+                // preps the discard animations
+                GameObject _card = Instantiate(CardAnimationPrefab);
+                _card.GetComponentInChildren<Card_Loader>().Set(pHand[i], null);
+                cards.Add(_card);
+                pDiscard.Add(pHand[i]);
+            }
+            animations[i] = new PathAnimatorController.pathAnimation();
+        }
+        // requests animations for all discarded cards
+
+
+        animations[0].CompletionTrigger.AddListener(mngr.FinishedAnimations);
+        AnimationManager_SO.getInstance.requestAnimation("Hand-Discard", cards.ToArray(), 0, 0.25f, animations);
 
         pHand.Clear();
         // ? change events may not be used
@@ -311,5 +360,5 @@ public class DeckManager_SO : ScriptableObject
         return pHand;
     }
 
-    public void wtf() { Debug.Log("aaaa"); }
+    public List<Card_SO> wtf() { return pHand; }
 }

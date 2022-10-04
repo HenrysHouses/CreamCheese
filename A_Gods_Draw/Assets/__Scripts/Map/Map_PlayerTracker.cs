@@ -83,12 +83,16 @@ namespace Map
                     SceneManager.LoadScene(1); //sends me to javi's scene since that has card stuff
                     break;
                 case NodeType.Elite:
+                    SceneManager.LoadScene(1);
                     break;
                 case NodeType.RestPlace:
+                    SceneManager.LoadScene(1);
                     break;
                 case NodeType.Reward:
+                    SceneManager.LoadScene(1);
                     break;
                 case NodeType.Boss:
+                    SceneManager.LoadScene(1);
                     break;
                 default:
                     throw new ArgumentOutOfRangeException();

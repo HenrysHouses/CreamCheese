@@ -1,10 +1,8 @@
 //charlie
-
-using System.Collections;
+#if UNITY_EDITOR
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEditor;
-using UnityEditorInternal;
 
 namespace Malee.Editor
 {
@@ -132,4 +130,4 @@ namespace Malee.Editor
         }
     }
 }
-
+#endif

@@ -51,9 +51,12 @@ public class AnimationManager_SO : ScriptableObject
     /// <param name="animationOverrideOptions">Overrides the settings that are not null</param>
     public void requestAnimation(string pathName, GameObject[] targets, float delay = 0, float coolDown = 0, PathAnimatorController.pathAnimation[] animationOverrideOptions = null)
     {
+        if (animationOverrideOptions != null)
+            Debug.Log(animationOverrideOptions.Length);
+
         foreach (var item in targets)
         {
-            Debug.Log(item);
+            //Debug.Log(item);
         }
 
         for (int i = 0; i < targets.Length; i++)

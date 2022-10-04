@@ -13,20 +13,25 @@ public class Attack_Behaviour : NonGod_Behaviour
         currentCard = card as Attack_Card;
         strengh = currentCard.baseStrengh;
         this.card = card;
+
+        SendMessageUpwards("setBorder", Card_ClickGlowing.CardType.Attack);
     }
 
     public override void OnAction()
     {
         foreach (IMonster target in targets)
         {
-            target.DealDamage(strengh);
-            Debug.Log("Dealt " + strengh + " damage to " + target);
+            if (target != null)
+            {
+                target.DealDamage(strengh);
+                //Debug.Log("Dealt " + strengh + " damage to " + target);
+            }
         }
     }
 
-    public override IEnumerator OnPlay(List<IMonster> enemies, List<NonGod_Behaviour> currLane, PlayerController player, God_Behaviour god)
+    public override IEnumerator OnPlay(BoardState board)
     {
-        foreach (IMonster enemy in enemies)
+        foreach (IMonster enemy in board.enemies)
         {
             enemy.IsObjectiveTo(this);
         }

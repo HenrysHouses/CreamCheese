@@ -1,9 +1,13 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using FMODUnity;
 
 public abstract class NonGod_Behaviour : Card_Behaviour
 {
+    [SerializeField]
+    EventReference SoundClick;
+
     protected int strengh;
     protected Buff_Behaviour theCardCANThatBuffThis;
     protected Buff_Behaviour theCardThatBuffsThis;
@@ -27,11 +31,22 @@ public abstract class NonGod_Behaviour : Card_Behaviour
 
     public override void OnClick()
     {
-        if (manager.GetState() == TurnManager.State.PlayerTurn && !played && !manager.IsACardSelected())
+        if (manager.CurrentlySelectedCard() == this)
         {
-            manager.SelectedCard(this);
-            played = true;
+            manager.CancelSelection();
+            played = false;
+
+            //Debug.Log("you clicked me, and im not being played");
+            return;
         }
+        if (manager.GetState() == TurnManager.State.PlayerTurn && !played && !manager.CurrentlySelectedCard())
+        {
+            manager.SelectCard(this);
+            played = true;
+            //Debug.Log("you clicked me, and im being played");
+        }
+
+        //Debug.Log(manager.CurrentlySelectedCard().gameObject);
     }
 
     public virtual void GetBuff(bool isMultiplier, float amount)
