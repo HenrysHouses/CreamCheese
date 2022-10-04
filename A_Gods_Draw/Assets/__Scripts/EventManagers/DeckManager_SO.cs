@@ -185,6 +185,7 @@ public class DeckManager_SO : ScriptableObject
         if (pLibrary.Count < amount) // if there is no cards in library to draw, shuffle the discard into the library and return
         {
             shuffleDiscard();
+            Debug.Log("draw, shuffle discard");
         }
 
         // Instantiate the object that will be animated.
@@ -212,7 +213,7 @@ public class DeckManager_SO : ScriptableObject
                     (mngr.HandFull);
             }
 
-            Debug.Log("Sent card: " + cards[i].name + " with animation: " + animations[i].index + ", number " + i);
+            // Debug.Log("Sent card: " + cards[i].name + " with animation: " + animations[i].index + ", number " + i);
 
             //Just to make them clickable
             //cards[i].transform.position = new Vector3(20, 0, 0);
