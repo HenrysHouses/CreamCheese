@@ -37,7 +37,7 @@ public class SceneCollectionObject_Editor : Editor
         {
             script.Scenes.RemoveAt(script.Scenes.Count-1);
         }
-        
+
         for(int i = 0; i < _collectedScenes.Count; i++)
         {
             // Drawing Scene Object field

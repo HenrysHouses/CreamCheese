@@ -14,7 +14,7 @@ public class SceneManager_window : EditorWindow
     SceneCollectionObject[] _Collection;
     string[] Collection = new string[0];
     SceneCollectionObject LoadedCollection;
-    int SelectedCollection;
+    SceneCollectionObject SelectedCollection;
     int UnloadScene;
 
     [MenuItem("Multi Scene Workflow/Scene Manager")]
@@ -37,23 +37,18 @@ public class SceneManager_window : EditorWindow
         GUILayout.Space(8);
         GUILayout.Label("Loading", EditorStyles.boldLabel);
 
-        if(Collection.Length > 0)
-            SelectedCollection = EditorGUILayout.Popup(new GUIContent("Collection") , SelectedCollection, Collection);
-        else
-            EditorGUILayout.Popup(0, new string[]{"Unload Select"});
-
+        SelectedCollection = (SceneCollectionObject)EditorGUILayout.ObjectField(new GUIContent("Collection"), SelectedCollection, typeof(SceneCollectionObject), false);
         
         if(GUILayout.Button("Load Collection"))
         {
-            if(SelectedCollection == 0)
+            if(SelectedCollection == null)
             {
                 EditorSceneManager.OpenScene("Assets/~Scenes/SampleScene.unity", OpenSceneMode.Single);
                 LoadedCollection = null;
                 return;
             }
 
-            LoadedCollection = _Collection[SelectedCollection -1];
-
+            LoadedCollection = SelectedCollection;
 
             string[] paths = new string[LoadedCollection.Scenes.Count];
             
@@ -92,6 +87,8 @@ public class SceneManager_window : EditorWindow
             }
             _sceneOptions = scenes;
         }
+
+        // # Change this into a scene object field
 
         if(_sceneOptions.Length > 0)
             SelectedScene = EditorGUILayout.Popup(new GUIContent("Scene") , SelectedScene, _sceneOptions);
