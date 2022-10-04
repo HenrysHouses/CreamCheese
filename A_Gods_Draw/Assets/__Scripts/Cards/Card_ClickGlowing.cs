@@ -26,7 +26,8 @@ public class Card_ClickGlowing : MonoBehaviour
     CardType currType;
 
     /// <summary>
-    /// holding over a card makes the card glow in the respective color of the type
+    /// 1.holding over a card makes the card glow in the respective color of the type
+    /// 2.makes an arrow show where to be placed
     /// </summary>
     private void OnMouseOver()
     {
