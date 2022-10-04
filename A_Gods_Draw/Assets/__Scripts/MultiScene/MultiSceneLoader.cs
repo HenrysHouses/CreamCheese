@@ -53,7 +53,7 @@ public class MultiSceneLoader : MonoBehaviour
                 break;
 
             case collectionLoadMode.Replace:
-                
+                loadReplace(TargetCollection);
                 break;
 
             case collectionLoadMode.Keep:
@@ -98,6 +98,17 @@ public class MultiSceneLoader : MonoBehaviour
         }
 
         currentlyLoaded = Collection;
+    }
+
+    void loadReplace(SceneCollectionObject Collection) 
+    {
+        for (int i = 0; i < Collection.SceneNames.Count; i++)
+        {
+            if(i == 0)
+                load(Collection.SceneNames[i], LoadSceneMode.Single);            
+            else
+                load(Collection.SceneNames[i], LoadSceneMode.Additive);            
+        }
     }
 
     void unload(string SceneName)
