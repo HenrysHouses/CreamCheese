@@ -188,6 +188,7 @@ public class TurnManager : MonoBehaviour
 
             case State.EndTurn:
                 {
+                    
                     board._hand.RemoveAllCards();
 
                     if (hasPlayedAGod)
@@ -384,7 +385,8 @@ public class TurnManager : MonoBehaviour
 
     public void GoToNextScene()
     {
-        SceneManager.LoadScene(SceneManager.GetActiveScene().name);
+        MultiSceneLoader.instance.loadCollection("TutorialTest",collectionLoadMode.Replace);
+        
     }
 
     public BoardState GetCurrentBoard()
