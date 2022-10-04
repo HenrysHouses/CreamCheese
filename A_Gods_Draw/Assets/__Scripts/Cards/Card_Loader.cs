@@ -31,7 +31,7 @@ public class Card_Loader : MonoBehaviour
 
         card_so = card;
         var godCard = card_so as God_Card;
-        if (godCard)
+        if (false)
         {
             typeIcon.enabled = false;
             strengh.enabled = false;
