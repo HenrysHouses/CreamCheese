@@ -3,6 +3,13 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
+public enum collectionLoadMode
+{
+    difference,
+    Replace,
+    Keep
+}
+
 public class MultiSceneLoader : MonoBehaviour
 {
     public static MultiSceneLoader instance;
@@ -10,12 +17,6 @@ public class MultiSceneLoader : MonoBehaviour
     [SerializeField] SceneCollectionObject BootCollection;
     [SerializeField] SceneCollectionObject currentlyLoaded;
 
-    public enum collectionLoadMode
-    {
-        difference,
-        Replace,
-        Keep
-    }
 
     private void Awake() 
     {
@@ -75,7 +76,6 @@ public class MultiSceneLoader : MonoBehaviour
                 if(LoadedScene.Equals(targetScene))
                 {
                     difference = false;
-                    Debug.Log("dont load");
                 }
             }
             if(difference)

@@ -6,6 +6,6 @@ public class TriggerSceneLoad : MonoBehaviour
 {
     public void LoadScene(string collectionTitle)
     {
-        MultiSceneLoader.instance.loadCollection(collectionTitle, MultiSceneLoader.collectionLoadMode.difference);
+        MultiSceneLoader.instance.loadCollection(collectionTitle, collectionLoadMode.difference);
     }
 }
