@@ -19,7 +19,8 @@ public class Card_ClickGlowing : MonoBehaviour
     {
         Attack,
         Defence,
-        Buff
+        Buff,
+        God
     }
 
     CardType currType;
@@ -60,6 +61,9 @@ public class Card_ClickGlowing : MonoBehaviour
                     {
                         DrawArrowsCards();
                     }
+                    break;
+                case CardType.God:
+                    GodCardBorder();
                     break;
             }
         }
@@ -108,6 +112,12 @@ public class Card_ClickGlowing : MonoBehaviour
     public void DefenceCardBorder()
     {
         glowBorders[2].SetActive(true);
+        isCreated = true;
+    }
+
+    public void GodCardBorder()
+    {
+        glowBorders[3].SetActive(true);
         isCreated = true;
     }
 
