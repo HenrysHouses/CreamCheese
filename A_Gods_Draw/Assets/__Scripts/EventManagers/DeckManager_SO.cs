@@ -271,14 +271,6 @@ public class DeckManager_SO : ScriptableObject
     }
     public void discardAll(Card_SO exceptFor, TurnManager mngr = null)
     {
-        if(pHand.Count == 0)
-        {
-            if(mngr != null)
-            {
-                mngr.FinishedAnimations();
-            }
-            return;
-        }
         // Moves cards in hand to discard
         List<GameObject> cards = new();
 
@@ -298,9 +290,19 @@ public class DeckManager_SO : ScriptableObject
         }
         // requests animations for all discarded cards
 
+        if (cards.Count == 0)
+        {
+            if (mngr != null)
+            {
+                mngr.FinishedAnimations();
+            }
+            return;
+        }
 
-        animations[0].CompletionTrigger.AddListener(mngr.FinishedAnimations);
+        if (mngr != null)
+            animations[cards.Count - 1].CompletionTrigger.AddListener(mngr.FinishedAnimations);
         AnimationManager_SO.getInstance.requestAnimation("Hand-Discard", cards.ToArray(), 0, 0.25f, animations);
+
 
         pHand.Clear();
         // ? change events may not be used
