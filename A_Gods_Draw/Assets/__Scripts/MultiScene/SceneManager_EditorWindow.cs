@@ -1,3 +1,5 @@
+#if UNITY_EDITOR
+
 using UnityEngine;
 using UnityEngine.SceneManagement;
 using UnityEditor;
@@ -275,3 +277,4 @@ public class SceneManager_window : EditorWindow
         return null;
     }
 }
+#endif

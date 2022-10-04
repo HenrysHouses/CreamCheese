@@ -27,9 +27,9 @@ public class MultiSceneLoader : MonoBehaviour
 
         Collection = Resources.LoadAll<SceneCollectionObject>("SceneCollections");
 
-        #if !UNITY_EDITOR
-            loadCollection(BootCollection.Title, collectionLoadMode.difference);
-        #endif
+        // #if !UNITY_EDITOR
+        // #endif
+        loadCollection(BootCollection.Title, collectionLoadMode.difference);
 
 
     }
@@ -100,15 +100,22 @@ public class MultiSceneLoader : MonoBehaviour
         currentlyLoaded = Collection;
     }
 
-    void loadReplace(SceneCollectionObject Collection) 
+    void loadReplace(SceneCollectionObject Collection) // ! unloading _Boot which is not good
     {
-        for (int i = 0; i < Collection.SceneNames.Count; i++)
+        SceneCollectionObject _Boot = FindCollection("_Boot");
+        loadDifferenceFromCurrent(_Boot);
+        loadDifferenceFromCurrent(Collection);
+    }
+
+    SceneCollectionObject FindCollection(string CollectionTitle)
+    {
+        foreach (SceneCollectionObject target in Collection)
         {
-            if(i == 0)
-                load(Collection.SceneNames[i], LoadSceneMode.Single);            
-            else
-                load(Collection.SceneNames[i], LoadSceneMode.Additive);            
+            if(target.Title.Equals(CollectionTitle))
+                return target;
         }
+        Debug.LogWarning("Could not find collection");
+        return null;
     }
 
     void unload(string SceneName)

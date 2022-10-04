@@ -1,3 +1,5 @@
+#if UNITY_EDITOR
+
 using UnityEngine;
 using UnityEngine.SceneManagement;
 using System.Collections.Generic;
@@ -61,3 +63,4 @@ public class SceneCollectionObject_Editor : Editor
         }
     }
 }
+#endif
