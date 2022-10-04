@@ -242,6 +242,10 @@ public class TurnManager : MonoBehaviour
 
     public void SelectCard(Card_Behaviour card)
     {
+        if(currentLane == lanes.Length)
+        {
+            return;
+        }
         if (currentState == State.PlayerTurn)
         {
             selectedCard = card;

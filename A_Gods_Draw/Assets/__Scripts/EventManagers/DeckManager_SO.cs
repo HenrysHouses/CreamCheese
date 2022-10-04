@@ -230,6 +230,14 @@ public class DeckManager_SO : ScriptableObject
     /// <summary>Moves all cards currently in player hand to player discard. Trigger discard animations</summary>
     public void discardAll(TurnManager mngr = null)
     {
+        if(pHand.Count == 0)
+        {
+            if(mngr != null)
+            {
+                mngr.FinishedAnimations();
+            }
+            return;
+        }
         // Moves cards in hand to discard
         GameObject[] cards = new GameObject[pHand.Count];
 
@@ -263,6 +271,14 @@ public class DeckManager_SO : ScriptableObject
     }
     public void discardAll(Card_SO exceptFor, TurnManager mngr = null)
     {
+        if(pHand.Count == 0)
+        {
+            if(mngr != null)
+            {
+                mngr.FinishedAnimations();
+            }
+            return;
+        }
         // Moves cards in hand to discard
         List<GameObject> cards = new();
 
