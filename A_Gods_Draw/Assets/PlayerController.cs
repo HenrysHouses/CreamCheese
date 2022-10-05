@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using TMPro;
+using UnityEngine.UI;
 
 public class PlayerController : MonoBehaviour
 {
@@ -15,6 +16,10 @@ public class PlayerController : MonoBehaviour
     int defendedFor = 0;
 
     Defense_Behaviour defender;
+    TurnManager manager;
+
+    [SerializeField]
+    Image arrowImage;
 
     // Start is called before the first frame update
     void Start()
@@ -60,8 +65,19 @@ public class PlayerController : MonoBehaviour
         if (defender)
         {
             defender.ItDefends(this);
+            PlayerHideArrow();
             //Debug.Log(defender + " is going to defend this");
         }
         defender = null;
+    }
+
+    public void PlayerShowArrow()
+    {
+        arrowImage.enabled = true;
+    }
+
+    public void PlayerHideArrow()
+    {
+        arrowImage.enabled = false;
     }
 }

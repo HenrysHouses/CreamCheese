@@ -67,7 +67,7 @@ public abstract class IMonster : MonoBehaviour
                 attacker.AddTarget(this);
             }
             attacker = null;
-            HideArrow();
+            EnemyHideArrow();
         }
     }
 
@@ -130,7 +130,7 @@ public abstract class IMonster : MonoBehaviour
     public virtual void IsObjectiveTo(Attack_Behaviour attack_Behaviour)
     {
         attacker = attack_Behaviour;
-        ShowArrow();
+        EnemyShowArrow();
         //Debug.Log(this + " can be attacked by " + attack_Behaviour);
     }
 
@@ -159,12 +159,12 @@ public abstract class IMonster : MonoBehaviour
         defendedFor = 0;
     }
 
-    public void ShowArrow()
+    public void EnemyShowArrow()
     {
         arrowImage.enabled = true;
     }
 
-    public void HideArrow()
+    public void EnemyHideArrow()
     {
         arrowImage.enabled = false;
     }

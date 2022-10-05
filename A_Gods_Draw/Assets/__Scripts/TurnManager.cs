@@ -128,7 +128,12 @@ public class TurnManager : MonoBehaviour
 
                             foreach(IMonster enemy in board.enemies)
                             {
-                                enemy.HideArrow();
+                                enemy.EnemyHideArrow();
+                            }
+
+                            if(board.player) //help charlie plz
+                            {
+                                board.player.PlayerHideArrow();
                             }
                         }
                         else
