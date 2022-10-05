@@ -131,7 +131,7 @@ public class TurnManager : MonoBehaviour
                                 enemy.EnemyHideArrow();
                             }
 
-                            if(board.player) //help charlie plz
+                            if(board.player)
                             {
                                 board.player.PlayerHideArrow();
                             }
