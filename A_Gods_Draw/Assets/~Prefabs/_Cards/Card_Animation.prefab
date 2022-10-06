@@ -170,6 +170,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   ui: {fileID: 2971810860120088562}
+  background: {fileID: 1817438463518682462}
   isMade: 0
 --- !u!1001 &9114715318172623301
 PrefabInstance:
@@ -181,10 +182,6 @@ PrefabInstance:
     - target: {fileID: 6287033262116246633, guid: 8d1e21834bc021b42841bee8fd5d71cc, type: 3}
       propertyPath: m_Name
       value: Card
-      objectReference: {fileID: 0}
-    - target: {fileID: 6287033262116246634, guid: 8d1e21834bc021b42841bee8fd5d71cc, type: 3}
-      propertyPath: m_PresetInfoIsWorld
-      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 6287033262116246636, guid: 8d1e21834bc021b42841bee8fd5d71cc, type: 3}
       propertyPath: m_Pivot.x
@@ -255,6 +252,10 @@ PrefabInstance:
       value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 6287033262116246636, guid: 8d1e21834bc021b42841bee8fd5d71cc, type: 3}
+      propertyPath: m_AnchoredPosition.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6287033262116246636, guid: 8d1e21834bc021b42841bee8fd5d71cc, type: 3}
       propertyPath: m_LocalEulerAnglesHint.x
       value: 0
       objectReference: {fileID: 0}
@@ -266,20 +267,13 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
-    - target: {fileID: 6287033262173972922, guid: 8d1e21834bc021b42841bee8fd5d71cc, type: 3}
-      propertyPath: m_IsActive
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 6287033262282292790, guid: 8d1e21834bc021b42841bee8fd5d71cc, type: 3}
-      propertyPath: m_Enabled
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 6287033262282292791, guid: 8d1e21834bc021b42841bee8fd5d71cc, type: 3}
-      propertyPath: m_IsActive
-      value: 0
-      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 8d1e21834bc021b42841bee8fd5d71cc, type: 3}
+--- !u!1 &1817438463518682462 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 7441406654309207195, guid: 8d1e21834bc021b42841bee8fd5d71cc, type: 3}
+  m_PrefabInstance: {fileID: 9114715318172623301}
+  m_PrefabAsset: {fileID: 0}
 --- !u!224 &2971810859967100329 stripped
 RectTransform:
   m_CorrespondingSourceObject: {fileID: 6287033262116246636, guid: 8d1e21834bc021b42841bee8fd5d71cc, type: 3}

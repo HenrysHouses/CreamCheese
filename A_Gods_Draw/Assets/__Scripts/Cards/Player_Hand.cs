@@ -87,11 +87,11 @@ public class Player_Hand : MonoBehaviour
     }
     private void UpdateCards()
     {
-        float count = (float)CAH.Count;
-        for (int i = 0; i < CAH.Count; i++)
-        {
-            CAH[i].CS.transform.rotation = Quaternion.Euler(0, 0, (cardRotation * ((count - 1) / 2f)) - cardRotation * i);
-        }
+       // float count = (float)CAH.Count;
+        //for (int i = 0; i < CAH.Count; i++)
+        //{
+         //   CAH[i].CS.transform.rotation = Quaternion.Euler(0, 0, (cardRotation * ((count - 1) / 2f)) - cardRotation * i);
+        //}
     }
     
     void HoverOverCard(int card)
@@ -102,8 +102,14 @@ public class Player_Hand : MonoBehaviour
     }
     void StopHover(int card)
     {
+        Card_Behaviour CAB = CAH[card].CS.GetComponentInChildren<Card_Behaviour>();
+        if(!CAB.IsThisSelected())
+        {
         float rot = (float)cardRotation, count = (float)CAH.Count;
         CAH[card].CS.transform.rotation = Quaternion.Euler(0, 0, (rot * ((count - 1) / 2f)) - rot * card);
         CAH[card].cardAnimation.SetBool("ShowCard", false);
+
+        }
+        
     }
 }

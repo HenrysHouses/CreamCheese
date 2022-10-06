@@ -61,6 +61,10 @@ public abstract class Card_Behaviour : MonoBehaviour
 
     public bool IsThisSelected()
     {
+        if(manager == null)
+        {
+            return false;
+        }
         return manager.CurrentlySelectedCard() == this;
     }
 
