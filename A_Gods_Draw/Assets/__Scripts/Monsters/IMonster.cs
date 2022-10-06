@@ -18,7 +18,6 @@ public abstract class IMonster : MonoBehaviour
 
     bool attackingPlayer;
 
-
     protected int intentStrengh;
     int defendedFor;
 
@@ -43,6 +42,7 @@ public abstract class IMonster : MonoBehaviour
 
     [SerializeField]
     Image arrowImage;
+    private bool locked;
 
     // Start is called before the first frame update
     void Start()
@@ -57,6 +57,15 @@ public abstract class IMonster : MonoBehaviour
 
     public int GetMaxHealth() { return maxHealth; }
     public int GetHealth() { return health; }
+
+    public void CancelIntents()
+    {
+        locked = true;
+
+        intentStrengh = 0;
+        strengh.text = intentStrengh.ToString();
+        image.sprite = null;
+    }
 
     private void OnMouseDown()
     {
@@ -141,22 +150,26 @@ public abstract class IMonster : MonoBehaviour
 
     public void Act()
     {
-        if (attacking)
+        if (!locked)
         {
-            if (attackingPlayer)
+            if (attacking)
             {
-                player.DealDamage(intentStrengh);
+                if (attackingPlayer)
+                {
+                    player.DealDamage(intentStrengh);
+                }
+                else
+                {
+                    god.DealDamage(intentStrengh);
+                }
             }
             else
             {
-                god.DealDamage(intentStrengh);
+                DoAbility();
             }
+            defendedFor = 0;
         }
-        else
-        {
-            DoAbility();
-        }
-        defendedFor = 0;
+        locked = false;
     }
 
     private void OnMouseOver()
