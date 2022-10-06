@@ -11,7 +11,7 @@ public class PopupDescription : MonoBehaviour
     /// or at least just make it bigger so that you are able to read
     /// should be next to the card you click on because that makes sense
     /// </summary>
-    public GameObject ui; //the canvas object on the card
+    public GameObject ui, background; //the canvas object on the card
     public bool isMade;
 
 
@@ -20,6 +20,7 @@ public class PopupDescription : MonoBehaviour
         if (!isMade)
         {
             ui.SetActive(true);
+            background.SetActive(true);
             isMade = true;
         }
     }
@@ -29,6 +30,7 @@ public class PopupDescription : MonoBehaviour
         if (isMade)
         {
             ui.SetActive(false);
+            background.SetActive(false);
             isMade = false;
         }
     }
