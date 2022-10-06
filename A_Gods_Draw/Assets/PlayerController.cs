@@ -56,13 +56,14 @@ public class PlayerController : MonoBehaviour
         {
             health = health - (amount - defendedFor);
             defendedFor = 0;
+            shieldText.text = defendedFor.ToString();
             shieldObject.SetActive(false);
         }
         else
         {
             defendedFor -= amount;
+            shieldText.text = defendedFor.ToString();
         }
-        shieldText.text = defendedFor.ToString();
 
         if (health <= 0)
         {
@@ -87,8 +88,8 @@ public class PlayerController : MonoBehaviour
     public void OnNewTurn()
     {
         defendedFor = 0;
-        shieldObject.SetActive(false);
         shieldText.text = defendedFor.ToString();
+        shieldObject.SetActive(false);
     }
 
     private void OnMouseOver()
