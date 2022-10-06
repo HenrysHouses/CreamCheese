@@ -15,6 +15,8 @@ public class Card_ClickGlowing : MonoBehaviour
 
     TurnManager turnManager;
 
+    Card_Behaviour behaviour;
+
     public enum CardType 
     {
         Attack,
@@ -25,6 +27,11 @@ public class Card_ClickGlowing : MonoBehaviour
 
     CardType currType;
 
+    private void Start()
+    {
+        behaviour = GetComponentInChildren<Card_Behaviour>();
+    }
+
     /// <summary>
     /// 1.holding over a card makes the card glow in the respective color of the type
     /// 2.makes an arrow show where to be placed
@@ -33,39 +40,42 @@ public class Card_ClickGlowing : MonoBehaviour
     {
         if (turnManager == null && gameObject.transform.childCount != 0)
         {
-            turnManager = GetComponentInChildren<Card_Behaviour>().GetManager();
+            turnManager = behaviour.GetManager();
         }
 
-        //glow borders
-        if (!isCreated)
+        if (turnManager.CurrentlySelectedCard() == null)
         {
-            currentlySelected = this;
-            switch (currType)
+            //glow borders
+            if (!isCreated)
             {
-                case CardType.Attack:
-                    AttackCardBorder();
-                    if (!hasArrow)
-                    {
-                        DrawArrowsEnemies();
-                    }
-                    break;
-                case CardType.Defence:
-                    DefenceCardBorder();
-                    if (!hasArrow)
-                    {
-                        DrawArrowsPlayer();
-                    }
-                    break;
-                case CardType.Buff:
-                    BuffCardBorder();
-                    if (!hasArrow)
-                    {
-                        DrawArrowsCards();
-                    }
-                    break;
-                case CardType.God:
-                    GodCardBorder();
-                    break;
+                currentlySelected = this;
+                switch (currType)
+                {
+                    case CardType.Attack:
+                        AttackCardBorder();
+                        if (!hasArrow)
+                        {
+                            DrawArrowsEnemies();
+                        }
+                        break;
+                    case CardType.Defence:
+                        DefenceCardBorder();
+                        if (!hasArrow)
+                        {
+                            DrawArrowsPlayer();
+                        }
+                        break;
+                    case CardType.Buff:
+                        BuffCardBorder();
+                        if (!hasArrow)
+                        {
+                            DrawArrowsCards();
+                        }
+                        break;
+                    case CardType.God:
+                        GodCardBorder();
+                        break;
+                }
             }
         }
     }
@@ -132,9 +142,17 @@ public class Card_ClickGlowing : MonoBehaviour
     /// </summary>
     private void OnMouseExit()
     {
+        if (!behaviour.IsThisSelected())
+        {
+            RemoveBorder();
+        }
+    }
+
+    public void RemoveBorder()
+    {
         if (isCreated)
         {
-            for(int i = 0; i < 4; i++)
+            for (int i = 0; i < 4; i++)
             {
                 glowBorders[i].SetActive(false);
             }

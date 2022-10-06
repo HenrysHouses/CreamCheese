@@ -58,6 +58,8 @@ public class TurnManager : MonoBehaviour
     {
         board.lane = new List<NonGod_Behaviour>();
 
+        currentLane = 0;
+
         // deckManager.SetTurnManager(this);
 
         foreach (IMonster enemy in board.enemies)
@@ -77,6 +79,8 @@ public class TurnManager : MonoBehaviour
                     currentState = State.PlayerTurn;
 
                     board.deckManager.drawCard(5, this);
+
+                    currentLane = 0;
 
                     if (board.currentGod) { board.currentGod.OnTurnStart(); }
 
@@ -171,7 +175,6 @@ public class TurnManager : MonoBehaviour
                     }
                     CheckIfPlayerWon();
                     currentState = State.EnemiesTurn;
-                    currentLane = 0;
                 }
                 break;
 
@@ -257,6 +260,9 @@ public class TurnManager : MonoBehaviour
         {
             return;
         }
+
+        Debug.Log("selected");
+
         if (currentState == State.PlayerTurn)
         {
             selectedCard = card;
@@ -295,6 +301,8 @@ public class TurnManager : MonoBehaviour
     public void CancelSelection()
     {
         StopCoroutine(selectedCard.OnPlay(board));
+
+        Debug.Log("deselected");
 
         selectedCard = null;
     }

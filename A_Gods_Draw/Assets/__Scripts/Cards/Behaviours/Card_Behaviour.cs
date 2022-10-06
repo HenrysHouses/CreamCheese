@@ -51,4 +51,9 @@ public abstract class Card_Behaviour : MonoBehaviour
     {
         return manager;
     }
+
+    public bool IsThisSelected()
+    {
+        return manager.CurrentlySelectedCard() == this;
+    }
 }
