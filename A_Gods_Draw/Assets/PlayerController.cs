@@ -23,11 +23,14 @@ public class PlayerController : MonoBehaviour
     [SerializeField]
     GameObject shieldObject;
 
+    TMP_Text shieldText;
+
     // Start is called before the first frame update
     void Start()
     {
         health = maxHealth;
         healthTxt.text = "HP: " + health.ToString();
+        shieldText = shieldObject.transform.GetChild(0).GetComponentInChildren<TMP_Text>();
     }
 
     public int GetHealth() { return health; }
@@ -39,7 +42,12 @@ public class PlayerController : MonoBehaviour
 
     public void Defend(int value)
     {
+        if (defendedFor == 0)
+        {
+            shieldObject.SetActive(true);
+        }
         defendedFor += value;
+        shieldText.text = defendedFor.ToString();
     }
 
     public void DealDamage(int amount)
@@ -48,11 +56,13 @@ public class PlayerController : MonoBehaviour
         {
             health = health - (amount - defendedFor);
             defendedFor = 0;
+            shieldObject.SetActive(false);
         }
         else
         {
             defendedFor -= amount;
         }
+        shieldText.text = defendedFor.ToString();
 
         if (health <= 0)
         {
@@ -77,6 +87,8 @@ public class PlayerController : MonoBehaviour
     public void OnNewTurn()
     {
         defendedFor = 0;
+        shieldObject.SetActive(false);
+        shieldText.text = defendedFor.ToString();
     }
 
     private void OnMouseOver()
