@@ -71,6 +71,11 @@ public class PlayerController : MonoBehaviour
         defender = null;
     }
 
+    public void OnNewTurn()
+    {
+        defendedFor = 0;
+    }
+
     public void PlayerShowArrow()
     {
         arrowImage.enabled = true;

@@ -28,7 +28,6 @@ public class God_Behaviour : Card_Behaviour
 
     public override IEnumerator OnPlay(BoardState board)
     {
-        //gameObject.GetComponentInParent<BoxCollider>().enabled = false;
         action.OnPlay(board);
 
         //Wait for animations, etc

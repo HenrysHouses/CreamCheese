@@ -31,13 +31,14 @@ public class Card_Loader : MonoBehaviour
 
         card_so = card;
         var godCard = card_so as God_Card;
-        if (false)
+        if (godCard)
         {
             typeIcon.enabled = false;
             strengh.enabled = false;
             God_Card test = godCard;
             health.text = test.health.ToString();
-            image.transform.localPosition -= image.transform.localPosition;
+            image.transform.localPosition -= Vector3.up * image.transform.localPosition.y;
+            image.transform.localScale = new Vector3(image.transform.localScale.x, image.transform.localScale.y * 2, image.transform.localScale.z);
         }
         else if (card_so as NonGod_Card)
         {

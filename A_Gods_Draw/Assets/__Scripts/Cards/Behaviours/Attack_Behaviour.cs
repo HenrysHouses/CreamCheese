@@ -36,13 +36,12 @@ public class Attack_Behaviour : NonGod_Behaviour
             enemy.IsObjectiveTo(this);
         }
 
-        //Debug.Log("SelectEnemies");
+        return base.OnPlay(board);
+    }
 
-        yield return new WaitUntil(() => { return targets.Count == 1; });
-
-        manager.FinishedPlay(this);
-
-        //Debug.Log("readyto act");
+    protected override bool ReadyToBePlaced()
+    {
+        return targets.Count == 1;
     }
 
     public void AddTarget(IMonster enemy)

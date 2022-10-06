@@ -38,9 +38,12 @@ public class Defense_Behaviour : NonGod_Behaviour
         }
         board.player.CanBeDefended(this);
 
-        yield return new WaitUntil(() => { return this.player || this.god_card; });
+        yield return base.OnPlay(board);
+    }
 
-        manager.FinishedPlay(this);
+    protected override bool ReadyToBePlaced()
+    {
+        return this.player || this.god_card;
     }
 
     internal void ItDefends(PlayerController playerController = null, God_Behaviour god = null)

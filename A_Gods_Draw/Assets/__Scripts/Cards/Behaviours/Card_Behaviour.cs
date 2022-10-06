@@ -9,8 +9,6 @@ public abstract class Card_Behaviour : MonoBehaviour
     protected Card_SO card;
     protected TurnManager manager;
 
-    protected bool played = false;
-
     public readonly bool isReady = false;
 
     public virtual void Initialize(Card_SO card)
@@ -30,10 +28,11 @@ public abstract class Card_Behaviour : MonoBehaviour
             manager.CancelSelection();
             return;
         }
-        if (!played && !manager.CurrentlySelectedCard())
+        if (!manager.CurrentlySelectedCard() || this != manager.CurrentlySelectedCard())
         {
+            manager.CancelSelection();
             manager.SelectCard(this);
-            played = true;
+            GetComponentInParent<Card_ClickGlowing>().ShowBorder();
         }
     }
 
@@ -42,9 +41,17 @@ public abstract class Card_Behaviour : MonoBehaviour
 
     public virtual IEnumerator OnPlay(BoardState board)
     {
-        yield return new WaitUntil(() => { return true; });
+        yield return new WaitUntil(ReadyToBePlaced);
+        GetComponentInParent<Card_ClickGlowing>().RemoveBorder();
         manager.FinishedPlay(this);
     }
+
+    public void DeSelected()
+    {
+        StopAllCoroutines();
+        GetComponentInParent<Card_ClickGlowing>().RemoveBorder();
+    }
+
     public virtual void OnAction() { }
 
     internal TurnManager GetManager()
@@ -55,5 +62,10 @@ public abstract class Card_Behaviour : MonoBehaviour
     public bool IsThisSelected()
     {
         return manager.CurrentlySelectedCard() == this;
+    }
+
+    protected virtual bool ReadyToBePlaced()
+    {
+        return true;
     }
 }

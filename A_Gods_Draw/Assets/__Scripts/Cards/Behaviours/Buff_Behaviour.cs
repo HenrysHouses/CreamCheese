@@ -30,9 +30,12 @@ public class Buff_Behaviour : NonGod_Behaviour
     {
         posInLane = manager.CurrentLane().Count;
 
-        yield return new WaitUntil(() => { return true; });
+        return base.OnPlay(board);
+    }
 
-        manager.FinishedPlay(this);
+    protected override bool ReadyToBePlaced()
+    {
+        return true;
     }
 
 }

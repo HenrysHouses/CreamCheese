@@ -82,6 +82,8 @@ public class TurnManager : MonoBehaviour
 
                     currentLane = 0;
 
+                    board.player.OnNewTurn();
+
                     if (board.currentGod) { board.currentGod.OnTurnStart(); }
 
                     foreach (IMonster enemy in board.enemies)
@@ -261,8 +263,6 @@ public class TurnManager : MonoBehaviour
             return;
         }
 
-        Debug.Log("selected");
-
         if (currentState == State.PlayerTurn)
         {
             selectedCard = card;
@@ -300,10 +300,8 @@ public class TurnManager : MonoBehaviour
 
     public void CancelSelection()
     {
-        StopCoroutine(selectedCard.OnPlay(board));
-
-        Debug.Log("deselected");
-
+        if (selectedCard != null)
+            selectedCard.DeSelected();
         selectedCard = null;
     }
 

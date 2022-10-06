@@ -80,6 +80,25 @@ public class Card_ClickGlowing : MonoBehaviour
         }
     }
 
+    public void ShowBorder()
+    {
+        switch (currType)
+        {
+            case CardType.Attack:
+                AttackCardBorder();
+                break;
+            case CardType.Defence:
+                DefenceCardBorder();
+                break;
+            case CardType.Buff:
+                BuffCardBorder();
+                break;
+            case CardType.God:
+                GodCardBorder();
+                break;
+        }
+    }
+
     public void setBorder(CardType type)
     {
         currType = type;
