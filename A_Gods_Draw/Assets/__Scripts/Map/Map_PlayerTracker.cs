@@ -13,6 +13,8 @@ namespace Map
         public float enterNodeDelay = 1f;
         public Map_Manager mapManager;
         public Map_View view;
+        public SceneTransition _SceneTransitioner;
+        static SceneTransition sceneTransition;
 
         public static Map_PlayerTracker Instance;
 
@@ -21,6 +23,8 @@ namespace Map
         private void Awake()
         {
             Instance = this;
+            if(sceneTransition == null)
+                sceneTransition = _SceneTransitioner;
         }
 
         public void SelectNode(Map_Nodes mapNode)
@@ -80,19 +84,19 @@ namespace Map
             switch (mapNode.Node.nodeType)
             {
                 case NodeType.Enemy:
-                    SceneManager.LoadScene(1); //sends me to javi's scene since that has card stuff
+                    sceneTransition.TransitionScene(false, "Combat"); //sends me to javi's scene since that has card stuff
                     break;
                 case NodeType.Elite:
-                    SceneManager.LoadScene(1);
+                    sceneTransition.TransitionScene(false, "Combat"); //sends me to javi's scene since that has card stuff
                     break;
                 case NodeType.RestPlace:
-                    SceneManager.LoadScene(1);
+                    sceneTransition.TransitionScene(false, "MainMenu"); //sends me to javi's scene since that has card stuff
                     break;
                 case NodeType.Reward:
-                    SceneManager.LoadScene(1);
+                    sceneTransition.TransitionScene(false, "MainMenu"); //sends me to javi's scene since that has card stuff
                     break;
                 case NodeType.Boss:
-                    SceneManager.LoadScene(1);
+                    sceneTransition.TransitionScene(false, "Combat"); //sends me to javi's scene since that has card stuff
                     break;
                 default:
                     throw new ArgumentOutOfRangeException();

@@ -41,6 +41,8 @@ public static class MultiSceneLoader
                 TargetCollection = target;
         }
 
+        Debug.Log(TargetCollection.Title);
+
         if(TargetCollection == null)
             return;
 
@@ -63,6 +65,11 @@ public static class MultiSceneLoader
 
     static void loadDifference(SceneCollectionObject Collection)
     {
+        if(currentlyLoaded == null)
+        {
+            Debug.LogError("MultiSceneLoading: No currently loaded scene collection.");
+            return;
+        }
         Debug.Log("loading Difference: " + Collection.Title + ", " + currentlyLoaded.Title);
         // Unload Differences
         foreach (string LoadedScene in currentlyLoaded.SceneNames)

@@ -4,9 +4,12 @@ using UnityEngine;
 
 public class SceneTransition : MonoBehaviour
 {
+    [HideInInspector] public string TransitionIN = "Transition_IN";
+    [HideInInspector] public string TransitionOUT = "Transition_OUT";
+
     [SerializeField] Animator TransitionAnim;
-    public bool isAnimating;
-    public float animTime;
+    bool isAnimating;
+    float animTime;
 
 
     // Start is called before the first frame update
@@ -30,9 +33,9 @@ public class SceneTransition : MonoBehaviour
         string state = "";
         isAnimating = false;
         if(SceneState)
-            state ="Transition_IN";
+            state = TransitionIN;
         else
-            state ="Transition_OUT";
+            state = TransitionOUT;
 
         if(!isAnimating)
         {
