@@ -8,7 +8,7 @@ public class Player_Hand : MonoBehaviour
     Transform handPlace;
 
     public TurnManager _turnManager;
-    private float cardRotation = 20; 
+    private float cardRotation = 10; 
     public List<CardInHand> CAH = new List<CardInHand>();
     public List<Card_Behaviour> behaviours = new();
 
@@ -29,6 +29,7 @@ public class Player_Hand : MonoBehaviour
     {
         float posX = handPlace.position.x;
         handPlace.position += Vector3.right * (-0.3f + CAH.Count * 0.15f);
+        handPlace.position += Vector3.forward * (0.0001f + CAH.Count * 0.01f / 2.5f); // << This puts the cards behing eacother, but makes unity angery
         GameObject spawn = Instantiate(CardinHandPrefab, handPlace.position, Quaternion.identity);
         Card_Loader _loader = spawn.GetComponentInChildren<Card_Loader>();
         _loader.Set(card, _turnManager);
@@ -105,7 +106,7 @@ public class Player_Hand : MonoBehaviour
         Card_Behaviour CAB = CAH[card].CS.GetComponentInChildren<Card_Behaviour>();
         if(!CAB.IsThisSelected())
         {
-        float rot = (float)cardRotation, count = (float)CAH.Count;
+            float rot = (float)cardRotation, count = (float)CAH.Count;
         CAH[card].CS.transform.rotation = Quaternion.Euler(0, 0, (rot * ((count - 1) / 2f)) - rot * card);
         CAH[card].cardAnimation.SetBool("ShowCard", false);
 
