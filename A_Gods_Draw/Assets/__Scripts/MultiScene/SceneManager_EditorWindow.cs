@@ -8,6 +8,10 @@ using System.Collections.Generic;
 
 public class SceneManager_window : EditorWindow
 {
+    public static SceneManager_window Instance{
+        get { return GetWindow<SceneManager_window>();}
+    }
+
     Scene[] LoadedScenes;
     string[] _sceneOptions;
     int SelectedScene;
@@ -15,7 +19,8 @@ public class SceneManager_window : EditorWindow
     string[] buildSceneOptions;
     SceneCollectionObject[] _Collection;
     string[] Collection = new string[0];
-    SceneCollectionObject LoadedCollection;
+    static SceneCollectionObject LoadedCollection;
+    public static SceneCollectionObject GetLoadedCollection => LoadedCollection;
     SceneCollectionObject SelectedCollection;
     int UnloadScene;
 
@@ -43,33 +48,7 @@ public class SceneManager_window : EditorWindow
         
         if(GUILayout.Button("Load Collection"))
         {
-            if(SelectedCollection == null)
-            {
-                EditorSceneManager.OpenScene("Assets/~Scenes/SampleScene.unity", OpenSceneMode.Single);
-                LoadedCollection = null;
-                return;
-            }
-
-            LoadedCollection = SelectedCollection;
-
-            string[] paths = new string[LoadedCollection.Scenes.Count];
-            
-            for (int i = 0; i < paths.Length; i++)
-            {
-                paths[i] = AssetDatabase.GetAssetPath(LoadedCollection.Scenes[i]);
-            }
-
-            for (int i = 0; i < paths.Length; i++)
-            {
-                if(i == 0)
-                    EditorSceneManager.OpenScene(paths[i], OpenSceneMode.Single);
-                else
-                    EditorSceneManager.OpenScene(paths[i], OpenSceneMode.Additive);
-            }
-
-            EditorUtility.FocusProjectWindow();
-
-            Selection.activeObject = LoadedCollection;
+            EditorLoadCollection();
         }
         
         // Load Scene
@@ -173,6 +152,37 @@ public class SceneManager_window : EditorWindow
             SetEditorBuildSettingsScenes();
             // # "Assets/~Scenes/GameScenes/New Scene.asset");
         }
+    }
+
+    public void EditorLoadCollection()
+    {
+        if(SelectedCollection == null)
+        {
+            EditorSceneManager.OpenScene("Assets/~Scenes/SampleScene.unity", OpenSceneMode.Single);
+            LoadedCollection = null;
+            return;
+        }
+
+        LoadedCollection = SelectedCollection;
+
+        string[] paths = new string[LoadedCollection.Scenes.Count];
+        
+        for (int i = 0; i < paths.Length; i++)
+        {
+            paths[i] = AssetDatabase.GetAssetPath(LoadedCollection.Scenes[i]);
+        }
+
+        for (int i = 0; i < paths.Length; i++)
+        {
+            if(i == 0)
+                EditorSceneManager.OpenScene(paths[i], OpenSceneMode.Single);
+            else
+                EditorSceneManager.OpenScene(paths[i], OpenSceneMode.Additive);
+        }
+
+        EditorUtility.FocusProjectWindow();
+
+        Selection.activeObject = LoadedCollection;
     }
     
     public void SetEditorBuildSettingsScenes()

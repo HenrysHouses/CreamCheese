@@ -10,34 +10,32 @@ public enum collectionLoadMode
     Keep
 }
 
-public class MultiSceneLoader : MonoBehaviour
+public static class MultiSceneLoader
 {
-    public static MultiSceneLoader instance;
-    SceneCollectionObject[] Collection;
-    [SerializeField] SceneCollectionObject BootCollection;
-    [SerializeField] SceneCollectionObject currentlyLoaded;
-
-
-    private void Awake() 
+    static SceneCollectionObject[] Collection;
+    static SceneCollectionObject[] GetSceneCollections()
     {
-        if(instance == null)
-            instance = this;
+        if(Collection != null)
+            return Collection;
         else
-            Destroy(gameObject);
-
-        Collection = Resources.LoadAll<SceneCollectionObject>("SceneCollections");
-
-        // #if !UNITY_EDITOR
-        // #endif
-        loadCollection(BootCollection.Title, collectionLoadMode.difference);
-
-
+        {
+            Collection = Resources.LoadAll<SceneCollectionObject>("SceneCollections");
+            return Collection;
+        }
     }
 
-    public void loadCollection(string CollectionTitle, collectionLoadMode mode)
+    static SceneCollectionObject currentlyLoaded;
+
+    #if UNITY_EDITOR
+        public static SceneCollectionObject setCurrentlyLoaded(SceneCollectionObject collection) => currentlyLoaded = collection;
+        public static bool skipBoot;
+    #endif
+
+    public static void loadCollection(string CollectionTitle, collectionLoadMode mode)
     {
         SceneCollectionObject TargetCollection = null;
-        foreach (SceneCollectionObject target in Collection)
+
+        foreach (SceneCollectionObject target in GetSceneCollections())
         {
             if(target.Title.Equals(CollectionTitle))
                 TargetCollection = target;
@@ -49,7 +47,7 @@ public class MultiSceneLoader : MonoBehaviour
         switch(mode)
         {
             case collectionLoadMode.difference:
-                loadDifferenceFromCurrent(TargetCollection);
+                loadDifference(TargetCollection);
                 break;
 
             case collectionLoadMode.Replace:
@@ -62,11 +60,9 @@ public class MultiSceneLoader : MonoBehaviour
         }
     }
 
-    void loadDifferenceFromCurrent(SceneCollectionObject Collection)
+    static void loadDifference(SceneCollectionObject Collection)
     {
-        Debug.Log("load difference: " + currentlyLoaded.Title + ", " + Collection.Title);
-
-
+        Debug.Log("loading Difference: " + Collection.Title + ", " + currentlyLoaded.Title);
         // Unload Differences
         foreach (string LoadedScene in currentlyLoaded.SceneNames)
         {
@@ -100,16 +96,16 @@ public class MultiSceneLoader : MonoBehaviour
         currentlyLoaded = Collection;
     }
 
-    void loadReplace(SceneCollectionObject Collection) // ! unloading _Boot which is not good
+    static void loadReplace(SceneCollectionObject Collection) // ! unloading _Boot which is not good
     {
         SceneCollectionObject _Boot = FindCollection("_Boot");
-        loadDifferenceFromCurrent(_Boot);
-        loadDifferenceFromCurrent(Collection);
+        loadDifference(_Boot);
+        loadDifference(Collection);
     }
 
-    SceneCollectionObject FindCollection(string CollectionTitle)
+    static SceneCollectionObject FindCollection(string CollectionTitle)
     {
-        foreach (SceneCollectionObject target in Collection)
+        foreach (SceneCollectionObject target in GetSceneCollections())
         {
             if(target.Title.Equals(CollectionTitle))
                 return target;
@@ -118,14 +114,30 @@ public class MultiSceneLoader : MonoBehaviour
         return null;
     }
 
-    void unload(string SceneName)
+    static void unload(string SceneName)
     {
         SceneManager.UnloadSceneAsync(SceneName);
     }
 
-    void load(string SceneName, LoadSceneMode mode)
+    static void load(string SceneName, LoadSceneMode mode)
     {
-        Debug.Log(SceneName);
         SceneManager.LoadScene(SceneName, mode);
+    }
+
+    public static void BootGame()
+    {
+        #if UNITY_EDITOR
+            Debug.Log("skip?");
+            if(skipBoot)
+            {
+                skipBoot = false;
+                loadCollection(currentlyLoaded.Title, collectionLoadMode.Replace);
+                Debug.Log("skipped boot");
+                return;
+            }
+        #endif
+
+        currentlyLoaded = FindCollection("_Boot");
+        loadCollection("MainMenu", collectionLoadMode.Replace);
     }
 }

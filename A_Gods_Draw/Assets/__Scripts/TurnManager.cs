@@ -390,7 +390,7 @@ public class TurnManager : MonoBehaviour
 
     public void GoToNextScene()
     {
-        MultiSceneLoader.instance.loadCollection("MainMenu",collectionLoadMode.Replace);
+        MultiSceneLoader.loadCollection("MainMenu",collectionLoadMode.Replace);
         
     }
 
