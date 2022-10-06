@@ -11,6 +11,7 @@ public class PopupDescription : MonoBehaviour
     /// should be next to the card you click on because that makes sense
     /// </summary>
     public GameObject ui; //the canvas object on the card
+    public bool isMade;
 
 
     /*private void OnMouseDown()
@@ -25,19 +26,22 @@ public class PopupDescription : MonoBehaviour
         }
     }*/
 
-    public void OpenDescription()
+    private void OnMouseOver()
     {
-        if (Input.GetMouseButtonDown(1))
+        if (!isMade)
         {
             ui.SetActive(true);
+            isMade = true;
         }
     }
 
-    public void CloseDescription()
+    private void OnMouseExit()
     {
-        if (Input.GetMouseButtonDown(1))
+        if (isMade)
         {
             ui.SetActive(false);
+            isMade = false;
         }
     }
+
 }
