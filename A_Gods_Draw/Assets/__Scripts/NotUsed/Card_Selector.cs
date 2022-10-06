@@ -25,7 +25,7 @@ public class Card_Selector : MonoBehaviour
     }
 
      private void Update() 
-    {
+     {
         if(CB.IsThisSelected())
         {
             anim.SetBool("SelectedCard", true);
