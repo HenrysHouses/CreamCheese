@@ -46,7 +46,7 @@ public class Defense_Behaviour : NonGod_Behaviour
         return this.player || this.god_card;
     }
 
-    internal void ItDefends(PlayerController playerController = null, God_Behaviour god = null)
+    internal int ItDefends(PlayerController playerController = null, God_Behaviour god = null)
     {
         if (playerController)
         {
@@ -56,6 +56,7 @@ public class Defense_Behaviour : NonGod_Behaviour
         {
             god_card = god;
         }
+        return strengh;
     }
 }
 

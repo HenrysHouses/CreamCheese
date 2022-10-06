@@ -47,7 +47,6 @@ public class PlayerController : MonoBehaviour
             shieldObject.SetActive(true);
         }
         defendedFor += value;
-        shieldText.text = defendedFor.ToString();
     }
 
     public void DealDamage(int amount)
@@ -77,9 +76,9 @@ public class PlayerController : MonoBehaviour
     {
         if (defender)
         {
-            defender.ItDefends(this);
-            PlayerHideArrow();
             shieldObject.SetActive(true); //needs to be able to change the value of how much its shielding for
+            shieldText.text = defender.ItDefends(this).ToString();
+            PlayerHideArrow();
             //Debug.Log(defender + " is going to defend this");
         }
         defender = null;
