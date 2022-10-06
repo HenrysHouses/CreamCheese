@@ -6,7 +6,7 @@ public class BootLoader : MonoBehaviour
 {
     void Awake()
     {
-        #if UNITY_EDITOR
+        #if !UNITY_EDITOR
         MultiSceneLoader.BootGame();
         #endif
     }
