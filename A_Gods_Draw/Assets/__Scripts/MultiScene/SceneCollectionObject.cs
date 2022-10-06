@@ -31,10 +31,13 @@ public class SceneCollectionObject : ScriptableObject
 
     private void OnValidate() 
     {
-        SceneNames.Clear();
-        for (int i = 0; i < Scenes.Count; i++)
+        if(SceneNames != null)
         {
-            SceneNames.Add(Scenes[i].name);
+            SceneNames.Clear();
+            for (int i = 0; i < Scenes.Count; i++)
+            {
+                SceneNames.Add(Scenes[i].name);
+            }
         }
     }
     #endif

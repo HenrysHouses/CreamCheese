@@ -35,10 +35,7 @@ public class SceneManager_window : EditorWindow
 
     void OnGUI()
     {
-        if(LoadedCollection)
-            EditorGUILayout.TextField("Current Loaded Collection: ", LoadedCollection.Title, EditorStyles.boldLabel);
-        else
-            EditorGUILayout.TextField("Current Loaded Collection: ", "None", EditorStyles.boldLabel);
+        DrawNameOfCurrCollection();
 
         // Load Collection
         GUILayout.Space(8);
@@ -52,56 +49,26 @@ public class SceneManager_window : EditorWindow
         }
         
         // Load Scene
-
-        int sceneCount = SceneManager.sceneCountInBuildSettings;     
-
-        if(_sceneOptions == null)
-            _sceneOptions = new string[0];
-
-        if(sceneCount > _sceneOptions.Length)
-        {
-            string[] scenes = new string[sceneCount];
-
-            for( int i = 0; i < sceneCount; i++ )
-            {
-                scenes[i] = System.IO.Path.GetFileNameWithoutExtension( UnityEngine.SceneManagement.SceneUtility.GetScenePathByBuildIndex( i ) );
-            }
-            _sceneOptions = scenes;
-        }
+        loadBuildScenesAsOptions();
 
         // # Change this into a scene object field
 
-        if(_sceneOptions.Length > 0)
-            SelectedScene = EditorGUILayout.Popup(new GUIContent("Scene") , SelectedScene, _sceneOptions);
-        else
-            EditorGUILayout.Popup(0, new string[]{"Unload Select"});
+        DrawPopupSelectLoadAdditive();
 
         if(GUILayout.Button("Load Scene Additively"))
         {
-            string path = GetScenePath(_sceneOptions[SelectedScene]);
-            EditorSceneManager.OpenScene(path, OpenSceneMode.Additive);
+            LoadSceneAdditively();
         }
 
         // Un-Load selected scene
         GUILayout.Space(8);
         GUILayout.Label("Un-Loading", EditorStyles.boldLabel);
 
-        if(buildSceneOptions != null)
-        {
-            if(buildSceneOptions.Length > 0)
-                UnloadScene = EditorGUILayout.Popup(UnloadScene, buildSceneOptions);
-        }
-        else
-            EditorGUILayout.Popup(0, new string[]{"Unload Select"});
+        DrawPopupSelectUnload();
 
         if(GUILayout.Button("Unload Scene"))
         {
-            if(EditorSceneManager.sceneCount > 1)
-            {
-                EditorSceneManager.CloseScene(LoadedScenes[UnloadScene], true);
-            }
-            else
-                EditorSceneManager.OpenScene("Assets/~Scenes/SampleScene.unity", OpenSceneMode.Single);
+            UnLoadSelectedScene();
         }
 
         // Saving
@@ -110,29 +77,12 @@ public class SceneManager_window : EditorWindow
 
         if(GUILayout.Button("Save Collection"))
         {
-            if(LoadedCollection)
-            {
-                currLoadedAssets = GetSceneAssetsFromPaths(GetLoadedScenePaths());
-                LoadedCollection.saveCollection(currLoadedAssets);
-            }
+            SaveCollection(LoadedCollection);
         }
-
-
 
         if(GUILayout.Button("Create Collection From Loaded Scenes"))
         {
-            ScriptableObject SO = CreateInstance(typeof(SceneCollectionObject));
-            SceneCollectionObject _NewCollection = SO as SceneCollectionObject;
-            _NewCollection.saveCollection(currLoadedAssets);
-            _NewCollection.Title = "Collection Nr " + _Collection.Length;
-
-            string asset = string.Format("Assets/Resources/SceneCollections/SceneCollectionObject ({0}).asset", _Collection.Length);
-            AssetDatabase.CreateAsset(_NewCollection, asset);
-            AssetDatabase.SaveAssets();
-            
-            EditorUtility.FocusProjectWindow();
-
-            Selection.activeObject = _NewCollection;
+            CreateCollection();
         }
 
         // Scenes
@@ -146,14 +96,41 @@ public class SceneManager_window : EditorWindow
 
         if(GUILayout.Button("Create New Scene"))
         {
-            var newScene = EditorSceneManager.NewScene(NewSceneSetup.EmptyScene, NewSceneMode.Additive);
-            EditorSceneManager.SaveOpenScenes();
-
-            SetEditorBuildSettingsScenes();
-            // # "Assets/~Scenes/GameScenes/New Scene.asset");
+            CreateNewScene();
         }
     }
 
+    // Other Draw Functions
+    void DrawNameOfCurrCollection()
+    {
+        if(LoadedCollection)
+            EditorGUILayout.TextField("Current Loaded Collection: ", LoadedCollection.Title, EditorStyles.boldLabel);
+        else
+            EditorGUILayout.TextField("Current Loaded Collection: ", "None", EditorStyles.boldLabel);
+    }
+
+
+    // Draw Popup functions
+    void DrawPopupSelectLoadAdditive()
+    {
+        if(_sceneOptions.Length > 0)
+            SelectedScene = EditorGUILayout.Popup(new GUIContent("Scene") , SelectedScene, _sceneOptions);
+        else
+            EditorGUILayout.Popup(0, new string[]{"Unload Select"});
+    }
+
+    void DrawPopupSelectUnload()
+    {
+        if(buildSceneOptions != null)
+        {
+            if(buildSceneOptions.Length > 0)
+                UnloadScene = EditorGUILayout.Popup(UnloadScene, buildSceneOptions);
+        }
+        else
+            EditorGUILayout.Popup(0, new string[]{"Unload Select"});
+    }
+
+    // Button functions
     public void EditorLoadCollection()
     {
         if(SelectedCollection == null)
@@ -183,6 +160,46 @@ public class SceneManager_window : EditorWindow
         EditorUtility.FocusProjectWindow();
 
         Selection.activeObject = LoadedCollection;
+    }
+
+    void LoadSceneAdditively()
+    {
+        string path = GetScenePath(_sceneOptions[SelectedScene]);
+        EditorSceneManager.OpenScene(path, OpenSceneMode.Additive);
+    }
+
+    void UnLoadSelectedScene()
+    {
+        if(EditorSceneManager.sceneCount > 1)
+            EditorSceneManager.CloseScene(LoadedScenes[UnloadScene], true);
+        else
+            EditorSceneManager.OpenScene("Assets/~Scenes/SampleScene.unity", OpenSceneMode.Single);
+    }
+
+    void SaveCollection(SceneCollectionObject saveTarget)
+    {
+        if(saveTarget)
+        {
+            currLoadedAssets = GetSceneAssetsFromPaths(GetLoadedScenePaths());
+            saveTarget.saveCollection(currLoadedAssets);
+        }
+    }
+
+    void CreateCollection()
+    {
+        ScriptableObject SO = CreateInstance(typeof(SceneCollectionObject));
+        SceneCollectionObject _NewCollection = SO as SceneCollectionObject;
+        _NewCollection.Title = "Collection Nr " + _Collection.Length;
+
+        string asset = string.Format("Assets/Resources/SceneCollections/SceneCollectionObject ({0}).asset", _Collection.Length);
+        AssetDatabase.CreateAsset(_NewCollection, asset);
+        AssetDatabase.SaveAssets();
+        SaveCollection(_NewCollection);
+        // LoadedCollection = _NewCollection;
+        
+        EditorUtility.FocusProjectWindow();
+
+        Selection.activeObject = _NewCollection;
     }
     
     public void SetEditorBuildSettingsScenes()
@@ -220,7 +237,16 @@ public class SceneManager_window : EditorWindow
         EditorBuildSettings.scenes = editorBuildSettingsScenes.ToArray();
     }
 
+    void CreateNewScene()
+    {
+        var newScene = EditorSceneManager.NewScene(NewSceneSetup.EmptyScene, NewSceneMode.Additive);
+        EditorSceneManager.SaveOpenScenes();
 
+        SetEditorBuildSettingsScenes();
+        // # "Assets/~Scenes/GameScenes/New Scene.asset");
+    }
+
+    // Helper functions
     void OnInspectorUpdate()
     {
         _Collection = Resources.LoadAll<SceneCollectionObject>("SceneCollections");
@@ -285,6 +311,25 @@ public class SceneManager_window : EditorWindow
             }
         }
         return null;
+    }
+
+    void loadBuildScenesAsOptions()
+    {
+        int sceneCount = SceneManager.sceneCountInBuildSettings;     
+
+        if(_sceneOptions == null)
+            _sceneOptions = new string[0];
+
+        if(sceneCount > _sceneOptions.Length)
+        {
+            string[] scenes = new string[sceneCount];
+
+            for( int i = 0; i < sceneCount; i++ )
+            {
+                scenes[i] = System.IO.Path.GetFileNameWithoutExtension( UnityEngine.SceneManagement.SceneUtility.GetScenePathByBuildIndex( i ) );
+            }
+            _sceneOptions = scenes;
+        }
     }
 }
 #endif
