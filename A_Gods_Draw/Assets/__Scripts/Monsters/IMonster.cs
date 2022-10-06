@@ -159,6 +159,16 @@ public abstract class IMonster : MonoBehaviour
         defendedFor = 0;
     }
 
+    private void OnMouseOver()
+    {
+        arrowImage.color = Color.red;
+    }
+
+    private void OnMouseExit()
+    {
+        arrowImage.color = Color.white;
+    }
+
     public void EnemyShowArrow()
     {
         arrowImage.enabled = true;

@@ -20,6 +20,8 @@ public class PlayerController : MonoBehaviour
 
     [SerializeField]
     Image arrowImage;
+    [SerializeField]
+    GameObject shieldObject;
 
     // Start is called before the first frame update
     void Start()
@@ -66,6 +68,7 @@ public class PlayerController : MonoBehaviour
         {
             defender.ItDefends(this);
             PlayerHideArrow();
+            shieldObject.SetActive(true); //needs to be able to change the value of how much its shielding for
             //Debug.Log(defender + " is going to defend this");
         }
         defender = null;
@@ -74,6 +77,16 @@ public class PlayerController : MonoBehaviour
     public void OnNewTurn()
     {
         defendedFor = 0;
+    }
+
+    private void OnMouseOver()
+    {
+        arrowImage.color = Color.blue;
+    }
+
+    private void OnMouseExit()
+    {
+        arrowImage.color = Color.white;
     }
 
     public void PlayerShowArrow()

@@ -1,3 +1,4 @@
+//charlie
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -13,18 +14,6 @@ public class PopupDescription : MonoBehaviour
     public GameObject ui; //the canvas object on the card
     public bool isMade;
 
-
-    /*private void OnMouseDown()
-    {
-        if (Input.GetMouseButtonDown(1))
-        {
-            ui.SetActive(true);
-        }
-        else if (Input.GetMouseButtonDown(1))
-        {
-            ui.SetActive(false);
-        }
-    }*/
 
     private void OnMouseOver()
     {
