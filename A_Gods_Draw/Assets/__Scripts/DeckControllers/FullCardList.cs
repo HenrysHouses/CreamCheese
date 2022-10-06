@@ -88,38 +88,6 @@ public class FullCardList : MonoBehaviour
 
 
 
-    public void AttackCards(Attack_Card attack_Card)
-    {
-
-
-    }
-
-    public void DefendCards(Defense_Card defense_Card)
-    {
-
-    }
-
-    public void Buffcards( Buff_Card buff_Card)
-    {
-
-    }
-
-    public void GodCards(God_Card god_Card)
-    {
-
-    }
-
-    public void GodRelations(God_Behaviour god_Relations)
-    {
-
-    }
-     /// <summary>Farts on the fart</summary>
-    public void CreateDeck()
-    {
-
-    }
-
-
 
 
 
