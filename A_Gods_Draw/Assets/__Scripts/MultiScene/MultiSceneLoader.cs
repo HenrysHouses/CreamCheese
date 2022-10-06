@@ -51,6 +51,7 @@ public static class MultiSceneLoader
                 break;
 
             case collectionLoadMode.Replace:
+                Debug.Log("scene replace");
                 loadReplace(TargetCollection);
                 break;
 

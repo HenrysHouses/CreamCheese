@@ -41,6 +41,7 @@ public class TurnManager : MonoBehaviour
 
     [SerializeField]
     EndTurnButton endTurn;
+    [SerializeField] SceneTransition sceneTransition;
 
     bool hasPlayedAGod = false;
     public enum State
@@ -396,8 +397,11 @@ public class TurnManager : MonoBehaviour
 
     public void GoToNextScene()
     {
-        MultiSceneLoader.loadCollection("MainMenu",collectionLoadMode.Replace);
-        
+        Debug.Log("next scene");
+        if(sceneTransition != null)
+            sceneTransition.TransitionScene(false, "MainMenu");
+        else
+            Debug.LogError("Can not transition to next scene, Missing Scene Transitioner Reference");
     }
 
     public BoardState GetCurrentBoard()
