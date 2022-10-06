@@ -9,6 +9,8 @@ public class BootLoader : MonoBehaviour
         #if !UNITY_EDITOR
             MultiSceneLoader.BootGame();
         #elif UNITY_EDITOR
+            MultiSceneLoader.BootGame();
+            
             // decide if it should boot or not.
         #endif
     }
