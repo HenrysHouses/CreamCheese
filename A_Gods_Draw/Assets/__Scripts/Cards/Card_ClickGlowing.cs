@@ -152,23 +152,23 @@ public class Card_ClickGlowing : MonoBehaviour
 
     public void AttackCardBorder()
     {
-        glowBorders[0].SetActive(true); 
+        glowBorders[4].SetActive(true); 
         isCreated = true;
     }
     public void BuffCardBorder()
     {
-        glowBorders[1].SetActive(true);
+        glowBorders[4].SetActive(true);
         isCreated = true;
     }
     public void DefenceCardBorder()
     {
-        glowBorders[2].SetActive(true);
+        glowBorders[4].SetActive(true);
         isCreated = true;
     }
 
     public void GodCardBorder()
     {
-        glowBorders[3].SetActive(true);
+        glowBorders[4].SetActive(true);
         isCreated = true;
     }
 
@@ -187,7 +187,7 @@ public class Card_ClickGlowing : MonoBehaviour
     {
         if (isCreated)
         {
-            for (int i = 0; i < 4; i++)
+            for (int i = 0; i < 5; i++)
             {
                 glowBorders[i].SetActive(false);
             }
