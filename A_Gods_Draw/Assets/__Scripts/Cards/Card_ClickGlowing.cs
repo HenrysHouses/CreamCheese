@@ -215,19 +215,17 @@ public class Card_ClickGlowing : MonoBehaviour
                 }
 
                 //buff cards
-                if (turnManager.GetTransforms()[turnManager.GetNextPlace()])
+                if (turnManager.GetNextPlace() < 4)
                 {
-                    if (turnManager.GetNextPlace() < 4)
-                    {
-                        turnManager.GetTransforms()[turnManager.GetNextPlace()].GetChild(0).gameObject.SetActive(false);
-                        hasArrow = false;
-                    }
+                    turnManager.GetTransforms()[turnManager.GetNextPlace()].GetChild(0).gameObject.SetActive(false);
+                    hasArrow = false;
                 }
 
                 //God card
                 if (turnManager.GetCurrentBoard().currentGod)
                 {
-                    godPlacement.GodHideArrow();
+                    if (godPlacement)
+                        godPlacement.GodHideArrow();
                     hasArrow = false;
                 }
             }
