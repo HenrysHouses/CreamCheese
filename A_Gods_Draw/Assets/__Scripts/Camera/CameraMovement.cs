@@ -22,6 +22,7 @@ public class CameraMovement : MonoBehaviour
         anim.SetBool("Right", true);
         anim.SetBool("Up", true);
         anim.SetBool("Left", true);
+        anim.Play("EnemyCloseup");
     }
 
     void ResetView()

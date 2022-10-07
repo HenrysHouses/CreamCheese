@@ -1,3 +1,4 @@
+#if UNITY_EDITOR
 using UnityEngine;
 using UnityEditor;
 
@@ -23,3 +24,4 @@ public class MultiSceneEditorConfig_Editor : Editor
         }
     }
 }
+#endif
