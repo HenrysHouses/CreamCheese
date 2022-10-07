@@ -16,7 +16,7 @@ public abstract class IMonster : MonoBehaviour
 
     bool attacking;
 
-    bool attackingPlayer;
+    public bool attackingPlayer;
 
     protected int intentStrengh;
     int defendedFor;
@@ -27,6 +27,7 @@ public abstract class IMonster : MonoBehaviour
 
     PlayerController player;
     God_Behaviour god = null;
+    public God_Behaviour getGod => god;
 
     [SerializeField]
     Image image;

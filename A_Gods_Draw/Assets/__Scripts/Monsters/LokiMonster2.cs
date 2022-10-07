@@ -4,7 +4,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 
-public class LokiMonster1 : IMonster
+public class LokiMonster2 : IMonster
 {
     IMonster toDefend;
     bool playerAttacked;
@@ -15,11 +15,11 @@ public class LokiMonster1 : IMonster
         playerAttacked = true;
         //Debug.Log(this + " can be attacked by " + attack_Behaviour);
     }
-    protected override bool UsesAbility(BoardState board) 
+    protected override bool UsesAbility(BoardState board)
     {
         if (getGod)
         {
-            if (Random.Range(0, 100) < 50) //If God card is in play 50% chance to attack that instead of player
+            if (Random.Range(0, 100) < 30) //If God card is in play 33% chance to attack that instead of player
             {
                 attackingPlayer = false;
             }

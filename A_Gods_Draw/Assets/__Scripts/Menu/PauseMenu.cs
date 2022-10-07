@@ -1,8 +1,8 @@
 //charlie
+using Map;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using UnityEngine.SceneManagement;
 using UnityEngine.UI;
 
 public class PauseMenu : MonoBehaviour
@@ -10,12 +10,14 @@ public class PauseMenu : MonoBehaviour
     public static bool gameIsPaused;
     public Button quitButton;
     public Button resumeButton;
+    public GameObject panel;
 
     // Start is called before the first frame update
     void Start()
     {
         quitButton.gameObject.SetActive(false);
         resumeButton.gameObject.SetActive(false);
+        panel.SetActive(false);
     }
 
     // Update is called once per frame
@@ -39,12 +41,14 @@ public class PauseMenu : MonoBehaviour
         if (Time.timeScale == 1f)
         {
             Time.timeScale = 0f;
+            panel.SetActive(true);
             resumeButton.gameObject.SetActive(true);
             quitButton.gameObject.SetActive(true);
         }
         else
         {
             Time.timeScale = 1;
+            panel.SetActive(false);
             resumeButton.gameObject.SetActive(false);
             quitButton.gameObject.SetActive(false);
         }
@@ -52,6 +56,6 @@ public class PauseMenu : MonoBehaviour
 
     public void QuitGame()
     {
-        SceneManager.LoadScene(0);
+        MultiSceneLoader.loadCollection("MainMenu", collectionLoadMode.difference);
     }
 }
