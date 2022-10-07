@@ -25,7 +25,7 @@ public static class MultiSceneLoader
     }
 
     static SceneCollectionObject currentlyLoaded;
-    public static SceneCollectionObject getLoadedCollection => currentlyLoaded;
+    public static string getLoadedCollectionTitle => currentlyLoaded.Title;
 
     #if UNITY_EDITOR
         public static SceneCollectionObject setCurrentlyLoaded(SceneCollectionObject collection) => currentlyLoaded = collection;
