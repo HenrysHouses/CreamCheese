@@ -4,6 +4,8 @@ using UnityEngine;
 
 public class GameManager : MonoBehaviour
 {
+    [HideInInspector] public bool changeToMap;
+    private TurnManager TM;
     // Start is called before the first frame update
     void Start()
     {
@@ -13,6 +15,8 @@ public class GameManager : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+
         
+    
     }
 }

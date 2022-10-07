@@ -5,16 +5,22 @@ using UnityEngine;
 public class CameraMovement : MonoBehaviour
 {
     private Animator anim;
+    private GameManager GM;
     private bool lookingUp,lookingDown,lookingRight,lookingLeft;
     // Start is called before the first frame update
     void Start()
     {
         anim = GetComponent<Animator>();
+        GM = GameObject.Find("GameManager").GetComponent<GameManager>();
     }
 
     // Update is called once per frame
     void Update()
     {
+        
+        Debug.Log(MultiSceneLoader.getLoadedCollectionTitle);
+
+
         if(Input.GetKeyDown(KeyCode.W) && !lookingDown)
         {
             anim.SetBool("Up", true);
@@ -100,6 +106,19 @@ public class CameraMovement : MonoBehaviour
             lookingLeft = false;
         }
 
+
+        if(MultiSceneLoader.getLoadedCollectionTitle.Equals("Map"))
+        {
+            anim.SetBool("MapCamera", true);
+            lookingRight = false;
+            lookingUp = false;
+            lookingDown = false;
+            lookingLeft = false;
+        }
+        else 
+        {
+            anim.SetBool("MapCamera", false);
+        }
         
     }
 }
