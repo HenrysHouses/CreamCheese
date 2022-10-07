@@ -6,7 +6,7 @@ using UnityEngine;
 public class MultiSceneEditorConfig : ScriptableObject
 {
     public static MultiSceneEditorConfig instance;
-    SceneCollectionObject currentLoadedCollection;
+    [SerializeField] SceneCollectionObject currentLoadedCollection;
     public void setCurrCollection(SceneCollectionObject newCollection)
     {
         currentLoadedCollection = newCollection;
@@ -16,7 +16,7 @@ public class MultiSceneEditorConfig : ScriptableObject
     {
         if(currentLoadedCollection)
             return currentLoadedCollection;
-        Debug.LogError("No Current Loaded Collection Found");
+        // Debug.LogWarning("No Current Loaded Collection Found");
         return null;
     }
 
@@ -25,7 +25,7 @@ public class MultiSceneEditorConfig : ScriptableObject
         if(!instance)    
             instance = this;
         else
-            Debug.LogWarning("There are multiple MultiSceneEditorConfig.asset's. Please remove duplicates.");
+            Debug.LogWarning("MultiSceneEditorConfig: Instance already set.");
     }
 
     private void OnEnable() {

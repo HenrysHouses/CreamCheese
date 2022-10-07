@@ -81,6 +81,10 @@ public abstract class Card_Behaviour : MonoBehaviour
         GetComponentInParent<BoxCollider>().enabled = false;
         LatePlayed(board);
         manager.FinishedPlay(this);
+
+        
+        if(this is Attack_Behaviour attack_)
+            manager.OnDeSelectedAttackCard?.Invoke();
     }
     public virtual void LatePlayed(BoardState board) { }
     public virtual void OnAction() { }

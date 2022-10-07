@@ -4,15 +4,20 @@ using UnityEngine;
 using UnityEngine.SceneManagement;
 using UnityEditor;
 
+// TODO add scene collection hiarchy preview???
+// take features from https://assetstore.unity.com/packages/tools/utilities/multiscene-24921 and https://assetstore.unity.com/packages/tools/utilities/advanced-multi-scene-cross-scene-references-47200#reviews
+// display if scene is in build
+// cross scene references
+
 [CreateAssetMenu(menuName = "Multi Scenes/SceneCollectionObject")]
 public class SceneCollectionObject : ScriptableObject
 {
     public string Title;
 
     [HideInInspector] public List<string> SceneNames = new List<string>();
-    public List<SceneAsset> list = new List<SceneAsset>(); // # this actually works wth?
 
     #if UNITY_EDITOR
+    // public List<SceneAsset> list = new List<SceneAsset>(); // # this actually works wth? No need for drawing a custom list
     [HideInInspector]
     public List<SceneAsset> Scenes = new List<SceneAsset>();
     public void saveCollection(SceneAsset[] scenes)

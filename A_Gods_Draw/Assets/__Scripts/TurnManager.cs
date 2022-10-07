@@ -56,8 +56,8 @@ public class TurnManager : MonoBehaviour
     [SerializeField]
     EndTurnButton endTurn;
     [SerializeField] SceneTransition sceneTransition;
-    public UnityEvent OnSelectedCard;
-    public UnityEvent OnDeSelectedCard;
+    public UnityEvent OnSelectedAttackCard;
+    public UnityEvent OnDeSelectedAttackCard;
 
     public bool encounterLoaded;
 
@@ -81,8 +81,8 @@ public class TurnManager : MonoBehaviour
     void Start()
     {
         board.lane = new List<NonGod_Behaviour>();
-        OnSelectedCard = new UnityEvent();
-        OnDeSelectedCard = new UnityEvent();
+        OnSelectedAttackCard = new UnityEvent();
+        OnDeSelectedAttackCard = new UnityEvent();
         currentLane = 0;
 
         // deckManager.SetTurnManager(this);
@@ -166,7 +166,7 @@ public class TurnManager : MonoBehaviour
                                 Animator anim = GetComponentInParent<Animator>();
                                 if (anim)
                                 {
-                                    OnDeSelectedCard?.Invoke();
+                                    OnDeSelectedAttackCard?.Invoke();
                                     anim.SetBool("ShowCard", false);
                                     anim.Play("Default");
                                     Destroy(anim);
@@ -331,7 +331,6 @@ public class TurnManager : MonoBehaviour
 
         if (currentState == State.PlayerTurn)
         {
-            OnSelectedCard?.Invoke();
             selectedCard = card;
             Debug.Log("selected attempt");
             God_Behaviour isGod = card as God_Behaviour;
@@ -340,7 +339,6 @@ public class TurnManager : MonoBehaviour
 
             if (isGod)
             {
-            Debug.Log("selected god");
 
                 if (board.currentGod) { GodDied(); }
                 board.currentGod = isGod;
@@ -352,16 +350,14 @@ public class TurnManager : MonoBehaviour
             }
             else if (isNotGod)
             {
-            Debug.Log("selected not god");
+                if(isNotGod is Attack_Behaviour attack_)
+                    OnSelectedAttackCard?.Invoke();
+
                 //if (currentLane == board.lane.Count)
                 //{
                 //    selectedCard = null;
                 //    return;
                 //}
-            }
-            else
-            {
-                Debug.Log("WTF have you done");
             }
 
             card.OnPlay(board);
@@ -371,11 +367,13 @@ public class TurnManager : MonoBehaviour
     public void CancelSelection()
     {
         if (selectedCard != null)
+        {
             selectedCard.DeSelected();
+
+
+            OnDeSelectedAttackCard?.Invoke();
+        }
         selectedCard = null;
-        OnDeSelectedCard?.Invoke();
-
-
     }
 
     public Card_Behaviour CurrentlySelectedCard()

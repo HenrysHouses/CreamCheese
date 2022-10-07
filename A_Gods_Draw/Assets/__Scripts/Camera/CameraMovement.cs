@@ -7,7 +7,6 @@ public class CameraMovement : MonoBehaviour
     private Animator anim;
     private GameManager GM;
     private TurnManager TM;
-    private bool lookingUp,lookingDown,lookingRight,lookingLeft;
     private bool attack, buff, godcard, shield;
     // Start is called before the first frame update
     void Start()
@@ -18,23 +17,20 @@ public class CameraMovement : MonoBehaviour
 
     void SelectCardCamera()
     {
-            anim.SetBool("EnemyCloseUp", true);
-            lookingRight = false;
-            lookingUp = false;
-            lookingDown = false;
-            lookingLeft = false;
-            Debug.Log("ANimatincardplayed");
+        anim.SetBool("EnemyCloseUp", true);
+        anim.SetBool("Down", true);
+        anim.SetBool("Right", true);
+        anim.SetBool("Up", true);
+        anim.SetBool("Left", true);
     }
 
-    void DeselectCamera()
+    void ResetView()
     {
-            anim.SetBool("EnemyCloseUp", false);
-            lookingRight = false;
-            lookingUp = false;
-            lookingDown = false;
-            lookingLeft = false;
-            Debug.Log("Does it move?");
-        
+        anim.SetBool("EnemyCloseUp", false);
+        anim.SetBool("Down", false);
+        anim.SetBool("Right", false);
+        anim.SetBool("Up", false);
+        anim.SetBool("Left", false);
     }
     // Update is called once per frame
     void Update()
@@ -45,107 +41,69 @@ public class CameraMovement : MonoBehaviour
            if(G)
            {
                 TM = G.GetComponent<TurnManager>();
-                //TM.OnSelectedCard.AddListener(SelectCardCamera);
-                //TM.OnDeSelectedCard.AddListener(DeselectCamera);
+                TM.OnSelectedAttackCard.AddListener(SelectCardCamera);
+                TM.OnDeSelectedAttackCard.AddListener(ResetView);
            } 
         }
         
-//        Debug.Log(MultiSceneLoader.getLoadedCollectionTitle);
+        bool _W = Input.GetKeyDown(KeyCode.W);
+        bool _A = Input.GetKeyDown(KeyCode.A);
+        bool _S = Input.GetKeyDown(KeyCode.S);
+        bool _D = Input.GetKeyDown(KeyCode.D);
 
-
-        if(Input.GetKeyDown(KeyCode.W) && !lookingDown)
-        {
-            anim.SetBool("Up", true);
-            anim.SetBool("Down", false);
-            anim.SetBool("Right", false);
-            anim.SetBool("Left", false);
-            lookingUp = true;
-            lookingDown = false;
-            lookingLeft = false;
-            lookingRight = false;
-        }
-        else if(Input.GetKeyDown(KeyCode.W) && lookingDown)
-        {
-            anim.SetBool("Down", false);
-             lookingRight = false;
-            lookingUp = false;
-            lookingDown = false;
-            lookingLeft = false;
-        }
-
-         if(Input.GetKeyDown(KeyCode.D) && !lookingLeft)
-        {
-            anim.SetBool("Up", false);
-            anim.SetBool("Down", false);
-            anim.SetBool("Right", true);
-            anim.SetBool("Left", false);
-            lookingRight = true;
-            lookingUp = false;
-            lookingDown = false;
-            lookingLeft = false;
-            
-        }
-         else if(Input.GetKeyDown(KeyCode.D) && lookingLeft)
-         {
-            anim.SetBool("Left",false);
-            lookingRight = false;
-            lookingUp = false;
-            lookingDown = false;
-            lookingLeft = false;
-
-        }
+        bool goDown = _S && !anim.GetBool("Down");
+        bool goRight = _A && !anim.GetBool("Right");
+        bool goUp =  _W && !anim.GetBool("Up");
+        bool goLeft = _D && !anim.GetBool("Left");
         
+        bool resetView = _W && anim.GetBool("Down") 
+                      || _A && anim.GetBool("Right") 
+                      || _S && anim.GetBool("Up") 
+                      || _D && anim.GetBool("Left");
+
         
-
-         if(Input.GetKeyDown(KeyCode.A) && !lookingRight)
+        if(resetView) // Go to middle
         {
-            anim.SetBool("Up", false);
-            anim.SetBool("Down", false);
-            anim.SetBool("Right", false);
-            anim.SetBool("Left", true);
-            lookingLeft = true;
-            lookingRight = false;
-            lookingUp = false;
-            lookingDown = false;
+            ResetView();
+            return;
         }
-        else if(Input.GetKeyDown(KeyCode.A) && lookingRight)
+        if(goDown)
         {
-            anim.SetBool("Right", false);
-            lookingRight = false;
-            lookingUp = false;
-            lookingDown = false;
-            lookingLeft = false;
-
-        }
-
-            if(Input.GetKeyDown(KeyCode.S) && !lookingUp)
-        {
-            anim.SetBool("Up", false);
+            anim.SetBool("EnemyCloseUp", false);
             anim.SetBool("Down", true);
             anim.SetBool("Right", false);
-            anim.SetBool("Left", false);
-            lookingDown = true;
-            lookingLeft = false;
-            lookingRight = false;
-            lookingUp = false;
-        }
-        else if(Input.GetKeyDown(KeyCode.S) && lookingUp)
-        {
             anim.SetBool("Up", false);
-            lookingRight = false;
-            lookingUp = false;
-            lookingDown = false;
-            lookingLeft = false;
+            anim.SetBool("Left", false);
+        }
+        if(goLeft) // go left
+        {
+            anim.SetBool("EnemyCloseUp", false);
+            anim.SetBool("Down", false);
+            anim.SetBool("Right", true);
+            anim.SetBool("Up", false);
+            anim.SetBool("Left", false);
+        }
+        if(goRight) // go right
+        {
+            anim.SetBool("EnemyCloseUp", false);
+            anim.SetBool("Down", false);
+            anim.SetBool("Right", false);
+            anim.SetBool("Up", false);
+            anim.SetBool("Left", true);
+        }
+        if(goUp) // go up
+        {
+            anim.SetBool("EnemyCloseUp", false);
+            anim.SetBool("Down", false);
+            anim.SetBool("Right", false);
+            anim.SetBool("Up", true);
+            anim.SetBool("Left", false);
         }
 
-
+        // Map Scene View
         if(MultiSceneLoader.getLoadedCollectionTitle.Equals("Map"))
         {
             anim.SetBool("MapCamera", true);
-            lookingRight = false;
-            lookingUp = false;
-            lookingDown = false;
-            lookingLeft = false;
         }
         else 
         {

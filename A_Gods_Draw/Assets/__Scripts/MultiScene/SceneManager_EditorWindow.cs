@@ -1,8 +1,3 @@
-/*
-* Scriptable object as current config for project 
-*/
-
-
 #if UNITY_EDITOR
 
 using UnityEngine;
@@ -11,6 +6,7 @@ using UnityEditor;
 using UnityEditor.SceneManagement;
 using System.Collections.Generic;
 
+[InitializeOnLoadAttribute]
 public class SceneManager_window : EditorWindow
 {
     public static SceneManager_window Instance{
@@ -24,9 +20,29 @@ public class SceneManager_window : EditorWindow
     string[] buildSceneOptions;
     SceneCollectionObject[] _Collection;
     string[] Collection = new string[0];
-    public SceneCollectionObject GetLoadedCollection => MultiSceneEditorConfig.instance.getCurrCollection();
+    public SceneCollectionObject GetLoadedCollection()
+    {
+        if(MultiSceneEditorConfig.instance)
+            return MultiSceneEditorConfig.instance.getCurrCollection();  
+        else
+            return null;
+    } 
     SceneCollectionObject SelectedCollection;
     int UnloadScene;
+
+    SceneManager_window()
+    {
+        EditorApplication.playModeStateChanged += LogPlayModeState;
+    }
+
+    private void LogPlayModeState(PlayModeStateChange state)
+    {
+        Debug.Log(state);
+        if(PlayModeStateChange.ExitingEditMode.Equals(state))
+        {
+            EditorLoadCollection();
+        }
+    }
 
     [MenuItem("Multi Scene Workflow/Scene Manager")]
     static void Init()
@@ -35,8 +51,8 @@ public class SceneManager_window : EditorWindow
         SceneManager_window window = (SceneManager_window)EditorWindow.GetWindow(typeof(SceneManager_window));
         window.titleContent = new GUIContent("Scene Manager", "Loads, Unloads, and Saves Scene Collections");
         window.Show();
-        Debug.Log("window init");
-        MultiSceneEditorConfig.instance.setInstance();
+        if(MultiSceneEditorConfig.instance)
+            MultiSceneEditorConfig.instance.setInstance();
     }
 
     void OnGUI()
@@ -83,7 +99,7 @@ public class SceneManager_window : EditorWindow
 
         if(GUILayout.Button("Save Collection"))
         {
-            SaveCollection(GetLoadedCollection);
+            SaveCollection(GetLoadedCollection());
         }
 
         if(GUILayout.Button("Create Collection From Loaded Scenes"))
@@ -109,8 +125,9 @@ public class SceneManager_window : EditorWindow
     // Other Draw Functions
     void DrawNameOfCurrCollection()
     {
-        if(GetLoadedCollection)
-            EditorGUILayout.TextField("Current Loaded Collection: ", GetLoadedCollection.Title, EditorStyles.boldLabel);
+        var collection = GetLoadedCollection();
+        if(collection)
+            EditorGUILayout.TextField("Current Loaded Collection: ", collection.Title, EditorStyles.boldLabel);
         else
             EditorGUILayout.TextField("Current Loaded Collection: ", "None", EditorStyles.boldLabel);
     }
@@ -148,11 +165,11 @@ public class SceneManager_window : EditorWindow
 
         MultiSceneEditorConfig.instance.setCurrCollection(SelectedCollection);
 
-        string[] paths = new string[GetLoadedCollection.Scenes.Count];
+        string[] paths = new string[SelectedCollection.Scenes.Count];
         
         for (int i = 0; i < paths.Length; i++)
         {
-            paths[i] = AssetDatabase.GetAssetPath(GetLoadedCollection.Scenes[i]);
+            paths[i] = AssetDatabase.GetAssetPath(SelectedCollection.Scenes[i]);
         }
 
         for (int i = 0; i < paths.Length; i++)
@@ -165,7 +182,8 @@ public class SceneManager_window : EditorWindow
 
         EditorUtility.FocusProjectWindow();
 
-        Selection.activeObject = GetLoadedCollection;
+        Selection.activeObject = SelectedCollection;
+        MultiSceneEditorConfig.instance.setCurrCollection(SelectedCollection);
     }
 
     void LoadSceneAdditively()
@@ -189,6 +207,8 @@ public class SceneManager_window : EditorWindow
             currLoadedAssets = GetSceneAssetsFromPaths(GetLoadedScenePaths());
             saveTarget.saveCollection(currLoadedAssets);
         }
+        else
+            Debug.LogWarning("SceneManager: save target was null");
     }
 
     void CreateCollection()

@@ -472,6 +472,9 @@ AnimatorStateTransition:
   - m_ConditionMode: 1
     m_ConditionEvent: Up
     m_EventTreshold: 0
+  - m_ConditionMode: 2
+    m_ConditionEvent: EnemyCloseUp
+    m_EventTreshold: 0
   m_DstStateMachine: {fileID: 0}
   m_DstState: {fileID: -5412274595281403533}
   m_Solo: 0
@@ -549,37 +552,37 @@ AnimatorController:
     m_DefaultFloat: 0
     m_DefaultInt: 0
     m_DefaultBool: 0
-    m_Controller: {fileID: 0}
+    m_Controller: {fileID: 9100000}
   - m_Name: Left
     m_Type: 4
     m_DefaultFloat: 0
     m_DefaultInt: 0
     m_DefaultBool: 0
-    m_Controller: {fileID: 0}
+    m_Controller: {fileID: 9100000}
   - m_Name: Right
     m_Type: 4
     m_DefaultFloat: 0
     m_DefaultInt: 0
     m_DefaultBool: 0
-    m_Controller: {fileID: 0}
+    m_Controller: {fileID: 9100000}
   - m_Name: Down
     m_Type: 4
     m_DefaultFloat: 0
     m_DefaultInt: 0
     m_DefaultBool: 0
-    m_Controller: {fileID: 0}
+    m_Controller: {fileID: 9100000}
   - m_Name: MapCamera
     m_Type: 4
     m_DefaultFloat: 0
     m_DefaultInt: 0
     m_DefaultBool: 0
-    m_Controller: {fileID: 0}
+    m_Controller: {fileID: 9100000}
   - m_Name: EnemyCloseUp
     m_Type: 4
     m_DefaultFloat: 0
     m_DefaultInt: 0
     m_DefaultBool: 0
-    m_Controller: {fileID: 0}
+    m_Controller: {fileID: 9100000}
   m_AnimatorLayers:
   - serializedVersion: 5
     m_Name: Base Layer
@@ -705,51 +708,51 @@ AnimatorStateMachine:
   m_ChildStates:
   - serializedVersion: 1
     m_State: {fileID: -9205371756927471197}
-    m_Position: {x: 400, y: 10, z: 0}
+    m_Position: {x: 130, y: 20, z: 0}
   - serializedVersion: 1
     m_State: {fileID: -77444096431615421}
-    m_Position: {x: 100, y: -170, z: 0}
+    m_Position: {x: -210, y: -90, z: 0}
   - serializedVersion: 1
     m_State: {fileID: -7840461002081245350}
-    m_Position: {x: 710, y: -80, z: 0}
+    m_Position: {x: 420, y: -90, z: 0}
   - serializedVersion: 1
     m_State: {fileID: -5412274595281403533}
-    m_Position: {x: 290, y: -270, z: 0}
+    m_Position: {x: 210, y: -90, z: 0}
   - serializedVersion: 1
     m_State: {fileID: 9102691440705179574}
-    m_Position: {x: 590, y: 250, z: 0}
+    m_Position: {x: 0, y: -90, z: 0}
   - serializedVersion: 1
     m_State: {fileID: 369234786492237856}
-    m_Position: {x: 560, y: -170, z: 0}
+    m_Position: {x: 210, y: -170, z: 0}
   - serializedVersion: 1
     m_State: {fileID: -6432053938897980859}
-    m_Position: {x: 730, y: 130, z: 0}
+    m_Position: {x: 420, y: -170, z: 0}
   - serializedVersion: 1
     m_State: {fileID: -3668692051927975128}
-    m_Position: {x: 320, y: 290, z: 0}
+    m_Position: {x: 0, y: -170, z: 0}
   - serializedVersion: 1
     m_State: {fileID: -8374562472826014771}
-    m_Position: {x: 20, y: -70, z: 0}
+    m_Position: {x: -210, y: -170, z: 0}
   - serializedVersion: 1
     m_State: {fileID: -5500807192995620017}
-    m_Position: {x: -50, y: 190, z: 0}
+    m_Position: {x: 120, y: 140, z: 0}
   - serializedVersion: 1
     m_State: {fileID: -8722437665279964791}
-    m_Position: {x: 70, y: 260, z: 0}
+    m_Position: {x: 120, y: 190, z: 0}
   - serializedVersion: 1
     m_State: {fileID: 2525357081942214114}
-    m_Position: {x: -350, y: 70, z: 0}
+    m_Position: {x: 420, y: 80, z: 0}
   - serializedVersion: 1
     m_State: {fileID: -5725086953445579145}
-    m_Position: {x: -268.21063, y: 155.28969, z: 0}
+    m_Position: {x: 420, y: 20, z: 0}
   m_ChildStateMachines: []
   m_AnyStateTransitions: []
   m_EntryTransitions: []
   m_StateMachineTransitions: {}
   m_StateMachineBehaviours: []
   m_AnyStatePosition: {x: -150, y: -260, z: 0}
-  m_EntryPosition: {x: 100, y: 330, z: 0}
-  m_ExitPosition: {x: -160, y: 30, z: 0}
+  m_EntryPosition: {x: -160, y: 30, z: 0}
+  m_ExitPosition: {x: -160, y: 70, z: 0}
   m_ParentStateMachinePosition: {x: 800, y: 20, z: 0}
   m_DefaultState: {fileID: -9205371756927471197}
 --- !u!1101 &3237883192414546425
@@ -788,6 +791,9 @@ AnimatorStateTransition:
   - m_ConditionMode: 1
     m_ConditionEvent: Right
     m_EventTreshold: 0
+  - m_ConditionMode: 2
+    m_ConditionEvent: EnemyCloseUp
+    m_EventTreshold: 0
   m_DstStateMachine: {fileID: 0}
   m_DstState: {fileID: -7840461002081245350}
   m_Solo: 0
@@ -812,6 +818,9 @@ AnimatorStateTransition:
   m_Conditions:
   - m_ConditionMode: 1
     m_ConditionEvent: Left
+    m_EventTreshold: 0
+  - m_ConditionMode: 2
+    m_ConditionEvent: EnemyCloseUp
     m_EventTreshold: 0
   m_DstStateMachine: {fileID: 0}
   m_DstState: {fileID: -77444096431615421}
@@ -862,6 +871,9 @@ AnimatorStateTransition:
   m_Conditions:
   - m_ConditionMode: 1
     m_ConditionEvent: Down
+    m_EventTreshold: 0
+  - m_ConditionMode: 2
+    m_ConditionEvent: EnemyCloseUp
     m_EventTreshold: 0
   m_DstStateMachine: {fileID: 0}
   m_DstState: {fileID: 9102691440705179574}
