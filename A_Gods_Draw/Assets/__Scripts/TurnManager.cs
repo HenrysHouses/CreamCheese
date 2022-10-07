@@ -45,6 +45,7 @@ public class TurnManager : MonoBehaviour
 
     [SerializeField]
     BoardState board;
+    public  Transform monsterParent;
 
     short currentLane = 0;
 
@@ -112,6 +113,7 @@ public class TurnManager : MonoBehaviour
                 for (int i = 0; i < currEncounter.enemies.Count; i++)
                 {
                     GameObject spawn = Instantiate(currEncounter.enemies[i].enemy,currEncounter.enemies[i].enemyPos,Quaternion.identity);
+                    spawn.transform.SetParent(monsterParent, false);
                     board.enemies.Add(spawn.GetComponent<IMonster>());
                 }
 
