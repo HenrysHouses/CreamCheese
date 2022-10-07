@@ -14,7 +14,7 @@ public class Card_ClickGlowing : MonoBehaviour
     public static Component currentlySelected;
 
     TurnManager turnManager;
-
+    GodPlacement godPlacement;
     Card_Behaviour behaviour;
 
     public enum CardType 
@@ -45,7 +45,7 @@ public class Card_ClickGlowing : MonoBehaviour
 
         if (turnManager.CurrentlySelectedCard() == null)
         {
-            //glow borders
+            //glow borders and arrows
             if (!isCreated)
             {
                 currentlySelected = this;
@@ -74,6 +74,10 @@ public class Card_ClickGlowing : MonoBehaviour
                         break;
                     case CardType.God:
                         GodCardBorder();
+                        if (!hasArrow)
+                        {
+                            DrawArrowGod();
+                        }
                         break;
                 }
             }
@@ -132,6 +136,14 @@ public class Card_ClickGlowing : MonoBehaviour
     public void DrawArrowsCards()
     {
         hasArrow = true;
+    }
+
+    public void DrawArrowGod()
+    {
+        if (turnManager.GetCurrentBoard().currentGod)
+        {
+            godPlacement.GodShowArrow();
+        }
     }
 
     public void AttackCardBorder()
@@ -199,6 +211,12 @@ public class Card_ClickGlowing : MonoBehaviour
 
                 //buff cards
 
+                //God card
+                if (turnManager.GetCurrentBoard().currentGod)
+                {
+                    godPlacement.GodHideArrow();
+                    hasArrow = false;
+                }
             }
         }
     }

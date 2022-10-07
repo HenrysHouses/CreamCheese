@@ -145,6 +145,13 @@ public class TurnManager : MonoBehaviour
                             godPlayed.transform.position = godLane.position;
                             godPlayed.transform.rotation = godLane.rotation;
 
+                            godLane.GetComponent<GodPlacement>().SetGod(godPlayed);
+
+                            if (board.currentGod)
+                            {
+                                godLane.GetComponent<GodPlacement>().GodHideArrow();
+                            }
+
                             hasPlayedAGod = true;
                         }
 

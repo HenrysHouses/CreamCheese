@@ -2,6 +2,7 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class God_Behaviour : Card_Behaviour
 {
@@ -12,7 +13,7 @@ public class God_Behaviour : Card_Behaviour
     IGodAction action;
 
     God_Card god_SO;
-
+    GodPlacement godPlacement;
     Defense_Behaviour posibleDefender;
 
     int defendFor;
@@ -101,6 +102,16 @@ public class God_Behaviour : Card_Behaviour
     internal void Buff(NonGod_Behaviour nonGod_Behaviour)
     {
         nonGod_Behaviour.GetBuff(true, 2f);
+    }
+
+    private void OnMouseOver()
+    {
+        godPlacement.godArrow.color = Color.magenta;
+    }
+
+    private void OnMouseExit()
+    {
+        godPlacement.godArrow.color = Color.white;
     }
 
     public virtual void OnTurnStart() { }
