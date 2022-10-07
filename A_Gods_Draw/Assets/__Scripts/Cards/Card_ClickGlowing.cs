@@ -135,7 +135,10 @@ public class Card_ClickGlowing : MonoBehaviour
     {
         if (turnManager.GetTransforms()[turnManager.GetNextPlace()])
         {
-
+            if(turnManager.GetNextPlace() < 4)
+            {
+                turnManager.GetTransforms()[turnManager.GetNextPlace()].GetChild(0).gameObject.SetActive(true);
+            }
         }
         hasArrow = true;
     }
@@ -212,6 +215,14 @@ public class Card_ClickGlowing : MonoBehaviour
                 }
 
                 //buff cards
+                if (turnManager.GetTransforms()[turnManager.GetNextPlace()])
+                {
+                    if (turnManager.GetNextPlace() < 4)
+                    {
+                        turnManager.GetTransforms()[turnManager.GetNextPlace()].GetChild(0).gameObject.SetActive(false);
+                        hasArrow = false;
+                    }
+                }
 
                 //God card
                 if (turnManager.GetCurrentBoard().currentGod)
