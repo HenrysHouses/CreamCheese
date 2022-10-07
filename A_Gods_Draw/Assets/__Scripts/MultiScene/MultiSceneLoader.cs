@@ -25,10 +25,10 @@ public static class MultiSceneLoader
     }
 
     static SceneCollectionObject currentlyLoaded;
+    public static SceneCollectionObject getLoadedCollection => currentlyLoaded;
 
     #if UNITY_EDITOR
         public static SceneCollectionObject setCurrentlyLoaded(SceneCollectionObject collection) => currentlyLoaded = collection;
-        public static bool skipBoot;
     #endif
 
     public static void loadCollection(string CollectionTitle, collectionLoadMode mode)
@@ -134,17 +134,6 @@ public static class MultiSceneLoader
 
     public static void BootGame()
     {
-        #if UNITY_EDITOR
-            Debug.Log("skip?");
-            if(skipBoot)
-            {
-                skipBoot = false;
-                loadCollection(currentlyLoaded.Title, collectionLoadMode.Replace);
-                Debug.Log("skipped boot");
-                return;
-            }
-        #endif
-
         currentlyLoaded = FindCollection("_Boot");
         loadCollection("MainMenu", collectionLoadMode.Replace);
     }
