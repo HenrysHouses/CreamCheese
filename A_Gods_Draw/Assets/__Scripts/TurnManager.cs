@@ -330,6 +330,16 @@ public class TurnManager : MonoBehaviour
         return board.lane;
     }
 
+    public Transform[] GetTransforms()
+    {
+        return lanes;
+    }
+
+    public int GetNextPlace() //when playing buff cards it shows the place to the right of the chosen card
+    {
+        return currentLane + 1;
+    }
+
     void CheckIfPlayerWon()
     {
         if (board.enemies.Count == 0)
