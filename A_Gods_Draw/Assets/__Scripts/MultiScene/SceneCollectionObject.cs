@@ -10,6 +10,7 @@ public class SceneCollectionObject : ScriptableObject
     public string Title;
 
     [HideInInspector] public List<string> SceneNames = new List<string>();
+    public List<SceneAsset> list = new List<SceneAsset>(); // # this actually works wth?
 
     #if UNITY_EDITOR
     [HideInInspector]

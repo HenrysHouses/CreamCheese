@@ -6,7 +6,19 @@ using UnityEngine;
 public class MultiSceneEditorConfig : ScriptableObject
 {
     public static MultiSceneEditorConfig instance;
-    public SceneCollectionObject currentLoadedCollection;
+    SceneCollectionObject currentLoadedCollection;
+    public void setCurrCollection(SceneCollectionObject newCollection)
+    {
+        currentLoadedCollection = newCollection;
+    }
+
+    public SceneCollectionObject getCurrCollection()
+    {
+        if(currentLoadedCollection)
+            return currentLoadedCollection;
+        Debug.LogError("No Current Loaded Collection Found");
+        return null;
+    }
 
     public void setInstance()
     {

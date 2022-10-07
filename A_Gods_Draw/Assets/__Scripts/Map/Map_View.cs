@@ -89,7 +89,7 @@ namespace Map
             CreateNodes(m.nodes);
             DrawPath();
             Orientation();
-            ResetRotation(); // ! might need to disable this
+            ResetRotation();
             SetPickableNodes();
             SetPathColor();
             // CreateBackground(m);

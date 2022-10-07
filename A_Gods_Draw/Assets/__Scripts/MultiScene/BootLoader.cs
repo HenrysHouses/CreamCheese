@@ -19,7 +19,7 @@ public class BootLoader : MonoBehaviour
                 MultiSceneLoader.BootGame();
             else
             {
-                MultiSceneLoader.setCurrentlyLoaded(MultiSceneEditorConfig.instance.currentLoadedCollection);
+                MultiSceneLoader.setCurrentlyLoaded(MultiSceneEditorConfig.instance.getCurrCollection());
             }
         #endif
     }

@@ -24,7 +24,7 @@ public class SceneManager_window : EditorWindow
     string[] buildSceneOptions;
     SceneCollectionObject[] _Collection;
     string[] Collection = new string[0];
-    public SceneCollectionObject GetLoadedCollection => MultiSceneEditorConfig.instance.currentLoadedCollection;
+    public SceneCollectionObject GetLoadedCollection => MultiSceneEditorConfig.instance.getCurrCollection();
     SceneCollectionObject SelectedCollection;
     int UnloadScene;
 
@@ -57,7 +57,7 @@ public class SceneManager_window : EditorWindow
         // Load Scene
         loadBuildScenesAsOptions();
 
-        // # Change this into a scene object field
+        // # Change this into a scene object field?
 
         DrawPopupSelectLoadAdditive();
 
@@ -142,11 +142,11 @@ public class SceneManager_window : EditorWindow
         if(SelectedCollection == null)
         {
             EditorSceneManager.OpenScene("Assets/~Scenes/SampleScene.unity", OpenSceneMode.Single);
-            MultiSceneEditorConfig.instance.currentLoadedCollection = null;
+            MultiSceneEditorConfig.instance.setCurrCollection(null);
             return;
         }
 
-        MultiSceneEditorConfig.instance.currentLoadedCollection = SelectedCollection;
+        MultiSceneEditorConfig.instance.setCurrCollection(SelectedCollection);
 
         string[] paths = new string[GetLoadedCollection.Scenes.Count];
         
