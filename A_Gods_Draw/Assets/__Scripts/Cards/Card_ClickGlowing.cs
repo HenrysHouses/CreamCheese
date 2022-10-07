@@ -43,43 +43,41 @@ public class Card_ClickGlowing : MonoBehaviour
             turnManager = behaviour.GetManager();
         }
 
-        if (turnManager.CurrentlySelectedCard() == null)
+
+        //glow borders and arrows
+        if (!isCreated)
         {
-            //glow borders and arrows
-            if (!isCreated)
+            currentlySelected = this;
+            switch (currType)
             {
-                currentlySelected = this;
-                switch (currType)
-                {
-                    case CardType.Attack:
-                        AttackCardBorder();
-                        if (!hasArrow)
-                        {
-                            DrawArrowsEnemies();
-                        }
-                        break;
-                    case CardType.Defence:
-                        DefenceCardBorder();
-                        if (!hasArrow)
-                        {
-                            DrawArrowsPlayer();
-                        }
-                        break;
-                    case CardType.Buff:
-                        BuffCardBorder();
-                        if (!hasArrow)
-                        {
-                            DrawArrowsCards();
-                        }
-                        break;
-                    case CardType.God:
-                        GodCardBorder();
-                        if (!hasArrow)
-                        {
-                            DrawArrowGod();
-                        }
-                        break;
-                }
+                case CardType.Attack:
+                    AttackCardBorder();
+                    if (!hasArrow)
+                    {
+                        DrawArrowsEnemies();
+                    }
+                    break;
+                case CardType.Defence:
+                    DefenceCardBorder();
+                    if (!hasArrow)
+                    {
+                        DrawArrowsPlayer();
+                    }
+                    break;
+                case CardType.Buff:
+                    BuffCardBorder();
+                    if (!hasArrow)
+                    {
+                        DrawArrowsCards();
+                    }
+                    break;
+                case CardType.God:
+                    GodCardBorder();
+                    if (!hasArrow)
+                    {
+                        DrawArrowGod();
+                    }
+                    break;
             }
         }
     }
