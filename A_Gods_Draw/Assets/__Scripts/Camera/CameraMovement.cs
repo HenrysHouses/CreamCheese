@@ -6,7 +6,9 @@ public class CameraMovement : MonoBehaviour
 {
     private Animator anim;
     private GameManager GM;
+    private TurnManager TM;
     private bool lookingUp,lookingDown,lookingRight,lookingLeft;
+    private bool attack, buff, godcard, shield;
     // Start is called before the first frame update
     void Start()
     {
@@ -14,9 +16,39 @@ public class CameraMovement : MonoBehaviour
         GM = GameObject.Find("GameManager").GetComponent<GameManager>();
     }
 
+    void SelectCardCamera()
+    {
+            anim.SetBool("EnemyCloseUp", true);
+            lookingRight = false;
+            lookingUp = false;
+            lookingDown = false;
+            lookingLeft = false;
+            Debug.Log("ANimatincardplayed");
+    }
+
+    void DeselectCamera()
+    {
+            anim.SetBool("EnemyCloseUp", false);
+            lookingRight = false;
+            lookingUp = false;
+            lookingDown = false;
+            lookingLeft = false;
+            Debug.Log("Does it move?");
+        
+    }
     // Update is called once per frame
     void Update()
     {
+        if(TM == null && MultiSceneLoader.getLoadedCollectionTitle.Equals("Combat"))
+        {
+             GameObject G = GameObject.Find("TurnManager");
+           if(G)
+           {
+                TM = G.GetComponent<TurnManager>();
+                //TM.OnSelectedCard.AddListener(SelectCardCamera);
+                //TM.OnDeSelectedCard.AddListener(DeselectCamera);
+           } 
+        }
         
 //        Debug.Log(MultiSceneLoader.getLoadedCollectionTitle);
 

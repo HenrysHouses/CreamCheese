@@ -2,6 +2,7 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Events;
 using UnityEngine.SceneManagement;
 using FMODUnity;
 
@@ -55,6 +56,8 @@ public class TurnManager : MonoBehaviour
     [SerializeField]
     EndTurnButton endTurn;
     [SerializeField] SceneTransition sceneTransition;
+    public UnityEvent OnSelectedCard;
+    public UnityEvent OnDeSelectedCard;
 
     public bool encounterLoaded;
 
@@ -78,7 +81,8 @@ public class TurnManager : MonoBehaviour
     void Start()
     {
         board.lane = new List<NonGod_Behaviour>();
-
+        OnSelectedCard = new UnityEvent();
+        OnDeSelectedCard = new UnityEvent();
         currentLane = 0;
 
         // deckManager.SetTurnManager(this);
@@ -152,15 +156,17 @@ public class TurnManager : MonoBehaviour
             case State.PlayerTurn:
                 {
                     if (playedCard)
-                    {
+                    {  
                         int i = 0;
                         foreach (Card_Behaviour a in board._hand.behaviours)
                         {
                             if (a == playedCard)
                             {
+                                
                                 Animator anim = GetComponentInParent<Animator>();
                                 if (anim)
                                 {
+                                    OnDeSelectedCard?.Invoke();
                                     anim.SetBool("ShowCard", false);
                                     anim.Play("Default");
                                     Destroy(anim);
@@ -316,6 +322,8 @@ public class TurnManager : MonoBehaviour
 
     public void SelectCard(Card_Behaviour card)
     {
+            Debug.Log("selected start");
+        
         if(currentLane == lanes.Length)
         {
             return;
@@ -323,14 +331,17 @@ public class TurnManager : MonoBehaviour
 
         if (currentState == State.PlayerTurn)
         {
+            OnSelectedCard?.Invoke();
             selectedCard = card;
-
+            Debug.Log("selected attempt");
             God_Behaviour isGod = card as God_Behaviour;
             NonGod_Behaviour isNotGod = card as NonGod_Behaviour;
 
 
             if (isGod)
             {
+            Debug.Log("selected god");
+
                 if (board.currentGod) { GodDied(); }
                 board.currentGod = isGod;
                 board.deckManager.removeCardFromHand(board.currentGod.GetCardSO());
@@ -341,6 +352,7 @@ public class TurnManager : MonoBehaviour
             }
             else if (isNotGod)
             {
+            Debug.Log("selected not god");
                 //if (currentLane == board.lane.Count)
                 //{
                 //    selectedCard = null;
@@ -361,6 +373,9 @@ public class TurnManager : MonoBehaviour
         if (selectedCard != null)
             selectedCard.DeSelected();
         selectedCard = null;
+        OnDeSelectedCard?.Invoke();
+
+
     }
 
     public Card_Behaviour CurrentlySelectedCard()
@@ -398,7 +413,8 @@ public class TurnManager : MonoBehaviour
     {
         if (board.enemies.Count == 0)
         {
-            ui.ShowwinningPanel();
+            GoToNextScene();
+           // ui.ShowwinningPanel();
 
             board._hand.RemoveAllCards();
 
@@ -464,9 +480,9 @@ public class TurnManager : MonoBehaviour
 
     public void GoToNextScene()
     {
-        Debug.Log("next scene");
+       // Debug.Log("next scene");
         if(sceneTransition != null)
-            sceneTransition.TransitionScene(false, "MainMenu");
+            sceneTransition.TransitionScene(false, "Map");
         else
             Debug.LogError("Can not transition to next scene, Missing Scene Transitioner Reference");
     }
