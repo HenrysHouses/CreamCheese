@@ -41,7 +41,6 @@ public class SceneTransition : MonoBehaviour
         {
             TransitionAnim.Play(state);
             isAnimating = true;
-            Debug.Log("anim");
         }
 
         while(waitForAnim(state))

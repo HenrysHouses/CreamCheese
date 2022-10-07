@@ -16,6 +16,8 @@ namespace Map
             TopToBottom,
             RightToLeft,
             LeftToRight,
+            ForwardToBack,
+            BackToForward,
             None
         }
 
@@ -25,6 +27,7 @@ namespace Map
         public List<Map_Configuration> allMapConfigs;
         public GameObject nodePrefab;
         public float orientationOffset;
+        public Vector2 ScrollBounds;
 
         [Header("Background Settings")]
         [Tooltip("If the background sprite is null, background will not be shown")]
@@ -86,7 +89,7 @@ namespace Map
             CreateNodes(m.nodes);
             DrawPath();
             Orientation();
-            // ResetRotation(); // ! might need to disable this
+            ResetRotation(); // ! might need to disable this
             SetPickableNodes();
             SetPathColor();
             // CreateBackground(m);
@@ -124,8 +127,25 @@ namespace Map
             mapParent.transform.SetParent(firstParent.transform, false);
 
             var scrollNonUI = mapParent.AddComponent<ScrollNonUI>();
-            scrollNonUI.freezeX = orientations == MapOrientations.BottomToTop || orientations == MapOrientations.TopToBottom || orientations == MapOrientations.None;
-            scrollNonUI.freezeY = orientations == MapOrientations.LeftToRight || orientations == MapOrientations.RightToLeft || orientations == MapOrientations.None;
+
+            if(orientations == MapOrientations.BottomToTop || orientations == MapOrientations.TopToBottom)
+            {
+                scrollNonUI.freezeX = true;
+                scrollNonUI.freezeY = false;
+                scrollNonUI.freezeZ = true;
+            }
+            if(orientations == MapOrientations.RightToLeft || orientations == MapOrientations.LeftToRight)
+            {
+                scrollNonUI.freezeX = false;
+                scrollNonUI.freezeY = true;
+                scrollNonUI.freezeZ = true;
+            }
+            if(orientations == MapOrientations.ForwardToBack || orientations == MapOrientations.BackToForward)
+            {
+                scrollNonUI.freezeX = true;
+                scrollNonUI.freezeY = true;
+                scrollNonUI.freezeZ = false;
+            }
 
             var boxColl = mapParent.AddComponent<BoxCollider>();
             boxColl.size = new Vector3(100, 100, 1); //can be changed
@@ -234,9 +254,12 @@ namespace Map
             var scrollNonUI = mapParent.GetComponent<ScrollNonUI>();
             var span = mapManager.CurrentMap.DistLayers();
             var bossNode = MapNodes.FirstOrDefault(node => node.Node.nodeType == NodeType.Boss);
+            scrollNonUI.ScrollMinMaxBounds = ScrollBounds;
 
             // firstParent.transform.position = new Vector3(cam.transform.position.x, cam.transform.position.y, 0f);
             var offset = orientationOffset;
+            Vector3 desiredPos;
+
 
             switch (orientations)
             {
@@ -246,7 +269,10 @@ namespace Map
                         scrollNonUI.yConst.max = 0;
                         scrollNonUI.yConst.min = -(span + 2f * offset);
                     }
-                    firstParent.transform.localPosition += new Vector3(0, offset, 0);
+                    desiredPos = firstParent.transform.localPosition + new Vector3(0, offset, 0);
+                    float y = Mathf.Clamp(desiredPos.y, ScrollBounds.x, ScrollBounds.y); 
+                    desiredPos.y = y;
+                    firstParent.transform.localPosition = desiredPos;
                     break;
 
                 case MapOrientations.TopToBottom:
@@ -256,13 +282,19 @@ namespace Map
                         scrollNonUI.yConst.min = 0;
                         scrollNonUI.yConst.max = span + 2f * offset;
                     }
-                    firstParent.transform.localPosition += new Vector3(0, -offset, 0);
+                    desiredPos = firstParent.transform.localPosition + new Vector3(0, -offset, 0);
+                    float _y = Mathf.Clamp(desiredPos.y, ScrollBounds.x, ScrollBounds.y); 
+                    desiredPos.y = _y;
+                    firstParent.transform.localPosition = desiredPos;
                     break;
 
                 case MapOrientations.RightToLeft:
                     offset *= cam.aspect;
                     mapParent.transform.eulerAngles = new Vector3(0, 0, 90);
-                    firstParent.transform.localPosition -= new Vector3(offset, bossNode.transform.position.y, 0);
+                    desiredPos = firstParent.transform.localPosition + new Vector3(offset, bossNode.transform.position.y, 0);
+                    float x = Mathf.Clamp(desiredPos.x, ScrollBounds.x, ScrollBounds.y); 
+                    desiredPos.x = x;
+                    firstParent.transform.localPosition = desiredPos;
                     if(scrollNonUI != null)
                     {
                         scrollNonUI.xConst.max = span + 2f * offset;
@@ -273,11 +305,42 @@ namespace Map
                 case MapOrientations.LeftToRight:
                     offset *= cam.aspect;
                     mapParent.transform.eulerAngles = new Vector3(0, 0, -90);
-                    firstParent.transform.localPosition += new Vector3(offset, -bossNode.transform.position.y, 0);
+                    desiredPos = firstParent.transform.localPosition + new Vector3(-offset, bossNode.transform.position.y, 0);
+                    float _x = Mathf.Clamp(desiredPos.x, ScrollBounds.x, ScrollBounds.y); 
+                    desiredPos.x = _x;
+                    firstParent.transform.localPosition = desiredPos;
                     if(scrollNonUI != null)
                     {
                         scrollNonUI.xConst.max = 0;
                         scrollNonUI.xConst.min = -(span + 2 * offset);
+                    }
+                    break;
+
+                case MapOrientations.ForwardToBack:
+                    offset *= cam.aspect;
+                    mapParent.transform.eulerAngles = new Vector3(90, 0, 0);
+                    desiredPos = firstParent.transform.localPosition + new Vector3(0, 0, offset);
+                    float z = Mathf.Clamp(desiredPos.z, ScrollBounds.x, ScrollBounds.y); 
+                    desiredPos.z = z;
+                    firstParent.transform.localPosition = desiredPos;
+                    if(scrollNonUI != null)
+                    {
+                        scrollNonUI.zConst.min = span + 2 * offset;
+                        scrollNonUI.zConst.max = 0;
+                    }
+                    break;
+
+                case MapOrientations.BackToForward:
+                    offset *= cam.aspect;
+                    mapParent.transform.eulerAngles = new Vector3(-90, 0, 0);
+                    desiredPos = firstParent.transform.localPosition + new Vector3(0, 0, -offset);
+                    float _z = Mathf.Clamp(desiredPos.z, ScrollBounds.x, ScrollBounds.y); 
+                    desiredPos.z = _z;
+                    firstParent.transform.localPosition = desiredPos;
+                    if(scrollNonUI != null)
+                    {
+                        scrollNonUI.zConst.max = 0;
+                        scrollNonUI.zConst.min = -(span + 2 * offset);
                     }
                     break;
 

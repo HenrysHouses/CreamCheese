@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class BootLoader : MonoBehaviour
 {
@@ -14,8 +15,12 @@ public class BootLoader : MonoBehaviour
             MultiSceneLoader.BootGame();
         #elif UNITY_EDITOR
             // decide if it should boot or not in the editor.
-            if(!SkipBoot)
+            if(SceneManager.GetActiveScene().name.Equals("_Boot"))
                 MultiSceneLoader.BootGame();
+            else
+            {
+                MultiSceneLoader.setCurrentlyLoaded(MultiSceneEditorConfig.instance.currentLoadedCollection);
+            }
         #endif
     }
 }

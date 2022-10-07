@@ -23,6 +23,7 @@ namespace Map
     {
         //for ui and sprites for nodes of the map
         public SpriteRenderer sr;
+        public MeshRenderer mr;
         public SpriteRenderer visitedSprite;
         public Image visitedImage; //image showing that you have visited that node
 
@@ -38,36 +39,59 @@ namespace Map
         {
             Node = node;
             Blueprint = blueprint;
-            sr.sprite = blueprint.sprite;
+
+            GameObject mdl;
+            if(blueprint.models)
+            {
+                mdl = Instantiate(blueprint.models);
+                mdl.transform.SetParent(transform, false);
+                mdl.transform.localPosition = new Vector3();
+                mr = mdl.GetComponent<MeshRenderer>();
+            }
+
+            if(sr)
+                sr.sprite = blueprint.sprite;
 
             if (node.nodeType == NodeType.Boss)
             {
                 transform.localScale *= 1.5f;
             }
 
-            initialScale = sr.transform.localScale.x;
-            visitedSprite.color = Map_View.instance.visitedColor;
-            visitedSprite.gameObject.SetActive(false);
+            if(sr)
+            {
+                initialScale = sr.transform.localScale.x;
+                visitedSprite.color = Map_View.instance.visitedColor;
+                visitedSprite.gameObject.SetActive(false);
+            }
 
             SetState(NodeStates.Locked);
         }
 
         public void SetState(NodeStates states)
         {
-            visitedSprite.gameObject.SetActive(false);
+            if(sr)
+                visitedSprite.gameObject.SetActive(false);
+
+            if(mr)
+                Debug.LogWarning("Node States for 3d models not implemented");
             switch (states)
             {
                 case NodeStates.Locked:
-                    sr.color = Map_View.instance.lockedColor;
+                    if(sr)
+                        sr.color = Map_View.instance.lockedColor;
                     break;
 
                 case NodeStates.Visited:
-                    sr.color = Map_View.instance.visitedColor;
-                    visitedSprite.gameObject.SetActive(true);
+                    if(sr)
+                    {
+                        sr.color = Map_View.instance.visitedColor;
+                        visitedSprite.gameObject.SetActive(true);
+                    }
                     break;
 
                 case NodeStates.Taken:
-                    sr.color = Map_View.instance.lockedColor;
+                    if(sr)
+                        sr.color = Map_View.instance.lockedColor;
                     break;
 
                 default:

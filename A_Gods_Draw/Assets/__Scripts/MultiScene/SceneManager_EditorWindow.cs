@@ -1,3 +1,8 @@
+/*
+* Scriptable object as current config for project 
+*/
+
+
 #if UNITY_EDITOR
 
 using UnityEngine;
@@ -19,8 +24,7 @@ public class SceneManager_window : EditorWindow
     string[] buildSceneOptions;
     SceneCollectionObject[] _Collection;
     string[] Collection = new string[0];
-    static SceneCollectionObject LoadedCollection;
-    public static SceneCollectionObject GetLoadedCollection => LoadedCollection;
+    public SceneCollectionObject GetLoadedCollection => MultiSceneEditorConfig.instance.currentLoadedCollection;
     SceneCollectionObject SelectedCollection;
     int UnloadScene;
 
@@ -31,6 +35,8 @@ public class SceneManager_window : EditorWindow
         SceneManager_window window = (SceneManager_window)EditorWindow.GetWindow(typeof(SceneManager_window));
         window.titleContent = new GUIContent("Scene Manager", "Loads, Unloads, and Saves Scene Collections");
         window.Show();
+        Debug.Log("window init");
+        MultiSceneEditorConfig.instance.setInstance();
     }
 
     void OnGUI()
@@ -77,7 +83,7 @@ public class SceneManager_window : EditorWindow
 
         if(GUILayout.Button("Save Collection"))
         {
-            SaveCollection(LoadedCollection);
+            SaveCollection(GetLoadedCollection);
         }
 
         if(GUILayout.Button("Create Collection From Loaded Scenes"))
@@ -103,8 +109,8 @@ public class SceneManager_window : EditorWindow
     // Other Draw Functions
     void DrawNameOfCurrCollection()
     {
-        if(LoadedCollection)
-            EditorGUILayout.TextField("Current Loaded Collection: ", LoadedCollection.Title, EditorStyles.boldLabel);
+        if(GetLoadedCollection)
+            EditorGUILayout.TextField("Current Loaded Collection: ", GetLoadedCollection.Title, EditorStyles.boldLabel);
         else
             EditorGUILayout.TextField("Current Loaded Collection: ", "None", EditorStyles.boldLabel);
     }
@@ -136,17 +142,17 @@ public class SceneManager_window : EditorWindow
         if(SelectedCollection == null)
         {
             EditorSceneManager.OpenScene("Assets/~Scenes/SampleScene.unity", OpenSceneMode.Single);
-            LoadedCollection = null;
+            MultiSceneEditorConfig.instance.currentLoadedCollection = null;
             return;
         }
 
-        LoadedCollection = SelectedCollection;
+        MultiSceneEditorConfig.instance.currentLoadedCollection = SelectedCollection;
 
-        string[] paths = new string[LoadedCollection.Scenes.Count];
+        string[] paths = new string[GetLoadedCollection.Scenes.Count];
         
         for (int i = 0; i < paths.Length; i++)
         {
-            paths[i] = AssetDatabase.GetAssetPath(LoadedCollection.Scenes[i]);
+            paths[i] = AssetDatabase.GetAssetPath(GetLoadedCollection.Scenes[i]);
         }
 
         for (int i = 0; i < paths.Length; i++)
@@ -159,7 +165,7 @@ public class SceneManager_window : EditorWindow
 
         EditorUtility.FocusProjectWindow();
 
-        Selection.activeObject = LoadedCollection;
+        Selection.activeObject = GetLoadedCollection;
     }
 
     void LoadSceneAdditively()
