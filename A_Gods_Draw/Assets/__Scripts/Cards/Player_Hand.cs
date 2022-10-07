@@ -29,12 +29,16 @@ public class Player_Hand : MonoBehaviour
     {
         float posX = handPlace.position.x;
         handPlace.position += Vector3.right * (-0.3f + CAH.Count * 0.15f);
+        float posZ = handPlace.position.z;
         handPlace.position += Vector3.forward * (0.0001f + CAH.Count * 0.01f / 2.5f); // << This puts the cards behing eacother, but makes unity angery
         GameObject spawn = Instantiate(CardinHandPrefab, handPlace.position, Quaternion.identity);
         Card_Loader _loader = spawn.GetComponentInChildren<Card_Loader>();
         _loader.Set(card, _turnManager);
         CardInHand _card = new CardInHand(spawn.GetComponentInChildren<Card_Selector>());
-        handPlace.position = new Vector3(posX, handPlace.position.y, handPlace.position.z);
+        handPlace.position = new Vector3(posX, handPlace.position.y, posZ);
+
+        spawn.transform.parent = handPlace;
+
         CAH.Add(_card);
 
         spawn.transform.GetChild(0).GetComponent<BoxCollider>().enabled = true;

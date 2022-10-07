@@ -11,6 +11,7 @@ public class GodPlacement : MonoBehaviour
     public void SetGod(God_Behaviour god)
     {
         this.god = god;
+        god.SetPlace(this);
     }
 
     public void GodShowArrow()

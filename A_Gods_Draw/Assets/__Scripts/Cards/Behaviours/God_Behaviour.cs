@@ -28,6 +28,11 @@ public class God_Behaviour : Card_Behaviour
     }
 
     public override IEnumerator OnPlay(BoardState board)
+    public void SetPlace(GodPlacement place)
+    {
+        godPlacement = place;
+    }
+
     {
         action.OnPlay(board);
 
@@ -106,7 +111,8 @@ public class God_Behaviour : Card_Behaviour
 
     private void OnMouseOver()
     {
-        godPlacement.godArrow.color = Color.magenta;
+        if (godPlacement)
+            godPlacement.godArrow.color = Color.magenta;
     }
 
     private void OnMouseExit()
