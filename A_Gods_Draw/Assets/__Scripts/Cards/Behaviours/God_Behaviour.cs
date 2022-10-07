@@ -31,7 +31,6 @@ public class God_Behaviour : Card_Behaviour
     {
         godPlacement = place;
     }
-    public override IEnumerator OnPlay(BoardState board)
 
     protected override IEnumerator Play(BoardState board)
     {
