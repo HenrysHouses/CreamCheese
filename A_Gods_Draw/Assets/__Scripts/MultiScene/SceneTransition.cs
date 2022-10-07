@@ -9,6 +9,7 @@ public class SceneTransition : MonoBehaviour
 
     [SerializeField] Animator TransitionAnim;
     bool isAnimating;
+    public bool isTransitioning => isAnimating;
     float animTime;
 
 

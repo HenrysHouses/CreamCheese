@@ -24,7 +24,7 @@ MonoBehaviour:
   m_MinSize: {x: 200, y: 200}
   m_MaxSize: {x: 16192, y: 16192}
   vertical: 0
-  controlID: 7756
+  controlID: 12785
 --- !u!114 &2
 MonoBehaviour:
   m_ObjectHideFlags: 52
@@ -33,16 +33,16 @@ MonoBehaviour:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 0}
   m_Enabled: 1
-  m_EditorHideFlags: 1
-  m_Script: {fileID: 12019, guid: 0000000000000000e000000000000000, type: 0}
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 0}
   m_Name: 
-  m_EditorClassIdentifier: 
-  m_MinSize: {x: 275, y: 50}
+  m_EditorClassIdentifier: Assembly-CSharp::SceneManager_window
+  m_MinSize: {x: 100, y: 100}
   m_MaxSize: {x: 4000, y: 4000}
   m_TitleContent:
-    m_Text: Inspector
-    m_Image: {fileID: -440750813802333266, guid: 0000000000000000d000000000000000, type: 0}
-    m_Tooltip: 
+    m_Text: Scene Manager
+    m_Image: {fileID: 0}
+    m_Tooltip: Loads, Unloads, and Saves Scene Collections
   m_Pos:
     serializedVersion: 2
     x: 1029.6
@@ -53,19 +53,6 @@ MonoBehaviour:
   m_OverlayCanvas:
     m_LastAppliedPresetName: Default
     m_SaveData: []
-  m_ObjectsLockedBeforeSerialization: []
-  m_InstanceIDsLockedBeforeSerialization: 
-  m_PreviewResizer:
-    m_CachedPref: 195
-    m_ControlHash: -371814159
-    m_PrefName: Preview_InspectorPreview
-  m_LastInspectedObjectInstanceID: -1
-  m_LastVerticalScrollValue: 0
-  m_GlobalObjectId: 
-  m_InspectorMode: 0
-  m_LockTracker:
-    m_IsLocked: 0
-  m_PreviewWindow: {fileID: 0}
 --- !u!114 &3
 MonoBehaviour:
   m_ObjectHideFlags: 52
@@ -90,7 +77,7 @@ MonoBehaviour:
   m_MinSize: {x: 100, y: 200}
   m_MaxSize: {x: 8096, y: 16192}
   vertical: 1
-  controlID: 7762
+  controlID: 12722
 --- !u!114 &4
 MonoBehaviour:
   m_ObjectHideFlags: 52
@@ -396,9 +383,9 @@ MonoBehaviour:
     speed: 2
     m_Value: {x: -0.3030863, y: -0.018576581, z: -0.0066052456, w: -0.9527591}
   m_Size:
-    m_Target: 10.1176
+    m_Target: 10.764153
     speed: 2
-    m_Value: 10.1176
+    m_Value: 10.764153
   m_Ortho:
     m_Target: 0
     speed: 2
@@ -484,7 +471,7 @@ MonoBehaviour:
     m_HSlider: 0
     m_VSlider: 0
     m_IgnoreScrollWheelUntilClicked: 0
-    m_EnableMouseInput: 1
+    m_EnableMouseInput: 0
     m_EnableSliderZoomHorizontal: 0
     m_EnableSliderZoomVertical: 0
     m_UniformScale: 1
@@ -544,7 +531,7 @@ MonoBehaviour:
   - {fileID: 11}
   - {fileID: 12}
   m_Selected: 0
-  m_LastSelected: 2
+  m_LastSelected: 1
 --- !u!114 &8
 MonoBehaviour:
   m_ObjectHideFlags: 52
@@ -586,22 +573,22 @@ MonoBehaviour:
     m_SkipHidden: 0
     m_SearchArea: 1
     m_Folders:
-    - Assets/Resources
+    - Assets
     m_Globs: []
     m_OriginalText: 
   m_ViewMode: 1
-  m_StartGridSize: 49
+  m_StartGridSize: 16
   m_LastFolders:
-  - Assets/Resources
-  m_LastFoldersGridSize: 49
+  - Assets
+  m_LastFoldersGridSize: 16
   m_LastProjectPath: C:\Users\ninic\Desktop\Skole\CreamedCheese\CreamCheese\A_Gods_Draw
   m_LockTracker:
     m_IsLocked: 0
   m_FolderTreeState:
-    scrollPos: {x: 0, y: 340.59998}
-    m_SelectedIDs: be650000
-    m_LastClickedID: 26046
-    m_ExpandedIDs: 00000000b8650000ba650000bc650000be650000c0650000ca650000f4650000f665000000ca9a3b
+    scrollPos: {x: 0, y: 79}
+    m_SelectedIDs: b8650000
+    m_LastClickedID: 26040
+    m_ExpandedIDs: 00000000b8650000ba650000bc650000be650000c0650000ca650000f6650000f609020000ca9a3b
     m_RenameOverlay:
       m_UserAcceptedRename: 0
       m_Name: 
@@ -629,7 +616,7 @@ MonoBehaviour:
     scrollPos: {x: 0, y: 0}
     m_SelectedIDs: 
     m_LastClickedID: 0
-    m_ExpandedIDs: 00000000b8650000ba650000bc650000be650000c065000000ca9a3b
+    m_ExpandedIDs: 00000000b8650000ba650000bc650000be650000c0650000ca650000f665000000ca9a3b
     m_RenameOverlay:
       m_UserAcceptedRename: 0
       m_Name: 
@@ -654,8 +641,8 @@ MonoBehaviour:
       m_Icon: {fileID: 0}
       m_ResourceFile: 
   m_ListAreaState:
-    m_SelectedInstanceIDs: 6c650000
-    m_LastClickedInstanceID: 25964
+    m_SelectedInstanceIDs: 
+    m_LastClickedInstanceID: 0
     m_HadKeyboardFocusLastEvent: 1
     m_ExpandedInstanceIDs: c6230000
     m_RenameOverlay:
@@ -682,7 +669,7 @@ MonoBehaviour:
       m_ResourceFile: 
     m_NewAssetIndexInList: -1
     m_ScrollPosition: {x: 0, y: 0}
-    m_GridSize: 49
+    m_GridSize: 16
   m_SkipHiddenPackages: 0
   m_DirectoriesAreaWidth: 207
 --- !u!114 &9
@@ -743,10 +730,10 @@ MonoBehaviour:
     m_SaveData: []
   m_SceneHierarchy:
     m_TreeViewState:
-      scrollPos: {x: 0, y: 53.599976}
-      m_SelectedIDs: f6090200
+      scrollPos: {x: 0, y: 0}
+      m_SelectedIDs: 
       m_LastClickedID: 0
-      m_ExpandedIDs: f038fbfff238fbff983ffbffc04bfbffc24bfbff6852fbff1070fbff4c70fbffbc7afbff40c0fbff42c0fbff80d2fbffbad2fbffb0d9fbff34dbfbffeae4fbffb2ecfbffb4ecfbff42edfbff4661fcfff66cfdfff86cfdff1c23feff7424feff763ffeff783ffeff0c46feff3a55feff3c55feffcc5bfeffe25cfeffe65dfeff445efeff465efeffda64feffd269feffd469feff6470feff8071feff9272feff2674feff487cfeffcc90feffce90feff6297feffb8a3feff20b4fefff6b8fefff8b8feff88bffeff200dffffc40dffff9c14ffff2415ffff4c18ffff4e18ffffe21effff201fffffb826ffffee80ffff1e91ffff3a92ffff3c92ffffd098ffff92a2ffff94a2ffff24a9ffffcab4ffffa6bcffff300b0100680b0100aa0b0100ea0b01005c0c0100b80f01003a100100ac1001007cfd0100f4040200
+      m_ExpandedIDs: 028bfaff048bfaffa691faff449afaff909bfaffda9bfaff0a9dfaff0c9dfaffb2a3faff30a5faff32a5faffd8abfaff4007fbffa22efbffa42efbff4a35fbfff038fbfff238fbff983ffbffc04bfbffc24bfbff6852fbff1070fbff4c70fbffbc7afbff40c0fbff42c0fbff80d2fbffbad2fbffb0d9fbff34dbfbffeae4fbffb2ecfbffb4ecfbff42edfbff4661fcfff66cfdfff86cfdff1c23feff7424feff763ffeff783ffeff0c46feff3a55feff3c55feffcc5bfeffe25cfeffe65dfeff445efeff465efeffda64feffd269feffd469feff6470feff8071feff9272feff2674feff487cfeffcc90feffce90feff6297feffb8a3feff20b4fefff6b8fefff8b8feff88bffeff200dffffc40dffff9c14ffff2415ffff4c18ffff4e18ffffe21effff201fffffb826ffffee80ffff1e91ffff3a92ffff3c92ffffd098ffff92a2ffff94a2ffff24a9ffffcab4ffffa6bcffff300b0100680b0100aa0b0100ea0b01005c0c0100b80f01003a100100ac1001007cfd0100f4040200
       m_RenameOverlay:
         m_UserAcceptedRename: 0
         m_Name: 
@@ -762,7 +749,7 @@ MonoBehaviour:
         m_IsRenaming: 0
         m_OriginalEventType: 11
         m_IsRenamingFilename: 0
-        m_ClientGUIView: {fileID: 0}
+        m_ClientGUIView: {fileID: 7}
       m_SearchString: 
     m_ExpandedScenes: []
     m_CurrenRootInstanceID: 0
@@ -800,7 +787,7 @@ MonoBehaviour:
     m_SaveData: []
   m_LockTracker:
     m_IsLocked: 0
-  m_LastSelectedObjectID: 101946
+  m_LastSelectedObjectID: -357610
 --- !u!114 &12
 MonoBehaviour:
   m_ObjectHideFlags: 52
@@ -892,7 +879,7 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 1
   m_Script: {fileID: 12006, guid: 0000000000000000e000000000000000, type: 0}
-  m_Name: InspectorWindow
+  m_Name: SceneManager_window
   m_EditorClassIdentifier: 
   m_Children: []
   m_Position:
@@ -901,14 +888,14 @@ MonoBehaviour:
     y: 0
     width: 499.19995
     height: 756.4
-  m_MinSize: {x: 276, y: 71}
+  m_MinSize: {x: 101, y: 121}
   m_MaxSize: {x: 4001, y: 4021}
   m_ActualView: {fileID: 2}
   m_Panes:
-  - {fileID: 2}
   - {fileID: 14}
-  m_Selected: 0
-  m_LastSelected: 1
+  - {fileID: 2}
+  m_Selected: 1
+  m_LastSelected: 0
 --- !u!114 &14
 MonoBehaviour:
   m_ObjectHideFlags: 52
@@ -917,16 +904,16 @@ MonoBehaviour:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 0}
   m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 0}
+  m_EditorHideFlags: 1
+  m_Script: {fileID: 12019, guid: 0000000000000000e000000000000000, type: 0}
   m_Name: 
-  m_EditorClassIdentifier: Assembly-CSharp::SceneManager_window
-  m_MinSize: {x: 100, y: 100}
+  m_EditorClassIdentifier: 
+  m_MinSize: {x: 275, y: 50}
   m_MaxSize: {x: 4000, y: 4000}
   m_TitleContent:
-    m_Text: Scene Manager
-    m_Image: {fileID: 0}
-    m_Tooltip: Loads, Unloads, and Saves Scene Collections
+    m_Text: Inspector
+    m_Image: {fileID: -440750813802333266, guid: 0000000000000000d000000000000000, type: 0}
+    m_Tooltip: 
   m_Pos:
     serializedVersion: 2
     x: 1029.6
@@ -937,3 +924,16 @@ MonoBehaviour:
   m_OverlayCanvas:
     m_LastAppliedPresetName: Default
     m_SaveData: []
+  m_ObjectsLockedBeforeSerialization: []
+  m_InstanceIDsLockedBeforeSerialization: 
+  m_PreviewResizer:
+    m_CachedPref: 195
+    m_ControlHash: -371814159
+    m_PrefName: Preview_InspectorPreview
+  m_LastInspectedObjectInstanceID: -1
+  m_LastVerticalScrollValue: 0
+  m_GlobalObjectId: 
+  m_InspectorMode: 0
+  m_LockTracker:
+    m_IsLocked: 0
+  m_PreviewWindow: {fileID: 0}

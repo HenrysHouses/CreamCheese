@@ -14,10 +14,22 @@ public struct BoardState
     public Player_Hand _hand;
     public God_Behaviour currentGod;
     public List<NonGod_Behaviour> lane;
+
+}
+
+public enum EncounterDiffeculty
+{
+    Easy,
+    Medium,
+    Hard,
+    elites,
+    Boss
 }
 
 public class TurnManager : MonoBehaviour
 {
+    public EncounterGenerator EG;
+    bool enemiesInitialized;
     [SerializeField]
     private EventReference SoundSelectCard, SoundDrawCards,SoundClickEnemy;
 
@@ -43,6 +55,8 @@ public class TurnManager : MonoBehaviour
     EndTurnButton endTurn;
     [SerializeField] SceneTransition sceneTransition;
 
+    public bool encounterLoaded;
+
     bool hasPlayedAGod = false;
     public enum State
     {
@@ -55,6 +69,11 @@ public class TurnManager : MonoBehaviour
     bool endWait;
     //-------------------
 
+   public Encounter_SO[] LoadNextEncounter()
+    {
+        return Resources.LoadAll<Encounter_SO>("Encounters/" + GameManager.instance.nextCombatType.ToString());
+    }
+
     void Start()
     {
         board.lane = new List<NonGod_Behaviour>();
@@ -62,15 +81,48 @@ public class TurnManager : MonoBehaviour
         currentLane = 0;
 
         // deckManager.SetTurnManager(this);
+        StartCoroutine(waitForEncounter());
+    }
+
+    IEnumerator waitForEncounter()
+    {
+        while(!encounterLoaded)
+        {
+            yield return null;
+        }
 
         foreach (IMonster enemy in board.enemies)
         {
             enemy.Initialize(this, board.player);
         }
+        enemiesInitialized = true;
     }
 
     private void Update()
     {
+        
+        if(!sceneTransition.isTransitioning)
+        {
+            if(!encounterLoaded)
+            {
+                Debug.Log("Monster should be placed");
+                Encounter_SO[] foundEncounters = LoadNextEncounter();
+                Encounter_SO currEncounter = foundEncounters[UnityEngine.Random.Range(0,foundEncounters.Length)];
+                encounterLoaded = true;
+                for (int i = 0; i < currEncounter.enemies.Count; i++)
+                {
+                    GameObject spawn = Instantiate(currEncounter.enemies[i].enemy,currEncounter.enemies[i].enemyPos,Quaternion.identity);
+                    board.enemies.Add(spawn.GetComponent<IMonster>());
+                }
+
+            }
+            
+        }
+
+
+        if(!enemiesInitialized)
+            return;
+
         switch (currentState)
         {
             case State.StartTurn:
