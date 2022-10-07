@@ -27,11 +27,11 @@ public class God_Behaviour : Card_Behaviour
         action = GetComponent<IGodAction>();
     }
 
-    public override IEnumerator OnPlay(BoardState board)
     public void SetPlace(GodPlacement place)
     {
         godPlacement = place;
     }
+    public override IEnumerator OnPlay(BoardState board)
 
     {
         action.OnPlay(board);

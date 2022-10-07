@@ -18,7 +18,7 @@ public class CameraMovement : MonoBehaviour
     void Update()
     {
         
-        Debug.Log(MultiSceneLoader.getLoadedCollectionTitle);
+//        Debug.Log(MultiSceneLoader.getLoadedCollectionTitle);
 
 
         if(Input.GetKeyDown(KeyCode.W) && !lookingDown)

@@ -71,7 +71,6 @@ namespace Map
             view.SetPickableNodes();
             view.SetPathColor();
             map_Nodes.ShowSwirlAnimation();
-
             EnterNode(map_Nodes);
         }
 
@@ -85,9 +84,11 @@ namespace Map
             {
                 case NodeType.Enemy:
                     sceneTransition.TransitionScene(false, "Combat"); //sends me to javi's scene since that has card stuff
+                    GameManager.instance.nextCombatType = EncounterDiffeculty.Easy;
                     break;
                 case NodeType.Elite:
                     sceneTransition.TransitionScene(false, "Combat"); //sends me to javi's scene since that has card stuff
+                    GameManager.instance.nextCombatType = EncounterDiffeculty.elites;
                     break;
                 case NodeType.RestPlace:
                     sceneTransition.TransitionScene(false, "MainMenu"); //sends me to javi's scene since that has card stuff
@@ -97,6 +98,7 @@ namespace Map
                     break;
                 case NodeType.Boss:
                     sceneTransition.TransitionScene(false, "Combat"); //sends me to javi's scene since that has card stuff
+                    GameManager.instance.nextCombatType = EncounterDiffeculty.Boss;
                     break;
                 default:
                     throw new ArgumentOutOfRangeException();

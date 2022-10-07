@@ -4,8 +4,16 @@ using UnityEngine;
 
 public class GameManager : MonoBehaviour
 {
-    [HideInInspector] public bool changeToMap;
-    private TurnManager TM;
+    public static GameManager instance;
+    EncounterDiffeculty nextCombatDiff;
+    private void Awake() 
+    {
+        if(!instance)
+            instance = this;
+        else
+            Destroy(gameObject);
+    }
+
     // Start is called before the first frame update
     void Start()
     {
@@ -19,4 +27,9 @@ public class GameManager : MonoBehaviour
         
     
     }
+
+    public EncounterDiffeculty nextCombatType{
+        get { return nextCombatDiff; } 
+        set { nextCombatDiff = value; }
+    }  
 }
