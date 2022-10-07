@@ -25,7 +25,7 @@ public class Defense_Behaviour : NonGod_Behaviour
     {
     }
 
-    public override IEnumerator OnPlay(BoardState board)
+    protected override IEnumerator Play(BoardState board)
     {
         if (board.currentGod)
         {
@@ -33,7 +33,7 @@ public class Defense_Behaviour : NonGod_Behaviour
         }
         board.player.CanBeDefended(this);
 
-        yield return base.OnPlay(board);
+        yield return base.Play(board);
     }
 
     protected override bool ReadyToBePlaced()

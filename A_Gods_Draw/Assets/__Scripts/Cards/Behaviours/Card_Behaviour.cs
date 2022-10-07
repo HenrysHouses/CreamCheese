@@ -6,10 +6,13 @@ using static TurnManager;
 
 public abstract class Card_Behaviour : MonoBehaviour
 {
+    IEnumerator cor;
+
     protected Card_SO card_abs;
     protected TurnManager manager;
 
     public readonly bool isReady = false;
+
 
     public virtual void Initialize(Card_SO card)
     {
@@ -41,7 +44,8 @@ public abstract class Card_Behaviour : MonoBehaviour
 
     public void DeSelected()
     {
-        StopAllCoroutines();
+        StopCoroutine(cor);
+        cor = null;
         GetComponentInParent<Card_ClickGlowing>().RemoveBorder();
     }
 
@@ -64,8 +68,13 @@ public abstract class Card_Behaviour : MonoBehaviour
         return true;
     }
 
+    public void OnPlay(BoardState board)
+    {
+        cor = Play(board);
+        StartCoroutine(cor);
+    }
 
-    public virtual IEnumerator OnPlay(BoardState board)
+    protected virtual IEnumerator Play(BoardState board)
     {
         yield return new WaitUntil(ReadyToBePlaced);
         GetComponentInParent<Card_ClickGlowing>().RemoveBorder();

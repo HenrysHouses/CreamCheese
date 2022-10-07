@@ -29,14 +29,14 @@ public class Attack_Behaviour : NonGod_Behaviour
         }
     }
 
-    public override IEnumerator OnPlay(BoardState board)
+    protected override IEnumerator Play(BoardState board)
     {
         foreach (IMonster enemy in board.enemies)
         {
             enemy.IsObjectiveTo(this);
         }
 
-        return base.OnPlay(board);
+        return base.Play(board);
     }
 
     protected override bool ReadyToBePlaced()

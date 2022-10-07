@@ -22,11 +22,11 @@ public class Buff_Behaviour : NonGod_Behaviour
     {
     }
 
-    public override IEnumerator OnPlay(BoardState board)
+    protected override IEnumerator Play(BoardState board)
     {
         posInLane = manager.CurrentLane().Count;
 
-        return base.OnPlay(board);
+        yield return base.Play(board);
     }
 
     internal override void PlacedNextToThis(NonGod_Behaviour card)

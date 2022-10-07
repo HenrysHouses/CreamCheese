@@ -33,11 +33,12 @@ public class God_Behaviour : Card_Behaviour
     }
     public override IEnumerator OnPlay(BoardState board)
 
+    protected override IEnumerator Play(BoardState board)
     {
         action.OnPlay(board);
 
         //Wait for animations, etc
-        return base.OnPlay(board);
+        return base.Play(board);
     }
 
     public override void LatePlayed(BoardState board)

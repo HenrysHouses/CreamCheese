@@ -364,7 +364,7 @@ public class TurnManager : MonoBehaviour
                 Debug.Log("WTF have you done");
             }
 
-            StartCoroutine(card.OnPlay(board));
+            card.OnPlay(board);
         }
     }
 
