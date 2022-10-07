@@ -10,20 +10,16 @@ public class Buff_Behaviour : NonGod_Behaviour
 
     public override void Initialize(Card_SO card)
     {
-        current = (card as NonGod_Card);
+        card_NonGod = (card as NonGod_Card);
         currentCard = card as Buff_Card;
         strengh = currentCard.baseStrengh;
-        this.card = card;
+        this.card_abs = card;
 
         SendMessageUpwards("setBorder", Card_ClickGlowing.CardType.Buff);
     }
 
     public override void OnAction()
     {
-        if (posInLane < manager.CurrentLane().Count - 1)
-        {
-            manager.CurrentLane()[posInLane + 1].GetBuff(currentCard.multiplyOGValue, strengh);
-        }
     }
 
     public override IEnumerator OnPlay(BoardState board)
@@ -31,6 +27,11 @@ public class Buff_Behaviour : NonGod_Behaviour
         posInLane = manager.CurrentLane().Count;
 
         return base.OnPlay(board);
+    }
+
+    internal override void PlacedNextToThis(NonGod_Behaviour card)
+    {
+        card.GetBuff(currentCard.multiplyOGValue, strengh);
     }
 
     protected override bool ReadyToBePlaced()

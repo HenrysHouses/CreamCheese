@@ -12,15 +12,15 @@ public abstract class NonGod_Behaviour : Card_Behaviour
     protected Buff_Behaviour theCardCANThatBuffThis;
     protected Buff_Behaviour theCardThatBuffsThis;
 
-    protected NonGod_Card current;
+    protected NonGod_Card card_NonGod;
 
-    public NonGod_Card GetNonGod() { return current; }
+    public NonGod_Card GetNonGod() { return card_NonGod; }
 
     public override void Initialize(Card_SO card)
     {
-        this.card = card;
-        current = card as NonGod_Card;
-        strengh = current.baseStrengh;
+        this.card_abs = card;
+        card_NonGod = card as NonGod_Card;
+        strengh = card_NonGod.baseStrengh;
     }
 
     public void CanBeBuffedBy(Buff_Behaviour buff_)
@@ -63,9 +63,27 @@ public abstract class NonGod_Behaviour : Card_Behaviour
 
     public void CheckForGod(God_Behaviour god)
     {
-        if (current.correspondingGod == god.GetName())
+        if (card_NonGod.correspondingGod == god.GetName())
         {
             god.Buff(this);
+        }
+    }
+
+    internal virtual void PlacedNextToThis(NonGod_Behaviour card)
+    {
+
+    }
+
+    public override void LatePlayed(BoardState board)
+    {
+        base.LatePlayed(board);
+
+        if (board.currentGod)
+            CheckForGod(board.currentGod);
+
+        if (board.lane.Count > 0)
+        {
+            board.lane[^1].PlacedNextToThis(this);
         }
     }
 }

@@ -13,21 +13,16 @@ public class Defense_Behaviour : NonGod_Behaviour
 
     public override void Initialize(Card_SO card)
     {
-        current = (card as NonGod_Card);
+        card_NonGod = (card as NonGod_Card);
         currentCard = card as Defense_Card;
         strengh = currentCard.baseStrengh;
-        this.card = card;
+        this.card_abs = card;
 
         SendMessageUpwards("setBorder", Card_ClickGlowing.CardType.Defence);
     }
 
     public override void OnAction()
     {
-        if (player)
-        {
-            player.Defend(strengh);
-            Debug.Log("Defended " + player + " for " + strengh);
-        }
     }
 
     public override IEnumerator OnPlay(BoardState board)
@@ -46,7 +41,7 @@ public class Defense_Behaviour : NonGod_Behaviour
         return this.player || this.god_card;
     }
 
-    internal int ItDefends(PlayerController playerController = null, God_Behaviour god = null)
+    internal void ItDefends(PlayerController playerController = null, God_Behaviour god = null)
     {
         if (playerController)
         {
@@ -56,7 +51,20 @@ public class Defense_Behaviour : NonGod_Behaviour
         {
             god_card = god;
         }
-        return strengh;
+    }
+
+    public override void LatePlayed(BoardState board)
+    {
+        base.LatePlayed(board);
+
+        if (player)
+        {
+            player.Defend(strengh);
+        }
+        else if (god_card)
+        {
+            god_card.Defend(strengh);
+        }
     }
 }
 

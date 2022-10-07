@@ -18,7 +18,7 @@ public class God_Behaviour : Card_Behaviour
     int defendFor;
     public override void Initialize(Card_SO card)
     {
-        this.card = card;
+        this.card_abs = card;
         god_SO = card as God_Card;
         maxHealth = god_SO.health;
         health = maxHealth;
@@ -34,12 +34,12 @@ public class God_Behaviour : Card_Behaviour
         return base.OnPlay(board);
     }
 
-    public void AfterBeingPlayed(List<NonGod_Behaviour> currentLane)
+    public override void LatePlayed(BoardState board)
     {
         gameObject.AddComponent<BoxCollider>();
-        foreach (NonGod_Behaviour card in currentLane)
+        foreach (NonGod_Behaviour card in board.lane)
         {
-            if (card.GetNonGod().correspondingGod == this.card.name)
+            if (card.GetNonGod().correspondingGod == this.card_abs.name)
             {
                 card.GetBuff(true, 2f);
             }
@@ -49,7 +49,7 @@ public class God_Behaviour : Card_Behaviour
     {
         foreach (NonGod_Behaviour card in currentLane)
         {
-            if (card.GetNonGod().correspondingGod == this.card.name)
+            if (card.GetNonGod().correspondingGod == this.card_abs.name)
             {
                 card.GetBuff(true, 0.5f);
             }
@@ -105,6 +105,6 @@ public class God_Behaviour : Card_Behaviour
 
     public virtual void OnTurnStart() { }
 
-    public string GetName() { return card.cardname; }
+    public string GetName() { return card_abs.cardname; }
 
 }

@@ -6,14 +6,14 @@ using static TurnManager;
 
 public abstract class Card_Behaviour : MonoBehaviour
 {
-    protected Card_SO card;
+    protected Card_SO card_abs;
     protected TurnManager manager;
 
     public readonly bool isReady = false;
 
     public virtual void Initialize(Card_SO card)
     {
-        this.card = card;
+        this.card_abs = card;
     }
 
     public void SetManager(TurnManager manager)
@@ -36,23 +36,14 @@ public abstract class Card_Behaviour : MonoBehaviour
         }
     }
 
-    public Card_SO GetCardSO() { return card; }
+    public Card_SO GetCardSO() { return card_abs; }
     // public void setCardSO(Card_SO Stats) { card = Stats; }
-
-    public virtual IEnumerator OnPlay(BoardState board)
-    {
-        yield return new WaitUntil(ReadyToBePlaced);
-        GetComponentInParent<Card_ClickGlowing>().RemoveBorder();
-        manager.FinishedPlay(this);
-    }
 
     public void DeSelected()
     {
         StopAllCoroutines();
         GetComponentInParent<Card_ClickGlowing>().RemoveBorder();
     }
-
-    public virtual void OnAction() { }
 
     internal TurnManager GetManager()
     {
@@ -72,4 +63,16 @@ public abstract class Card_Behaviour : MonoBehaviour
     {
         return true;
     }
+
+
+    public virtual IEnumerator OnPlay(BoardState board)
+    {
+        yield return new WaitUntil(ReadyToBePlaced);
+        GetComponentInParent<Card_ClickGlowing>().RemoveBorder();
+        GetComponentInParent<BoxCollider>().enabled = false;
+        LatePlayed(board);
+        manager.FinishedPlay(this);
+    }
+    public virtual void LatePlayed(BoardState board) { }
+    public virtual void OnAction() { }
 }

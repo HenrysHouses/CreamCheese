@@ -105,7 +105,6 @@ public class TurnManager : MonoBehaviour
                             if (a == playedCard)
                             {
                                 Animator anim = GetComponentInParent<Animator>();
-                                a.GetComponentInParent<BoxCollider>().enabled = false;
                                 if (anim)
                                 {
                                     anim.SetBool("ShowCard", false);
@@ -126,9 +125,6 @@ public class TurnManager : MonoBehaviour
 
                             board.lane.Add(nonGodPlayed);
 
-                            if (board.currentGod)
-                                nonGodPlayed.CheckForGod(board.currentGod);
-
                             currentLane++;
 
                             if (currentLane >= lanes.Length) endTurn.GetComponentInChildren<Canvas>().enabled = true;
@@ -148,7 +144,6 @@ public class TurnManager : MonoBehaviour
                             God_Behaviour godPlayed = playedCard as God_Behaviour;
                             godPlayed.transform.position = godLane.position;
                             godPlayed.transform.rotation = godLane.rotation;
-                            godPlayed.AfterBeingPlayed(board.lane);
 
                             hasPlayedAGod = true;
                         }
@@ -164,7 +159,8 @@ public class TurnManager : MonoBehaviour
                     { 
                         currentState = State.Action; 
                         turnEnd = false;
-                        endTurn.GetComponent<BoxCollider>().enabled = false; ;
+                        endTurn.GetComponent<BoxCollider>().enabled = false;
+                        endTurn.GetComponentInChildren<Canvas>().enabled = false;
                     }
                 }
                 break;
