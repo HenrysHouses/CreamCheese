@@ -50,6 +50,7 @@ namespace Map
             var map = Map_Generator.GetMap(configuration);
             CurrentMap = map;
             view.MapShow(map);
+            GameManager.instance.shouldGenerateNewMap = false;
         }
 
         public void SavingMap()
