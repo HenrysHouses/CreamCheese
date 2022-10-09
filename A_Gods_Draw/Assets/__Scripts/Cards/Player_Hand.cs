@@ -28,10 +28,11 @@ public class Player_Hand : MonoBehaviour
     public void AddCard(Card_SO card)
     {
         float posX = handPlace.position.x;
-        handPlace.position += Vector3.right * (-0.3f + CAH.Count * 0.15f);
+        handPlace.position += Vector3.right * (-0.3f + CAH.Count * 0.1f);
         float posZ = handPlace.position.z;
         handPlace.position += Vector3.forward * (0.0001f + CAH.Count * 0.01f / 2.5f); // << This puts the cards behing eacother, but makes unity angery
         GameObject spawn = Instantiate(CardinHandPrefab, handPlace.position, Quaternion.identity);
+        CardinHandPrefab.transform.localScale = new Vector3(0.75f,0.75f,0.75f);
         Card_Loader _loader = spawn.GetComponentInChildren<Card_Loader>();
         _loader.Set(card, _turnManager);
         CardInHand _card = new CardInHand(spawn.GetComponentInChildren<Card_Selector>());

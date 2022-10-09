@@ -72,6 +72,9 @@ public abstract class Card_Behaviour : MonoBehaviour
     {
         cor = Play(board);
         StartCoroutine(cor);
+        transform.localScale = new Vector3(0.25f,0.20f,0.20f);
+
+        
     }
 
     protected virtual IEnumerator Play(BoardState board)
