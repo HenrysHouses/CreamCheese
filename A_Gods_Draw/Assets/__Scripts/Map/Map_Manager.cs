@@ -16,6 +16,9 @@ namespace Map
         // Start is called before the first frame update
         private void Start()
         {
+            
+            GameManager.instance.MM = this;
+
             if (PlayerPrefs.HasKey("Map"))
             {
                 var mapJson = PlayerPrefs.GetString("Map");

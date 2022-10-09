@@ -1,11 +1,14 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using Map;
 
 public class GameManager : MonoBehaviour
-{
+{ public bool startedNewGame;
     public static GameManager instance;
     EncounterDiffeculty nextCombatDiff;
+    public Map_Manager MM;
+    
     private void Awake() 
     {
         if(!instance)
@@ -26,6 +29,13 @@ public class GameManager : MonoBehaviour
 
         
     
+    }
+
+    public void newGame()
+    {
+        MM.GenerateNewMap();
+        
+
     }
 
     public EncounterDiffeculty nextCombatType{
