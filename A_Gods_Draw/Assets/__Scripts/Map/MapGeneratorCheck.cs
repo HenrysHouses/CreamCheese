@@ -16,14 +16,14 @@ public class MapGeneratorCheck : MonoBehaviour
     }
 
     // Update is called once per frame
-    void Update()
-    {
-        if(GM.startedNewGame)
-        {
-            Debug.Log("Generates a new map");
-            MM.GenerateNewMap();
-           GM.startedNewGame = false;
-        }
+    // void Update()
+    // {
+    //     if(GM.startedNewGame)
+    //     {
+    //         Debug.Log("Generates a new map");
+    //         MM.GenerateNewMap();
+    //        GM.startedNewGame = false;
+    //     }
         
-    }
+    // }
 }

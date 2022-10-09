@@ -67,10 +67,9 @@ public static class MultiSceneLoader
     {
         if(currentlyLoaded == null)
         {
-            Debug.LogError("MultiSceneLoading: No currently loaded scene collection.");
-            return;
+            throw new UnityException("No currently loaded scene collection.");
         }
-        Debug.Log("loading Difference: " + Collection.Title + ", " + currentlyLoaded.Title);
+        // Debug.Log("loading Difference: " + Collection.Title + ", " + currentlyLoaded.Title);
         // Unload Differences
         foreach (string LoadedScene in currentlyLoaded.SceneNames)
         {

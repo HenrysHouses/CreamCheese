@@ -73,7 +73,7 @@ public class TurnManager : MonoBehaviour
     bool endWait;
     //-------------------
 
-   public Encounter_SO[] LoadNextEncounter()
+    public Encounter_SO[] LoadNextEncounter()
     {
         return Resources.LoadAll<Encounter_SO>("Encounters/" + GameManager.instance.nextCombatType.ToString());
     }
@@ -112,7 +112,7 @@ public class TurnManager : MonoBehaviour
             {
                 Debug.Log("Monster should be placed");
                 Encounter_SO[] foundEncounters = LoadNextEncounter();
-                Encounter_SO currEncounter = foundEncounters[UnityEngine.Random.Range(0,foundEncounters.Length)];
+                Encounter_SO currEncounter = foundEncounters[UnityEngine.Random.Range(0,foundEncounters.Length-1)];
                 encounterLoaded = true;
                 for (int i = 0; i < currEncounter.enemies.Count; i++)
                 {

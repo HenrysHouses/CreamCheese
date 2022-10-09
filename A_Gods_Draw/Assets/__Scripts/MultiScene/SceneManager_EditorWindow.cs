@@ -37,10 +37,11 @@ public class SceneManager_window : EditorWindow
 
     private void LogPlayModeState(PlayModeStateChange state)
     {
-        Debug.Log(state);
         if(PlayModeStateChange.ExitingEditMode.Equals(state))
         {
-            EditorLoadCollection();
+            if(SelectedCollection)
+                MultiSceneEditorConfig.instance.setCurrCollection(SelectedCollection);
+            // EditorLoadCollection();
         }
     }
 

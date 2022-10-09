@@ -1,67 +1,5 @@
 %YAML 1.1
 %TAG !u! tag:unity3d.com,2011:
---- !u!1 &586760759348820237
-GameObject:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  serializedVersion: 6
-  m_Component:
-  - component: {fileID: 4238248732116860029}
-  m_Layer: 0
-  m_Name: MapBorder_TOP
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
---- !u!4 &4238248732116860029
-Transform:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 586760759348820237}
-  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 16.59}
-  m_LocalScale: {x: 8.279774, y: 8.279774, z: 8.279774}
-  m_ConstrainProportionsScale: 0
-  m_Children: []
-  m_Father: {fileID: 9073794630240006013}
-  m_RootOrder: 3
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!1 &5995190422651257595
-GameObject:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  serializedVersion: 6
-  m_Component:
-  - component: {fileID: 9203824945877799840}
-  m_Layer: 0
-  m_Name: MapBorder_BOTTOM
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
---- !u!4 &9203824945877799840
-Transform:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 5995190422651257595}
-  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 8.279774, y: 8.279774, z: 8.279774}
-  m_ConstrainProportionsScale: 0
-  m_Children: []
-  m_Father: {fileID: 9073794630240006013}
-  m_RootOrder: 4
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &9073794629957831670
 GameObject:
   m_ObjectHideFlags: 0
@@ -188,8 +126,6 @@ Transform:
   - {fileID: 9073794631585828112}
   - {fileID: 9073794629957831671}
   - {fileID: 9073794629974404457}
-  - {fileID: 4238248732116860029}
-  - {fileID: 9203824945877799840}
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 90, y: 0, z: 0}
@@ -243,7 +179,8 @@ MonoBehaviour:
   - {fileID: 11400000, guid: a36dc31373151164697ee303ee56d8a2, type: 2}
   nodePrefab: {fileID: 5137796961920531853, guid: 0706fa4392632d84eb2adb4e6ec3323b, type: 3}
   orientationOffset: 0
-  background: {fileID: 21300000, guid: 00290dfc8d8a5454fbfba3dc4cddcfbe, type: 3}
+  ScrollBounds: {x: -1.17, y: 0.86}
+  background: {fileID: 0}
   bgColor: {r: 0.8962264, g: 0.83088094, b: 0.63834995, a: 0.53333336}
   xSize: 11.5
   yOffset: 2
@@ -252,13 +189,16 @@ MonoBehaviour:
   offsetFromNodes: 0.5
   visitedColor:
     serializedVersion: 2
-    rgba: 4294967295
+    rgba: 4286840709
   lockedColor:
     serializedVersion: 2
-    rgba: 4286611584
+    rgba: 4282795590
   lineVisitedColor:
     serializedVersion: 2
-    rgba: 4294967295
+    rgba: 4286840709
   lineLockedColor:
     serializedVersion: 2
-    rgba: 4286611584
+    rgba: 4282795590
+  AvailableColor:
+    serializedVersion: 2
+    rgba: 4294967295

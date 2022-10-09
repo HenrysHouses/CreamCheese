@@ -4,10 +4,10 @@ using UnityEngine;
 using Map;
 
 public class GameManager : MonoBehaviour
-{ public bool startedNewGame;
+{ 
+    public bool shouldGenerateNewMap;
     public static GameManager instance;
     EncounterDiffeculty nextCombatDiff;
-    public Map_Manager MM;
     
     private void Awake() 
     {
@@ -17,25 +17,9 @@ public class GameManager : MonoBehaviour
             Destroy(gameObject);
     }
 
-    // Start is called before the first frame update
-    void Start()
-    {
-        
-    }
-
-    // Update is called once per frame
-    void Update()
-    {
-
-        
-    
-    }
-
     public void newGame()
     {
-        startedNewGame = true;
-        
-
+        shouldGenerateNewMap = true;
     }
 
     public EncounterDiffeculty nextCombatType{

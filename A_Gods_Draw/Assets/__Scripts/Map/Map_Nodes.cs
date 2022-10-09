@@ -23,7 +23,7 @@ namespace Map
     {
         //for ui and sprites for nodes of the map
         public SpriteRenderer sr;
-        public MeshRenderer mr;
+        MeshRenderer mr;
         public SpriteRenderer visitedSprite;
         public Image visitedImage; //image showing that you have visited that node
 
@@ -34,7 +34,7 @@ namespace Map
         private const float HoverScaleFactor = 1.2f;
         private float mouseDownTime;
         private const float maxClickDuration = 0.5f;
-
+        
         public void SetUp(Node node, NodeBlueprint blueprint)
         {
             Node = node;
@@ -72,13 +72,13 @@ namespace Map
             if(sr)
                 visitedSprite.gameObject.SetActive(false);
 
-            if(mr)
-                Debug.LogWarning("Node States for 3d models not implemented");
             switch (states)
             {
                 case NodeStates.Locked:
                     if(sr)
                         sr.color = Map_View.instance.lockedColor;
+                    if(mr)
+                        mr.material.color = Map_View.instance.lockedColor;
                     break;
 
                 case NodeStates.Visited:
@@ -87,11 +87,15 @@ namespace Map
                         sr.color = Map_View.instance.visitedColor;
                         visitedSprite.gameObject.SetActive(true);
                     }
+                    if(mr)
+                        mr.material.color = Map_View.instance.visitedColor;
                     break;
 
                 case NodeStates.Taken:
                     if(sr)
-                        sr.color = Map_View.instance.lockedColor;
+                        sr.color = Map_View.instance.AvailableColor;
+                    if(mr)
+                        mr.material.color = Map_View.instance.AvailableColor;
                     break;
 
                 default:

@@ -11,7 +11,8 @@ GameObject:
   - component: {fileID: 5137796961920531855}
   - component: {fileID: 5137796961920531852}
   - component: {fileID: -8306174159026507472}
-  m_Layer: 0
+  - component: {fileID: 7846864780607426843}
+  m_Layer: 14
   m_Name: Node_3D
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -27,7 +28,7 @@ Transform:
   m_GameObject: {fileID: 5137796961920531853}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0.906, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_LocalScale: {x: 1, y: 0.062579945, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 0}
@@ -46,7 +47,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   sr: {fileID: 0}
-  mr: {fileID: 0}
   visitedSprite: {fileID: 0}
   visitedImage: {fileID: 0}
 --- !u!65 &-8306174159026507472
@@ -62,3 +62,19 @@ BoxCollider:
   serializedVersion: 2
   m_Size: {x: 1, y: 1, z: 1}
   m_Center: {x: 0, y: 0, z: 0}
+--- !u!114 &7846864780607426843
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5137796961920531853}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b8e4566dd12966c47874c51dc5718580, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  col: {fileID: -8306174159026507472}
+  mr: {fileID: 0}
+  viewState: 0
+  log: 0

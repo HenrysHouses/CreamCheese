@@ -48,6 +48,7 @@ namespace Map
         public Color32 lockedColor = Color.gray;
         public Color32 lineVisitedColor = Color.white;
         public Color32 lineLockedColor = Color.gray;
+        public Color32 AvailableColor = Color.blue;
 
         private GameObject firstParent;
         private GameObject mapParent;
@@ -92,7 +93,7 @@ namespace Map
             ResetRotation();
             SetPickableNodes();
             SetPathColor();
-            // CreateBackground(m);
+            CreateBackground(m);
         }
 
         private void CreateBackground(Map m)
@@ -147,8 +148,8 @@ namespace Map
                 scrollNonUI.freezeZ = false;
             }
 
-            var boxColl = mapParent.AddComponent<BoxCollider>();
-            boxColl.size = new Vector3(100, 100, 1); //can be changed
+            // var boxColl = mapParent.AddComponent<BoxCollider>();
+            // boxColl.size = new Vector3(100, 100, 1); //can be changed
 
         }
 
