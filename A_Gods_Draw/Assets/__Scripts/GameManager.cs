@@ -33,7 +33,7 @@ public class GameManager : MonoBehaviour
 
     public void newGame()
     {
-        MM.GenerateNewMap();
+        startedNewGame = true;
         
 
     }
