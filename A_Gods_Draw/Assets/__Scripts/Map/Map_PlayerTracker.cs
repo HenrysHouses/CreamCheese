@@ -91,10 +91,10 @@ namespace Map
                     GameManager.instance.nextCombatType = EncounterDiffeculty.elites;
                     break;
                 case NodeType.RestPlace:
-                    sceneTransition.TransitionScene(false, "MainMenu"); //sends me to javi's scene since that has card stuff
+                    sceneTransition.TransitionScene(false, "CardReward"); //sends me to javi's scene since that has card stuff
                     break;
                 case NodeType.Reward:
-                    sceneTransition.TransitionScene(false, "MainMenu"); //sends me to javi's scene since that has card stuff
+                    sceneTransition.TransitionScene(false, "CardReward"); //sends me to javi's scene since that has card stuff
                     break;
                 case NodeType.Boss:
                     sceneTransition.TransitionScene(false, "Combat"); //sends me to javi's scene since that has card stuff
