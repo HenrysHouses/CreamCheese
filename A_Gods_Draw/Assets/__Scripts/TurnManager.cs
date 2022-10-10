@@ -34,6 +34,8 @@ public class TurnManager : MonoBehaviour
     [SerializeField]
     private EventReference SoundSelectCard, SoundDrawCards,SoundClickEnemy;
 
+    public GameManager GM;
+
     bool turnEnd;
 
     [SerializeField]
@@ -84,6 +86,7 @@ public class TurnManager : MonoBehaviour
         OnSelectedAttackCard = new UnityEvent();
         OnDeSelectedAttackCard = new UnityEvent();
         currentLane = 0;
+        GM = GameObject.Find("GameManager").GetComponent<GameManager>();
 
         // deckManager.SetTurnManager(this);
         StartCoroutine(waitForEncounter());
@@ -227,7 +230,7 @@ public class TurnManager : MonoBehaviour
                         currentState = State.Action; 
                         turnEnd = false;
                         endTurn.GetComponent<BoxCollider>().enabled = false;
-                        endTurn.GetComponentInChildren<Canvas>().enabled = false;
+                       // endTurn.GetComponentInChildren<Canvas>().enabled = false;
                     }
                 }
                 break;
@@ -449,6 +452,7 @@ public class TurnManager : MonoBehaviour
     public void PlayerLost()
     {
         //Play audio
+        GM.newGame();
         ui.ShowLoosingPanel();
         board._hand.RemoveAllCards();
 
