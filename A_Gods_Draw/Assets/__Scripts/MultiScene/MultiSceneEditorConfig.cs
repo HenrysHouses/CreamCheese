@@ -1,11 +1,13 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEditor;
 
-[CreateAssetMenu(menuName = "Multi Scenes/Editor Config")]
+[CreateAssetMenu(menuName = "Multi Scenes/Editor Config"), ]
 public class MultiSceneEditorConfig : ScriptableObject
 {
     public static MultiSceneEditorConfig instance;
+
     [SerializeField] SceneCollectionObject currentLoadedCollection;
     public void setCurrCollection(SceneCollectionObject newCollection)
     {
@@ -20,6 +22,9 @@ public class MultiSceneEditorConfig : ScriptableObject
         return null;
     }
 
+    #if UNITY_EDITOR
+    [InitializeOnLoadMethod]
+    #endif
     public void setInstance()
     {
         if(!instance)    
