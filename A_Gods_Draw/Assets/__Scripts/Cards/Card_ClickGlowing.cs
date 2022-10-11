@@ -149,6 +149,7 @@ public class Card_ClickGlowing : MonoBehaviour
         {
             godPlacement.GodShowArrow();
         }
+        hasArrow = true;
     }
 
     public void AttackCardBorder()

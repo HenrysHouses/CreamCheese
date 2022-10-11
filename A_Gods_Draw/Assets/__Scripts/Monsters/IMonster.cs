@@ -140,7 +140,10 @@ public abstract class IMonster : MonoBehaviour
     public virtual void IsObjectiveTo(Attack_Behaviour attack_Behaviour)
     {
         attacker = attack_Behaviour;
-        EnemyShowArrow();
+        if (player)
+        {
+            EnemyShowArrow();
+        }
         //Debug.Log(this + " can be attacked by " + attack_Behaviour);
     }
 
@@ -185,7 +188,10 @@ public abstract class IMonster : MonoBehaviour
 
     public void EnemyShowArrow()
     {
-        arrowImage.enabled = true;
+        if (player)
+        {
+            arrowImage.enabled = true;
+        }
     }
 
     public void EnemyHideArrow()
