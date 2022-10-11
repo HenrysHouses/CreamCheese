@@ -57,5 +57,9 @@ public class PauseMenu : MonoBehaviour
     public void QuitGame()
     {
         MultiSceneLoader.loadCollection("MainMenu", collectionLoadMode.difference);
+        Time.timeScale = 1;
+        panel.SetActive(false);
+        resumeButton.gameObject.SetActive(false);
+        quitButton.gameObject.SetActive(false);
     }
 }

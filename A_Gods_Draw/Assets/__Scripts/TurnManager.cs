@@ -77,7 +77,10 @@ public class TurnManager : MonoBehaviour
 
     public Encounter_SO[] LoadNextEncounter()
     {
-        return Resources.LoadAll<Encounter_SO>("Encounters/" + GameManager.instance.nextCombatType.ToString());
+        Encounter_SO[] loaded = Resources.LoadAll<Encounter_SO>("Encounters/" + GameManager.instance.nextCombatType.ToString());
+        if(loaded == null)
+            throw new UnityException("Was not able to load any encounters in: \"Assets/Resources/Encounters/" + GameManager.instance.nextCombatType + "\"");
+        return loaded;
     }
 
     void Start()
