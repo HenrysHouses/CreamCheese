@@ -29,17 +29,14 @@ public enum EncounterDiffeculty
 
 public class TurnManager : MonoBehaviour
 {
-    public EncounterGenerator EG;
     bool enemiesInitialized;
     [SerializeField]
     private EventReference SoundSelectCard, SoundDrawCards,SoundClickEnemy;
 
-    public GameManager GM;
-
     bool turnEnd;
 
-    [SerializeField]
-    UIManager ui;
+    // [SerializeField]
+    // UIManager ui;
 
     [SerializeField]
     Transform[] lanes;
@@ -89,7 +86,6 @@ public class TurnManager : MonoBehaviour
         OnSelectedAttackCard = new UnityEvent();
         OnDeSelectedAttackCard = new UnityEvent();
         currentLane = 0;
-        GM = GameObject.Find("GameManager").GetComponent<GameManager>();
 
         // deckManager.SetTurnManager(this);
         StartCoroutine(waitForEncounter());
@@ -449,8 +445,8 @@ public class TurnManager : MonoBehaviour
     public void PlayerLost()
     {
         //Play audio
-        GM.newGame();
-        ui.ShowLoosingPanel();
+        GameManager.instance.newGame();
+        // ui.ShowLoosingPanel();
         board._hand.RemoveAllCards();
 
         board.deckManager.discardAll();

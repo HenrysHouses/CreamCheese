@@ -6,9 +6,8 @@
  * Receive and handle animation requests for PathAnimatorController's / and maybe other animations later?
 */
 
-using System.Collections.Generic;
 using UnityEngine;
-using UnityEngine.Events;
+using System;
 
 /// <summary>Receives and handles animation requests</summary>
 [CreateAssetMenu(menuName = "Events/DynamicAnimationManager")]
@@ -19,12 +18,10 @@ public class AnimationManager_SO : ScriptableObject
 
 
     [SerializeField, Tooltip("Current Unhandled Requests")]
-    List<animRequestData> AnimationRequest = new List<animRequestData>();
-    public List<animRequestData> requests => AnimationRequest;
 
     /// <summary>invoked when new requests are added</summary>
-    [System.NonSerialized]
-    public UnityEvent AnimationRequestChangeEvent = new UnityEvent(); 
+    public event Action<string, animRequestData> OnAnimationRequestChange; 
+
     /// <summary>count of animations requested in this instance</summary>
     int animNum;
 
@@ -38,8 +35,8 @@ public class AnimationManager_SO : ScriptableObject
     {
         target.name += "_pathAnim" + animNum;
         animRequestData anim = new animRequestData(pathName, target.name, delay, coolDown, animationOverrideOptions);
-        AnimationRequest.Add(anim);
-        AnimationRequestChangeEvent?.Invoke();
+        // AnimationRequest.Add(anim);
+        OnAnimationRequestChange?.Invoke(pathName, anim);
         animNum++;
     }
 
@@ -51,57 +48,30 @@ public class AnimationManager_SO : ScriptableObject
     /// <param name="animationOverrideOptions">Overrides the settings that are not null</param>
     public void requestAnimation(string pathName, GameObject[] targets, float delay = 0, float coolDown = 0, PathAnimatorController.pathAnimation[] animationOverrideOptions = null)
     {
-        // if (animationOverrideOptions != null)
-        //     Debug.Log(animationOverrideOptions.Length);
-
-        foreach (var item in targets)
-        {
-            //Debug.Log(item);
-        }
-
         for (int i = 0; i < targets.Length; i++)
         {
+            animRequestData anim = null;
             targets[i].name += "_pathAnim" + animNum;
-            animRequestData anim;
+            float totalDelay = delay * i;
             if(animationOverrideOptions != null)
-                anim = new animRequestData(pathName, targets[i].name, delay, coolDown, animationOverrideOptions[i]);
+                anim = new animRequestData(pathName, targets[i].name, totalDelay, coolDown, animationOverrideOptions[i]);
             else
-                anim = new animRequestData(pathName, targets[i].name, delay, coolDown, null);
-            AnimationRequest.Add(anim);
+                anim = new animRequestData(pathName, targets[i].name, totalDelay, coolDown, null);
             animNum++;
+            if(anim != null)
+                OnAnimationRequestChange?.Invoke(pathName, anim);
         }
-        AnimationRequestChangeEvent?.Invoke();
-    }
-
-    /// <summary>Removes a named animation</summary>
-    /// <param name="targetName">name of the target gameObject that should be animated</param>
-    public void removeRequest(string targetName)
-    {
-        for (int i = 0; i < AnimationRequest.Count; i++)
-        {
-            if(AnimationRequest[i].target == targetName)
-                AnimationRequest.RemoveAt(i);
-        }
-        AnimationRequestChangeEvent?.Invoke();
     }
 
     // setup
     void OnEnable()
     {
         animNum = 0;
-        if(AnimationRequestChangeEvent == null)
-            AnimationRequestChangeEvent = new UnityEvent();
 
         if(!instance)
             instance = this;
         else
             Debug.LogWarning("There are multiple AnimationManager_SO objects. please remove duplicates");
-    }
-
-    // remove all requests when not used
-    void OnDisable()
-    {
-        AnimationRequest.Clear();
     }
 }
 

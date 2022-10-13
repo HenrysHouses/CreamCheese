@@ -182,6 +182,7 @@ public class DeckManager_SO : ScriptableObject
     /// ! <returns></returns> // Missing return summary
     public void drawCard(int amount, TurnManager mngr = null)
     {
+        Debug.Log("Drawing " + amount);
         if (pLibrary.Count < amount) // if there is no cards in library to draw, shuffle the discard into the library and return
         {
             shuffleDiscard();
@@ -219,7 +220,7 @@ public class DeckManager_SO : ScriptableObject
             //cards[i].transform.position = new Vector3(20, 0, 0);
             //card.transform.rotation = Quaternion.Euler(-20 + i * 10, 90, 0);
         }
-        AnimationManager_SO.getInstance.requestAnimation("Library-Hand", cards, 0, 0.25f, animations);
+        AnimationManager_SO.getInstance.requestAnimation("Library-Hand", cards, 0.25f, 0, animations);
 
         // ? change events may not be used
         pLibraryChangeEvent.Invoke();

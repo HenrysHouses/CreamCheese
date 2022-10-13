@@ -99,7 +99,7 @@ public class PathAnimatorController : MonoBehaviour
     void Start()
     {
         isAnimating = false;
-        isReadingRequests = false;
+        // isReadingRequests = false;
     }
 
     void OnEnable()
@@ -109,61 +109,32 @@ public class PathAnimatorController : MonoBehaviour
         if(!manager_SO)
             return;    
         // Listen to when the animation manager has new animation requests
-        manager_SO.AnimationRequestChangeEvent.AddListener(checkUpdatedRequests);
+        manager_SO.OnAnimationRequestChange += checkUpdatedRequests;
 
     }
 
     void OnDisable()
     {
         // Remove the listener to avoid unintended behaviour
-        manager_SO.AnimationRequestChangeEvent.RemoveListener(checkUpdatedRequests);
+        manager_SO.OnAnimationRequestChange -= checkUpdatedRequests;
     }
 
     /// <summary>Reads requests and waits for animation cool downs</summary>
-    void checkUpdatedRequests()
+    void checkUpdatedRequests(string id, animRequestData anim)
     {
-        // if(!isReadingRequests)
-            StartCoroutine(readRequests());
+        StartCoroutine(readRequests(id, anim));
     }
 
-    IEnumerator readRequests()
+    IEnumerator readRequests(string id, animRequestData anim)
     {
-        isReadingRequests = true;
-
-        List<animRequestData> currentRequests = new List<animRequestData>();
-        foreach (var request in manager_SO.requests)
+        if(id.Equals(_pathName))
         {
-            currentRequests.Add(request);
+            yield return new WaitForSeconds(anim.delay);
+            StartCoroutine(CreateAnimation(anim));
+            // prep remove accepted request
+            yield return new WaitForSeconds(anim.coolDown);
         }
-
-        List<string> completedRequests = new List<string>();
-        
-        for (int i = 0; i < currentRequests.Count; i++)
-        {
-            
-            if(currentRequests[i].requestName.Equals(AnimationName) && !currentRequests[i].requestAccepted)
-            {
-                // Make sure the request is not read multiple times
-                if(i> manager_SO.requests.Count-1)
-                    break;
-                manager_SO.requests[i].requestAccepted = true;  
-                // create animation
-                StartCoroutine(CreateAnimation(currentRequests[i]));
-                // prep remove accepted request
-                completedRequests.Add(currentRequests[i].target);
-                yield return new WaitForSeconds(currentRequests[i].coolDown);
-            }
-        }
-        
-        foreach (var completed in completedRequests)
-        {
-            manager_SO.removeRequest(completed);
-        }
-        isReadingRequests = false;
     }
-
-    // ! Used for the editor script, probably wont be needed for much longer
-    public AnimationManager_SO getAnimManagerSO(){ return manager_SO; }
 
     /// <summary>Get all the current settings for the animation</summary>
     /// <returns>Data class containing all the animation settings</returns>
@@ -196,7 +167,7 @@ public class PathAnimatorController : MonoBehaviour
         if(anim.speedMultiplier == 0)
             anim.speedMultiplier = Multiplier;
 
-        anim.CompletionTrigger.AddListener(debugTestCompletion);
+        // anim.CompletionTrigger.AddListener(debugTestCompletion);
 
         return anim;
     }

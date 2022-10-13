@@ -17,10 +17,10 @@ public class AnimationManager_Editor : Editor
     {
         base.OnInspectorGUI();
 
-        if(GUILayout.Button("Trigger AnimationRequestChangeEvent"))
-        {
-            script.AnimationRequestChangeEvent?.Invoke();
-        }
+        // if(GUILayout.Button("Trigger AnimationRequestChangeEvent"))
+        // {
+        //     script.OnAnimationRequestChange?.Invoke();
+        // }
     }
 }
 
