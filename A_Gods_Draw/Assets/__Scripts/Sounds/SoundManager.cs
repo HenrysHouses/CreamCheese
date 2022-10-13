@@ -25,7 +25,7 @@ public class SoundManager : MonoBehaviour
  
         FMOD.Studio.System system = new FMOD.Studio.System();
         FMOD.Studio.ADVANCEDSETTINGS settings = new FMOD.Studio.ADVANCEDSETTINGS();
-        settings.cbsize = default; // DONT TOUCH
+       // settings.cbsize = default; // DONT TOUCH
         settings.handleinitialsize = 0; // 8192 * Sizeof(Void*), Bytes
         settings.studioupdateperiod = 0; // 20, millisecounds
         settings.idlesampledatapoolsize = 0; // 262144, bytes
