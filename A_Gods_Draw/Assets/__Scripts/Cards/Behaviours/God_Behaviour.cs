@@ -111,8 +111,11 @@ public class God_Behaviour : Card_Behaviour
 
     private void OnMouseOver()
     {
-        if (godPlacement)
+        /*?if (godPlacement)
+        {
             godPlacement.godArrow.color = Color.magenta;
+        }*/
+        godPlacement.godArrow.color = Color.magenta;
     }
 
     private void OnMouseExit()

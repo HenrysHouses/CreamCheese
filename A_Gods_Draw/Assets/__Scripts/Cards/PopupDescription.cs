@@ -34,5 +34,19 @@ public class PopupDescription : MonoBehaviour
             isMade = false;
         }
     }
-
+    /*public void OnButtonClick()
+    {
+        if (isMade)
+        {
+            ui.SetActive(false);
+            background.SetActive(false);
+            Debug.Log("text is off");
+        }
+        else
+        {
+            ui.SetActive(true);
+            background.SetActive(true);
+            Debug.Log("text is on");
+        }
+    }*/
 }

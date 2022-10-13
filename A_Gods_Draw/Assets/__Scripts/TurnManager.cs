@@ -210,7 +210,7 @@ public class TurnManager : MonoBehaviour
 
                             if (board.currentGod)
                             {
-                                godLane.GetComponent<GodPlacement>().GodHideArrow();
+                                godLane.GetComponent<GodPlacement>().GodShowArrow();
                             }
 
                             hasPlayedAGod = true;
