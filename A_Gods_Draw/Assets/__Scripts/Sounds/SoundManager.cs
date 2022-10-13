@@ -25,18 +25,22 @@ public class SoundManager : MonoBehaviour
  
         FMOD.Studio.System system = new FMOD.Studio.System();
         FMOD.Studio.ADVANCEDSETTINGS settings = new FMOD.Studio.ADVANCEDSETTINGS();
-        settings.cbsize = default; //32768 ,Bytes
+        settings.cbsize = default; // DONT TOUCH
         settings.handleinitialsize = 0; // 8192 * Sizeof(Void*), Bytes
         settings.studioupdateperiod = 0; // 20, millisecounds
         settings.idlesampledatapoolsize = 0; // 262144, bytes
         settings.streamingscheduledelay = 0; //8192, samples
-        settings.commandqueuesize = 0;// If this doesnt work, can set any other than CBSIZE to "Zero" for it to be used as the default
+        settings.commandqueuesize = 10000; //32768 ,Bytes
+        // If this doesnt work, can set any other than CBSIZE to "Zero" for it to be used as the default
 
 
         system.setAdvancedSettings(settings);
 
 
+        FMOD.Studio.BUFFER_INFO buffer = new FMOD.Studio.BUFFER_INFO();
         
+
+         // system.getBufferUsage(out buffer);
         
         
         
