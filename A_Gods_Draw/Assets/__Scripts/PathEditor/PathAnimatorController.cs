@@ -16,9 +16,8 @@ using Unity.Collections;
 /// <summary>Reads requests from the animation manager, and animates the requested gameObjects through its path</summary>
 public class PathAnimatorController : MonoBehaviour
 {
-    [SerializeField, Tooltip("Required to read animation requests")]
-    AnimationManager_SO manager_SO;
-
+    // [SerializeField, Tooltip("Required to read animation requests")]
+    // AnimationManager_SO manager_SO;
 
     /// <summary>Current animations on this path</summary>
     [SerializeField] List<pathAnimation> _Animations = new List<pathAnimation>();
@@ -47,6 +46,11 @@ public class PathAnimatorController : MonoBehaviour
     public GameObject testAnimationObj;
 
     void OnValidate()
+    {
+        calculateApproximateAnimLength();
+    }
+
+    void calculateApproximateAnimLength()
     {
         // calculate estimated animation length
         int fps = 25;
@@ -99,6 +103,7 @@ public class PathAnimatorController : MonoBehaviour
     void Start()
     {
         isAnimating = false;
+        calculateApproximateAnimLength();
         // isReadingRequests = false;
     }
 
@@ -106,17 +111,17 @@ public class PathAnimatorController : MonoBehaviour
     {
         if(AnimationName == "")
             Debug.LogWarning(this + ": Needs a path name in order to read requests from the animation manager");
-        if(!manager_SO)
+        if(!AnimationManager_SO.getInstance)
             return;    
         // Listen to when the animation manager has new animation requests
-        manager_SO.OnAnimationRequestChange += checkUpdatedRequests;
+        AnimationManager_SO.getInstance.OnAnimationRequestChange += checkUpdatedRequests;
 
     }
 
     void OnDisable()
     {
         // Remove the listener to avoid unintended behaviour
-        manager_SO.OnAnimationRequestChange -= checkUpdatedRequests;
+        AnimationManager_SO.getInstance.OnAnimationRequestChange -= checkUpdatedRequests;
     }
 
     /// <summary>Reads requests and waits for animation cool downs</summary>
@@ -232,7 +237,7 @@ public class PathAnimatorController : MonoBehaviour
             for (int i = 0; i < _Animations.Count; i++)
             {
                 // Animation completion state. Gets set to false if its still ongoing. // ? should maybe be inverted but whatever
-                bool state = true;
+                bool state = true; 
 
                 // while(state) // was used then this was not in update
                 // {

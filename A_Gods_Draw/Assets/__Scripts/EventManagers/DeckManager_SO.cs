@@ -182,7 +182,6 @@ public class DeckManager_SO : ScriptableObject
     /// ! <returns></returns> // Missing return summary
     public void drawCard(int amount, TurnManager mngr = null)
     {
-        Debug.Log("Drawing " + amount);
         if (pLibrary.Count < amount) // if there is no cards in library to draw, shuffle the discard into the library and return
         {
             shuffleDiscard();
