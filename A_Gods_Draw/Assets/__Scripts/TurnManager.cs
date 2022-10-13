@@ -15,6 +15,7 @@ public struct BoardState
     public Player_Hand _hand;
     public God_Behaviour currentGod;
     public List<NonGod_Behaviour> lane;
+    
 
 }
 
@@ -357,6 +358,9 @@ public class TurnManager : MonoBehaviour
             }
 
             card.OnPlay(board);
+            board._hand.UpdateCards();
+            
+            
         }
     }
 

@@ -91,13 +91,14 @@ public class Player_Hand : MonoBehaviour
             }
         }
     }
-    private void UpdateCards()
+    public void UpdateCards()
     {
-       // float count = (float)CAH.Count;
-        //for (int i = 0; i < CAH.Count; i++)
-        //{
-         //   CAH[i].CS.transform.rotation = Quaternion.Euler(0, 0, (cardRotation * ((count - 1) / 2f)) - cardRotation * i);
-        //}
+       float count = (float)CAH.Count;
+        for (int i = 0; i < CAH.Count; i++)
+        {
+            CAH[i].CS.transform.rotation = Quaternion.Euler(0, 0, (cardRotation * ((count - 1) / 2f)) - cardRotation * i);
+            
+        }
     }
     
     void HoverOverCard(int card)
