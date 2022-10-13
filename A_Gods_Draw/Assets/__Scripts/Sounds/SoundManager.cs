@@ -54,7 +54,7 @@ public class SoundManager : MonoBehaviour
 
     public void Playsound(EventReference _soundEvenet, GameObject soundGO, bool looping = false, ParamRef parameterID = null)
     {
-        //Debug.Log(soundGO);
+        Debug.Log(_soundEvenet.Path);
         EventInstance temperaryEvent;
         PLAYBACK_STATE pbstate;
 

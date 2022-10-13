@@ -20,35 +20,35 @@ public class SceneCollectionObject_Editor : Editor
         base.OnInspectorGUI();
     
         // Drawing custom list
-        EditorGUILayout.LabelField("Scenes");
-        var _collectedScenes = script.Scenes; // index of selected scenes
-        int newCount = Mathf.Max(0, EditorGUILayout.DelayedIntField("    size", _collectedScenes.Count));
+        // EditorGUILayout.LabelField("Scenes");
+        // var _collectedScenes = script.Scenes; // index of selected scenes
+        // int newCount = Mathf.Max(0, EditorGUILayout.DelayedIntField("    size", _collectedScenes.Count));
         
-        while (newCount < _collectedScenes.Count)
-        {
-            _collectedScenes.RemoveAt( _collectedScenes.Count - 1 );
-        }
+        // while (newCount < _collectedScenes.Count)
+        // {
+        //     _collectedScenes.RemoveAt( _collectedScenes.Count - 1 );
+        // }
 
-        // List Management buttons
-        if(GUILayout.Button("Add"))
-        {
-            script.Scenes.Add(null);
-        }
+        // // List Management buttons
+        // if(GUILayout.Button("Add"))
+        // {
+        //     script.Scenes.Add(null);
+        // }
 
-        if(GUILayout.Button("Remove"))
-        {
-            script.Scenes.RemoveAt(script.Scenes.Count-1);
-        }
+        // if(GUILayout.Button("Remove"))
+        // {
+        //     script.Scenes.RemoveAt(script.Scenes.Count-1);
+        // }
 
-        for(int i = 0; i < _collectedScenes.Count; i++)
-        {
-            // Drawing Scene Object field
-            _collectedScenes[i] = (SceneAsset)EditorGUILayout.ObjectField(_collectedScenes[i], typeof(SceneAsset), false);
-        }
+        // for(int i = 0; i < _collectedScenes.Count; i++)
+        // {
+        //     // Drawing Scene Object field
+        //     _collectedScenes[i] = (SceneAsset)EditorGUILayout.ObjectField(_collectedScenes[i], typeof(SceneAsset), false);
+        // }
 
 
         // Save the changes back to the object
-        EditorUtility.SetDirty(target);
+        // EditorUtility.SetDirty(target);
     }
 
     void OnInspectorUpdate()
