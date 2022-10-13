@@ -162,7 +162,7 @@ public class TurnManager : MonoBehaviour
                         {
                             if (a == playedCard)
                             {
-                                
+                                SoundManager.Instance.Playsound(SoundClickEnemy,gameObject);
                                 Animator anim = GetComponentInParent<Animator>();
                                 if (anim)
                                 {
@@ -179,7 +179,7 @@ public class TurnManager : MonoBehaviour
                         NonGod_Behaviour nonGodPlayed = playedCard as NonGod_Behaviour;
                         if (nonGodPlayed)
                         {
-                            SoundManager.Instance.Playsound(SoundClickEnemy,gameObject);
+                            
                             playedCard.gameObject.transform.position = lanes[currentLane].position;
                             playedCard.gameObject.transform.rotation = lanes[currentLane].rotation;
 
@@ -379,6 +379,7 @@ public class TurnManager : MonoBehaviour
     public Card_Behaviour CurrentlySelectedCard()
     {
         SoundManager.Instance.Playsound(SoundSelectCard, gameObject);
+        SoundManager.Instance.StopSound(SoundClickEnemy,gameObject);
         return selectedCard;
     }
 

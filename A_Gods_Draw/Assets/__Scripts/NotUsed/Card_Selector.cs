@@ -54,7 +54,7 @@ public class Card_Selector : MonoBehaviour
     public void OnMouseExit()
     {
         holdingOver = false;
-       // SoundManager.Instance.StopSound(cardflip,gameObject);
+        SoundManager.Instance.StopSound(cardflip,gameObject);
     }
 
     private void OnMouseDown()
