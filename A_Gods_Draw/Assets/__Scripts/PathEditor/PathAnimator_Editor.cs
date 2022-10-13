@@ -35,7 +35,7 @@ public class PathAnimator_Editor : Editor
             if(EditorApplication.isPlaying)
             {
                 GameObject card = Instantiate(script.testAnimationObj);
-                AnimationManager_SO.getInstance.requestAnimation(script.AnimationName, card);
+                AnimationEventManager.getInstance.requestAnimation(script.AnimationName, card);
             }
             else
                 Debug.LogWarning("Play the editor to test the animation");

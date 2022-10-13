@@ -52,6 +52,9 @@ public class PathAnimatorController : MonoBehaviour
 
     void calculateApproximateAnimLength()
     {
+        if(!path)
+            return;
+
         // calculate estimated animation length
         int fps = 25;
         float meters = path.GetApproxLength();
@@ -111,17 +114,17 @@ public class PathAnimatorController : MonoBehaviour
     {
         if(AnimationName == "")
             Debug.LogWarning(this + ": Needs a path name in order to read requests from the animation manager");
-        if(!AnimationManager_SO.getInstance)
+        if(!AnimationEventManager.getInstance)
             return;    
         // Listen to when the animation manager has new animation requests
-        AnimationManager_SO.getInstance.OnAnimationRequestChange += checkUpdatedRequests;
+        AnimationEventManager.getInstance.OnAnimationRequestChange += checkUpdatedRequests;
 
     }
 
     void OnDisable()
     {
         // Remove the listener to avoid unintended behaviour
-        AnimationManager_SO.getInstance.OnAnimationRequestChange -= checkUpdatedRequests;
+        AnimationEventManager.getInstance.OnAnimationRequestChange -= checkUpdatedRequests;
     }
 
     /// <summary>Reads requests and waits for animation cool downs</summary>
@@ -200,6 +203,9 @@ public class PathAnimatorController : MonoBehaviour
         request.anim.AnimationTarget.transform.SetParent(request.anim.AnimationTransform);
         request.anim.AnimationTarget.transform.position = new Vector3();  
         request.anim.AnimationTransform.SetParent(transform, false);
+        
+        // ! temporary anim rotation
+        request.anim.AnimationTarget.transform.Rotate(new Vector3(0,-90, 0), Space.Self);
 
         // Decides if the animation is played regularly or in reverse.
         if(request.anim.speedMultiplier > 0)

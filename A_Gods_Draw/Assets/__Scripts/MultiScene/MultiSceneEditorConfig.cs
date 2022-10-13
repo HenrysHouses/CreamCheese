@@ -25,8 +25,8 @@ public class MultiSceneEditorConfig : ScriptableObject
     {
         if(!instance)    
             instance = this;
-        else
-            Debug.LogWarning("MultiSceneEditorConfig: Instance already set.");
+        // else
+        //     Debug.Log("MultiSceneEditorConfig: Instance already set.");
     }
 
     private void OnEnable() {

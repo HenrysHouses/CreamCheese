@@ -10,11 +10,11 @@ using UnityEngine;
 using System;
 
 /// <summary>Receives and handles animation requests</summary>
-[CreateAssetMenu(menuName = "Events/DynamicAnimationManager")]
-public class AnimationManager_SO : ScriptableObject
+// [CreateAssetMenu(menuName = "Events/DynamicAnimationManager")]
+public class AnimationEventManager : MonoBehaviour
 {
-    static AnimationManager_SO instance;
-    public static AnimationManager_SO getInstance => instance;
+    static AnimationEventManager instance;
+    public static AnimationEventManager getInstance => instance;
 
 
     [SerializeField, Tooltip("Current Unhandled Requests")]
@@ -24,6 +24,14 @@ public class AnimationManager_SO : ScriptableObject
 
     /// <summary>count of animations requested in this instance</summary>
     int animNum;
+
+    private void Awake() 
+    {
+        animNum = 0;
+
+        if(!instance)
+            instance = this;
+    }
 
     /// <summary>Request a single animation</summary>
     /// <param name="pathName">The animator that should read this request</param>
@@ -61,17 +69,6 @@ public class AnimationManager_SO : ScriptableObject
             if(anim != null)
                 OnAnimationRequestChange?.Invoke(pathName, anim);
         }
-    }
-
-    // setup
-    void OnEnable()
-    {
-        animNum = 0;
-
-        if(!instance)
-            instance = this;
-        else
-            Debug.LogWarning("There are multiple AnimationManager_SO objects. please remove duplicates");
     }
 }
 
