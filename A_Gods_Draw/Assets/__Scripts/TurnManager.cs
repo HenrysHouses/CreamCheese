@@ -170,6 +170,7 @@ public class TurnManager : MonoBehaviour
                                     anim.SetBool("ShowCard", false);
                                     anim.Play("Default");
                                     Destroy(anim);
+                                    SoundManager.Instance.StopSound(SoundClickEnemy,gameObject);
                                 }
                                 break;
                             }
