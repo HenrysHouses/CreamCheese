@@ -138,9 +138,8 @@ public class PathAnimatorController : MonoBehaviour
         if(id.Equals(_pathName))
         {
             yield return new WaitForSeconds(anim.delay);
-            StartCoroutine(CreateAnimation(anim));
             // prep remove accepted request
-            yield return new WaitForSeconds(anim.coolDown);
+            StartCoroutine(CreateAnimation(anim));
         }
     }
 

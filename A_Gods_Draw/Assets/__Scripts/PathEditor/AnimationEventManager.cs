@@ -39,10 +39,10 @@ public class AnimationEventManager : MonoBehaviour
     /// <param name="delay">time delay before animation starts</param>
     /// <param name="coolDown">time cool down before a new animation can start</param>
     /// <param name="animationOverrideOptions">Overrides the settings that are not null</param>
-    public void requestAnimation(string pathName, GameObject target, float delay = 0, float coolDown = 0, PathAnimatorController.pathAnimation animationOverrideOptions = null)
+    public void requestAnimation(string pathName, GameObject target, float delay = 0, PathAnimatorController.pathAnimation animationOverrideOptions = null)
     {
         target.name += "_pathAnim" + animNum;
-        animRequestData anim = new animRequestData(pathName, target.name, delay, coolDown, animationOverrideOptions);
+        animRequestData anim = new animRequestData(pathName, target.name, delay, animationOverrideOptions);
         // AnimationRequest.Add(anim);
         OnAnimationRequestChange?.Invoke(pathName, anim);
         animNum++;
@@ -54,7 +54,7 @@ public class AnimationEventManager : MonoBehaviour
     /// <param name="delay">time delay before animation starts</param>
     /// <param name="coolDown">time cool down before a new animation can start</param>
     /// <param name="animationOverrideOptions">Overrides the settings that are not null</param>
-    public void requestAnimation(string pathName, GameObject[] targets, float delay = 0, float coolDown = 0, PathAnimatorController.pathAnimation[] animationOverrideOptions = null)
+    public void requestAnimation(string pathName, GameObject[] targets, float delay = 0, PathAnimatorController.pathAnimation[] animationOverrideOptions = null)
     {
         for (int i = 0; i < targets.Length; i++)
         {
@@ -62,9 +62,9 @@ public class AnimationEventManager : MonoBehaviour
             targets[i].name += "_pathAnim" + animNum;
             float totalDelay = delay * i;
             if(animationOverrideOptions != null)
-                anim = new animRequestData(pathName, targets[i].name, totalDelay, coolDown, animationOverrideOptions[i]);
+                anim = new animRequestData(pathName, targets[i].name, totalDelay, animationOverrideOptions[i]);
             else
-                anim = new animRequestData(pathName, targets[i].name, totalDelay, coolDown, null);
+                anim = new animRequestData(pathName, targets[i].name, totalDelay, null);
             animNum++;
             if(anim != null)
                 OnAnimationRequestChange?.Invoke(pathName, anim);
@@ -80,16 +80,14 @@ public class animRequestData
     public string requestName;
     public string target;
     public PathAnimatorController.pathAnimation anim;
-    public float coolDown;
     public float delay;
     public bool requestAccepted;
 
-    public animRequestData(string pathName, string targetName, float delay, float coolDown, PathAnimatorController.pathAnimation animation)
+    public animRequestData(string pathName, string targetName, float delay, PathAnimatorController.pathAnimation animation)
     {
         this.requestName = pathName;
         this.target = targetName;
         this.delay = delay;
-        this.coolDown = coolDown;
         this.anim = animation;
     }
 }
