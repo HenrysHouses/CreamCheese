@@ -27,12 +27,39 @@ public class SceneManager_window : EditorWindow
         else
             return null;
     } 
-    SceneCollectionObject SelectedCollection;
+    [SerializeField, HideInInspector] SceneCollectionObject SelectedCollection;
     int UnloadScene;
 
     SceneManager_window()
     {
         EditorApplication.playModeStateChanged += LogPlayModeState;
+    }
+
+    [MenuItem("Multi Scene Workflow/Scene Manager")]
+    static void Init()
+    {
+        // Get existing open window or if none, make a new one:
+        SceneManager_window window = (SceneManager_window)EditorWindow.GetWindow(typeof(SceneManager_window));
+        window.titleContent = new GUIContent("Scene Manager", "Loads, Unloads, and Saves Scene Collections");
+        window.Show();
+        if(!MultiSceneEditorConfig.instance)
+            MultiSceneEditorConfig.instance.setInstance();
+    }
+
+    protected void OnEnable ()
+    {
+        // Here we retrieve the data if it exists or we save the default field initialisers we set above
+        var data = EditorPrefs.GetString("MultiSceneManagerWindow", JsonUtility.ToJson(this, false));
+        // Then we apply them to this window
+        JsonUtility.FromJsonOverwrite(data, this);
+    }
+ 
+    protected void OnDisable ()
+    {
+        // We get the Json data
+        var data = JsonUtility.ToJson(this, false);
+        // And we save it
+        EditorPrefs.SetString("MultiSceneManagerWindow", data);
     }
 
     private void LogPlayModeState(PlayModeStateChange state)
@@ -43,17 +70,6 @@ public class SceneManager_window : EditorWindow
                 MultiSceneEditorConfig.instance.setCurrCollection(SelectedCollection);
             // EditorLoadCollection();
         }
-    }
-
-    [MenuItem("Multi Scene Workflow/Scene Manager")]
-    static void Init()
-    {
-        // Get existing open window or if none, make a new one:
-        SceneManager_window window = (SceneManager_window)EditorWindow.GetWindow(typeof(SceneManager_window));
-        window.titleContent = new GUIContent("Scene Manager", "Loads, Unloads, and Saves Scene Collections");
-        window.Show();
-        if(MultiSceneEditorConfig.instance)
-            MultiSceneEditorConfig.instance.setInstance();
     }
 
     void OnGUI()
