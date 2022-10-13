@@ -4,9 +4,16 @@ using UnityEngine;
 using FMODUnity;
 using FMOD.Studio;
 
+
+
+
 public class SoundManager : MonoBehaviour
+
+
 {   private Dictionary<(EventReference, GameObject),EventInstance> eventInstances;
     public static SoundManager Instance;
+    
+    
 
 
     // Start is called before the first frame update
@@ -15,6 +22,22 @@ public class SoundManager : MonoBehaviour
         if(Instance != this && Instance == null)
         Instance = this;
         eventInstances = new Dictionary<(EventReference, GameObject), EventInstance>();
+ 
+        FMOD.Studio.System system = new FMOD.Studio.System();
+        FMOD.Studio.ADVANCEDSETTINGS settings = new FMOD.Studio.ADVANCEDSETTINGS();
+        settings.cbsize = default; //32768 ,Bytes
+        settings.handleinitialsize = default; // 8192 * Sizeof(Void*), Bytes
+        settings.studioupdateperiod = default; // 20, millisecounds
+        settings.idlesampledatapoolsize = default; // 262144, bytes
+        settings.streamingscheduledelay = default; //8192, samples
+        // If this doesnt work, can set any other than CBSIZE to "Zero" for it to be used as the default
+
+
+        system.setAdvancedSettings(settings);
+
+
+        
+        
         
         
     }
