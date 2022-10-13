@@ -162,7 +162,7 @@ public class TurnManager : MonoBehaviour
                         {
                             if (a == playedCard)
                             {
-                                SoundManager.Instance.Playsound(SoundClickEnemy,gameObject);
+                               
                                 Animator anim = GetComponentInParent<Animator>();
                                 if (anim)
                                 {

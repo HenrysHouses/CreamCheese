@@ -806,7 +806,6 @@ GameObject:
   - component: {fileID: 604406682}
   - component: {fileID: 604406684}
   - component: {fileID: 604406683}
-  - component: {fileID: 604406685}
   m_Layer: 5
   m_Name: Panel
   m_TagString: Untagged
@@ -822,7 +821,7 @@ RectTransform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 604406681}
   m_LocalRotation: {x: 0.20236456, y: -0, z: -0, w: 0.97931033}
-  m_LocalPosition: {x: 0, y: 0, z: 0.58}
+  m_LocalPosition: {x: 0, y: 0, z: 0.45}
   m_LocalScale: {x: 0.7676489, y: 0.46671912, z: 0.792231}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -831,7 +830,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 23.351, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 1, y: 1}
-  m_AnchoredPosition: {x: -0.22, y: 6.22}
+  m_AnchoredPosition: {x: -0.43, y: 5.92}
   m_SizeDelta: {x: 0, y: 0}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &604406683
@@ -846,8 +845,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: fe87c0e1cc204ed48ad3b37840f39efc, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  m_Material: {fileID: 0}
-  m_Color: {r: 1, g: 1, b: 1, a: 0.58431375}
+  m_Material: {fileID: 2100000, guid: e73a58f6e2794ae7b1b7e50b7fb811b0, type: 2}
+  m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_RaycastTarget: 1
   m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
   m_Maskable: 1
@@ -872,24 +871,6 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 604406681}
   m_CullTransparentMesh: 1
---- !u!114 &604406685
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 604406681}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 930bb70024baeb34a85c19064c7f8e94, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  tutorialText:
-  - Hello, and welcome to A Gods Draw
-  - Please Click on "Tyrs Blessed Sword"
-  - Now click on the enemy you want to attack
-  - 
-  inputText: {fileID: 1738384913}
 --- !u!1 &604944449
 GameObject:
   m_ObjectHideFlags: 0
@@ -1172,7 +1153,7 @@ MonoBehaviour:
   m_FallbackScreenDPI: 96
   m_DefaultSpriteDPI: 96
   m_DynamicPixelsPerUnit: 1
-  m_PresetInfoIsWorld: 0
+  m_PresetInfoIsWorld: 1
 --- !u!223 &784580683
 Canvas:
   m_ObjectHideFlags: 0
@@ -1282,6 +1263,7 @@ GameObject:
   m_Component:
   - component: {fileID: 864561220}
   - component: {fileID: 864561219}
+  - component: {fileID: 864561221}
   m_Layer: 0
   m_Name: SceneObjects (1)
   m_TagString: Untagged
@@ -1327,6 +1309,22 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &864561221
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 864561218}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5a3b34af7f1c9124f97e2233015676e4, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  tutorialText:
+  - Hello and welcome to A Gods Draw
+  - 
+  inputText: {fileID: 1738384913}
 --- !u!1001 &940423093
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -1663,7 +1661,7 @@ MonoBehaviour:
   m_FallbackScreenDPI: 96
   m_DefaultSpriteDPI: 96
   m_DynamicPixelsPerUnit: 1
-  m_PresetInfoIsWorld: 0
+  m_PresetInfoIsWorld: 1
 --- !u!223 &1210946191
 Canvas:
   m_ObjectHideFlags: 0
@@ -1714,7 +1712,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 794f58104ef7c6a488d6fc1d5bf2ab2b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  EG: {fileID: 0}
   SoundSelectCard:
     Guid:
       Data1: 1178499744
@@ -1736,8 +1733,6 @@ MonoBehaviour:
       Data3: 234812576
       Data4: 601707487
     Path: event:/Card Effects/ClickEnemy
-  GM: {fileID: 0}
-  ui: {fileID: 0}
   lanes:
   - {fileID: 1479462859}
   - {fileID: 182367967}
@@ -2344,7 +2339,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a1bc08f72c27c2e4ca93c4330283c48a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  manager_SO: {fileID: 11400000, guid: c819ad97e2edda747b2fd65c048f3bf9, type: 2}
   _pathName: Library-Hand
   path: {fileID: 580787598}
   _speedCurve:
@@ -2508,7 +2502,7 @@ RectTransform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1738384911}
   m_LocalRotation: {x: 0.20236456, y: -0, z: -0, w: 0.97931033}
-  m_LocalPosition: {x: 0, y: 0, z: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0.83}
   m_LocalScale: {x: 0.05, y: 0.05, z: 0.01}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -2517,7 +2511,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: -0.2200008, y: 7.1}
+  m_AnchoredPosition: {x: -0.2200008, y: 6.71}
   m_SizeDelta: {x: 200, y: 50}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1738384913
@@ -2867,7 +2861,7 @@ MonoBehaviour:
   m_FallbackScreenDPI: 96
   m_DefaultSpriteDPI: 96
   m_DynamicPixelsPerUnit: 1
-  m_PresetInfoIsWorld: 0
+  m_PresetInfoIsWorld: 1
 --- !u!223 &1850245080
 Canvas:
   m_ObjectHideFlags: 0
@@ -3174,7 +3168,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a1bc08f72c27c2e4ca93c4330283c48a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  manager_SO: {fileID: 11400000, guid: c819ad97e2edda747b2fd65c048f3bf9, type: 2}
   _pathName: Hand-Discard
   path: {fileID: 1422813039}
   _speedCurve:
