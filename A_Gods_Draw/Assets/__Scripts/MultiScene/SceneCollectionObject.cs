@@ -18,7 +18,6 @@ public class SceneCollectionObject : ScriptableObject
 
     #if UNITY_EDITOR
     // public List<SceneAsset> list = new List<SceneAsset>(); // # this actually works wth? No need for drawing a custom list
-    [HideInInspector]
     public List<SceneAsset> Scenes = new List<SceneAsset>();
     public void saveCollection(SceneAsset[] scenes)
     {
