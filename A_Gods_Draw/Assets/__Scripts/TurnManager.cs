@@ -116,7 +116,6 @@ public class TurnManager : MonoBehaviour
         {
             if(!encounterLoaded)
             {
-                Debug.Log("Monster should be placed");
                 Encounter_SO[] foundEncounters = LoadNextEncounter();
                 Encounter_SO currEncounter = foundEncounters[UnityEngine.Random.Range(0,foundEncounters.Length-1)];
                 encounterLoaded = true;
@@ -126,9 +125,7 @@ public class TurnManager : MonoBehaviour
                     spawn.transform.SetParent(monsterParent, false);
                     board.enemies.Add(spawn.GetComponent<IMonster>());
                 }
-
             }
-            
         }
 
 
@@ -315,7 +312,7 @@ public class TurnManager : MonoBehaviour
         board.currentGod.OnRetire(board.lane);
 
         //board.deckManager.discardCard(board.currentGod.GetCardSO());
-        board.deckManager.addCardToDiscard(board.currentGod.GetCardSO());
+        // board.deckManager.addCardToDiscard(board.currentGod.GetCardSO());
 
         Destroy(board.currentGod.transform.parent.parent.gameObject);
         board.currentGod = null;
@@ -328,8 +325,6 @@ public class TurnManager : MonoBehaviour
 
     public void SelectCard(Card_Behaviour card)
     {
-            Debug.Log("selected start");
-        
         if(currentLane == lanes.Length)
         {
             return;
@@ -338,7 +333,6 @@ public class TurnManager : MonoBehaviour
         if (currentState == State.PlayerTurn)
         {
             selectedCard = card;
-            Debug.Log("selected attempt");
             God_Behaviour isGod = card as God_Behaviour;
             NonGod_Behaviour isNotGod = card as NonGod_Behaviour;
 
