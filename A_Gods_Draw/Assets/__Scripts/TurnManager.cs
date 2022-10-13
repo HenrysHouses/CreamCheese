@@ -379,8 +379,7 @@ public class TurnManager : MonoBehaviour
 
     public Card_Behaviour CurrentlySelectedCard()
     {
-        SoundManager.Instance.Playsound(SoundSelectCard, gameObject);
-        SoundManager.Instance.StopSound(SoundClickEnemy,gameObject);
+        
         return selectedCard;
     }
 

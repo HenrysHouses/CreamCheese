@@ -4,12 +4,16 @@ using UnityEngine;
 using UnityEngine.UI;
 using TMPro;
 using System;
+using FMODUnity;
 
 public abstract class IMonster : MonoBehaviour
 {
     [SerializeField]
     int maxHealth;
     int health;
+
+    [SerializeField]
+    private EventReference SoundSelectCard;
 
     [SerializeField]
     short minAttack, maxAttack;
@@ -75,6 +79,7 @@ public abstract class IMonster : MonoBehaviour
             if (attacker)
             {
                 attacker.AddTarget(this);
+                SoundManager.Instance.Playsound(SoundSelectCard, gameObject);
             }
             attacker = null;
             EnemyHideArrow();
