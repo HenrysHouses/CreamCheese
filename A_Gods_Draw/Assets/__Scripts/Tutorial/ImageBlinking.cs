@@ -10,7 +10,7 @@ public class ImageBlinking : MonoBehaviour
     //? blinking effect
     public Color startColor = Color.white;
     public Color endColor = Color.red;
-    [Range(0, 100)]
+    [Range(0, 1)]
     public float speed = 10f;
     Image imgComp;
     private void Awake()
