@@ -78,7 +78,7 @@ namespace Map
          * so when selecting a node you enter the one meant for it*/
         private static void EnterNode(Map_Nodes mapNode)
         {
-            Debug.Log("Node: " + mapNode.Node.blueprintName + " of type " + mapNode.Node.nodeType);
+            // Debug.Log("Node: " + mapNode.Node.blueprintName + " of type " + mapNode.Node.nodeType);
 
             switch (mapNode.Node.nodeType)
             {
