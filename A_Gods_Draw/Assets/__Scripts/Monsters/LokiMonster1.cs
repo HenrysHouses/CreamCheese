@@ -25,12 +25,12 @@ public class LokiMonster1 : IMonster
             }
         }
 
-        if (playerAttacked && GetMaxHealth() > GetHealth())
-        {
-            playerAttacked = false;
-            toDefend = this;
-            return true;
-        }
+      //  if (playerAttacked && GetMaxHealth() > GetHealth())
+      //  {
+      //      playerAttacked = false;
+      //      toDefend = this;
+      //      return true;
+      //  }
         playerAttacked = false;
 
         List<IMonster> weakMonsters = new();

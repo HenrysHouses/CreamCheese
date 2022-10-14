@@ -11,6 +11,8 @@ public class Defense_Behaviour : NonGod_Behaviour
     PlayerController player;
     God_Behaviour god_card;
 
+    List <IMonster> targets = new List<IMonster>();
+
     public override void Initialize(Card_SO card)
     {
         card_NonGod = (card as NonGod_Card);
@@ -23,6 +25,13 @@ public class Defense_Behaviour : NonGod_Behaviour
 
     public override void OnAction()
     {
+     //   foreach (IMonster target in targets)            defends the specific action here?
+     //   {
+     //       if(target != null)
+     //       {
+     //           target.DealDamage()
+     //       }
+     //   }
     }
 
     protected override IEnumerator Play(BoardState board)

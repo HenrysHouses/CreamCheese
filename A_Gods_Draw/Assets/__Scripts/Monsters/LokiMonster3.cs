@@ -21,37 +21,9 @@ public class LokiMonster3 : IMonster
         {
             attackingPlayer = false;
         }
-
-        if (playerAttacked && GetMaxHealth() > GetHealth())
-        {
-            playerAttacked = false;
-            toDefend = this;
-            return true;
-        }
-        playerAttacked = false;
-
-        List<IMonster> weakMonsters = new();
-        foreach (IMonster a in board.enemies)
-        {
-            if (a.GetHealth() < a.GetMaxHealth() * 0.75f)
-            {
-                weakMonsters.Add(a);
-            }
-        }
-        if (weakMonsters.Count > 0 && UnityEngine.Random.Range(0, 2) == 1)
-        {
-            toDefend = weakMonsters[UnityEngine.Random.Range(0, weakMonsters.Count)];
-            return true;
-        }
-        else
-        {
-            return false;
-        }
-    }
-    protected override void AbilityDecided(BoardState board)
-    {
-        intentStrengh = 2;
-        toDefend.Defend(intentStrengh);
-    }
-
+        
+        
+         playerAttacked = false;
+          return false;
+    } 
 }

@@ -36,9 +36,16 @@ public class LokiMonster2 : IMonster
         List<IMonster> weakMonsters = new();
         foreach (IMonster a in board.enemies)
         {
-            if (a.GetHealth() < a.GetMaxHealth() * 0.75f)
+            if(a != null)
             {
-                weakMonsters.Add(a);
+                if(a.attackingPlayer)
+                {
+                    if(Random.Range(0,100) < 25)
+                    {
+                        DealDamage(intentStrengh + 2);
+
+                    }
+                }
             }
         }
         if (weakMonsters.Count > 0 && UnityEngine.Random.Range(0, 2) == 1)
