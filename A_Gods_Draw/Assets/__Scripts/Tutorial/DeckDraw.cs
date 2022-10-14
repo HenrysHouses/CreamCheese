@@ -14,7 +14,6 @@ public class DeckDraw : MonoBehaviour
     void Start()
     {
         LoadTutorialDeck();
-        inputText.color = Color.black;
         inputText.text = tutorialText[0];
 
 

@@ -331,24 +331,21 @@ public class TurnManager : MonoBehaviour
         if (currentState == State.PlayerTurn)
         {
             selectedCard = card;
-            God_Behaviour isGod = card as God_Behaviour;
-            NonGod_Behaviour isNotGod = card as NonGod_Behaviour;
 
-
-            if (isGod)
+            if (selectedCard is God_Behaviour God_)
             {
 
                 if (board.currentGod) { GodDied(); }
-                board.currentGod = isGod;
+                board.currentGod = selectedCard as God_Behaviour;
                 board.deckManager.removeCardFromHand(board.currentGod.GetCardSO());
                 foreach (IMonster enemy in board.enemies)
                 {
                     enemy.SetGod(board.currentGod);
                 }
             }
-            else if (isNotGod)
+            else if (selectedCard is NonGod_Behaviour notGod_)
             {
-                if(isNotGod is Attack_Behaviour attack_)
+                if(selectedCard is Attack_Behaviour attack_)
                     OnSelectedAttackCard?.Invoke();
 
                 //if (currentLane == board.lane.Count)
