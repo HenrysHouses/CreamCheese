@@ -760,17 +760,17 @@ RectTransform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 546927359}
-  m_LocalRotation: {x: 0.21486066, y: -0, z: -0, w: 0.9766448}
-  m_LocalPosition: {x: 0, y: 0, z: 2.7}
+  m_LocalRotation: {x: -0.036980867, y: -0, z: -0, w: 0.99931604}
+  m_LocalPosition: {x: 0, y: 0, z: 1.33}
   m_LocalScale: {x: 0.49999997, y: 0.49999997, z: 0.49999997}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 1538485622}
   m_RootOrder: 1
-  m_LocalEulerAnglesHint: {x: 24.815, y: 0, z: 0}
+  m_LocalEulerAnglesHint: {x: -4.239, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 0, y: 4.8}
+  m_AnchoredPosition: {x: 1.31, y: 1.83}
   m_SizeDelta: {x: 10, y: 10}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &546927361
@@ -1157,17 +1157,17 @@ RectTransform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 640576371}
-  m_LocalRotation: {x: 0.6366876, y: -0, z: -0, w: 0.77112186}
-  m_LocalPosition: {x: 0, y: 0, z: 9.029999}
+  m_LocalRotation: {x: 0.55408394, y: -0, z: -0, w: 0.8324609}
+  m_LocalPosition: {x: 0, y: 0, z: 1.33}
   m_LocalScale: {x: 0.49999997, y: 0.49999997, z: 0.49999997}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 1538485622}
   m_RootOrder: 2
-  m_LocalEulerAnglesHint: {x: 79.091, y: 0, z: 0}
+  m_LocalEulerAnglesHint: {x: 67.295, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 0, y: 1.87}
+  m_AnchoredPosition: {x: 1.31, y: 1.83}
   m_SizeDelta: {x: 10, y: 10}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &640576373
@@ -1508,11 +1508,17 @@ MonoBehaviour:
   tutorialTextWASD:
   - Hello and welcome to A Gods Draw (click to continue)
   - Let's take a look around (click to continue)
-  - Press S again
-  - Press D again
+  - Press W to look closer
+  - Press S to go back
+  - Press S again to look down
+  - Press A to look at your health
+  - Press D to center
+  - Press D again to look at your God slot
   - Let's get centered Press A
   - Good Job!
-  cardText: []
+  cardText:
+  - Oh look! An enemy! (click to continue)
+  - Use this Attack card  (click to continue)
   inputText: {fileID: 1738384913}
   popUpsWASD:
   - {fileID: 1194764223}
@@ -1524,7 +1530,10 @@ MonoBehaviour:
   - {fileID: 1031559990}
   - {fileID: 1194764223}
   - {fileID: 1194764223}
-  popUpsCard: []
+  - {fileID: 1194764223}
+  popUpsCard:
+  - {fileID: 1194764223}
+  - {fileID: 1194764223}
   enemy: {fileID: 940423094}
   panel: {fileID: 604406681}
 --- !u!1001 &940423093
@@ -1666,17 +1675,17 @@ RectTransform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1031559990}
-  m_LocalRotation: {x: 0.21486066, y: -0, z: -0, w: 0.9766448}
-  m_LocalPosition: {x: 0, y: 0, z: 7}
+  m_LocalRotation: {x: 0.20988406, y: -0, z: -0, w: 0.97772634}
+  m_LocalPosition: {x: 0, y: 0, z: 4.23}
   m_LocalScale: {x: 0.49999997, y: 0.49999997, z: 0.49999997}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 1538485622}
   m_RootOrder: 3
-  m_LocalEulerAnglesHint: {x: 24.815, y: 0, z: 0}
+  m_LocalEulerAnglesHint: {x: 24.231, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: -12.84, y: 2.81}
+  m_AnchoredPosition: {x: -12.59, y: 0.52}
   m_SizeDelta: {x: 10, y: 10}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1031559992
@@ -1837,7 +1846,7 @@ RectTransform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1093285956}
   m_LocalRotation: {x: 0.21486066, y: -0, z: -0, w: 0.9766448}
-  m_LocalPosition: {x: 0, y: 0, z: 2.7}
+  m_LocalPosition: {x: 0, y: 0, z: 1.33}
   m_LocalScale: {x: 0.49999997, y: 0.49999997, z: 0.49999997}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -1846,7 +1855,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 24.815, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 0, y: 4.8}
+  m_AnchoredPosition: {x: 1.31, y: 1.83}
   m_SizeDelta: {x: 10, y: 10}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1093285958
