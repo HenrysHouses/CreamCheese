@@ -4,15 +4,21 @@ using UnityEngine;
 
 public class TurnController : MonoBehaviour
 {
-    // Start is called before the first frame update
-    void Start()
+    [SerializeField] BoardStateController boardState;
+    [SerializeField] PlayerTracker player;
+    [SerializeField] DeckManager_SO deckManager;
+
+    void Awake()
     {
-        
+        deckManager.SetCurrentDeck(player.Deck);
+        deckManager.clear();
     }
 
-    // Update is called once per frame
-    void Update()
+    private void Update() 
     {
-        
+        if(boardState.isEncounterInstantiated)
+        {
+            
+        }   
     }
 }

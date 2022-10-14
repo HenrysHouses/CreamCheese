@@ -8,6 +8,8 @@ using FMODUnity;
 
 public abstract class IMonster : MonoBehaviour
 {
+    public EnemyIntent GetIntent() => EnemyIntent.GetCurrIntent();
+    Intent EnemyIntent;
     [SerializeField]
     int maxHealth;
     int health;
@@ -58,6 +60,10 @@ public abstract class IMonster : MonoBehaviour
 
         image.enabled = false;
         strengh.enabled = false;
+
+        if(EnemyIntent == null)
+            Debug.LogError("Monster Intent Refactoring is not done");
+
     }
 
     public int GetMaxHealth() { return maxHealth; }

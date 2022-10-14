@@ -7,7 +7,7 @@ public class GameManager : MonoBehaviour
 { 
     public bool shouldGenerateNewMap;
     public static GameManager instance;
-    EncounterDiffeculty nextCombatDiff;
+    EncounterDifficulty nextCombatDiff;
     
     private void Awake() 
     {
@@ -22,7 +22,7 @@ public class GameManager : MonoBehaviour
         shouldGenerateNewMap = true;
     }
 
-    public EncounterDiffeculty nextCombatType{
+    public EncounterDifficulty nextCombatType{
         get { return nextCombatDiff; } 
         set { nextCombatDiff = value; }
     }  

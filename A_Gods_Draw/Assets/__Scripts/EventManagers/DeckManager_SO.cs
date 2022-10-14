@@ -378,5 +378,8 @@ public class DeckManager_SO : ScriptableObject
         return pHand;
     }
 
-    public List<Card_SO> wtf() { return pHand; }
+    public void SetCurrentDeck(DeckList_SO deckList_)
+    {
+        deckList = deckList_;
+    }
 }

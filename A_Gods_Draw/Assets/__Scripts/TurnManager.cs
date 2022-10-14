@@ -19,14 +19,7 @@ public struct BoardState
 
 }
 
-public enum EncounterDiffeculty
-{
-    Easy,
-    Medium,
-    Hard,
-    elites,
-    Boss
-}
+
 
 public class TurnManager : MonoBehaviour
 {
@@ -80,18 +73,6 @@ public class TurnManager : MonoBehaviour
             throw new UnityException("Was not able to load any encounters in: \"Assets/Resources/Encounters/" + GameManager.instance.nextCombatType + "\"");
         return loaded;
     }
-
-    void Start()
-    {
-        board.lane = new List<NonGod_Behaviour>();
-        OnSelectedAttackCard = new UnityEvent();
-        OnDeSelectedAttackCard = new UnityEvent();
-        currentLane = 0;
-
-        // deckManager.SetTurnManager(this);
-        StartCoroutine(waitForEncounter());
-    }
-
     IEnumerator waitForEncounter()
     {
         while(!encounterLoaded)
@@ -105,6 +86,18 @@ public class TurnManager : MonoBehaviour
         }
         enemiesInitialized = true;
     }
+
+    void Start()
+    {
+        board.lane = new List<NonGod_Behaviour>();
+        OnSelectedAttackCard = new UnityEvent();
+        OnDeSelectedAttackCard = new UnityEvent();
+        currentLane = 0;
+
+        // deckManager.SetTurnManager(this);
+        StartCoroutine(waitForEncounter());
+    }
+
 
     private void Update()
     {

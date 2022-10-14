@@ -84,11 +84,11 @@ namespace Map
             {
                 case NodeType.Enemy:
                     sceneTransition.TransitionScene(false, "Combat"); //sends me to javi's scene since that has card stuff
-                    GameManager.instance.nextCombatType = EncounterDiffeculty.Easy;
+                    GameManager.instance.nextCombatType = EncounterDifficulty.Easy;
                     break;
                 case NodeType.Elite:
                     sceneTransition.TransitionScene(false, "Combat"); //sends me to javi's scene since that has card stuff
-                    GameManager.instance.nextCombatType = EncounterDiffeculty.elites;
+                    GameManager.instance.nextCombatType = EncounterDifficulty.elites;
                     break;
                 case NodeType.RestPlace:
                     sceneTransition.TransitionScene(false, "CardReward"); //sends me to javi's scene since that has card stuff
@@ -98,7 +98,7 @@ namespace Map
                     break;
                 case NodeType.Boss:
                     sceneTransition.TransitionScene(false, "Combat"); //sends me to javi's scene since that has card stuff
-                    GameManager.instance.nextCombatType = EncounterDiffeculty.Boss;
+                    GameManager.instance.nextCombatType = EncounterDifficulty.Boss;
                     break;
                 default:
                     throw new ArgumentOutOfRangeException();
