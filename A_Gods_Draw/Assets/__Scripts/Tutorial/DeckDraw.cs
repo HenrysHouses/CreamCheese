@@ -10,11 +10,11 @@ public class DeckDraw : MonoBehaviour
 {
     public string[] tutorialTextWASD, cardText;
     bool[] tutorialChecks;
-    public TMP_Text inputText;
+    public TMP_Text[] inputText;
 
 
     //? testing for things happening on specific things
-    public GameObject[] popUpsWASD, popUpsCard;
+    public GameObject[] popUps;
     private int popUpIndex;
     bool hasPressed;
 
@@ -25,17 +25,16 @@ public class DeckDraw : MonoBehaviour
     void Start()
     {
         //todo deactivate the enemies thats not supposed to be there
-
-        LoadTutorialDeck();
-        inputText.text = tutorialTextWASD[0];
+        //todo deactivate the cards spawning
+        
+        inputText[0].text = tutorialTextWASD[0];
     }
 
     // Update is called once per frame
     void Update()
     {
         CameraTutorial();
-
-        //CardTutorial();
+        CardTutorial();
     }
 
     /// <summary>
@@ -43,103 +42,110 @@ public class DeckDraw : MonoBehaviour
     /// </summary>
     void CameraTutorial()
     {
-        for (int i = 0; i < popUpsWASD.Length; i++)
+        for (int i = 0; i < popUps.Length; i++)
         {
             if (i == popUpIndex)
             {
-                popUpsWASD[i].SetActive(true);
+                popUps[i].SetActive(true);
             }
             else
             {
-                popUpsWASD[i].SetActive(false);
+                popUps[i].SetActive(false);
             }
         }
 
         //! all the events after one another
-        if (popUpIndex == 0) //shows first text
+        if (popUpIndex == 0) //shows 2 text and click to contine
         {
             if (Input.GetMouseButtonDown(0))
             {
-                inputText.text = tutorialTextWASD[1];
+                inputText[0].text = tutorialTextWASD[1];
                 popUpIndex++;
             }
         }
-        else if (popUpIndex == 1) //shows W image
+        else if (popUpIndex == 1) //shows W image and text 3
         {
             if (Input.GetMouseButtonDown(0))
             {
                 panel.SetActive(false);
-                inputText.text = tutorialTextWASD[2];
-                popUpsWASD[2].SetActive(true);
+                inputText[0].text = tutorialTextWASD[2];
+                popUps[2].SetActive(true);
                 popUpIndex++;
             }
         }
-        else if (popUpIndex == 2) //shows S image
+        else if (popUpIndex == 2) //shows S image and text 4
         {
             if (Input.GetKeyDown(KeyCode.W))
             {
-                inputText.text = tutorialTextWASD[3];
-                popUpsWASD[3].SetActive(true);
+                inputText[1].text = tutorialTextWASD[3];
+                inputText[0].enabled = false;
+                popUps[3].SetActive(true);
                 popUpIndex++;
             }
         }
-        else if (popUpIndex == 3) //shows text 4
+        else if (popUpIndex == 3) //shows text 5 and press s again
         {
             if (Input.GetKeyDown(KeyCode.S) && !hasPressed)
             {
                 panel.SetActive(true);
-                inputText.text = tutorialTextWASD[4];
+                inputText[0].enabled = true;
+                inputText[0].text = tutorialTextWASD[4];
+                inputText[1].enabled = false;
                 popUpIndex++;
                 hasPressed = true;
             }
 
         }
-        else if (popUpIndex == 4) // shows A image
+        else if (popUpIndex == 4) // shows A image and text 6
         {
             if (Input.GetKeyDown(KeyCode.S) && hasPressed)
             {
-                inputText.text = tutorialTextWASD[5];
-                popUpsWASD[5].SetActive(true);
+                panel.SetActive(true);
+                inputText[0].text = tutorialTextWASD[5];
+                popUps[5].SetActive(true);
                 hasPressed = false;
                 popUpIndex++;
             }
         }
-        else if (popUpIndex == 5) // shows D image
+        else if (popUpIndex == 5) // shows D image and text 7
         {
             if (Input.GetKeyDown(KeyCode.A))
             {
-                inputText.text = tutorialTextWASD[6];
-                popUpsWASD[6].SetActive(true);
+                panel.SetActive(false);
+                inputText[2].text = tutorialTextWASD[6];
+                inputText[0].enabled = false;
+                popUps[6].SetActive(true);
                 popUpIndex++;
             }
         }
-        else if (popUpIndex == 6) // shows text 3
+        else if (popUpIndex == 6) // shows text 8
         {
             if (Input.GetKeyDown(KeyCode.D) && !hasPressed)
             {
                 panel.SetActive(true);
-                inputText.enabled = true;
-                inputText.text = tutorialTextWASD[7];
+                inputText[0].enabled = true;
+                inputText[2].enabled = false;
+                inputText[0].text = tutorialTextWASD[7];
                 popUpIndex++;
                 hasPressed = true;
             }
         }
-        else if (popUpIndex == 7) //shows text 4
+        else if (popUpIndex == 7) //shows text 9
         {
             if (Input.GetKeyDown(KeyCode.D) && hasPressed)
             {
-                inputText.text = tutorialTextWASD[8];
+                inputText[0].text = tutorialTextWASD[8];
                 popUpIndex++;
                 hasPressed = false;
             }
 
         }
-        else if (popUpIndex == 8) // show text 5
+        else if (popUpIndex == 8) // show text 10
         {
             if (Input.GetKeyDown(KeyCode.A))
             {
-                panel.SetActive(true);
-                inputText.text = tutorialTextWASD[9];
+                panel.SetActive(false);
+                inputText[0].text = tutorialTextWASD[9];
                 popUpIndex++;
             }
         }
@@ -157,37 +163,43 @@ public class DeckDraw : MonoBehaviour
     /// </summary>
     void CardTutorial()
     {
-        for (int i = 0; i < popUpsCard.Length; i++)
-        {
-            if (i == popUpIndex)
-            {
-                popUpsCard[i].SetActive(true);
-            }
-            else
-            {
-                popUpsCard[i].SetActive(false);
-            }
-        }
-
         //! all the events in order
-        if(popUpIndex == 0)
+        if(popUpIndex == 9) //text 1 of cardtext
         {
             if (Input.GetMouseButtonDown(0))
             {
-                inputText.text = cardText[0];
-                popUpsCard[0].SetActive(true);
+                LoadEncounter();
+                inputText[0].text = cardText[0];
+                panel.SetActive(true);
                 popUpIndex++;
             }
         }
+        else if (popUpIndex == 10) //text 2 of cardtext
+        {
+            if (Input.GetMouseButtonDown(0))
+            {
+                inputText[0].text = cardText[1];
+                popUpIndex++;
+                LoadTutorialDeck();
+            }
+        }
         //todo 1 enemy spawns, text msg saying use THIS Attack card on the enemy
+        else if (popUpIndex == 11) //text 3 of cardtext
+        {
+            if (Input.GetMouseButtonDown(0))
+            {
+                popUps[11].SetActive(true);
+                popUpIndex++;
+            }
+        }
         //todo get sent to map to choose new encounter
     }
 
     public DeckList_SO LoadTutorialDeck()
     {
 
-     DeckList_SO loaded = Resources.Load<DeckList_SO>("Decklist/TutorialDeck.asset");
-     return loaded;
+        DeckList_SO loaded = Resources.Load<DeckList_SO>("Decklist/TutorialDeck.asset");
+        return loaded;
 
     }
 
