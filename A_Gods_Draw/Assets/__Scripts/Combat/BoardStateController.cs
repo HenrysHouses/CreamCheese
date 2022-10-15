@@ -10,9 +10,12 @@ public class BoardStateController : MonoBehaviour
     // Getters
     public Encounter_SO Encounter => _Encounter;
     public IMonster[] Enemies => _Enemies;
-    public Card_Behaviour[] playedCards;
-    public Transform getLane(int i) { return _Lane[i]; }
-    public Card_Behaviour getCardInLane(int i) { return playedCards[i]; }
+    public Transform getLane(int i) => _Lane[i];
+    public Transform getGodLane() => _GodLane;
+    [HideInInspector] public Card_Behaviour[] playedCards;
+    [HideInInspector] public Card_Behaviour playedGodCard;
+    public Card_Behaviour getCardInLane(int i) => playedCards[i];
+
     public bool isEnemyDefeated 
     {
         get 
@@ -29,6 +32,7 @@ public class BoardStateController : MonoBehaviour
     Encounter_SO _Encounter;
     IMonster[] _Enemies;
     [SerializeField] Transform[] _Lane;
+    [SerializeField] Transform _GodLane;
 
     void spawnEncounter()
     {

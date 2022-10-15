@@ -7,6 +7,7 @@
 */
 
 using UnityEngine;
+using UnityEngine.Events;
 using System;
 
 /// <summary>Receives and handles animation requests</summary>
@@ -21,6 +22,7 @@ public class AnimationEventManager : MonoBehaviour
 
     /// <summary>invoked when new requests are added</summary>
     public event Action<string, animRequestData> OnAnimationRequestChange; 
+    // public UnityEvent OnAnimationRequested;
 
     /// <summary>count of animations requested in this instance</summary>
     int animNum;
@@ -31,6 +33,8 @@ public class AnimationEventManager : MonoBehaviour
 
         if(!instance)
             instance = this;
+        else
+            Destroy(gameObject);
     }
 
     /// <summary>Request a single animation</summary>
@@ -43,8 +47,8 @@ public class AnimationEventManager : MonoBehaviour
     {
         target.name += "_pathAnim" + animNum;
         animRequestData anim = new animRequestData(pathName, target.name, delay, animationOverrideOptions);
-        // AnimationRequest.Add(anim);
         OnAnimationRequestChange?.Invoke(pathName, anim);
+        // OnAnimationRequested?.Invoke();
         animNum++;
     }
 
@@ -67,7 +71,10 @@ public class AnimationEventManager : MonoBehaviour
                 anim = new animRequestData(pathName, targets[i].name, totalDelay, null);
             animNum++;
             if(anim != null)
+            {
                 OnAnimationRequestChange?.Invoke(pathName, anim);
+                // OnAnimationRequested?.Invoke();
+            }
         }
     }
 }

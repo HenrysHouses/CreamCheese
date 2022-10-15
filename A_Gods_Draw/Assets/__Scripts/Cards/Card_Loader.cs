@@ -6,6 +6,7 @@ using UnityEngine.UI;
 public class Card_Loader : MonoBehaviour
 {
     Card_SO card_so;
+    public Card_SO GetCardSO => card_so;
 
     [SerializeField]
     Image image;
@@ -69,27 +70,20 @@ public class Card_Loader : MonoBehaviour
 
     void ChangeOrm(NonGod_Card card)
     {
-        Attack_Card at = card as Attack_Card;
-        Defense_Card de = card as Defense_Card;
-
-        if (at)
+        if (card is Attack_Card attack_)
         {
             prop.GetChild(3).gameObject.SetActive(true);
+            return;
         }
-        else if (de)
+        
+        if (card is Defense_Card defense_)
         {
             prop.GetChild(4).gameObject.SetActive(true);
+            return;
         }
-        else
-        {
-            prop.GetChild(5).gameObject.SetActive(true);
-        }
-    }
-
-    public void moveCardToHand()
-    {
-        SendMessageUpwards("AddCard", card_so);
-        // Debug.Log("Message sent from " + this.gameObject.GetComponent<Card_Behaviour>());
+        
+        // card is Buff_Card
+        prop.GetChild(5).gameObject.SetActive(true);
     }
 
     public void ChangeStrengh(int newValue)

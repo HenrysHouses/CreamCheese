@@ -17,6 +17,9 @@ public class AnimationEventManager_Editor : Editor
     {
         base.OnInspectorGUI();
 
+        if(AnimationEventManager.getInstance)
+            GUILayout.TextField(AnimationEventManager.getInstance.name);
+
         // if(GUILayout.Button("Trigger AnimationRequestChangeEvent"))
         // {
         //     script.OnAnimationRequestChange?.Invoke();

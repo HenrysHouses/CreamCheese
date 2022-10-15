@@ -27,7 +27,7 @@ public class TurnManager : MonoBehaviour
     [SerializeField]
     private EventReference SoundSelectCard, SoundDrawCards,SoundClickEnemy;
 
-    bool turnEnd;
+    public bool turnEnd;
 
     // [SerializeField]
     // UIManager ui;
@@ -49,8 +49,8 @@ public class TurnManager : MonoBehaviour
     [SerializeField]
     EndTurnButton endTurn;
     [SerializeField] SceneTransition sceneTransition;
-    public UnityEvent OnSelectedAttackCard;
-    public UnityEvent OnDeSelectedAttackCard;
+    [HideInInspector] public UnityEvent OnSelectedAttackCard;
+    [HideInInspector] public UnityEvent OnDeSelectedAttackCard;
 
     public bool encounterLoaded;
 
@@ -130,8 +130,12 @@ public class TurnManager : MonoBehaviour
                     //SoundManager.Instance.Playsound(SoundDrawCards,gameObject);
                     currentState = State.PlayerTurn;
 
-                    board.deckManager.drawCard(5, this);
-
+                    UnityEvent<Card_SO>[] triggerData = board.deckManager.drawCard(5, this);
+                    foreach (var trigger in triggerData)
+                    {
+                        if(trigger != null)
+                            trigger.AddListener(board._hand.AddCard);
+                    }
                     currentLane = 0;
 
                     board.player.OnNewTurn();

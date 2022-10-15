@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 0}
-  m_IndirectSpecularColor: {r: 0, g: 0, b: 0, a: 1}
+  m_IndirectSpecularColor: {r: 0.37311953, g: 0.38074014, b: 0.3587274, a: 1}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
@@ -883,6 +883,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   handPlace: {fileID: 1131136463}
   _turnManager: {fileID: 0}
+  _turnController: {fileID: 0}
   behaviours: []
   CardinHandPrefab: {fileID: 6442596572218373804, guid: 4bf9de04b4e5b754781a2ea0b433379b, type: 3}
 --- !u!114 &410426622
@@ -971,6 +972,37 @@ MonoBehaviour:
   - {fileID: 395219061}
   - {fileID: 1807323284}
   evenlySpacedPoints: []
+--- !u!1 &578933898
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 578933899}
+  m_Layer: 0
+  m_Name: EnemyParent
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &578933899
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 578933898}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 1580440615}
+  m_RootOrder: 3
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &706838722
 GameObject:
   m_ObjectHideFlags: 0
@@ -1710,7 +1742,6 @@ GameObject:
   - component: {fileID: 975887043}
   - component: {fileID: 975887042}
   - component: {fileID: 975887041}
-  - component: {fileID: 975887045}
   m_Layer: 0
   m_Name: EndTurnButton
   m_TagString: Untagged
@@ -1750,8 +1781,8 @@ MonoBehaviour:
   turnEnd:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 0}
-        m_TargetAssemblyTypeName: TurnManager, Assembly-CSharp
+      - m_Target: {fileID: 2135670412}
+        m_TargetAssemblyTypeName: TurnController, Assembly-CSharp
         m_MethodName: EndTurn
         m_Mode: 1
         m_Arguments:
@@ -1825,31 +1856,6 @@ MeshFilter:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 975887039}
   m_Mesh: {fileID: 0}
---- !u!114 &975887045
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 975887039}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: bcdf6c616326c4aaeb610b335fbb67fe, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  useDefaultBackgroundColor: 0
-  backgroundColor:
-    serializedVersion: 2
-    rgba: 4278190335
-  useDefaultTextColor: 0
-  textColor:
-    serializedVersion: 2
-    rgba: 4294967295
-  font: {fileID: 0}
-  fontSize: 12
-  fontStyle: 0
-  alignment: 0
-  textDropShadow: 0
 --- !u!1001 &999934887
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -2128,6 +2134,60 @@ Transform:
   m_Father: {fileID: 410426620}
   m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 14.76, y: 0, z: 0}
+--- !u!1 &1141156024
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1141156026}
+  - component: {fileID: 1141156025}
+  m_Layer: 0
+  m_Name: BoardState
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!114 &1141156025
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1141156024}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 475d71f2ae3c6a640bddde379f7ba300, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  isEncounterInstantiated: 0
+  playedCards: []
+  playedGodCard: {fileID: 0}
+  EnemyParent: {fileID: 578933899}
+  _Lane:
+  - {fileID: 1076020943}
+  - {fileID: 1787626097}
+  - {fileID: 748733620}
+  - {fileID: 1006661656}
+  _GodLane: {fileID: 899169204}
+--- !u!4 &1141156026
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1141156024}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: -0.05378156, y: 0.68908966, z: 0.340267}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_RootOrder: 4
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1219592583
 GameObject:
   m_ObjectHideFlags: 0
@@ -2473,7 +2533,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   TransitionIN: Transition_IN
   TransitionOUT: Transition_OUT
-  TransitionAnim: {fileID: 0}
+  TransitionAnim: {fileID: 1580440614}
 --- !u!4 &1300015209
 Transform:
   m_ObjectHideFlags: 0
@@ -2918,6 +2978,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1580440615}
   - component: {fileID: 1580440614}
+  - component: {fileID: 1580440616}
   m_Layer: 0
   m_Name: SceneObjects
   m_TagString: Untagged
@@ -2960,9 +3021,35 @@ Transform:
   - {fileID: 1852531264}
   - {fileID: 1066247366}
   - {fileID: 38373259}
+  - {fileID: 578933899}
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1580440616
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1580440613}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: bcdf6c616326c4aaeb610b335fbb67fe, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  useDefaultBackgroundColor: 0
+  backgroundColor:
+    serializedVersion: 2
+    rgba: 4278190335
+  useDefaultTextColor: 0
+  textColor:
+    serializedVersion: 2
+    rgba: 4294967295
+  font: {fileID: 0}
+  fontSize: 12
+  fontStyle: 0
+  alignment: 0
+  textDropShadow: 0
 --- !u!1 &1589542833
 GameObject:
   m_ObjectHideFlags: 8
@@ -3760,3 +3847,59 @@ Transform:
   m_CorrespondingSourceObject: {fileID: 173879941482021995, guid: aeda0022dfba5a348853fadc71f17719, type: 3}
   m_PrefabInstance: {fileID: 2100024310}
   m_PrefabAsset: {fileID: 0}
+--- !u!1 &2135670411
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 2135670413}
+  - component: {fileID: 2135670412}
+  m_Layer: 0
+  m_Name: TurnController
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!114 &2135670412
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2135670411}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 0423b0f44eaac094b8ef6b0879b02737, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  boardState: {fileID: 1141156025}
+  player: {fileID: 11400000, guid: 101dced3cf57d584886aaa18b2a84f50, type: 2}
+  deckManager: {fileID: 11400000, guid: a9ef532ce763b474e868648e2e3843ac, type: 2}
+  DiscardAnimator: {fileID: 120732638}
+  DrawAnimator: {fileID: 1598012057}
+  ShuffleAnimator: {fileID: 706838724}
+  DrawStepCardAmount: 5
+  _Hand: {fileID: 410426621}
+  isCombatStarted: 0
+  shouldEndTurn: 0
+  shouldWaitForAnims: 0
+  state: 0
+--- !u!4 &2135670413
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2135670411}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: -0.05378156, y: 0.68908966, z: 0.340267}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_RootOrder: 3
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}

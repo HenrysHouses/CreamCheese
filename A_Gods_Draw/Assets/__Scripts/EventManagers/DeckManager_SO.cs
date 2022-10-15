@@ -180,7 +180,7 @@ public class DeckManager_SO : ScriptableObject
     /// <summary>Move the top card/s of the player library to the player hand. Trigger card draw animations</summary>
     /// <param name="amount">The amount of cards to draw</param>
     /// ! <returns></returns> // Missing return summary
-    public void drawCard(int amount, TurnManager mngr = null)
+    public UnityEvent<Card_SO>[] drawCard(int amount, TurnManager mngr = null)
     {
         if (pLibrary.Count < amount) // if there is no cards in library to draw, shuffle the discard into the library and return
         {
@@ -190,8 +190,9 @@ public class DeckManager_SO : ScriptableObject
         // Instantiate the object that will be animated.
         GameObject[] cards = new GameObject[amount]; 
         // Animation setup, Sets the event to spawn the card when animation is completed, requests the animation
-        PathAnimatorController.pathAnimation[] animations = new PathAnimatorController.pathAnimation[amount];
-            
+        CardPathAnim[] animations = new CardPathAnim[amount];
+        // Data list which will be returned
+        UnityEvent<Card_SO>[] triggerEvents = new UnityEvent<Card_SO>[amount];
         for (int i = 0; i < amount; i++) 
         {
             // adds the top card to player hand
@@ -202,15 +203,17 @@ public class DeckManager_SO : ScriptableObject
             _Loader.Set(pLibrary[0], null);
             pLibrary.Remove(pLibrary[0]);
 
+            animations[i] = new CardPathAnim(_Loader.GetCardSO);
 
-            animations[i] = new PathAnimatorController.pathAnimation();
-            animations[i].CompletionTrigger.AddListener(_Loader.moveCardToHand);
+            triggerEvents[i] = animations[i].CompletionTrigger;
+            // animations[i].CompletionTrigger.AddListener(_Loader.moveCardToHand);
 
-            if (i == amount - 1 && mngr != null)
-            {
-                animations[i].CompletionTrigger.AddListener
-                    (mngr.HandFull);
-            }
+            // ! not clear purpose of this code
+            // if (i == amount - 1 && mngr != null)
+            // {
+            //     animations[i].CompletionTrigger.AddListener
+            //         (mngr.HandFull);
+            // }
 
             // Debug.Log("Sent card: " + cards[i].name + " with animation: " + animations[i].index + ", number " + i);
 
@@ -219,11 +222,10 @@ public class DeckManager_SO : ScriptableObject
             //card.transform.rotation = Quaternion.Euler(-20 + i * 10, 90, 0);
         }
         AnimationEventManager.getInstance.requestAnimation("Library-Hand", cards, 0.25f, animations);
-
         // ? change events may not be used
         pLibraryChangeEvent.Invoke();
         pHandChangeEvent.Invoke();
-        return;
+        return triggerEvents;
     }
 
     /// <summary>Moves all cards currently in player hand to player discard. Trigger discard animations</summary>
@@ -240,23 +242,25 @@ public class DeckManager_SO : ScriptableObject
         // Moves cards in hand to discard
         GameObject[] cards = new GameObject[pHand.Count];
 
-        PathAnimatorController.pathAnimation[] animations = new PathAnimatorController.pathAnimation[pHand.Count];
+        CardPathAnim[] animations = new CardPathAnim[pHand.Count];
 
         for (int i = 0; i < pHand.Count; i++)
         {
             // preps the discard animations
             GameObject _card = Instantiate(CardAnimationPrefab);
-            _card.GetComponentInChildren<Card_Loader>().Set(pHand[i], null);
+            Card_Loader _Loader = _card.GetComponentInChildren<Card_Loader>();
+            _Loader.Set(pHand[i], null);
+
             cards[i] = _card;
 
             pDiscard.Add(pHand[i]);
 
-            animations[i] = new PathAnimatorController.pathAnimation();
+            animations[i] = new CardPathAnim(_Loader.GetCardSO);
 
             if (i == pHand.Count - 1 && mngr != null)
             {
-                animations[i].CompletionTrigger.AddListener
-                    (mngr.FinishedAnimations);
+                // animations[i].CompletionTrigger.AddListener
+                //     (mngr.FinishedAnimations);
             }
         }
         // requests animations for all discarded cards
@@ -273,19 +277,22 @@ public class DeckManager_SO : ScriptableObject
         // Moves cards in hand to discard
         List<GameObject> cards = new();
 
-        PathAnimatorController.pathAnimation[] animations = new PathAnimatorController.pathAnimation[pHand.Count];
+        CardPathAnim[] animations = new CardPathAnim[pHand.Count];
 
         for (int i = 0; i < pHand.Count; i++)
         {
+            Card_Loader _Loader = null;
             if (pHand[i] != exceptFor)
             {
+                Debug.LogWarning("ExceptFor variable may cause issues with animations");
                 // preps the discard animations
                 GameObject _card = Instantiate(CardAnimationPrefab);
-                _card.GetComponentInChildren<Card_Loader>().Set(pHand[i], null);
+                _Loader = _card.GetComponentInChildren<Card_Loader>();
+                _Loader.Set(pHand[i], null);
                 cards.Add(_card);
                 pDiscard.Add(pHand[i]);
             }
-            animations[i] = new PathAnimatorController.pathAnimation();
+            animations[i] = new CardPathAnim(_Loader.GetCardSO);
         }
         // requests animations for all discarded cards
 
@@ -298,8 +305,8 @@ public class DeckManager_SO : ScriptableObject
             return;
         }
 
-        if (mngr != null)
-            animations[cards.Count - 1].CompletionTrigger.AddListener(mngr.FinishedAnimations);
+        // if (mngr != null)
+            // animations[cards.Count - 1].CompletionTrigger.AddListener(mngr.FinishedAnimations);
         AnimationEventManager.getInstance.requestAnimation("Hand-Discard", cards.ToArray(), 0.25f, animations);
 
 

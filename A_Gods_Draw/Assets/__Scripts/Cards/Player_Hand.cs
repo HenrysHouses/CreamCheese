@@ -7,7 +7,9 @@ public class Player_Hand : MonoBehaviour
     [SerializeField]
     Transform handPlace;
 
-    public TurnManager _turnManager;
+    public TurnManager _turnManager; // ! this will be phased out after refactoring
+    [SerializeField] TurnController _turnController; // # should be replaced with this
+
     private float cardRotation = 10; 
     public List<CardInHand> CAH = new List<CardInHand>();
     public List<Card_Behaviour> behaviours = new();

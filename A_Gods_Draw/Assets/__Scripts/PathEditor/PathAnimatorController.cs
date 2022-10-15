@@ -95,7 +95,7 @@ public class PathAnimatorController : MonoBehaviour
             AnimationTransform = new GameObject("AnimationHolder").transform;
         }
 
-        public void completionTrigger()
+        public virtual void completionTrigger()
         {
             CompletionTrigger?.Invoke();
             _Complete = true;
@@ -107,6 +107,7 @@ public class PathAnimatorController : MonoBehaviour
     {
         isAnimating = false;
         calculateApproximateAnimLength();
+        OnEnable();
         // isReadingRequests = false;
     }
 
@@ -115,7 +116,10 @@ public class PathAnimatorController : MonoBehaviour
         if(AnimationName == "")
             Debug.LogWarning(this + ": Needs a path name in order to read requests from the animation manager");
         if(!AnimationEventManager.getInstance)
+        {
+            Debug.LogWarning("path animator could not find the event manager");
             return;    
+        }
         // Listen to when the animation manager has new animation requests
         AnimationEventManager.getInstance.OnAnimationRequestChange += checkUpdatedRequests;
 
@@ -344,7 +348,7 @@ public class PathAnimatorController : MonoBehaviour
     
     /// <returns>Estimated animation time</returns>
     public float getAnimLength() => AnimLength;
-
+    public int getAnimCount() => _Animations.Count;
     public void debugTestCompletion()
     {
         //Debug.Log("TestAnimation Complete");
