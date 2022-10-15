@@ -10,7 +10,7 @@ public class TurnController : CombatFSM
     [SerializeField] PlayerTracker player;
     [SerializeField] DeckManager_SO deckManager;
     [SerializeField] PathAnimatorController DiscardAnimator;
-    public PathAnimatorController DrawAnimator;
+    [SerializeField] PathAnimatorController DrawAnimator;
     [SerializeField] PathAnimatorController ShuffleAnimator;
 
     // * Combat Variables
