@@ -233,7 +233,7 @@ public class TurnManager : MonoBehaviour
                     foreach (NonGod_Behaviour card in board.lane)
                     {
                         card.OnAction();
-                        board.deckManager.discardCard(card.GetCardSO(), 0);
+                        board.deckManager.discardCard(card.GetCardSO());
                     }
                     CheckIfPlayerWon();
                     currentState = State.EnemiesTurn;

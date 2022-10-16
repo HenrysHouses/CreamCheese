@@ -38,7 +38,7 @@ public class CardDrawer_debugger : MonoBehaviour
 
     public void DiscardACard()
     {
-        deckManager.discardCard(selectedCard, 0);
+        deckManager.discardCard(selectedCard);
     }
 
     public void DiscardHand()

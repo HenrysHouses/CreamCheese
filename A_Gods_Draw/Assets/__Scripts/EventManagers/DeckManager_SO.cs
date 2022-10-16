@@ -267,7 +267,7 @@ public class DeckManager_SO : ScriptableObject
     }
 
     /// <summary>Moves a card currently in player hand to player discard. Trigger discard animation</summary>
-    public CardPathAnim discardCard(Card_SO card, float delay)
+    public CardPathAnim discardCard(Card_SO card)
     {
         if(pHand.Contains(card))
         {
@@ -277,7 +277,7 @@ public class DeckManager_SO : ScriptableObject
             _Loader.shouldAddComponent = false;
             _Loader.Set(card, null);
             CardPathAnim anim = new CardPathAnim(card);
-            AnimationEventManager.getInstance.requestAnimation("Hand-Discard", _card, delay, anim);
+            AnimationEventManager.getInstance.requestAnimation("Hand-Discard", _card, 0, anim);
 
             pDiscard.Add(card);
             pHand.Remove(card);

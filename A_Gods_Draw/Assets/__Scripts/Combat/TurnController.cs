@@ -160,11 +160,11 @@ public class TurnController : CombatFSM
         Card_SO[] cards  = deckManager.GetHandSO();
         for (int i = 0; i < cards.Length; i++)
         {
-            lastAnim = deckManager.discardCard(cards[i], delayBetweenCards);
+            lastAnim = deckManager.discardCard(cards[i]);
             if(i == cards.Length-1)
             {
                 lastAnim.OnAnimCompletionTrigger.AddListener(animsAreDone);
-                Debug.Log("added last anim: " + lastAnim.OnAnimCompletionTrigger.GetPersistentEventCount());
+                Debug.LogWarning("Discard animsAreDone() is not triggering");
             }
             
             _Hand.RemoveCard(0);
