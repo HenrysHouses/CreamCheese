@@ -72,7 +72,7 @@ public class PathAnimatorController : MonoBehaviour
     }
 
     /// <summary>Data class for path animations, can be used to override the path's settings</summary>
-    public class pathAnimation
+    [System.Serializable] public class pathAnimation
     {
         /// <summary>The GameObject that will be animated</summary>
         public GameObject AnimationTarget;
@@ -86,19 +86,30 @@ public class PathAnimatorController : MonoBehaviour
         public float speedMultiplier;
         public int index;
         public bool FreezeRotationX, FreezeRotationY, FreezeRotationZ;
-        public UnityEvent CompletionTrigger;
+        public UnityEvent OnAnimCompletionTrigger;
+        public UnityEvent OnAnimStartTrigger;
         public bool _Complete;
+        public bool _Started;
 
         public pathAnimation()
         {
-            CompletionTrigger = new UnityEvent();
+            OnAnimCompletionTrigger = new UnityEvent();
+            OnAnimStartTrigger = new UnityEvent();
             AnimationTransform = new GameObject("AnimationHolder").transform;
         }
 
-        public virtual void completionTrigger()
+        public virtual void completionTrigger(string animationName)
         {
-            CompletionTrigger?.Invoke();
+            OnAnimCompletionTrigger?.Invoke();
             _Complete = true;
+            Debug.Log("DUD: " + animationName);
+        }
+
+        public virtual void startTrigger()
+        {
+            OnAnimStartTrigger?.Invoke();
+            _Started = true;
+            // Debug.Log("DUD: " + animationName);
         }
     }
 
@@ -109,6 +120,7 @@ public class PathAnimatorController : MonoBehaviour
         calculateApproximateAnimLength();
         OnEnable();
         // isReadingRequests = false;
+        // TODO should make an animation scene to keep inactive animations in.
     }
 
     void OnEnable()
@@ -143,6 +155,9 @@ public class PathAnimatorController : MonoBehaviour
         {
             yield return new WaitForSeconds(anim.delay);
             // prep remove accepted request
+            // Debug.Log(anim);
+            // string[] s = anim.target.Split('_');
+            // Debug.Log("read anim request: " + s[s.Length-1]);
             StartCoroutine(CreateAnimation(anim));
         }
     }
@@ -158,7 +173,7 @@ public class PathAnimatorController : MonoBehaviour
         animation.length = AnimLength;
         animation.speedCurve = _speedCurve;
         animation.speedMultiplier = Multiplier;
-        // animation.CompletionTrigger.AddListener(debugTestCompletion);
+        animation.OnAnimCompletionTrigger.AddListener(debugTestCompletion);
         return animation;
     }
 
@@ -178,7 +193,7 @@ public class PathAnimatorController : MonoBehaviour
         if(anim.speedMultiplier == 0)
             anim.speedMultiplier = Multiplier;
 
-        // anim.CompletionTrigger.AddListener(debugTestCompletion);
+        anim.OnAnimCompletionTrigger.AddListener(debugTestCompletion);
 
         return anim;
     }
@@ -190,6 +205,8 @@ public class PathAnimatorController : MonoBehaviour
         yield return new WaitForSeconds(request.delay);
 
         // Debug.Log(request.anim);
+        // string[] s = request.target.Split('_');
+        // Debug.Log("anim start: " + s[s.Length-1]);
 
         // get animation settings if there is no overridden settings
         if(request.anim == null)
@@ -207,9 +224,6 @@ public class PathAnimatorController : MonoBehaviour
         request.anim.AnimationTarget.transform.position = new Vector3();  
         request.anim.AnimationTransform.SetParent(transform, false);
         
-        // ! temporary anim rotation
-        request.anim.AnimationTarget.transform.Rotate(new Vector3(0,-90, 0), Space.Self);
-
         // Decides if the animation is played regularly or in reverse.
         if(request.anim.speedMultiplier > 0)
             request.anim.AnimationTransform.position = path.controlPoints[0].position;
@@ -245,6 +259,9 @@ public class PathAnimatorController : MonoBehaviour
         {
             for (int i = 0; i < _Animations.Count; i++)
             {
+                if(!_Animations[i]._Started)
+                     _Animations[i].startTrigger();
+
                 // Animation completion state. Gets set to false if its still ongoing. // ? should maybe be inverted but whatever
                 bool state = true; 
 
@@ -320,7 +337,7 @@ public class PathAnimatorController : MonoBehaviour
     {
         if(!_Animations[index]._Complete)
         {
-            _Animations[index].completionTrigger();
+            _Animations[index].completionTrigger(_Animations[index].AnimationTarget.name);
         }
         
         // Destroys the animation transform        
@@ -351,6 +368,6 @@ public class PathAnimatorController : MonoBehaviour
     public int getAnimCount() => _Animations.Count;
     public void debugTestCompletion()
     {
-        //Debug.Log("TestAnimation Complete");
+        // Debug.Log("TestAnimation Complete");
     }
 }

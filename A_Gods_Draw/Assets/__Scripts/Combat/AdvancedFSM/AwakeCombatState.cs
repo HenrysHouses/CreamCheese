@@ -1,3 +1,8 @@
+/* 
+ * Written by 
+ * Henrik
+*/
+
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -16,20 +21,20 @@ public class AwakeCombatState : CombatFSMState
 
     public override void Reason(bool override_ = false)
     {
-        if(hasShuffled)
-        {
-            Controller.PerformTransition(Transition.EnterDraw);
-            Controller.isCombatStarted = true;
-            hasShuffled = false;
-        }
+        if(!hasShuffled)
+            return;
+
+        Controller.PerformTransition(Transition.EnterDraw);
+        Controller.isCombatStarted = true;
+        hasShuffled = false;
     }
 
     public override void Act()
     {
-        if(!hasShuffled)
-        {
-            Controller.Shuffle();
-            hasShuffled = true;
-        }
+        if(hasShuffled)
+            return;
+
+        Controller.ShuffleLibrary();
+        hasShuffled = true;
     }
 }

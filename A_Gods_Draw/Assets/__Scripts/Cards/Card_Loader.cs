@@ -11,7 +11,7 @@ public class Card_Loader : MonoBehaviour
     [SerializeField]
     Image image;
     [SerializeField]
-    Text cardname;
+    Text cardName;
     [SerializeField]
     Text desc;
     [SerializeField]
@@ -19,10 +19,11 @@ public class Card_Loader : MonoBehaviour
     [SerializeField]
     Image typeIcon;
     [SerializeField]
-    Text strengh;
+    Text strength;
 
     [SerializeField]
     Transform prop;
+    public bool shouldAddComponent = true;
 
     private void Start()
     {
@@ -40,7 +41,7 @@ public class Card_Loader : MonoBehaviour
         if (godCard)
         {
             typeIcon.enabled = false;
-            strengh.enabled = false;
+            strength.enabled = false;
             God_Card test = godCard;
             health.text = test.health.ToString();
             image.transform.localPosition -= Vector3.up * image.transform.localPosition.y;
@@ -50,22 +51,23 @@ public class Card_Loader : MonoBehaviour
         }
         else if (card_so as NonGod_Card)
         {
+            NonGod_Card nonGod = card_so as NonGod_Card;
             health.enabled = false;
-            NonGod_Card test = card_so as NonGod_Card;
-            typeIcon.sprite = test.icon;
-            strengh.text = test.baseStrengh.ToString();
+            typeIcon.sprite = nonGod.icon;
+            strength.text = nonGod.baseStrength.ToString();
 
-            ChangeOrm(test);
+            ChangeOrm(nonGod);
         }
         else
         {
             //Debug.LogError("wtfff don't use the Card_SO objects i might cry");
         }
-        cardname.text = card_so.cardname;
+        cardName.text = card_so.cardName;
         image.sprite = card_so.image;
         desc.text = card_so.description;
 
-        card_so.Init(this.gameObject).SetManager(manager);
+        if(shouldAddComponent)
+            card_so.Init(this.gameObject).SetManager(manager); // ! probably
     }
 
     void ChangeOrm(NonGod_Card card)
@@ -88,6 +90,6 @@ public class Card_Loader : MonoBehaviour
 
     public void ChangeStrengh(int newValue)
     {
-        strengh.text = newValue.ToString();
+        strength.text = newValue.ToString();
     }
 }

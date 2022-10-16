@@ -1,3 +1,8 @@
+/* 
+ * Written by 
+ * Henrik
+*/
+
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -15,22 +20,24 @@ public class DrawState : CombatFSMState
 
     public override void Reason(bool override_ = false)
     {
-        if(hasDrawn && !Controller.isDrawAnimating && !Controller.shouldWaitForAnims)
-        {
-            Debug.Log(Controller.shouldWaitForAnims);
-            Controller.PerformTransition(Transition.EnterDiscard); // ! this should be enter main not discard
-            Debug.Log("temporary skip to discard"); 
-            hasDrawn = false;
-        }
+        bool shouldTrigger = hasDrawn 
+                        && !Controller.isDrawAnimating 
+                        && !Controller.shouldWaitForAnims; 
+        
+        if(!shouldTrigger)
+            return;
+
+        Controller.PerformTransition(Transition.EnterMain);
+        hasDrawn = false;
     }
 
     public override void Act()
     {
-        if(!hasDrawn)
-        {
-            Controller.Draw(Controller.DrawStepCardAmount);
-            hasDrawn = true;
-            Controller.shouldWaitForAnims = true;
-        }
+        if(hasDrawn)
+            return;
+
+        Controller.Draw(Controller.DrawStepCardAmount);
+        hasDrawn = true;
+        Controller.shouldWaitForAnims = true;
     }
 }

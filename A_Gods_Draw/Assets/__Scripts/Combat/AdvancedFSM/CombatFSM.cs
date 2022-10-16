@@ -1,3 +1,8 @@
+/* 
+ * Adapted by 
+ * Henrik
+*/
+
 using UnityEngine;
 using System.Collections.Generic;
 
@@ -8,7 +13,6 @@ using System.Collections.Generic;
 /// You're free to use, modify and distribute the code in any projects including commercial ones.
 /// Please read the link to know more about CCA license @http://creativecommons.org/licenses/by-sa/3.0/
 /// </summary>
-
 public enum Transition
 {
     None = 0,
@@ -85,7 +89,7 @@ public class CombatFSM : MonoBehaviour
         {
             if (state.ID == fsmState.ID)
             {
-                Debug.LogError("FSM ERROR: Trying to add a state that was already inside the list");
+                Debug.LogError("FSM ERROR: Trying to add a state that was already inside the list: FSMSTATE: " + fsmState);
                 return;
             }
         }

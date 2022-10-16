@@ -8,45 +8,46 @@ public class Player_Hand : MonoBehaviour
     Transform handPlace;
 
     public TurnManager _turnManager; // ! this will be phased out after refactoring
-    [SerializeField] TurnController _turnController; // # should be replaced with this
 
     private float cardRotation = 10; 
-    public List<CardInHand> CAH = new List<CardInHand>();
-    public List<Card_Behaviour> behaviours = new();
+    public List<CardHandAnim> CardSelectionAnimators = new List<CardHandAnim>();
+    public List<Card_Behaviour> behaviour = new List<Card_Behaviour>();
 
-    public GameObject CardinHandPrefab;
-    public class CardInHand
+    public GameObject CardHandPrefab;
+    public class CardHandAnim
     {
-        public Card_Selector CS;
+        public Card_Selector Selector;
         public Animator cardAnimation;
+        public Card_SO cardSO;
 
-        public  CardInHand(Card_Selector selector)
+        public  CardHandAnim(Card_Selector selector, Card_SO SO)
         {
             this.cardAnimation = selector.GetComponentInChildren<Animator>();
-            this.CS = selector;
+            this.Selector = selector;
+            this.cardSO = SO;
         }
     }
 
     public void AddCard(Card_SO card)
     {
         float posX = handPlace.position.x;
-        handPlace.position += Vector3.right * (-0.3f + CAH.Count * 0.1f);
+        handPlace.position += Vector3.right * (-0.3f + CardSelectionAnimators.Count * 0.1f);
         float posZ = handPlace.position.z;
-        handPlace.position += Vector3.forward * (0.0001f + CAH.Count * 0.01f / 2.5f); // << This puts the cards behing eacother, but makes unity angery
-        GameObject spawn = Instantiate(CardinHandPrefab, handPlace.position, Quaternion.identity);
-        CardinHandPrefab.transform.localScale = new Vector3(0.75f,0.75f,0.75f);
+        handPlace.position += Vector3.forward * (0.0001f + CardSelectionAnimators.Count * 0.01f / 2.5f); // << This puts the cards behing eacother, but makes unity angery
+        GameObject spawn = Instantiate(CardHandPrefab, handPlace.position, Quaternion.identity);
+        CardHandPrefab.transform.localScale = new Vector3(0.75f,0.75f,0.75f);
         Card_Loader _loader = spawn.GetComponentInChildren<Card_Loader>();
         _loader.Set(card, _turnManager);
-        CardInHand _card = new CardInHand(spawn.GetComponentInChildren<Card_Selector>());
+        CardHandAnim _card = new CardHandAnim(spawn.GetComponentInChildren<Card_Selector>(), _loader.GetCardSO);
         handPlace.position = new Vector3(posX, handPlace.position.y, posZ);
 
         spawn.transform.parent = handPlace;
 
-        CAH.Add(_card);
+        CardSelectionAnimators.Add(_card);
 
         spawn.transform.GetChild(0).GetComponent<BoxCollider>().enabled = true;
 
-        behaviours.Add(spawn.GetComponentInChildren<Card_Behaviour>());
+        behaviour.Add(spawn.GetComponentInChildren<Card_Behaviour>());
 
         // Debug.Log("Card in hand: " + spawn.name + ", this one is number: " + (CAH.Count - 1));
         
@@ -56,20 +57,23 @@ public class Player_Hand : MonoBehaviour
     }
     
 
-    public void RemoveCard(int pos)
+    public Card_SO RemoveCard(int index)
     {
-        if (pos >= CAH.Count)
-        {
-            return;
-        }
-        CAH[pos].cardAnimation.enabled = false;
-        CAH.RemoveAt(pos);
+        if (index >= CardSelectionAnimators.Count)
+            return null;
+
+        Card_SO _SO = CardSelectionAnimators[index].cardSO;
+        CardSelectionAnimators[index].cardAnimation.enabled = false;
+        Destroy(CardSelectionAnimators[index].Selector.gameObject);
+        CardSelectionAnimators.RemoveAt(index);
+        behaviour.RemoveAt(index);
         UpdateCards();
+        return _SO;
     }
 
     public void RemoveAllCards()
     {
-        CAH.Clear();
+        CardSelectionAnimators.Clear();
         UpdateCards();
     }
     private void Start()
@@ -81,9 +85,9 @@ public class Player_Hand : MonoBehaviour
 
     private void Update()
     {
-        for (int i = 0; i < CAH.Count; i++)
+        for (int i = 0; i < CardSelectionAnimators.Count; i++)
         {
-            if(CAH[i].CS.holdingOver)   
+            if(CardSelectionAnimators[i].Selector.holdingOver)   
             {
                 HoverOverCard(i);
             }
@@ -95,28 +99,29 @@ public class Player_Hand : MonoBehaviour
     }
     public void UpdateCards()
     {
-       float count = (float)CAH.Count;
-        for (int i = 0; i < CAH.Count; i++)
+        float count = (float)CardSelectionAnimators.Count;
+        for (int i = 0; i < CardSelectionAnimators.Count; i++)
         {
-            CAH[i].CS.transform.rotation = Quaternion.Euler(0, 0, (cardRotation * ((count - 1) / 2f)) - cardRotation * i);
+            CardSelectionAnimators[i].Selector.transform.rotation = Quaternion.Euler(0, 0, (cardRotation * ((count - 1) / 2f)) - cardRotation * i);
             
         }
+        
     }
     
-    void HoverOverCard(int card)
+    void HoverOverCard(int index)
     {
         //Debug.Log("HoveringOver");
-        CAH[card].CS.transform.rotation = Quaternion.Euler(0,0,0);
-        CAH[card].cardAnimation.SetBool("ShowCard",true);
+        CardSelectionAnimators[index].Selector.transform.rotation = Quaternion.Euler(0,0,0);
+        CardSelectionAnimators[index].cardAnimation.SetBool("ShowCard",true);
     }
-    void StopHover(int card)
+    void StopHover(int index)
     {
-        Card_Behaviour CAB = CAH[card].CS.GetComponentInChildren<Card_Behaviour>();
+        Card_Behaviour CAB = CardSelectionAnimators[index].Selector.GetComponentInChildren<Card_Behaviour>();
         if(!CAB.IsThisSelected())
         {
-            float rot = (float)cardRotation, count = (float)CAH.Count;
-        CAH[card].CS.transform.rotation = Quaternion.Euler(0, 0, (rot * ((count - 1) / 2f)) - rot * card);
-        CAH[card].cardAnimation.SetBool("ShowCard", false);
+            float rot = (float)cardRotation, count = (float)CardSelectionAnimators.Count;
+        CardSelectionAnimators[index].Selector.transform.rotation = Quaternion.Euler(0, 0, (rot * ((count - 1) / 2f)) - rot * index);
+        CardSelectionAnimators[index].cardAnimation.SetBool("ShowCard", false);
 
         }
         

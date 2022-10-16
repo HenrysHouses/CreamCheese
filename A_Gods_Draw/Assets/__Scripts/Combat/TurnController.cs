@@ -1,3 +1,8 @@
+/* 
+ * Written by 
+ * Henrik
+*/
+
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -24,6 +29,7 @@ public class TurnController : CombatFSM
     public bool isCombatStarted = false;
     public bool shouldEndTurn = false;
     public bool shouldWaitForAnims = false;
+    [SerializeField] bool waitForLibraryShuffle = false;
 
     public CombatState state;
 
@@ -36,7 +42,10 @@ public class TurnController : CombatFSM
         _combatSetup.AddTransition(Transition.EnterDraw, CombatState.DrawStep);
 
         DrawState _drawStep = new DrawState(this);
-        _drawStep.AddTransition(Transition.EnterDiscard, CombatState.DiscardStep); // ! should be main phase, but is discard for testing 
+        _drawStep.AddTransition(Transition.EnterMain, CombatState.MainPhase); 
+
+        MainState _mainPhase = new MainState(this);
+        _mainPhase.AddTransition(Transition.EnterDiscard, CombatState.DiscardStep); 
 
         DiscardState _discardStep = new DiscardState(this);
         _discardStep.AddTransition(Transition.EnterEnd, CombatState.EndStep);
@@ -47,7 +56,7 @@ public class TurnController : CombatFSM
         // TODO
         AddFSMState(_combatSetup);
         AddFSMState(_drawStep);
-        // AddFSMState(_mainPhase);
+        AddFSMState(_mainPhase);
         AddFSMState(_discardStep);
         // AddFSMState(_CombatStepStart);
         // AddFSMState(_CombatCard);
@@ -71,19 +80,11 @@ public class TurnController : CombatFSM
         state = CurrentStateID;
     }
 
-    void checkTurnStatus()
-    {
-        
-    }
-
-    void EnterCombatTrigger()
-    {
-        Draw(DrawStepCardAmount);
-    }
+    // * --- Turn Management ---
 
     public void EndTurn()
     {
-        if(CurrentState.Equals(CombatState.MainPhase))
+        if(CurrentState is MainState)
             shouldEndTurn = true;
     }
 
@@ -98,22 +99,87 @@ public class TurnController : CombatFSM
         // wait until the discard has been shuffled into the library before drawing cards
         yield return new WaitUntil(() => !ShuffleAnimator.isAnimating);
 
-        UnityEvent<Card_SO>[] triggerData = deckManager.drawCard(amount);
-        triggerData[triggerData.Length-1].AddListener(animsAreDone);
-        
-        foreach (var trigger in triggerData)
+        Debug.Log("DRAW");
+
+        CardPathAnim[] animData = deckManager.drawCard(amount, 0.25f);
+
+        if(animData != null)
+            Debug.Log("draw: " + animData.Length + " - " + amount);
+
+        // # if trigger data == null, then there was not enough cards in library to draw
+        if(animData != null) 
         {
-            if(trigger != null)
-                trigger.AddListener(_Hand.AddCard);
+            animData[animData.Length-1].OnAnimCompletionTrigger.AddListener(animsAreDone);
+
+            foreach (var trigger in animData)
+            {
+                if(trigger != null)
+                    trigger.OnCardCompletionTrigger.AddListener(_Hand.AddCard);
+            }
+
+            yield break; // stops Coroutine here
+        }
+        
+        ShuffleDiscard(amount); // Does not let the player draw the remaining cards and then shuffle
+    }
+
+    public void ShuffleLibrary() => deckManager.shuffleLibrary();
+
+    /// <summary>Shuffles the discard into the library for the player</summary>
+    public void ShuffleDiscard(int drawAmount = 0) => StartCoroutine(shuffleDiscardTrigger(drawAmount));
+    
+    IEnumerator shuffleDiscardTrigger(int drawAfterShuffle)
+    {
+        yield return new WaitUntil(() => !DrawAnimator.isAnimating);
+
+        CardPathAnim[] animData = deckManager.shuffleDiscard(0.18f);
+
+        if(drawAfterShuffle <= 0) // stops animations here
+        {
+            animData[animData.Length-1].OnAnimCompletionTrigger.AddListener(animsAreDone);
+        }
+        else
+        {
+            waitForLibraryShuffle = true;
+            animData[animData.Length-1].OnAnimCompletionTrigger.AddListener(waitForShuffleAnims);
+
+            yield return new WaitUntil(() => !waitForLibraryShuffle);
+            Draw(drawAfterShuffle);
+            Debug.Log("DRAW after shuffle");
         }
     }
 
-    public void Shuffle() => deckManager.shuffleLibrary();
+    public void DiscardAll(float delay) => StartCoroutine(discardAllTrigger(delay));
+    IEnumerator discardAllTrigger(float delayBetweenCards)
+    {
+        yield return new WaitUntil(() => !DrawAnimator.isAnimating && !ShuffleAnimator.isAnimating);
 
-    public void DiscardAll() => deckManager.discardAll();
+        Debug.Log("DISCARD");
+        CardPathAnim lastAnim = null;
 
-    void animsAreDone(Card_SO so)
+        Card_SO[] cards  = deckManager.GetHandSO();
+        for (int i = 0; i < cards.Length; i++)
+        {
+            lastAnim = deckManager.discardCard(cards[i], delayBetweenCards);
+            if(i == cards.Length-1)
+            {
+                lastAnim.OnAnimCompletionTrigger.AddListener(animsAreDone);
+                Debug.Log("added last anim: " + lastAnim.OnAnimCompletionTrigger.GetPersistentEventCount());
+            }
+            
+            _Hand.RemoveCard(0);
+            yield return new WaitForSeconds(delayBetweenCards);
+        }
+    } 
+
+    void animsAreDone()
     {
         shouldWaitForAnims = false;
+    }
+
+    void waitForShuffleAnims()
+    {
+        waitForLibraryShuffle = false;
+        Debug.Log("ShuffleDone");
     }
 }

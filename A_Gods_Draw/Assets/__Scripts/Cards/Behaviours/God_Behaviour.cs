@@ -125,6 +125,6 @@ public class God_Behaviour : Card_Behaviour
 
     public virtual void OnTurnStart() { }
 
-    public string GetName() { return card_abs.cardname; }
+    public string GetName() { return card_abs.cardName; }
 
 }

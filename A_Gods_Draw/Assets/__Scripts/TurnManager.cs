@@ -15,8 +15,6 @@ public struct BoardState
     public Player_Hand _hand;
     public God_Behaviour currentGod;
     public List<NonGod_Behaviour> lane;
-    
-
 }
 
 
@@ -130,11 +128,11 @@ public class TurnManager : MonoBehaviour
                     //SoundManager.Instance.Playsound(SoundDrawCards,gameObject);
                     currentState = State.PlayerTurn;
 
-                    UnityEvent<Card_SO>[] triggerData = board.deckManager.drawCard(5, this);
+                    CardPathAnim[] triggerData = board.deckManager.drawCard(5, 0.25f, this);
                     foreach (var trigger in triggerData)
                     {
                         if(trigger != null)
-                            trigger.AddListener(board._hand.AddCard);
+                            trigger.OnCardCompletionTrigger.AddListener(board._hand.AddCard);
                     }
                     currentLane = 0;
 
@@ -155,7 +153,7 @@ public class TurnManager : MonoBehaviour
                     if (playedCard)
                     {  
                         int i = 0;
-                        foreach (Card_Behaviour a in board._hand.behaviours)
+                        foreach (Card_Behaviour a in board._hand.behaviour)
                         {
                             if (a == playedCard)
                             {
@@ -213,7 +211,7 @@ public class TurnManager : MonoBehaviour
                             hasPlayedAGod = true;
                         }
 
-                        board._hand.behaviours.Remove(playedCard);
+                        board._hand.behaviour.Remove(playedCard);
                         board._hand.RemoveCard(i);
                         playedCard = null;
                         selectedCard = null;
@@ -235,7 +233,7 @@ public class TurnManager : MonoBehaviour
                     foreach (NonGod_Behaviour card in board.lane)
                     {
                         card.OnAction();
-                        board.deckManager.discardCard(card.GetCardSO());
+                        board.deckManager.discardCard(card.GetCardSO(), 0);
                     }
                     CheckIfPlayerWon();
                     currentState = State.EnemiesTurn;
@@ -264,22 +262,22 @@ public class TurnManager : MonoBehaviour
                     board._hand.RemoveAllCards();
 
                     if (hasPlayedAGod)
-                        board.deckManager.discardAll(board.currentGod.GetCardSO(), this);
+                        board.deckManager.discardAll(0.25f, board.currentGod.GetCardSO(), this);
                     else
-                        board.deckManager.discardAll(this);
+                        board.deckManager.discardAll(0.25f, this);
 
                     for (int i = board.lane.Count - 1; i >= 0; i--)
                     {
                         Destroy(board.lane[i].transform.parent.parent.gameObject);
                     }
 
-                    for (int i = board._hand.behaviours.Count - 1; i >= 0; i--)
+                    for (int i = board._hand.behaviour.Count - 1; i >= 0; i--)
                     {
-                        Destroy(board._hand.behaviours[i].transform.parent.parent.gameObject);
+                        Destroy(board._hand.behaviour[i].transform.parent.parent.gameObject);
                     }
 
                     hasPlayedAGod = false;
-                    board._hand.behaviours.Clear();
+                    board._hand.behaviour.Clear();
                     board.lane.Clear();
                     currentState = State.WaitForAnims;
                 }
@@ -411,20 +409,20 @@ public class TurnManager : MonoBehaviour
 
             board._hand.RemoveAllCards();
 
-            board.deckManager.discardAll();
+            board.deckManager.discardAll(0.25f);
 
             for (int i = board.lane.Count - 1; i >= 0; i--)
             {
                 Destroy(board.lane[i].transform.parent.parent.gameObject);
             }
 
-            for (int i = board._hand.behaviours.Count - 1; i >= 0; i--)
+            for (int i = board._hand.behaviour.Count - 1; i >= 0; i--)
             {
-                Destroy(board._hand.behaviours[i].transform.parent.parent.gameObject);
+                Destroy(board._hand.behaviour[i].transform.parent.parent.gameObject);
             }
 
             hasPlayedAGod = false;
-            board._hand.behaviours.Clear();
+            board._hand.behaviour.Clear();
             board.lane.Clear();
 
             if (board.currentGod)
@@ -448,20 +446,20 @@ public class TurnManager : MonoBehaviour
         // ui.ShowLoosingPanel();
         board._hand.RemoveAllCards();
 
-        board.deckManager.discardAll();
+        board.deckManager.discardAll(0.25f);
 
         for (int i = board.lane.Count - 1; i >= 0; i--)
         {
             Destroy(board.lane[i].transform.parent.parent.gameObject);
         }
 
-        for (int i = board._hand.behaviours.Count - 1; i >= 0; i--)
+        for (int i = board._hand.behaviour.Count - 1; i >= 0; i--)
         {
-            Destroy(board._hand.behaviours[i].transform.parent.parent.gameObject);
+            Destroy(board._hand.behaviour[i].transform.parent.parent.gameObject);
         }
 
         hasPlayedAGod = false;
-        board._hand.behaviours.Clear();
+        board._hand.behaviour.Clear();
         board.lane.Clear();
 
         if (board.currentGod)

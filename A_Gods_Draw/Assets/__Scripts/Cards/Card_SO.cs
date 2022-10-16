@@ -8,14 +8,11 @@ using UnityEngine.UI;
 public abstract class Card_SO : ScriptableObject
 {
     public Sprite image;
-    public string cardname;
+    public string cardName;
     public string description;
-
-
     public virtual Card_Behaviour Init(GameObject a)
     {
         return null;
     }
-
 }
 

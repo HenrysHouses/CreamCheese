@@ -20,7 +20,7 @@ public abstract class NonGod_Behaviour : Card_Behaviour
     {
         this.card_abs = card;
         card_NonGod = card as NonGod_Card;
-        strengh = card_NonGod.baseStrengh;
+        strengh = card_NonGod.baseStrength;
     }
 
     public void CanBeBuffedBy(Buff_Behaviour buff_)

@@ -8,7 +8,7 @@ using UnityEngine.UI;
 public class NonGod_Card : Card_SO
 {
     public string correspondingGod;
-    public short baseStrengh;
+    public short baseStrength;
 
     public Sprite icon;
 
