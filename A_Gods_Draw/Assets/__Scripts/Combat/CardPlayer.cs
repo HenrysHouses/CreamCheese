@@ -5,15 +5,15 @@ using UnityEngine;
 public class CardPlayer : MonoBehaviour
 {
     // * Mechanic References
-
-    [SerializeField] BoardStateController board;
+    [SerializeField] Player_Hand _Hand;
+    [SerializeField] BoardStateController _Board;
 
     // * Variables
     Camera mainCam;
     [SerializeField] LayerMask cardLayer;
     [SerializeField] LayerMask laneLayer;
 
-    Card_Behaviour selectedCard;
+    Card_Behaviour _selectedCard;
 
     // Start is called before the first frame update
     void Start()
@@ -26,17 +26,18 @@ public class CardPlayer : MonoBehaviour
     {
         if(Input.GetKey(KeyCode.Mouse0))
         {
-            if(selectedCard is null)
+            if(_selectedCard is null)
             {
-                selectedCard = selectCard();
+                _selectedCard = selectCard();
                 return;
             }
             
             Transform selectedLane;
             if(playCard(out selectedLane))
             {
-                placeCard(selectedLane);
             }
+
+            _selectedCard = null;
         }
     }
 
@@ -68,8 +69,11 @@ public class CardPlayer : MonoBehaviour
         return false;
     }
 
-    void placeCard(Transform lane)
+    void placeCard(Transform lane, Card_Behaviour behaviour)
     {
-        board.placeCardOnLane(lane);
+        // _Hand.behaviour.Add();
+        // int index _Hand.behaviour.IndexOf()
+        // _Hand.RemoveCard()
+        _Board.placeCardOnLane(lane, behaviour);
     }
 }

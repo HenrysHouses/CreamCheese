@@ -87,7 +87,7 @@ public class BoardStateController : MonoBehaviour
         {
             if(cardLane.Equals(targetlane))
             {
-                cardLane = card as God_Behaviour;
+                // cardLane = card as God_Behaviour;
                 cardLane.transform.position = _GodLane.position;
                 return;
             }
