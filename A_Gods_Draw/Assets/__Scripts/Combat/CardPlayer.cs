@@ -44,10 +44,10 @@ public class CardPlayer : MonoBehaviour
     {
         Ray ray = mainCam.ScreenPointToRay(Input.mousePosition);
 
-        if(Physics.Raycast(ray, out RaycastHit hit, 100, cardLayer))
+        if(Physics.Raycast(ray, out RaycastHit hit, 1000000, cardLayer))
         {
             Card_Behaviour behaviour = hit.collider.GetComponentInChildren<Card_Behaviour>();
-            
+            Debug.Log(hit.collider.name);
             return behaviour;
         }
         return null;
@@ -71,6 +71,5 @@ public class CardPlayer : MonoBehaviour
     void placeCard(Transform lane)
     {
         board.placeCardOnLane(lane);
-        Debug.Log("attempted placing card");
     }
 }

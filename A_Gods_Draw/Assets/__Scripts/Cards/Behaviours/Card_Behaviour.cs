@@ -28,7 +28,7 @@ public abstract class Card_Behaviour : MonoBehaviour
     {
         if(!manager)
         {
-            Debug.LogWarning("A card does not have reference to the turnManager");
+            // Debug.LogWarning("A card does not have reference to the turnManager");
             return;
         }
 

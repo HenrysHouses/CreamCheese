@@ -133,6 +133,12 @@ public class Card_ClickGlowing : MonoBehaviour
     //when you have a buff card draw arrow over the place the card will be
     public void DrawArrowsCards()
     {
+        if(!turnManager)
+        {
+            Debug.LogWarning("missing turnmanager");
+            return;
+        }
+
         if (turnManager.GetTransforms()[turnManager.GetNextPlace()])
         {
             if(turnManager.GetNextPlace() < 4)

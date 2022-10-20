@@ -72,11 +72,13 @@ public class BoardStateController : MonoBehaviour
         return _Enemies[index].GetIntent();
     }
 
-    public void placeCardOnLane(Transform targetlane)
+    public void placeCardOnLane(Transform targetlane, Card_Behaviour card)
     {
         if(_GodLane.Equals(targetlane))
         {
             // on god lane
+            playedGodCard = card as God_Behaviour;
+            playedGodCard.transform.position = _GodLane.position;
             Debug.Log("god lane");
             return;
         }
@@ -85,7 +87,8 @@ public class BoardStateController : MonoBehaviour
         {
             if(cardLane.Equals(targetlane))
             {
-                Debug.Log("lane match");
+                cardLane = card as God_Behaviour;
+                cardLane.transform.position = _GodLane.position;
                 return;
             }
         }
