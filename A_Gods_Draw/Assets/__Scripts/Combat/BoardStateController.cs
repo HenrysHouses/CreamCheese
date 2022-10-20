@@ -17,9 +17,9 @@ public class BoardStateController : MonoBehaviour
     public IMonster[] Enemies => _Enemies;
     public Transform getLane(int i) => _Lane[i];
     public Transform getGodLane() => _GodLane;
-    [HideInInspector] public Card_Behaviour[] playedCards;
-    [HideInInspector] public Card_Behaviour playedGodCard;
-    public Card_Behaviour getCardInLane(int i) => playedCards[i];
+    [HideInInspector] public NonGod_Behaviour[] playedCards;
+    [HideInInspector] public God_Behaviour playedGodCard;
+    public NonGod_Behaviour getCardInLane(int i) => playedCards[i];
 
     public bool isEnemyDefeated 
     {

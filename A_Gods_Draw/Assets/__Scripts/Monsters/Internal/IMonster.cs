@@ -10,6 +10,7 @@ public abstract class IMonster : MonoBehaviour
 {
     public EnemyIntent GetIntent() => EnemyIntent.GetCurrIntent();
     Intent EnemyIntent;
+    
     [SerializeField]
     int maxHealth;
     int health;

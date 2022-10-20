@@ -10,6 +10,7 @@ public abstract class Intent
         EnemyIntent _i = (EnemyIntent)currIntent;
         return _i; 
     }
+    
     int currIntent;
     List<Action> Actions;
     
