@@ -12,20 +12,32 @@ public enum CardType
     Buff,
     God
 }
-
 public class ChoosingReward : MonoBehaviour
 {
-    
     CardType currtype;
 
     DeckManager_SO deckManager;
     Card_Behaviour behaviour;
+    List<Card_SO> searchResult;
 
-    public Transform spot1, spot2, spot3;
+    public Transform[] spots;
+    public GameObject prefab;
+
+    [SerializeField]
+    LayerMask laneLayer;
 
     private void Start()
     {
         behaviour = GetComponentInChildren<Card_Behaviour>();
+        searchResult = CardSearch.Search<NonGod_Card>(new string[] {currtype.ToString()});
+    }
+
+    private void Update()
+    {
+        if (Input.GetMouseButtonDown(0))
+        {
+            SelectReward();
+        }
     }
 
     /// <summary>
@@ -36,47 +48,36 @@ public class ChoosingReward : MonoBehaviour
         switch (mapNode.Node.nodeType)
         {
             case NodeType.AttackReward:
-                AttackRewardCards();
-                break;
             case NodeType.DefenceReward:
-                DefenceRewardCards();
-                break;
             case NodeType.BuffReward:
-                BuffRewardCards();
+                InstantiateCards();
                 break;
         }
     }
 
-    private void OnMouseDown() //adds the card clicked on to the players deck
+    void InstantiateCards()
     {
-        
+        GameObject spawn1 = Instantiate(prefab, spots[0]);
+
+        Card_SO randomCard = searchResult[Random.Range(0, searchResult.Count)];
+        spawn1.GetComponentInChildren<Card_Loader>().Set(randomCard, null);
     }
 
-    void AttackRewardCards()
+    int SelectReward()
     {
-        if (currtype.Equals(CardType.Attack))
+        Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
+
+        if (Physics.Raycast(ray, out RaycastHit hit, 100, laneLayer))
         {
-            //FullCardList.CardSearch(new NonGod_Card(), CardType.Attack.ToString(), null);
+            for (int i = 0; i < spots.Length; i++)
+            {
+                if (hit.collider.transform.Equals(spots[i]))
+                {
+                    return i;
+                }
+            }
         }
+
+        return -1;
     }
-
-    void DefenceRewardCards()
-    {
-        if (currtype.Equals(CardType.Defence))
-        {
-            //FullCardList.CardSearch(new NonGod_Card(), CardType.Defence.ToString(), null);
-        }
-    }
-
-    void BuffRewardCards()
-    {
-        if (currtype.Equals(CardType.Buff))
-        {
-            //FullCardList.CardSearch(new NonGod_Card(), CardType.Buff.ToString(), null);
-        }
-    }
-
-    /*todo switch state for the different types
-     * */
-
 }

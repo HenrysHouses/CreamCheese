@@ -4,7 +4,7 @@ using UnityEngine;
 
 public static class CardSearch
 {
-    public static Card_SO[] Search<T>(string[] SearchOptions = null) where T : Card_SO
+    public static List<Card_SO> Search<T>(string[] SearchOptions = null) where T : Card_SO
     {
         List<T> Results = new List<T>();
 
@@ -51,6 +51,6 @@ public static class CardSearch
                 }
             }
         }
-        return Results.ToArray();
+        return Results as List<Card_SO>;
     }
 }
