@@ -4,5 +4,5 @@ using UnityEngine;
 
 public abstract class IGodAction : MonoBehaviour
 {
-    public virtual void OnPlay(BoardState board) { }
+    public virtual void OnPlay(BoardStateController board) { }
 }

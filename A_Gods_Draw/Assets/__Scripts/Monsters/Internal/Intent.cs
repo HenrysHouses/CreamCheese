@@ -5,44 +5,41 @@ using UnityEngine;
 
 public abstract class Intent
 {
-    public EnemyIntent GetCurrIntent()
+    public EnemyIntent GetID()
     {
-        EnemyIntent _i = (EnemyIntent)currIntent;
-        return _i; 
+        EnemyIntent _i = (EnemyIntent)actionSelected.ID;
+        return _i;
     }
-    
-    int currIntent;
-    List<Action> Actions;
-    
-    public void AddIntent(Action possibleAction)
+
+    protected int strengh;
+
+    protected Action actionSelected;
+
+    public void CancelIntent()
     {
-        if(possibleAction == null)
+        actionSelected = null;
+    }
+
+    public abstract void DecideIntent(BoardStateController board);
+
+    public int GetCurrStrengh() => strengh;
+
+    public void Act(BoardStateController BoardStateController)
+    {
+        if (actionSelected.ID == (int)EnemyIntent.None)
             return;
 
-        // Add the intent to the List if its not inside it
-        foreach (Action existingAction in Actions)
-        {
-            if (existingAction.ID == possibleAction.ID)
-            {
-                Debug.LogError("FSM ERROR: Trying to add a state that was already inside the list");
-                return;
-            }
-        }
+        actionSelected.Execute(BoardStateController, strengh);
 
-        Actions.Add(possibleAction);
-    }
-
-    public abstract void DecideIntent();
-
-    public void Act()
-    {
-        Actions[currIntent].Execute();
+        CancelIntent();
     }
 }
 
 public enum EnemyIntent
 {
-    Attack,
+    Buff,
     Defend,
+    AttackGod,
+    AttackPlayer,
     None,
 }

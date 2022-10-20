@@ -17,7 +17,7 @@ public class BoardStateController : MonoBehaviour
     public IMonster[] Enemies => _Enemies;
     public Transform getLane(int i) => _Lane[i];
     public Transform getGodLane() => _GodLane;
-    [HideInInspector] public NonGod_Behaviour[] playedCards;
+    [HideInInspector] public List<NonGod_Behaviour> playedCards;
     [HideInInspector] public God_Behaviour playedGodCard;
     public NonGod_Behaviour getCardInLane(int i) => playedCards[i];
 
@@ -62,14 +62,14 @@ public class BoardStateController : MonoBehaviour
         List<EnemyIntent> intents = new List<EnemyIntent>();
         foreach (var _i in _Enemies)
         {
-            intents.Add(_i.GetIntent());
+            intents.Add(_i.GetIntent().GetID());
         }
         return intents.ToArray();
     }
 
     public EnemyIntent getEnemyIntent(int index)
     {
-        return _Enemies[index].GetIntent();
+        return _Enemies[index].GetIntent().GetID();
     }
 
     public void placeCardOnLane(Transform targetlane, Card_Behaviour card)

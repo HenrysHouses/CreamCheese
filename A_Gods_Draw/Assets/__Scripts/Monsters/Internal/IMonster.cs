@@ -8,8 +8,8 @@ using FMODUnity;
 
 public abstract class IMonster : MonoBehaviour
 {
-    public EnemyIntent GetIntent() => EnemyIntent.GetCurrIntent();
-    Intent EnemyIntent;
+    public Intent GetIntent() => enemyIntent;
+    protected Intent enemyIntent;
     
     [SerializeField]
     int maxHealth;
@@ -18,14 +18,6 @@ public abstract class IMonster : MonoBehaviour
     [SerializeField]
     private EventReference SoundSelectCard;
 
-    [SerializeField]
-    short minAttack, maxAttack;
-
-    bool attacking;
-
-    public bool attackingPlayer;
-
-    protected int intentStrengh;
     int defendedFor;
 
     protected Attack_Behaviour attacker;
@@ -62,22 +54,13 @@ public abstract class IMonster : MonoBehaviour
         image.enabled = false;
         strengh.enabled = false;
 
-        if(EnemyIntent == null)
+        if(enemyIntent == null)
             Debug.LogError("Monster Intent Refactoring is not done");
 
     }
 
     public int GetMaxHealth() { return maxHealth; }
     public int GetHealth() { return health; }
-
-    public void CancelIntents()
-    {
-        locked = true;
-
-        intentStrengh = 0;
-        strengh.text = intentStrengh.ToString();
-        image.sprite = null;
-    }
 
     private void OnMouseDown()
     {
@@ -126,24 +109,11 @@ public abstract class IMonster : MonoBehaviour
         healthTxt.text = "HP: " + health.ToString();
     }
 
-    internal void DecideIntent(BoardState board)
+    internal void DecideIntent(BoardStateController board)
     {
-        if (!UsesAbility(board))
-        {
-            attacking = true;
-            image.sprite = attackIcon;
-            intentStrengh = UnityEngine.Random.Range(minAttack, maxAttack + 1);
-            attackingPlayer = AttackingPlayer(board);
-            //Debug.Log("Is attacking player?: " + attackingPlayer + " for: " + intentStrengh + " damage");
-        }
-        else
-        {
-            attacking = false;
-            image.sprite = abilityIcon;
-            AbilityDecided(board);
-        }
+        enemyIntent.DecideIntent(board);
 
-        strengh.text = intentStrengh.ToString();
+        strengh.text = enemyIntent.GetCurrStrengh().ToString();
 
         image.enabled = true;
         strengh.enabled = true;
@@ -164,28 +134,10 @@ public abstract class IMonster : MonoBehaviour
         defendedFor += amount;
     }
 
-    public void Act()
+    public void Act(BoardStateController board)
     {
-        if (!locked)
-        {
-            if (attacking)
-            {
-                if (attackingPlayer)
-                {
-                    player.DealDamage(intentStrengh);
-                }
-                else
-                {
-                    god.DealDamage(intentStrengh);
-                }
-            }
-            else
-            {
-                DoAbility();
-            }
-            defendedFor = 0;
-        }
-        locked = false;
+        enemyIntent.Act(board);
+        //waitforanimations
     }
 
     private void OnMouseOver()
@@ -213,10 +165,8 @@ public abstract class IMonster : MonoBehaviour
 
     public virtual void OnTurnBegin() { }
     public virtual void PreAbilityDecide() { }
-    protected virtual bool UsesAbility(BoardState board) { return false; }
-    protected virtual void AbilityDecided(BoardState board) { }
-    protected virtual bool AttackingPlayer(BoardState board) { return !board.currentGod || UnityEngine.Random.Range(0, 2) == 1; }
-    protected virtual void DoAbility() { }
+    protected virtual bool UsesAbility(BoardStateController board) { return false; }
+    protected virtual void AbilityDecided(BoardStateController board) { }
     public virtual void OnTurnEnd() { }
     
     

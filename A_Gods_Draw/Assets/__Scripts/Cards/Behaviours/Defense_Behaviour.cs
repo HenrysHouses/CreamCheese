@@ -34,11 +34,11 @@ public class Defense_Behaviour : NonGod_Behaviour
      //   }
     }
 
-    protected override IEnumerator Play(BoardState board)
+    protected override IEnumerator Play(BoardStateController board)
     {
-        if (board.currentGod)
+        if (board.playedGodCard)
         {
-            board.currentGod.CanBeDefendedBy(this);
+            board.playedGodCard.CanBeDefendedBy(this);
         }
         board.player.CanBeDefended(this);
 
@@ -62,7 +62,7 @@ public class Defense_Behaviour : NonGod_Behaviour
         }
     }
 
-    public override void LatePlayed(BoardState board)
+    public override void LatePlayed(BoardStateController board)
     {
         base.LatePlayed(board);
 

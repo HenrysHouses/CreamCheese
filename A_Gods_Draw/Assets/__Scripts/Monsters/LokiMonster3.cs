@@ -15,7 +15,7 @@ public class LokiMonster3 : IMonster
         playerAttacked = true;
         //Debug.Log(this + " can be attacked by " + attack_Behaviour);
     }
-    protected override bool UsesAbility(BoardState board)
+    protected override bool UsesAbility(BoardStateController board)
     {
         if(getGod)
         {

@@ -4,11 +4,11 @@ using UnityEngine;
 
 public class TyrActions : IGodAction
 {
-    public override void OnPlay(BoardState board)
+    public override void OnPlay(BoardStateController board)
     {
-        foreach (IMonster monster in board.enemies)
+        foreach (IMonster monster in board.Enemies)
         {
-            monster.CancelIntents();
+            monster.GetIntent().CancelIntent();
         }
     }
 }

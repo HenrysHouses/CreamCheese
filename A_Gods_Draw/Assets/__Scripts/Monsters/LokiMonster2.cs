@@ -15,7 +15,7 @@ public class LokiMonster2 : IMonster
         playerAttacked = true;
         //Debug.Log(this + " can be attacked by " + attack_Behaviour);
     }
-    protected override bool UsesAbility(BoardState board)
+    protected override bool UsesAbility(BoardStateController board)
     {
         if (getGod)
         {
@@ -58,7 +58,7 @@ public class LokiMonster2 : IMonster
             return false;
         }
     }
-    protected override void AbilityDecided(BoardState board)
+    protected override void AbilityDecided(BoardStateController board)
     {
         intentStrengh = 2;
         toDefend.Defend(intentStrengh);
