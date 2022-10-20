@@ -6,18 +6,6 @@ using UnityEngine.Events;
 using UnityEngine.SceneManagement;
 using FMODUnity;
 
-[Serializable]
-public struct BoardState
-{
-    public PlayerController player;
-    public DeckManager_SO deckManager;
-    public List<IMonster> enemies;
-    public Player_Hand _hand;
-    public God_Behaviour currentGod;
-    public List<NonGod_Behaviour> lane;
-}
-
-
 
 public class TurnManager : MonoBehaviour
 {
@@ -36,7 +24,7 @@ public class TurnManager : MonoBehaviour
     Transform godLane;
 
     [SerializeField]
-    BoardState board;
+    BoardStateController board;
     public  Transform monsterParent;
 
     short currentLane = 0;
@@ -78,7 +66,7 @@ public class TurnManager : MonoBehaviour
             yield return null;
         }
 
-        foreach (IMonster enemy in board.enemies)
+        foreach (IMonster enemy in board.Enemies)
         {
             enemy.Initialize(this, board.player);
         }
@@ -87,7 +75,7 @@ public class TurnManager : MonoBehaviour
 
     void Start()
     {
-        board.lane = new List<NonGod_Behaviour>();
+        board.playedCards = new List<NonGod_Behaviour>();
         OnSelectedAttackCard = new UnityEvent();
         OnDeSelectedAttackCard = new UnityEvent();
         currentLane = 0;
@@ -111,7 +99,7 @@ public class TurnManager : MonoBehaviour
                 {
                     GameObject spawn = Instantiate(currEncounter.enemies[i].enemy,currEncounter.enemies[i].enemyPos,Quaternion.identity);
                     spawn.transform.SetParent(monsterParent, false);
-                    board.enemies.Add(spawn.GetComponent<IMonster>());
+                    board.Enemies.Add(spawn.GetComponent<IMonster>());
                 }
             }
         }
@@ -138,9 +126,9 @@ public class TurnManager : MonoBehaviour
 
                     board.player.OnNewTurn();
 
-                    if (board.currentGod) { board.currentGod.OnTurnStart(); }
+                    if (board.playedGodCard) { board.playedGodCard.OnTurnStart(); }
 
-                    foreach (IMonster enemy in board.enemies)
+                    foreach (IMonster enemy in board.Enemies)
                     {
                         enemy.DecideIntent(board);
                     }
@@ -179,18 +167,18 @@ public class TurnManager : MonoBehaviour
                             playedCard.gameObject.transform.position = lanes[currentLane].position;
                             playedCard.gameObject.transform.rotation = lanes[currentLane].rotation;
 
-                            board.lane.Add(nonGodPlayed);
+                            board.playedCards.Add(nonGodPlayed);
 
                             currentLane++;
 
                             if (currentLane >= lanes.Length) endTurn.GetComponentInChildren<Canvas>().enabled = true;
 
-                            foreach(IMonster enemy in board.enemies)
+                            foreach(IMonster enemy in board.Enemies)
                             {
                                 enemy.EnemyHideArrow();
                             }
 
-                            if(board.player)
+                            if (board.player)
                             {
                                 board.player.PlayerHideArrow();
                             }
@@ -203,7 +191,7 @@ public class TurnManager : MonoBehaviour
 
                             godLane.GetComponent<GodPlacement>().SetGod(godPlayed);
 
-                            if (board.currentGod)
+                            if (board.playedGodCard)
                             {
                                 godLane.GetComponent<GodPlacement>().GodShowArrow();
                             }
@@ -230,7 +218,7 @@ public class TurnManager : MonoBehaviour
 
             case State.Action:
                 {
-                    foreach (NonGod_Behaviour card in board.lane)
+                    foreach (NonGod_Behaviour card in board.playedCards)
                     {
                         card.OnAction();
                         board.deckManager.discardCard(card.GetCardSO());
@@ -242,7 +230,7 @@ public class TurnManager : MonoBehaviour
 
             case State.EnemiesTurn:
                 {
-                    foreach (IMonster enemy in board.enemies)
+                    foreach (IMonster enemy in board.Enemies)
                     {
                         enemy.Act();
                         if (board.player.GetHealth() <= 0)
@@ -262,13 +250,13 @@ public class TurnManager : MonoBehaviour
                     board._hand.RemoveAllCards();
 
                     if (hasPlayedAGod)
-                        board.deckManager.discardAll(0.25f, board.currentGod.GetCardSO(), this);
+                        board.deckManager.discardAll(0.25f, board.playedGodCard.GetCardSO(), this);
                     else
                         board.deckManager.discardAll(0.25f, this);
 
-                    for (int i = board.lane.Count - 1; i >= 0; i--)
+                    for (int i = board.playedCards.Count - 1; i >= 0; i--)
                     {
-                        Destroy(board.lane[i].transform.parent.parent.gameObject);
+                        Destroy(board.playedCards[i].transform.parent.parent.gameObject);
                     }
 
                     for (int i = board._hand.behaviour.Count - 1; i >= 0; i--)
@@ -278,7 +266,7 @@ public class TurnManager : MonoBehaviour
 
                     hasPlayedAGod = false;
                     board._hand.behaviour.Clear();
-                    board.lane.Clear();
+                    board.playedCards.Clear();
                     currentState = State.WaitForAnims;
                 }
                 break;
@@ -302,13 +290,13 @@ public class TurnManager : MonoBehaviour
 
     internal void GodDied()
     {
-        board.currentGod.OnRetire(board.lane);
+        board.playedGodCard.OnRetire(board.playedCards);
 
-        //board.deckManager.discardCard(board.currentGod.GetCardSO());
-        // board.deckManager.addCardToDiscard(board.currentGod.GetCardSO());
+        //board.deckManager.discardCard(board.playedGodCard.GetCardSO());
+        // board.deckManager.addCardToDiscard(board.playedGodCard.GetCardSO());
 
-        Destroy(board.currentGod.transform.parent.parent.gameObject);
-        board.currentGod = null;
+        Destroy(board.playedGodCard.transform.parent.parent.gameObject);
+        board.playedGodCard = null;
     }
 
     public void EndTurn()
@@ -330,12 +318,12 @@ public class TurnManager : MonoBehaviour
             if (selectedCard is God_Behaviour God_)
             {
 
-                if (board.currentGod) { GodDied(); }
-                board.currentGod = selectedCard as God_Behaviour;
-                board.deckManager.removeCardFromHand(board.currentGod.GetCardSO());
-                foreach (IMonster enemy in board.enemies)
+                if (board.playedGodCard) { GodDied(); }
+                board.playedGodCard = selectedCard as God_Behaviour;
+                board.deckManager.removeCardFromHand(board.playedGodCard.GetCardSO());
+                foreach (IMonster enemy in board.Enemies)
                 {
-                    enemy.SetGod(board.currentGod);
+                    enemy.SetGod(board.playedGodCard);
                 }
             }
             else if (selectedCard is NonGod_Behaviour notGod_)
@@ -343,7 +331,7 @@ public class TurnManager : MonoBehaviour
                 if(selectedCard is Attack_Behaviour attack_)
                     OnSelectedAttackCard?.Invoke();
 
-                //if (currentLane == board.lane.Count)
+                //if (currentLane == board.playedCards.Count)
                 //{
                 //    selectedCard = null;
                 //    return;
@@ -387,7 +375,7 @@ public class TurnManager : MonoBehaviour
 
     public List<NonGod_Behaviour> CurrentLane()
     {
-        return board.lane;
+        return board.playedCards;
     }
 
     public Transform[] GetTransforms()
@@ -402,7 +390,7 @@ public class TurnManager : MonoBehaviour
 
     void CheckIfPlayerWon()
     {
-        if (board.enemies.Count == 0)
+        if (board.Enemies.Count == 0)
         {
             GoToNextScene();
            // ui.ShowwinningPanel();
@@ -411,9 +399,9 @@ public class TurnManager : MonoBehaviour
 
             board.deckManager.discardAll(0.25f);
 
-            for (int i = board.lane.Count - 1; i >= 0; i--)
+            for (int i = board.playedCards.Count - 1; i >= 0; i--)
             {
-                Destroy(board.lane[i].transform.parent.parent.gameObject);
+                Destroy(board.playedCards[i].transform.parent.parent.gameObject);
             }
 
             for (int i = board._hand.behaviour.Count - 1; i >= 0; i--)
@@ -423,11 +411,11 @@ public class TurnManager : MonoBehaviour
 
             hasPlayedAGod = false;
             board._hand.behaviour.Clear();
-            board.lane.Clear();
+            board.playedCards.Clear();
 
-            if (board.currentGod)
+            if (board.playedGodCard)
             {
-                board.deckManager.addCardToDiscard(board.currentGod.GetCardSO());
+                board.deckManager.addCardToDiscard(board.playedGodCard.GetCardSO());
             }
 
             this.gameObject.SetActive(false);
@@ -436,7 +424,7 @@ public class TurnManager : MonoBehaviour
 
     public void EnemyDied(IMonster enemy)
     {
-        board.enemies.Remove(enemy);
+        board.Enemies.Remove(enemy);
     }
 
     public void PlayerLost()
@@ -448,9 +436,9 @@ public class TurnManager : MonoBehaviour
 
         board.deckManager.discardAll(0.25f);
 
-        for (int i = board.lane.Count - 1; i >= 0; i--)
+        for (int i = board.playedCards.Count - 1; i >= 0; i--)
         {
-            Destroy(board.lane[i].transform.parent.parent.gameObject);
+            Destroy(board.playedCards[i].transform.parent.parent.gameObject);
         }
 
         for (int i = board._hand.behaviour.Count - 1; i >= 0; i--)
@@ -460,11 +448,11 @@ public class TurnManager : MonoBehaviour
 
         hasPlayedAGod = false;
         board._hand.behaviour.Clear();
-        board.lane.Clear();
+        board.playedCards.Clear();
 
-        if (board.currentGod)
+        if (board.playedGodCard)
         {
-            board.deckManager.addCardToDiscard(board.currentGod.GetCardSO());
+            board.deckManager.addCardToDiscard(board.playedGodCard.GetCardSO());
         }
 
         this.gameObject.SetActive(false);
@@ -479,7 +467,7 @@ public class TurnManager : MonoBehaviour
             Debug.LogError("Can not transition to next scene, Missing Scene Transitioner Reference");
     }
 
-    public BoardState GetCurrentBoard()
+    public BoardStateController GetCurrentBoard()
     {
         return board;
     }

@@ -74,14 +74,14 @@ public abstract class Card_Behaviour : MonoBehaviour
         return true;
     }
 
-    public void OnPlay(BoardState board)
+    public void OnPlay(BoardStateController board)
     {
         cor = Play(board);
         StartCoroutine(cor);
         transform.localScale = new Vector3(0.25f,0.20f,0.20f);
     }
 
-    protected virtual IEnumerator Play(BoardState board)
+    protected virtual IEnumerator Play(BoardStateController board)
     {
         yield return new WaitUntil(ReadyToBePlaced);
         GetComponentInParent<Card_ClickGlowing>().RemoveBorder();
@@ -93,6 +93,6 @@ public abstract class Card_Behaviour : MonoBehaviour
         if(this is Attack_Behaviour attack_)
             manager.OnDeSelectedAttackCard?.Invoke();
     }
-    public virtual void LatePlayed(BoardState board) { }
+    public virtual void LatePlayed(BoardStateController board) { }
     public virtual void OnAction() { }
 }

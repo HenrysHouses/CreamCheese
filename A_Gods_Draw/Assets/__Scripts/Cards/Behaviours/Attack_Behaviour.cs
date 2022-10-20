@@ -29,7 +29,7 @@ public class Attack_Behaviour : NonGod_Behaviour
         }
     }
 
-    protected override IEnumerator Play(BoardState board)
+    protected override IEnumerator Play(BoardStateController board)
     {
         foreach (IMonster enemy in board.enemies)
         {

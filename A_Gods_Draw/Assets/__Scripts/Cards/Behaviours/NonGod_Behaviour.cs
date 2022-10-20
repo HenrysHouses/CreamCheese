@@ -74,16 +74,16 @@ public abstract class NonGod_Behaviour : Card_Behaviour
 
     }
 
-    public override void LatePlayed(BoardState board)
+    public override void LatePlayed(BoardStateController board)
     {
         base.LatePlayed(board);
 
-        if (board.currentGod)
-            CheckForGod(board.currentGod);
+        if (board.playedGodCard)
+            CheckForGod(board.playedGodCard);
 
-        if (board.lane.Count > 0)
+        if (board.playedCards.Count > 0)
         {
-            board.lane[^1].PlacedNextToThis(this);
+            board.playedCards[^1].PlacedNextToThis(this);
         }
     }
 }

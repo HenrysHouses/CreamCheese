@@ -32,7 +32,7 @@ public class God_Behaviour : Card_Behaviour
         godPlacement = place;
     }
 
-    protected override IEnumerator Play(BoardState board)
+    protected override IEnumerator Play(BoardStateController board)
     {
         action.OnPlay(board);
 
@@ -40,10 +40,10 @@ public class God_Behaviour : Card_Behaviour
         return base.Play(board);
     }
 
-    public override void LatePlayed(BoardState board)
+    public override void LatePlayed(BoardStateController board)
     {
         gameObject.AddComponent<BoxCollider>();
-        foreach (NonGod_Behaviour card in board.lane)
+        foreach (NonGod_Behaviour card in board.playedCards)
         {
             if (card.GetNonGod().correspondingGod == this.card_abs.name)
             {

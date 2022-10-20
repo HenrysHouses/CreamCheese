@@ -11,7 +11,7 @@ using UnityEngine.Events;
 public class TurnController : CombatFSM
 {
     // * Combat Mechanic references
-    [SerializeField] BoardStateController boardState;
+    [SerializeField] BoardStateController BoardStateController;
     [SerializeField] PlayerTracker player;
     [SerializeField] DeckManager_SO deckManager;
     [SerializeField] PathAnimatorController DiscardAnimator;
@@ -80,7 +80,7 @@ public class TurnController : CombatFSM
 
     protected override void FSMUpdate()
     {
-        if(boardState.isEncounterInstantiated)
+        if(BoardStateController.isEncounterInstantiated)
         {
             CurrentState.Reason();
             CurrentState.Act();
@@ -195,5 +195,5 @@ public class TurnController : CombatFSM
 
     // * --- Getters ---
 
-    public BoardStateController GetBoard() { return boardState; }
+    public BoardStateController GetBoard() { return BoardStateController; }
 }
