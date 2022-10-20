@@ -5,16 +5,17 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.EventSystems;
+public enum CardType
+{
+    Attack,
+    Defence,
+    Buff,
+    God
+}
 
 public class ChoosingReward : MonoBehaviour
 {
-    public enum CardType
-    {
-        Attack,
-        Defence,
-        Buff,
-        God
-    }
+    
     CardType currtype;
 
     DeckManager_SO deckManager;
