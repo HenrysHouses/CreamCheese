@@ -12,4 +12,5 @@ public class NonGod_Card : Card_SO
 
     public Sprite icon;
 
+    public CardType cardType;
 }

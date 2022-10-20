@@ -2,36 +2,30 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public static class FullCardList
+public static class CardSearch
 {
-    public static Card_SO CardSearch(Card_SO type, string[] SearchOptions = null)
+    public static Card_SO[] Search<T>(string[] SearchOptions = null) where T : Card_SO
     {
-        List<Card_SO> Results = new List<Card_SO>();
+        List<T> Results = new List<T>();
 
-        God_Card god = type as God_Card;
-        NonGod_Card ActionCard = type as NonGod_Card;
-        bool godSearch = false;
+        bool isGod = Results is List<God_Card>;
 
-        if(god)
+        if(isGod)
         {
-            Card_SO[] currResults = Resources.LoadAll<God_Card>("Cards");
+            T[] currResults = Resources.LoadAll<T>("Cards");
 
             for (int i = 0; i < currResults.Length; i++)
             {
                 Results.Add(currResults[i]);
             }
-            godSearch = true;
-
-        } else if(ActionCard)
+        } else
         {
-            Card_SO[] currResults = Resources.LoadAll<Card_SO>("Cards");
+            T[] currResults = Resources.LoadAll<T>("Cards");
 
             for (int i = 0; i <currResults.Length ; i++)
             {
                 Results.Add(currResults[i]);
-                
             }
-
         }
 
         if(SearchOptions != null)
@@ -40,28 +34,23 @@ public static class FullCardList
             {
                 for (int j = 0; j < Results.Count; j++)
                 {
-                    God_Card C = null; 
-                    NonGod_Card N = null;
-                    if(godSearch)
+                    if(isGod)
                     {
-                        C = Results[i] as God_Card;
-
-                        if(!C.name.Equals(SearchOptions[j])) 
+                        if(!Results[i].name.Equals(SearchOptions[j])) 
                             Results.RemoveAt(i);
                     }
                     else
                     {
-                        N = Results[i] as NonGod_Card;
-
-                        if(!N.name.Equals(SearchOptions[j])) 
+                        NonGod_Card card = Results[i] as NonGod_Card;
+                        if(!card.name.Equals(SearchOptions[j])) 
                             Results.RemoveAt(i);
 
-                        if(!N.name.Equals(SearchOptions[j])) 
+                        if(!card.cardType.ToString().Equals(SearchOptions[j])) 
                             Results.RemoveAt(i);
                     }
                 }
             }
         }
-        return null;
+        return Results.ToArray();
     }
 }
