@@ -88,6 +88,7 @@ public class PathAnimatorController : MonoBehaviour
         public bool FreezeRotationX, FreezeRotationY, FreezeRotationZ;
         public UnityEvent OnAnimCompletionTrigger;
         public UnityEvent OnAnimStartTrigger;
+        
         public bool _Complete;
         public bool _Started;
 
@@ -257,10 +258,11 @@ public class PathAnimatorController : MonoBehaviour
     {
         if(_Animations.Count > 0)
         {
+
             for (int i = 0; i < _Animations.Count; i++)
             {
-                if(!_Animations[i]._Started)
-                     _Animations[i].startTrigger();
+                if(!_Animations[i]._Started && _Animations[i]._Time > 0)
+                    _Animations[i].startTrigger();
 
                 // Animation completion state. Gets set to false if its still ongoing. // ? should maybe be inverted but whatever
                 bool state = true; 

@@ -6,6 +6,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using FMODUnity;
 using UnityEngine.Events;
 
 public class TurnController : CombatFSM
@@ -89,6 +90,13 @@ public class TurnController : CombatFSM
         state = CurrentStateID;
     }
 
+    // * --- Sound Management ---
+
+    void CardSound(EventReference event_, GameObject target)
+    {
+        SoundPlayer.Playsound(event_, target);
+    }
+
     // * --- Turn Management ---
 
     public void EndTurn()
@@ -122,8 +130,11 @@ public class TurnController : CombatFSM
 
             foreach (var trigger in animData)
             {
-                if(trigger != null)
-                    trigger.OnCardCompletionTrigger.AddListener(_Hand.AddCard);
+                if(trigger is null)
+                    continue;
+
+                trigger.OnCardCompletionTrigger.AddListener(_Hand.AddCard);
+                trigger.OnAnimStartSound.AddListener(CardSound);
             }
 
             yield break; // stops Coroutine here

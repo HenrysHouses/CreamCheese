@@ -1,18 +1,19 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using FMODUnity;
 
 public class CameraMovement : MonoBehaviour
 {
+    [SerializeField] EventReference MainCave_AMBX;
     private Animator anim;
-    private GameManager GM;
     // private TurnManager TM;
     private bool attack, buff, godcard, shield;
     // Start is called before the first frame update
     void Start()
     {
         anim = GetComponent<Animator>();
-        GM = GameObject.Find("GameManager").GetComponent<GameManager>();
+        SoundPlayer.Playsound(MainCave_AMBX, gameObject);
     }
 
     void SelectCardCamera()

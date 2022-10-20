@@ -20,7 +20,7 @@ public class MainState : CombatFSMState
         if(!HasExitMain)
             return;
 
-        Controller.PerformTransition(Transition.EnterCombatStart); // ! this should be enter main not discard
+        Controller.PerformTransition(Transition.EnterDiscard);
         HasExitMain = false;
     }
 

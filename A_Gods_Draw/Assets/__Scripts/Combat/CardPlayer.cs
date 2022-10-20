@@ -24,11 +24,12 @@ public class CardPlayer : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if(Input.GetKey(KeyCode.Mouse0))
+        if(Input.GetKeyUp(KeyCode.Mouse0))
         {
             if(_selectedCard is null)
             {
                 _selectedCard = selectCard();
+                Debug.Log(_selectedCard);
                 return;
             }
             
@@ -39,6 +40,7 @@ public class CardPlayer : MonoBehaviour
             }
 
             _selectedCard = null;
+            Debug.Log("unselected");
         }
     }
 

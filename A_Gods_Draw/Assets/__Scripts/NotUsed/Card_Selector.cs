@@ -40,15 +40,12 @@ public class Card_Selector : MonoBehaviour
 
     
 
-  public void OnMouseEnter()
+    public void OnMouseEnter()
     {
         holdingOver = true;
         
-        SoundManager.Instance.Playsound(cardflip, gameObject);
+        SoundPlayer.Playsound(cardflip, gameObject);
        // Debug.Log("Called");
-        
-        
-        
     }
 
     public void OnMouseExit()

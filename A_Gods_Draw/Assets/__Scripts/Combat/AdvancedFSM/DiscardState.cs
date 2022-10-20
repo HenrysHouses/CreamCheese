@@ -27,7 +27,7 @@ public class DiscardState : CombatFSMState
         if(!shouldTrigger)
             return;
 
-        Controller.PerformTransition(Transition.EnterEnd);
+        Controller.PerformTransition(Transition.EnterCombatStart);
         hasDiscarded = false;
     }
 

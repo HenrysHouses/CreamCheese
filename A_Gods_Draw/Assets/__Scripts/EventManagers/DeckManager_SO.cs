@@ -14,6 +14,7 @@ using Newtonsoft.Json;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using FMODUnity;
 using UnityEngine.Events;
 
 /// <summary>Keeps track of how many and which cards are in the player's Deck, Library, Hand, and Discard. Requests animations for card draw, discard, and deck shuffles.</summary>
@@ -36,6 +37,9 @@ public class DeckManager_SO : ScriptableObject
     [SerializeField, Tooltip("Cards in the player's current hand")] 
     List<Card_SO> pHand;
 
+    [SerializeField] EventReference Draw_SFX;
+    [SerializeField] EventReference Discard_SFX;
+    [SerializeField] EventReference Shuffle_SFX;
     // ! unused
     // public void SetTurnManager(TurnManager manager)
     // {
@@ -178,7 +182,7 @@ public class DeckManager_SO : ScriptableObject
             _Loader.shouldAddComponent = false;
             _Loader.Set(pLibrary[0]);
             pLibrary.Remove(pLibrary[0]);
-            animations[i] = new CardPathAnim(_Loader.GetCardSO);
+            animations[i] = new CardPathAnim(_Loader.GetCardSO, Draw_SFX, cards[i]);
 
             // ! not clear purpose of this code
             // if (i == amount - 1 && mngr != null)
@@ -222,7 +226,7 @@ public class DeckManager_SO : ScriptableObject
 
             pDiscard.Add(pHand[i]);
 
-            animations[i] = new CardPathAnim(_Loader.GetCardSO);
+            animations[i] = new CardPathAnim(_Loader.GetCardSO, Discard_SFX, _card);
         }
 
         // requests animations for all discarded cards
@@ -242,18 +246,19 @@ public class DeckManager_SO : ScriptableObject
         for (int i = 0; i < pHand.Count; i++)
         {
             Card_Loader _Loader = null;
+            GameObject _card = null;
             if (pHand[i] != exceptFor)
             {
                 Debug.LogWarning("ExceptFor variable may cause issues with animations");
                 // preps the discard animations
-                GameObject _card = Instantiate(CardAnimationPrefab);
+                _card = Instantiate(CardAnimationPrefab);
                 _Loader = _card.GetComponentInChildren<Card_Loader>();
                 _Loader.shouldAddComponent = false;
                 _Loader.Set(pHand[i]);
                 cards.Add(_card);
                 pDiscard.Add(pHand[i]);
             }
-            animations[i] = new CardPathAnim(_Loader.GetCardSO);
+            animations[i] = new CardPathAnim(_Loader.GetCardSO, Discard_SFX, _card);
         }
         // requests animations for all discarded cards
 
@@ -284,13 +289,13 @@ public class DeckManager_SO : ScriptableObject
             Card_Loader _Loader = _card.GetComponentInChildren<Card_Loader>();
             _Loader.shouldAddComponent = false;
             _Loader.Set(card);
-            CardPathAnim anim = new CardPathAnim(card);
+            CardPathAnim anim = new CardPathAnim(card, Discard_SFX, _card);
             AnimationEventManager.getInstance.requestAnimation("Hand-Discard", _card, 0, anim);
 
             pDiscard.Add(card);
             pHand.Remove(card);
 
-            return new CardPathAnim(_Loader.GetCardSO);
+            return anim;
         }
         return null;
     }
@@ -334,7 +339,7 @@ public class DeckManager_SO : ScriptableObject
             Card_Loader _Loader = cards[i].GetComponentInChildren<Card_Loader>();
             _Loader.shouldAddComponent = false;
             _Loader.Set(pDiscard[i]);
-            animations[i] = new CardPathAnim(_Loader.GetCardSO);
+            animations[i] = new CardPathAnim(_Loader.GetCardSO, Shuffle_SFX, cards[i]);
         }
         // Request discard to library animations
         AnimationEventManager.getInstance.requestAnimation("ShuffleDiscard", cards, delay, animations);
