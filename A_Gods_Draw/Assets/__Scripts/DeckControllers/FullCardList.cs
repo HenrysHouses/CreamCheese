@@ -2,31 +2,15 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class FullCardList : MonoBehaviour
+public static class FullCardList
 {
-
-    void Start()
-    {
-        
-
-        CardSearch(new God_Card(),  new string[] {"Tyr"});
-        
-    }
-
-    // Update is called once per frame
-    void Update()
-    {
-        
-    }
-
-    public Card_SO CardSearch(Card_SO type, string[] SearchOptions = null)
+    public static Card_SO CardSearch(Card_SO type, string[] SearchOptions = null)
     {
         List<Card_SO> Results = new List<Card_SO>();
 
         God_Card god = type as God_Card;
         NonGod_Card ActionCard = type as NonGod_Card;
         bool godSearch = false;
-
 
         if(god)
         {
@@ -75,20 +59,9 @@ public class FullCardList : MonoBehaviour
                         if(!N.name.Equals(SearchOptions[j])) 
                             Results.RemoveAt(i);
                     }
-
-
-                    
                 }
             }
         }
-
-
         return null;
     }
-
-
-
-
-
-
 }

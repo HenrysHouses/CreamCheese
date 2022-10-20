@@ -71,4 +71,23 @@ public class BoardStateController : MonoBehaviour
     {
         return _Enemies[index].GetIntent();
     }
+
+    public void placeCardOnLane(Transform targetlane)
+    {
+        if(_GodLane.Equals(targetlane))
+        {
+            // on god lane
+            Debug.Log("god lane");
+            return;
+        }
+
+        foreach (var cardLane in _Lane)
+        {
+            if(cardLane.Equals(targetlane))
+            {
+                Debug.Log("lane match");
+                return;
+            }
+        }
+    }
 }

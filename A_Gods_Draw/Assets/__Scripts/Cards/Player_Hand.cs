@@ -45,7 +45,7 @@ public class Player_Hand : MonoBehaviour
 
         CardSelectionAnimators.Add(_card);
 
-        spawn.transform.GetChild(0).GetComponent<BoxCollider>().enabled = true;
+        spawn.transform.GetComponentInChildren<BoxCollider>().enabled = true;
 
         behaviour.Add(spawn.GetComponentInChildren<Card_Behaviour>());
 
@@ -56,7 +56,6 @@ public class Player_Hand : MonoBehaviour
         //Debug.Log("Card Added to hand");
     }
     
-
     public Card_SO RemoveCard(int index)
     {
         if (index >= CardSelectionAnimators.Count)
