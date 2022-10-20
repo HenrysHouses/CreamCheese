@@ -27,26 +27,25 @@ public static class SoundPlayer
             eventInstances.Add((_soundEvenet, soundGO),temperaryEvent);
         }
 
-            temperaryEvent.getPlaybackState(out pbstate);
+        temperaryEvent.getPlaybackState(out pbstate);
 
-            if(looping)
+        if(looping)
+        {
+            if(pbstate != PLAYBACK_STATE.PLAYING)
             {
-                if(pbstate != PLAYBACK_STATE.PLAYING)
-                {
-                    temperaryEvent.start();
-                }
-            }
-            else if (parameterID == null)
-            {
-            
-             temperaryEvent.start();
-             //Debug.Log("Soundplayed");
-            }
-            else
-            {
-                temperaryEvent.setParameterByName(parameterID.Name, parameterID.Value);
                 temperaryEvent.start();
             }
+        }
+        else if (parameterID == null)
+        {
+            temperaryEvent.start();
+            //Debug.Log("Soundplayed");
+        }
+        else
+        {
+            temperaryEvent.setParameterByName(parameterID.Name, parameterID.Value);
+            temperaryEvent.start();
+        }
     }
 
     public static void StopSound(EventReference _soundEvenet, GameObject soundGO)
