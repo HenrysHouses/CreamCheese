@@ -1,12 +1,16 @@
 /*
  * Written by:
  * Henrik
+ * 
+ * Modified by:
+ * Charlie
  *
  * Script Purpose:
  * Keeping track of how many and which cards are in the player's Deck, Library, Hand, and Discard.
  * Requests animations for card draw, discard, and deck shuffles.
 */
 
+using Newtonsoft.Json;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -42,7 +46,13 @@ public class DeckManager_SO : ScriptableObject
     void OnValidate()
     {
         if (deckList == null)
+        {
             deckList = Resources.Load<DeckList_SO>("DeckLists/DeckList");
+
+            var deckJson = PlayerPrefs.GetString("Deck");
+            var deck = JsonConvert.DeserializeObject<DeckList_SO>(deckJson);
+        }
+            
     }
 
     // Setup
@@ -69,6 +79,7 @@ public class DeckManager_SO : ScriptableObject
     public void addCardToDeck(Card_SO card)
     {
         deckList.Deck.Add(card);
+        SavingDeck();
     }
 
     /// <summary>Removes a card from the player deck list</summary>
@@ -76,6 +87,7 @@ public class DeckManager_SO : ScriptableObject
     public void removeCardFromDeck(Card_SO card)
     {
         deckList.Deck.Remove(card);
+        SavingDeck();
     }
 
     /// <summary>Sets player library to be equal to the deck list, clears player hand and discard.</summary>
@@ -344,5 +356,15 @@ public class DeckManager_SO : ScriptableObject
     public void SetCurrentDeck(DeckList_SO deckList_)
     {
         deckList = deckList_;
+    }
+
+    public void SavingDeck()
+    {
+        var json = JsonConvert.SerializeObject(deckList);
+
+        PlayerPrefs.SetString("Deck", json);
+        PlayerPrefs.Save();
+
+        Debug.Log("deck list has been saved");
     }
 }

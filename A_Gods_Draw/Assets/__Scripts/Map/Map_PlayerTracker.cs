@@ -83,21 +83,30 @@ namespace Map
             switch (mapNode.Node.nodeType)
             {
                 case NodeType.Enemy:
-                    sceneTransition.TransitionScene(false, "Combat"); //sends me to javi's scene since that has card stuff
+                    sceneTransition.TransitionScene(false, "Combat");
                     GameManager.instance.nextCombatType = EncounterDifficulty.Easy;
                     break;
                 case NodeType.Elite:
-                    sceneTransition.TransitionScene(false, "Combat"); //sends me to javi's scene since that has card stuff
+                    sceneTransition.TransitionScene(false, "Combat");
                     GameManager.instance.nextCombatType = EncounterDifficulty.elites;
                     break;
                 case NodeType.RestPlace:
-                    sceneTransition.TransitionScene(false, "CardReward"); //sends me to javi's scene since that has card stuff
+                    sceneTransition.TransitionScene(false, "CardReward");
                     break;
-                case NodeType.Reward:
-                    sceneTransition.TransitionScene(false, "CardReward"); //sends me to javi's scene since that has card stuff
+                case NodeType.RandomReward:
+                    sceneTransition.TransitionScene(false, "CardReward");
+                    break;
+                case NodeType.AttackReward:
+                    sceneTransition.TransitionScene(false, "CardReward");
+                    break;
+                case NodeType.DefenceReward:
+                    sceneTransition.TransitionScene(false, "CardReward");
+                    break;
+                case NodeType.BuffReward:
+                    sceneTransition.TransitionScene(false, "CardReward");
                     break;
                 case NodeType.Boss:
-                    sceneTransition.TransitionScene(false, "Combat"); //sends me to javi's scene since that has card stuff
+                    sceneTransition.TransitionScene(false, "Combat");
                     GameManager.instance.nextCombatType = EncounterDifficulty.Boss;
                     break;
                 default:
