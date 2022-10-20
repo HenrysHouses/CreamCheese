@@ -36,6 +36,8 @@ public class DiscardState : CombatFSMState
         if(hasDiscarded)
             return;
 
+        //god.OnDiscardState();
+
         Controller.shouldEndTurn = false;
         Controller.shouldWaitForAnims = true;
         Controller.DiscardAll(0.25f);

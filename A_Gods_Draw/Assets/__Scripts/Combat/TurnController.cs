@@ -48,7 +48,16 @@ public class TurnController : CombatFSM
         _mainPhase.AddTransition(Transition.EnterDiscard, CombatState.DiscardStep); 
 
         DiscardState _discardStep = new DiscardState(this);
-        _discardStep.AddTransition(Transition.EnterEnd, CombatState.EndStep);
+        _discardStep.AddTransition(Transition.EnterCombatStart, CombatState.CombatStartStep);
+
+        StartState _combatStepStart = new StartState(this);
+        _combatStepStart.AddTransition(Transition.EnterCombatCard, CombatState.CombatCardStep);
+
+        CardsState _combatCard = new CardsState(this);
+        _combatCard.AddTransition(Transition.EnterCombatEnemy, CombatState.CombatEnemyStep);
+
+        EnemyState _combatEnemy = new EnemyState(this);
+        _combatEnemy.AddTransition(Transition.EnterEnd, CombatState.EndStep);
 
         EndState _endStep = new EndState(this);
         _endStep.AddTransition(Transition.EnterDraw, CombatState.DrawStep);
@@ -58,9 +67,9 @@ public class TurnController : CombatFSM
         AddFSMState(_drawStep);
         AddFSMState(_mainPhase);
         AddFSMState(_discardStep);
-        // AddFSMState(_CombatStepStart);
-        // AddFSMState(_CombatCard);
-        // AddFSMState(_CombatEnemy);
+        AddFSMState(_combatStepStart);
+        AddFSMState(_combatCard);
+        AddFSMState(_combatEnemy);
         AddFSMState(_endStep);
     }
 
@@ -182,4 +191,9 @@ public class TurnController : CombatFSM
         waitForLibraryShuffle = false;
         Debug.Log("ShuffleDone");
     }
+
+
+    // * --- Getters ---
+
+    public BoardStateController GetBoard() { return boardState; }
 }

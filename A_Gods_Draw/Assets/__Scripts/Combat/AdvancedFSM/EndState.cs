@@ -15,6 +15,7 @@ public class EndState : CombatFSMState
     public EndState(TurnController controller)
     {
         Controller = controller;
+        Controller.isCombatStarted = false;
         stateID = CombatState.EndStep;
     }
 
