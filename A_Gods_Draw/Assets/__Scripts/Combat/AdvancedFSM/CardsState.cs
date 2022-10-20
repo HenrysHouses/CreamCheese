@@ -18,7 +18,7 @@ public class CardsState : CombatFSMState
 
     public override void Reason(bool override_ = false)
     {
-        if (!Controller.shouldWaitForAnims && numOfCardsActed >= Controller.GetBoard().playedCards.Length/* && !isShowingPanel*/)
+        if (!Controller.shouldWaitForAnims && numOfCardsActed >= Controller.GetBoard().playedCards.Count/* && !isShowingPanel*/)
             Controller.PerformTransition(Transition.EnterCombatEnemy);
     }
 
@@ -26,7 +26,7 @@ public class CardsState : CombatFSMState
     {
         if (!Controller.shouldWaitForAnims)
         {
-            if (numOfCardsActed < Controller.GetBoard().playedCards.Length)
+            if (numOfCardsActed < Controller.GetBoard().playedCards.Count)
             {
                 Controller.GetBoard().playedCards[numOfCardsActed].OnAction();
                 numOfCardsActed++;

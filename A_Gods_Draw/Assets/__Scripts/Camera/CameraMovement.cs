@@ -6,7 +6,7 @@ public class CameraMovement : MonoBehaviour
 {
     private Animator anim;
     private GameManager GM;
-    private TurnManager TM;
+    // private TurnManager TM;
     private bool attack, buff, godcard, shield;
     // Start is called before the first frame update
     void Start()
@@ -36,16 +36,16 @@ public class CameraMovement : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if(TM == null && MultiSceneLoader.getLoadedCollectionTitle.Equals("Combat"))
-        {
-             GameObject G = GameObject.Find("TurnManager");
-           if(G)
-           {
-                TM = G.GetComponent<TurnManager>();
-                TM.OnSelectedAttackCard.AddListener(SelectCardCamera);
-                TM.OnDeSelectedAttackCard.AddListener(ResetView);
-           } 
-        }
+        // if(TM == null && MultiSceneLoader.getLoadedCollectionTitle.Equals("Combat"))
+        // {
+        //      GameObject G = GameObject.Find("TurnManager");
+        //    if(G)
+        //    {
+        //         TM = G.GetComponent<TurnManager>();
+        //         TM.OnSelectedAttackCard.AddListener(SelectCardCamera);
+        //         TM.OnDeSelectedAttackCard.AddListener(ResetView);
+        //    } 
+        // }
         
         bool _W = Input.GetKeyDown(KeyCode.W);
         bool _A = Input.GetKeyDown(KeyCode.A);

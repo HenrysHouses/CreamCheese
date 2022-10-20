@@ -35,6 +35,7 @@ public class CardPlayer : MonoBehaviour
             Transform selectedLane;
             if(playCard(out selectedLane))
             {
+                placeCard(selectedLane, _selectedCard);
             }
 
             _selectedCard = null;
@@ -71,9 +72,8 @@ public class CardPlayer : MonoBehaviour
 
     void placeCard(Transform lane, Card_Behaviour behaviour)
     {
-        // _Hand.behaviour.Add();
-        // int index _Hand.behaviour.IndexOf()
-        // _Hand.RemoveCard()
+        int index = _Hand.behaviour.IndexOf(behaviour);
+        _Hand.RemoveCard(index);
         _Board.placeCardOnLane(lane, behaviour);
     }
 }

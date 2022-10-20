@@ -16,7 +16,7 @@ public class PlayerController : MonoBehaviour
     int defendedFor = 0;
 
     Defense_Behaviour defender;
-    TurnManager manager;
+    // TurnManager manager;
 
     [SerializeField]
     Image arrowImage;

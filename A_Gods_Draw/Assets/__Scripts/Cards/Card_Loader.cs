@@ -33,7 +33,7 @@ public class Card_Loader : MonoBehaviour
     }
 
     // Start is called before the first frame update
-    public void Set(Card_SO card, TurnManager manager)
+    public void Set(Card_SO card)
     {
 
         card_so = card;
@@ -66,8 +66,8 @@ public class Card_Loader : MonoBehaviour
         image.sprite = card_so.image;
         desc.text = card_so.description;
 
-        if(shouldAddComponent)
-            card_so.Init(this.gameObject).SetManager(manager); // ! probably
+        // if(shouldAddComponent)
+        //     card_so.Init(this.gameObject).SetManager(manager); // ! probably
     }
 
     void ChangeOrm(NonGod_Card card)

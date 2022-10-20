@@ -60,7 +60,7 @@ public class ChoosingReward : MonoBehaviour
         GameObject spawn1 = Instantiate(prefab, spots[0]);
 
         Card_SO randomCard = searchResult[Random.Range(0, searchResult.Count)];
-        spawn1.GetComponentInChildren<Card_Loader>().Set(randomCard, null);
+        spawn1.GetComponentInChildren<Card_Loader>().Set(randomCard);
     }
 
     int SelectReward()

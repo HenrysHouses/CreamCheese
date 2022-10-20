@@ -40,7 +40,7 @@ public class Defense_Behaviour : NonGod_Behaviour
         {
             board.playedGodCard.CanBeDefendedBy(this);
         }
-        board.player.CanBeDefended(this);
+        // board.player.CanBeDefended(this);
 
         yield return base.Play(board);
     }

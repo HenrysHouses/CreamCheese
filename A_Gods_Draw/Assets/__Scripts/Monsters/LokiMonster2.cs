@@ -21,7 +21,7 @@ public class LokiMonster2 : IMonster
         {
             if (Random.Range(0, 100) < 30) //If God card is in play 33% chance to attack that instead of player
             {
-                attackingPlayer = false;
+                // attackingPlayer = false;
             }
         }
 
@@ -34,18 +34,18 @@ public class LokiMonster2 : IMonster
         playerAttacked = false;
 
         List<IMonster> weakMonsters = new();
-        foreach (IMonster a in board.enemies)
+        foreach (IMonster a in board.Enemies)
         {
             if(a != null)
             {
-                if(a.attackingPlayer)
-                {
-                    if(Random.Range(0,100) < 25)
-                    {
-                        DealDamage(intentStrengh + 2);
+                // if(a.attackingPlayer)
+                // {
+                //     if(Random.Range(0,100) < 25)
+                //     {
+                //         DealDamage(intentStrengh + 2);
 
-                    }
-                }
+                //     }
+                // }
             }
         }
         if (weakMonsters.Count > 0 && UnityEngine.Random.Range(0, 2) == 1)
@@ -60,8 +60,8 @@ public class LokiMonster2 : IMonster
     }
     protected override void AbilityDecided(BoardStateController board)
     {
-        intentStrengh = 2;
-        toDefend.Defend(intentStrengh);
+        // intentStrengh = 2;
+        // toDefend.Defend(intentStrengh);
     }
 
 }

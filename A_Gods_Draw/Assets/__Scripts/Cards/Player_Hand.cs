@@ -7,7 +7,7 @@ public class Player_Hand : MonoBehaviour
     [SerializeField]
     Transform handPlace;
 
-    public TurnManager _turnManager; // ! this will be phased out after refactoring
+    // public TurnManager _turnManager; // ! this will be phased out after refactoring
 
     private float cardRotation = 10; 
     public List<CardHandAnim> CardSelectionAnimators = new List<CardHandAnim>();
@@ -37,7 +37,7 @@ public class Player_Hand : MonoBehaviour
         GameObject spawn = Instantiate(CardHandPrefab, handPlace.position, Quaternion.identity);
         CardHandPrefab.transform.localScale = new Vector3(0.75f,0.75f,0.75f);
         Card_Loader _loader = spawn.GetComponentInChildren<Card_Loader>();
-        _loader.Set(card, _turnManager);
+        _loader.Set(card);
         CardHandAnim _card = new CardHandAnim(spawn.GetComponentInChildren<Card_Selector>(), _loader.GetCardSO);
         handPlace.position = new Vector3(posX, handPlace.position.y, posZ);
 
@@ -116,7 +116,7 @@ public class Player_Hand : MonoBehaviour
     void StopHover(int index)
     {
         Card_Behaviour CAB = CardSelectionAnimators[index].Selector.GetComponentInChildren<Card_Behaviour>();
-        if(!CAB.IsThisSelected())
+        if(!CAB)
         {
             float rot = (float)cardRotation, count = (float)CardSelectionAnimators.Count;
         CardSelectionAnimators[index].Selector.transform.rotation = Quaternion.Euler(0, 0, (rot * ((count - 1) / 2f)) - rot * index);

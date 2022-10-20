@@ -883,7 +883,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   handPlace: {fileID: 1131136463}
-  _turnManager: {fileID: 0}
   behaviour: []
   CardHandPrefab: {fileID: 3702977321711636186, guid: 9fcf30b81c1d4274696333e3c7c9c9b7, type: 3}
 --- !u!1 &547883602
@@ -2808,13 +2807,14 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a0a542f6413b7c644beffb1efe058233, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  board: {fileID: 0}
+  _Hand: {fileID: 410426621}
+  _Board: {fileID: 1141156025}
   cardLayer:
     serializedVersion: 2
-    m_Bits: 0
+    m_Bits: 64
   laneLayer:
     serializedVersion: 2
-    m_Bits: 0
+    m_Bits: 128
 --- !u!1 &1474731957
 GameObject:
   m_ObjectHideFlags: 0
@@ -3979,7 +3979,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0423b0f44eaac094b8ef6b0879b02737, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  boardState: {fileID: 1141156025}
+  BoardStateController: {fileID: 1141156025}
   player: {fileID: 11400000, guid: 101dced3cf57d584886aaa18b2a84f50, type: 2}
   deckManager: {fileID: 11400000, guid: a9ef532ce763b474e868648e2e3843ac, type: 2}
   DiscardAnimator: {fileID: 120732638}

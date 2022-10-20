@@ -24,7 +24,7 @@ public class Buff_Behaviour : NonGod_Behaviour
 
     protected override IEnumerator Play(BoardStateController board)
     {
-        posInLane = manager.CurrentLane().Count;
+        // posInLane = manager.CurrentLane().Count;
 
         yield return base.Play(board);
     }

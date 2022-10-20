@@ -26,15 +26,15 @@ public class Card_Selector : MonoBehaviour
 
      private void Update() 
      {
-        if(CB.IsThisSelected())
-        {
-            anim.SetBool("SelectedCard", true);
+        // if(CB.IsThisSelected)
+        // {
+        //     anim.SetBool("SelectedCard", true);
             
-        }
-        else
-         {
-            anim.SetBool("SelectedCard", false);
-         }
+        // }
+        // else
+        //  {
+        //     anim.SetBool("SelectedCard", false);
+        //  }
 
     }
 
@@ -59,7 +59,7 @@ public class Card_Selector : MonoBehaviour
 
     private void OnMouseDown()
     {
-        gameObject.GetComponentInChildren<Card_Behaviour>(true).OnClick();
+        // gameObject.GetComponentInChildren<Card_Behaviour>(true).OnClick();
     }
 
 

@@ -31,7 +31,7 @@ public class Attack_Behaviour : NonGod_Behaviour
 
     protected override IEnumerator Play(BoardStateController board)
     {
-        foreach (IMonster enemy in board.enemies)
+        foreach (IMonster enemy in board.Enemies)
         {
             enemy.IsObjectiveTo(this);
         }

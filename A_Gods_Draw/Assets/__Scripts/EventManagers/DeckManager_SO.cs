@@ -155,7 +155,7 @@ public class DeckManager_SO : ScriptableObject
     /// <summary>Move the top card/s of the player library to the player hand. Trigger card draw animations</summary>
     /// <param name="amount">The amount of cards to draw</param>
     /// <returns>List of all animation OnCompletionEvents</returns>
-    public CardPathAnim[] drawCard(int amount, float delay, TurnManager mngr = null)
+    public CardPathAnim[] drawCard(int amount, float delay)
     {
         if (pLibrary.Count < amount) // if there is no cards in library to draw, shuffle the discard into the library and return
         {
@@ -176,7 +176,7 @@ public class DeckManager_SO : ScriptableObject
 
             Card_Loader _Loader = cards[i].GetComponentInChildren<Card_Loader>();
             _Loader.shouldAddComponent = false;
-            _Loader.Set(pLibrary[0], null);
+            _Loader.Set(pLibrary[0]);
             pLibrary.Remove(pLibrary[0]);
             animations[i] = new CardPathAnim(_Loader.GetCardSO);
 
@@ -199,14 +199,10 @@ public class DeckManager_SO : ScriptableObject
 
     /// <summary>Moves all cards currently in player hand to player discard. Trigger discard animations</summary>
     /// <returns>List of all animation OnCompletionEvents</returns>
-    public CardPathAnim[] discardAll(float delay, TurnManager mngr = null)
+    public CardPathAnim[] discardAll(float delay)
     {
         if(pHand.Count == 0)
         {
-            if(mngr != null)
-            {
-                mngr.FinishedAnimations();
-            }
             return null;
         }
         // Moves cards in hand to discard
@@ -220,7 +216,7 @@ public class DeckManager_SO : ScriptableObject
             GameObject _card = Instantiate(CardAnimationPrefab);
             Card_Loader _Loader = _card.GetComponentInChildren<Card_Loader>();
             _Loader.shouldAddComponent = false;
-            _Loader.Set(pHand[i], null);
+            _Loader.Set(pHand[i]);
 
             cards[i] = _card;
 
@@ -236,7 +232,7 @@ public class DeckManager_SO : ScriptableObject
         return animations;
     }
 
-    public void discardAll(float delay, Card_SO exceptFor, TurnManager mngr = null)
+    public void discardAll(float delay, Card_SO exceptFor)
     {
         // Moves cards in hand to discard
         List<GameObject> cards = new();
@@ -253,7 +249,7 @@ public class DeckManager_SO : ScriptableObject
                 GameObject _card = Instantiate(CardAnimationPrefab);
                 _Loader = _card.GetComponentInChildren<Card_Loader>();
                 _Loader.shouldAddComponent = false;
-                _Loader.Set(pHand[i], null);
+                _Loader.Set(pHand[i]);
                 cards.Add(_card);
                 pDiscard.Add(pHand[i]);
             }
@@ -263,10 +259,10 @@ public class DeckManager_SO : ScriptableObject
 
         if (cards.Count == 0)
         {
-            if (mngr != null)
-            {
-                mngr.FinishedAnimations();
-            }
+            // if (mngr != null)
+            // {
+            //     mngr.FinishedAnimations();
+            // }
             return;
         }
 
@@ -287,7 +283,7 @@ public class DeckManager_SO : ScriptableObject
             GameObject _card = Instantiate(CardAnimationPrefab);
             Card_Loader _Loader = _card.GetComponentInChildren<Card_Loader>();
             _Loader.shouldAddComponent = false;
-            _Loader.Set(card, null);
+            _Loader.Set(card);
             CardPathAnim anim = new CardPathAnim(card);
             AnimationEventManager.getInstance.requestAnimation("Hand-Discard", _card, 0, anim);
 
@@ -337,7 +333,7 @@ public class DeckManager_SO : ScriptableObject
             cards[i] = Instantiate(CardAnimationPrefab);
             Card_Loader _Loader = cards[i].GetComponentInChildren<Card_Loader>();
             _Loader.shouldAddComponent = false;
-            _Loader.Set(pDiscard[i], null);
+            _Loader.Set(pDiscard[i]);
             animations[i] = new CardPathAnim(_Loader.GetCardSO);
         }
         // Request discard to library animations

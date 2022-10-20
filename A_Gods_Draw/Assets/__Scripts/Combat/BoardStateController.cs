@@ -78,17 +78,19 @@ public class BoardStateController : MonoBehaviour
         {
             // on god lane
             playedGodCard = card as God_Behaviour;
-            playedGodCard.transform.position = _GodLane.position;
+            playedGodCard.transform.SetParent(_GodLane);
+            playedGodCard.transform.position = new Vector3();
             Debug.Log("god lane");
             return;
         }
 
-        foreach (var cardLane in _Lane)
+        for (int i = 0; i < _Lane.Length; i++)
         {
-            if(cardLane.Equals(targetlane))
+            if(_Lane[i].Equals(targetlane))
             {
-                // cardLane = card as God_Behaviour;
-                cardLane.transform.position = _GodLane.position;
+                playedCards[i] = card as NonGod_Behaviour;
+                playedCards[i].transform.SetParent(_Lane[i]);
+                playedCards[i].transform.position = new Vector3();
                 return;
             }
         }

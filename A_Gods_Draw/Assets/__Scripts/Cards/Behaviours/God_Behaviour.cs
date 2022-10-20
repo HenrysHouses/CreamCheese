@@ -81,7 +81,7 @@ public class God_Behaviour : Card_Behaviour
         if (health <= 0)
         {
             health = 0;
-            manager.GodDied();
+            // manager.GodDied();
         }
     }
 

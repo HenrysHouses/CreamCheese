@@ -2,14 +2,14 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using static TurnManager;
+// using static TurnManager;
 
 public abstract class Card_Behaviour : MonoBehaviour
 {
     IEnumerator cor;
 
     protected Card_SO card_abs;
-    protected TurnManager manager;
+    // protected TurnManager manager;
 
     public readonly bool isReady = false;
 
@@ -19,30 +19,30 @@ public abstract class Card_Behaviour : MonoBehaviour
         this.card_abs = card;
     }
 
-    public void SetManager(TurnManager manager)
-    {
-        this.manager = manager;
-    }
+    // public void SetManager(TurnManager manager)
+    // {
+    //     this.manager = manager;
+    // }
 
     public virtual void OnClick()
     {
-        if(!manager)
-        {
-            // Debug.LogWarning("A card does not have reference to the turnManager");
-            return;
-        }
+        // if(!manager)
+        // {
+        //     // Debug.LogWarning("A card does not have reference to the turnManager");
+        //     return;
+        // }
 
-        if (manager.CurrentlySelectedCard() == this)
-        {
-            manager.CancelSelection();
-            return;
-        }
-        if (!manager.CurrentlySelectedCard() || this != manager.CurrentlySelectedCard())
-        {
-            manager.CancelSelection();
-            manager.SelectCard(this);
-            GetComponentInParent<Card_ClickGlowing>().ShowBorder();
-        }
+        // if (manager.CurrentlySelectedCard() == this)
+        // {
+        //     manager.CancelSelection();
+        //     return;
+        // }
+        // if (!manager.CurrentlySelectedCard() || this != manager.CurrentlySelectedCard())
+        // {
+        //     manager.CancelSelection();
+        //     manager.SelectCard(this);
+        //     GetComponentInParent<Card_ClickGlowing>().ShowBorder();
+        // }
     }
 
     public Card_SO GetCardSO() { return card_abs; }
@@ -55,19 +55,19 @@ public abstract class Card_Behaviour : MonoBehaviour
         GetComponentInParent<Card_ClickGlowing>().RemoveBorder();
     }
 
-    internal TurnManager GetManager()
-    {
-        return manager;
-    }
+    // internal TurnManager GetManager()
+    // {
+    //     return manager;
+    // }
 
-    public bool IsThisSelected()
-    {
-        if(manager == null)
-        {
-            return false;
-        }
-        return manager.CurrentlySelectedCard() == this;
-    }
+    // public bool IsThisSelected()
+    // {
+    //     if(manager == null)
+    //     {
+    //         return false;
+    //     }
+    //     return manager.CurrentlySelectedCard() == this;
+    // }
 
     protected virtual bool ReadyToBePlaced()
     {
@@ -87,11 +87,11 @@ public abstract class Card_Behaviour : MonoBehaviour
         GetComponentInParent<Card_ClickGlowing>().RemoveBorder();
         GetComponentInParent<BoxCollider>().enabled = false;
         LatePlayed(board);
-        manager.FinishedPlay(this);
+        // manager.FinishedPlay(this);
 
         
-        if(this is Attack_Behaviour attack_)
-            manager.OnDeSelectedAttackCard?.Invoke();
+        // if(this is Attack_Behaviour attack_)
+        //     manager.OnDeSelectedAttackCard?.Invoke();
     }
     public virtual void LatePlayed(BoardStateController board) { }
     public virtual void OnAction() { }

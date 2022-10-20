@@ -19,7 +19,7 @@ public class LokiMonster3 : IMonster
     {
         if(getGod)
         {
-            attackingPlayer = false;
+            // attackingPlayer = false;
         }
         
         

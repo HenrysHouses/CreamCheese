@@ -16,7 +16,7 @@ namespace Map
         BuffReward,
         Elite,
         RestPlace,
-        Boss
+        Boss,
     }
 }
 

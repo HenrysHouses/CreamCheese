@@ -13,7 +13,7 @@ public class Card_ClickGlowing : MonoBehaviour
     bool isCreated, hasArrow;
     public static Component currentlySelected;
 
-    TurnManager turnManager;
+    // TurnManager turnManager;
     GodPlacement godPlacement;
     Card_Behaviour behaviour;
 
@@ -38,10 +38,10 @@ public class Card_ClickGlowing : MonoBehaviour
     /// </summary>
     private void OnMouseOver()
     {
-        if (turnManager == null && gameObject.transform.childCount != 0)
-        {
-            turnManager = behaviour.GetManager();
-        }
+        // if (turnManager == null && gameObject.transform.childCount != 0)
+        // {
+        //     turnManager = behaviour.GetManager();
+        // }
 
 
         //glow borders and arrows
@@ -109,52 +109,52 @@ public class Card_ClickGlowing : MonoBehaviour
     //when you have an attack card draw arrow over enemies
     public void DrawArrowsEnemies()
     {
-        if (turnManager != null)
-        {
-            foreach (IMonster monster in turnManager.GetCurrentBoard().enemies)
-            {
-                monster.EnemyShowArrow();
-            }
-            hasArrow = true;
-        }
+        // if (turnManager != null)
+        // {
+        //     foreach (IMonster monster in turnManager.GetCurrentBoard().enemies)
+        //     {
+        //         monster.EnemyShowArrow();
+        //     }
+        //     hasArrow = true;
+        // }
     }
 
     //when you have a defence card draw arrow over player health and God card
     public void DrawArrowsPlayer()
     {
-        if (turnManager.GetCurrentBoard().player)
-        {
-            PlayerController player = turnManager.GetCurrentBoard().player;
-            player.PlayerShowArrow();
-        }
+        // if (turnManager.GetCurrentBoard().player)
+        // {
+        //     PlayerController player = turnManager.GetCurrentBoard().player;
+        //     player.PlayerShowArrow();
+        // }
         hasArrow = true;
     }
 
     //when you have a buff card draw arrow over the place the card will be
     public void DrawArrowsCards()
     {
-        if(!turnManager)
-        {
-            Debug.LogWarning("missing turnmanager");
-            return;
-        }
+        // if(!turnManager)
+        // {
+        //     Debug.LogWarning("missing turnmanager");
+        //     return;
+        // }
 
-        if (turnManager.GetTransforms()[turnManager.GetNextPlace()])
-        {
-            if(turnManager.GetNextPlace() < 4)
-            {
-                turnManager.GetTransforms()[turnManager.GetNextPlace()].GetChild(0).gameObject.SetActive(true);
-            }
-        }
+        // if (turnManager.GetTransforms()[turnManager.GetNextPlace()])
+        // {
+        //     if(turnManager.GetNextPlace() < 4)
+        //     {
+        //         turnManager.GetTransforms()[turnManager.GetNextPlace()].GetChild(0).gameObject.SetActive(true);
+        //     }
+        // }
         hasArrow = true;
     }
 
     public void DrawArrowGod()
     {
-        if (turnManager.GetCurrentBoard().currentGod)
-        {
-            godPlacement.GodShowArrow();
-        }
+        // if (turnManager.GetCurrentBoard().currentGod)
+        // {
+        //     godPlacement.GodShowArrow();
+        // }
     }
 
     public void AttackCardBorder()
@@ -184,10 +184,10 @@ public class Card_ClickGlowing : MonoBehaviour
     /// </summary>
     private void OnMouseExit()
     {
-        if (!behaviour.IsThisSelected())
-        {
-            RemoveBorder();
-        }
+        // if (!behaviour.IsThisSelected())
+        // {
+        //     RemoveBorder();
+        // }
     }
 
     public void RemoveBorder()
@@ -203,38 +203,38 @@ public class Card_ClickGlowing : MonoBehaviour
 
         if (hasArrow)
         {
-            if (turnManager != null)
-            {
-                //enemies
-                foreach (IMonster monster in turnManager.GetCurrentBoard().enemies)
-                {
-                    monster.EnemyHideArrow();
-                    hasArrow = false;
-                }
+            // if (turnManager != null)
+            // {
+            //     //enemies
+            //     foreach (IMonster monster in turnManager.GetCurrentBoard().enemies)
+            //     {
+            //         monster.EnemyHideArrow();
+            //         hasArrow = false;
+            //     }
 
-                //player
-                if (turnManager.GetCurrentBoard().player)
-                {
-                    PlayerController player = turnManager.GetCurrentBoard().player;
-                    player.PlayerHideArrow();
-                    hasArrow = false;
-                }
+            //     //player
+            //     if (turnManager.GetCurrentBoard().player)
+            //     {
+            //         PlayerController player = turnManager.GetCurrentBoard().player;
+            //         player.PlayerHideArrow();
+            //         hasArrow = false;
+            //     }
 
-                //buff cards
-                if (turnManager.GetNextPlace() < 4)
-                {
-                    turnManager.GetTransforms()[turnManager.GetNextPlace()].GetChild(0).gameObject.SetActive(false);
-                    hasArrow = false;
-                }
+            //     //buff cards
+            //     if (turnManager.GetNextPlace() < 4)
+            //     {
+            //         turnManager.GetTransforms()[turnManager.GetNextPlace()].GetChild(0).gameObject.SetActive(false);
+            //         hasArrow = false;
+            //     }
 
-                //God card
-                if (turnManager.GetCurrentBoard().currentGod)
-                {
-                    if (godPlacement)
-                        godPlacement.GodHideArrow();
-                    hasArrow = false;
-                }
-            }
+            //     //God card
+            //     if (turnManager.GetCurrentBoard().currentGod)
+            //     {
+            //         if (godPlacement)
+            //             godPlacement.GodHideArrow();
+            //         hasArrow = false;
+            //     }
+            // }
         }
     }
 }

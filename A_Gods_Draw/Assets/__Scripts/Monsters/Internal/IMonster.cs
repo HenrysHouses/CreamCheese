@@ -22,7 +22,7 @@ public abstract class IMonster : MonoBehaviour
 
     protected Attack_Behaviour attacker;
 
-    TurnManager manager;
+    // TurnManager manager;
 
     PlayerController player;
     God_Behaviour god = null;
@@ -64,21 +64,20 @@ public abstract class IMonster : MonoBehaviour
 
     private void OnMouseDown()
     {
-        if (manager.CurrentlySelectedCard())
-        {
-            if (attacker)
-            {
-                attacker.AddTarget(this);
-                SoundManager.Instance.Playsound(SoundSelectCard, gameObject);
-            }
-            attacker = null;
-            EnemyHideArrow();
-        }
+        // if (manager.CurrentlySelectedCard())
+        // {
+        //     if (attacker)
+        //     {
+        //         attacker.AddTarget(this);
+        //         SoundManager.Instance.Playsound(SoundSelectCard, gameObject);
+        //     }
+        //     attacker = null;
+        //     EnemyHideArrow();
+        // }
     }
 
-    public void Initialize(TurnManager man, PlayerController controller)
+    public void Initialize(PlayerController controller)
     {
-        manager = man;
         player = controller;
     }
 
@@ -102,7 +101,7 @@ public abstract class IMonster : MonoBehaviour
         if (health <= 0)
         {
             health = 0;
-            manager.EnemyDied(this);
+            // manager.EnemyDied(this);
             Destroy(this.gameObject);
         }
 
