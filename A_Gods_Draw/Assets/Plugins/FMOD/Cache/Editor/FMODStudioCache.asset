@@ -1,5 +1,57 @@
 %YAML 1.1
 %TAG !u! tag:unity3d.com,2011:
+--- !u!114 &-8634632508728542420
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fecb8ef7f94ca804a8ab72049b86782e, type: 3}
+  m_Name: parameter:/Ambience/Ambience
+  m_EditorClassIdentifier: 
+  Name: Ambience
+  StudioPath: 
+  Min: 0
+  Max: 3
+  Default: 0
+  ID:
+    data1: 2927777880
+    data2: 3409605
+  Type: 0
+  IsGlobal: 1
+  Labels: []
+  Exists: 1
+--- !u!114 &-8407853586088656409
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ceb653cd98e289a4e8697a1af55201f2, type: 3}
+  m_Name: event:/Ambiences/Ambience
+  m_EditorClassIdentifier: 
+  Path: event:/Ambiences/Ambience
+  Guid:
+    Data1: 1548319315
+    Data2: 1223810149
+    Data3: 869982112
+    Data4: 1883496905
+  Banks:
+  - {fileID: -6185789840605021293}
+  IsStream: 1
+  Is3D: 1
+  IsOneShot: 0
+  Parameters:
+  - {fileID: -8634632508728542420}
+  MinDistance: 1
+  MaxDistance: 20
+  Length: 89864
 --- !u!114 &-7602503349877763201
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -15,37 +67,9 @@ MonoBehaviour:
   Path: Assets/FMODBanks/Desktop/Effects.bank
   Name: Effects
   StudioPath: bank:/Effects
-  lastModified: 638004760334895719
+  lastModified: 638018824914938771
   FileSizes: []
   Exists: 1
---- !u!114 &-7223240126236466965
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: ceb653cd98e289a4e8697a1af55201f2, type: 3}
-  m_Name: event:/Ambience
-  m_EditorClassIdentifier: 
-  Path: event:/Ambience
-  Guid:
-    Data1: 1548319315
-    Data2: 1223810149
-    Data3: 869982112
-    Data4: 1883496905
-  Banks:
-  - {fileID: -6185789840605021293}
-  IsStream: 1
-  Is3D: 1
-  IsOneShot: 0
-  Parameters:
-  - {fileID: 5618613026224991910}
-  MinDistance: 1
-  MaxDistance: 20
-  Length: 89864
 --- !u!114 &-6789853674765932468
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -66,7 +90,7 @@ MonoBehaviour:
     Data4: 1449369350
   Banks:
   - {fileID: -7602503349877763201}
-  IsStream: 1
+  IsStream: 0
   Is3D: 0
   IsOneShot: 1
   Parameters: []
@@ -88,7 +112,7 @@ MonoBehaviour:
   Path: Assets/FMODBanks/Desktop/Ambience.bank
   Name: Ambience
   StudioPath: bank:/Ambience
-  lastModified: 638004760334765690
+  lastModified: 638018824914342765
   FileSizes: []
   Exists: 1
 --- !u!114 &-5483046311908628078
@@ -146,32 +170,6 @@ MonoBehaviour:
   MinDistance: 0
   MaxDistance: 0
   Length: 0
---- !u!114 &-2711741172367947030
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: fecb8ef7f94ca804a8ab72049b86782e, type: 3}
-  m_Name: parameter:/Card Effects/DrawCards
-  m_EditorClassIdentifier: 
-  Name: DrawCards
-  StudioPath: 
-  Min: 0
-  Max: 1
-  Default: 0
-  ID:
-    data1: 4219009450
-    data2: 3718968038
-  Type: 2
-  IsGlobal: 1
-  Labels:
-  - Draw Card
-  - Draw Last cards
-  Exists: 1
 --- !u!114 &-1042663962445955293
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -216,15 +214,14 @@ MonoBehaviour:
   - {fileID: -7602503349877763201}
   - {fileID: 1522736402702918815}
   EditorEvents:
-  - {fileID: -7223240126236466965}
   - {fileID: -5483046311908628078}
   - {fileID: 8998689533696705367}
   - {fileID: -6789853674765932468}
-  - {fileID: 1754814211252460458}
   - {fileID: 5628598093241865815}
   - {fileID: 3834247848173568349}
   - {fileID: 3957873798858669803}
   - {fileID: -3830963355005355320}
+  - {fileID: -8407853586088656409}
   EditorParameters:
   - {fileID: -1042663962445955293}
   - {fileID: 1100449970642523002}
@@ -235,7 +232,7 @@ MonoBehaviour:
   - {fileID: 1522736402702918815}
   StringsBanks:
   - {fileID: 4365127394592748573}
-  cacheTime: 638004760334905722
+  cacheTime: 638018824914999433
   cacheVersion: 131592
 --- !u!114 &1100449970642523002
 MonoBehaviour:
@@ -264,34 +261,6 @@ MonoBehaviour:
   - Enemy grunt
   - Enemy Defend
   Exists: 1
---- !u!114 &1300400766465658937
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: fecb8ef7f94ca804a8ab72049b86782e, type: 3}
-  m_Name: parameter:/Card Effects/Card Effects
-  m_EditorClassIdentifier: 
-  Name: Card Effects
-  StudioPath: 
-  Min: 0
-  Max: 3
-  Default: 0
-  ID:
-    data1: 3823256222
-    data2: 1950744258
-  Type: 2
-  IsGlobal: 1
-  Labels:
-  - Card Scrolling
-  - Reshuffle
-  - DrawCards
-  - Pickcards
-  Exists: 1
 --- !u!114 &1522736402702918815
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -307,38 +276,9 @@ MonoBehaviour:
   Path: Assets/FMODBanks/Desktop/Master.bank
   Name: Master
   StudioPath: bank:/Master
-  lastModified: 638004760334905722
+  lastModified: 638018824914989430
   FileSizes: []
   Exists: 1
---- !u!114 &1754814211252460458
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: ceb653cd98e289a4e8697a1af55201f2, type: 3}
-  m_Name: event:/Card Effects/Card Effects
-  m_EditorClassIdentifier: 
-  Path: event:/Card Effects/Card Effects
-  Guid:
-    Data1: 1422550897
-    Data2: 1245034776
-    Data3: -763743860
-    Data4: -295363119
-  Banks:
-  - {fileID: -7602503349877763201}
-  IsStream: 0
-  Is3D: 0
-  IsOneShot: 1
-  Parameters:
-  - {fileID: 1300400766465658937}
-  - {fileID: -2711741172367947030}
-  MinDistance: 1
-  MaxDistance: 20
-  Length: 305
 --- !u!114 &3834247848173568349
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -359,13 +299,13 @@ MonoBehaviour:
     Data4: 1216301398
   Banks:
   - {fileID: -7602503349877763201}
-  IsStream: 1
+  IsStream: 0
   Is3D: 0
   IsOneShot: 1
   Parameters: []
   MinDistance: 1
   MaxDistance: 20
-  Length: 130
+  Length: 332
 --- !u!114 &3957873798858669803
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -386,13 +326,13 @@ MonoBehaviour:
     Data4: 601707487
   Banks:
   - {fileID: -7602503349877763201}
-  IsStream: 1
+  IsStream: 0
   Is3D: 0
   IsOneShot: 1
   Parameters: []
   MinDistance: 1
   MaxDistance: 20
-  Length: 130
+  Length: 827
 --- !u!114 &4365127394592748573
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -408,34 +348,10 @@ MonoBehaviour:
   Path: Assets/FMODBanks/Desktop/Master.strings.bank
   Name: Master.strings
   StudioPath: bank:/Master.strings
-  lastModified: 638004760334905722
+  lastModified: 638018824914999433
   FileSizes:
   - Name: 
-    Value: 1478
-  Exists: 1
---- !u!114 &5618613026224991910
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: fecb8ef7f94ca804a8ab72049b86782e, type: 3}
-  m_Name: parameter:/Ambience/Ambience
-  m_EditorClassIdentifier: 
-  Name: Ambience
-  StudioPath: 
-  Min: 0
-  Max: 3
-  Default: 0
-  ID:
-    data1: 2927777880
-    data2: 3409605
-  Type: 0
-  IsGlobal: 1
-  Labels: []
+    Value: 1438
   Exists: 1
 --- !u!114 &5628598093241865815
 MonoBehaviour:
@@ -457,13 +373,13 @@ MonoBehaviour:
     Data4: 1883429168
   Banks:
   - {fileID: -7602503349877763201}
-  IsStream: 1
+  IsStream: 0
   Is3D: 0
   IsOneShot: 1
   Parameters: []
   MinDistance: 1
   MaxDistance: 20
-  Length: 902
+  Length: 1302
 --- !u!114 &5752603083316656644
 MonoBehaviour:
   m_ObjectHideFlags: 0
