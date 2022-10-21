@@ -5,7 +5,7 @@ using FMODUnity;
 
 public class CameraMovement : MonoBehaviour
 {
-    [SerializeField] EventReference MainCave_AMBX;
+  //  [SerializeField] EventReference MainCave_AMBX;
     private Animator anim;
     // private TurnManager TM;
     private bool attack, buff, godcard, shield;
@@ -13,7 +13,7 @@ public class CameraMovement : MonoBehaviour
     void Start()
     {
         anim = GetComponent<Animator>();
-        SoundPlayer.Playsound(MainCave_AMBX, gameObject);
+      //  SoundPlayer.Playsound(MainCave_AMBX, gameObject);
     }
 
     void SelectCardCamera()
