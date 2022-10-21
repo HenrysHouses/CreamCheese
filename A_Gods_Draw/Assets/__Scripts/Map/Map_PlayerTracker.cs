@@ -37,7 +37,7 @@ namespace Map
             if (mapManager.CurrentMap.path.Count == 0)
             {
                 //the player has not selected the node yet, they can select any of the nodes with y = 0
-                if (mapNode.Node.point.Y == 0)
+                if (mapNode.Node.point.y == 0)
                 {
                     SendPlayerToNode(mapNode); //
                 }

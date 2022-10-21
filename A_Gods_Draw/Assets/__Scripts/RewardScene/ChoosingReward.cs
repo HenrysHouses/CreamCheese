@@ -32,12 +32,7 @@ public class ChoosingReward : MonoBehaviour
         CardOptions = new Card_SO[spots.Length];
         behaviour = GetComponentInChildren<Card_Behaviour>();
         
-        // ! TEMPORARY
-        Map_Nodes mapNode = new Map_Nodes();
-        Node node = new Node(NodeType.AttackReward, "", new System.Drawing.Point());
-        mapNode.tempNode = node;
-        
-        GettingType(mapNode);
+        //GettingType(mapNode);
     }
 
     private void Update()

@@ -52,7 +52,7 @@ namespace Map
 
         private GameObject firstParent;
         private GameObject mapParent;
-        private List<List<Point>> paths;
+        private List<List<MapPoint>> paths;
         private Camera cam;
 
         public readonly List<Map_Nodes> MapNodes = new List<Map_Nodes>();
@@ -186,7 +186,7 @@ namespace Map
 
             if (mapManager.CurrentMap.path.Count == 0)
             {
-                foreach (var node in MapNodes.Where(n => n.Node.point.Y == 0))
+                foreach (var node in MapNodes.Where(n => n.Node.point.y == 0))
                 {
                     node.SetState(NodeStates.Taken);
                 }
@@ -406,7 +406,7 @@ namespace Map
             // path.Add(new Path(lineRenderer, from, to));
         }
 
-        private Map_Nodes GetNodes(Point p)
+        private Map_Nodes GetNodes(MapPoint p)
         {
             return MapNodes.FirstOrDefault(n => n.Node.point.Equals(p));
         }

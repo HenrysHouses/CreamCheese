@@ -3,18 +3,18 @@ using System;
 
 namespace Map
 {
-    public class Point : IEquatable<Point>
+    public class MapPoint : IEquatable<MapPoint>
     {
         public int x;
         public int y;
 
-        public Point(int x, int y)
+        public MapPoint(int x, int y)
         {
             this.x = x;
             this.y = y;
         }
 
-        public bool Equals(Point other)
+        public bool Equals(MapPoint other)
         {
             if (ReferenceEquals(null, other)) return false;
             if (ReferenceEquals(this, other)) return true;
@@ -26,7 +26,7 @@ namespace Map
             if (ReferenceEquals(null, obj)) return false;
             if (ReferenceEquals(this, obj)) return true;
             if (obj.GetType() != this.GetType()) return false;
-            return Equals((Point)obj);
+            return Equals((MapPoint)obj);
         }
 
         public override int GetHashCode()

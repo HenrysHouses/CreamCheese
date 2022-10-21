@@ -13,16 +13,16 @@ namespace Map
 {
     public class Node
     {
-        public readonly Point point;
-        public readonly List<Point> incoming = new List<Point>();
-        public readonly List<Point> outgoing = new List<Point>();
+        public readonly MapPoint point;
+        public readonly List<MapPoint> incoming = new List<MapPoint>();
+        public readonly List<MapPoint> outgoing = new List<MapPoint>();
 
         [JsonConverter(typeof(StringEnumConverter))]
         public readonly NodeType nodeType;
         public readonly string blueprintName;
         public Vector2 pos;
 
-        public Node (NodeType nodeType, string blueprintName, Point point)
+        public Node (NodeType nodeType, string blueprintName, MapPoint point)
         {
             this.nodeType = nodeType;
             this.blueprintName = blueprintName;
@@ -30,7 +30,7 @@ namespace Map
         }
 
         #region ADDING points
-        public void AddingIncoming(Point point)
+        public void AddingIncoming(MapPoint point)
         {
             if (incoming.Any(element => element.Equals(point)))
             {
@@ -39,7 +39,7 @@ namespace Map
             incoming.Add(point);
         }
 
-        public void AddingOutgoing(Point point)
+        public void AddingOutgoing(MapPoint point)
         {
             if (outgoing.Any(element => element.Equals(point)))
             {
@@ -50,12 +50,12 @@ namespace Map
         #endregion
 
         #region REMOVING points
-        public void RemovingIncoming(Point point)
+        public void RemovingIncoming(MapPoint point)
         {
             incoming.RemoveAll(element => element.Equals(point));
         }
 
-        public void RemovingOutgoing(Point point)
+        public void RemovingOutgoing(MapPoint point)
         {
             outgoing.RemoveAll(element => element.Equals(point));
         }
