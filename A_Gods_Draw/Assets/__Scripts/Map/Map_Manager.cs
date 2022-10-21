@@ -19,7 +19,7 @@ namespace Map
             if (PlayerPrefs.HasKey("Map"))
             {
                 var mapJson = PlayerPrefs.GetString("Map");
-                Map map = JsonConvert.DeserializeObject<Map>(mapJson);
+                var map = JsonConvert.DeserializeObject<Map>(mapJson);
 
                 /*if (map.path.Contains(map.GetBossNode().point))
                 {

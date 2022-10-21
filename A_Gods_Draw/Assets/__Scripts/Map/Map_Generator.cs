@@ -207,18 +207,18 @@ namespace Map
             }
         }
 
-        private static Node GetNode(MapPoint point)
+        private static Node GetNode(MapPoint p)
         {
-            if(point.y >= nodes.Count)
+            if(p.y >= nodes.Count)
             {
                 return null;
             }
-            if(point.x >= nodes[point.y].Count)
+            if(p.x >= nodes[p.y].Count)
             {
                 return null;
             }
 
-            return nodes[point.y][point.x];
+            return nodes[p.y][p.x];
         }
 
         private static MapPoint GetFinalNode()
