@@ -8,16 +8,17 @@ public abstract class Card_Behaviour : MonoBehaviour
 {
     IEnumerator cor;
 
-    protected Card_SO card_abs;
+    protected Card_SO card_so;
+    public Card_SO CardSO => card_so;
+    public string Name => card_so.cardName;
     // protected TurnManager manager;
 
     public readonly bool isReady = false;
 
+    protected TurnController controller;
 
-    public virtual void Initialize(Card_SO card)
-    {
-        this.card_abs = card;
-    }
+    protected CardElements elements;
+
 
     // public void SetManager(TurnManager manager)
     // {
@@ -44,8 +45,6 @@ public abstract class Card_Behaviour : MonoBehaviour
         //     GetComponentInParent<Card_ClickGlowing>().ShowBorder();
         // }
     }
-
-    public Card_SO GetCardSO() { return card_abs; }
     // public void setCardSO(Card_SO Stats) { card = Stats; }
 
     public void DeSelected()
@@ -76,12 +75,13 @@ public abstract class Card_Behaviour : MonoBehaviour
 
     public void OnPlay(BoardStateController board)
     {
+        controller.shouldWaitForAnims = true;
         cor = Play(board);
         StartCoroutine(cor);
         transform.localScale = new Vector3(0.25f,0.20f,0.20f);
     }
 
-    protected virtual IEnumerator Play(BoardStateController board)
+    protected abstract IEnumerator Play(BoardStateController board)
     {
         yield return new WaitUntil(ReadyToBePlaced);
         GetComponentInParent<Card_ClickGlowing>().RemoveBorder();
@@ -93,6 +93,38 @@ public abstract class Card_Behaviour : MonoBehaviour
         // if(this is Attack_Behaviour attack_)
         //     manager.OnDeSelectedAttackCard?.Invoke();
     }
+
+    protected CardAction GetAction(CardActionEnum card, int strengh)
+    {
+        switch (card)
+        {
+            case CardActionEnum.Attack:
+                return new AttackCardAction(strengh);
+            case CardActionEnum.Defend:
+                return new DefendCardAction(strengh);
+            case CardActionEnum.Buff:
+                return new BuffCardAction(strengh);
+            case CardActionEnum.Instakill:
+                return new InstakillCardAction(strengh);
+            default:
+                return null;
+        }
+    }
+
+    protected GodCardAction GetAction(GodActionEnum card)
+    {
+        return card switch
+        {
+            GodActionEnum.Tyr => new TyrActions(),
+            _ => null,
+        };
+    }
+
+    public void ChangeStrengh(int newValue)
+    {
+        elements.strength.text = newValue.ToString();
+    }
+
     public virtual void LatePlayed(BoardStateController board) { }
     public virtual void OnAction() { }
 }

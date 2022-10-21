@@ -10,6 +10,7 @@ public enum CardType
     Attack,
     Defence,
     Buff,
+    Special,
     God
 }
 public class ChoosingReward : MonoBehaviour

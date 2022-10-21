@@ -5,28 +5,58 @@ using FMODUnity;
 
 public abstract class NonGod_Behaviour : Card_Behaviour
 {
+    List<CardAction> actions;
+
     [SerializeField]
     EventReference SoundClick;
 
     protected int strengh;
-    protected Buff_Behaviour theCardCANThatBuffThis;
-    protected Buff_Behaviour theCardThatBuffsThis;
 
-    protected NonGod_Card card_NonGod;
+    protected new NonGod_Card_SO card_so;
+    public new NonGod_Card_SO CardSO => card_so;
 
-    public NonGod_Card GetNonGod() { return card_NonGod; }
-
-    public override void Initialize(Card_SO card)
+    public void Initialize(NonGod_Card_SO card)
     {
-        this.card_abs = card;
-        card_NonGod = card as NonGod_Card;
-        strengh = card_NonGod.baseStrength;
+        this.card_so = card;
+        card_so = card as NonGod_Card_SO;
+        strengh = card_so.strengh;
+
+        foreach (CardActionEnum actionEnum in card.cardActions.Keys)
+        {
+            actions.Add(GetAction(actionEnum, card.cardActions[actionEnum]));
+        }
+
     }
 
-    public void CanBeBuffedBy(Buff_Behaviour buff_)
+    public void Buff(int value, bool isMult)
     {
-        theCardCANThatBuffThis = buff_;
-        //Debug.Log(this + " can be buffed by " + buff_);
+        if (isMult)
+        {
+            strengh *= value;
+        }
+        else
+        {
+            strengh += value;
+        }
+        ChangeStrengh(strengh);
+    }
+
+    public void DeBuff(int value, bool isMult)
+    {
+        if (isMult)
+        {
+            strengh /= value;
+        }
+        else
+        {
+            strengh -= value;
+        }
+        ChangeStrengh(strengh);
+    }
+
+    public void CancelBuffs()
+    {
+        strengh = card_so.strengh;
     }
 
     //public override void OnClick()
@@ -47,43 +77,31 @@ public abstract class NonGod_Behaviour : Card_Behaviour
     //    //Debug.Log(manager.CurrentlySelectedCard().gameObject);
     //}
 
-    public virtual void GetBuff(bool isMultiplier, float amount)
-    {
-        if (isMultiplier)
-        {
-            strengh = (int)(strengh * amount);
-        }
-        else
-        {
-            strengh = (int)(strengh + amount);
-        }
-
-        GetComponent<Card_Loader>().ChangeStrengh(strengh);
-    }
 
     public void CheckForGod(God_Behaviour god)
     {
-        if (card_NonGod.correspondingGod == god.GetName())
+        if (card_so.correspondingGod == god.CardSO.godAction)
         {
             god.Buff(this);
         }
     }
-
-    internal virtual void PlacedNextToThis(NonGod_Behaviour card)
+    protected override IEnumerator Play(BoardStateController board)
     {
-
-    }
-
-    public override void LatePlayed(BoardStateController board)
-    {
-        base.LatePlayed(board);
-
-        if (board.playedGodCard)
-            CheckForGod(board.playedGodCard);
-
-        if (board.playedCards.Count > 0)
+        foreach (NonGod_Behaviour card in board.playedCards)
         {
-            board.playedCards[^1].PlacedNextToThis(this);
+            if (card.CardSO.correspondingGod == card_so.godAction)
+            {
+                card.Buff(card_so.strengh, true);
+            }
         }
+
+        foreach (CardAction action in actions)
+        {
+            action.OnPlay(board);
+            yield return new WaitUntil(() => true /* action.IsReady() */);
+        }
+
+
+        controller.shouldWaitForAnims = false;
     }
 }

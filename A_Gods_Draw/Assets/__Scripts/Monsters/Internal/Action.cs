@@ -10,6 +10,8 @@ public abstract class Action
 
     protected int min = 0, max = 3;
 
+    bool isReady = false;
+
     public Action(int _min, int _max)
     {
         min = _min;
@@ -19,18 +21,15 @@ public abstract class Action
     public int Min() => min;
     public int Max() => max;
 
-    public abstract void Execute(BoardStateController BoardStateController, int strengh);
+    public void Act(BoardStateController BoardStateController, int strengh)
+    {
+        isReady = false;
+        Execute(BoardStateController, strengh);
+    }
+    protected abstract void Execute(BoardStateController board, int strengh);
 
     public static bool operator!(Action action)
     {
         return action != null;
-    }
-    public static bool operator ==(Action action, EnemyIntent intent)
-    {
-        return action.ID == (int)intent;
-    }
-    public static bool operator !=(Action action, EnemyIntent intent)
-    {
-        return action.ID != (int)intent;
     }
 }

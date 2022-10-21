@@ -2,9 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-[CreateAssetMenu(menuName = "Card/Defense card")]
-
-public class Defense_Card : NonGod_Card
+public class Defense_Card
 {
     public override Card_Behaviour Init(GameObject a) 
     { 

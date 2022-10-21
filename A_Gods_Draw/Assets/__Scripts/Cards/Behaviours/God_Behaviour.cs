@@ -10,22 +10,24 @@ public class God_Behaviour : Card_Behaviour
     [SerializeField]
     int health;
 
-    IGodAction action;
+    GodCardAction action;
 
-    God_Card god_SO;
     GodPlacement godPlacement;
-    Defense_Behaviour posibleDefender;
 
     int defendFor;
-    public override void Initialize(Card_SO card)
+
+    protected new God_Card_SO card_so;
+    public new God_Card_SO CardSO => card_so;
+
+    public void Initialize(God_Card_SO card)
     {
-        this.card_abs = card;
-        god_SO = card as God_Card;
-        maxHealth = god_SO.health;
+        this.card_so = card;
+        maxHealth = card.health;
         health = maxHealth;
 
-        action = GetComponent<IGodAction>();
+        action = GetAction(card.godAction);
     }
+
 
     public void SetPlace(GodPlacement place)
     {
@@ -34,10 +36,35 @@ public class God_Behaviour : Card_Behaviour
 
     protected override IEnumerator Play(BoardStateController board)
     {
+        foreach (NonGod_Behaviour card in board.playedCards)
+        {
+            if (card.CardSO.correspondingGod == card_so.godAction)
+            {
+                card.Buff(card_so.strengh, true);
+            }
+        }
+
         action.OnPlay(board);
 
         //Wait for animations, etc
-        return base.Play(board);
+        yield return new WaitUntil(() => true /* action.IsReady() */);
+
+        controller.shouldWaitForAnims = false;
+    }
+    public void OnRetire(BoardStateController board)
+    {
+        foreach (NonGod_Behaviour card in board.playedCards)
+        {
+            if (card.CardSO.correspondingGod == card_so.godAction)
+            {
+                card.DeBuff(card_so.strengh, true);
+            }
+        }
+    }
+
+    internal void Buff(NonGod_Behaviour nonGod_Behaviour)
+    {
+        nonGod_Behaviour.Buff(card_so.strengh, true);
     }
 
     public override void LatePlayed(BoardStateController board)
@@ -48,16 +75,6 @@ public class God_Behaviour : Card_Behaviour
             if (card.GetNonGod().correspondingGod == this.card_abs.name)
             {
                 card.GetBuff(true, 2f);
-            }
-        }
-    }
-    public void OnRetire(List<NonGod_Behaviour> currentLane)
-    {
-        foreach (NonGod_Behaviour card in currentLane)
-        {
-            if (card.GetNonGod().correspondingGod == this.card_abs.name)
-            {
-                card.GetBuff(true, 0.5f);
             }
         }
     }
@@ -85,29 +102,25 @@ public class God_Behaviour : Card_Behaviour
         }
     }
 
-    public void CanBeDefendedBy(Defense_Behaviour defense_Behaviour)
-    {
-        posibleDefender = defense_Behaviour;
-    }
+    //public void CanBeDefendedBy(Defense_Behaviour defense_Behaviour)
+    //{
+    //    posibleDefender = defense_Behaviour;
+    //}
 
-    private void OnMouseDown()
-    {
-        if (posibleDefender)
-        {
-            posibleDefender.ItDefends(null, this);
-        }
-        posibleDefender = null;
-    }
+    //private void OnMouseDown()
+    //{
+    //    if (posibleDefender)
+    //    {
+    //        posibleDefender.ItDefends(null, this);
+    //    }
+    //    posibleDefender = null;
+    //}
 
     public void Defend(int amount)
     {
         defendFor += amount;
     }
 
-    internal void Buff(NonGod_Behaviour nonGod_Behaviour)
-    {
-        nonGod_Behaviour.GetBuff(true, 2f);
-    }
 
     private void OnMouseOver()
     {
@@ -125,6 +138,5 @@ public class God_Behaviour : Card_Behaviour
 
     public virtual void OnTurnStart() { }
 
-    public string GetName() { return card_abs.cardName; }
 
 }

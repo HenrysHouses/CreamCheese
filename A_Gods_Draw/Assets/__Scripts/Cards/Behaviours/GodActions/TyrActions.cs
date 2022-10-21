@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class TyrActions : IGodAction
+public class TyrActions : GodCardAction
 {
     public override void OnPlay(BoardStateController board)
     {
