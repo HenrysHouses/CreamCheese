@@ -9,6 +9,7 @@ namespace Map
     public enum NodeType //more node types can be added
     {
         Enemy,
+        Reward,
         RandomReward,
         GodReward,
         AttackReward,
