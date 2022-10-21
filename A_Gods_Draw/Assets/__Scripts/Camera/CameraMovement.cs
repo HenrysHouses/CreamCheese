@@ -9,6 +9,8 @@ public class CameraMovement : MonoBehaviour
     private Animator anim;
     // private TurnManager TM;
     private bool attack, buff, godcard, shield;
+
+    [SerializeField] EventReference cameraSound;
     // Start is called before the first frame update
     void Start()
     {
@@ -67,6 +69,8 @@ public class CameraMovement : MonoBehaviour
         if(resetView) // Go to middle
         {
             ResetView();
+            SoundPlayer.Playsound(cameraSound, gameObject);
+
             return;
         }
         if(goDown)
@@ -76,6 +80,8 @@ public class CameraMovement : MonoBehaviour
             anim.SetBool("Right", false);
             anim.SetBool("Up", false);
             anim.SetBool("Left", false);
+            SoundPlayer.Playsound(cameraSound, gameObject);
+
         }
         if(goLeft) // go left
         {
@@ -84,6 +90,8 @@ public class CameraMovement : MonoBehaviour
             anim.SetBool("Right", true);
             anim.SetBool("Up", false);
             anim.SetBool("Left", false);
+            SoundPlayer.Playsound(cameraSound, gameObject);
+
         }
         if(goRight) // go right
         {
@@ -92,6 +100,8 @@ public class CameraMovement : MonoBehaviour
             anim.SetBool("Right", false);
             anim.SetBool("Up", false);
             anim.SetBool("Left", true);
+            SoundPlayer.Playsound(cameraSound, gameObject);
+
         }
         if(goUp) // go up
         {
@@ -100,12 +110,16 @@ public class CameraMovement : MonoBehaviour
             anim.SetBool("Right", false);
             anim.SetBool("Up", true);
             anim.SetBool("Left", false);
+            SoundPlayer.Playsound(cameraSound, gameObject);
+
         }
 
         // Map Scene View
         if(MultiSceneLoader.getLoadedCollectionTitle.Equals("Map"))
         {
             anim.SetBool("MapCamera", true);
+            SoundPlayer.Playsound(cameraSound, gameObject);
+
         }
         else 
         {
