@@ -66,8 +66,8 @@ public class Card_Loader : MonoBehaviour
         image.sprite = card_so.image;
         desc.text = card_so.description;
 
-        // if(shouldAddComponent)
-        //     card_so.Init(this.gameObject).SetManager(manager); // ! probably
+        if(shouldAddComponent)
+            card_so.Init(this.gameObject);
     }
 
     void ChangeOrm(NonGod_Card card)

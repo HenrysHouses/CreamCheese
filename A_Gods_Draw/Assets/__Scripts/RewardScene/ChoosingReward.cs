@@ -14,13 +14,14 @@ public enum CardType
 }
 public class ChoosingReward : MonoBehaviour
 {
+    [SerializeField] DeckManager_SO deckManager;
     CardType currtype;
 
-    DeckManager_SO deckManager;
     Card_Behaviour behaviour;
     List<Card_SO> searchResult;
 
     public Transform[] spots;
+    Card_SO[] CardOptions;
     public GameObject prefab;
 
     [SerializeField]
@@ -28,15 +29,26 @@ public class ChoosingReward : MonoBehaviour
 
     private void Start()
     {
+        CardOptions = new Card_SO[spots.Length];
         behaviour = GetComponentInChildren<Card_Behaviour>();
-        searchResult = CardSearch.Search<NonGod_Card>(new string[] {currtype.ToString()});
+        
+        // ! TEMPORARY
+        Map_Nodes mapNode = new Map_Nodes();
+        Node node = new Node(NodeType.AttackReward, "", new System.Drawing.Point());
+        mapNode.tempNode = node;
+        
+        GettingType(mapNode);
     }
 
     private void Update()
     {
         if (Input.GetMouseButtonDown(0))
         {
-            SelectReward();
+            int SelectIndex = SelectReward();
+            // if(SelectIndex)
+            Debug.Log(deckManager.getDeck.Deck.Count);
+            deckManager.addCardToDeck(CardOptions[SelectIndex]);
+            Debug.Log(deckManager.getDeck.Deck.Count);
         }
     }
 
@@ -48,19 +60,35 @@ public class ChoosingReward : MonoBehaviour
         switch (mapNode.Node.nodeType)
         {
             case NodeType.AttackReward:
+                searchResult = CardSearch.Search<Attack_Card>(new string[] {currtype.ToString()});
+                break;
             case NodeType.DefenceReward:
+                searchResult = CardSearch.Search<Defense_Card>(new string[] {currtype.ToString()});
+                break;
             case NodeType.BuffReward:
-                InstantiateCards();
+                searchResult = CardSearch.Search<Buff_Card>(new string[] {currtype.ToString()});
                 break;
         }
+        InstantiateCards();
     }
 
     void InstantiateCards()
     {
-        GameObject spawn1 = Instantiate(prefab, spots[0]);
+        for (int i = 0; i < spots.Length; i++)
+        {
+            GameObject spawn = Instantiate(prefab, spots[i]);
 
-        Card_SO randomCard = searchResult[Random.Range(0, searchResult.Count)];
-        spawn1.GetComponentInChildren<Card_Loader>().Set(randomCard);
+            Debug.Log(searchResult);
+
+            int randomIndex = Random.Range(0, searchResult.Count);
+            Card_SO randomCard = searchResult[randomIndex];
+            Card_Loader _Loader = spawn.GetComponentInChildren<Card_Loader>();
+            _Loader.shouldAddComponent = false;
+            _Loader.Set(randomCard);
+
+            CardOptions[i] = searchResult[randomIndex];
+            searchResult.RemoveAt(randomIndex);
+        }
     }
 
     int SelectReward()
@@ -71,7 +99,8 @@ public class ChoosingReward : MonoBehaviour
         {
             for (int i = 0; i < spots.Length; i++)
             {
-                if (hit.collider.transform.Equals(spots[i]))
+                Transform target = hit.collider.transform.parent;
+                if (target.Equals(spots[i]))
                 {
                     return i;
                 }

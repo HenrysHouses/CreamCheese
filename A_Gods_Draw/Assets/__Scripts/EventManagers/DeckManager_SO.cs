@@ -26,6 +26,7 @@ public class DeckManager_SO : ScriptableObject
     
     [SerializeField, Tooltip("Cards the player has obtained")] 
     DeckList_SO deckList;
+    public DeckList_SO getDeck => deckList;
     
     [SerializeField, Tooltip("Cards the player can draw")] 
     List<Card_SO> pLibrary;

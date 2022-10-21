@@ -6,26 +6,14 @@ public static class CardSearch
 {
     public static List<Card_SO> Search<T>(string[] SearchOptions = null) where T : Card_SO
     {
-        List<T> Results = new List<T>();
+        List<Card_SO> Results = new List<Card_SO>();
 
-        bool isGod = Results is List<God_Card>;
+        Card_SO[] currResults = Resources.LoadAll<Card_SO>("Cards");
 
-        if(isGod)
+        for (int i = 0; i < currResults.Length; i++)
         {
-            T[] currResults = Resources.LoadAll<T>("Cards");
-
-            for (int i = 0; i < currResults.Length; i++)
-            {
+            if(currResults[i] is T)
                 Results.Add(currResults[i]);
-            }
-        } else
-        {
-            T[] currResults = Resources.LoadAll<T>("Cards");
-
-            for (int i = 0; i <currResults.Length ; i++)
-            {
-                Results.Add(currResults[i]);
-            }
         }
 
         if(SearchOptions != null)
@@ -34,20 +22,20 @@ public static class CardSearch
             {
                 for (int j = 0; j < Results.Count; j++)
                 {
-                    if(isGod)
-                    {
-                        if(!Results[i].name.Equals(SearchOptions[j])) 
-                            Results.RemoveAt(i);
-                    }
-                    else
-                    {
-                        NonGod_Card card = Results[i] as NonGod_Card;
-                        if(!card.name.Equals(SearchOptions[j])) 
-                            Results.RemoveAt(i);
+                    // if(isGod)
+                    // {
+                    //     if(!Results[i].name.Equals(SearchOptions[j])) 
+                    //         Results.RemoveAt(i);
+                    // }
+                    // else
+                    // {
+                    //     NonGod_Card card = Results[i] as NonGod_Card;
+                    //     if(!card.name.Equals(SearchOptions[j])) 
+                    //         Results.RemoveAt(i);
 
-                        if(!card.cardType.ToString().Equals(SearchOptions[j])) 
-                            Results.RemoveAt(i);
-                    }
+                    //     if(!card.cardType.ToString().Equals(SearchOptions[j])) 
+                    //         Results.RemoveAt(i);
+                    // }
                 }
             }
         }

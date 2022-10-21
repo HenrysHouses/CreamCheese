@@ -28,6 +28,8 @@ namespace Map
         public Image visitedImage; //image showing that you have visited that node
 
         public Node Node { get; private set; }
+        // ! TEMPORARY
+        public Node tempNode {set { Node = value;}}
         public NodeBlueprint Blueprint { get; private set; }
 
         private float initialScale;
