@@ -28,6 +28,9 @@ namespace Map
 
         public static T Random<T>(this IList<T> list)
         {
+            if (list.Count == 0)
+                return default(T);
+
             return list[range.Next(list.Count)];
         }
 
