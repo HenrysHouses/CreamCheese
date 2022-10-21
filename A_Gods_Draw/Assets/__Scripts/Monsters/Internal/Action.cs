@@ -25,4 +25,12 @@ public abstract class Action
     {
         return action != null;
     }
+    public static bool operator ==(Action action, EnemyIntent intent)
+    {
+        return action.ID == (int)intent;
+    }
+    public static bool operator !=(Action action, EnemyIntent intent)
+    {
+        return action.ID != (int)intent;
+    }
 }

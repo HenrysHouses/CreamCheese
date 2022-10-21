@@ -6,24 +6,9 @@ using UnityEngine.UI;
 
 public class LokiMonster3 : IMonster
 {
-    IMonster toDefend;
-    bool playerAttacked;
-
-    public override void IsObjectiveTo(Attack_Behaviour attack_Behaviour)
+    private void Start()
     {
-        attacker = attack_Behaviour;
-        playerAttacked = true;
-        //Debug.Log(this + " can be attacked by " + attack_Behaviour);
+        enemyIntent = new LokiMonster3Intent();
     }
-    protected override bool UsesAbility(BoardStateController board)
-    {
-        if(getGod)
-        {
-            // attackingPlayer = false;
-        }
-        
-        
-         playerAttacked = false;
-          return false;
-    } 
+
 }

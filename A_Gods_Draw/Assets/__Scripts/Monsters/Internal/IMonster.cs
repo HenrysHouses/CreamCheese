@@ -111,6 +111,11 @@ public abstract class IMonster : MonoBehaviour
     internal void DecideIntent(BoardStateController board)
     {
         enemyIntent.DecideIntent(board);
+    }
+
+    internal void LateDecideIntent(BoardStateController board)
+    {
+        enemyIntent.LateDecideIntent(board);
 
         strengh.text = enemyIntent.GetCurrStrengh().ToString();
 
@@ -118,7 +123,7 @@ public abstract class IMonster : MonoBehaviour
         strengh.enabled = true;
     }
 
-    public virtual void IsObjectiveTo(Attack_Behaviour attack_Behaviour)
+    public void IsObjectiveTo(Attack_Behaviour attack_Behaviour)
     {
         attacker = attack_Behaviour;
         if (player)
@@ -161,12 +166,4 @@ public abstract class IMonster : MonoBehaviour
     {
         arrowImage.enabled = false;
     }
-
-    public virtual void OnTurnBegin() { }
-    public virtual void PreAbilityDecide() { }
-    protected virtual bool UsesAbility(BoardStateController board) { return false; }
-    protected virtual void AbilityDecided(BoardStateController board) { }
-    public virtual void OnTurnEnd() { }
-    
-    
 }

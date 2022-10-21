@@ -156,5 +156,7 @@ public class CombatFSM : MonoBehaviour
                 break;
             }
         }
+
+        Debug.Log("transition done to: " + currentStateID);
     }
 }

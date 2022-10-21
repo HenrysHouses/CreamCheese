@@ -22,6 +22,8 @@ public abstract class Intent
 
     public abstract void DecideIntent(BoardStateController board);
 
+    public virtual void LateDecideIntent(BoardStateController board) { }
+
     public int GetCurrStrengh() => strengh;
 
     public void Act(BoardStateController BoardStateController)
@@ -38,6 +40,7 @@ public abstract class Intent
 public enum EnemyIntent
 {
     Buff,
+    BuffAttackers,
     Defend,
     AttackGod,
     AttackPlayer,
