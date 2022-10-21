@@ -21,10 +21,14 @@ namespace Map
                 var mapJson = PlayerPrefs.GetString("Map");
                 var map = JsonConvert.DeserializeObject<Map>(mapJson);
 
-                /*if (map.path.Contains(map.GetBossNode().point))
-                {
-                    GenerateNewMap();
-                }*/
+                // if (map.path.Contains(map.GetBossNode().point))
+                // {
+                //     GenerateNewMap();
+                // }
+
+
+
+                // Debug.Log(map.GetBossNode());
 
                 if (map.path.Any(p => p.Equals(map.GetBossNode().point)) || GameManager.instance.shouldGenerateNewMap)
                 {

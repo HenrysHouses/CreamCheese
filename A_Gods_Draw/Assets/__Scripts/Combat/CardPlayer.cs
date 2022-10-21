@@ -13,7 +13,7 @@ public class CardPlayer : MonoBehaviour
     [SerializeField] LayerMask cardLayer;
     [SerializeField] LayerMask laneLayer;
 
-    Card_Behaviour _selectedCard;
+    Card_Loader _selectedCard;
 
     // Start is called before the first frame update
     void Start()
@@ -44,15 +44,15 @@ public class CardPlayer : MonoBehaviour
         }
     }
 
-    Card_Behaviour selectCard()
+    Card_Loader selectCard()
     {
         Ray ray = mainCam.ScreenPointToRay(Input.mousePosition);
 
         if(Physics.Raycast(ray, out RaycastHit hit, 1000000, cardLayer))
         {
-            Card_Behaviour behaviour = hit.collider.GetComponentInChildren<Card_Behaviour>();
+            Card_Loader _Loader = hit.collider.GetComponentInChildren<Card_Loader>();
             Debug.Log(hit.collider.name);
-            return behaviour;
+            return _Loader;
         }
         return null;
     }
@@ -72,10 +72,10 @@ public class CardPlayer : MonoBehaviour
         return false;
     }
 
-    void placeCard(Transform lane, Card_Behaviour behaviour)
+    void placeCard(Transform lane, Card_Loader behaviour)
     {
-        int index = _Hand.behaviour.IndexOf(behaviour);
-        _Hand.RemoveCard(index);
-        _Board.placeCardOnLane(lane, behaviour);
+        // int index = _Hand.behaviour.IndexOf(behaviour);
+        // _Hand.RemoveCard(index);
+        // _Board.placeCardOnLane(lane, behaviour);
     }
 }

@@ -27,7 +27,19 @@ namespace Map
 
         public Node GetBossNode()
         {
-            return nodes.FirstOrDefault(n => n.nodeType == NodeType.Boss);
+            Node found = null; // = nodes.FirstOrDefault(n => n.nodeType == NodeType.Boss);
+            
+            for (int i = 0; i < nodes.Count; i++)
+            {
+                NodeType type = nodes[i].nodeType;
+
+                // Debug.Log(nodes[i] + ": " + type);
+
+                if(type.Equals(NodeType.Boss))
+                    found = nodes[i];
+            }
+            Debug.Log(found);
+            return found;
         }
 
         public float DistLayers() //distance between the first and last layers
