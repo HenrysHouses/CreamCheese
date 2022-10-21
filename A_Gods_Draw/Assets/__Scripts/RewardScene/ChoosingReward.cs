@@ -54,15 +54,18 @@ public class ChoosingReward : MonoBehaviour
     {
         switch (mapNode.Node.nodeType)
         {
-            case NodeType.AttackReward:
-                searchResult = CardSearch.Search<Attack_Card>(new string[] {currtype.ToString()});
+            case NodeType.Reward:
+                searchResult = CardSearch.Search<Card_SO>();
                 break;
-            case NodeType.DefenceReward:
-                searchResult = CardSearch.Search<Defense_Card>(new string[] {currtype.ToString()});
-                break;
-            case NodeType.BuffReward:
-                searchResult = CardSearch.Search<Buff_Card>(new string[] {currtype.ToString()});
-                break;
+            //case NodeType.AttackReward:
+            //    searchResult = CardSearch.Search<Attack_Card>(new string[] {currtype.ToString()});
+            //    break;
+            //case NodeType.DefenceReward:
+            //    searchResult = CardSearch.Search<Defense_Card>(new string[] {currtype.ToString()});
+            //    break;
+            //case NodeType.BuffReward:
+            //    searchResult = CardSearch.Search<Buff_Card>(new string[] {currtype.ToString()});
+            //    break;
         }
         InstantiateCards();
     }
