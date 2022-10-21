@@ -67,7 +67,7 @@ MonoBehaviour:
   Path: Assets/FMODBanks/Desktop/Effects.bank
   Name: Effects
   StudioPath: bank:/Effects
-  lastModified: 638018850047844336
+  lastModified: 638019598442315911
   FileSizes: []
   Exists: 1
 --- !u!114 &-6789853674765932468
@@ -112,7 +112,7 @@ MonoBehaviour:
   Path: Assets/FMODBanks/Desktop/Ambience.bank
   Name: Ambience
   StudioPath: bank:/Ambience
-  lastModified: 638018850047085933
+  lastModified: 638019598441852828
   FileSizes: []
   Exists: 1
 --- !u!114 &-5483046311908628078
@@ -222,18 +222,48 @@ MonoBehaviour:
   - {fileID: 3957873798858669803}
   - {fileID: -3830963355005355320}
   - {fileID: -8407853586088656409}
+  - {fileID: 60397857729652173}
   EditorParameters:
   - {fileID: -1042663962445955293}
   - {fileID: 1100449970642523002}
   - {fileID: 6757537587953591708}
   - {fileID: 8607894708110779818}
   - {fileID: 5752603083316656644}
+  - {fileID: 6521098719646299012}
   MasterBanks:
   - {fileID: 1522736402702918815}
   StringsBanks:
   - {fileID: 4365127394592748573}
-  cacheTime: 638018850047899416
+  cacheTime: 638019598442360970
   cacheVersion: 131592
+--- !u!114 &60397857729652173
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ceb653cd98e289a4e8697a1af55201f2, type: 3}
+  m_Name: event:/Player/HealthDial
+  m_EditorClassIdentifier: 
+  Path: event:/Player/HealthDial
+  Guid:
+    Data1: -1605970208
+    Data2: 1251534219
+    Data3: -694300737
+    Data4: 703649307
+  Banks:
+  - {fileID: -7602503349877763201}
+  IsStream: 0
+  Is3D: 0
+  IsOneShot: 1
+  Parameters:
+  - {fileID: 7910278434078832114}
+  MinDistance: 1
+  MaxDistance: 20
+  Length: 100
 --- !u!114 &1100449970642523002
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -276,7 +306,7 @@ MonoBehaviour:
   Path: Assets/FMODBanks/Desktop/Master.bank
   Name: Master
   StudioPath: bank:/Master
-  lastModified: 638018850047889380
+  lastModified: 638019598442350957
   FileSizes: []
   Exists: 1
 --- !u!114 &3834247848173568349
@@ -348,10 +378,10 @@ MonoBehaviour:
   Path: Assets/FMODBanks/Desktop/Master.strings.bank
   Name: Master.strings
   StudioPath: bank:/Master.strings
-  lastModified: 638018850047899416
+  lastModified: 638019598442360970
   FileSizes:
   - Name: 
-    Value: 1438
+    Value: 1524
   Exists: 1
 --- !u!114 &5628598093241865815
 MonoBehaviour:
@@ -400,6 +430,30 @@ MonoBehaviour:
   ID:
     data1: 2927777880
     data2: 3409605
+  Type: 0
+  IsGlobal: 1
+  Labels: []
+  Exists: 1
+--- !u!114 &6521098719646299012
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fecb8ef7f94ca804a8ab72049b86782e, type: 3}
+  m_Name: parameter:/Health
+  m_EditorClassIdentifier: 
+  Name: Health
+  StudioPath: parameter:/Health
+  Min: 0
+  Max: 100
+  Default: 100
+  ID:
+    data1: 2774083151
+    data2: 3232156098
   Type: 0
   IsGlobal: 1
   Labels: []
@@ -459,6 +513,30 @@ MonoBehaviour:
   - Reshuffle
   - DrawCards
   - Pickcards
+  Exists: 1
+--- !u!114 &7910278434078832114
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fecb8ef7f94ca804a8ab72049b86782e, type: 3}
+  m_Name: parameter:/HealthDial/Health
+  m_EditorClassIdentifier: 
+  Name: Health
+  StudioPath: 
+  Min: 0
+  Max: 100
+  Default: 100
+  ID:
+    data1: 2774083151
+    data2: 3232156098
+  Type: 0
+  IsGlobal: 1
+  Labels: []
   Exists: 1
 --- !u!114 &8607894708110779818
 MonoBehaviour:
