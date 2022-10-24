@@ -4,20 +4,15 @@ using UnityEngine;
 
 public abstract class BoardElement : MonoBehaviour
 {
-    static bool isInCombat;
+    protected static bool isInCombat;
     public bool clickable;
 
     public static void EnterCombat() { isInCombat = true; }
     public static void ExitCombat() { isInCombat = false; }
 
-    private void OnMouseDown()
+    public virtual bool OnClick()
     {
-        if (clickable && !isInCombat)
-        {
-            OnClick();
-        }
+        return clickable && !isInCombat; 
     }
-
-    protected abstract void OnClick();
 
 }

@@ -17,9 +17,7 @@ public class BuffCardAction : CardAction
             card.clickable = true;
         }
 
-        yield return new WaitUntil(() => board.GetClickedCard());
-        target = board.GetClickedCard();
-        board.SetClickedCard();
+        yield return new WaitUntil(HasClickedNonGod);
 
         foreach (NonGod_Behaviour card in board.playedCards)
         {
@@ -27,6 +25,18 @@ public class BuffCardAction : CardAction
         }
 
         isReady = true;
+    }
+
+    bool HasClickedNonGod()
+    {
+        BoardElement element = TurnController.PlayerClick();
+        NonGod_Behaviour clickedCard = element as NonGod_Behaviour;
+        if (clickedCard)
+        {
+            target = clickedCard;
+            return true;
+        }
+        return false;
     }
 
     protected override IEnumerator OnAction(BoardStateController board)

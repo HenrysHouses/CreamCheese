@@ -19,18 +19,27 @@ public abstract class Card_Behaviour : BoardElement
 
     protected CardElements elements;
 
+    bool onPlayerHand;
 
     // public void SetManager(TurnManager manager)
     // {
     //     this.manager = manager;
     // }
 
-    protected override void OnClick()
+    public override bool OnClick()
     {
-        if (controller.SelectedCard != this)
+        if (onPlayerHand)
         {
-            controller.SetSelectedCard(this);
-            OnBeingSelected();
+            if (controller.SelectedCard != this)
+            {
+                controller.SetSelectedCard(this);
+                OnBeingSelected();
+            }
+            return false;
+        }
+        else
+        {
+            return base.OnClick();
         }
     }
 

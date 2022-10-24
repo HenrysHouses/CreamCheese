@@ -216,4 +216,22 @@ public class TurnController : CombatFSM
             selectedCard.CancelSelection();
         selectedCard = sel;
     }
+
+    public static BoardElement PlayerClick()
+    {
+        LayerMask layerMask = new LayerMask();
+        Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
+        BoardElement element = null;
+
+        if (Physics.Raycast(ray, out RaycastHit hit, 100, layerMask) && Input.GetMouseButtonDown(0))
+        {
+            GameObject clicked = hit.collider.gameObject;
+
+            element = clicked.GetComponent<BoardElement>();
+
+            if (element && element.OnClick())
+                return element;
+        }
+        return null;
+    }
 }

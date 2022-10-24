@@ -16,9 +16,7 @@ public class InstakillCardAction : CardAction
             //Enable monster clickable
         }
 
-        yield return new WaitUntil(() => board.GetClickedMonster());
-        target = board.GetClickedMonster();
-        board.SetClickedMonster();
+        yield return new WaitUntil(HasClickedMonster);
 
         foreach (IMonster monster in board.Enemies)
         {
@@ -26,6 +24,18 @@ public class InstakillCardAction : CardAction
         }
 
         isReady = true;
+    }
+
+    bool HasClickedMonster()
+    {
+        BoardElement element = TurnController.PlayerClick();
+        IMonster clickedMonster = element as IMonster;
+        if (clickedMonster)
+        {
+            target = clickedMonster;
+            return true;
+        }
+        return false;
     }
 
     protected override IEnumerator OnAction(BoardStateController board)

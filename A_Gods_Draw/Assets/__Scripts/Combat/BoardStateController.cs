@@ -3,6 +3,7 @@
  * Henrik
 */
 
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -39,49 +40,6 @@ public class BoardStateController : MonoBehaviour
     [SerializeField] Transform[] _Lane;
     [SerializeField] Transform _GodLane;
 
-    #region ClickedStuff
-
-    IMonster clickedMonster;
-    public void SetClickedMonster(IMonster clicked = null)
-    {
-        clickedMonster = clicked;
-    }
-    public IMonster GetClickedMonster()
-    {
-        return clickedMonster;
-    }
-
-    NonGod_Behaviour clickedCard;
-    public void SetClickedCard(NonGod_Behaviour clicked = null)
-    {
-        clickedCard = clicked;
-    }
-    public NonGod_Behaviour GetClickedCard()
-    {
-        return clickedCard;
-    }
-
-    God_Behaviour clickedGod;
-    public void SetClickedGod(God_Behaviour clicked = null)
-    {
-        clickedGod = clicked;
-    }
-    public God_Behaviour GetClickedGod()
-    {
-        return clickedGod;
-    }
-
-    PlayerController playerClicked;
-    public void SetClickedPlayer(PlayerController clicked = null)
-    {
-        playerClicked = clicked;
-    }
-    public PlayerController GetClickedPlayer()
-    {
-        return playerClicked;
-    }
-
-    #endregion
 
     void spawnEncounter()
     {
@@ -143,5 +101,15 @@ public class BoardStateController : MonoBehaviour
                 return;
             }
         }
+    }
+    internal void placeCardOnLane(NonGod_Behaviour card)
+    {
+        playedCards.Add(card as NonGod_Behaviour);
+
+        Transform cardTransform = playedCards[^1].transform.parent.parent;
+
+        cardTransform.SetParent(_Lane[^1]);
+        cardTransform.localPosition = new Vector3();
+        return;
     }
 }

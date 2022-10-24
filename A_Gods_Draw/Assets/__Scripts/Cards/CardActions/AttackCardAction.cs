@@ -5,7 +5,6 @@ using UnityEngine;
 public class AttackCardAction : CardAction
 {
     IMonster target;
-
     public AttackCardAction(int strengh) : base(strengh, strengh) { }
 
     protected override IEnumerator ChoosingTargets(BoardStateController board)
@@ -16,9 +15,7 @@ public class AttackCardAction : CardAction
             monster.clickable = true;
         }
 
-        yield return new WaitUntil(() => board.GetClickedMonster());
-        target = board.GetClickedMonster();
-        board.SetClickedMonster();
+        yield return new WaitUntil(HasClickedMonster);
 
         foreach (IMonster monster in board.Enemies)
         {
@@ -26,6 +23,18 @@ public class AttackCardAction : CardAction
         }
 
         isReady = true;
+    }
+
+    bool HasClickedMonster()
+    {
+        BoardElement element = TurnController.PlayerClick();
+        IMonster clickedMonster = element as IMonster;
+        if (clickedMonster)
+        {
+            target = clickedMonster;
+            return true;
+        }
+        return false;
     }
 
     protected override IEnumerator OnAction(BoardStateController board)

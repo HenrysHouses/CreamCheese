@@ -87,6 +87,10 @@ public class NonGod_Behaviour : Card_Behaviour
 
     protected override void OnBeingSelected()
     {
+        if (controller.GetBoard().playedCards.Count >= 4)
+        {
+            return;
+        }
         controller.shouldWaitForAnims = true;
         StartCoroutine(SelectingTargets());
     }
@@ -99,6 +103,9 @@ public class NonGod_Behaviour : Card_Behaviour
             yield return new WaitUntil(() => action.Ready());
         }
         controller.shouldWaitForAnims = false;
+
+        if (card_so.type != CardType.Buff)
+            controller.GetBoard().placeCardOnLane(this);
     }
 
     public override void OnAction()

@@ -53,11 +53,6 @@ public abstract class IMonster : BoardElement
 
     }
 
-    protected override void OnClick()
-    {
-        controller.GetBoard().SetClickedMonster(this);
-    }
-
     public int GetMaxHealth() { return maxHealth; }
     public int GetHealth() { return health; }
 

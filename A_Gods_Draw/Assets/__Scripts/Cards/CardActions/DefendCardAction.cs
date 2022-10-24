@@ -14,16 +14,30 @@ public class DefendCardAction : CardAction
         playerTarget.clickable = true;
         godTarget.clickable = true;
 
-        yield return new WaitUntil(() => board.GetClickedGod() || board.GetClickedPlayer());
-        godTarget = board.GetClickedGod();
-        playerTarget = board.GetClickedPlayer();
-        board.SetClickedGod();
-        board.SetClickedPlayer();
+        yield return new WaitUntil(HasClickedGodOrPlayer);
 
         playerTarget.clickable = false;
         godTarget.clickable = false;
 
         isReady = true;
+    }
+
+    bool HasClickedGodOrPlayer()
+    {
+        BoardElement element = TurnController.PlayerClick();
+        God_Behaviour clickedCard = element as God_Behaviour;
+        PlayerController clickedplayer = element as PlayerController;
+        if (clickedCard)
+        {
+            godTarget = clickedCard;
+            return true;
+        }
+        else if (clickedplayer)
+        {
+            playerTarget = clickedplayer;
+            return true;
+        }
+        return false;
     }
 
     protected override IEnumerator OnAction(BoardStateController board)

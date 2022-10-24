@@ -94,9 +94,4 @@ public class PlayerController : BoardElement
     {
         arrowImage.enabled = false;
     }
-
-    protected override void OnClick()
-    {
-        controller.GetBoard().SetClickedPlayer(this);
-    }
 }

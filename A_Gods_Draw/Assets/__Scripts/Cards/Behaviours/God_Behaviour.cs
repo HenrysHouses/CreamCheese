@@ -129,6 +129,8 @@ public class God_Behaviour : Card_Behaviour
     protected override void OnBeingSelected()
     {
         controller.GetBoard().playedGodCard = this;
+        controller.GetBoard().placeCardOnLane(controller.GetBoard().getGodLane(), this);
+        action.OnPlay(controller.GetBoard());
     }
 
     public override void OnAction()
