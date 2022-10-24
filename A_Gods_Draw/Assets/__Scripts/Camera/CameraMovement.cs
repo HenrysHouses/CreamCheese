@@ -69,7 +69,7 @@ public class CameraMovement : MonoBehaviour
         if(resetView) // Go to middle
         {
             ResetView();
-            SoundPlayer.Playsound(cameraSound, gameObject);
+            //SoundPlayer.Playsound(cameraSound, gameObject);
 
             return;
         }

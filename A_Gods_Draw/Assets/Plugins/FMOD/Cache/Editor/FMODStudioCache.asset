@@ -67,7 +67,7 @@ MonoBehaviour:
   Path: Assets/FMODBanks/Desktop/Effects.bank
   Name: Effects
   StudioPath: bank:/Effects
-  lastModified: 638020820954713610
+  lastModified: 638022318928311790
   FileSizes: []
   Exists: 1
 --- !u!114 &-6789853674765932468
@@ -112,7 +112,7 @@ MonoBehaviour:
   Path: Assets/FMODBanks/Desktop/Ambience.bank
   Name: Ambience
   StudioPath: bank:/Ambience
-  lastModified: 638020820954553462
+  lastModified: 638022318924278686
   FileSizes: []
   Exists: 1
 --- !u!114 &-5483046311908628078
@@ -224,6 +224,8 @@ MonoBehaviour:
   - {fileID: -8407853586088656409}
   - {fileID: 60397857729652173}
   - {fileID: 2108245918833916768}
+  - {fileID: 6779924993504771560}
+  - {fileID: 8144188503590948585}
   EditorParameters:
   - {fileID: -1042663962445955293}
   - {fileID: 1100449970642523002}
@@ -235,7 +237,7 @@ MonoBehaviour:
   - {fileID: 1522736402702918815}
   StringsBanks:
   - {fileID: 4365127394592748573}
-  cacheTime: 638020820954723618
+  cacheTime: 638022318928351854
   cacheVersion: 131592
 --- !u!114 &60397857729652173
 MonoBehaviour:
@@ -264,7 +266,7 @@ MonoBehaviour:
   - {fileID: 7910278434078832114}
   MinDistance: 1
   MaxDistance: 20
-  Length: 100
+  Length: 1
 --- !u!114 &1100449970642523002
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -307,7 +309,7 @@ MonoBehaviour:
   Path: Assets/FMODBanks/Desktop/Master.bank
   Name: Master
   StudioPath: bank:/Master
-  lastModified: 638020820954713610
+  lastModified: 638022318928351854
   FileSizes: []
   Exists: 1
 --- !u!114 &2108245918833916768
@@ -406,10 +408,10 @@ MonoBehaviour:
   Path: Assets/FMODBanks/Desktop/Master.strings.bank
   Name: Master.strings
   StudioPath: bank:/Master.strings
-  lastModified: 638020820954723618
+  lastModified: 638022318928351854
   FileSizes:
   - Name: 
-    Value: 1572
+    Value: 1688
   Exists: 1
 --- !u!114 &5628598093241865815
 MonoBehaviour:
@@ -542,6 +544,33 @@ MonoBehaviour:
   - DrawCards
   - Pickcards
   Exists: 1
+--- !u!114 &6779924993504771560
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ceb653cd98e289a4e8697a1af55201f2, type: 3}
+  m_Name: event:/Combat/Enemy/Enemy Attack
+  m_EditorClassIdentifier: 
+  Path: event:/Combat/Enemy/Enemy Attack
+  Guid:
+    Data1: 1118862281
+    Data2: 1238309055
+    Data3: 1298832056
+    Data4: -1814946090
+  Banks:
+  - {fileID: -7602503349877763201}
+  IsStream: 1
+  Is3D: 0
+  IsOneShot: 1
+  Parameters: []
+  MinDistance: 1
+  MaxDistance: 20
+  Length: 500
 --- !u!114 &7910278434078832114
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -566,6 +595,33 @@ MonoBehaviour:
   IsGlobal: 1
   Labels: []
   Exists: 1
+--- !u!114 &8144188503590948585
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ceb653cd98e289a4e8697a1af55201f2, type: 3}
+  m_Name: event:/Combat/Enemy/Enemy Ability
+  m_EditorClassIdentifier: 
+  Path: event:/Combat/Enemy/Enemy Ability
+  Guid:
+    Data1: -50251825
+    Data2: 1140817054
+    Data3: -1457995116
+    Data4: 1746539433
+  Banks:
+  - {fileID: -7602503349877763201}
+  IsStream: 0
+  Is3D: 0
+  IsOneShot: 1
+  Parameters: []
+  MinDistance: 1
+  MaxDistance: 20
+  Length: 1000
 --- !u!114 &8607894708110779818
 MonoBehaviour:
   m_ObjectHideFlags: 0
