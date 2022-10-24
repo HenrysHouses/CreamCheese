@@ -65,7 +65,6 @@ public class TurnController : CombatFSM
         EndState _endStep = new EndState(this);
         _endStep.AddTransition(Transition.EnterDraw, CombatState.DrawStep);
 
-        // TODO
         AddFSMState(_combatSetup);
         AddFSMState(_drawStep);
         AddFSMState(_mainPhase);
@@ -74,6 +73,8 @@ public class TurnController : CombatFSM
         AddFSMState(_combatCard);
         AddFSMState(_combatEnemy);
         AddFSMState(_endStep);
+
+        BoardStateController.spawnEncounter();
     }
 
     public void SetTransition(Transition t) 

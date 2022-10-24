@@ -21,6 +21,7 @@ public class AwakeCombatState : CombatFSMState
 
     public override void Reason(bool override_ = false)
     {
+        Debug.Log("reason");
         if(!hasShuffled)
             return;
 
@@ -31,10 +32,11 @@ public class AwakeCombatState : CombatFSMState
 
     public override void Act()
     {
+        Debug.Log("act");
         if(hasShuffled)
             return;
 
-        Controller.ShuffleLibrary();
+        // Controller.ShuffleLibrary();
         hasShuffled = true;
     }
 }

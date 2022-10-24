@@ -7,7 +7,13 @@ using UnityEngine;
 public class NonGod_Card_SO : Card_SO
 {
     public Sprite icon;
-    public List<CardActionEnum> cardActions;
-    public List<int> actionStrengh;
+    public List<CardActionData> cardActions;
     public GodActionEnum correspondingGod;
+}
+
+[System.Serializable]
+public struct CardActionData
+{
+    public CardActionEnum actionEnum;
+    public int actionStrength;
 }

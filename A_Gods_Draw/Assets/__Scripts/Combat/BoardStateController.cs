@@ -41,11 +41,12 @@ public class BoardStateController : MonoBehaviour
     [SerializeField] Transform _GodLane;
 
 
-    void spawnEncounter()
+    public void spawnEncounter()
     {
         Encounter_SO[] possibleEncounters = EncounterLoader.LoadAllEncountersOf(GameManager.instance.nextCombatType);
-        EncounterLoader.InstantiateRandomEncounter(possibleEncounters, EnemyParent, out _Encounter);
-        isEncounterInstantiated = true;
+        _Enemies = EncounterLoader.InstantiateRandomEncounter(possibleEncounters, EnemyParent, out _Encounter);
+        // isEncounterInstantiated = true;
+        Debug.Log("spawned?");
     }
 
     public IMonster[] getLivingEnemies()

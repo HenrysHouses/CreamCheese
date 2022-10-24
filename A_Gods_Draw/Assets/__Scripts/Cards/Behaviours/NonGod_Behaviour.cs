@@ -22,7 +22,7 @@ public class NonGod_Behaviour : Card_Behaviour
 
         for (int i = 0; i < card.cardActions.Count; i++)
         {
-            actions.Add(GetAction(card.cardActions[i], card.actionStrengh[i]));
+            actions.Add(GetAction(card.cardActions[i].actionEnum, card.cardActions[i].actionStrength));
         }
 
     }

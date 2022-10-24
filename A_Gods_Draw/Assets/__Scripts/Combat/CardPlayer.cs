@@ -72,10 +72,11 @@ public class CardPlayer : MonoBehaviour
         return false;
     }
 
-    void placeCard(Transform lane, Card_Loader behaviour)
+    void placeCard(Transform lane, Card_Loader loader)
     {
-        // int index = _Hand.behaviour.IndexOf(behaviour);
-        // _Hand.RemoveCard(index);
-        // _Board.placeCardOnLane(lane, behaviour);
+        Card_Behaviour behaviour = loader.GetComponent<Card_Behaviour>();
+        int index = _Hand.cardLoaders.IndexOf(loader);
+        _Hand.RemoveCard(index);
+        _Board.placeCardOnLane(lane, behaviour);
     }
 }

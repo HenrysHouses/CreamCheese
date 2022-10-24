@@ -16,7 +16,7 @@ public class Player_Hand : MonoBehaviour
 
     private float cardRotation = 10; 
     public List<CardHandAnim> CardSelectionAnimators = new List<CardHandAnim>();
-    public List<Card_Behaviour> behaviour = new List<Card_Behaviour>();
+    public List<Card_Loader> cardLoaders = new List<Card_Loader>();
 
     public GameObject CardHandPrefab;
     public class CardHandAnim
@@ -52,7 +52,7 @@ public class Player_Hand : MonoBehaviour
 
         spawn.transform.GetComponentInChildren<BoxCollider>().enabled = true;
 
-        behaviour.Add(spawn.GetComponentInChildren<Card_Behaviour>());
+        cardLoaders.Add(spawn.GetComponentInChildren<Card_Loader>());
 
         // Debug.Log("Card in hand: " + spawn.name + ", this one is number: " + (CAH.Count - 1));
         
@@ -61,18 +61,19 @@ public class Player_Hand : MonoBehaviour
         //Debug.Log("Card Added to hand");
     }
     
-    public Card_SO RemoveCard(int index)
+    /// <summary></summary>
+    /// <param name=""></param>
+    /// <returns>Removed card's scriptable object</returns>
+    public void RemoveCard(int index)
     {
-        if (index >= CardSelectionAnimators.Count)
-            return null;
+        if (index >= CardSelectionAnimators.Count || index >= cardLoaders.Count)
+            return;
 
-        Card_SO _SO = CardSelectionAnimators[index].cardSO;
         CardSelectionAnimators[index].cardAnimation.enabled = false;
         Destroy(CardSelectionAnimators[index].Selector.gameObject);
         CardSelectionAnimators.RemoveAt(index);
-        behaviour.RemoveAt(index);
+        cardLoaders.RemoveAt(index);
         UpdateCards();
-        return _SO;
     }
 
     public void RemoveAllCards()
@@ -126,8 +127,6 @@ public class Player_Hand : MonoBehaviour
             float rot = (float)cardRotation, count = (float)CardSelectionAnimators.Count;
         CardSelectionAnimators[index].Selector.transform.rotation = Quaternion.Euler(0, 0, (rot * ((count - 1) / 2f)) - rot * index);
         CardSelectionAnimators[index].cardAnimation.SetBool("ShowCard", false);
-
         }
-        
     }
 }
