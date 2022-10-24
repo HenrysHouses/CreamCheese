@@ -11,14 +11,13 @@ public enum CardType
     Defence,
     Buff,
     Special,
-    God
+    God,
+    None
 }
 public class ChoosingReward : MonoBehaviour
 {
     [SerializeField] DeckManager_SO deckManager;
-    CardType currtype;
 
-    Card_Behaviour behaviour;
     List<Card_SO> searchResult;
 
     public Transform[] spots;
@@ -31,9 +30,8 @@ public class ChoosingReward : MonoBehaviour
     private void Start()
     {
         CardOptions = new Card_SO[spots.Length];
-        behaviour = GetComponentInChildren<Card_Behaviour>();
         
-        //GettingType(mapNode);
+        GettingType(GameManager.instance.nextRewardType);
     }
 
     private void Update()
@@ -51,22 +49,18 @@ public class ChoosingReward : MonoBehaviour
     /// <summary>
     /// 
     /// </summary>
-    public void GettingType(Map_Nodes mapNode)
+    public void GettingType(NodeType nodeType)
     {
-        switch (mapNode.Node.nodeType)
+        switch (nodeType)
         {
             case NodeType.Reward:
                 searchResult = CardSearch.Search<Card_SO>();
                 break;
-            //case NodeType.AttackReward:
-            //    searchResult = CardSearch.Search<Attack_Card>(new string[] {currtype.ToString()});
-            //    break;
-            //case NodeType.DefenceReward:
-            //    searchResult = CardSearch.Search<Defense_Card>(new string[] {currtype.ToString()});
-            //    break;
-            //case NodeType.BuffReward:
-            //    searchResult = CardSearch.Search<Buff_Card>(new string[] {currtype.ToString()});
-            //    break;
+            case NodeType.AttackReward:
+            case NodeType.DefenceReward:
+            case NodeType.BuffReward:
+                searchResult = CardSearch.Search<NonGod_Card_SO>(new string[] { GameManager.instance.nextRewardType.ToString() });
+                break;
         }
         InstantiateCards();
     }

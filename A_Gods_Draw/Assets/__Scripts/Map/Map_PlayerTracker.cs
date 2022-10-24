@@ -79,6 +79,7 @@ namespace Map
         private static void EnterNode(Map_Nodes mapNode)
         {
             // Debug.Log("Node: " + mapNode.Node.blueprintName + " of type " + mapNode.Node.nodeType);
+            GameManager.instance.nextRewardType = mapNode.Node.nodeType;
 
             switch (mapNode.Node.nodeType)
             {
@@ -91,19 +92,27 @@ namespace Map
                     GameManager.instance.nextCombatType = EncounterDifficulty.elites;
                     break;
                 case NodeType.RestPlace:
-                    sceneTransition.TransitionScene(false, "CardReward");
+                    sceneTransition.TransitionScene(false, "MainMenu");
                     break;
                 case NodeType.RandomReward:
                     sceneTransition.TransitionScene(false, "CardReward");
+                    Debug.Log(CardType.None);
                     break;
                 case NodeType.AttackReward:
                     sceneTransition.TransitionScene(false, "CardReward");
+                    Debug.Log(CardType.Attack);
                     break;
                 case NodeType.DefenceReward:
                     sceneTransition.TransitionScene(false, "CardReward");
+                    Debug.Log(CardType.Defence);
                     break;
                 case NodeType.BuffReward:
                     sceneTransition.TransitionScene(false, "CardReward");
+                    Debug.Log(CardType.Buff);
+                    break;
+                case NodeType.GodReward:
+                    sceneTransition.TransitionScene(false, "CardReward");
+                    Debug.Log(CardType.God);
                     break;
                 case NodeType.Boss:
                     sceneTransition.TransitionScene(false, "Combat");

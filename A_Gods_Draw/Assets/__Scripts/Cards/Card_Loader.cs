@@ -19,7 +19,7 @@ public enum GodActionEnum
     Tyr,
 }
 
-[SerializeField]
+[System.Serializable]
 public struct CardElements
 {
     public Image image;
@@ -75,7 +75,8 @@ public class Card_Loader : MonoBehaviour
 
             ChangeOrm(nonGod.type);
 
-            gameObject.AddComponent<NonGod_Behaviour>().Initialize(nonGod);
+            if(shouldAddComponent)
+                gameObject.AddComponent<NonGod_Behaviour>().Initialize(nonGod);
         }
         elements.cardName.text = card_so.cardName;
         elements.image.sprite = card_so.image;

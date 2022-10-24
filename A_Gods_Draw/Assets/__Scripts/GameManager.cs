@@ -8,6 +8,8 @@ public class GameManager : MonoBehaviour
     public bool shouldGenerateNewMap;
     public static GameManager instance;
     EncounterDifficulty nextCombatDiff;
+    [SerializeField]
+    NodeType nextReward;
     
     private void Awake() 
     {
@@ -26,4 +28,10 @@ public class GameManager : MonoBehaviour
         get { return nextCombatDiff; } 
         set { nextCombatDiff = value; }
     }  
+
+    public NodeType nextRewardType
+    {
+        get { return nextReward; }
+        set { nextReward = value; }
+    }
 }

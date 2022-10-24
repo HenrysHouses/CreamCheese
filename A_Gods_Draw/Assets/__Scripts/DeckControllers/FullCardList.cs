@@ -22,20 +22,23 @@ public static class CardSearch
             {
                 for (int j = 0; j < Results.Count; j++)
                 {
-                    // if(isGod)
-                    // {
-                    //     if(!Results[i].name.Equals(SearchOptions[j])) 
-                    //         Results.RemoveAt(i);
-                    // }
-                    // else
-                    // {
-                    //     NonGod_Card card = Results[i] as NonGod_Card;
-                    //     if(!card.name.Equals(SearchOptions[j])) 
-                    //         Results.RemoveAt(i);
+                    bool shouldBeRemoved = true;
 
-                    //     if(!card.cardType.ToString().Equals(SearchOptions[j])) 
-                    //         Results.RemoveAt(i);
-                    // }
+                    if (!Results[j].name.Equals(SearchOptions[i]))
+                        shouldBeRemoved = false;
+
+                    NonGod_Card_SO card = Results[j] as NonGod_Card_SO;
+                    if (!card.name.Equals(SearchOptions[i]))
+                        shouldBeRemoved = false;
+                    
+                    if (!card.type.ToString().Equals(SearchOptions[i]))
+                        shouldBeRemoved = false;
+
+                    if (!card.correspondingGod.ToString().Equals(SearchOptions[i]))
+                        shouldBeRemoved = false;
+
+                    if(shouldBeRemoved)
+                        Results.RemoveAt(j);
                 }
             }
         }
