@@ -34,6 +34,8 @@ public class TurnController : CombatFSM
 
     public CombatState state;
 
+    Card_Behaviour selectedCard;
+
     protected override void Initialize()
     {
         deckManager.SetCurrentDeck(player.Deck);
@@ -205,6 +207,13 @@ public class TurnController : CombatFSM
 
 
     // * --- Getters ---
-
     public BoardStateController GetBoard() { return BoardStateController; }
+
+    public Card_Behaviour SelectedCard => selectedCard;
+    public void SetSelectedCard(Card_Behaviour sel)
+    {
+        if (selectedCard)
+            selectedCard.CancelSelection();
+        selectedCard = sel;
+    }
 }

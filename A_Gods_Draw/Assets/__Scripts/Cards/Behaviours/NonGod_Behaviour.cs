@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using FMODUnity;
 
-public abstract class NonGod_Behaviour : Card_Behaviour
+public class NonGod_Behaviour : Card_Behaviour
 {
     List<CardAction> actions;
 
@@ -18,12 +18,11 @@ public abstract class NonGod_Behaviour : Card_Behaviour
     public void Initialize(NonGod_Card_SO card)
     {
         this.card_so = card;
-        card_so = card as NonGod_Card_SO;
         strengh = card_so.strengh;
 
-        foreach (CardActionEnum actionEnum in card.cardActions.Keys)
+        for (int i = 0; i < card.cardActions.Count; i++)
         {
-            actions.Add(GetAction(actionEnum, card.cardActions[actionEnum]));
+            actions.Add(GetAction(card.cardActions[i], card.actionStrengh[i]));
         }
 
     }
@@ -85,22 +84,36 @@ public abstract class NonGod_Behaviour : Card_Behaviour
             god.Buff(this);
         }
     }
+
+    protected override void OnBeingSelected()
+    {
+        controller.shouldWaitForAnims = true;
+        StartCoroutine(SelectingTargets());
+    }
+
+    IEnumerator SelectingTargets()
+    {
+        foreach (CardAction action in actions)
+        {
+            action.SelectTargets(controller.GetBoard());
+            yield return new WaitUntil(() => action.Ready());
+        }
+        controller.shouldWaitForAnims = false;
+    }
+
+    public override void OnAction()
+    {
+        controller.shouldWaitForAnims = true;
+        StartCoroutine(Play(controller.GetBoard()));
+    }
+
     protected override IEnumerator Play(BoardStateController board)
     {
-        foreach (NonGod_Behaviour card in board.playedCards)
-        {
-            if (card.CardSO.correspondingGod == card_so.godAction)
-            {
-                card.Buff(card_so.strengh, true);
-            }
-        }
-
         foreach (CardAction action in actions)
         {
             action.OnPlay(board);
-            yield return new WaitUntil(() => true /* action.IsReady() */);
+            yield return new WaitUntil(() => action.Ready());
         }
-
 
         controller.shouldWaitForAnims = false;
     }

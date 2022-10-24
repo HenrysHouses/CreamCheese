@@ -39,6 +39,50 @@ public class BoardStateController : MonoBehaviour
     [SerializeField] Transform[] _Lane;
     [SerializeField] Transform _GodLane;
 
+    #region ClickedStuff
+
+    IMonster clickedMonster;
+    public void SetClickedMonster(IMonster clicked = null)
+    {
+        clickedMonster = clicked;
+    }
+    public IMonster GetClickedMonster()
+    {
+        return clickedMonster;
+    }
+
+    NonGod_Behaviour clickedCard;
+    public void SetClickedCard(NonGod_Behaviour clicked = null)
+    {
+        clickedCard = clicked;
+    }
+    public NonGod_Behaviour GetClickedCard()
+    {
+        return clickedCard;
+    }
+
+    God_Behaviour clickedGod;
+    public void SetClickedGod(God_Behaviour clicked = null)
+    {
+        clickedGod = clicked;
+    }
+    public God_Behaviour GetClickedGod()
+    {
+        return clickedGod;
+    }
+
+    PlayerController playerClicked;
+    public void SetClickedPlayer(PlayerController clicked = null)
+    {
+        playerClicked = clicked;
+    }
+    public PlayerController GetClickedPlayer()
+    {
+        return playerClicked;
+    }
+
+    #endregion
+
     void spawnEncounter()
     {
         Encounter_SO[] possibleEncounters = EncounterLoader.LoadAllEncountersOf(GameManager.instance.nextCombatType);

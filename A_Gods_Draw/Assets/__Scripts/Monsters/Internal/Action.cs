@@ -10,7 +10,7 @@ public abstract class Action
 
     protected int min = 0, max = 3;
 
-    bool isReady = false;
+    protected bool isReady = false;
 
     public Action(int _min, int _max)
     {
@@ -26,7 +26,7 @@ public abstract class Action
         isReady = false;
         Execute(BoardStateController, strengh);
     }
-    protected abstract void Execute(BoardStateController board, int strengh);
+    public abstract void Execute(BoardStateController board, int strengh);
 
     public static bool operator!(Action action)
     {

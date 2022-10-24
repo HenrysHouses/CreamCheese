@@ -4,7 +4,7 @@ using System.Collections.Generic;
 using UnityEngine;
 // using static TurnManager;
 
-public abstract class Card_Behaviour : MonoBehaviour
+public abstract class Card_Behaviour : BoardElement
 {
     IEnumerator cor;
 
@@ -25,27 +25,16 @@ public abstract class Card_Behaviour : MonoBehaviour
     //     this.manager = manager;
     // }
 
-    public virtual void OnClick()
+    protected override void OnClick()
     {
-        // if(!manager)
-        // {
-        //     // Debug.LogWarning("A card does not have reference to the turnManager");
-        //     return;
-        // }
-
-        // if (manager.CurrentlySelectedCard() == this)
-        // {
-        //     manager.CancelSelection();
-        //     return;
-        // }
-        // if (!manager.CurrentlySelectedCard() || this != manager.CurrentlySelectedCard())
-        // {
-        //     manager.CancelSelection();
-        //     manager.SelectCard(this);
-        //     GetComponentInParent<Card_ClickGlowing>().ShowBorder();
-        // }
+        if (controller.SelectedCard != this)
+        {
+            controller.SetSelectedCard(this);
+            OnBeingSelected();
+        }
     }
-    // public void setCardSO(Card_SO Stats) { card = Stats; }
+
+    protected abstract void OnBeingSelected();
 
     public void DeSelected()
     {
@@ -81,7 +70,7 @@ public abstract class Card_Behaviour : MonoBehaviour
         transform.localScale = new Vector3(0.25f,0.20f,0.20f);
     }
 
-    protected abstract IEnumerator Play(BoardStateController board)
+    protected virtual IEnumerator Play(BoardStateController board)
     {
         yield return new WaitUntil(ReadyToBePlaced);
         GetComponentInParent<Card_ClickGlowing>().RemoveBorder();
@@ -103,7 +92,7 @@ public abstract class Card_Behaviour : MonoBehaviour
             case CardActionEnum.Defend:
                 return new DefendCardAction(strengh);
             case CardActionEnum.Buff:
-                return new BuffCardAction(strengh);
+                return new BuffCardAction(strengh, false);
             case CardActionEnum.Instakill:
                 return new InstakillCardAction(strengh);
             default:
@@ -126,5 +115,10 @@ public abstract class Card_Behaviour : MonoBehaviour
     }
 
     public virtual void LatePlayed(BoardStateController board) { }
-    public virtual void OnAction() { }
+    public abstract void OnAction();
+
+    internal void CancelSelection()
+    {
+        //Actions cancel everythign;
+    }
 }

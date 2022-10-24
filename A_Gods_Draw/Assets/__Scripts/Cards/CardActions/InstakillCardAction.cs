@@ -2,18 +2,18 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class AttackCardAction : CardAction
+public class InstakillCardAction : CardAction
 {
     IMonster target;
 
-    public AttackCardAction(int strengh) : base(strengh, strengh) { }
+    public InstakillCardAction(int strengh) : base(strengh, strengh) { }
 
     protected override IEnumerator ChoosingTargets(BoardStateController board)
     {
         //foreach monster in bpard, enable click
         foreach (IMonster monster in board.Enemies)
         {
-            monster.clickable = true;
+            //Enable monster clickable
         }
 
         yield return new WaitUntil(() => board.GetClickedMonster());
@@ -22,7 +22,7 @@ public class AttackCardAction : CardAction
 
         foreach (IMonster monster in board.Enemies)
         {
-            monster.clickable = false;
+            //Disable monster clickable
         }
 
         isReady = true;
@@ -34,7 +34,8 @@ public class AttackCardAction : CardAction
 
         yield return new WaitUntil(() => true);
 
-        target.DealDamage(max);
+        if (Random.Range(1, 10) <= max)
+            target.DealDamage(10000);
 
         isReady = true;
     }

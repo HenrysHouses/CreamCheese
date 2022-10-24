@@ -67,18 +67,6 @@ public class God_Behaviour : Card_Behaviour
         nonGod_Behaviour.Buff(card_so.strengh, true);
     }
 
-    public override void LatePlayed(BoardStateController board)
-    {
-        gameObject.AddComponent<BoxCollider>();
-        foreach (NonGod_Behaviour card in board.playedCards)
-        {
-            if (card.GetNonGod().correspondingGod == this.card_abs.name)
-            {
-                card.GetBuff(true, 2f);
-            }
-        }
-    }
-
     public void DealDamage(int amount)
     {
         //Debug.Log("God damaged, defended for: " + defendFor);
@@ -138,5 +126,13 @@ public class God_Behaviour : Card_Behaviour
 
     public virtual void OnTurnStart() { }
 
+    protected override void OnBeingSelected()
+    {
+        controller.GetBoard().playedGodCard = this;
+    }
 
+    public override void OnAction()
+    {
+        action.Act(controller.GetBoard(), 0);
+    }
 }

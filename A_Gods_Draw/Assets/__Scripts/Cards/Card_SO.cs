@@ -6,10 +6,10 @@ using UnityEngine;
 
 public abstract class Card_SO : ScriptableObject
 {
-    public readonly CardType type;
-    public readonly Sprite image;
-    public readonly string cardName;
-    public readonly string description;
-    public readonly int strengh;
+    public CardType type;
+    public Sprite image;
+    public string cardName;
+    public string description;
+    public int strengh;
 }
 

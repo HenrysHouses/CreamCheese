@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 
+[System.Serializable]
 public enum CardActionEnum
 {
     Attack,
@@ -10,8 +11,11 @@ public enum CardActionEnum
     Buff,
     Instakill,
 }
+
+[System.Serializable]
 public enum GodActionEnum
 {
+    None,
     Tyr,
 }
 

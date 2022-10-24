@@ -6,7 +6,7 @@ using TMPro;
 using System;
 using FMODUnity;
 
-public abstract class IMonster : MonoBehaviour
+public abstract class IMonster : BoardElement
 {
     public Intent GetIntent() => enemyIntent;
     protected Intent enemyIntent;
@@ -20,13 +20,7 @@ public abstract class IMonster : MonoBehaviour
 
     int defendedFor;
 
-    protected Attack_Behaviour attacker;
-
-    // TurnManager manager;
-
-    PlayerController player;
-    God_Behaviour god = null;
-    public God_Behaviour getGod => god;
+    TurnController controller;
 
     [SerializeField]
     Image image;
@@ -59,32 +53,13 @@ public abstract class IMonster : MonoBehaviour
 
     }
 
+    protected override void OnClick()
+    {
+        controller.GetBoard().SetClickedMonster(this);
+    }
+
     public int GetMaxHealth() { return maxHealth; }
     public int GetHealth() { return health; }
-
-    private void OnMouseDown()
-    {
-        // if (manager.CurrentlySelectedCard())
-        // {
-        //     if (attacker)
-        //     {
-        //         attacker.AddTarget(this);
-        //         SoundManager.Instance.Playsound(SoundSelectCard, gameObject);
-        //     }
-        //     attacker = null;
-        //     EnemyHideArrow();
-        // }
-    }
-
-    public void Initialize(PlayerController controller)
-    {
-        player = controller;
-    }
-
-    public void SetGod(God_Behaviour beh = null)
-    {
-        god = beh;
-    }
 
     public void DealDamage(int amount)
     {
@@ -123,24 +98,14 @@ public abstract class IMonster : MonoBehaviour
         strengh.enabled = true;
     }
 
-    public void IsObjectiveTo(Attack_Behaviour attack_Behaviour)
-    {
-        attacker = attack_Behaviour;
-        if (player)
-        {
-            EnemyShowArrow();
-        }
-        //Debug.Log(this + " can be attacked by " + attack_Behaviour);
-    }
-
     public void Defend(int amount)
     {
         defendedFor += amount;
     }
 
-    public void Act(BoardStateController board)
+    public void Act()
     {
-        enemyIntent.Act(board);
+        enemyIntent.Act(controller.GetBoard());
         //waitforanimations
     }
 
@@ -156,10 +121,6 @@ public abstract class IMonster : MonoBehaviour
 
     public void EnemyShowArrow()
     {
-        if (player)
-        {
-            arrowImage.enabled = true;
-        }
     }
 
     public void EnemyHideArrow()

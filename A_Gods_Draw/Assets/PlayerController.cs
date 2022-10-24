@@ -4,7 +4,7 @@ using UnityEngine;
 using TMPro;
 using UnityEngine.UI;
 
-public class PlayerController : MonoBehaviour
+public class PlayerController : BoardElement
 {
     [SerializeField]
     int maxHealth = 10;
@@ -14,8 +14,6 @@ public class PlayerController : MonoBehaviour
     TMP_Text healthTxt;
 
     int defendedFor = 0;
-
-    Defense_Behaviour defender;
     // TurnManager manager;
 
     [SerializeField]
@@ -24,6 +22,8 @@ public class PlayerController : MonoBehaviour
     GameObject shieldObject;
 
     TMP_Text shieldText;
+
+    TurnController controller;
 
     // Start is called before the first frame update
     void Start()
@@ -34,11 +34,6 @@ public class PlayerController : MonoBehaviour
     }
 
     public int GetHealth() { return health; }
-
-    public void CanBeDefended(Defense_Behaviour beh)
-    {
-        defender = beh;
-    }
 
     public void Defend(int value)
     {
@@ -73,18 +68,6 @@ public class PlayerController : MonoBehaviour
         healthTxt.text = "HP: " + health.ToString();
     }
 
-    private void OnMouseDown()
-    {
-        if (defender)
-        {
-            shieldObject.SetActive(true); //needs to be able to change the value of how much its shielding for
-            defender.ItDefends(this);
-            PlayerHideArrow();
-            //Debug.Log(defender + " is going to defend this");
-        }
-        defender = null;
-    }
-
     public void OnNewTurn()
     {
         defendedFor = 0;
@@ -110,5 +93,10 @@ public class PlayerController : MonoBehaviour
     public void PlayerHideArrow()
     {
         arrowImage.enabled = false;
+    }
+
+    protected override void OnClick()
+    {
+        controller.GetBoard().SetClickedPlayer(this);
     }
 }

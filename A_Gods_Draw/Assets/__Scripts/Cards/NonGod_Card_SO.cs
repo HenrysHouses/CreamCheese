@@ -6,7 +6,8 @@ using UnityEngine;
 
 public class NonGod_Card_SO : Card_SO
 {
-    public readonly Dictionary<CardActionEnum, int> cardActions;
-    public readonly Sprite icon;
-    public readonly GodActionEnum correspondingGod;
+    public Sprite icon;
+    public List<CardActionEnum> cardActions;
+    public List<int> actionStrengh;
+    public GodActionEnum correspondingGod;
 }

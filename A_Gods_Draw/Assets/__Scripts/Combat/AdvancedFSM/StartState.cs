@@ -20,7 +20,7 @@ public class StartState : CombatFSMState
 
     public override void Act()
     {
-        //god.OnStartState()
+        BoardElement.EnterCombat();
     }
 }
 

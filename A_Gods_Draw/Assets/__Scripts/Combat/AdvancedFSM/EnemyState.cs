@@ -26,8 +26,8 @@ public class EnemyState : CombatFSMState
         {
             if (numOfEnemiesActed < Controller.GetBoard().Enemies.Length)
             {
-                // Controller.GetBoard().Enemies[numOfEnemiesActed].Act();
-                // numOfEnemiesActed++;
+                Controller.GetBoard().Enemies[numOfEnemiesActed].Act();
+                numOfEnemiesActed++;
             }
             Controller.shouldWaitForAnims = true;
         }

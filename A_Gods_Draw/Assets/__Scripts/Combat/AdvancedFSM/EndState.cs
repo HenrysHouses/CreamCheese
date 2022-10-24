@@ -31,6 +31,7 @@ public class EndState : CombatFSMState
 
     public override void Act()
     {
+        BoardElement.ExitCombat();
         // end of combat triggers here
         // hasEndTriggered = true;
     }
