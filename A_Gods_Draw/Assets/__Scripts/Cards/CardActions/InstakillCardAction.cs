@@ -10,18 +10,9 @@ public class InstakillCardAction : CardAction
 
     protected override IEnumerator ChoosingTargets(BoardStateController board)
     {
-        //foreach monster in bpard, enable click
-        foreach (IMonster monster in board.Enemies)
-        {
-            //Enable monster clickable
-        }
 
-        yield return new WaitUntil(HasClickedMonster);
+        yield return new WaitUntil(() => true);
 
-        foreach (IMonster monster in board.Enemies)
-        {
-            //Disable monster clickable
-        }
 
         isReady = true;
     }

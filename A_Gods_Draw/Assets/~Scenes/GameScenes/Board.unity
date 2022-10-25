@@ -940,7 +940,7 @@ MonoBehaviour:
   turnEnd:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 1222430437}
+      - m_Target: {fileID: 0}
         m_TargetAssemblyTypeName: TurnManager, Assembly-CSharp
         m_MethodName: EndTurn
         m_Mode: 1
@@ -998,6 +998,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a1bc08f72c27c2e4ca93c4330283c48a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _Animations: []
   _pathName: Library-Hand
   path: {fileID: 1709361203}
   _speedCurve:
@@ -1245,17 +1246,6 @@ Transform:
   m_Father: {fileID: 2100381818}
   m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &867169053 stripped
-MonoBehaviour:
-  m_CorrespondingSourceObject: {fileID: 9098692245703595650, guid: ebd4ee4be4c2d8140b812add65bf6712, type: 3}
-  m_PrefabInstance: {fileID: 9098692244909352351}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: f7a8b174d2d257a40a4dddefbb1b7e50, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!4 &867169057 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 9098692245703595710, guid: ebd4ee4be4c2d8140b812add65bf6712, type: 3}
@@ -1747,6 +1737,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a1bc08f72c27c2e4ca93c4330283c48a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _Animations: []
   _pathName: ShuffleDiscard
   path: {fileID: 200071141}
   _speedCurve:
@@ -2021,94 +2012,6 @@ Transform:
   m_CorrespondingSourceObject: {fileID: 3906570212389293051, guid: 9cc7aca4dca708d4989197e3f8af295f, type: 3}
   m_PrefabInstance: {fileID: 1212554120}
   m_PrefabAsset: {fileID: 0}
---- !u!1 &1222430436
-GameObject:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  serializedVersion: 6
-  m_Component:
-  - component: {fileID: 1222430438}
-  - component: {fileID: 1222430437}
-  m_Layer: 0
-  m_Name: TurnManager
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
---- !u!114 &1222430437
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1222430436}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 794f58104ef7c6a488d6fc1d5bf2ab2b, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  SoundSelectCard:
-    Guid:
-      Data1: 1178499744
-      Data2: 1135240324
-      Data3: -1252100417
-      Data4: 1216301398
-    Path: event:/Card Effects/Click Card
-  SoundDrawCards:
-    Guid:
-      Data1: -1855550642
-      Data2: 1183617777
-      Data3: -1438661999
-      Data4: 1883429168
-    Path: event:/Card Effects/DrawCards
-  SoundClickEnemy:
-    Guid:
-      Data1: 199999973
-      Data2: 1228848883
-      Data3: 234812576
-      Data4: 601707487
-    Path: event:/Card Effects/ClickEnemy
-  lanes:
-  - {fileID: 1495312244}
-  - {fileID: 1706196238}
-  - {fileID: 2099572618}
-  - {fileID: 1584770088}
-  godLane: {fileID: 1582442418}
-  board:
-    player: {fileID: 867169053}
-    deckManager: {fileID: 11400000, guid: a9ef532ce763b474e868648e2e3843ac, type: 2}
-    enemies: []
-    _hand: {fileID: 1299495809}
-    currentGod: {fileID: 0}
-    lane: []
-  monsterParent: {fileID: 1118383227}
-  endTurn: {fileID: 659882080}
-  sceneTransition: {fileID: 1542469384}
-  OnSelectedAttackCard:
-    m_PersistentCalls:
-      m_Calls: []
-  OnDeSelectedAttackCard:
-    m_PersistentCalls:
-      m_Calls: []
-  encounterLoaded: 0
---- !u!4 &1222430438
-Transform:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1222430436}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0.5799999, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_ConstrainProportionsScale: 0
-  m_Children: []
-  m_Father: {fileID: 0}
-  m_RootOrder: 1
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1228086055
 GameObject:
   m_ObjectHideFlags: 0
@@ -2155,6 +2058,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a1bc08f72c27c2e4ca93c4330283c48a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _Animations: []
   _pathName: Hand-Discard
   path: {fileID: 1276232970}
   _speedCurve:
@@ -2423,9 +2327,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   handPlace: {fileID: 668714948}
-  _turnManager: {fileID: 1222430437}
-  behaviours: []
-  CardinHandPrefab: {fileID: 6442596572218373804, guid: 4bf9de04b4e5b754781a2ea0b433379b, type: 3}
+  cardLoaders: []
+  CardHandPrefab: {fileID: 0}
 --- !u!4 &1299495810
 Transform:
   m_ObjectHideFlags: 0
@@ -2898,7 +2801,7 @@ Transform:
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 3
+  m_RootOrder: 2
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &1542469384
 MonoBehaviour:
@@ -3061,7 +2964,7 @@ Transform:
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 2
+  m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1582442417
 GameObject:
@@ -3688,7 +3591,7 @@ RectTransform:
   m_Children:
   - {fileID: 882692496}
   m_Father: {fileID: 0}
-  m_RootOrder: 4
+  m_RootOrder: 3
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 0, y: 0}

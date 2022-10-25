@@ -11,13 +11,13 @@ public class DefendCardAction : CardAction
 
     protected override IEnumerator ChoosingTargets(BoardStateController board)
     {
-        playerTarget.clickable = true;
-        godTarget.clickable = true;
+        board.SetClickable(1);
+        board.SetClickable(2);
 
         yield return new WaitUntil(HasClickedGodOrPlayer);
 
-        playerTarget.clickable = false;
-        godTarget.clickable = false;
+        board.SetClickable(1, false);
+        board.SetClickable(2, false);
 
         isReady = true;
     }

@@ -11,18 +11,11 @@ public class BuffCardAction : CardAction
 
     protected override IEnumerator ChoosingTargets(BoardStateController board)
     {
-        //foreach monster in bpard, enable click
-        foreach (NonGod_Behaviour card in board.playedCards)
-        {
-            card.clickable = true;
-        }
+        board.SetClickable(0);
 
         yield return new WaitUntil(HasClickedNonGod);
 
-        foreach (NonGod_Behaviour card in board.playedCards)
-        {
-            card.clickable = true;
-        }
+        board.SetClickable(0, false);
 
         isReady = true;
     }

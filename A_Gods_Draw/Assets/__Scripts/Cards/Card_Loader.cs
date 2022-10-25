@@ -39,6 +39,8 @@ public class Card_Loader : MonoBehaviour
 
     [SerializeField]
     CardElements elements;
+
+    private Card_Behaviour CB;
     
     public bool shouldAddComponent = true;
 
@@ -64,7 +66,12 @@ public class Card_Loader : MonoBehaviour
 
             elements.prop.GetChild(1).gameObject.SetActive(true);
 
-            gameObject.AddComponent<God_Behaviour>().Initialize(god_card);
+
+            if (shouldAddComponent)
+            {
+                CB = gameObject.AddComponent<God_Behaviour>();
+                (CB as God_Behaviour).Initialize(god_card);
+            }
         }
         else
         {
@@ -77,7 +84,10 @@ public class Card_Loader : MonoBehaviour
             ChangeOrm(nonGod.type);
 
             if(shouldAddComponent)
-                gameObject.AddComponent<NonGod_Behaviour>().Initialize(nonGod);
+            {
+                CB = gameObject.AddComponent<NonGod_Behaviour>();
+                (CB as NonGod_Behaviour).Initialize(nonGod);
+            }
         }
         elements.cardName.text = card_so.cardName;
         elements.image.sprite = card_so.image;
@@ -106,4 +116,6 @@ public class Card_Loader : MonoBehaviour
             return;
         }
     }
+
+    public Card_Behaviour Behaviour => CB;
 }

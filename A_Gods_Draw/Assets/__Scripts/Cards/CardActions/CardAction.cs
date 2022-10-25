@@ -14,10 +14,10 @@ public abstract class CardAction : Action
     }
     public override void Execute(BoardStateController board, int strengh) { }
 
-    public void SelectTargets(BoardStateController board)
+    public IEnumerator SelectTargets(BoardStateController board)
     {
         isReady = false;
-        cor = ChoosingTargets(board);
+        return ChoosingTargets(board);
     }
 
     protected abstract IEnumerator ChoosingTargets(BoardStateController board);

@@ -27,6 +27,8 @@ public class DrawState : CombatFSMState
         if(!shouldTrigger)
             return;
 
+        SetCards();
+
         Controller.PerformTransition(Transition.EnterMain);
         hasDrawn = false;
     }
@@ -34,7 +36,9 @@ public class DrawState : CombatFSMState
     public override void Act()
     {
         if(hasDrawn)
+        {
             return;
+        }
 
         Controller.Draw(Controller.DrawStepCardAmount);
         hasDrawn = true;
@@ -50,5 +54,13 @@ public class DrawState : CombatFSMState
         }
 
         Controller.shouldWaitForAnims = true;
+    }
+
+    void SetCards()
+    {
+        foreach (Card_Loader card in Controller._Hand.cardLoaders)
+        {
+            card.Behaviour.SetController(Controller);
+        }
     }
 }

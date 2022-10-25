@@ -5,7 +5,7 @@ using FMODUnity;
 
 public class NonGod_Behaviour : Card_Behaviour
 {
-    List<CardAction> actions;
+    List<CardAction> actions = new List<CardAction>();
 
     [SerializeField]
     EventReference SoundClick;
@@ -98,13 +98,15 @@ public class NonGod_Behaviour : Card_Behaviour
     {
         foreach (CardAction action in actions)
         {
-            action.SelectTargets(controller.GetBoard());
+            StartCoroutine(action.SelectTargets(controller.GetBoard()));
             yield return new WaitUntil(() => action.Ready());
         }
         controller.shouldWaitForAnims = false;
 
         if (card_so.type != CardType.Buff)
             controller.GetBoard().placeCardOnLane(this);
+
+        onPlayerHand = false;
     }
 
     public override void OnAction()

@@ -40,6 +40,38 @@ public class BoardStateController : MonoBehaviour
     [SerializeField] Transform[] _Lane;
     [SerializeField] Transform _GodLane;
 
+    /// <param name="whatToSet">
+    /// 0: cards in lane
+    /// 1: godCard
+    /// 2: player
+    /// 3: enemies
+    /// </param>
+    public void SetClickable(int whatToSet, bool clickable = true)
+    {
+        switch (whatToSet)
+        {
+            case 0:
+                foreach(NonGod_Behaviour card in playedCards)
+                {
+                    card.clickable = clickable;
+                }
+                break;
+            case 1:
+                playedGodCard.clickable = clickable;
+                break;
+            case 2:
+                
+                break;
+            case 3:
+                foreach (IMonster ene in Enemies)
+                {
+                    ene.clickable = clickable;
+                }
+                break;
+            default:
+                break;
+        }
+    }
 
     public void spawnEncounter()
     {

@@ -10,17 +10,11 @@ public class AttackCardAction : CardAction
     protected override IEnumerator ChoosingTargets(BoardStateController board)
     {
         //foreach monster in bpard, enable click
-        foreach (IMonster monster in board.Enemies)
-        {
-            monster.clickable = true;
-        }
+        board.SetClickable(3);
 
         yield return new WaitUntil(HasClickedMonster);
 
-        foreach (IMonster monster in board.Enemies)
-        {
-            monster.clickable = false;
-        }
+        board.SetClickable(3, false);
 
         isReady = true;
     }

@@ -19,14 +19,16 @@ public abstract class Card_Behaviour : BoardElement
 
     protected CardElements elements;
 
-    bool onPlayerHand;
+    protected bool onPlayerHand = true;
 
     // public void SetManager(TurnManager manager)
     // {
     //     this.manager = manager;
     // }
 
-    public override bool OnClick()
+    public void SetController(TurnController cont) => controller = cont;
+
+    public void OnBeingClicked()
     {
         if (onPlayerHand)
         {
@@ -35,11 +37,6 @@ public abstract class Card_Behaviour : BoardElement
                 controller.SetSelectedCard(this);
                 OnBeingSelected();
             }
-            return false;
-        }
-        else
-        {
-            return base.OnClick();
         }
     }
 
