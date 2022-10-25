@@ -7,6 +7,9 @@ public abstract class Intent
 {
     public EnemyIntent GetID()
     {
+        if(actionSelected is null)
+            return (EnemyIntent)5;
+
         EnemyIntent _i = (EnemyIntent)actionSelected.ID;
         return _i;
     }
@@ -44,5 +47,5 @@ public enum EnemyIntent
     Defend,
     AttackGod,
     AttackPlayer,
-    None,
+    None = 5
 }

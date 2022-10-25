@@ -18,6 +18,7 @@ public class TurnController : CombatFSM
     [SerializeField] PathAnimatorController DiscardAnimator;
     [SerializeField] PathAnimatorController DrawAnimator;
     [SerializeField] PathAnimatorController ShuffleAnimator;
+    [SerializeField] SceneTransition SceneTransition;
 
     // * Combat Variables
 
@@ -74,7 +75,6 @@ public class TurnController : CombatFSM
         AddFSMState(_combatEnemy);
         AddFSMState(_endStep);
 
-        BoardStateController.spawnEncounter();
     }
 
     public void SetTransition(Transition t) 
@@ -91,6 +91,13 @@ public class TurnController : CombatFSM
         }
 
         state = CurrentStateID;
+
+        if(!SceneTransition.isTransitioning && !BoardStateController.isEncounterInstantiated)
+        {
+            BoardStateController.spawnEncounter();
+            Debug.Log("spawn");
+        }
+
     }
 
     // * --- Sound Management ---

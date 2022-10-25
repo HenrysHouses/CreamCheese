@@ -25,6 +25,8 @@ public class CardPathAnim : PathAnimatorController.pathAnimation
         OnCardStartTrigger = new UnityEvent<Card_SO>();
         OnAnimStartSound = new UnityEvent<EventReference, GameObject>();
         OnAnimEndSound = new UnityEvent<EventReference, GameObject>();
+        OnAnimCompletionTrigger = new UnityEvent();
+        OnAnimStartTrigger = new UnityEvent();
         cardSO = card;
         sound = soundEvent;
         soundTarget = SoundEmitterTarget;
@@ -36,8 +38,6 @@ public class CardPathAnim : PathAnimatorController.pathAnimation
         OnCardCompletionTrigger?.Invoke(cardSO);
         OnAnimCompletionTrigger?.Invoke();
         _Complete = true;
-        // string[] n = animationName.Split('_');
-        // Debug.Log("anim complete: " + n[n.Length-1]);
         Debug.Log("complete " + animationName);
     }
 

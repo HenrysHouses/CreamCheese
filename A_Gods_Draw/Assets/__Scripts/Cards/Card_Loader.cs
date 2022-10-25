@@ -54,7 +54,7 @@ public class Card_Loader : MonoBehaviour
     {
         card_so = card;
 
-        if (card_so.type == CardType.God)
+        if (card_so is God_Card_SO)
         {
             God_Card_SO god_card = card_so as God_Card_SO;
             elements.typeIcon.enabled = false;
@@ -69,8 +69,9 @@ public class Card_Loader : MonoBehaviour
         else
         {
             NonGod_Card_SO nonGod = card_so as NonGod_Card_SO;
+            Debug.Log(nonGod);
             elements.health.enabled = false;
-            elements.typeIcon.sprite = nonGod.icon;
+            // elements.typeIcon.sprite = nonGod.icon;
             elements.strength.text = nonGod.strengh.ToString();
 
             ChangeOrm(nonGod.type);

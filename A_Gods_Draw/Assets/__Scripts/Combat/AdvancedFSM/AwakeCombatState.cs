@@ -36,7 +36,7 @@ public class AwakeCombatState : CombatFSMState
         if(hasShuffled)
             return;
 
-        // Controller.ShuffleLibrary();
+        Controller.ShuffleLibrary();
         hasShuffled = true;
     }
 }

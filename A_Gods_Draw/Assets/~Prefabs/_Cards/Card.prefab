@@ -297,13 +297,14 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d650814c29a492c419ff2f636caa363b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  image: {fileID: 6287033262470565413}
-  cardName: {fileID: 6287033262173972925}
-  desc: {fileID: 6287033262282292790}
-  health: {fileID: 6287033263186601088}
-  typeIcon: {fileID: 5272754024158512884}
-  strength: {fileID: 3574280515662409764}
-  prop: {fileID: 8262593908846208442}
+  elements:
+    image: {fileID: 6287033262470565413}
+    cardName: {fileID: 6287033262173972925}
+    desc: {fileID: 6287033262282292790}
+    health: {fileID: 6287033263186601088}
+    typeIcon: {fileID: 5272754024158512884}
+    strength: {fileID: 3574280515662409764}
+    prop: {fileID: 8262593908846208442}
   shouldAddComponent: 1
 --- !u!223 &6287033262116246637
 Canvas:
@@ -348,7 +349,7 @@ MonoBehaviour:
   m_FallbackScreenDPI: 96
   m_DefaultSpriteDPI: 96
   m_DynamicPixelsPerUnit: 1
-  m_PresetInfoIsWorld: 1
+  m_PresetInfoIsWorld: 0
 --- !u!114 &6287033262116246635
 MonoBehaviour:
   m_ObjectHideFlags: 0

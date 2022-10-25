@@ -24,7 +24,6 @@ public class NonGod_Behaviour : Card_Behaviour
         {
             actions.Add(GetAction(card.cardActions[i].actionEnum, card.cardActions[i].actionStrength));
         }
-
     }
 
     public void Buff(int value, bool isMult)
