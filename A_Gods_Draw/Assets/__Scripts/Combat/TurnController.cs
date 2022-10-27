@@ -202,26 +202,34 @@ public class TurnController : CombatFSM
         Debug.Log("DISCARD");
         CardPathAnim lastAnim = null;
 
-        List<Card_SO> cards = new();
-
-        foreach (Card_Loader ldr in _Hand.cardLoaders)
+        if (_Hand.cardLoaders.Count > 0)
         {
-            cards.Add(ldr.GetCardSO);
-        }
 
-        for (int i = 0; i < cards.Count; i++)
-        {
-            lastAnim = deckManager.discardCard(cards[i]);
-            if(i == cards.Count-1)
+            List<Card_SO> cards = new();
+
+            foreach (Card_Loader ldr in _Hand.cardLoaders)
             {
-                lastAnim.OnAnimCompletionTrigger.AddListener(animsAreDone);
-                Debug.LogWarning("Discard animsAreDone() is not triggering");
+                cards.Add(ldr.GetCardSO);
             }
 
-            if (_Hand.CardSelectionAnimators.Count > 0)
-                Destroy(_Hand.CardSelectionAnimators[0].Selector.transform.parent.gameObject);
-            _Hand.RemoveCard(0);
-            yield return new WaitForSeconds(delayBetweenCards);
+            for (int i = 0; i < cards.Count; i++)
+            {
+                lastAnim = deckManager.discardCard(cards[i]);
+                if (i == cards.Count - 1)
+                {
+                    lastAnim.OnAnimCompletionTrigger.AddListener(animsAreDone);
+                    Debug.LogWarning("Discard animsAreDone() is not triggering");
+                }
+
+                if (_Hand.CardSelectionAnimators.Count > 0)
+                    Destroy(_Hand.CardSelectionAnimators[0].Selector.transform.parent.gameObject);
+                _Hand.RemoveCard(0);
+                yield return new WaitForSeconds(delayBetweenCards);
+            }
+        }
+        else
+        {
+            animsAreDone();
         }
     } 
 
