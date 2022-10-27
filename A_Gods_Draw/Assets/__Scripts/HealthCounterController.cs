@@ -142,7 +142,6 @@ public class HealthCounterController : MonoBehaviour
     {
         float rotation = byAngles * speed * Time.deltaTime;
         curAnglesRotated += rotation;
-        Debug.Log(curAnglesRotated + " - " + rotation);
         transform.Rotate(Vector3.forward * rotation, Space.Self);
         if(curAnglesRotated >= byAngles || curAnglesRotated <= -byAngles)
             return true;
