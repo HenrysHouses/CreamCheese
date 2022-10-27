@@ -103,7 +103,7 @@ public class PathAnimatorController : MonoBehaviour
         {
             OnAnimCompletionTrigger?.Invoke();
             _Complete = true;
-            Debug.Log("DUD: " + animationName);
+            // Debug.Log("DUD: " + animationName);
         }
 
         public virtual void startTrigger()

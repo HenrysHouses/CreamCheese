@@ -95,7 +95,6 @@ public class TurnController : CombatFSM
         if(!SceneTransition.isTransitioning && !BoardStateController.isEncounterInstantiated)
         {
             BoardStateController.spawnEncounter();
-            Debug.Log("spawn");
         }
 
     }
@@ -132,12 +131,11 @@ public class TurnController : CombatFSM
         // wait until the discard has been shuffled into the library before drawing cards
         yield return new WaitUntil(() => !ShuffleAnimator.isAnimating);
 
-        Debug.Log("DRAW");
 
         CardPathAnim[] animData = deckManager.drawCard(amount, 0.25f);
 
-        if(animData != null)
-            Debug.Log("draw: " + animData.Length + " - " + amount);
+        // if(animData != null)
+        //     Debug.Log("draw: " + animData.Length + " - " + amount);
 
         // # if trigger data == null, then there was not enough cards in library to draw
         if(animData != null) 

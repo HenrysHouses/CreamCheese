@@ -157,6 +157,6 @@ public class CombatFSM : MonoBehaviour
             }
         }
 
-        Debug.Log("transition done to: " + currentStateID);
+        // Debug.Log("transition done to: " + currentStateID);
     }
 }
