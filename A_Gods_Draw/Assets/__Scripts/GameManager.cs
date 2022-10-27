@@ -4,7 +4,10 @@ using UnityEngine;
 using Map;
 
 public class GameManager : MonoBehaviour
-{ 
+{
+    [SerializeField]
+    DeckManager_SO deckManager;
+
     public bool shouldGenerateNewMap;
     public static GameManager instance;
     EncounterDifficulty nextCombatDiff;
@@ -17,6 +20,11 @@ public class GameManager : MonoBehaviour
             instance = this;
         else
             Destroy(gameObject);
+    }
+
+    private void Start()
+    {
+        deckManager.LoadDeck();
     }
 
     public void newGame()

@@ -6,7 +6,7 @@ using UnityEngine;
 
 public class NonGod_Card_SO : Card_SO
 {
-    public Sprite icon;
+    //public Sprite icon;
     public List<CardActionData> cardActions;
     public GodActionEnum correspondingGod;
 }
