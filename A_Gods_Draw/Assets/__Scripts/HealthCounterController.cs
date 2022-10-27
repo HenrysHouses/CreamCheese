@@ -118,8 +118,7 @@ public class HealthCounterController : MonoBehaviour
     {
         gearIsAnimating = true;
         bool animIsDone = false;
-        if(!HealthTick_SFX.Path.Equals(""))
-            SoundPlayer.Playsound(HealthTick_SFX, gameObject);
+        SoundPlayer.Playsound(HealthTick_SFX, gameObject);
         float[] currRotationAmount = new float[gear.Length];
         bool[] gearState = new bool[gear.Length];
 
