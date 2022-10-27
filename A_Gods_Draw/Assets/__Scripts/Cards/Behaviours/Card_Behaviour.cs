@@ -2,6 +2,7 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using FMODUnity;
 // using static TurnManager;
 
 public abstract class Card_Behaviour : BoardElement
@@ -19,6 +20,11 @@ public abstract class Card_Behaviour : BoardElement
 
     protected CardElements elements;
 
+    //Sounds
+
+
+    
+
     protected bool onPlayerHand = true;
 
     // public void SetManager(TurnManager manager)
@@ -32,6 +38,7 @@ public abstract class Card_Behaviour : BoardElement
     {
         if (onPlayerHand)
         {
+            SoundPlayer.Playsound(elements.OnClickSFX,gameObject);
             controller.SetSelectedCard(this);
             OnBeingSelected();
         }

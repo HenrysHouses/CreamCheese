@@ -7,6 +7,7 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using FMODUnity;
 
 public class BoardStateController : MonoBehaviour
 {
@@ -40,7 +41,10 @@ public class BoardStateController : MonoBehaviour
     IMonster[] _Enemies;
     [SerializeField] Transform[] _Lane;
     [SerializeField] Transform _GodLane;
-    [SerializeField] PlayerController _Player;
+    [SerializeField] PlayerController _Player; 
+
+    // Sounds
+    [SerializeField] EventReference placeCard_SFX;
 
     /// <param name="whatToSet">
     /// 0: cards in lane
@@ -112,9 +116,12 @@ public class BoardStateController : MonoBehaviour
 
     public void placeCardOnLane(Card_Behaviour card, Transform targetlane = null)
     {
+        SoundPlayer.Playsound(placeCard_SFX,gameObject);
 
         if (!targetlane)
         {
+            
+
             if (card is God_Behaviour)
             {
                 targetlane = _GodLane;
@@ -130,6 +137,7 @@ public class BoardStateController : MonoBehaviour
 
         if (_GodLane.Equals(targetlane))
         {
+
             Debug.Log("god lane");
             playedGodCard = card as God_Behaviour;
 
@@ -141,6 +149,7 @@ public class BoardStateController : MonoBehaviour
             cardTransform.localPosition = new Vector3();
             cardTransform.parent.parent.localRotation = new Quaternion();
             cardTransform.parent.rotation = new Quaternion();
+            cardTransform.parent.GetComponent<Card_Selector>().enabled = false;
             cardTransform.parent.parent.localScale = new Vector3(1.5f,1.5f,1.5f); // !!REMOVE THIS AFTER FINDING A PREFERABLE SIZE FOR THE CARDS
             Debug.LogWarning("REMOVE SIZE HERE");
             return;
@@ -174,6 +183,7 @@ public class BoardStateController : MonoBehaviour
                 cardTransform.localPosition = new Vector3();
                 cardTransform.parent.parent.localRotation = new Quaternion();
                 cardTransform.parent.rotation = new Quaternion();
+                cardTransform.parent.GetComponent<Card_Selector>().enabled = false;
                 cardTransform.parent.parent.localScale = new Vector3(1.5f,1.5f,1.5f);  // !!REMOVE THIS AFTER FINDING A PREFERABLE SIZE FOR THE CARDS
                 return;
             }

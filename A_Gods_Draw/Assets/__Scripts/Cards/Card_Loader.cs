@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
+using FMODUnity;
 
 [System.Serializable]
 public enum CardActionEnum
@@ -30,6 +31,9 @@ public struct CardElements
     public Text strength;
 
     public Transform prop;
+
+    public EventReference OnClickSFX;
+
 }
 
 public class Card_Loader : MonoBehaviour
