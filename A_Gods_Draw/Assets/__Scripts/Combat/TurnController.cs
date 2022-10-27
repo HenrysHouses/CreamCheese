@@ -202,11 +202,17 @@ public class TurnController : CombatFSM
         Debug.Log("DISCARD");
         CardPathAnim lastAnim = null;
 
-        Card_SO[] cards  = deckManager.GetHandSO();
-        for (int i = 0; i < cards.Length; i++)
+        List<Card_SO> cards = new();
+
+        foreach (Card_Loader ldr in _Hand.cardLoaders)
+        {
+            cards.Add(ldr.GetCardSO);
+        }
+
+        for (int i = 0; i < cards.Count; i++)
         {
             lastAnim = deckManager.discardCard(cards[i]);
-            if(i == cards.Length-1)
+            if(i == cards.Count-1)
             {
                 lastAnim.OnAnimCompletionTrigger.AddListener(animsAreDone);
                 Debug.LogWarning("Discard animsAreDone() is not triggering");

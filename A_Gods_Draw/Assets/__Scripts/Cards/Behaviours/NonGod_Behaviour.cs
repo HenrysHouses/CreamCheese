@@ -160,8 +160,10 @@ public class NonGod_Behaviour : Card_Behaviour
     public override void CancelSelection()
     {
         base.CancelSelection();
-        StopCoroutine(onSelectedRoutine);
-        StopCoroutine(actionRoutine);
+        if (onSelectedRoutine != null)
+            StopCoroutine(onSelectedRoutine);
+        if (actionRoutine != null)
+            StopCoroutine(actionRoutine);
         onSelectedRoutine = null;
         actionRoutine = null;
 
