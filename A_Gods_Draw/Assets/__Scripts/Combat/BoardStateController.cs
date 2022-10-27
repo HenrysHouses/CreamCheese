@@ -23,11 +23,11 @@ public class BoardStateController : MonoBehaviour
     [HideInInspector] public God_Behaviour playedGodCard;
     public NonGod_Behaviour getCardInLane(int i) => playedCards[i];
 
-    public bool isEnemyDefeated 
+    public bool isEnemyDefeated
     {
-        get 
+        get
         {
-            if(getLivingEnemies().Length == 0)
+            if (getLivingEnemies().Length == 0)
                 return true;
             else
                 return false;
@@ -53,7 +53,7 @@ public class BoardStateController : MonoBehaviour
         switch (whatToSet)
         {
             case 0:
-                foreach(NonGod_Behaviour card in playedCards)
+                foreach (NonGod_Behaviour card in playedCards)
                 {
                     card.clickable = clickable;
                 }
@@ -63,7 +63,7 @@ public class BoardStateController : MonoBehaviour
                     playedGodCard.clickable = clickable;
                 break;
             case 2:
-                
+
                 break;
             case 3:
                 foreach (IMonster ene in Enemies)
@@ -89,7 +89,7 @@ public class BoardStateController : MonoBehaviour
         List<IMonster> livingEnemies = new List<IMonster>();
         for (int i = 0; i < _Enemies.Length; i++)
         {
-            if(_Enemies[i].GetHealth() > 0)
+            if (_Enemies[i].GetHealth() > 0)
                 livingEnemies.Add(_Enemies[i]);
         }
         return livingEnemies.ToArray();
@@ -122,10 +122,13 @@ public class BoardStateController : MonoBehaviour
             else
             {
                 targetlane = _Lane[playedCards.Count];
+
             }
+
+
         }
 
-        if(_GodLane.Equals(targetlane))
+        if (_GodLane.Equals(targetlane))
         {
             Debug.Log("god lane");
             playedGodCard = card as God_Behaviour;
@@ -136,12 +139,16 @@ public class BoardStateController : MonoBehaviour
             cardTransform.parent.parent.localPosition = new Vector3();
             cardTransform.parent.localPosition = new Vector3();
             cardTransform.localPosition = new Vector3();
+            cardTransform.parent.parent.localRotation = new Quaternion();
+            cardTransform.parent.rotation = new Quaternion();
+            cardTransform.parent.parent.localScale = new Vector3(1.5f,1.5f,1.5f); // !!REMOVE THIS AFTER FINDING A PREFERABLE SIZE FOR THE CARDS
+            Debug.LogWarning("REMOVE SIZE HERE");
             return;
         }
 
         for (int i = 0; i < _Lane.Length; i++)
         {
-            if(_Lane[i].Equals(targetlane))
+            if (_Lane[i].Equals(targetlane))
             {
                 Debug.Log(i);
 
@@ -158,15 +165,20 @@ public class BoardStateController : MonoBehaviour
                 }
 
                 playedCards.Add(behaviour);
-                
+
                 Transform cardTransform = playedCards[i].transform;
-                
+
                 cardTransform.parent.parent.SetParent(_Lane[i]);
                 cardTransform.parent.parent.localPosition = new Vector3();
                 cardTransform.parent.localPosition = new Vector3();
                 cardTransform.localPosition = new Vector3();
+                cardTransform.parent.parent.localRotation = new Quaternion();
+                cardTransform.parent.rotation = new Quaternion();
+                cardTransform.parent.parent.localScale = new Vector3(1.5f,1.5f,1.5f);  // !!REMOVE THIS AFTER FINDING A PREFERABLE SIZE FOR THE CARDS
                 return;
             }
         }
+
+
     }
 }

@@ -45,42 +45,42 @@ public class Card_ClickGlowing : MonoBehaviour
 
 
         //glow borders and arrows
-        if (!isCreated)
-        {
-            currentlySelected = this;
-            switch (currType)
-            {
-                case CardType.Attack:
-                    AttackCardBorder();
-                    if (!hasArrow)
-                    {
-                        DrawArrowsEnemies();
-                    }
-                    break;
-                case CardType.Defence:
-                    DefenceCardBorder();
-                    if (!hasArrow)
-                    {
-                        DrawArrowsPlayer();
-                    }
-                    break;
-                case CardType.Buff:
-                    BuffCardBorder();
-                    if (!hasArrow)
-                    {
-                        DrawArrowsCards();
-                    }
-                    break;
-                case CardType.God:
-                    GodCardBorder();
-                    if (!hasArrow)
-                    {
-                        DrawArrowGod();
-                    }
-                    break;
-            }
-        }
-    }
+    //     if (!isCreated)
+    //     {
+    //         currentlySelected = this;
+    //         switch (currType)
+    //         {
+    //             case CardType.Attack:
+    //                 AttackCardBorder();
+    //                 if (!hasArrow)
+    //                 {
+    //                     DrawArrowsEnemies();
+    //                 }
+    //                 break;
+    //             case CardType.Defence:
+    //                 DefenceCardBorder();
+    //                 if (!hasArrow)
+    //                 {
+    //                     DrawArrowsPlayer();
+    //                 }
+    //                 break;
+    //             case CardType.Buff:
+    //                 BuffCardBorder();
+    //                 if (!hasArrow)
+    //                 {
+    //                     DrawArrowsCards();
+    //                 }
+    //                 break;
+    //             case CardType.God:
+    //                 GodCardBorder();
+    //                 if (!hasArrow)
+    //                 {
+    //                     DrawArrowGod();
+    //                 }
+    //                 break;
+    //         }
+    //     }
+     }
 
     public void ShowBorder()
     {

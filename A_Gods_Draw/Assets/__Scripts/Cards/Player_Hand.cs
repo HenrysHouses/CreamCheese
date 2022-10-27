@@ -95,10 +95,13 @@ public class Player_Hand : MonoBehaviour
             if(CardSelectionAnimators[i].Selector.holdingOver)   
             {
                 HoverOverCard(i);
+                
+                
             }
             else
             {
                 StopHover(i);
+                
             }
         }
     }
@@ -121,12 +124,11 @@ public class Player_Hand : MonoBehaviour
     }
     void StopHover(int index)
     {
-        Card_Behaviour CAB = CardSelectionAnimators[index].Selector.GetComponentInChildren<Card_Behaviour>();
-        if(!CAB)
-        {
-            float rot = (float)cardRotation, count = (float)CardSelectionAnimators.Count;
+        float rot = (float)cardRotation, count = (float)CardSelectionAnimators.Count;
         CardSelectionAnimators[index].Selector.transform.rotation = Quaternion.Euler(0, 0, (rot * ((count - 1) / 2f)) - rot * index);
         CardSelectionAnimators[index].cardAnimation.SetBool("ShowCard", false);
-        }
+
+        
+        
     }
 }

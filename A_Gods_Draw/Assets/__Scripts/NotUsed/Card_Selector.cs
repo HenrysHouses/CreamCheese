@@ -44,6 +44,7 @@ public class Card_Selector : MonoBehaviour
         holdingOver = true;
         
         SoundPlayer.Playsound(cardflip, gameObject);
+        anim.SetBool("SelectedCard", true);
        // Debug.Log("Called");
     }
 
@@ -51,6 +52,7 @@ public class Card_Selector : MonoBehaviour
     {
         holdingOver = false;
         //SoundManager.Instance.StopSound(cardflip,gameObject);
+        anim.SetBool("SelectedCard", false);
     }
 
     private void OnMouseDown()
