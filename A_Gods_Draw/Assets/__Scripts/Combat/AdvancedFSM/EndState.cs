@@ -34,5 +34,7 @@ public class EndState : CombatFSMState
         BoardElement.ExitCombat();
         // end of combat triggers here
         // hasEndTriggered = true;
+        if(Controller.GetBoard().isEnemyDefeated)
+        MultiSceneLoader.loadCollection("Map",collectionLoadMode.difference);
     }
 }
