@@ -144,7 +144,20 @@ public class BoardStateController : MonoBehaviour
             if(_Lane[i].Equals(targetlane))
             {
                 Debug.Log(i);
-                playedCards.Add(card as NonGod_Behaviour);
+
+                NonGod_Behaviour behaviour = card as NonGod_Behaviour;
+
+                if (behaviour.CardSO.type == CardType.Buff)
+                {
+                    for (int j = 0; j < behaviour.GetStrengh(); j++)
+                    {
+                        //Instantiate coins
+                    }
+                    Destroy(behaviour.transform.parent.parent.gameObject);
+                    return;
+                }
+
+                playedCards.Add(behaviour);
                 
                 Transform cardTransform = playedCards[i].transform;
                 

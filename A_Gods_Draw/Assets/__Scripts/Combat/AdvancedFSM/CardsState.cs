@@ -7,6 +7,7 @@ public class CardsState : CombatFSMState
     TurnController Controller;
 
     ushort numOfCardsActed = 0;
+    private bool readyToMoveOn = false;
 
     //bool isShowingPanel = false;
 
@@ -18,8 +19,12 @@ public class CardsState : CombatFSMState
 
     public override void Reason(bool override_ = false)
     {
-        if ((!Controller.shouldWaitForAnims && numOfCardsActed >= Controller.GetBoard().playedCards.Count/* && !isShowingPanel*/) || Controller.GetBoard().playedCards.Count == 0)
+        if (readyToMoveOn)
+        {
             Controller.PerformTransition(Transition.EnterCombatEnemy);
+            numOfCardsActed = 0;
+            readyToMoveOn = false;
+        }
     }
 
     public override void Act()
@@ -31,14 +36,10 @@ public class CardsState : CombatFSMState
                 Controller.GetBoard().playedCards[numOfCardsActed].OnAction();
                 numOfCardsActed++;
             }
-            else if (true/* !isShowingPanel */)
+            else
             {
-                //Controller.showEnemyTurnPanel() :v
-                //isShowingPanel = true;
-            }
-            else if (true/* isShowingPanel */)
-            {
-                //isShowingPanel = false;
+                Controller.GetBoard().playedCards.Clear();
+                readyToMoveOn = true;
             }
             Controller.shouldWaitForAnims = true;
         }

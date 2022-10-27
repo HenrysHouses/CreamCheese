@@ -17,7 +17,10 @@ public class EnemyState : CombatFSMState
     public override void Reason(bool override_ = false)
     {
         if (numOfEnemiesActed >= Controller.GetBoard().Enemies.Length)
+        {
             Controller.PerformTransition(Transition.EnterEnd);
+            numOfEnemiesActed = 0;
+        }
     }
 
     public override void Act()

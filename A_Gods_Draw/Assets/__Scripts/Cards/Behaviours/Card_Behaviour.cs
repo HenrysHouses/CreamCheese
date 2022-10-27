@@ -129,5 +129,4 @@ public abstract class Card_Behaviour : BoardElement
     public bool IsOnHand() { return onPlayerHand; }
 
     public abstract bool CardIsReady();
-    public abstract Transform GetAssignedLane();
 }

@@ -7,7 +7,7 @@ using UnityEngine;
 public class God_Card_SO : Card_SO
 {
     [HideInInspector]
-    new CardType type = CardType.God;
+    public new CardType type = CardType.God;
     public int health;
     public GodActionEnum godAction;
 }

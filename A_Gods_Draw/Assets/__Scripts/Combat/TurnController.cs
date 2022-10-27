@@ -143,6 +143,7 @@ public class TurnController : CombatFSM
         if(animData != null) 
         {
             animData[animData.Length-1].OnAnimCompletionTrigger.AddListener(animsAreDone);
+            animData[animData.Length - 1].OnAnimCompletionTrigger.AddListener(SetCards);
 
             foreach (var trigger in animData)
             {
@@ -157,6 +158,14 @@ public class TurnController : CombatFSM
         }
         
         ShuffleDiscard(amount); // Does not let the player draw the remaining cards and then shuffle
+    }
+
+    void SetCards()
+    {
+        foreach (Card_Loader card in _Hand.cardLoaders)
+        {
+            card.Behaviour.SetController(this);
+        }
     }
 
     public void ShuffleLibrary() => deckManager.shuffleLibrary();
@@ -202,7 +211,9 @@ public class TurnController : CombatFSM
                 lastAnim.OnAnimCompletionTrigger.AddListener(animsAreDone);
                 Debug.LogWarning("Discard animsAreDone() is not triggering");
             }
-            
+
+            if (_Hand.CardSelectionAnimators.Count > 0)
+                Destroy(_Hand.CardSelectionAnimators[0].Selector.transform.parent.gameObject);
             _Hand.RemoveCard(0);
             yield return new WaitForSeconds(delayBetweenCards);
         }

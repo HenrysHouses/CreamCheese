@@ -21,6 +21,7 @@ public abstract class Intent
     public void CancelIntent()
     {
         actionSelected = null;
+        strengh = 0;
     }
 
     public abstract void DecideIntent(BoardStateController board);
@@ -28,6 +29,7 @@ public abstract class Intent
     public virtual void LateDecideIntent(BoardStateController board) { }
 
     public int GetCurrStrengh() => strengh;
+    public int SetCurrStrengh(int newS) => strengh = newS;
 
     public void Act(BoardStateController board)
     {
@@ -37,9 +39,9 @@ public abstract class Intent
                 return;
 
             actionSelected.Execute(board, strengh);
-
-            CancelIntent();
         }
+
+        CancelIntent();
     }
 }
 

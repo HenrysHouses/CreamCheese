@@ -37,7 +37,7 @@ public abstract class IMonster : BoardElement
     private bool locked;
 
     // Start is called before the first frame update
-    void Start()
+    void Awake()
     {
         health = maxHealth;
 
@@ -45,10 +45,6 @@ public abstract class IMonster : BoardElement
 
         image.enabled = false;
         strengh.enabled = false;
-
-        if(enemyIntent == null)
-            Debug.LogError("Monster Intent Refactoring is not done");
-
     }
 
     public int GetMaxHealth() { return maxHealth; }
@@ -78,6 +74,8 @@ public abstract class IMonster : BoardElement
 
     internal void DecideIntent(BoardStateController board)
     {
+        enemyIntent.CancelIntent();
+
         enemyIntent.DecideIntent(board);
     }
 
@@ -85,15 +83,37 @@ public abstract class IMonster : BoardElement
     {
         enemyIntent.LateDecideIntent(board);
 
-        strengh.text = enemyIntent.GetCurrStrengh().ToString();
-
-        image.enabled = true;
-        strengh.enabled = true;
+        UpdateUI();
     }
 
     public void Defend(int amount)
     {
         defendedFor += amount;
+    }
+
+    public void DeBuff(int amount)
+    {
+        if (enemyIntent.GetID() == EnemyIntent.AttackGod || enemyIntent.GetID() == EnemyIntent.AttackPlayer)
+        {
+            enemyIntent.SetCurrStrengh(enemyIntent.GetCurrStrengh() - amount);
+            if (enemyIntent.GetCurrStrengh() < 0)
+            {
+                enemyIntent.SetCurrStrengh(0);
+            }
+        }
+
+        UpdateUI();
+    }
+
+    public void UpdateUI()
+    {
+        if (strengh)
+        {
+            strengh.text = enemyIntent.GetCurrStrengh().ToString();
+            strengh.enabled = true;
+        }
+        if (image)
+            image.enabled = true;
     }
 
     public void Act(BoardStateController board)

@@ -19,13 +19,15 @@ public class God_Behaviour : Card_Behaviour
     protected new God_Card_SO card_so;
     public new God_Card_SO CardSO => card_so;
 
-    public void Initialize(God_Card_SO card)
+    public void Initialize(God_Card_SO card, CardElements elements)
     {
         this.card_so = card;
         maxHealth = card.health;
         health = maxHealth;
 
         action = GetAction(card.godAction);
+
+        this.elements = elements;
     }
 
 
@@ -112,23 +114,25 @@ public class God_Behaviour : Card_Behaviour
 
     private void OnMouseOver()
     {
-        /*?if (godPlacement)
-        {
+        if (onPlayerHand)
             godPlacement.godArrow.color = Color.magenta;
-        }*/
-        godPlacement.godArrow.color = Color.magenta;
     }
 
     private void OnMouseExit()
     {
-        godPlacement.godArrow.color = Color.white;
+        if (onPlayerHand)
+            godPlacement.godArrow.color = Color.white;
+    }
+    public int GetStrengh()
+    {
+        return card_so.strengh;
     }
 
     public virtual void OnTurnStart() { }
 
     protected override void OnBeingSelected()
     {
-        action.OnPlay(controller.GetBoard());
+        StartCoroutine(Play(controller.GetBoard()));
     }
 
     public override void OnAction()
@@ -139,10 +143,5 @@ public class God_Behaviour : Card_Behaviour
     public override bool CardIsReady()
     {
         return true;
-    }
-
-    public override Transform GetAssignedLane()
-    {
-        return controller.GetBoard().getGodLane();
     }
 }

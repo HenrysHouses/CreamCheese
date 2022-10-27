@@ -11,6 +11,6 @@ public class AttackGodAction : Action
 
     public override void Execute(BoardStateController BoardStateController, int strengh)
     {
-        throw new System.NotImplementedException();
+        BoardStateController.playedGodCard.DealDamage(strengh);
     }
 }

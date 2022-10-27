@@ -14,6 +14,7 @@ public class TyrActions : GodCardAction
         foreach (IMonster monster in board.Enemies)
         {
             monster.GetIntent().CancelIntent();
+            monster.UpdateUI();
         }
     }
 }

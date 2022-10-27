@@ -9,7 +9,7 @@ public class BuffCardAction : CardAction
 
     public BuffCardAction(int strengh, bool mult) : base(strengh, strengh) { multiplies = mult; }
 
-    public override IEnumerator ChoosingTargets(BoardStateController board)
+    public override IEnumerator ChoosingTargets(BoardStateController board, float mult)
     {
         isReady = false;
 
@@ -18,6 +18,8 @@ public class BuffCardAction : CardAction
         yield return new WaitUntil(HasClickedNonGod);
 
         board.SetClickable(0, false);
+
+        target.Buff((int)(max * mult), multiplies);
 
         isReady = true;
     }
@@ -35,13 +37,11 @@ public class BuffCardAction : CardAction
         return false;
     }
 
-    public override IEnumerator OnAction(BoardStateController board)
+    public override IEnumerator OnAction(BoardStateController board, int strengh)
     {
         isReady = false;
 
         yield return new WaitUntil(() => true);
-
-        target.Buff(max, multiplies);
 
         isReady = true;
     }

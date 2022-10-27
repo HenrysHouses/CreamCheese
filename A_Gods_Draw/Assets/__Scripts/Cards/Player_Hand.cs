@@ -42,7 +42,7 @@ public class Player_Hand : MonoBehaviour
         GameObject spawn = Instantiate(CardHandPrefab, handPlace.position, Quaternion.identity);
         CardHandPrefab.transform.localScale = new Vector3(0.75f,0.75f,0.75f);
         Card_Loader _loader = spawn.GetComponentInChildren<Card_Loader>();
-        Debug.Log(card);
+        //Debug.Log(card);
         _loader.Set(card);
         CardHandAnim _card = new CardHandAnim(spawn.GetComponentInChildren<Card_Selector>(), _loader.GetCardSO);
         handPlace.position = new Vector3(posX, handPlace.position.y, posZ);
@@ -71,7 +71,6 @@ public class Player_Hand : MonoBehaviour
             return;
 
         CardSelectionAnimators[index].cardAnimation.enabled = false;
-        //Destroy(CardSelectionAnimators[index].Selector.gameObject);
         CardSelectionAnimators.RemoveAt(index);
         cardLoaders.RemoveAt(index);
         UpdateCards();

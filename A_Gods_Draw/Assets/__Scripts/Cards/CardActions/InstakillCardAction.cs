@@ -9,7 +9,7 @@ public class InstakillCardAction : CardAction
     public InstakillCardAction(int strengh) : base(strengh, strengh) { }
 
 
-    public override IEnumerator ChoosingTargets(BoardStateController board)
+    public override IEnumerator ChoosingTargets(BoardStateController board, float mult)
     {
         isReady = false;
 
@@ -32,13 +32,13 @@ public class InstakillCardAction : CardAction
         return false;
     }
 
-    public override IEnumerator OnAction(BoardStateController board)
+    public override IEnumerator OnAction(BoardStateController board, int strengh)
     {
         isReady = false;
 
         yield return new WaitUntil(() => true);
 
-        if (Random.Range(1, 10) <= max)
+        if (Random.Range(1, 10) <= strengh)
             target.DealDamage(10000);
 
         isReady = true;

@@ -38,7 +38,7 @@ public class CardPathAnim : PathAnimatorController.pathAnimation
         OnCardCompletionTrigger?.Invoke(cardSO);
         OnAnimCompletionTrigger?.Invoke();
         _Complete = true;
-        Debug.Log("complete " + animationName);
+        //Debug.Log("complete " + animationName);
     }
 
     public override void startTrigger()

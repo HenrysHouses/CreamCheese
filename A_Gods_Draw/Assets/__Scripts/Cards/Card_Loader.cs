@@ -56,6 +56,10 @@ public class Card_Loader : MonoBehaviour
     {
         card_so = card;
 
+        elements.cardName.text = card_so.cardName;
+        elements.image.sprite = card_so.image;
+        elements.desc.text = card_so.description;
+
         if (card_so is God_Card_SO)
         {
             God_Card_SO god_card = card_so as God_Card_SO;
@@ -70,13 +74,13 @@ public class Card_Loader : MonoBehaviour
             if (shouldAddComponent)
             {
                 CB = gameObject.AddComponent<God_Behaviour>();
-                (CB as God_Behaviour).Initialize(god_card);
+                (CB as God_Behaviour).Initialize(god_card, elements);
             }
         }
         else
         {
             NonGod_Card_SO nonGod = card_so as NonGod_Card_SO;
-            Debug.Log(nonGod);
+            //Debug.Log(nonGod);
             elements.health.enabled = false;
             // elements.typeIcon.sprite = nonGod.icon;
             elements.strength.text = nonGod.strengh.ToString();
@@ -86,12 +90,9 @@ public class Card_Loader : MonoBehaviour
             if(shouldAddComponent)
             {
                 CB = gameObject.AddComponent<NonGod_Behaviour>();
-                (CB as NonGod_Behaviour).Initialize(nonGod);
+                (CB as NonGod_Behaviour).Initialize(nonGod, elements);
             }
         }
-        elements.cardName.text = card_so.cardName;
-        elements.image.sprite = card_so.image;
-        elements.desc.text = card_so.description;
 
 
     }

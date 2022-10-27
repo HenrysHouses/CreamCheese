@@ -26,7 +26,7 @@ public class MainState : CombatFSMState
 
     public override void Act()
     {
-        if(!Controller.shouldEndTurn)
+        if (!Controller.shouldEndTurn)
             return;
 
         HasExitMain = true;

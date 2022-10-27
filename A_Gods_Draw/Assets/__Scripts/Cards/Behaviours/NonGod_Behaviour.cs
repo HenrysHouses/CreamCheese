@@ -17,7 +17,7 @@ public class NonGod_Behaviour : Card_Behaviour
 
     IEnumerator onSelectedRoutine;
     IEnumerator actionRoutine;
-    public void Initialize(NonGod_Card_SO card)
+    public void Initialize(NonGod_Card_SO card, CardElements elements)
     {
         this.card_so = card;
         strengh = card_so.strengh;
@@ -26,6 +26,8 @@ public class NonGod_Behaviour : Card_Behaviour
         {
             actions.Add(GetAction(card.cardActions[i].actionEnum, card.cardActions[i].actionStrength));
         }
+
+        this.elements = elements;
     }
 
     public void Buff(int value, bool isMult)
@@ -78,19 +80,20 @@ public class NonGod_Behaviour : Card_Behaviour
     //}
 
 
-    public void CheckForGod(God_Behaviour god)
+    public void CheckForGod()
     {
-        if (card_so.correspondingGod == god.CardSO.godAction)
-        {
-            god.Buff(this);
-        }
+        if (controller.GetBoard().playedGodCard)
+            if (card_so.correspondingGod == controller.GetBoard().playedGodCard.CardSO.godAction)
+            {
+                controller.GetBoard().playedGodCard.Buff(this);
+            }
     }
 
     protected override void OnBeingSelected()
     {
         if (onSelectedRoutine == null)
         {
-            if (controller.GetBoard().playedCards.Count >= 4)
+            if (controller.GetBoard().playedCards.Count >= 4 && card_so.type != CardType.Buff)
             {
                 return;
             }
@@ -102,12 +105,19 @@ public class NonGod_Behaviour : Card_Behaviour
 
     IEnumerator SelectingTargets()
     {
+        float mult = 1f;
+        if (controller.GetBoard().playedGodCard)
+            if (card_so.correspondingGod == controller.GetBoard().playedGodCard.CardSO.godAction)
+            {
+                mult = controller.GetBoard().playedGodCard.GetStrengh();
+            }
         foreach (CardAction action in actions)
         {
-            actionRoutine = action.ChoosingTargets(controller.GetBoard());
+            actionRoutine = action.ChoosingTargets(controller.GetBoard(), mult);
             StartCoroutine(actionRoutine);
             yield return new WaitUntil(() => action.Ready());
         }
+        CheckForGod();
         controller.shouldWaitForAnims = false;
     }
 
@@ -135,14 +145,17 @@ public class NonGod_Behaviour : Card_Behaviour
     {
         foreach (CardAction action in actions)
         {
-            StartCoroutine(action.OnAction(board));
+            StartCoroutine(action.OnAction(board, strengh));
             yield return new WaitUntil(() => action.Ready());
         }
 
-        yield return new WaitForSeconds(0.1f);
+        yield return new WaitForSeconds(0.2f);
 
+        Destroy(transform.parent.parent.gameObject);
         controller.shouldWaitForAnims = false;
     }
+
+    public int GetStrengh() { return strengh; }
 
     public override void CancelSelection()
     {
@@ -160,10 +173,5 @@ public class NonGod_Behaviour : Card_Behaviour
     public override bool CardIsReady()
     {
         return AllActionsReady();
-    }
-
-    public override Transform GetAssignedLane()
-    {
-        return controller.GetBoard().getLane(controller.GetBoard().playedCards.Count);
     }
 }

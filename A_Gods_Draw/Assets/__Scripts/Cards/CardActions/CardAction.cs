@@ -15,15 +15,10 @@ public abstract class CardAction : Action
     }
     public override void Execute(BoardStateController board, int strengh) { }
 
-    public abstract IEnumerator ChoosingTargets(BoardStateController board);
+    public abstract IEnumerator ChoosingTargets(BoardStateController board, float mult);
 
-    public void Act(BoardStateController board)
-    {
-        isReady = false;
-        cor = OnAction(board);
-    }
 
-    public abstract IEnumerator OnAction(BoardStateController board);
+    public abstract IEnumerator OnAction(BoardStateController board, int strengh);
 
     public virtual void OnPlay(BoardStateController board) { }
 

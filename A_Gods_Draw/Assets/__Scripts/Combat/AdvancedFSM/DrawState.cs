@@ -22,12 +22,10 @@ public class DrawState : CombatFSMState
     {
         bool shouldTrigger = hasDrawn 
                         && !Controller.isDrawAnimating 
-                        && !Controller.shouldWaitForAnims; 
-        
-        if(!shouldTrigger)
-            return;
+                        && !Controller.shouldWaitForAnims;
 
-        SetCards();
+        if (!shouldTrigger)
+            return;
 
         Controller.PerformTransition(Transition.EnterMain);
         hasDrawn = false;
@@ -41,26 +39,18 @@ public class DrawState : CombatFSMState
         }
 
         Controller.Draw(Controller.DrawStepCardAmount);
-        hasDrawn = true;
 
         foreach (IMonster monster in Controller.GetBoard().Enemies)
         {
             monster.DecideIntent(Controller.GetBoard());
         }
-
         foreach (IMonster monster in Controller.GetBoard().Enemies)
         {
             monster.LateDecideIntent(Controller.GetBoard());
         }
 
-        Controller.shouldWaitForAnims = true;
-    }
+        hasDrawn = true;
 
-    void SetCards()
-    {
-        foreach (Card_Loader card in Controller._Hand.cardLoaders)
-        {
-            card.Behaviour.SetController(Controller);
-        }
+        Controller.shouldWaitForAnims = true;
     }
 }

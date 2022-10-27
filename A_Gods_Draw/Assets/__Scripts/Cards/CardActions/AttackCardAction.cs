@@ -7,7 +7,7 @@ public class AttackCardAction : CardAction
     IMonster target;
     public AttackCardAction(int strengh) : base(strengh, strengh) { }
 
-    public override IEnumerator ChoosingTargets(BoardStateController board)
+    public override IEnumerator ChoosingTargets(BoardStateController board, float mult)
     {
         isReady = false;
         //foreach monster in bpard, enable click
@@ -35,7 +35,7 @@ public class AttackCardAction : CardAction
         return false;
     }
 
-    public override IEnumerator OnAction(BoardStateController board)
+    public override IEnumerator OnAction(BoardStateController board, int strengh)
     {
         isReady = false;
         //StartAnimations...
@@ -43,7 +43,8 @@ public class AttackCardAction : CardAction
         //yield return new WaitUntil(() => true);
         yield return new WaitForSeconds(0.5f);
 
-        target.DealDamage(max);
+        if (target)
+            target.DealDamage(strengh);
 
         isReady = true;
     }

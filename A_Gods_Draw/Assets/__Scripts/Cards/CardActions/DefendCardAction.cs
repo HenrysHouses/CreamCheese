@@ -9,7 +9,7 @@ public class DefendCardAction : CardAction
     public DefendCardAction(int strengh) : base(strengh, strengh) { }
 
 
-    public override IEnumerator ChoosingTargets(BoardStateController board)
+    public override IEnumerator ChoosingTargets(BoardStateController board, float mult)
     {
         isReady = false;
 
@@ -19,7 +19,6 @@ public class DefendCardAction : CardAction
 
         board.SetClickable(3, false);
 
-        // target.reduceDamage() ?
 
         isReady = true;
     }
@@ -37,10 +36,14 @@ public class DefendCardAction : CardAction
         return false;
     }
 
-    public override IEnumerator OnAction(BoardStateController board)
+    public override IEnumerator OnAction(BoardStateController board, int strengh)
     {
         isReady = false;
-        yield return new WaitUntil(() => true);
+
+        if (target)
+            target.DeBuff(strengh);
+
+        yield return new WaitForSeconds(1f);
 
         isReady = true;
     }
