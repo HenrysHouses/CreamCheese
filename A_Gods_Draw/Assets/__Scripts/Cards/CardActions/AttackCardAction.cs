@@ -7,10 +7,13 @@ public class AttackCardAction : CardAction
     IMonster target;
     public AttackCardAction(int strengh) : base(strengh, strengh) { }
 
-    protected override IEnumerator ChoosingTargets(BoardStateController board)
+    public override IEnumerator ChoosingTargets(BoardStateController board)
     {
+        isReady = false;
         //foreach monster in bpard, enable click
         board.SetClickable(3);
+
+        Debug.Log("waiting for selecting enemies...");
 
         yield return new WaitUntil(HasClickedMonster);
 
@@ -25,17 +28,20 @@ public class AttackCardAction : CardAction
         IMonster clickedMonster = element as IMonster;
         if (clickedMonster)
         {
+            Debug.Log(clickedMonster);
             target = clickedMonster;
             return true;
         }
         return false;
     }
 
-    protected override IEnumerator OnAction(BoardStateController board)
+    public override IEnumerator OnAction(BoardStateController board)
     {
+        isReady = false;
         //StartAnimations...
 
-        yield return new WaitUntil(() => true);
+        //yield return new WaitUntil(() => true);
+        yield return new WaitForSeconds(0.5f);
 
         target.DealDamage(max);
 

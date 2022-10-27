@@ -16,20 +16,20 @@ public class EnemyState : CombatFSMState
 
     public override void Reason(bool override_ = false)
     {
-        if (!Controller.shouldWaitForAnims && numOfEnemiesActed >= Controller.GetBoard().Enemies.Length)
+        if (numOfEnemiesActed >= Controller.GetBoard().Enemies.Length)
             Controller.PerformTransition(Transition.EnterEnd);
     }
 
     public override void Act()
     {
-        if (!Controller.shouldWaitForAnims)
+        if (/*!Controller.shouldWaitForAnims*/ true)
         {
             if (numOfEnemiesActed < Controller.GetBoard().Enemies.Length)
             {
-                Controller.GetBoard().Enemies[numOfEnemiesActed].Act();
+                Controller.GetBoard().Enemies[numOfEnemiesActed].Act(Controller.GetBoard());
                 numOfEnemiesActed++;
             }
-            Controller.shouldWaitForAnims = true;
+            //Controller.shouldWaitForAnims = true;
         }
     }
 }

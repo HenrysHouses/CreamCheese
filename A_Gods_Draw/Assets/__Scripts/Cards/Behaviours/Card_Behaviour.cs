@@ -32,11 +32,8 @@ public abstract class Card_Behaviour : BoardElement
     {
         if (onPlayerHand)
         {
-            if (controller.SelectedCard != this)
-            {
-                controller.SetSelectedCard(this);
-                OnBeingSelected();
-            }
+            controller.SetSelectedCard(this);
+            OnBeingSelected();
         }
     }
 
@@ -123,8 +120,14 @@ public abstract class Card_Behaviour : BoardElement
     public virtual void LatePlayed(BoardStateController board) { }
     public abstract void OnAction();
 
-    internal void CancelSelection()
+    public virtual void CancelSelection() { controller.SetSelectedCard(); }
+    public void Placed(bool placed = false)
     {
-        //Actions cancel everythign;
+        GetComponent<BoxCollider>().enabled = true;
+        onPlayerHand = placed;
     }
+    public bool IsOnHand() { return onPlayerHand; }
+
+    public abstract bool CardIsReady();
+    public abstract Transform GetAssignedLane();
 }

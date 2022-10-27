@@ -12,8 +12,9 @@ public class BoardStateController : MonoBehaviour
 {
     // * Public
     public bool isEncounterInstantiated = false;
-    
+
     // Getters
+    public PlayerController Player => _Player;
     public Encounter_SO Encounter => _Encounter;
     public IMonster[] Enemies => _Enemies;
     public Transform getLane(int i) => _Lane[i];
@@ -39,6 +40,7 @@ public class BoardStateController : MonoBehaviour
     IMonster[] _Enemies;
     [SerializeField] Transform[] _Lane;
     [SerializeField] Transform _GodLane;
+    [SerializeField] PlayerController _Player;
 
     /// <param name="whatToSet">
     /// 0: cards in lane
@@ -57,7 +59,8 @@ public class BoardStateController : MonoBehaviour
                 }
                 break;
             case 1:
-                playedGodCard.clickable = clickable;
+                if (playedGodCard)
+                    playedGodCard.clickable = clickable;
                 break;
             case 2:
                 
@@ -107,15 +110,32 @@ public class BoardStateController : MonoBehaviour
         return _Enemies[index].GetIntent().GetID();
     }
 
-    public void placeCardOnLane(Transform targetlane, Card_Behaviour card)
+    public void placeCardOnLane(Card_Behaviour card, Transform targetlane = null)
     {
+
+        if (!targetlane)
+        {
+            if (card is God_Behaviour)
+            {
+                targetlane = _GodLane;
+            }
+            else
+            {
+                targetlane = _Lane[playedCards.Count];
+            }
+        }
+
         if(_GodLane.Equals(targetlane))
         {
-            // on god lane
-            playedGodCard = card as God_Behaviour;
-            playedGodCard.transform.parent.SetParent(_GodLane);
-            playedGodCard.transform.parent.position = new Vector3();
             Debug.Log("god lane");
+            playedGodCard = card as God_Behaviour;
+
+            Transform cardTransform = playedGodCard.transform;
+
+            cardTransform.parent.parent.SetParent(_GodLane);
+            cardTransform.parent.parent.localPosition = new Vector3();
+            cardTransform.parent.localPosition = new Vector3();
+            cardTransform.localPosition = new Vector3();
             return;
         }
 
@@ -126,23 +146,14 @@ public class BoardStateController : MonoBehaviour
                 Debug.Log(i);
                 playedCards.Add(card as NonGod_Behaviour);
                 
-                Transform cardTransform = playedCards[i].transform.parent.parent; 
+                Transform cardTransform = playedCards[i].transform;
                 
-                
-                cardTransform.SetParent(_Lane[i]);
+                cardTransform.parent.parent.SetParent(_Lane[i]);
+                cardTransform.parent.parent.localPosition = new Vector3();
+                cardTransform.parent.localPosition = new Vector3();
                 cardTransform.localPosition = new Vector3();
                 return;
             }
         }
-    }
-    internal void placeCardOnLane(NonGod_Behaviour card)
-    {
-        playedCards.Add(card as NonGod_Behaviour);
-
-        Transform cardTransform = playedCards[^1].transform.parent.parent;
-
-        cardTransform.SetParent(_Lane[^1]);
-        cardTransform.localPosition = new Vector3();
-        return;
     }
 }

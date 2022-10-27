@@ -8,19 +8,14 @@ public abstract class CardAction : Action
 
     IEnumerator cor;
 
-    public void CancelEverything()
+    public void GetCoroutines(out IEnumerator enumerator1)
     {
-        cor.Reset();
+        enumerator1 = cor;
+        cor = null;
     }
     public override void Execute(BoardStateController board, int strengh) { }
 
-    public IEnumerator SelectTargets(BoardStateController board)
-    {
-        isReady = false;
-        return ChoosingTargets(board);
-    }
-
-    protected abstract IEnumerator ChoosingTargets(BoardStateController board);
+    public abstract IEnumerator ChoosingTargets(BoardStateController board);
 
     public void Act(BoardStateController board)
     {
@@ -28,7 +23,7 @@ public abstract class CardAction : Action
         cor = OnAction(board);
     }
 
-    protected abstract IEnumerator OnAction(BoardStateController board);
+    public abstract IEnumerator OnAction(BoardStateController board);
 
     public virtual void OnPlay(BoardStateController board) { }
 

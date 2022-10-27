@@ -71,7 +71,7 @@ public class Player_Hand : MonoBehaviour
             return;
 
         CardSelectionAnimators[index].cardAnimation.enabled = false;
-        Destroy(CardSelectionAnimators[index].Selector.gameObject);
+        //Destroy(CardSelectionAnimators[index].Selector.gameObject);
         CardSelectionAnimators.RemoveAt(index);
         cardLoaders.RemoveAt(index);
         UpdateCards();

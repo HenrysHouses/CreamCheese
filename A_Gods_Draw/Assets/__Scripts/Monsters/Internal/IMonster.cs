@@ -20,8 +20,6 @@ public abstract class IMonster : BoardElement
 
     int defendedFor;
 
-    TurnController controller;
-
     [SerializeField]
     Image image;
     [SerializeField]
@@ -98,9 +96,9 @@ public abstract class IMonster : BoardElement
         defendedFor += amount;
     }
 
-    public void Act()
+    public void Act(BoardStateController board)
     {
-        enemyIntent.Act(controller.GetBoard());
+        enemyIntent.Act(board);
         //waitforanimations
     }
 

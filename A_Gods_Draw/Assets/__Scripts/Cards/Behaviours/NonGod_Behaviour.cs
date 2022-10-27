@@ -15,6 +15,8 @@ public class NonGod_Behaviour : Card_Behaviour
     protected new NonGod_Card_SO card_so;
     public new NonGod_Card_SO CardSO => card_so;
 
+    IEnumerator onSelectedRoutine;
+    IEnumerator actionRoutine;
     public void Initialize(NonGod_Card_SO card)
     {
         this.card_so = card;
@@ -86,27 +88,41 @@ public class NonGod_Behaviour : Card_Behaviour
 
     protected override void OnBeingSelected()
     {
-        if (controller.GetBoard().playedCards.Count >= 4)
+        if (onSelectedRoutine == null)
         {
-            return;
+            if (controller.GetBoard().playedCards.Count >= 4)
+            {
+                return;
+            }
+            controller.shouldWaitForAnims = true;
+            onSelectedRoutine = SelectingTargets();
+            StartCoroutine(onSelectedRoutine);
         }
-        controller.shouldWaitForAnims = true;
-        StartCoroutine(SelectingTargets());
     }
 
     IEnumerator SelectingTargets()
     {
         foreach (CardAction action in actions)
         {
-            StartCoroutine(action.SelectTargets(controller.GetBoard()));
+            actionRoutine = action.ChoosingTargets(controller.GetBoard());
+            StartCoroutine(actionRoutine);
             yield return new WaitUntil(() => action.Ready());
         }
         controller.shouldWaitForAnims = false;
+    }
 
-        if (card_so.type != CardType.Buff)
-            controller.GetBoard().placeCardOnLane(this);
-
-        onPlayerHand = false;
+    bool AllActionsReady()
+    {
+        bool aux = true;
+        for (int i = 0; i < actions.Count && aux; i++)
+        {
+            aux = actions[i].Ready();
+        }
+        if (aux)
+        {
+            Debug.Log("ready");
+        }
+        return aux && onPlayerHand;
     }
 
     public override void OnAction()
@@ -119,10 +135,35 @@ public class NonGod_Behaviour : Card_Behaviour
     {
         foreach (CardAction action in actions)
         {
-            action.OnPlay(board);
+            StartCoroutine(action.OnAction(board));
             yield return new WaitUntil(() => action.Ready());
         }
 
+        yield return new WaitForSeconds(0.1f);
+
         controller.shouldWaitForAnims = false;
+    }
+
+    public override void CancelSelection()
+    {
+        base.CancelSelection();
+        StopCoroutine(onSelectedRoutine);
+        StopCoroutine(actionRoutine);
+        onSelectedRoutine = null;
+        actionRoutine = null;
+
+        foreach (CardAction action in actions)
+        {
+        }
+    }
+
+    public override bool CardIsReady()
+    {
+        return AllActionsReady();
+    }
+
+    public override Transform GetAssignedLane()
+    {
+        return controller.GetBoard().getLane(controller.GetBoard().playedCards.Count);
     }
 }

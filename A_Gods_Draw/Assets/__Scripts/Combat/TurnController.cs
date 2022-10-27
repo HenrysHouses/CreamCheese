@@ -111,8 +111,14 @@ public class TurnController : CombatFSM
 
     public void EndTurn()
     {
-        if(CurrentState is MainState)
+        if (CurrentState is MainState)
+        {
             shouldEndTurn = true;
+            if (selectedCard)
+            {
+                selectedCard.CancelSelection();
+            }
+        }
     }
 
 
@@ -218,20 +224,23 @@ public class TurnController : CombatFSM
     public BoardStateController GetBoard() { return BoardStateController; }
 
     public Card_Behaviour SelectedCard => selectedCard;
-    public void SetSelectedCard(Card_Behaviour sel)
+    public void SetSelectedCard(Card_Behaviour sel = null)
     {
-        if (selectedCard)
-            selectedCard.CancelSelection();
+        if (sel)
+        {
+            if (selectedCard && selectedCard != sel)
+                selectedCard.CancelSelection();
+        }
         selectedCard = sel;
     }
 
     public static BoardElement PlayerClick()
     {
-        LayerMask layerMask = new LayerMask();
+        LayerMask layerMask = LayerMask.GetMask("Board Element", "Card");
         Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
         BoardElement element = null;
 
-        if (Physics.Raycast(ray, out RaycastHit hit, 100, layerMask) && Input.GetMouseButtonDown(0))
+        if (Physics.Raycast(ray, out RaycastHit hit, 100, ~layerMask) && Input.GetMouseButtonDown(0))
         {
             GameObject clicked = hit.collider.gameObject;
 

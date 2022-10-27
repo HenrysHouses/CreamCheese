@@ -8,8 +8,11 @@ public class InstakillCardAction : CardAction
 
     public InstakillCardAction(int strengh) : base(strengh, strengh) { }
 
-    protected override IEnumerator ChoosingTargets(BoardStateController board)
+
+    public override IEnumerator ChoosingTargets(BoardStateController board)
     {
+        isReady = false;
+
 
         yield return new WaitUntil(() => true);
 
@@ -29,9 +32,9 @@ public class InstakillCardAction : CardAction
         return false;
     }
 
-    protected override IEnumerator OnAction(BoardStateController board)
+    public override IEnumerator OnAction(BoardStateController board)
     {
-        //StartAnimations...
+        isReady = false;
 
         yield return new WaitUntil(() => true);
 

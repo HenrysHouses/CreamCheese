@@ -24,7 +24,7 @@ public class LokiMonter1Intent : Intent
             }
         }
 
-        if (!actionSelected)
+        if (actionSelected == null)
         {
             List<IMonster> weakMonsters = new();
             foreach (IMonster a in board.Enemies)

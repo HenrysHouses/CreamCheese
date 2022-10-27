@@ -29,14 +29,17 @@ public abstract class Intent
 
     public int GetCurrStrengh() => strengh;
 
-    public void Act(BoardStateController BoardStateController)
+    public void Act(BoardStateController board)
     {
-        if (actionSelected.ID == (int)EnemyIntent.None)
-            return;
+        if (actionSelected != null)
+        {
+            if (actionSelected.ID == (int)EnemyIntent.None)
+                return;
 
-        actionSelected.Execute(BoardStateController, strengh);
+            actionSelected.Execute(board, strengh);
 
-        CancelIntent();
+            CancelIntent();
+        }
     }
 }
 

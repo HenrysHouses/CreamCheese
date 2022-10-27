@@ -11,6 +11,6 @@ public class AttackPlayerAction : Action
 
     public override void Execute(BoardStateController BoardStateController, int strengh)
     {
-        throw new System.NotImplementedException();
+        BoardStateController.Player.DealDamage(strengh);
     }
 }

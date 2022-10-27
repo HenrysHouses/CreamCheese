@@ -13,6 +13,6 @@ public class DefendAction : Action
 
     public override void Execute(BoardStateController BoardStateController, int strengh)
     {
-        throw new System.NotImplementedException();
+        toDefend.Defend(strengh);
     }
 }

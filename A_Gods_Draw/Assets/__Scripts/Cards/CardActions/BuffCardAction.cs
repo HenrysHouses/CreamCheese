@@ -9,8 +9,10 @@ public class BuffCardAction : CardAction
 
     public BuffCardAction(int strengh, bool mult) : base(strengh, strengh) { multiplies = mult; }
 
-    protected override IEnumerator ChoosingTargets(BoardStateController board)
+    public override IEnumerator ChoosingTargets(BoardStateController board)
     {
+        isReady = false;
+
         board.SetClickable(0);
 
         yield return new WaitUntil(HasClickedNonGod);
@@ -26,15 +28,16 @@ public class BuffCardAction : CardAction
         NonGod_Behaviour clickedCard = element as NonGod_Behaviour;
         if (clickedCard)
         {
+            Debug.Log("To buff: " + clickedCard);
             target = clickedCard;
             return true;
         }
         return false;
     }
 
-    protected override IEnumerator OnAction(BoardStateController board)
+    public override IEnumerator OnAction(BoardStateController board)
     {
-        //StartAnimations...
+        isReady = false;
 
         yield return new WaitUntil(() => true);
 

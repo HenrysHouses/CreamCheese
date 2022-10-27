@@ -13,7 +13,7 @@ public class CardPlayer : MonoBehaviour
     [SerializeField] LayerMask cardLayer;
     [SerializeField] LayerMask laneLayer;
 
-    Card_Loader _selectedCard;
+    Card_Behaviour _selectedCard;
 
     // Start is called before the first frame update
     void Start()
@@ -32,27 +32,29 @@ public class CardPlayer : MonoBehaviour
                 Debug.Log(_selectedCard);
                 return;
             }
-            
-            Transform selectedLane;
-            if(playCard(out selectedLane))
-            {
-                placeCard(selectedLane, _selectedCard);
-            }
 
+            _selectedCard.CancelSelection();
             _selectedCard = null;
             Debug.Log("unselected");
         }
+
+        if (_selectedCard && _selectedCard.CardIsReady())
+        {
+            placeCard(_selectedCard);
+            _selectedCard.Placed();
+            _selectedCard = null;
+        }
     }
 
-    Card_Loader selectCard()
+    Card_Behaviour selectCard()
     {
         Ray ray = mainCam.ScreenPointToRay(Input.mousePosition);
 
         if(Physics.Raycast(ray, out RaycastHit hit, 1000000, cardLayer))
         {
-            Card_Loader _Loader = hit.collider.GetComponentInChildren<Card_Loader>();
-            Debug.Log(hit.collider.name);
-            return _Loader;
+            Card_Behaviour _Loader = hit.collider.GetComponentInChildren<Card_Behaviour>();
+            if (_Loader.IsOnHand())
+                return _Loader;
         }
         return null;
     }
@@ -72,11 +74,10 @@ public class CardPlayer : MonoBehaviour
         return false;
     }
 
-    void placeCard(Transform lane, Card_Loader loader)
+    void placeCard(Card_Behaviour behaviour, Transform lane = null)
     {
-        Card_Behaviour behaviour = loader.GetComponent<Card_Behaviour>();
-        int index = _Hand.cardLoaders.IndexOf(loader);
+        int index = _Hand.cardLoaders.IndexOf(behaviour.GetComponent<Card_Loader>());
         _Hand.RemoveCard(index);
-        _Board.placeCardOnLane(lane, behaviour);
+        _Board.placeCardOnLane(behaviour, lane);
     }
 }

@@ -4,54 +4,43 @@ using UnityEngine;
 
 public class DefendCardAction : CardAction
 {
-    God_Behaviour godTarget;
-    PlayerController playerTarget;
+    IMonster target;
 
     public DefendCardAction(int strengh) : base(strengh, strengh) { }
 
-    protected override IEnumerator ChoosingTargets(BoardStateController board)
+
+    public override IEnumerator ChoosingTargets(BoardStateController board)
     {
-        board.SetClickable(1);
-        board.SetClickable(2);
+        isReady = false;
 
-        yield return new WaitUntil(HasClickedGodOrPlayer);
+        board.SetClickable(3);
 
-        board.SetClickable(1, false);
-        board.SetClickable(2, false);
+        yield return new WaitUntil(HasClickedMonster);
+
+        board.SetClickable(3, false);
+
+        // target.reduceDamage() ?
 
         isReady = true;
     }
 
-    bool HasClickedGodOrPlayer()
+    bool HasClickedMonster()
     {
         BoardElement element = TurnController.PlayerClick();
-        God_Behaviour clickedCard = element as God_Behaviour;
-        PlayerController clickedplayer = element as PlayerController;
-        if (clickedCard)
+        IMonster clickedMonster = element as IMonster;
+        if (clickedMonster)
         {
-            godTarget = clickedCard;
-            return true;
-        }
-        else if (clickedplayer)
-        {
-            playerTarget = clickedplayer;
+            Debug.Log(clickedMonster);
+            target = clickedMonster;
             return true;
         }
         return false;
     }
 
-    protected override IEnumerator OnAction(BoardStateController board)
+    public override IEnumerator OnAction(BoardStateController board)
     {
+        isReady = false;
         yield return new WaitUntil(() => true);
-
-        if (godTarget)
-        {
-            godTarget.Defend(max);
-        }
-        else if (playerTarget)
-        {
-            playerTarget.Defend(max);
-        }
 
         isReady = true;
     }
