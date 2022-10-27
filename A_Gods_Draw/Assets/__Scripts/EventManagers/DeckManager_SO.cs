@@ -53,9 +53,6 @@ public class DeckManager_SO : ScriptableObject
         if (deckList == null)
         {
             deckList = Resources.Load<DeckList_SO>("DeckLists/DeckList");
-
-            var deckJson = PlayerPrefs.GetString("Deck");
-            var deck = JsonConvert.DeserializeObject<DeckList_SO>(deckJson);
         }
             
     }
@@ -362,11 +359,24 @@ public class DeckManager_SO : ScriptableObject
 
     public void SavingDeck()
     {
-        var json = JsonConvert.SerializeObject(deckList);
+        var settings = new JsonSerializerSettings()
+        {
+            ReferenceLoopHandling = ReferenceLoopHandling.Ignore
+        };
+
+        var json = JsonConvert.SerializeObject(deckList, settings);
 
         PlayerPrefs.SetString("Deck", json);
         PlayerPrefs.Save();
 
         Debug.Log("deck list has been saved");
+    }
+
+    public void LoadDeck()
+    {
+        var deckJson = PlayerPrefs.GetString("Deck");
+        deckList = JsonConvert.DeserializeObject<DeckList_SO>(deckJson);
+
+        Debug.Log("deck has been loaded from the save");
     }
 }
