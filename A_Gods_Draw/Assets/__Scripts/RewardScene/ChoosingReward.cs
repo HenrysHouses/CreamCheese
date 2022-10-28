@@ -16,8 +16,8 @@ public enum CardType
 }
 public class ChoosingReward : MonoBehaviour
 {
-    [SerializeField] DeckManager_SO deckManager;
-
+    [SerializeField, JsonIgnore] DeckManager_SO deckManager;
+    
     List<Card_SO> searchResult;
 
     public Transform[] spots;
@@ -39,10 +39,11 @@ public class ChoosingReward : MonoBehaviour
         if (Input.GetMouseButtonDown(0))
         {
             int SelectIndex = SelectReward();
-            // if(SelectIndex)
-            Debug.Log(deckManager.getDeck.Deck.Count);
             deckManager.addCardToDeck(CardOptions[SelectIndex]);
-            Debug.Log(deckManager.getDeck.Deck.Count);
+            if (SelectIndex > -1)
+            {
+                MultiSceneLoader.loadCollection("Map", collectionLoadMode.difference);
+            }
         }
     }
 

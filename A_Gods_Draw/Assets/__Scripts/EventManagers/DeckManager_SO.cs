@@ -11,11 +11,14 @@
 */
 
 using Newtonsoft.Json;
+using Newtonsoft.Json.Linq;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using FMODUnity;
 using UnityEngine.Events;
+using System;
+using Random = UnityEngine.Random;
 
 /// <summary>Keeps track of how many and which cards are in the player's Deck, Library, Hand, and Discard. Requests animations for card draw, discard, and deck shuffles.</summary>
 [CreateAssetMenu(menuName = "Events/DeckManager")]
@@ -359,6 +362,8 @@ public class DeckManager_SO : ScriptableObject
     {
         var settings = new JsonSerializerSettings()
         {
+            TypeNameHandling = TypeNameHandling.All,
+            NullValueHandling = NullValueHandling.Ignore,
             ReferenceLoopHandling = ReferenceLoopHandling.Ignore
         };
 
@@ -372,8 +377,15 @@ public class DeckManager_SO : ScriptableObject
 
     public void LoadDeck()
     {
+        var settings = new JsonSerializerSettings()
+        {
+            TypeNameHandling = TypeNameHandling.All,
+            NullValueHandling = NullValueHandling.Ignore,
+            ReferenceLoopHandling = ReferenceLoopHandling.Ignore
+        };
+
         var deckJson = PlayerPrefs.GetString("Deck");
-        deckList = JsonConvert.DeserializeObject<DeckList_SO>(deckJson);
+        deckList = JsonConvert.DeserializeObject<DeckList_SO>(deckJson, settings);
 
         Debug.Log("deck has been loaded from the save");
     }
