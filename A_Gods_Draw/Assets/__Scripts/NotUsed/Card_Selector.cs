@@ -52,7 +52,8 @@ public class Card_Selector : MonoBehaviour
     {
         holdingOver = false;
         //SoundManager.Instance.StopSound(cardflip,gameObject);
-        anim.SetBool("SelectedCard", false);
+        //anim.SetBool("SelectedCard", false);
+        
     }
 
     private void OnMouseDown()

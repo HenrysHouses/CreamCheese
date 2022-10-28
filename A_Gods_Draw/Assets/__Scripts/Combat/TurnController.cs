@@ -181,14 +181,16 @@ public class TurnController : CombatFSM
         {
             animData[animData.Length-1].OnAnimCompletionTrigger.AddListener(animsAreDone);
         }
-        else
+        else if (animData.Length > 0)
         {
+            
             waitForLibraryShuffle = true;
             animData[animData.Length-1].OnAnimCompletionTrigger.AddListener(waitForShuffleAnims);
 
             yield return new WaitUntil(() => !waitForLibraryShuffle);
             Draw(drawAfterShuffle);
             Debug.Log("DRAW after shuffle");
+            
         }
     }
 
