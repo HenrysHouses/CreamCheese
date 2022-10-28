@@ -11,11 +11,14 @@ public class DefendCardAction : CardAction
 
     public override IEnumerator ChoosingTargets(BoardStateController board, float mult)
     {
+        camAnim.SetBool("EnemyCloseUp", true);
         isReady = false;
 
         board.SetClickable(3);
 
         yield return new WaitUntil(HasClickedMonster);
+
+         camAnim.SetBool("EnemyCloseUp", false);
 
         board.SetClickable(3, false);
 

@@ -8,6 +8,8 @@ public abstract class CardAction : Action
 
     IEnumerator cor;
 
+    public Animator camAnim = Camera.main.GetComponent<Animator>();
+
     public void GetCoroutines(out IEnumerator enumerator1)
     {
         enumerator1 = cor;

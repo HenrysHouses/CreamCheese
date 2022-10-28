@@ -9,6 +9,7 @@ public class AttackCardAction : CardAction
 
     public override IEnumerator ChoosingTargets(BoardStateController board, float mult)
     {
+        camAnim.SetBool("EnemyCloseUp", true);
         isReady = false;
         //foreach monster in bpard, enable click
         board.SetClickable(3);
@@ -17,6 +18,9 @@ public class AttackCardAction : CardAction
 
         yield return new WaitUntil(HasClickedMonster);
 
+        camAnim.SetBool("EnemyCloseUp", false);
+
+
         board.SetClickable(3, false);
 
         isReady = true;
@@ -24,6 +28,7 @@ public class AttackCardAction : CardAction
 
     bool HasClickedMonster()
     {
+
         BoardElement element = TurnController.PlayerClick();
         IMonster clickedMonster = element as IMonster;
         if (clickedMonster)
