@@ -23,17 +23,17 @@ public abstract class Card_Behaviour : BoardElement
 
     //Sounds
 
-
-    
-
-    protected bool onPlayerHand = true;
+    protected bool onPlayerHand = false;
 
     // public void SetManager(TurnManager manager)
     // {
     //     this.manager = manager;
     // }
-
-    public void SetController(TurnController cont) => controller = cont;
+    public void SetController(TurnController cont)
+    {
+        onPlayerHand = true;
+        controller = cont;
+    }
 
     public void OnBeingClicked()
     {
@@ -98,6 +98,8 @@ public abstract class Card_Behaviour : BoardElement
                 return new BuffCardAction(strengh, false);
             case CardActionEnum.Instakill:
                 return new InstakillCardAction(strengh);
+            case CardActionEnum.Chained:
+                return new ChainCardAction(strengh);
             default:
                 return null;
         }

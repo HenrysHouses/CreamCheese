@@ -21,7 +21,6 @@ public abstract class CardAction : Action
 
     public abstract IEnumerator ChoosingTargets(BoardStateController board, float mult);
 
-
     public abstract IEnumerator OnAction(BoardStateController board, int strengh);
 
     public virtual void OnPlay(BoardStateController board) { }
@@ -32,5 +31,6 @@ public abstract class CardAction : Action
     }
 
     public abstract void Reset(BoardStateController board);
+    public abstract void ResetCamera();
 }
  

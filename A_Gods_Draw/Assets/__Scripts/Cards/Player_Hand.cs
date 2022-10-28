@@ -16,7 +16,6 @@ public class Player_Hand : MonoBehaviour
 
     private float cardRotation = 10; 
     public List<CardHandAnim> CardSelectionAnimators = new List<CardHandAnim>();
-    public List<Card_Loader> cardLoaders = new List<Card_Loader>();
 
     public GameObject CardHandPrefab;
     public class CardHandAnim
@@ -24,12 +23,14 @@ public class Player_Hand : MonoBehaviour
         public Card_Selector Selector;
         public Animator cardAnimation;
         public Card_SO cardSO;
+        public Card_Loader loader;
 
-        public  CardHandAnim(Card_Selector selector, Card_SO SO)
+        public  CardHandAnim(Card_Selector selector, Card_Loader ldr)
         {
             this.cardAnimation = selector.GetComponentInChildren<Animator>();
             this.Selector = selector;
-            this.cardSO = SO;
+            this.cardSO = ldr.GetCardSO;
+            loader = ldr;
         }
     }
 
@@ -44,7 +45,7 @@ public class Player_Hand : MonoBehaviour
         Card_Loader _loader = spawn.GetComponentInChildren<Card_Loader>();
         //Debug.Log(card);
         _loader.Set(card);
-        CardHandAnim _card = new CardHandAnim(spawn.GetComponentInChildren<Card_Selector>(), _loader.GetCardSO);
+        CardHandAnim _card = new CardHandAnim(spawn.GetComponentInChildren<Card_Selector>(), _loader);
         handPlace.position = new Vector3(posX, handPlace.position.y, posZ);
 
         spawn.transform.parent = handPlace;
@@ -52,8 +53,6 @@ public class Player_Hand : MonoBehaviour
         CardSelectionAnimators.Add(_card);
 
         spawn.transform.GetComponentInChildren<BoxCollider>().enabled = true;
-
-        cardLoaders.Add(spawn.GetComponentInChildren<Card_Loader>());
 
         // Debug.Log("Card in hand: " + spawn.name + ", this one is number: " + (CAH.Count - 1));
         
@@ -67,12 +66,30 @@ public class Player_Hand : MonoBehaviour
     /// <returns>Removed card's scriptable object</returns>
     public void RemoveCard(int index)
     {
-        if (index >= CardSelectionAnimators.Count || index >= cardLoaders.Count)
+        if (index >= CardSelectionAnimators.Count)
             return;
 
         CardSelectionAnimators[index].cardAnimation.enabled = false;
         CardSelectionAnimators.RemoveAt(index);
-        cardLoaders.RemoveAt(index);
+        UpdateCards();
+    }
+    public void RemoveCard(Card_Loader loader)
+    {
+        int index = 0;
+        while (index < CardSelectionAnimators.Count)
+        {
+            if (CardSelectionAnimators[index].loader == loader)
+            {
+                break;
+            }
+            index++;
+        }
+
+        if (index >= CardSelectionAnimators.Count)
+            return;
+
+        CardSelectionAnimators[index].cardAnimation.enabled = false;
+        CardSelectionAnimators.RemoveAt(index);
         UpdateCards();
     }
 
@@ -92,16 +109,13 @@ public class Player_Hand : MonoBehaviour
     {
         for (int i = 0; i < CardSelectionAnimators.Count; i++)
         {
-            if(CardSelectionAnimators[i].Selector.holdingOver)   
+            if (CardSelectionAnimators[i].Selector.holdingOver)   
             {
                 HoverOverCard(i);
-                
-                
             }
             else
             {
                 StopHover(i);
-                
             }
         }
     }
@@ -125,10 +139,9 @@ public class Player_Hand : MonoBehaviour
     void StopHover(int index)
     {
         float rot = (float)cardRotation, count = (float)CardSelectionAnimators.Count;
-        CardSelectionAnimators[index].Selector.transform.rotation = Quaternion.Euler(0, 0, (rot * ((count - 1) / 2f)) - rot * index);
-        CardSelectionAnimators[index].cardAnimation.SetBool("ShowCard", false);
 
-        
-        
+        CardSelectionAnimators[index].Selector.transform.rotation = Quaternion.Euler(0, 0, (rot * ((count - 1) / 2f)) - rot * index);
+
+        CardSelectionAnimators[index].cardAnimation.SetBool("ShowCard", false);
     }
 }

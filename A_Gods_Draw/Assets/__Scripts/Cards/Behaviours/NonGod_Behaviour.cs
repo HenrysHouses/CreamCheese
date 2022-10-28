@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using FMODUnity;
+using System;
 
 public class NonGod_Behaviour : Card_Behaviour
 {
@@ -179,6 +180,9 @@ public class NonGod_Behaviour : Card_Behaviour
                 StopCoroutine(actionRoutine);
             onSelectedRoutine = null;
             actionRoutine = null;
+
+            foreach (CardAction act in actions)
+                act.ResetCamera();
         }
     }
 

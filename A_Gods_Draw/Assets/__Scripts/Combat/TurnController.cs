@@ -158,9 +158,9 @@ public class TurnController : CombatFSM
 
     void SetCards()
     {
-        foreach (Card_Loader card in _Hand.cardLoaders)
+        foreach (Player_Hand.CardHandAnim card in _Hand.CardSelectionAnimators)
         {
-            card.Behaviour.SetController(this);
+            card.loader.Behaviour.SetController(this);
         }
     }
 
@@ -200,30 +200,21 @@ public class TurnController : CombatFSM
         Debug.Log("DISCARD");
         CardPathAnim lastAnim = null;
 
-        if (_Hand.cardLoaders.Count > 0)
+
+        if (_Hand.CardSelectionAnimators.Count > 0)
         {
-
-            List<Card_SO> cards = new();
-
-            foreach (Card_Loader ldr in _Hand.cardLoaders)
+            for (int i = _Hand.CardSelectionAnimators.Count - 1; i >= 0; i--)
             {
-                cards.Add(ldr.GetCardSO);
-            }
+                lastAnim = deckManager.discardCard(_Hand.CardSelectionAnimators[i].cardSO);
 
-            for (int i = 0; i < cards.Count; i++)
-            {
-                lastAnim = deckManager.discardCard(cards[i]);
-                if (i == cards.Count - 1)
-                {
-                    lastAnim.OnAnimCompletionTrigger.AddListener(animsAreDone);
-                    Debug.LogWarning("Discard animsAreDone() is not triggering");
-                }
-
-                if (_Hand.CardSelectionAnimators.Count > 0)
-                    Destroy(_Hand.CardSelectionAnimators[0].Selector.transform.parent.gameObject);
-                _Hand.RemoveCard(0);
+                var selectorParentToDestroy = _Hand.CardSelectionAnimators[i].Selector.transform.parent.gameObject;
+                _Hand.RemoveCard(_Hand.CardSelectionAnimators[i].loader);
+                Destroy(selectorParentToDestroy);
                 yield return new WaitForSeconds(delayBetweenCards);
             }
+
+            Debug.LogWarning("Discard animsAreDone() is not triggering");
+            lastAnim.OnAnimCompletionTrigger.AddListener(animsAreDone);
         }
         else
         {
@@ -243,9 +234,9 @@ public class TurnController : CombatFSM
             deckManager.discardCard(card_b.GetComponent<Card_Loader>().GetCardSO);
 
             //lastAnim.OnAnimCompletionTrigger.AddListener(animsAreDone);
+            _Hand.RemoveCard(card_b.GetComponent<Card_Loader>());
 
             Destroy(card_b.transform.parent.parent.gameObject);
-            _Hand.RemoveCard(0);
         }
         else
         {

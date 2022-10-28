@@ -2,31 +2,38 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class AttackCardAction : CardAction
+public class ChainCardAction : CardAction
 {
-    IMonster target;
-    public AttackCardAction(int strengh) : base(strengh, strengh) { }
+    List<IMonster> targets = new();
+    private int totalTargets = 1;
+
+    public ChainCardAction(int strengh) : base(strengh, strengh) { }
 
     public override IEnumerator ChoosingTargets(BoardStateController board, float mult)
     {
         camAnim.SetBool("EnemyCloseUp", true);
         isReady = false;
+
+        //if (mult > 1.2f)
+        //{
+        //    totalTargets = 2;
+        //}
+
         //foreach monster in bpard, enable click
         board.SetClickable(3);
 
         Debug.Log("waiting for selecting enemies...");
 
-        yield return new WaitUntil(HasClickedMonster);
+        yield return new WaitUntil(HasClickedMonsters);
 
         camAnim.SetBool("EnemyCloseUp", false);
-
 
         board.SetClickable(3, false);
 
         isReady = true;
     }
 
-    bool HasClickedMonster()
+    bool HasClickedMonsters()
     {
 
         BoardElement element = TurnController.PlayerClick();
@@ -34,8 +41,14 @@ public class AttackCardAction : CardAction
         if (clickedMonster)
         {
             Debug.Log(clickedMonster);
-            target = clickedMonster;
-            return true;
+
+            if (targets.Count == 0)
+                targets.Add(clickedMonster);
+            else if (targets[0] != clickedMonster)
+                targets.Add(clickedMonster);
+
+            if (targets.Count == totalTargets)
+                return true;
         }
         return false;
     }
@@ -48,17 +61,23 @@ public class AttackCardAction : CardAction
         //yield return new WaitUntil(() => true);
         yield return new WaitForSeconds(0.5f);
 
-        if (target)
-            target.DealDamage(strengh);
+        foreach (IMonster monster in targets)
+        {
+            if (monster)
+            {
+                monster.GetIntent().CancelIntent();
+                monster.UpdateUI();
+            }
+        }
 
-        target = null;
+        targets.Clear();
 
         isReady = true;
     }
 
     public override void Reset(BoardStateController board)
     {
-        target = null;
+        targets.Clear();
         isReady = false;
         board.SetClickable(3, false);
         ResetCamera();

@@ -19,12 +19,25 @@ public class BuffCardAction : CardAction
 
         board.SetClickable(0, false);
 
-        target.Buff((int)(max * mult), multiplies);
+        int totalStrengh = max * (int)(mult + 0.1f);
+
+        target.Buff(totalStrengh, multiplies);
+
+        SpawnCoins(totalStrengh);
 
         current.RemoveFromHand();
         Object.Destroy(current.transform.parent.parent.gameObject);
 
         isReady = true;
+    }
+
+    void SpawnCoins(int mount)
+    {
+        for (int i = 0; i < mount; i++)
+        {
+            var aux = Object.Instantiate(Resources.Load<GameObject>("Prop_Coin_PRE_v1"), target.transform);
+            aux.transform.localPosition = Vector3.back * 8 + Vector3.back * i;
+        }
     }
 
     bool HasClickedNonGod()
@@ -54,5 +67,10 @@ public class BuffCardAction : CardAction
         target = null;
         isReady = false;
         board.SetClickable(0, false);
+        ResetCamera();
+    }
+    public override void ResetCamera()
+    {
+        //camAnim.SetBool("EnemyCloseUp", false);
     }
 }

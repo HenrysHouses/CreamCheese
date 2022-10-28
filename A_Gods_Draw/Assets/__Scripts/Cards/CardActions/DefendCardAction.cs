@@ -56,5 +56,10 @@ public class DefendCardAction : CardAction
         target = null;
         isReady = false;
         board.SetClickable(3, false);
+        ResetCamera();
+    }
+    public override void ResetCamera()
+    {
+        camAnim.SetBool("EnemyCloseUp", false);
     }
 }

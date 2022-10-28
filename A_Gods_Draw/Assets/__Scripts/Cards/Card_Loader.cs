@@ -11,6 +11,7 @@ public enum CardActionEnum
     Defend,
     Buff,
     Instakill,
+    Chained,
 }
 
 [System.Serializable]

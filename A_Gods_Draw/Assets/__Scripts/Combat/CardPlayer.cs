@@ -76,8 +76,7 @@ public class CardPlayer : MonoBehaviour
 
     void placeCard(Card_Behaviour behaviour, Transform lane = null)
     {
-        int index = _Hand.cardLoaders.IndexOf(behaviour.GetComponent<Card_Loader>());
-        _Hand.RemoveCard(index);
+        _Hand.RemoveCard(behaviour.GetComponent<Card_Loader>());
         _Board.placeCardOnLane(behaviour, lane);
     }
 }
