@@ -229,7 +229,29 @@ public class TurnController : CombatFSM
         {
             animsAreDone();
         }
-    } 
+    }
+
+    public void Discard(Card_Behaviour card, float delay = 0f) => discardTrigger(card, delay);
+    void discardTrigger(Card_Behaviour card_b, float delayBetweenCards)
+    {
+        //yield return new WaitUntil(() => !DrawAnimator.isAnimating && !ShuffleAnimator.isAnimating);
+
+        CardPathAnim lastAnim = null;
+
+        if (card_b != null)
+        {
+            deckManager.discardCard(card_b.GetComponent<Card_Loader>().GetCardSO);
+
+            //lastAnim.OnAnimCompletionTrigger.AddListener(animsAreDone);
+
+            Destroy(card_b.transform.parent.parent.gameObject);
+            _Hand.RemoveCard(0);
+        }
+        else
+        {
+            animsAreDone();
+        }
+    }
 
     void animsAreDone()
     {

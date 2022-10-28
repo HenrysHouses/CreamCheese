@@ -21,6 +21,9 @@ public class BuffCardAction : CardAction
 
         target.Buff((int)(max * mult), multiplies);
 
+        current.RemoveFromHand();
+        Object.Destroy(current.transform.parent.parent.gameObject);
+
         isReady = true;
     }
 
@@ -30,7 +33,7 @@ public class BuffCardAction : CardAction
         NonGod_Behaviour clickedCard = element as NonGod_Behaviour;
         if (clickedCard)
         {
-            Debug.Log("To buff: " + clickedCard);
+            Debug.Log("To buff: " + clickedCard.CardSO.cardName);
             target = clickedCard;
             return true;
         }
@@ -44,5 +47,12 @@ public class BuffCardAction : CardAction
         yield return new WaitUntil(() => true);
 
         isReady = true;
+    }
+
+    public override void Reset(BoardStateController board)
+    {
+        target = null;
+        isReady = false;
+        board.SetClickable(0, false);
     }
 }

@@ -51,6 +51,15 @@ public class AttackCardAction : CardAction
         if (target)
             target.DealDamage(strengh);
 
+        target = null;
+
         isReady = true;
+    }
+
+    public override void Reset(BoardStateController board)
+    {
+        target = null;
+        isReady = false;
+        board.SetClickable(3, false);
     }
 }

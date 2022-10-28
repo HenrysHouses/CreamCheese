@@ -4,17 +4,19 @@ using UnityEngine;
 
 public abstract class CardAction : Action
 {
+    protected NonGod_Behaviour current;
+
     public CardAction(int _min, int _max) : base(_min, _max) { }
 
     IEnumerator cor;
 
     public Animator camAnim = Camera.main.GetComponent<Animator>();
 
-    public void GetCoroutines(out IEnumerator enumerator1)
+    public void SetBehaviour(NonGod_Behaviour beh)
     {
-        enumerator1 = cor;
-        cor = null;
+        current = beh;
     }
+
     public override void Execute(BoardStateController board, int strengh) { }
 
     public abstract IEnumerator ChoosingTargets(BoardStateController board, float mult);
@@ -28,5 +30,7 @@ public abstract class CardAction : Action
     {
         return isReady;
     }
+
+    public abstract void Reset(BoardStateController board);
 }
  

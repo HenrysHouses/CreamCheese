@@ -12,6 +12,7 @@ public abstract class Card_Behaviour : BoardElement
     protected Card_SO card_so;
     public Card_SO CardSO => card_so;
     public string Name => card_so.cardName;
+
     // protected TurnManager manager;
 
     public readonly bool isReady = false;
@@ -72,14 +73,6 @@ public abstract class Card_Behaviour : BoardElement
         return true;
     }
 
-    public void OnPlay(BoardStateController board)
-    {
-        controller.shouldWaitForAnims = true;
-        cor = Play(board);
-        StartCoroutine(cor);
-        transform.localScale = new Vector3(0.25f,0.20f,0.20f);
-    }
-
     protected virtual IEnumerator Play(BoardStateController board)
     {
         yield return new WaitUntil(ReadyToBePlaced);
@@ -128,9 +121,10 @@ public abstract class Card_Behaviour : BoardElement
     public abstract void OnAction();
 
     public virtual void CancelSelection() { controller.SetSelectedCard(); }
-    public void Placed(bool placed = false)
+    public virtual void Placed(bool placed = false)
     {
         GetComponent<BoxCollider>().enabled = true;
+        transform.parent.GetComponent<BoxCollider>().enabled = false;
         onPlayerHand = placed;
     }
     public bool IsOnHand() { return onPlayerHand; }

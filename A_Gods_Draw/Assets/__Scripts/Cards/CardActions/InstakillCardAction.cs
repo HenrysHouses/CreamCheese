@@ -43,4 +43,11 @@ public class InstakillCardAction : CardAction
 
         isReady = true;
     }
+
+    public override void Reset(BoardStateController board)
+    {
+        target = null;
+        isReady = false;
+        board.SetClickable(3, false);
+    }
 }

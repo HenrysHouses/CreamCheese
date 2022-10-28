@@ -25,6 +25,7 @@ public class NonGod_Behaviour : Card_Behaviour
         for (int i = 0; i < card.cardActions.Count; i++)
         {
             actions.Add(GetAction(card.cardActions[i].actionEnum, card.cardActions[i].actionStrength));
+            actions[i].SetBehaviour(this);
         }
 
         this.elements = elements;
@@ -103,6 +104,11 @@ public class NonGod_Behaviour : Card_Behaviour
         }
     }
 
+    public void RemoveFromHand()
+    {
+        controller.Discard(this);
+    }
+
     IEnumerator SelectingTargets()
     {
         float mult = 1f;
@@ -151,7 +157,12 @@ public class NonGod_Behaviour : Card_Behaviour
 
         yield return new WaitForSeconds(0.2f);
 
-        Destroy(transform.parent.parent.gameObject);
+        foreach (CardAction action in actions)
+        {
+            action.Reset(board);
+        }
+
+        controller.Discard(this);
         controller.shouldWaitForAnims = false;
     }
 
@@ -159,16 +170,15 @@ public class NonGod_Behaviour : Card_Behaviour
 
     public override void CancelSelection()
     {
-        base.CancelSelection();
-        if (onSelectedRoutine != null)
-            StopCoroutine(onSelectedRoutine);
-        if (actionRoutine != null)
-            StopCoroutine(actionRoutine);
-        onSelectedRoutine = null;
-        actionRoutine = null;
-
-        foreach (CardAction action in actions)
+        if (this != null)
         {
+            base.CancelSelection();
+            if (onSelectedRoutine != null)
+                StopCoroutine(onSelectedRoutine);
+            if (actionRoutine != null)
+                StopCoroutine(actionRoutine);
+            onSelectedRoutine = null;
+            actionRoutine = null;
         }
     }
 

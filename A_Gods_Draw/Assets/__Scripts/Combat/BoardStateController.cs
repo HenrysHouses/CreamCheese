@@ -119,8 +119,6 @@ public class BoardStateController : MonoBehaviour
 
         if (!targetlane)
         {
-            
-
             if (card is God_Behaviour)
             {
                 targetlane = _GodLane;
@@ -130,8 +128,6 @@ public class BoardStateController : MonoBehaviour
                 targetlane = _Lane[playedCards.Count];
 
             }
-
-
         }
 
         if (_GodLane.Equals(targetlane))
@@ -161,16 +157,6 @@ public class BoardStateController : MonoBehaviour
                 Debug.Log(i);
 
                 NonGod_Behaviour behaviour = card as NonGod_Behaviour;
-
-                if (behaviour.CardSO.type == CardType.Buff)
-                {
-                    for (int j = 0; j < behaviour.GetStrengh(); j++)
-                    {
-                        //Instantiate coins
-                    }
-                    Destroy(behaviour.transform.parent.parent.gameObject);
-                    return;
-                }
 
                 playedCards.Add(behaviour);
 

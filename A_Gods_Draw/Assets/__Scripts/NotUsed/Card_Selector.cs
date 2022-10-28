@@ -56,7 +56,7 @@ public class Card_Selector : MonoBehaviour
         
     }
 
-    private void OnMouseDown()
+    private void OnMouseUp()
     {
         gameObject.GetComponentInChildren<Card_Behaviour>().OnBeingClicked();
     }

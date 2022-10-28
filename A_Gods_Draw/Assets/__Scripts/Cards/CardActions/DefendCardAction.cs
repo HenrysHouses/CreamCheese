@@ -46,8 +46,15 @@ public class DefendCardAction : CardAction
         if (target)
             target.DeBuff(strengh);
 
-        yield return new WaitForSeconds(1f);
+        yield return new WaitForSeconds(0.4f);
 
         isReady = true;
+    }
+
+    public override void Reset(BoardStateController board)
+    {
+        target = null;
+        isReady = false;
+        board.SetClickable(3, false);
     }
 }
