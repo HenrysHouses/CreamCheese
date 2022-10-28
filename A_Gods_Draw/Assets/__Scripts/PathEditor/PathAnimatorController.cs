@@ -41,6 +41,8 @@ public class PathAnimatorController : MonoBehaviour
     public bool isAnimating;
     /// <summary>Prevents lists from updating while being used</summary>
     public bool isReadingRequests;
+    IEnumerator readingRoutine;
+    IEnumerator animateRoutine;
 
     [Tooltip("The GameObject used in the test animation")]
     public GameObject testAnimationObj;
@@ -144,10 +146,16 @@ public class PathAnimatorController : MonoBehaviour
         AnimationEventManager.getInstance.OnAnimationRequestChange -= checkUpdatedRequests;
     }
 
+    private void OnDestroy() 
+    {
+        AnimationEventManager.getInstance.OnAnimationRequestChange -= checkUpdatedRequests;
+    }
+
     /// <summary>Reads requests and waits for animation cool downs</summary>
     void checkUpdatedRequests(string id, animRequestData anim)
     {
-        StartCoroutine(readRequests(id, anim));
+        readingRoutine = readRequests(id, anim);
+        StartCoroutine(readingRoutine);
     }
 
     IEnumerator readRequests(string id, animRequestData anim)
@@ -159,7 +167,8 @@ public class PathAnimatorController : MonoBehaviour
             // Debug.Log(anim);
             // string[] s = anim.target.Split('_');
             // Debug.Log("read anim request: " + s[s.Length-1]);
-            StartCoroutine(CreateAnimation(anim));
+            animateRoutine = CreateAnimation(anim);
+            StartCoroutine(animateRoutine);
         }
     }
 

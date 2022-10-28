@@ -83,6 +83,7 @@ public class BoardStateController : MonoBehaviour
     public void spawnEncounter()
     {
         Encounter_SO[] possibleEncounters = EncounterLoader.LoadAllEncountersOf(GameManager.instance.nextCombatType);
+        Debug.Log(GameManager.instance.nextCombatType);
         _Enemies = EncounterLoader.InstantiateRandomEncounter(possibleEncounters, EnemyParent, out _Encounter);
         isEncounterInstantiated = true;
     }

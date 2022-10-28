@@ -4,6 +4,7 @@ using UnityEngine;
 
 //[CreateAssetMenu(menuName = "ScriptableObjects/Card_Abs")]
 
+[System.Serializable]
 public abstract class Card_SO : ScriptableObject
 {
     public CardType type;

@@ -78,6 +78,7 @@ public class DeckManager_SO : ScriptableObject
     /// <param name="card">The scriptable object for the desired card</param>
     public void addCardToDeck(Card_SO card)
     {
+        Debug.Log("add card: " + card);
         deckList.Deck.Add(card);
         SavingDeck();
     }
@@ -366,8 +367,9 @@ public class DeckManager_SO : ScriptableObject
             NullValueHandling = NullValueHandling.Ignore,
             ReferenceLoopHandling = ReferenceLoopHandling.Ignore
         };
+        settings.Converters.Add(new Newtonsoft.Json.Converters.StringEnumConverter());
 
-        var json = JsonConvert.SerializeObject(deckList, settings);
+        var json = JsonUtility.ToJson(deckList).ToString();
 
         PlayerPrefs.SetString("Deck", json);
         PlayerPrefs.Save();
@@ -377,15 +379,20 @@ public class DeckManager_SO : ScriptableObject
 
     public void LoadDeck()
     {
-        var settings = new JsonSerializerSettings()
+        JsonSerializerSettings settings = new JsonSerializerSettings()
         {
             TypeNameHandling = TypeNameHandling.All,
             NullValueHandling = NullValueHandling.Ignore,
             ReferenceLoopHandling = ReferenceLoopHandling.Ignore
         };
 
-        var deckJson = PlayerPrefs.GetString("Deck");
-        deckList = JsonConvert.DeserializeObject<DeckList_SO>(deckJson, settings);
+        string deckJson = PlayerPrefs.GetString("Deck");
+        
+        DeckList_SO loadedDeck = ScriptableObject.CreateInstance<DeckList_SO>();
+        JsonUtility.FromJsonOverwrite(deckJson, loadedDeck);
+
+        deckList.Deck = loadedDeck.Deck;
+        Debug.Log(loadedDeck.Deck[0].cardName);
 
         Debug.Log("deck has been loaded from the save");
     }

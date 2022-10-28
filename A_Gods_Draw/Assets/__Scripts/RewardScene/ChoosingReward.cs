@@ -16,7 +16,7 @@ public enum CardType
 }
 public class ChoosingReward : MonoBehaviour
 {
-    [SerializeField, JsonIgnore] DeckManager_SO deckManager;
+    [SerializeField] DeckManager_SO deckManager;
     
     List<Card_SO> searchResult;
 
