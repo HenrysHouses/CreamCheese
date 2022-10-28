@@ -41,11 +41,6 @@ public class DeckManager_SO : ScriptableObject
     [SerializeField] EventReference Draw_SFX;
     [SerializeField] EventReference Discard_SFX;
     [SerializeField] EventReference Shuffle_SFX;
-    // ! unused
-    // public void SetTurnManager(TurnManager manager)
-    // {
-    //     turnManager = manager;
-    // }
 
     // Load the deck list from Assets/Resources/DeckLists
     void OnValidate()
@@ -329,7 +324,10 @@ public class DeckManager_SO : ScriptableObject
         // move discard to library, prep for animations
         GameObject[] cards = new GameObject[pDiscard.Count];
         CardPathAnim[] animations = new CardPathAnim[pDiscard.Count];
-
+        
+        if(pDiscard.Count == 0)
+            Debug.LogWarning("There was no cards in discard to shuffle into the library");
+        
         for (int i = 0; i < pDiscard.Count; i++)
         {
             pLibrary.Add(pDiscard[i]);

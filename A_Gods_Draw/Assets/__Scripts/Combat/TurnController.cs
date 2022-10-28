@@ -74,7 +74,6 @@ public class TurnController : CombatFSM
         AddFSMState(_combatCard);
         AddFSMState(_combatEnemy);
         AddFSMState(_endStep);
-
     }
 
     public void SetTransition(Transition t) 
@@ -96,7 +95,6 @@ public class TurnController : CombatFSM
         {
             BoardStateController.spawnEncounter();
         }
-
     }
 
     // * --- Sound Management ---
@@ -175,15 +173,15 @@ public class TurnController : CombatFSM
     {
         yield return new WaitUntil(() => !DrawAnimator.isAnimating);
 
+
         CardPathAnim[] animData = deckManager.shuffleDiscard(0.18f);
 
         if(drawAfterShuffle <= 0) // stops animations here
         {
             animData[animData.Length-1].OnAnimCompletionTrigger.AddListener(animsAreDone);
         }
-        else if (animData.Length > 0)
+        else
         {
-            
             waitForLibraryShuffle = true;
             animData[animData.Length-1].OnAnimCompletionTrigger.AddListener(waitForShuffleAnims);
 
