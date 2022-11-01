@@ -30,6 +30,7 @@ public class GameManager : MonoBehaviour
     public void newGame()
     {
         shouldGenerateNewMap = true;
+        // PlayerPrefs.DeleteAll();
     }
 
     public EncounterDifficulty nextCombatType{

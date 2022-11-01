@@ -399,12 +399,14 @@ public class DeckManager_SO : ScriptableObject
         {
             Debug.LogWarning("The list in the Loaded deck is null");
             deckList.Deck = starterDeck.Deck;
+            SavingDeck();
             return;
         }
 
-        if(loadedDeck.Deck.Count < 1)
+        if(loadedDeck.Deck.Count < 1) // ! probably never going to happen
         {
             Debug.LogWarning("Loaded deck is length of 0");
+            deckList.Deck = starterDeck.Deck;
             return;
         }
 
