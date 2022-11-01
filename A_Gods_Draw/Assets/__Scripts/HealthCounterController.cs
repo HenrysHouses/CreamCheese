@@ -97,7 +97,6 @@ public class HealthCounterController : MonoBehaviour
             // Health Positions
             OrientedPoint op = pathController.GetEvenPathOP((((HealthT/MaxHealth) * speed) + offset)%1);
             HealthObj1.position = op.pos;
-            Debug.Log(HealthT);
             op = pathController.GetEvenPathOP(((HealthT/MaxHealth) * speed)%1);
             HealthObj2.position = op.pos;
 
@@ -142,6 +141,7 @@ public class HealthCounterController : MonoBehaviour
 
         healthIsAnimating = false;
         Debug.Log("healed");
+        
     }
     
     // Gear Animation

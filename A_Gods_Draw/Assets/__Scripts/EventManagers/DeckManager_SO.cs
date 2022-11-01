@@ -30,6 +30,8 @@ public class DeckManager_SO : ScriptableObject
     [SerializeField, Tooltip("Cards the player has obtained")] 
     DeckList_SO deckList;
     public DeckList_SO getDeck => deckList;
+    [SerializeField] DeckList_SO starterDeck;
+    public DeckList_SO getStarterDeck => starterDeck;
     
     [SerializeField, Tooltip("Cards the player can draw")] 
     List<Card_SO> pLibrary;
@@ -390,6 +392,21 @@ public class DeckManager_SO : ScriptableObject
         
         DeckList_SO loadedDeck = ScriptableObject.CreateInstance<DeckList_SO>();
         JsonUtility.FromJsonOverwrite(deckJson, loadedDeck);
+
+        Debug.Log(loadedDeck);
+        
+        if(loadedDeck.Deck == null)
+        {
+            Debug.LogWarning("The list in the Loaded deck is null");
+            deckList.Deck = starterDeck.Deck;
+            return;
+        }
+
+        if(loadedDeck.Deck.Count < 1)
+        {
+            Debug.LogWarning("Loaded deck is length of 0");
+            return;
+        }
 
         deckList.Deck = loadedDeck.Deck;
         Debug.Log(loadedDeck.Deck[0].cardName);

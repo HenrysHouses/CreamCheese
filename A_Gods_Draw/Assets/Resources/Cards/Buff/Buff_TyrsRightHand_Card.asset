@@ -9,7 +9,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 9bbeab81a837078458cee2619ea54a1a, type: 3}
+  m_Script: {fileID: 11500000, guid: 5a3a49401d7d7994699d21f4777abe3d, type: 3}
   m_Name: Buff_TyrsRightHand_Card
   m_EditorClassIdentifier: 
   type: 2
@@ -20,6 +20,7 @@ MonoBehaviour:
     brave enough to do so. When Fenrir couldn't break free, he bit Tyr\u2019s hand
     off at what now is called the wolf joint."
   strengh: 1
-  type: 4
-  health: 0
-  godAction: 1
+  cardActions:
+  - actionEnum: 2
+    actionStrength: 1
+  correspondingGod: 1
