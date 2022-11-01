@@ -66,6 +66,12 @@ public class PlayerController : BoardElement
             
         }
         healthTxt.text = "HP: " + health.ToString();
+
+        if(health == 0)
+        {
+            MultiSceneLoader.loadCollection("Death", collectionLoadMode.difference);
+            Debug.Log("temp death trigger");
+        }
     }
 
     public void OnNewTurn()
