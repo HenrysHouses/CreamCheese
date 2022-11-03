@@ -7,32 +7,39 @@ public class HealthCounterController : MonoBehaviour
 {
     [SerializeField] EventReference HealthTick_SFX;
     public int currHealth => Health-Damage; 
-    /// <summary>how many health points the player has had</summary> // this is offset by 50
-    int Health = 200;
+    public int Health = 100;
     public int MaxHealth = 100;
-    /// <summary>how much total damage the player has taken</summary> // this is offset by 50
-    int Damage = 100;
+    public int Damage = 0;
+    public float HealthScale = 30;
     // Health Visualization
     [SerializeField] PathController pathController;
     [SerializeField] Transform HealthObj1, HealthObj2;
     [SerializeField] Transform DamageObj1, DamageObj2;
     
-    public float HealthT = 0;
-    public float DamageT = 0;
+    public float HealthT;
+    public float DamageT;
+    [SerializeField] float wolfTestOffset;
     [SerializeField] float offset;
-    [SerializeField] float HealthAnimSpeed = 1;
-    [SerializeField] float GearAnimSpeed = 1;
+    [SerializeField] float speed;
     // Health Anim
     bool healthIsAnimating = false;
     int shouldTriggerHealth = 0;
+    [SerializeField] float healthAnimSpeed = 1;
 
 
     // Gear Anim
     bool gearIsAnimating = false;
-    List<float> shouldTriggerGears = new List<float>();
+    [SerializeField] int shouldTriggerGears = 0;
     public float[] gearSpeed;
     public float[] gearRotateAmount;
     [SerializeField] Transform[] gear;
+
+    // Start is called before the first frame update
+    void Start()
+    {
+        DamageT = wolfTestOffset;
+        TriggerGearAnim();
+    }
 
     // Update is called once per frame
     void Update()
@@ -40,43 +47,36 @@ public class HealthCounterController : MonoBehaviour
         if(HealthObj1 is null || DamageObj1 is null || DamageObj2 is null || HealthObj2 is null )
             return;
 
-        DoGearAnim();
         DoHealthAnim();
+        DoGearAnim();
+
+        if(Input.GetKeyDown(KeyCode.Space))
+        {
+            TriggerGearAnim();
+            updateHealth(-10);
+        }
     }
 
-    bool updateHealth(int healthDifference)
+    void updateHealth(int healthDifference)
     {
-        if(healthDifference < 0 && currHealth != 0)
+        if(currHealth > 0 && currHealth <= 100)
         {
-
-            Damage = Mathf.Min(Damage + healthDifference * -1, Health);
-            TriggerGearAnim(GearAnimSpeed * -1);
-            return true;
+            if(healthDifference > 0 && currHealth < 100)
+                Health += Mathf.Clamp(healthDifference, 0, MaxHealth - currHealth);
+            else
+                Damage += healthDifference * -1;
         }
-
-        if(currHealth < 0 && currHealth >= 100)
-            return false;
-
-        if(healthDifference > 0 && currHealth < 100)
-        {
-            Health += Mathf.Min(healthDifference, MaxHealth - currHealth);    
-            TriggerGearAnim(GearAnimSpeed);
-            return true;
-        }
-
-        return false;
+        else
+            Debug.LogWarning("player has max health");
     }
 
     void DoHealthAnim()
     {
-        if(!healthIsAnimating && (Health != HealthT || Damage != DamageT))
+        if(!healthIsAnimating && Health != HealthT)
         {
             StartCoroutine(AnimateHealth());
         }
     }
-
-    // dead wolf pos: z = 0.0518
-    // healthy wolf pos: z = 0.0176
 
     IEnumerator AnimateHealth()
     {
@@ -88,69 +88,77 @@ public class HealthCounterController : MonoBehaviour
             if(HealthT < Health)
                 HealthT += 1;
             if(DamageT < Damage)
-                DamageT += 1;
+            DamageT += 1;
+            // wolf positioning
+            // float damagePercent = (float)((float)Health - (float)Damage)/(float)Health;
+            // float damageTotal = ExtensionMethods.Remap(damagePercent, 0, 1, 0, ((MaxHealth-HealthScale)/MaxHealth));
+            // DamageT =  Health - (MaxHealth/2 * damageTotal);
 
-            // Health Positions // ! this code could be shorter
-            OrientedPoint op = pathController.GetEvenPathOP((((HealthT/(MaxHealth*2)) * HealthAnimSpeed) + offset)%1);
+            // Health Positions
+            OrientedPoint op = pathController.GetEvenPathOP((((HealthT/MaxHealth) * speed) + offset)%1);
             HealthObj1.position = op.pos;
-            op = pathController.GetEvenPathOP(((HealthT/(MaxHealth*2)) * HealthAnimSpeed)%1);
+            op = pathController.GetEvenPathOP(((HealthT/MaxHealth) * speed)%1);
             HealthObj2.position = op.pos;
 
             // Damage Positions
-            op = pathController.GetEvenPathOP(((DamageT/(MaxHealth*2) * HealthAnimSpeed) + offset)%1);
+            op = pathController.GetEvenPathOP(((DamageT/MaxHealth * speed) + offset)%1);
             DamageObj1.position = op.pos;
             
             Vector3 dir = op.rot * DamageObj1.forward;
 
             float angle = Vector3.SignedAngle(-dir, DamageObj1.right, DamageObj1.forward);  
 
-            while(angle < -10) 
+            // Debug.DrawLine(DamageObj1.position, DamageObj1.right + DamageObj1.position, Color.blue, 0.1f);
+            // Debug.DrawLine(DamageObj1.position, DamageObj1.position - dir, Color.red, 0.1f);
+
+            if(angle < -10) // ! make work in both directions
             {
+                // float turnDir = angle/angle;
                 angle = Vector3.SignedAngle(-dir, DamageObj1.right, DamageObj1.forward);  
                 DamageObj1.Rotate(new Vector3(0,0,1), Space.Self);
             }
 
-            op = pathController.GetEvenPathOP(((DamageT/(MaxHealth*2)) * HealthAnimSpeed)%1);
+            
+            op = pathController.GetEvenPathOP(((DamageT/MaxHealth) * speed)%1);
             DamageObj2.position = op.pos;
 
             dir = op.rot * DamageObj2.forward;
             angle = Vector3.SignedAngle(-dir, DamageObj2.right, DamageObj2.forward);  
+            // Debug.Log(angle);      
 
-            while(angle < -10)
+            if(angle < -10)
             {
+                // float turnDir = angle/angle;
                 angle = Vector3.SignedAngle(-dir, DamageObj2.right, DamageObj2.forward);  
                 DamageObj2.Rotate(new Vector3(0,0,1), Space.Self);
             }
 
-            Vector3 pos1 = DamageObj1.transform.localPosition;
-            Vector3 pos2 = DamageObj2.transform.localPosition;
-            float zOffset = Mathf.Lerp(0.0518f, 0.0176f, (float)currHealth/(float)MaxHealth);
-            pos1.z = zOffset;
-            pos2.z = zOffset;
-            DamageObj1.transform.localPosition = pos1;
-            DamageObj2.transform.localPosition = pos2;
-
+            // Debug.DrawLine(DamageObj2.position, DamageObj2.right + DamageObj2.position, Color.blue, 0.1f);
+            // Debug.DrawLine(DamageObj2.position, DamageObj2.position - dir, Color.red, 0.1f);
+            
             yield return new WaitForEndOfFrame();
         }
 
         healthIsAnimating = false;
+        Debug.Log("healed");
+        
     }
     
     // Gear Animation
-    void TriggerGearAnim(float speed) => shouldTriggerGears.Add(speed);
+    void TriggerGearAnim() => shouldTriggerGears+=1;
     void DoGearAnim()
     {
-        if(!gearIsAnimating && shouldTriggerGears.Count > 0)
+        if(!gearIsAnimating && shouldTriggerGears > 0)
         {
-            StartCoroutine(AnimateGears(shouldTriggerGears[0]));
+            StartCoroutine(AnimateGears());
+            shouldTriggerGears--;
         }
     }
-    IEnumerator AnimateGears(float speed)
+    IEnumerator AnimateGears()
     {
+        Debug.Log("something starts");
         gearIsAnimating = true;
         bool animIsDone = false;
-
-        shouldTriggerGears.RemoveAt(0);
         SoundPlayer.Playsound(HealthTick_SFX, gameObject);
         float[] currRotationAmount = new float[gear.Length];
         bool[] gearState = new bool[gear.Length];
@@ -161,7 +169,7 @@ public class HealthCounterController : MonoBehaviour
             for (int i = 0; i < gear.Length; i++)
             {
                 if(!gearState[i])
-                    gearState[i] = rotateGear(gear[i], gearRotateAmount[i], gearSpeed[i] * speed, ref currRotationAmount[i]);
+                    gearState[i] = rotateGear(gear[i], gearRotateAmount[i], gearSpeed[i], ref currRotationAmount[i]);
                 if(gearState[i] == false)
                     animIsDone = false;
             }
