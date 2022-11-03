@@ -16,6 +16,7 @@ public class GameManager : MonoBehaviour
     
     private void Awake() 
     {
+        GameSaver.InitializeSaving();
         if(!instance)
             instance = this;
         else
@@ -24,7 +25,7 @@ public class GameManager : MonoBehaviour
 
     private void Start()
     {
-        deckManager.LoadDeck();
+        deckManager.SetCurrentDeck(GameSaver.LoadData());
     }
 
     public void newGame()
