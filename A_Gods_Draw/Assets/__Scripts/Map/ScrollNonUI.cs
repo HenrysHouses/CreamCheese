@@ -16,10 +16,7 @@ namespace Map
         public MinMaxFloat xConst = new MinMaxFloat();
         public bool freezeY;
         public MinMaxFloat yConst = new MinMaxFloat();
-        public bool freezeZ;
-        public MinMaxFloat zConst = new MinMaxFloat();
-        public Vector2 ScrollMinMaxBounds;
-
+        
         private Vector2 offset;
         private Vector3 pointerDisplacement;
         private float zDisplacement;
@@ -54,14 +51,9 @@ namespace Map
             }
 
             var mousePos = MouseInWorldCoordinates();
-            
-            Vector3 desiredPos = new Vector3(freezeX ? transform.localPosition.x : mousePos.x - pointerDisplacement.x,
-                                             freezeY ? transform.localPosition.y : mousePos.y - pointerDisplacement.y,
-                                             freezeZ ? transform.localPosition.z : mousePos.z - pointerDisplacement.z);
-            desiredPos = new Vector3(Mathf.Clamp(desiredPos.x, ScrollMinMaxBounds.x, ScrollMinMaxBounds.y),
-                                     Mathf.Clamp(desiredPos.y, ScrollMinMaxBounds.x, ScrollMinMaxBounds.y),
-                                     Mathf.Clamp(desiredPos.z, ScrollMinMaxBounds.x, ScrollMinMaxBounds.y));
-            transform.localPosition = desiredPos;            
+            transform.position = new Vector3(freezeX ? transform.position.x : mousePos.x - pointerDisplacement.x,
+                                             freezeY ? transform.position.y : mousePos.y - pointerDisplacement.y,
+                                             transform.position.z);
         }
 
         private Vector3 MouseInWorldCoordinates()
@@ -91,16 +83,6 @@ namespace Map
                 }
 
                 var targetY = transform.localPosition.y < yConst.min ? yConst.min : yConst.max;
-                //transform
-            }
-            else if (freezeZ)
-            {
-                if(transform.localPosition.z >= zConst.min && transform.localPosition.z <= zConst.max)
-                {
-                    return;
-                }
-
-                var targetZ = transform.localPosition.z < zConst.min ? zConst.min : zConst.max;
                 //transform
             }
         }

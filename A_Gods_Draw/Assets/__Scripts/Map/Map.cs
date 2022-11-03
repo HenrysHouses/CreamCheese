@@ -12,12 +12,12 @@ namespace Map
     public class Map
     {
         public List<Node> nodes;
-        public List<MapPoint> path;
+        public List<Point> path;
 
         public string bossNodeName;
         public string configName;
 
-        public Map(string configName, string bossNodeName, List<Node> nodes, List<MapPoint> path)
+        public Map(string configName, string bossNodeName, List<Node> nodes, List<Point> path)
         {
             this.configName = configName;
             this.bossNodeName = bossNodeName;
@@ -27,25 +27,13 @@ namespace Map
 
         public Node GetBossNode()
         {
-            Node found = null; // = nodes.FirstOrDefault(n => n.nodeType == NodeType.Boss);
-            
-            for (int i = 0; i < nodes.Count; i++)
-            {
-                NodeType type = nodes[i].nodeType;
-
-                // Debug.Log(nodes[i] + ": " + type);
-
-                if(type.Equals(NodeType.Boss))
-                    found = nodes[i];
-            }
-            Debug.Log(found);
-            return found;
+            return nodes.FirstOrDefault(n => n.nodeType == NodeType.Boss);
         }
 
         public float DistLayers() //distance between the first and last layers
         {
             var bossNode = GetBossNode();
-            var firstLayerNode = nodes.FirstOrDefault(n => n.point.y == 0);
+            var firstLayerNode = nodes.FirstOrDefault(n => n.point.Y == 0);
 
             if(bossNode == null || firstLayerNode == null)
             {
@@ -55,7 +43,7 @@ namespace Map
             return bossNode.pos.y - firstLayerNode.pos.y;
         }
 
-        public Node GetNode(MapPoint point)
+        public Node GetNode(Point point)
         {
             return nodes.FirstOrDefault(n => n.point.Equals(point));
         }

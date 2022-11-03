@@ -10,14 +10,9 @@ namespace Map
     {
         Enemy,
         Reward,
-        RandomReward,
-        GodReward,
-        AttackReward,
-        DefenceReward,
-        BuffReward,
         Elite,
         RestPlace,
-        Boss,
+        Boss
     }
 }
 

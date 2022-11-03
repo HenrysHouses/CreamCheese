@@ -1,5 +1,3 @@
-#if UNITY_EDITOR
-
 using UnityEngine;
 using UnityEngine.SceneManagement;
 using System.Collections.Generic;
@@ -20,47 +18,32 @@ public class SceneCollectionObject_Editor : Editor
         base.OnInspectorGUI();
     
         // Drawing custom list
-        // EditorGUILayout.LabelField("Scenes");
-        // var _collectedScenes = script.Scenes; // index of selected scenes
-        // int newCount = Mathf.Max(0, EditorGUILayout.DelayedIntField("    size", _collectedScenes.Count));
-        
-        // while (newCount < _collectedScenes.Count)
-        // {
-        //     _collectedScenes.RemoveAt( _collectedScenes.Count - 1 );
-        // }
+        EditorGUILayout.LabelField("Scenes");
+        var _Selected = script.Scenes; // selected scenes
+        var _choices = script.ChoiceIndex; // index of selected scenes
+        int newCount = Mathf.Max(0, EditorGUILayout.DelayedIntField("    size", _Selected.Count));
+        while (newCount < _Selected.Count)
+        {
+            _Selected.RemoveAt( _Selected.Count - 1 );
+            _choices.RemoveAt( _choices.Count - 1 );
+        }
+        while (newCount > _Selected.Count)
+        {
+            _Selected.Add(null);
+            _choices.Add(0);
+        }
+ 
+        for(int i = 0; i < _Selected.Count; i++)
+        {
+            string[] options = script.getSceneOptions();
 
-        // // List Management buttons
-        // if(GUILayout.Button("Add"))
-        // {
-        //     script.Scenes.Add(null);
-        // }
-
-        // if(GUILayout.Button("Remove"))
-        // {
-        //     script.Scenes.RemoveAt(script.Scenes.Count-1);
-        // }
-
-        // for(int i = 0; i < _collectedScenes.Count; i++)
-        // {
-        //     // Drawing Scene Object field
-        //     _collectedScenes[i] = (SceneAsset)EditorGUILayout.ObjectField(_collectedScenes[i], typeof(SceneAsset), false);
-        // }
-
+            // Drawing dropdown of strings
+            _choices[i] = EditorGUILayout.Popup(_choices[i], options);
+            // Update the selected choice in the underlying object
+            _Selected[i] = options[_choices[i]];
+        }
 
         // Save the changes back to the object
-        // EditorUtility.SetDirty(target);
-    }
-
-    void OnInspectorUpdate()
-    {
-        int sceneCount = SceneManager.sceneCountInBuildSettings;     
-        Debug.Log(sceneCount);
-        string[] scenes = new string[sceneCount];
-
-        for( int i = 0; i < sceneCount; i++ )
-        {
-            scenes[i] = System.IO.Path.GetFileNameWithoutExtension( SceneUtility.GetScenePathByBuildIndex( i ) );
-        }
+        EditorUtility.SetDirty(target);
     }
 }
-#endif

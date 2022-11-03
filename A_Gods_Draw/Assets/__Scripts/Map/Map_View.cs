@@ -15,10 +15,7 @@ namespace Map
             BottomToTop,
             TopToBottom,
             RightToLeft,
-            LeftToRight,
-            ForwardToBack,
-            BackToForward,
-            None
+            LeftToRight
         }
 
         public Map_Manager mapManager;
@@ -27,7 +24,6 @@ namespace Map
         public List<Map_Configuration> allMapConfigs;
         public GameObject nodePrefab;
         public float orientationOffset;
-        public Vector2 ScrollBounds;
 
         [Header("Background Settings")]
         [Tooltip("If the background sprite is null, background will not be shown")]
@@ -48,11 +44,10 @@ namespace Map
         public Color32 lockedColor = Color.gray;
         public Color32 lineVisitedColor = Color.white;
         public Color32 lineLockedColor = Color.gray;
-        public Color32 AvailableColor = Color.blue;
 
         private GameObject firstParent;
         private GameObject mapParent;
-        private List<List<MapPoint>> paths;
+        private List<List<Point>> paths;
         private Camera cam;
 
         public readonly List<Map_Nodes> MapNodes = new List<Map_Nodes>();
@@ -104,7 +99,7 @@ namespace Map
             }
 
             var backgroundObject = new GameObject("Background");
-            backgroundObject.transform.SetParent(mapParent.transform, false);
+            backgroundObject.transform.SetParent(mapParent.transform);
 
             var bossNode = MapNodes.FirstOrDefault(node => node.Node.nodeType == NodeType.Boss);
             var span = m.DistLayers(); //distance between first and last layers
@@ -123,33 +118,15 @@ namespace Map
         private void CreateParent()
         {
             firstParent = new GameObject("OuterPartParent");
-            firstParent.transform.SetParent(gameObject.transform.parent, false);
             mapParent = new GameObject("MapParentScrolling");
-            mapParent.transform.SetParent(firstParent.transform, false);
+            mapParent.transform.SetParent(firstParent.transform);
 
             var scrollNonUI = mapParent.AddComponent<ScrollNonUI>();
+            scrollNonUI.freezeX = orientations == MapOrientations.BottomToTop || orientations == MapOrientations.TopToBottom;
+            scrollNonUI.freezeY = orientations == MapOrientations.LeftToRight || orientations == MapOrientations.RightToLeft;
 
-            if(orientations == MapOrientations.BottomToTop || orientations == MapOrientations.TopToBottom)
-            {
-                scrollNonUI.freezeX = true;
-                scrollNonUI.freezeY = false;
-                scrollNonUI.freezeZ = true;
-            }
-            if(orientations == MapOrientations.RightToLeft || orientations == MapOrientations.LeftToRight)
-            {
-                scrollNonUI.freezeX = false;
-                scrollNonUI.freezeY = true;
-                scrollNonUI.freezeZ = true;
-            }
-            if(orientations == MapOrientations.ForwardToBack || orientations == MapOrientations.BackToForward)
-            {
-                scrollNonUI.freezeX = true;
-                scrollNonUI.freezeY = true;
-                scrollNonUI.freezeZ = false;
-            }
-
-            // var boxColl = mapParent.AddComponent<BoxCollider>();
-            // boxColl.size = new Vector3(100, 100, 1); //can be changed
+            var boxColl = mapParent.AddComponent<BoxCollider>();
+            boxColl.size = new Vector3(100, 100, 1); //can be changed
 
         }
 
@@ -164,8 +141,7 @@ namespace Map
 
         private Map_Nodes CreateMapNode(Node node)
         {
-            var mapNodeObject = Instantiate(nodePrefab);
-            mapNodeObject.transform.SetParent(mapParent.transform, false);
+            var mapNodeObject = Instantiate(nodePrefab, mapParent.transform);
             var mapNode = mapNodeObject.GetComponent<Map_Nodes>();
             var blueprint = GetNodeBlueprint(node.blueprintName);
 
@@ -186,7 +162,7 @@ namespace Map
 
             if (mapManager.CurrentMap.path.Count == 0)
             {
-                foreach (var node in MapNodes.Where(n => n.Node.point.y == 0))
+                foreach (var node in MapNodes.Where(n => n.Node.point.Y == 0))
                 {
                     node.SetState(NodeStates.Taken);
                 }
@@ -255,12 +231,9 @@ namespace Map
             var scrollNonUI = mapParent.GetComponent<ScrollNonUI>();
             var span = mapManager.CurrentMap.DistLayers();
             var bossNode = MapNodes.FirstOrDefault(node => node.Node.nodeType == NodeType.Boss);
-            scrollNonUI.ScrollMinMaxBounds = ScrollBounds;
 
-            // firstParent.transform.position = new Vector3(cam.transform.position.x, cam.transform.position.y, 0f);
+            firstParent.transform.position = new Vector3(cam.transform.position.x, cam.transform.position.y, 0f);
             var offset = orientationOffset;
-            Vector3 desiredPos;
-
 
             switch (orientations)
             {
@@ -270,10 +243,7 @@ namespace Map
                         scrollNonUI.yConst.max = 0;
                         scrollNonUI.yConst.min = -(span + 2f * offset);
                     }
-                    desiredPos = firstParent.transform.localPosition + new Vector3(0, offset, 0);
-                    float y = Mathf.Clamp(desiredPos.y, ScrollBounds.x, ScrollBounds.y); 
-                    desiredPos.y = y;
-                    firstParent.transform.localPosition = desiredPos;
+                    firstParent.transform.localPosition += new Vector3(0, offset, 0);
                     break;
 
                 case MapOrientations.TopToBottom:
@@ -283,19 +253,13 @@ namespace Map
                         scrollNonUI.yConst.min = 0;
                         scrollNonUI.yConst.max = span + 2f * offset;
                     }
-                    desiredPos = firstParent.transform.localPosition + new Vector3(0, -offset, 0);
-                    float _y = Mathf.Clamp(desiredPos.y, ScrollBounds.x, ScrollBounds.y); 
-                    desiredPos.y = _y;
-                    firstParent.transform.localPosition = desiredPos;
+                    firstParent.transform.localPosition += new Vector3(0, -offset, 0);
                     break;
 
                 case MapOrientations.RightToLeft:
                     offset *= cam.aspect;
                     mapParent.transform.eulerAngles = new Vector3(0, 0, 90);
-                    desiredPos = firstParent.transform.localPosition + new Vector3(offset, bossNode.transform.position.y, 0);
-                    float x = Mathf.Clamp(desiredPos.x, ScrollBounds.x, ScrollBounds.y); 
-                    desiredPos.x = x;
-                    firstParent.transform.localPosition = desiredPos;
+                    firstParent.transform.localPosition -= new Vector3(offset, bossNode.transform.position.y, 0);
                     if(scrollNonUI != null)
                     {
                         scrollNonUI.xConst.max = span + 2f * offset;
@@ -306,10 +270,7 @@ namespace Map
                 case MapOrientations.LeftToRight:
                     offset *= cam.aspect;
                     mapParent.transform.eulerAngles = new Vector3(0, 0, -90);
-                    desiredPos = firstParent.transform.localPosition + new Vector3(-offset, bossNode.transform.position.y, 0);
-                    float _x = Mathf.Clamp(desiredPos.x, ScrollBounds.x, ScrollBounds.y); 
-                    desiredPos.x = _x;
-                    firstParent.transform.localPosition = desiredPos;
+                    firstParent.transform.localPosition += new Vector3(offset, -bossNode.transform.position.y, 0);
                     if(scrollNonUI != null)
                     {
                         scrollNonUI.xConst.max = 0;
@@ -317,37 +278,6 @@ namespace Map
                     }
                     break;
 
-                case MapOrientations.ForwardToBack:
-                    offset *= cam.aspect;
-                    mapParent.transform.eulerAngles = new Vector3(90, 0, 0);
-                    desiredPos = firstParent.transform.localPosition + new Vector3(0, 0, offset);
-                    float z = Mathf.Clamp(desiredPos.z, ScrollBounds.x, ScrollBounds.y); 
-                    desiredPos.z = z;
-                    firstParent.transform.localPosition = desiredPos;
-                    if(scrollNonUI != null)
-                    {
-                        scrollNonUI.zConst.min = span + 2 * offset;
-                        scrollNonUI.zConst.max = 0;
-                    }
-                    break;
-
-                case MapOrientations.BackToForward:
-                    offset *= cam.aspect;
-                    mapParent.transform.eulerAngles = new Vector3(-90, 0, 0);
-                    desiredPos = firstParent.transform.localPosition + new Vector3(0, 0, -offset);
-                    float _z = Mathf.Clamp(desiredPos.z, ScrollBounds.x, ScrollBounds.y); 
-                    desiredPos.z = _z;
-                    firstParent.transform.localPosition = desiredPos;
-                    if(scrollNonUI != null)
-                    {
-                        scrollNonUI.zConst.max = 0;
-                        scrollNonUI.zConst.min = -(span + 2 * offset);
-                    }
-                    break;
-
-                case MapOrientations.None:
-                    break;
-                    
                 default:
                     throw new ArgumentOutOfRangeException();
             }
@@ -374,26 +304,18 @@ namespace Map
 
         public void AddPathConnection(Map_Nodes from, Map_Nodes to)
         {
-            var pathObject = Instantiate(linePrefab);
-            pathObject.transform.SetParent(mapParent.transform, false);
-            // var lineRenderer = pathObject.GetComponent<LineRenderer>();
+            var pathObject = Instantiate(linePrefab, mapParent.transform);
+            var lineRenderer = pathObject.GetComponent<LineRenderer>();
             var fromPoint = from.transform.position + (to.transform.position - from.transform.position).normalized * offsetFromNodes;
             var toPoint = to.transform.position + (from.transform.position - to.transform.position).normalized * offsetFromNodes;
 
-            // trying to replace with models
-            pathObject.transform.position =  Vector3.Lerp(fromPoint, toPoint, 0.5f);
-            pathObject.transform.LookAt(fromPoint);
-            Vector3 scale = pathObject.transform.localScale;
-            float dist = Vector3.Distance(from.transform.position, to.transform.position);
-            pathObject.transform.localScale = new Vector3(scale.x, scale.y, scale.z + dist*100);
-
-            // pathObject.transform.position =  fromPoint;
-            // lineRenderer.useWorldSpace = false;
-            // lineRenderer.positionCount = linePointCount;
+            pathObject.transform.position = fromPoint;
+            lineRenderer.useWorldSpace = false;
+            lineRenderer.positionCount = linePointCount;
 
             for(var i = 0; i < linePointCount; i++)
             {
-                // lineRenderer.SetPosition(i, Vector3.Lerp(Vector3.zero, toPoint - fromPoint, (float)i / (linePointCount - 1)));
+                lineRenderer.SetPosition(i, Vector3.Lerp(Vector3.zero, toPoint - fromPoint, (float)i / (linePointCount - 1)));
             }
 
             var dottetLine = pathObject.GetComponent<DottetPath>();
@@ -403,10 +325,10 @@ namespace Map
                 dottetLine.ScaleMat();
             }
 
-            // path.Add(new Path(lineRenderer, from, to));
+            path.Add(new Path(lineRenderer, from, to));
         }
 
-        private Map_Nodes GetNodes(MapPoint p)
+        private Map_Nodes GetNodes(Point p)
         {
             return MapNodes.FirstOrDefault(n => n.Node.point.Equals(p));
         }

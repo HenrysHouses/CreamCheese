@@ -2,146 +2,80 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using UnityEngine.UI;
 
 public class God_Behaviour : Card_Behaviour
 {
-    int maxHealth;
-    [SerializeField]
+    public int maxHealth;
     int health;
 
-    GodCardAction action;
+    God_Card god_SO;
 
-    GodPlacement godPlacement;
+    Defense_Behaviour posibleDefender;
 
     int defendFor;
-
-    protected new God_Card_SO card_so;
-    public new God_Card_SO CardSO => card_so;
-
-    public void Initialize(God_Card_SO card, CardElements elements)
+    public override void Initialize(Card_SO card)
     {
-        this.card_so = card;
-        maxHealth = card.health;
+        this.card = card;
+        god_SO = card as God_Card;
+        maxHealth = god_SO.health;
         health = maxHealth;
-
-        action = GetAction(card.godAction);
-
-        this.elements = elements;
     }
 
-
-    public void SetPlace(GodPlacement place)
+    public void SearchToBuff(List<NonGod_Behaviour> currentLane)
     {
-        godPlacement = place;
-    }
-
-    protected override IEnumerator Play(BoardStateController board)
-    {
-        foreach (NonGod_Behaviour card in board.playedCards)
+        foreach (NonGod_Behaviour card in currentLane)
         {
-            if (card.CardSO.correspondingGod == card_so.godAction)
+            if (card.GetNonGod().correspondingGod == this.card.name)
             {
-                card.Buff(card_so.strengh, true);
-            }
-        }
-
-        action.OnPlay(board);
-
-        //Wait for animations, etc
-        yield return new WaitUntil(() => true /* action.IsReady() */);
-
-        controller.shouldWaitForAnims = false;
-    }
-    public void OnRetire(BoardStateController board)
-    {
-        foreach (NonGod_Behaviour card in board.playedCards)
-        {
-            if (card.CardSO.correspondingGod == card_so.godAction)
-            {
-                card.DeBuff(card_so.strengh, true);
+                card.GetBuff(true, 2f);
             }
         }
     }
-
-    internal void Buff(NonGod_Behaviour nonGod_Behaviour)
+    public void OnRetire(List<NonGod_Behaviour> currentLane)
     {
-        nonGod_Behaviour.Buff(card_so.strengh, true);
+        foreach (NonGod_Behaviour card in currentLane)
+        {
+            if (card.GetNonGod().correspondingGod == this.card.name)
+            {
+                card.GetBuff(true, 0.5f);
+            }
+        }
     }
 
     public void DealDamage(int amount)
     {
-        //Debug.Log("God damaged, defended for: " + defendFor);
-
         if (amount > defendFor)
         {
             health -= amount + defendFor;
-            defendFor = 0;
-        }
-        else
-        {
-            defendFor -= amount;
-        }
-
-        //Debug.Log("God damaged, health left: " + health);
-
-        if (health <= 0)
-        {
-            health = 0;
-            // manager.GodDied();
         }
     }
 
-    //public void CanBeDefendedBy(Defense_Behaviour defense_Behaviour)
-    //{
-    //    posibleDefender = defense_Behaviour;
-    //}
+    public void CanBeDefendedBy(Defense_Behaviour defense_Behaviour)
+    {
+        posibleDefender = defense_Behaviour;
+    }
 
-    //private void OnMouseDown()
-    //{
-    //    if (posibleDefender)
-    //    {
-    //        posibleDefender.ItDefends(null, this);
-    //    }
-    //    posibleDefender = null;
-    //}
+    private void OnMouseDown()
+    {
+        if (posibleDefender)
+        {
+            posibleDefender.ItDefends(null, this);
+        }
+        posibleDefender = null;
+    }
 
     public void Defend(int amount)
     {
         defendFor += amount;
     }
 
-
-    private void OnMouseOver()
+    internal void Buff(NonGod_Behaviour nonGod_Behaviour)
     {
-        if (onPlayerHand)
-            godPlacement.godArrow.color = Color.magenta;
-    }
-
-    private void OnMouseExit()
-    {
-        if (onPlayerHand)
-            godPlacement.godArrow.color = Color.white;
-    }
-    public int GetStrengh()
-    {
-        return card_so.strengh;
+        nonGod_Behaviour.GetBuff(true, 2f);
     }
 
     public virtual void OnTurnStart() { }
 
-    protected override void OnBeingSelected()
-    {
-        StartCoroutine(Play(controller.GetBoard()));
-    }
+    public string GetName() { return card.cardname; }
 
-    public override void OnAction()
-    {
-        action.Act(controller.GetBoard(), 0);
-    }
-
-    public override bool CardIsReady()
-    {
-        return true;
-    }
 }

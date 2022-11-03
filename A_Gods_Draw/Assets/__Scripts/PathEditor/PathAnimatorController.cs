@@ -16,8 +16,9 @@ using Unity.Collections;
 /// <summary>Reads requests from the animation manager, and animates the requested gameObjects through its path</summary>
 public class PathAnimatorController : MonoBehaviour
 {
-    // [SerializeField, Tooltip("Required to read animation requests")]
-    // AnimationManager_SO manager_SO;
+    [SerializeField, Tooltip("Required to read animation requests")]
+    AnimationManager_SO manager_SO;
+
 
     /// <summary>Current animations on this path</summary>
     [SerializeField] List<pathAnimation> _Animations = new List<pathAnimation>();
@@ -41,22 +42,12 @@ public class PathAnimatorController : MonoBehaviour
     public bool isAnimating;
     /// <summary>Prevents lists from updating while being used</summary>
     public bool isReadingRequests;
-    IEnumerator readingRoutine;
-    IEnumerator animateRoutine;
 
     [Tooltip("The GameObject used in the test animation")]
     public GameObject testAnimationObj;
 
     void OnValidate()
     {
-        calculateApproximateAnimLength();
-    }
-
-    void calculateApproximateAnimLength()
-    {
-        if(!path)
-            return;
-
         // calculate estimated animation length
         int fps = 25;
         float meters = path.GetApproxLength();
@@ -74,7 +65,7 @@ public class PathAnimatorController : MonoBehaviour
     }
 
     /// <summary>Data class for path animations, can be used to override the path's settings</summary>
-    [System.Serializable] public class pathAnimation
+    public class pathAnimation
     {
         /// <summary>The GameObject that will be animated</summary>
         public GameObject AnimationTarget;
@@ -88,31 +79,19 @@ public class PathAnimatorController : MonoBehaviour
         public float speedMultiplier;
         public int index;
         public bool FreezeRotationX, FreezeRotationY, FreezeRotationZ;
-        public UnityEvent OnAnimCompletionTrigger;
-        public UnityEvent OnAnimStartTrigger;
-        
+        public UnityEvent CompletionTrigger;
         public bool _Complete;
-        public bool _Started;
 
         public pathAnimation()
         {
-            OnAnimCompletionTrigger = new UnityEvent();
-            OnAnimStartTrigger = new UnityEvent();
+            CompletionTrigger = new UnityEvent();
             AnimationTransform = new GameObject("AnimationHolder").transform;
         }
 
-        public virtual void completionTrigger(string animationName)
+        public void completionTrigger()
         {
-            OnAnimCompletionTrigger?.Invoke();
+            CompletionTrigger?.Invoke();
             _Complete = true;
-            // Debug.Log("DUD: " + animationName);
-        }
-
-        public virtual void startTrigger()
-        {
-            OnAnimStartTrigger?.Invoke();
-            _Started = true;
-            // Debug.Log("DUD: " + animationName);
         }
     }
 
@@ -120,57 +99,71 @@ public class PathAnimatorController : MonoBehaviour
     void Start()
     {
         isAnimating = false;
-        calculateApproximateAnimLength();
-        OnEnable();
-        // isReadingRequests = false;
-        // TODO should make an animation scene to keep inactive animations in.
+        isReadingRequests = false;
     }
 
     void OnEnable()
     {
         if(AnimationName == "")
             Debug.LogWarning(this + ": Needs a path name in order to read requests from the animation manager");
-        if(!AnimationEventManager.getInstance)
-        {
-            Debug.LogWarning("path animator could not find the event manager");
+        if(!manager_SO)
             return;    
-        }
         // Listen to when the animation manager has new animation requests
-        AnimationEventManager.getInstance.OnAnimationRequestChange += checkUpdatedRequests;
+        manager_SO.AnimationRequestChangeEvent.AddListener(checkUpdatedRequests);
 
     }
 
     void OnDisable()
     {
         // Remove the listener to avoid unintended behaviour
-        AnimationEventManager.getInstance.OnAnimationRequestChange -= checkUpdatedRequests;
-    }
-
-    private void OnDestroy() 
-    {
-        AnimationEventManager.getInstance.OnAnimationRequestChange -= checkUpdatedRequests;
+        manager_SO.AnimationRequestChangeEvent.RemoveListener(checkUpdatedRequests);
     }
 
     /// <summary>Reads requests and waits for animation cool downs</summary>
-    void checkUpdatedRequests(string id, animRequestData anim)
+    void checkUpdatedRequests()
     {
-        readingRoutine = readRequests(id, anim);
-        StartCoroutine(readingRoutine);
+        // if(!isReadingRequests)
+            StartCoroutine(readRequests());
     }
 
-    IEnumerator readRequests(string id, animRequestData anim)
+    IEnumerator readRequests()
     {
-        if(id.Equals(_pathName))
+        isReadingRequests = true;
+
+        List<animRequestData> currentRequests = new List<animRequestData>();
+        foreach (var request in manager_SO.requests)
         {
-            yield return new WaitForSeconds(anim.delay);
-            // prep remove accepted request
-            // Debug.Log(anim);
-            // string[] s = anim.target.Split('_');
-            // Debug.Log("read anim request: " + s[s.Length-1]);
-            animateRoutine = CreateAnimation(anim);
-            StartCoroutine(animateRoutine);
+            currentRequests.Add(request);
         }
+
+        List<string> completedRequests = new List<string>();
+        
+        for (int i = 0; i < currentRequests.Count; i++)
+        {
+            
+            if(currentRequests[i].requestName.Equals(AnimationName) && !currentRequests[i].requestAccepted)
+            {
+                // Make sure the request is not read multiple times
+                if(i> manager_SO.requests.Count-1)
+                    break;
+                manager_SO.requests[i].requestAccepted = true;  
+                // create animation
+                StartCoroutine(CreateAnimation(currentRequests[i]));
+                // prep remove accepted request
+                completedRequests.Add(currentRequests[i].target);
+                yield return new WaitForSeconds(currentRequests[i].coolDown);
+            }
+        }
+        
+        foreach (var completed in completedRequests)
+        {
+            manager_SO.removeRequest(completed);
+        }
+        isReadingRequests = false;
     }
+
+    // ! Used for the editor script, probably wont be needed for much longer
+    public AnimationManager_SO getAnimManagerSO(){ return manager_SO; }
 
     /// <summary>Get all the current settings for the animation</summary>
     /// <returns>Data class containing all the animation settings</returns>
@@ -183,7 +176,7 @@ public class PathAnimatorController : MonoBehaviour
         animation.length = AnimLength;
         animation.speedCurve = _speedCurve;
         animation.speedMultiplier = Multiplier;
-        animation.OnAnimCompletionTrigger.AddListener(debugTestCompletion);
+        // animation.CompletionTrigger.AddListener(debugTestCompletion);
         return animation;
     }
 
@@ -203,7 +196,7 @@ public class PathAnimatorController : MonoBehaviour
         if(anim.speedMultiplier == 0)
             anim.speedMultiplier = Multiplier;
 
-        anim.OnAnimCompletionTrigger.AddListener(debugTestCompletion);
+        anim.CompletionTrigger.AddListener(debugTestCompletion);
 
         return anim;
     }
@@ -215,8 +208,6 @@ public class PathAnimatorController : MonoBehaviour
         yield return new WaitForSeconds(request.delay);
 
         // Debug.Log(request.anim);
-        // string[] s = request.target.Split('_');
-        // Debug.Log("anim start: " + s[s.Length-1]);
 
         // get animation settings if there is no overridden settings
         if(request.anim == null)
@@ -233,7 +224,7 @@ public class PathAnimatorController : MonoBehaviour
         request.anim.AnimationTarget.transform.SetParent(request.anim.AnimationTransform);
         request.anim.AnimationTarget.transform.position = new Vector3();  
         request.anim.AnimationTransform.SetParent(transform, false);
-        
+
         // Decides if the animation is played regularly or in reverse.
         if(request.anim.speedMultiplier > 0)
             request.anim.AnimationTransform.position = path.controlPoints[0].position;
@@ -267,14 +258,10 @@ public class PathAnimatorController : MonoBehaviour
     {
         if(_Animations.Count > 0)
         {
-
             for (int i = 0; i < _Animations.Count; i++)
             {
-                if(!_Animations[i]._Started && _Animations[i]._Time > 0)
-                    _Animations[i].startTrigger();
-
                 // Animation completion state. Gets set to false if its still ongoing. // ? should maybe be inverted but whatever
-                bool state = true; 
+                bool state = true;
 
                 // while(state) // was used then this was not in update
                 // {
@@ -348,7 +335,7 @@ public class PathAnimatorController : MonoBehaviour
     {
         if(!_Animations[index]._Complete)
         {
-            _Animations[index].completionTrigger(_Animations[index].AnimationTarget.name);
+            _Animations[index].completionTrigger();
         }
         
         // Destroys the animation transform        
@@ -376,9 +363,9 @@ public class PathAnimatorController : MonoBehaviour
     
     /// <returns>Estimated animation time</returns>
     public float getAnimLength() => AnimLength;
-    public int getAnimCount() => _Animations.Count;
+
     public void debugTestCompletion()
     {
-        // Debug.Log("TestAnimation Complete");
+        Debug.Log("TestAnimation Complete");
     }
 }

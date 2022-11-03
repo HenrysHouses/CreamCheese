@@ -1,17 +1,21 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 //[CreateAssetMenu(menuName = "ScriptableObjects/Card_Abs")]
 
-[System.Serializable]
 public abstract class Card_SO : ScriptableObject
 {
-    public CardType type;
     public Sprite image;
-    public string cardName;
-    [TextArea(6, 20)]
+    public string cardname;
     public string description;
-    public int strengh;
+
+
+    public virtual Card_Behaviour Init(GameObject a)
+    {
+        return null;
+    }
+
 }
 

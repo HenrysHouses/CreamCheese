@@ -1,43 +1,39 @@
-//using System.Collections;
-//using System.Collections.Generic;
-//using UnityEngine;
+using System.Collections;
+using System.Collections.Generic;
+using UnityEngine;
 
-//public class Buff_Behaviour : NonGod_Behaviour
-//{
-//    Buff_Card currentCard;
+public class Buff_Behaviour : NonGod_Behaviour
+{
+    Buff_Card currentCard;
 
-//    int posInLane;
+    int posInLane;
 
-//    public override void Initialize(Card_SO card)
-//    {
-//        card_NonGod = (card as NonGod_Card);
-//        currentCard = card as Buff_Card;
-//        strengh = currentCard.baseStrength;
-//        this.card_abs = card;
+    public override void Initialize(Card_SO card)
+    {
+        current = (card as NonGod_Card);
+        currentCard = card as Buff_Card;
+        strengh = currentCard.baseStrengh;
+        this.card = card;
 
-//        SendMessageUpwards("setBorder", Card_ClickGlowing.CardType.Buff);
-//    }
+        SendMessageUpwards("setBorder", Card_ClickGlowing.CardType.Buff);
+    }
 
-//    public override void OnAction()
-//    {
-//    }
+    public override void OnAction()
+    {
+        if (posInLane < manager.CurrentLane().Count - 1)
+        {
+            manager.CurrentLane()[posInLane + 1].GetBuff(currentCard.multiplyOGValue, strengh);
+        }
+    }
 
-//    protected override IEnumerator Play(BoardStateController board)
-//    {
-//        // posInLane = manager.CurrentLane().Count;
+    public override IEnumerator OnPlay(List<IMonster> enemies, List<NonGod_Behaviour> currLane, PlayerController player, God_Behaviour god)
+    {
+        posInLane = manager.CurrentLane().Count;
 
-//        yield return base.Play(board);
-//    }
+        yield return new WaitUntil(() => { return true; });
 
-//    internal override void PlacedNextToThis(NonGod_Behaviour card)
-//    {
-//        card.GetBuff(currentCard.multiplyOGValue, strengh);
-//    }
+        manager.FinishedPlay(this);
+    }
 
-//    protected override bool ReadyToBePlaced()
-//    {
-//        return true;
-//    }
-
-//}
+}
 

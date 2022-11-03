@@ -12,10 +12,10 @@ namespace Map
         private static Map_Configuration config;
 
         private static readonly List<NodeType> RandomNodes = new List<NodeType> 
-        { NodeType.RestPlace, NodeType.Boss, NodeType.Elite, NodeType.BuffReward, NodeType.AttackReward, NodeType.DefenceReward, NodeType.GodReward};
+        { NodeType.RestPlace, NodeType.Reward, NodeType.Enemy };
 
         private static List<float> layerDist;
-        private static List<List<MapPoint>> paths;
+        private static List<List<Point>> paths;
 
         private static readonly List<List<Node>> nodes = new List<List<Node>>();
 
@@ -45,7 +45,7 @@ namespace Map
             var nodeList = nodes.SelectMany(n => n).Where(n => n.incoming.Count > 0 || n.outgoing.Count > 0).ToList();
 
             var bossNodeName = config.nodeBlueprints.Where(b => b.nodeType == NodeType.Boss).ToList().Random().name;
-            return new Map(configuration.name, bossNodeName, nodeList, new List<MapPoint>());
+            return new Map(configuration.name, bossNodeName, nodeList, new List<Point>());
         }
 
         private static void GenerateLayerDist()
@@ -80,7 +80,7 @@ namespace Map
                 var nodeType = Random.Range(0f, 1f) < layer.randomNodes ? GetRandomNodes() : layer.nodeType;
                 var blueprintName = config.nodeBlueprints.Where(b => b.nodeType == nodeType).ToList().Random().name;
 
-                var node = new Node(nodeType, blueprintName, new MapPoint(i, layerIndex))
+                var node = new Node(nodeType, blueprintName, new Point(i, layerIndex))
                 {
                     pos = new Vector2(-offset + i * layer.nodesApartDist, GetDistToPlayer(layerIndex))
                 };
@@ -145,25 +145,25 @@ namespace Map
             {
                 for (var j = 0; j < config.layers.Count - 1; j++)
                 {
-                    var node = GetNode(new MapPoint(i, j));
+                    var node = GetNode(new Point(i, j));
                     if (node == null || node.ItHasNoConnections())
                     {
                         continue;
                     }
 
-                    var right = GetNode(new MapPoint(i + 1, j));
+                    var right = GetNode(new Point(i + 1, j));
                     if (right == null || right.ItHasNoConnections())
                     {
                         continue;
                     }
 
-                    var top = GetNode(new MapPoint(i, j + 1));
+                    var top = GetNode(new Point(i, j + 1));
                     if(top == null || top.ItHasNoConnections())
                     {
                         continue;
                     }
 
-                    var topRight = GetNode(new MapPoint(i + 1, j + 1));
+                    var topRight = GetNode(new Point(i + 1, j + 1));
                     if(topRight == null || topRight.ItHasNoConnections())
                     {
                         continue;
@@ -207,37 +207,37 @@ namespace Map
             }
         }
 
-        private static Node GetNode(MapPoint p)
+        private static Node GetNode(Point p)
         {
-            if(p.y >= nodes.Count)
+            if(p.Y >= nodes.Count)
             {
                 return null;
             }
-            if(p.x >= nodes[p.y].Count)
+            if(p.X >= nodes[p.Y].Count)
             {
                 return null;
             }
 
-            return nodes[p.y][p.x];
+            return nodes[p.Y][p.X];
         }
 
-        private static MapPoint GetFinalNode()
+        private static Point GetFinalNode()
         {
             var y = config.layers.Count - 1;
             if(config.GridWidth % 2 == 1)
             {
-                return new MapPoint(config.GridWidth / 2, y);
+                return new Point(config.GridWidth / 2, y);
             }
 
             return Random.Range(0, 2) == 0
-                ? new MapPoint(config.GridWidth / 2, y)
-                : new MapPoint(config.GridWidth / 2 - 1, y);
+                ? new Point(config.GridWidth / 2, y)
+                : new Point(config.GridWidth / 2 - 1, y);
         }
 
         private static void GeneratePath()
         {
             var finalNode = GetFinalNode();
-            paths = new List<List<MapPoint>>();
+            paths = new List<List<Point>>();
             var numberOfStartingNodes = config.numOfStartingNodes.Value();
             var numberOfBossNodes = config.numOfPreBossNodes.Value();
 
@@ -249,7 +249,7 @@ namespace Map
 
             candidateXs.Shuffling();
             var preBossX = candidateXs.Take(numberOfBossNodes);
-            var preBossPoints = (from x in preBossX select new MapPoint(x, finalNode.y - 1)).ToList();
+            var preBossPoints = (from x in preBossX select new Point(x, finalNode.Y - 1)).ToList();
             var attempts = 0;
 
             foreach(var point in preBossPoints)
@@ -270,22 +270,22 @@ namespace Map
             }
         }
 
-        private static bool PathToDiffPoints(IEnumerable<List<MapPoint>> paths, int n)
+        private static bool PathToDiffPoints(IEnumerable<List<Point>> paths, int n)
         {
-            return (from path in paths select path[path.Count - 1].x).Distinct().Count() >= n;
+            return (from path in paths select path[path.Count - 1].X).Distinct().Count() >= n;
         }
 
-        private static List<MapPoint> Path(MapPoint from, int toY, int width, bool firstStepUnconstrained = false)
+        private static List<Point> Path(Point from, int toY, int width, bool firstStepUnconstrained = false)
         {
-            if(from.y == toY)
+            if(from.Y == toY)
             {
                 return null;
             }
 
-            var dir = from.y > toY ? -1 : 1;
-            var path = new List<MapPoint> { from };
+            var dir = from.Y > toY ? -1 : 1;
+            var path = new List<Point> { from };
 
-            while (path[path.Count - 1].y != toY)
+            while (path[path.Count - 1].Y != toY)
             {
                 var lastPoint = path[path.Count - 1];
                 var candidateXs = new List<int>();
@@ -299,20 +299,20 @@ namespace Map
                 }
                 else
                 {
-                    candidateXs.Add(lastPoint.x);
+                    candidateXs.Add(lastPoint.X);
 
-                    if(lastPoint.x - 1 >= 0)
+                    if(lastPoint.X - 1 >= 0)
                     {
-                        candidateXs.Add(lastPoint.x - 1);
+                        candidateXs.Add(lastPoint.X - 1);
                     }
 
-                    if(lastPoint.x + 1 < width)
+                    if(lastPoint.X + 1 < width)
                     {
-                        candidateXs.Add(lastPoint.x + 1);
+                        candidateXs.Add(lastPoint.X + 1);
                     }
                 }
 
-                var nextPoint = new MapPoint(candidateXs[Random.Range(0, candidateXs.Count)], lastPoint.y + dir);
+                var nextPoint = new Point(candidateXs[Random.Range(0, candidateXs.Count)], lastPoint.Y + dir);
                 path.Add(nextPoint);
             }
 

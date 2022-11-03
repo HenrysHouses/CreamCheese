@@ -10,121 +10,47 @@ using UnityEngine;
 /// </summary>
 public class Card_Line : MonoBehaviour
 {
-    [Header("line render variables")]
-    public LineRenderer line;
-    [Range(2, 30)]
-    public int resolution;
+    Vector3 startPos, endPos, mousePos, mouseDirection;
+    Camera camera;
+    LineRenderer line;
+    private float max = 5f;
 
-    [Range(2, 30)]
-    public int linecastResolution;
-    public LayerMask canHit;
-
-    public Vector3 vel;
-    public float yLimit;
-    private float g;
-
-    private void Start()
+    // Start is called before the first frame update
+    void Start()
     {
-        g = Mathf.Abs(Physics.gravity.y);
+        line = GetComponent<LineRenderer>();
+        camera = Camera.main;
     }
 
-    private void Update()
+    // Update is called once per frame
+    void Update()
     {
-        StartCoroutine(RenderArt());
-    }
+        mousePos = camera.ScreenToWorldPoint(Input.mousePosition);
+        mouseDirection = mousePos - gameObject.transform.position;
+        mouseDirection.z = 0;
+        mouseDirection = mouseDirection.normalized;
 
-    private IEnumerator RenderArt()
-    {
-        line.positionCount = resolution + 1;
-        line.SetPositions(CalculateLineArray());
-        yield return null;
-    }
-
-    private Vector3[] CalculateLineArray()
-    {
-        Vector3[] lineArray = new Vector3[resolution + 1];
-        var lowestTimeValueX = MaxTimeX() / resolution;
-        var lowestTimeValueZ = MaxTimeZ() / resolution;
-        var lowestTimeValue = lowestTimeValueX > lowestTimeValueZ ? lowestTimeValueZ : lowestTimeValueX;
-
-        for (int i = 0; i < lineArray.Length; i++)
+        if (Input.GetMouseButtonDown(0))
         {
-            var t = lowestTimeValue * i;
-            lineArray[i] = CalculateLinePoint(t);
+            line.enabled = true;
         }
 
-        return lineArray;
-    }
-
-    private Vector3 HitPosition()
-    {
-        var lowestTimeValue = MaxTimeY() / linecastResolution;
-
-        for(int i = 0; i < linecastResolution + 1; i++)
+        if (Input.GetMouseButton(0))
         {
-            RaycastHit rayHit;
+            startPos = gameObject.transform.position;
+            startPos.z = 0;
+            line.SetPosition(0, startPos);
 
-            var t = lowestTimeValue * i;
-            var tt = lowestTimeValue * (i + 1);
-
-            if (Physics.Linecast(CalculateLinePoint(t), CalculateLinePoint(tt), out rayHit, canHit))
-            {
-                return rayHit.point;
-            }
+            endPos = mousePos;
+            endPos.z = 0;
+            float capLenght = Mathf.Clamp(Vector2.Distance(startPos, endPos), 0, max);
+            endPos = startPos + (mouseDirection * capLenght);
+            line.SetPosition(1, endPos);
         }
 
-        return CalculateLinePoint(MaxTimeY());
-    }
-
-    private Vector3 CalculateLinePoint(float t)
-    {
-        float x = vel.x * t;
-        float z = vel.z * t;
-        float y = (vel.y * t) - (g * Mathf.Pow(t, 2) / 2);
-        return new Vector3(x + transform.position.x, y + transform.position.y, z + transform.position.z);
-    }
-
-    private float MaxTimeY()
-    {
-        var v = vel.y;
-        var vv = v * v;
-
-        var t = (v + Mathf.Sqrt(vv + 2 * g * (transform.position.y - yLimit))) / g;
-        return t;
-    }
-
-    private float MaxTimeX()
-    {
-        if (IsValueAlmostZero(vel.x))
+        if (Input.GetMouseButtonUp(0))
         {
-            SetValueToAlmostZero(ref vel.x);
+            line.enabled = false;
         }
-
-        var x = vel.x;
-
-        var t = (HitPosition().x - transform.position.x) / x;
-        return t;
-    }
-    private float MaxTimeZ()
-    {
-        if (IsValueAlmostZero(vel.z))
-        {
-            SetValueToAlmostZero(ref vel.z);
-        }
-
-        var z = vel.z;
-
-        var t = (HitPosition().z - transform.position.z) / z;
-        return t;
-    }
-
-    private bool IsValueAlmostZero(float value)
-    {
-        return value < 0.0001f && value > -0.0001f;
-    }
-
-    private void SetValueToAlmostZero(ref float value)
-    {
-        value = 0.0001f;
     }
 }

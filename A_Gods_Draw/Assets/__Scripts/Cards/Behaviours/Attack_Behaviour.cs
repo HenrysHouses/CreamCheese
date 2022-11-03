@@ -1,51 +1,52 @@
-//using System.Collections;
-//using System.Collections.Generic;
-//using UnityEngine;
+using System.Collections;
+using System.Collections.Generic;
+using UnityEngine;
 
-//public class Attack_Behaviour : NonGod_Behaviour
-//{
-//    List<IMonster> targets = new List<IMonster>();
-//    Attack_Card currentCard;
+public class Attack_Behaviour : NonGod_Behaviour
+{
+    List<IMonster> targets = new List<IMonster>();
+    Attack_Card currentCard;
 
-//    public override void Initialize(Card_SO card)
-//    {
-//        card_NonGod = (card as NonGod_Card);
-//        currentCard = card as Attack_Card;
-//        strengh = currentCard.baseStrength;
-//        this.card_abs = card;
+    public override void Initialize(Card_SO card)
+    {
+        current = (card as NonGod_Card);
+        currentCard = card as Attack_Card;
+        strengh = currentCard.baseStrengh;
+        this.card = card;
 
-//        SendMessageUpwards("setBorder", Card_ClickGlowing.CardType.Attack);
-//    }
+        SendMessageUpwards("setBorder", Card_ClickGlowing.CardType.Attack);
+    }
 
-//    public override void OnAction()
-//    {
-//        foreach (IMonster target in targets)
-//        {
-//            if (target != null)
-//            {
-//                target.DealDamage(strengh);
-//                //Debug.Log("Dealt " + strengh + " damage to " + target);
-//            }
-//        }
-//    }
+    public override void OnAction()
+    {
+        foreach (IMonster target in targets)
+        {
+            if (target != null)
+            {
+                target.DealDamage(strengh);
+                Debug.Log("Dealt " + strengh + " damage to " + target);
+            }
+        }
+    }
 
-//    protected override IEnumerator Play(BoardStateController board)
-//    {
-//        foreach (IMonster enemy in board.Enemies)
-//        {
-//            enemy.IsObjectiveTo(this);
-//        }
+    public override IEnumerator OnPlay(List<IMonster> enemies, List<NonGod_Behaviour> currLane, PlayerController player, God_Behaviour god)
+    {
+        foreach (IMonster enemy in enemies)
+        {
+            enemy.IsObjectiveTo(this);
+        }
 
-//        return base.Play(board);
-//    }
+        //Debug.Log("SelectEnemies");
 
-//    protected override bool ReadyToBePlaced()
-//    {
-//        return targets.Count == 1;
-//    }
+        yield return new WaitUntil(() => { return targets.Count == 1; });
 
-//    public void AddTarget(IMonster enemy)
-//    {
-//        targets.Add(enemy);
-//    }
-//}
+        manager.FinishedPlay(this);
+
+        //Debug.Log("readyto act");
+    }
+
+    public void AddTarget(IMonster enemy)
+    {
+        targets.Add(enemy);
+    }
+}

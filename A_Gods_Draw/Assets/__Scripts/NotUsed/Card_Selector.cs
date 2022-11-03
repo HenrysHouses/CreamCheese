@@ -1,12 +1,11 @@
 using System.Collections;
 using System.Collections.Generic;
+using Unity.VisualScripting;
 using UnityEngine;
 using FMODUnity;
 
 public class Card_Selector : MonoBehaviour
 { 
-    private Card_Behaviour CB;
-    private Animator anim;
     [SerializeField] EventReference cardflip;
     public ParamRef pp;
     
@@ -16,49 +15,34 @@ public class Card_Selector : MonoBehaviour
 
      private void Start()
     {
-        CB = gameObject.GetComponentInChildren<Card_Behaviour>();
-        anim = GetComponent<Animator>();
+        
         
       
 
     }
 
-     private void Update() 
-     {
-        // if(CB.IsThisSelected)
-        // {
-        //     anim.SetBool("SelectedCard", true);
-            
-        // }
-        // else
-        //  {
-        //     anim.SetBool("SelectedCard", false);
-        //  }
-
-    }
-
     
 
-    public void OnMouseEnter()
+  public void OnMouseEnter()
     {
         holdingOver = true;
         
-        SoundPlayer.Playsound(cardflip, gameObject);
-        anim.SetBool("SelectedCard", true);
+        SoundManager.Instance.Playsound(cardflip, gameObject);
        // Debug.Log("Called");
+        
+        
+        
     }
 
     public void OnMouseExit()
     {
         holdingOver = false;
-        //SoundManager.Instance.StopSound(cardflip,gameObject);
-        //anim.SetBool("SelectedCard", false);
-        
+       // SoundManager.Instance.StopSound(cardflip,gameObject);
     }
 
-    private void OnMouseUp()
+    private void OnMouseDown()
     {
-        gameObject.GetComponentInChildren<Card_Behaviour>().OnBeingClicked();
+        gameObject.GetComponentInChildren<Card_Behaviour>(true).OnClick();
     }
 
 
