@@ -13,6 +13,8 @@ namespace Map
         public float enterNodeDelay = 1f;
         public Map_Manager mapManager;
         public Map_View view;
+        public SceneTransition _SceneTransitioner;
+        static SceneTransition sceneTransition;
 
         public static Map_PlayerTracker Instance;
 
@@ -21,6 +23,8 @@ namespace Map
         private void Awake()
         {
             Instance = this;
+            if(sceneTransition == null)
+                sceneTransition = _SceneTransitioner;
         }
 
         public void SelectNode(Map_Nodes mapNode)
@@ -33,7 +37,7 @@ namespace Map
             if (mapManager.CurrentMap.path.Count == 0)
             {
                 //the player has not selected the node yet, they can select any of the nodes with y = 0
-                if (mapNode.Node.point.Y == 0)
+                if (mapNode.Node.point.y == 0)
                 {
                     SendPlayerToNode(mapNode); //
                 }
@@ -67,7 +71,6 @@ namespace Map
             view.SetPickableNodes();
             view.SetPathColor();
             map_Nodes.ShowSwirlAnimation();
-
             EnterNode(map_Nodes);
         }
 
@@ -75,20 +78,45 @@ namespace Map
          * so when selecting a node you enter the one meant for it*/
         private static void EnterNode(Map_Nodes mapNode)
         {
-            Debug.Log("Node: " + mapNode.Node.blueprintName + " of type " + mapNode.Node.nodeType);
+            // Debug.Log("Node: " + mapNode.Node.blueprintName + " of type " + mapNode.Node.nodeType);
+            GameManager.instance.nextRewardType = mapNode.Node.nodeType;
 
             switch (mapNode.Node.nodeType)
             {
                 case NodeType.Enemy:
-                    SceneManager.LoadScene(1); //sends me to javi's scene since that has card stuff
+                    sceneTransition.TransitionScene(false, "Refactored Combat");
+                    GameManager.instance.nextCombatType = EncounterDifficulty.Easy;
                     break;
                 case NodeType.Elite:
+                    sceneTransition.TransitionScene(false, "Refactored Combat");
+                    GameManager.instance.nextCombatType = EncounterDifficulty.elites;
                     break;
                 case NodeType.RestPlace:
+                    sceneTransition.TransitionScene(false, "Refactored Combat");
                     break;
-                case NodeType.Reward:
+                case NodeType.RandomReward:
+                    sceneTransition.TransitionScene(false, "CardReward");
+                    Debug.Log(CardType.None);
+                    break;
+                case NodeType.AttackReward:
+                    sceneTransition.TransitionScene(false, "CardReward");
+                    Debug.Log(CardType.Attack);
+                    break;
+                case NodeType.DefenceReward:
+                    sceneTransition.TransitionScene(false, "CardReward");
+                    Debug.Log(CardType.Defence);
+                    break;
+                case NodeType.BuffReward:
+                    sceneTransition.TransitionScene(false, "CardReward");
+                    Debug.Log(CardType.Buff);
+                    break;
+                case NodeType.GodReward:
+                    sceneTransition.TransitionScene(false, "CardReward");
+                    Debug.Log(CardType.God);
                     break;
                 case NodeType.Boss:
+                    sceneTransition.TransitionScene(false, "Refactored Combat");
+                    GameManager.instance.nextCombatType = EncounterDifficulty.Boss;
                     break;
                 default:
                     throw new ArgumentOutOfRangeException();

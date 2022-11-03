@@ -5,7 +5,7 @@
 			<value>Card Scrolling</value>
 		</property>
 		<property name="outputFormat">
-			<value>0</value>
+			<value>1</value>
 		</property>
 		<relationship name="folder">
 			<destination>{fa355bbd-1168-4518-a17b-74976dec0d0f}</destination>
@@ -105,6 +105,9 @@
 		</relationship>
 	</object>
 	<object class="EventMixerGroup" id="{320b174f-fa82-4df8-903f-abca57df0cd7}">
+		<property name="volume">
+			<value>-11</value>
+		</property>
 		<property name="name">
 			<value>Audio 1</value>
 		</property>
@@ -121,6 +124,7 @@
 	<object class="MixerBusEffectChain" id="{aa858d3a-47b6-47d5-9b7e-9748b86d8938}">
 		<relationship name="effects">
 			<destination>{9ea0befa-877b-468f-8a1e-ad7454380b29}</destination>
+			<destination>{aa9a0218-b65e-40e0-be3a-fd08550f0192}</destination>
 		</relationship>
 	</object>
 	<object class="MixerBusPanner" id="{836b5432-0017-4b1d-8f4e-033d3d9090b0}" />
@@ -147,5 +151,28 @@
 	</object>
 	<object class="MixerBusPanner" id="{5898bc60-12a4-4d21-a997-162c2852e72c}" />
 	<object class="MixerBusFader" id="{9ea0befa-877b-468f-8a1e-ad7454380b29}" />
+	<object class="SFXReverbEffect" id="{aa9a0218-b65e-40e0-be3a-fd08550f0192}">
+		<property name="decayTime">
+			<value>2900</value>
+		</property>
+		<property name="earlyDelay">
+			<value>15</value>
+		</property>
+		<property name="lateDelay">
+			<value>22</value>
+		</property>
+		<property name="HFDecayRatio">
+			<value>100</value>
+		</property>
+		<property name="highCut">
+			<value>20000</value>
+		</property>
+		<property name="earlyLateMix">
+			<value>59</value>
+		</property>
+		<property name="wetLevel">
+			<value>-11.3000002</value>
+		</property>
+	</object>
 	<object class="MixerBusFader" id="{bd294ddc-c57a-4494-b5a9-dde82a91cb11}" />
 </objects>

@@ -2,69 +2,126 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
+using FMODUnity;
+
+[System.Serializable]
+public enum CardActionEnum
+{
+    Attack,
+    Defend,
+    Buff,
+    Instakill,
+    Chained,
+}
+
+[System.Serializable]
+public enum GodActionEnum
+{
+    None,
+    Tyr,
+}
+
+[System.Serializable]
+public struct CardElements
+{
+    public Image image;
+    public Text cardName;
+    public Text desc;
+    public Text health;
+    public Image typeIcon;
+    public Text strength;
+
+    public Transform prop;
+
+    public EventReference OnClickSFX;
+
+}
 
 public class Card_Loader : MonoBehaviour
 {
     Card_SO card_so;
+    public Card_SO GetCardSO => card_so;
 
     [SerializeField]
-    Image image;
-    [SerializeField]
-    Text cardname;
-    [SerializeField]
-    Text desc;
-    [SerializeField]
-    Text health;
-    [SerializeField]
-    Image typeIcon;
-    [SerializeField]
-    Text strengh;
+    CardElements elements;
+
+    private Card_Behaviour CB;
+    
+    public bool shouldAddComponent = true;
 
     private void Start()
     {
         GetComponent<Canvas>().worldCamera = Camera.main;
+
+        elements.prop = transform.GetChild(transform.childCount - 1);
     }
 
     // Start is called before the first frame update
-    public void Set(Card_SO card, TurnManager manager)
+    public void Set(Card_SO card)
     {
-
         card_so = card;
 
-        if (card_so as God_Card)
+        elements.cardName.text = card_so.cardName;
+        elements.image.sprite = card_so.image;
+        elements.desc.text = card_so.description;
+
+        if (card_so is God_Card_SO)
         {
-            typeIcon.enabled = false;
-            strengh.enabled = false;
-            God_Card test = card_so as God_Card;
-            health.text = test.health.ToString();
-            image.transform.position -= image.transform.position;
-        }
-        else if (card_so as NonGod_Card)
-        {
-            health.enabled = false;
-            NonGod_Card test = card_so as NonGod_Card;
-            typeIcon.sprite = test.icon;
-            strengh.text = test.baseStrengh.ToString();
+            God_Card_SO god_card = card_so as God_Card_SO;
+            elements.typeIcon.enabled = false;
+            elements.strength.enabled = false;
+            elements.health.text = god_card.health.ToString();
+            elements.image.transform.localPosition -= Vector3.up * elements.image.transform.localPosition.y;
+
+            elements.prop.GetChild(1).gameObject.SetActive(true);
+
+
+            if (shouldAddComponent)
+            {
+                CB = gameObject.AddComponent<God_Behaviour>();
+                (CB as God_Behaviour).Initialize(god_card, elements);
+            }
         }
         else
         {
-            //Debug.LogError("wtfff don't use the Card_SO objects i might cry");
+            NonGod_Card_SO nonGod = card_so as NonGod_Card_SO;
+            //Debug.Log(nonGod);
+            elements.health.enabled = false;
+            // elements.typeIcon.sprite = nonGod.icon;
+            elements.strength.text = nonGod.strengh.ToString();
+
+            ChangeOrm(nonGod.type);
+
+            if(shouldAddComponent)
+            {
+                CB = gameObject.AddComponent<NonGod_Behaviour>();
+                (CB as NonGod_Behaviour).Initialize(nonGod, elements);
+            }
         }
-        cardname.text = card_so.cardname;
-        image.sprite = card_so.image;
-        desc.text = card_so.description;
 
-        card_so.Init(this.gameObject).SetManager(manager);
+
     }
 
-    public void moveCardToHand()
+    void ChangeOrm(CardType card)
     {
-        SendMessageUpwards("AddCard", card_so);
-        // Debug.Log("Message sent from " + this.gameObject.GetComponent<Card_Behaviour>());
+        if (card == CardType.Attack)
+        {
+            elements.prop.GetChild(3).gameObject.SetActive(true);
+            return;
+        }
+        
+        if (card == CardType.Defence)
+        {
+            elements.prop.GetChild(4).gameObject.SetActive(true);
+            return;
+        }
+
+        if (card == CardType.Buff)
+        {
+            elements.prop.GetChild(5).gameObject.SetActive(true);
+            return;
+        }
     }
 
-    public void ChangeStrengh(int newValue)
-    {
-        strengh.text = newValue.ToString();
-    }
+    public Card_Behaviour Behaviour => CB;
 }

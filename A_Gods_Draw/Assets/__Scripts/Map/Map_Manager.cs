@@ -21,12 +21,16 @@ namespace Map
                 var mapJson = PlayerPrefs.GetString("Map");
                 var map = JsonConvert.DeserializeObject<Map>(mapJson);
 
-                /*if (map.path.Contains(map.GetBossNode().point))
-                {
-                    GenerateNewMap();
-                }*/
+                // if (map.path.Contains(map.GetBossNode().point))
+                // {
+                //     GenerateNewMap();
+                // }
 
-                if (map.path.Any(p => p.Equals(map.GetBossNode().point)))
+
+
+                // Debug.Log(map.GetBossNode());
+
+                if (map.path.Any(p => p.Equals(map.GetBossNode().point)) || GameManager.instance.shouldGenerateNewMap)
                 {
                     GenerateNewMap();
                 }
@@ -50,6 +54,7 @@ namespace Map
             var map = Map_Generator.GetMap(configuration);
             CurrentMap = map;
             view.MapShow(map);
+            GameManager.instance.shouldGenerateNewMap = false;
         }
 
         public void SavingMap()

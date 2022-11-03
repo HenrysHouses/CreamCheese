@@ -2,8 +2,9 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using TMPro;
+using UnityEngine.UI;
 
-public class PlayerController : MonoBehaviour
+public class PlayerController : BoardElement
 {
     [SerializeField]
     int maxHealth = 10;
@@ -13,26 +14,35 @@ public class PlayerController : MonoBehaviour
     TMP_Text healthTxt;
 
     int defendedFor = 0;
+    // TurnManager manager;
 
-    Defense_Behaviour defender;
+    [SerializeField]
+    Image arrowImage;
+    [SerializeField]
+    GameObject shieldObject;
+
+    TMP_Text shieldText;
+
+    TurnController controller;
 
     // Start is called before the first frame update
     void Start()
     {
         health = maxHealth;
         healthTxt.text = "HP: " + health.ToString();
+        shieldText = shieldObject.transform.GetChild(0).GetComponentInChildren<TMP_Text>();
     }
 
     public int GetHealth() { return health; }
 
-    public void CanBeDefended(Defense_Behaviour beh)
-    {
-        defender = beh;
-    }
-
     public void Defend(int value)
     {
+        if (defendedFor == 0)
+        {
+            shieldObject.SetActive(true);
+        }
         defendedFor += value;
+        shieldText.text = defendedFor.ToString();
     }
 
     public void DealDamage(int amount)
@@ -41,10 +51,13 @@ public class PlayerController : MonoBehaviour
         {
             health = health - (amount - defendedFor);
             defendedFor = 0;
+            shieldText.text = defendedFor.ToString();
+            shieldObject.SetActive(false);
         }
         else
         {
             defendedFor -= amount;
+            shieldText.text = defendedFor.ToString();
         }
 
         if (health <= 0)
@@ -53,15 +66,38 @@ public class PlayerController : MonoBehaviour
             
         }
         healthTxt.text = "HP: " + health.ToString();
+
+        if(health == 0)
+        {
+            MultiSceneLoader.loadCollection("Death", collectionLoadMode.difference);
+            Debug.Log("temp death trigger");
+        }
     }
 
-    private void OnMouseDown()
+    public void OnNewTurn()
     {
-        if (defender)
-        {
-            defender.ItDefends(this);
-            //Debug.Log(defender + " is going to defend this");
-        }
-        defender = null;
+        defendedFor = 0;
+        shieldText.text = defendedFor.ToString();
+        shieldObject.SetActive(false);
+    }
+
+    private void OnMouseOver()
+    {
+        arrowImage.color = Color.blue;
+    }
+
+    private void OnMouseExit()
+    {
+        arrowImage.color = Color.white;
+    }
+
+    public void PlayerShowArrow()
+    {
+        arrowImage.enabled = true;
+    }
+
+    public void PlayerHideArrow()
+    {
+        arrowImage.enabled = false;
     }
 }

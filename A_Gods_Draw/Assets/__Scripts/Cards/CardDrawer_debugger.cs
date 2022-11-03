@@ -33,7 +33,7 @@ public class CardDrawer_debugger : MonoBehaviour
 
     public void DrawACard(int amount)
     {
-        deckManager.drawCard(amount);
+        deckManager.drawCard(amount, 0);
     }
 
     public void DiscardACard()
@@ -43,7 +43,7 @@ public class CardDrawer_debugger : MonoBehaviour
 
     public void DiscardHand()
     {
-        deckManager.discardAll();
+        deckManager.discardAll(0.25f);
     }
 
     public void Shuffle()
@@ -53,26 +53,6 @@ public class CardDrawer_debugger : MonoBehaviour
 
     public void Recycle()
     {
-        deckManager.shuffleDiscard();
-    }
-    
-
-
-
-
-
-    void OnEnable()
-    {
-        deckManager.deckListChangeEvent.AddListener(deckPrint);
-    }
-
-    void OnDisable()
-    {
-        deckManager.deckListChangeEvent.RemoveListener(deckPrint);
-    }
-
-    public void deckPrint()
-    {
-        //Debug.Log(selectedCard + " changed in deck");
+        deckManager.shuffleDiscard(0.18f);
     }
 }

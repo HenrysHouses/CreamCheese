@@ -14,25 +14,37 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   nodeBlueprints:
   - {fileID: 11400000, guid: cdb3e9ac72286704fb80edb9406391b7, type: 2}
+  - {fileID: 11400000, guid: 0afbd85ee5a5cd340a7685b4eca6d2f6, type: 2}
+  - {fileID: 11400000, guid: 5539bb83591681c4a96af27e2e63be17, type: 2}
+  - {fileID: 11400000, guid: 35a795f3f3cd85e488691fcc5de5b80a, type: 2}
   - {fileID: 11400000, guid: 2edbd40d9ec948046a5c3661ced2a8ec, type: 2}
   - {fileID: 11400000, guid: e3cbc250ae2a63c4d81e1c68f4c04cac, type: 2}
-  - {fileID: 11400000, guid: 32200c04960d9ad4b938c20d3442a743, type: 2}
+  - {fileID: 11400000, guid: 415c344d88045b54d834e188820fa0c9, type: 2}
   - {fileID: 11400000, guid: 959b204575092f247bea181980a2e306, type: 2}
+  - {fileID: 11400000, guid: 32200c04960d9ad4b938c20d3442a743, type: 2}
+  - {fileID: 11400000, guid: 12ea2b37269c894408a1c47f8a1307f6, type: 2}
   numOfPreBossNodes:
-    min: 4
-    max: 5
+    min: 1
+    max: 2
   numOfStartingNodes:
     min: 3
     max: 4
   layers:
     array:
+    - nodeType: 8
+      distLayers:
+        min: 2
+        max: 3
+      nodesApartDist: 2
+      randomPos: 0.78
+      randomNodes: 0.33
     - nodeType: 0
       distLayers:
-        min: 0
-        max: 0
+        min: 1
+        max: 1
       nodesApartDist: 2
-      randomPos: 0
-      randomNodes: 0
+      randomPos: 0.96
+      randomNodes: 0.3
     - nodeType: 0
       distLayers:
         min: 2
@@ -40,7 +52,7 @@ MonoBehaviour:
       nodesApartDist: 2
       randomPos: 0.5
       randomNodes: 0.7
-    - nodeType: 3
+    - nodeType: 0
       distLayers:
         min: 2
         max: 3
@@ -54,7 +66,7 @@ MonoBehaviour:
       nodesApartDist: 2
       randomPos: 0.434
       randomNodes: 0
-    - nodeType: 0
+    - nodeType: 7
       distLayers:
         min: 2
         max: 3
@@ -63,8 +75,22 @@ MonoBehaviour:
       randomNodes: 0.791
     - nodeType: 4
       distLayers:
-        min: 4
-        max: 5
+        min: 2
+        max: 3
       nodesApartDist: 2
-      randomPos: 0.125
-      randomNodes: 0
+      randomPos: 0.599
+      randomNodes: 0.791
+    - nodeType: 5
+      distLayers:
+        min: 2
+        max: 3
+      nodesApartDist: 2
+      randomPos: 0.599
+      randomNodes: 0.791
+    - nodeType: 6
+      distLayers:
+        min: 2
+        max: 3
+      nodesApartDist: 2
+      randomPos: 0.599
+      randomNodes: 0.791

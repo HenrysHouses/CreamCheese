@@ -1,43 +1,135 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using static TurnManager;
+using FMODUnity;
+// using static TurnManager;
 
-public abstract class Card_Behaviour : MonoBehaviour
+public abstract class Card_Behaviour : BoardElement
 {
-    protected Card_SO card;
-    protected TurnManager manager;
+    IEnumerator cor;
 
-    protected bool played = false;
+    protected Card_SO card_so;
+    public Card_SO CardSO => card_so;
+    public string Name => card_so.cardName;
+
+    // protected TurnManager manager;
 
     public readonly bool isReady = false;
 
-    public virtual void Initialize(Card_SO card)
+    protected TurnController controller;
+
+    protected CardElements elements;
+
+    //Sounds
+
+    protected bool onPlayerHand = false;
+
+    // public void SetManager(TurnManager manager)
+    // {
+    //     this.manager = manager;
+    // }
+    public void SetController(TurnController cont)
     {
-        this.card = card;
+        onPlayerHand = true;
+        controller = cont;
     }
 
-    public void SetManager(TurnManager manager)
+    public void OnBeingClicked()
     {
-        this.manager = manager;
-    }
-
-    public virtual void OnClick()
-    {
-        if (!played)
+        if (onPlayerHand)
         {
-            manager.SelectedCard(this);
-            played = true;
+            SoundPlayer.Playsound(elements.OnClickSFX,gameObject);
+            controller.SetSelectedCard(this);
+            OnBeingSelected();
         }
     }
 
-    public Card_SO GetCardSO() { return card; }
-    // public void setCardSO(Card_SO Stats) { card = Stats; }
+    protected abstract void OnBeingSelected();
 
-    public virtual IEnumerator OnPlay(List<IMonster> enemies, List<NonGod_Behaviour> currLane, PlayerController player, God_Behaviour god)
+    public void DeSelected()
     {
-        yield return new WaitUntil(() => { return true; });
-        manager.FinishedPlay(this);
+        StopCoroutine(cor);
+        cor = null;
+        GetComponentInParent<Card_ClickGlowing>().RemoveBorder();
     }
-    public virtual void OnAction() { }
+
+    // internal TurnManager GetManager()
+    // {
+    //     return manager;
+    // }
+
+    // public bool IsThisSelected()
+    // {
+    //     if(manager == null)
+    //     {
+    //         return false;
+    //     }
+    //     return manager.CurrentlySelectedCard() == this;
+    // }
+
+    protected virtual bool ReadyToBePlaced()
+    {
+        return true;
+    }
+
+    protected virtual IEnumerator Play(BoardStateController board)
+    {
+        yield return new WaitUntil(ReadyToBePlaced);
+        GetComponentInParent<Card_ClickGlowing>().RemoveBorder();
+        GetComponentInParent<BoxCollider>().enabled = false;
+        LatePlayed(board);
+        // manager.FinishedPlay(this);
+
+        
+        // if(this is Attack_Behaviour attack_)
+        //     manager.OnDeSelectedAttackCard?.Invoke();
+    }
+
+    protected CardAction GetAction(CardActionEnum card, int strengh)
+    {
+        switch (card)
+        {
+            case CardActionEnum.Attack:
+                return new AttackCardAction(strengh);
+            case CardActionEnum.Defend:
+                return new DefendCardAction(strengh);
+            case CardActionEnum.Buff:
+                return new BuffCardAction(strengh, false);
+            case CardActionEnum.Instakill:
+                return new InstakillCardAction(strengh);
+            case CardActionEnum.Chained:
+                return new ChainCardAction(strengh);
+            default:
+                return null;
+        }
+    }
+
+    protected GodCardAction GetAction(GodActionEnum card)
+    {
+        return card switch
+        {
+            GodActionEnum.Tyr => new TyrActions(),
+            _ => null,
+        };
+    }
+
+    public void ChangeStrengh(int newValue)
+    {
+        elements.strength.text = newValue.ToString();
+    }
+
+    public virtual void LatePlayed(BoardStateController board) { }
+    public abstract void OnAction();
+
+    public virtual void CancelSelection() { controller.SetSelectedCard(); }
+    public virtual void Placed(bool placed = false)
+    {
+        GetComponent<BoxCollider>().enabled = true;
+        transform.parent.GetComponent<BoxCollider>().enabled = false;
+        onPlayerHand = placed;
+    }
+    public bool IsOnHand() { return onPlayerHand; }
+
+    public abstract bool CardIsReady();
 }

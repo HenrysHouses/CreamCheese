@@ -1,0 +1,143 @@
+using System.Collections;
+using System.Collections.Generic;
+using UnityEngine;
+using UnityEngine.UI;
+using TMPro;
+using System;
+using FMODUnity;
+
+public abstract class IMonster : BoardElement
+{
+    public Intent GetIntent() => enemyIntent;
+    protected Intent enemyIntent;
+    
+    [SerializeField]
+    int maxHealth;
+    int health;
+
+    [SerializeField]
+    private EventReference SoundSelectCard;
+
+    int defendedFor;
+
+    [SerializeField]
+    Image image;
+    [SerializeField]
+    Text strengh;
+    [SerializeField]
+    TMP_Text healthTxt;
+
+    [SerializeField]
+    Sprite attackIcon;
+    [SerializeField]
+    Sprite abilityIcon;
+
+    [SerializeField]
+    Image arrowImage;
+    private bool locked;
+
+    // Start is called before the first frame update
+    void Awake()
+    {
+        health = maxHealth;
+
+        healthTxt.text = "HP: " + health.ToString();
+
+        image.enabled = false;
+        strengh.enabled = false;
+    }
+
+    public int GetMaxHealth() { return maxHealth; }
+    public int GetHealth() { return health; }
+
+    public void DealDamage(int amount)
+    {
+        if (amount > defendedFor)
+        {
+            health = health - (amount - defendedFor);
+            defendedFor = 0;
+        }
+        else
+        {
+            defendedFor -= amount;
+        }
+
+        if (health <= 0)
+        {
+            health = 0;
+            // manager.EnemyDied(this);
+            Destroy(this.gameObject);
+        }
+
+        healthTxt.text = "HP: " + health.ToString();
+    }
+
+    internal void DecideIntent(BoardStateController board)
+    {
+        enemyIntent.CancelIntent();
+
+        enemyIntent.DecideIntent(board);
+    }
+
+    internal void LateDecideIntent(BoardStateController board)
+    {
+        enemyIntent.LateDecideIntent(board);
+
+        UpdateUI();
+    }
+
+    public void Defend(int amount)
+    {
+        defendedFor += amount;
+    }
+
+    public void DeBuff(int amount)
+    {
+        if (enemyIntent.GetID() == EnemyIntent.AttackGod || enemyIntent.GetID() == EnemyIntent.AttackPlayer)
+        {
+            enemyIntent.SetCurrStrengh(enemyIntent.GetCurrStrengh() - amount);
+            if (enemyIntent.GetCurrStrengh() < 0)
+            {
+                enemyIntent.SetCurrStrengh(0);
+            }
+        }
+
+        UpdateUI();
+    }
+
+    public void UpdateUI()
+    {
+        if (strengh)
+        {
+            strengh.text = enemyIntent.GetCurrStrengh().ToString();
+            strengh.enabled = true;
+        }
+        if (image)
+            image.enabled = true;
+    }
+
+    public void Act(BoardStateController board)
+    {
+        enemyIntent.Act(board);
+        //waitforanimations
+    }
+
+    private void OnMouseOver()
+    {
+        arrowImage.color = Color.red;
+    }
+
+    private void OnMouseExit()
+    {
+        arrowImage.color = Color.white;
+    }
+
+    public void EnemyShowArrow()
+    {
+    }
+
+    public void EnemyHideArrow()
+    {
+        arrowImage.enabled = false;
+    }
+}
