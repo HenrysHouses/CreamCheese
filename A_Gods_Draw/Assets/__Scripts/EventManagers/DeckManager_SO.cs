@@ -21,7 +21,24 @@ public class DeckManager_SO : ScriptableObject
     
     [SerializeField, Tooltip("Cards the player has obtained")] 
     DeckList_SO deckList;
+<<<<<<< Updated upstream
     
+=======
+    public  DeckList_SO getDeck => deckList;
+    static DeckList_SO starterDeck;
+    public static DeckList_SO getStarterDeck()
+    {
+
+        if(starterDeck != null)
+        {
+            return starterDeck;
+        }
+        
+        starterDeck = Resources.Load<DeckList_SO>("DeckLists/StarterDeck.asset");
+        return starterDeck;
+    }
+
+>>>>>>> Stashed changes
     [SerializeField, Tooltip("Cards the player can draw")] 
     List<Card_SO> pLibrary;
     
@@ -90,8 +107,13 @@ public class DeckManager_SO : ScriptableObject
     public void addCardToDeck(Card_SO card)
     {
         deckList.Deck.Add(card);
+<<<<<<< Updated upstream
         // ? change events may not be used
         deckListChangeEvent.Invoke();
+=======
+        GameSaver.SaveData();
+        //SavingDeck();
+>>>>>>> Stashed changes
     }
 
     /// <summary>Removes a card from the player deck list</summary>
@@ -99,8 +121,13 @@ public class DeckManager_SO : ScriptableObject
     public void removeCardFromDeck(Card_SO card)
     {
         deckList.Deck.Remove(card);
+<<<<<<< Updated upstream
         // ? change events may not be used
         deckListChangeEvent.Invoke();
+=======
+        GameSaver.SaveData();
+        //SavingDeck();
+>>>>>>> Stashed changes
     }
 
     /// <summary>Sets player library to be equal to the deck list, clears player hand and discard.</summary>
@@ -119,7 +146,7 @@ public class DeckManager_SO : ScriptableObject
     public void clear()
     {
         pLibrary.Clear();
-        pDiscard.Clear();
+        pDiscard.Clear();   
         pHand.Clear();
     }
 
@@ -308,8 +335,67 @@ public class DeckManager_SO : ScriptableObject
     /// <returns>Current cards in the player's hand</returns>
     public List<Card_SO> GetCurrentHand()
     {
+<<<<<<< Updated upstream
         return pHand;
     }
 
     public void wtf() { Debug.Log("aaaa"); }
+=======
+        return pHand.ToArray();
+    }
+
+    public void SetCurrentDeck(DeckList_SO deckList_)
+    {
+        deckList = deckList_;
+    }
+
+    //public void LoadDeck()
+    //{
+    //    string deckJson = PlayerPrefs.GetString("Deck");
+
+    //    DeckList_SO loadedDeck = ScriptableObject.CreateInstance<DeckList_SO>();
+    //    JsonUtility.FromJsonOverwrite(deckJson, loadedDeck);
+
+    //    Debug.Log(loadedDeck);
+
+    //    if (loadedDeck.Deck == null)
+    //    {
+    //        Debug.LogWarning("The list in the Loaded deck is null");
+    //        deckList.Deck = starterDeck.Deck;
+    //        //saving.SaveData();
+    //        //SavingDeck();
+    //        return;
+    //    }
+
+    //    if (loadedDeck.Deck.Count < 1) // ! probably never going to happen
+    //    {
+    //        Debug.LogWarning("Loaded deck is length of 0");
+    //        deckList.Deck = starterDeck.Deck;
+    //        return;
+    //    }
+
+    //    deckList.Deck = loadedDeck.Deck;
+    //    Debug.Log(loadedDeck.Deck[0].cardName);
+
+    //    Debug.Log("deck has been loaded from the save");
+    //}
+
+    //public void SavingDeck()
+    //{
+    //    var settings = new JsonSerializerSettings()
+    //    {
+    //        TypeNameHandling = TypeNameHandling.All,
+    //        NullValueHandling = NullValueHandling.Ignore,
+    //        ReferenceLoopHandling = ReferenceLoopHandling.Ignore
+    //    };
+    //    settings.Converters.Add(new Newtonsoft.Json.Converters.StringEnumConverter());
+
+    //    string json = JsonUtility.ToJson(deckList).ToString();
+
+    //    PlayerPrefs.SetString("Deck", json);
+    //    PlayerPrefs.Save();
+
+    //    Debug.Log("deck list has been saved");
+    //}
+>>>>>>> Stashed changes
 }
