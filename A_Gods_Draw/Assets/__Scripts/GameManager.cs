@@ -17,7 +17,6 @@ public class GameManager : MonoBehaviour
     private void Awake() 
     {
         GameSaver.InitializeSaving();
-
         if(!instance)
             instance = this;
         else
