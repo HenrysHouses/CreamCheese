@@ -11,11 +11,16 @@ public class BuffCardAction : CardAction
 
     public override IEnumerator ChoosingTargets(BoardStateController board, float mult)
     {
+        camAnim.SetBool("Up", true);
+
         isReady = false;
 
         board.SetClickable(0);
 
         yield return new WaitUntil(HasClickedNonGod);
+
+        camAnim.SetBool("Up", false);
+
 
         board.SetClickable(0, false);
 
@@ -71,6 +76,6 @@ public class BuffCardAction : CardAction
     }
     public override void ResetCamera()
     {
-        //camAnim.SetBool("EnemyCloseUp", false);
+        camAnim.SetBool("Up", false);
     }
 }
