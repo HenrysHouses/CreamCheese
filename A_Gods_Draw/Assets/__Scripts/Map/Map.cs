@@ -38,7 +38,7 @@ namespace Map
                 if(type.Equals(NodeType.Boss))
                     found = nodes[i];
             }
-            Debug.Log(found);
+            Debug.LogWarning("found no boss node");
             return found;
         }
 

@@ -5,19 +5,12 @@ using UnityEngine;
 
 public static class GameSaver
 {
-    private static DeckList_SO deckList;
 
     private static string path = "";
     private static string persistantPath = "";
 
-    private static void CreatePlayerData()
-    {
-        deckList = DeckManager_SO.getStarterDeck();
-    }
-
     public static void InitializeSaving()
     {
-        CreatePlayerData();
         SetPaths();
         Debug.Log("AAAA setpaths plz!");
     }
@@ -36,10 +29,10 @@ public static class GameSaver
         }
     }
 
-    public static void SaveData()
+    public static void SaveData(DeckList_SO deck)
     {
         string savePath = persistantPath; // <- path for us to see in assets, persistantPath is what should be used
-        string json = JsonUtility.ToJson(deckList);
+        string json = JsonUtility.ToJson(deck);
 
         using StreamWriter writer = new StreamWriter(savePath);
         writer.Write(json);
@@ -51,6 +44,11 @@ public static class GameSaver
         string json = streamReader.ReadToEnd();
 
         DeckList_SO deck = JsonUtility.FromJson<DeckList_SO>(json);
+
+        Debug.Log(deck);
+
+        if(deck == null)
+            deck = DeckManager_SO.getStarterDeck();
 
         return deck;
     }

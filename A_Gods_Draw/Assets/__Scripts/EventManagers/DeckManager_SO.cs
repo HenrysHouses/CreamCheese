@@ -39,7 +39,8 @@ public class DeckManager_SO : ScriptableObject
             return starterDeck;
         }
         
-        starterDeck = Resources.Load<DeckList_SO>("DeckLists/StarterDeck.asset");
+        starterDeck = Resources.Load<DeckList_SO>("DeckLists/StarterDeck");
+
         return starterDeck;
     }
 
@@ -92,7 +93,7 @@ public class DeckManager_SO : ScriptableObject
     {
         Debug.Log("add card: " + card);
         deckList.Deck.Add(card);
-        GameSaver.SaveData();
+        GameSaver.SaveData(deckList);
         //SavingDeck();
     }
 
@@ -101,7 +102,7 @@ public class DeckManager_SO : ScriptableObject
     public void removeCardFromDeck(Card_SO card)
     {
         deckList.Deck.Remove(card);
-        GameSaver.SaveData();
+        GameSaver.SaveData(deckList);
         //SavingDeck();
     }
 
@@ -367,62 +368,62 @@ public class DeckManager_SO : ScriptableObject
         deckList = deckList_;
     }
 
-    public void SavingDeck()
-    {
-        var settings = new JsonSerializerSettings()
-        {
-            TypeNameHandling = TypeNameHandling.All,
-            NullValueHandling = NullValueHandling.Ignore,
-            ReferenceLoopHandling = ReferenceLoopHandling.Ignore
-        };
-        settings.Converters.Add(new Newtonsoft.Json.Converters.StringEnumConverter());
+    // public void SavingDeck()
+    // {
+    //     var settings = new JsonSerializerSettings()
+    //     {
+    //         TypeNameHandling = TypeNameHandling.All,
+    //         NullValueHandling = NullValueHandling.Ignore,
+    //         ReferenceLoopHandling = ReferenceLoopHandling.Ignore
+    //     };
+    //     settings.Converters.Add(new Newtonsoft.Json.Converters.StringEnumConverter());
 
-        var json = JsonUtility.ToJson(deckList).ToString();
+    //     var json = JsonUtility.ToJson(deckList).ToString();
 
-        PlayerPrefs.SetString("Deck", json);
-        PlayerPrefs.Save();
+    //     PlayerPrefs.SetString("Deck", json);
+    //     PlayerPrefs.Save();
 
-        Debug.Log("deck list has been saved");
-    }
+    //     Debug.Log("deck list has been saved");
+    // }
 
-    public void LoadDeck()
-    {
-        JsonSerializerSettings settings = new JsonSerializerSettings()
-        {
-            TypeNameHandling = TypeNameHandling.All,
-            NullValueHandling = NullValueHandling.Ignore,
-            ReferenceLoopHandling = ReferenceLoopHandling.Ignore
-        };
+    // public void LoadDeck()
+    // {
+    //     JsonSerializerSettings settings = new JsonSerializerSettings()
+    //     {
+    //         TypeNameHandling = TypeNameHandling.All,
+    //         NullValueHandling = NullValueHandling.Ignore,
+    //         ReferenceLoopHandling = ReferenceLoopHandling.Ignore
+    //     };
 
-        string deckJson = PlayerPrefs.GetString("Deck");
+    //     string deckJson = PlayerPrefs.GetString("Deck");
         
-        DeckList_SO loadedDeck = ScriptableObject.CreateInstance<DeckList_SO>();
-        JsonUtility.FromJsonOverwrite(deckJson, loadedDeck);
+    //     DeckList_SO loadedDeck = ScriptableObject.CreateInstance<DeckList_SO>();
+    //     JsonUtility.FromJsonOverwrite(deckJson, loadedDeck);
 
-        Debug.Log(loadedDeck);
+    //     Debug.Log(loadedDeck);
         
-        if(loadedDeck.Deck == null)
-        {
-            Debug.LogWarning("The list in the Loaded deck is null");
-            deckList.Deck = starterDeck.Deck;
-            SavingDeck();
-            return;
-        }
+    //     if(loadedDeck.Deck == null)
+    //     {
+    //         Debug.LogWarning("The list in the Loaded deck is null");
+    //         deckList.Deck = starterDeck.Deck;
+    //         SavingDeck();
+    //         return;
+    //     }
 
-        if(loadedDeck.Deck.Count < 1) // ! probably never going to happen
-        {
-            Debug.LogWarning("Loaded deck is length of 0");
-            deckList.Deck = starterDeck.Deck;
-            return;
-        }
+    //     if(loadedDeck.Deck.Count < 1) // ! probably never going to happen
+    //     {
+    //         Debug.LogWarning("Loaded deck is length of 0");
+    //         deckList.Deck = starterDeck.Deck;
+    //         return;
+    //     }
 
-        deckList.Deck = loadedDeck.Deck;
-        Debug.Log(loadedDeck.Deck[0].cardName);
+    //     deckList.Deck = loadedDeck.Deck;
+    //     Debug.Log(loadedDeck.Deck[0].cardName);
 
-    //    PlayerPrefs.SetString("Deck", json);
-    //    PlayerPrefs.Save();
+    // //    PlayerPrefs.SetString("Deck", json);
+    // //    PlayerPrefs.Save();
 
-    //    Debug.Log("deck list has been saved");
-    //
-    }
+    // //    Debug.Log("deck list has been saved");
+    // //
+    // }
 }

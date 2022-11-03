@@ -7,6 +7,7 @@ public class GameManager : MonoBehaviour
 {
     [SerializeField]
     DeckManager_SO deckManager;
+    [SerializeField] PlayerTracker PlayerTracker;
 
     public bool shouldGenerateNewMap;
     public static GameManager instance;
@@ -25,7 +26,7 @@ public class GameManager : MonoBehaviour
 
     private void Start()
     {
-        deckManager.LoadDeck();
+        PlayerTracker.setDeck(GameSaver.LoadData());
     }
 
     public void newGame()

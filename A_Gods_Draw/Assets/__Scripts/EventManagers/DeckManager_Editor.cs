@@ -19,7 +19,7 @@ public class DeckManager_Editor : Editor
         if(GUILayout.Button("Save Deck"))
         {
             //script.SavingDeck();
-            GameSaver.SaveData();
+            GameSaver.SaveData(script.getDeck);
         }
     }
 }
