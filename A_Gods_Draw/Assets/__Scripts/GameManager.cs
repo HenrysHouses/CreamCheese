@@ -26,7 +26,7 @@ public class GameManager : MonoBehaviour
 
     private void Start()
     {
-        deckManager.SetCurrentDeck(GameSaver.LoadData());
+        deckManager.LoadDeck();
     }
 
     public void newGame()
