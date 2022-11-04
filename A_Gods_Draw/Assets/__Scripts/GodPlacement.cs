@@ -13,6 +13,7 @@ public class GodPlacement : MonoBehaviour
 
     public void SetGod(God_Behaviour god)
     {
+        //CameraShake.Shake(0.25f, 2f);   // I tried.. 
         this.god = god;
         god.SetPlace(this);
         health.enabled = true;

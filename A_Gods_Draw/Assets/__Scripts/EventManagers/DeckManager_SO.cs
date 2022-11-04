@@ -24,13 +24,19 @@ using Random = UnityEngine.Random;
 [CreateAssetMenu(menuName = "Events/DeckManager")]
 public class DeckManager_SO : ScriptableObject
 {
-    [SerializeField, Tooltip("Prefab used in animations for cards")] 
+    [SerializeField, Tooltip("Prefab used in animations for cards")]
     GameObject CardAnimationPrefab;
-    
-    [SerializeField, Tooltip("Cards the player has obtained")] 
+
+    [SerializeField, Tooltip("Cards the player has obtained")]
     DeckList_SO deckList;
-    public  DeckList_SO getDeck => deckList;
+    public DeckList_SO getDeck => deckList;
     static DeckList_SO starterDeck;
+
+    [SerializeField]
+    private string itemName;
+    private SaveableItemSet saveableItemSet;
+    private UniqueID uniqueID;
+
     public static DeckList_SO getStarterDeck()
     {
 
@@ -68,6 +74,11 @@ public class DeckManager_SO : ScriptableObject
             deckList = Resources.Load<DeckList_SO>("DeckLists/DeckList");
         }
             
+    }
+
+    private void Awake()
+    {
+        GameSaver.LoadData();
     }
 
     // Setup
@@ -368,6 +379,19 @@ public class DeckManager_SO : ScriptableObject
     public void SetCurrentDeck(DeckList_SO deckList_)
     {
         deckList = deckList_;
+    }
+
+    void Save()
+    {
+        TEST_SaveJson.Save("Decklist", deckList);
+    }
+
+    void Load()
+    {
+        if (TEST_SaveJson.SaveExists("Decklist"))
+        {
+            
+        }
     }
 
     // public void SavingDeck()
