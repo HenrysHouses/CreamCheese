@@ -27,7 +27,6 @@ public class AttackCardAction : CardAction
 
     bool HasClickedMonster()
     {
-
         BoardElement element = TurnController.PlayerClick();
         IMonster clickedMonster = element as IMonster;
         if (clickedMonster)
