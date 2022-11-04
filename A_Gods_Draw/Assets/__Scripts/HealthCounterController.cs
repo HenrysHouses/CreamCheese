@@ -7,6 +7,7 @@ public class HealthCounterController : MonoBehaviour
 {
     [SerializeField] PlayerTracker player;
     [SerializeField] EventReference HealthTick_SFX;
+    [SerializeField] ParamRef HealthTick_Parameter;
     public int currHealth => Health-Damage; 
     /// <summary>how many health points the player has had</summary> // this is offset by 50
     public int MaxHealth = 100;
@@ -178,7 +179,10 @@ public class HealthCounterController : MonoBehaviour
         bool animIsDone = false;
 
         shouldTriggerGears.RemoveAt(0);
-        SoundPlayer.Playsound(HealthTick_SFX, gameObject);
+
+        HealthTick_Parameter.Value = player.Health;
+        SoundPlayer.Playsound(HealthTick_SFX, gameObject, HealthTick_Parameter);
+        
         float[] currRotationAmount = new float[gear.Length];
         bool[] gearState = new bool[gear.Length];
 
