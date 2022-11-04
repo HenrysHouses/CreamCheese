@@ -41,7 +41,7 @@ public class TurnController : CombatFSM
 
     protected override void Initialize()
     {
-        deckManager.SetCurrentDeck(player.Deck);
+        deckManager.SetCurrentDeck(player.CurrentDeck);
         deckManager.reset();
 
         AwakeCombatState _combatSetup = new AwakeCombatState(this);

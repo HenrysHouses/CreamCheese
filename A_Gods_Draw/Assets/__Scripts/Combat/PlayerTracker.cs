@@ -12,8 +12,8 @@ using UnityEngine;
 public class PlayerTracker : ScriptableObject
 {
     public int Health;
-    public List<int> HealthChanges = new List<int>();
-    public DeckList_SO Deck;
+    [HideInInspector] public List<int> HealthChanges = new List<int>();
+    public DeckList_SO CurrentDeck;
 
     // player's runes here
 
@@ -31,6 +31,6 @@ public class PlayerTracker : ScriptableObject
             newDeck.Add(deck.Deck[i]);
         }
 
-        Deck.Deck = newDeck;
+        CurrentDeck.Deck = newDeck;
     }
 }

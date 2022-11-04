@@ -10,16 +10,16 @@ public class HealthCounterController : MonoBehaviour
     public int currHealth => Health-Damage; 
     /// <summary>how many health points the player has had</summary> // this is offset by 50
     public int MaxHealth = 100;
-    [SerializeField] int Health = 200;
+    int Health = 200;
     /// <summary>how much total damage the player has taken</summary> // this is offset by 50
-    [SerializeField] int Damage = 100;
+    int Damage = 100;
     // Health Visualization
     [SerializeField] PathController pathController;
     [SerializeField] Transform HealthObj1, HealthObj2;
     [SerializeField] Transform DamageObj1, DamageObj2;
     
-    public float HealthT = 0;
-    public float DamageT = 0;
+    float HealthT = 0;
+    float DamageT = 0;
     [SerializeField] float offset;
     [SerializeField] float HealthAnimSpeed = 1;
     [SerializeField] float healingDelay = 0.5f;
@@ -55,7 +55,7 @@ public class HealthCounterController : MonoBehaviour
 
     void initPlayerHealth()
     {
-        Health = 200;
+        Health = MaxHealth * 2;
         Damage = Health - player.Health;
     }
 
