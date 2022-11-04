@@ -121,6 +121,12 @@ public class CameraMovement : MonoBehaviour
             SoundPlayer.Playsound(cameraSound, gameObject);
 
         }
+
+        else if(MultiSceneLoader.getLoadedCollectionTitle.Equals("HowToPlay"))
+        {
+            anim.SetBool("MapCamera",true);
+            SoundPlayer.Playsound(cameraSound,gameObject);
+        }
         else 
         {
             anim.SetBool("MapCamera", false);
