@@ -27,6 +27,9 @@ public class ChoosingReward : MonoBehaviour
     [SerializeField]
     LayerMask laneLayer;
 
+    
+    //TODO make item database and add here
+
     private void Start()
     {
         CardOptions = new Card_SO[spots.Length];
@@ -40,6 +43,8 @@ public class ChoosingReward : MonoBehaviour
         {
             int SelectIndex = SelectReward();
             deckManager.addCardToDeck(CardOptions[SelectIndex]);
+
+
             if (SelectIndex > -1)
             {
                 MultiSceneLoader.loadCollection("Map", collectionLoadMode.difference);
