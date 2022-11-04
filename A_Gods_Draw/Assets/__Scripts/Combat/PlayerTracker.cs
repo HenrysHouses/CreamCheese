@@ -20,7 +20,7 @@ public class PlayerTracker : ScriptableObject
     public void UpdateHealth(int difference)
     {
         Health += difference;
-        HealthChanges.Add(Health);
+        HealthChanges.Add(difference);
     }
 
     public void setDeck(DeckList_SO deck)
