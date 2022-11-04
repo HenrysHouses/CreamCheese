@@ -5,13 +5,14 @@ using FMODUnity;
 
 public class HealthCounterController : MonoBehaviour
 {
+    [SerializeField] PlayerTracker player;
     [SerializeField] EventReference HealthTick_SFX;
     public int currHealth => Health-Damage; 
     /// <summary>how many health points the player has had</summary> // this is offset by 50
-    int Health = 200;
     public int MaxHealth = 100;
+    [SerializeField] int Health = 200;
     /// <summary>how much total damage the player has taken</summary> // this is offset by 50
-    int Damage = 100;
+    [SerializeField] int Damage = 100;
     // Health Visualization
     [SerializeField] PathController pathController;
     [SerializeField] Transform HealthObj1, HealthObj2;
@@ -21,6 +22,7 @@ public class HealthCounterController : MonoBehaviour
     public float DamageT = 0;
     [SerializeField] float offset;
     [SerializeField] float HealthAnimSpeed = 1;
+    [SerializeField] float healingDelay = 0.5f;
     [SerializeField] float GearAnimSpeed = 1;
     // Health Anim
     bool healthIsAnimating = false;
@@ -34,14 +36,39 @@ public class HealthCounterController : MonoBehaviour
     public float[] gearRotateAmount;
     [SerializeField] Transform[] gear;
 
+    void Start()
+    {
+        initPlayerHealth();
+    }
+
     // Update is called once per frame
     void Update()
     {
-        if(HealthObj1 is null || DamageObj1 is null || DamageObj2 is null || HealthObj2 is null )
+        if(HealthObj1 is null || DamageObj1 is null || DamageObj2 is null || HealthObj2 is null || player is null)
             return;
+
+        checkPlayerStatus();
 
         DoGearAnim();
         DoHealthAnim();
+    }
+
+    void initPlayerHealth()
+    {
+        Health = 200;
+        Damage = Health - player.Health;
+    }
+
+    void checkPlayerStatus()
+    {
+        if(!healthIsAnimating && !gearIsAnimating)
+        {
+            if(player.HealthChanges.Count <= 0)
+                return;
+
+            updateHealth(player.HealthChanges[0]);
+            player.HealthChanges.RemoveAt(0);
+        }
     }
 
     bool updateHealth(int healthDifference)
@@ -132,7 +159,7 @@ public class HealthCounterController : MonoBehaviour
 
             yield return new WaitForEndOfFrame();
         }
-
+        yield return new WaitForSeconds(healingDelay);
         healthIsAnimating = false;
     }
     

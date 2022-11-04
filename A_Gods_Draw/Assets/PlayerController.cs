@@ -6,10 +6,10 @@ using UnityEngine.UI;
 
 public class PlayerController : BoardElement
 {
+    [SerializeField] 
+    PlayerTracker playerTracker;
     [SerializeField]
     int maxHealth = 10;
-    [SerializeField]
-    int health;
     [SerializeField]
     TMP_Text healthTxt;
 
@@ -28,12 +28,11 @@ public class PlayerController : BoardElement
     // Start is called before the first frame update
     void Start()
     {
-        health = maxHealth;
-        healthTxt.text = "HP: " + health.ToString();
+        healthTxt.text = "HP: " + playerTracker.Health.ToString();
         shieldText = shieldObject.transform.GetChild(0).GetComponentInChildren<TMP_Text>();
     }
 
-    public int GetHealth() { return health; }
+    // public int GetHealth() { return health; }
 
     public void Defend(int value)
     {
@@ -49,7 +48,9 @@ public class PlayerController : BoardElement
     {
         if (amount > defendedFor)
         {
-            health = health - (amount - defendedFor);
+            int diff = amount - defendedFor;
+            Debug.Log("Damage taken:" + -diff);
+            playerTracker.UpdateHealth(-diff);
             defendedFor = 0;
             shieldText.text = defendedFor.ToString();
             shieldObject.SetActive(false);
@@ -60,19 +61,8 @@ public class PlayerController : BoardElement
             shieldText.text = defendedFor.ToString();
         }
 
-        if (health <= 0)
-        {
-            health = 0;
-            
-        }
-        healthTxt.text = "HP: " + health.ToString();
+        healthTxt.text = "HP: " + playerTracker.Health.ToString();
 
-        if(health == 0)
-        {
-            ExitCombat();
-            MultiSceneLoader.loadCollection("Death", collectionLoadMode.difference);
-            Debug.Log("temp death trigger");
-        }
     }
 
     public void OnNewTurn()

@@ -12,9 +12,16 @@ using UnityEngine;
 public class PlayerTracker : ScriptableObject
 {
     public int Health;
+    public List<int> HealthChanges = new List<int>();
     public DeckList_SO Deck;
 
     // player's runes here
+
+    public void UpdateHealth(int difference)
+    {
+        Health += difference;
+        HealthChanges.Add(Health);
+    }
 
     public void setDeck(DeckList_SO deck)
     {

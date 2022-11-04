@@ -36,7 +36,6 @@ public class CardPlayer : MonoBehaviour
             if(_selectedCard is null)
             {
                 _selectedCard = selectCard();
-                Debug.Log(_selectedCard);
                 return;
             }
 
