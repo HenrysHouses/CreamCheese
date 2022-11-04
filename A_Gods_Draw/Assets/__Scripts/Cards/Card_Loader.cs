@@ -12,7 +12,8 @@ public enum CardActionEnum
     Buff,
     Instakill,
     Chained,
-    Storr
+    Storr,
+    SplashDMG,
 }
 
 [System.Serializable]

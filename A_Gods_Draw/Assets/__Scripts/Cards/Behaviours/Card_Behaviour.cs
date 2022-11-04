@@ -102,6 +102,8 @@ public abstract class Card_Behaviour : BoardElement
                 return new ChainCardAction(card.actionStrength);
             case CardActionEnum.Storr:
                 return new StorrCardAction(card.actionStrength);
+            case CardActionEnum.SplashDMG:
+                return new SplashDMGCardAction(card.actionStrength);
             default:
                 return null;
         }
