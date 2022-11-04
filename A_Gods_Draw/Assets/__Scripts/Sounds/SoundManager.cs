@@ -11,7 +11,7 @@ public static class SoundPlayer
 {   
     private static Dictionary<(EventReference, GameObject),EventInstance> eventInstances = new Dictionary<(EventReference, GameObject), EventInstance>();
 
-    public static void Playsound(EventReference _soundEvenet, GameObject soundGO, bool looping = false, ParamRef parameterID = null)
+    public static void Playsound(EventReference _soundEvenet, GameObject soundGO, ParamRef parameterID = null)
     {
         // Debug.Log("Played sound: " + _soundEvenet.Path);
         EventInstance temperaryEvent;
@@ -29,24 +29,27 @@ public static class SoundPlayer
 
         temperaryEvent.getPlaybackState(out pbstate);
 
-        if(looping)
-        {
-            if(pbstate != PLAYBACK_STATE.PLAYING)
-            {
-                temperaryEvent.start();
-            }
-        }
-        else if (parameterID == null)
+        // if(looping)
+        // {
+        //     if(pbstate != PLAYBACK_STATE.PLAYING)
+        //     {
+        //         temperaryEvent.start();
+        //     }
+        // }
+        if (parameterID == null)
         {
             temperaryEvent.start();
             //Debug.Log("Soundplayed");
         }
         else
         {
-            temperaryEvent.setParameterByName(parameterID.Name, parameterID.Value);
+            Debug.Log(parameterID.Value);
             temperaryEvent.start();
+            temperaryEvent.setParameterByName(parameterID.Name, parameterID.Value);
         }
     }
+
+    
 
     public static void StopSound(EventReference _soundEvenet, GameObject soundGO)
     {
