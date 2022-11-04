@@ -6,6 +6,7 @@ using UnityEngine;
 public class God_Card_SO : Card_SO
 {
     // [HideInInspector]
+    public int strengh;
     public int health;
     public GodActionEnum godAction;
 

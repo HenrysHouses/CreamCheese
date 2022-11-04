@@ -69,6 +69,7 @@ public class PlayerController : BoardElement
 
         if(health == 0)
         {
+            ExitCombat();
             MultiSceneLoader.loadCollection("Death", collectionLoadMode.difference);
             Debug.Log("temp death trigger");
         }

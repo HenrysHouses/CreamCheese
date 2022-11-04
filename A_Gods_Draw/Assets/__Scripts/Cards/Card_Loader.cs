@@ -90,7 +90,7 @@ public class Card_Loader : MonoBehaviour
             elements.health.enabled = false;
 
             // elements.typeIcon.sprite = nonGod.icon;
-            elements.strength.text = nonGod.cardActions[0].actionStrength.ToString();
+            elements.strength.text = nonGod.cardActions[nonGod.cardStrenghIndex].actionStrength.ToString();
 
             ChangeOrm(nonGod.type);
 

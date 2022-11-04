@@ -6,7 +6,34 @@ public abstract class CardAction : Action
 {
     protected NonGod_Behaviour current;
 
-    public CardAction(int _min, int _max) : base(_min, _max) { }
+    protected int strengh;
+
+    public int Strengh => strengh;
+
+    public CardAction(int _min, int _max) : base(_min, _max) { strengh = _max; }
+
+    public virtual void Buff(int amount, bool isMult)
+    {
+        if (isMult)
+        {
+            strengh *= amount;
+        }
+        else
+        {
+            strengh += amount;
+        }
+    }
+    public virtual void DeBuff(int amount, bool isMult)
+    {
+        if (isMult)
+        {
+            strengh /= amount;
+        }
+        else
+        {
+            strengh -= amount;
+        }
+    }
 
     IEnumerator cor;
 
@@ -21,7 +48,7 @@ public abstract class CardAction : Action
 
     public abstract IEnumerator ChoosingTargets(BoardStateController board, float mult);
 
-    public abstract IEnumerator OnAction(BoardStateController board, int strengh);
+    public abstract IEnumerator OnAction(BoardStateController board);
 
     public virtual void OnPlay(BoardStateController board) { }
 

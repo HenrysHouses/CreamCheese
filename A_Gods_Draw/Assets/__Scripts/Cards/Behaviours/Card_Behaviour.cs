@@ -86,20 +86,20 @@ public abstract class Card_Behaviour : BoardElement
         //     manager.OnDeSelectedAttackCard?.Invoke();
     }
 
-    protected CardAction GetAction(CardActionEnum card, int strengh)
+    protected CardAction GetAction(CardActionData card)
     {
-        switch (card)
+        switch (card.actionEnum)
         {
             case CardActionEnum.Attack:
-                return new AttackCardAction(strengh);
+                return new AttackCardAction(card.actionStrength);
             case CardActionEnum.Defend:
-                return new DefendCardAction(strengh);
+                return new DefendCardAction(card.actionStrength);
             case CardActionEnum.Buff:
-                return new BuffCardAction(strengh, false);
+                return new BuffCardAction(card.actionStrength, false);
             case CardActionEnum.Instakill:
-                return new InstakillCardAction(strengh);
+                return new InstakillCardAction(card.actionStrength);
             case CardActionEnum.Chained:
-                return new ChainCardAction(strengh);
+                return new ChainCardAction(card.actionStrength);
             default:
                 return null;
         }

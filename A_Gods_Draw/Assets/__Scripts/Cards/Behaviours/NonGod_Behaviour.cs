@@ -11,8 +11,6 @@ public class NonGod_Behaviour : Card_Behaviour
     [SerializeField]
     EventReference SoundClick;
 
-    protected int strengh;
-
     protected new NonGod_Card_SO card_so;
     public new NonGod_Card_SO CardSO => card_so;
 
@@ -21,11 +19,10 @@ public class NonGod_Behaviour : Card_Behaviour
     public void Initialize(NonGod_Card_SO card, CardElements elements)
     {
         this.card_so = card;
-        strengh = card_so.strengh;
 
         for (int i = 0; i < card.cardActions.Count; i++)
         {
-            actions.Add(GetAction(card.cardActions[i].actionEnum, card.cardActions[i].actionStrength));
+            actions.Add(GetAction(card.cardActions[i]));
             actions[i].SetBehaviour(this);
         }
 
@@ -34,33 +31,20 @@ public class NonGod_Behaviour : Card_Behaviour
 
     public void Buff(int value, bool isMult)
     {
-        if (isMult)
+        foreach (CardAction act in actions)
         {
-            strengh *= value;
+            act.Buff(value, isMult);
         }
-        else
-        {
-            strengh += value;
-        }
-        ChangeStrengh(strengh);
+        ChangeStrengh(actions[card_so.cardStrenghIndex].Strengh);
     }
 
     public void DeBuff(int value, bool isMult)
     {
-        if (isMult)
+        foreach (CardAction act in actions)
         {
-            strengh /= value;
+            act.DeBuff(value, isMult);
         }
-        else
-        {
-            strengh -= value;
-        }
-        ChangeStrengh(strengh);
-    }
-
-    public void CancelBuffs()
-    {
-        strengh = card_so.strengh;
+        ChangeStrengh(actions[card_so.cardStrenghIndex].Strengh);
     }
 
     //public override void OnClick()
@@ -152,7 +136,7 @@ public class NonGod_Behaviour : Card_Behaviour
     {
         foreach (CardAction action in actions)
         {
-            StartCoroutine(action.OnAction(board, strengh));
+            StartCoroutine(action.OnAction(board));
             yield return new WaitUntil(() => action.Ready());
         }
 
@@ -166,8 +150,6 @@ public class NonGod_Behaviour : Card_Behaviour
         controller.Discard(this);
         controller.shouldWaitForAnims = false;
     }
-
-    public int GetStrengh() { return strengh; }
 
     public override void CancelSelection()
     {

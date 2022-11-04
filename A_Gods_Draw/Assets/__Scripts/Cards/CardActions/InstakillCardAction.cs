@@ -40,7 +40,7 @@ public class InstakillCardAction : CardAction
         return false;
     }
 
-    public override IEnumerator OnAction(BoardStateController board, int strengh)
+    public override IEnumerator OnAction(BoardStateController board)
     {
         isReady = false;
 
