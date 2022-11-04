@@ -39,7 +39,9 @@ public class DeckManager_SO : ScriptableObject
             return starterDeck;
         }
         
-        starterDeck = Resources.Load<DeckList_SO>("DeckLists/StarterDeck");
+        starterDeck = Resources.Load<DeckList_SO>("DeckLists/NullCheckDeck");
+
+        Debug.Log("Loaded starter deck!");
 
         return starterDeck;
     }

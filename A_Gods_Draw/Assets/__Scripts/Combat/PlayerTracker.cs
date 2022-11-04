@@ -18,11 +18,10 @@ public class PlayerTracker : ScriptableObject
 
     public void setDeck(DeckList_SO deck)
     {
-
-        List<Card_SO> newDeck = new List<Card_SO>(deck.Deck.Count);
-        for (int i = 0; i < newDeck.Count; i++)
+        List<Card_SO> newDeck = new List<Card_SO>();
+        for (int i = 0; i < deck.Deck.Count; i++)
         {
-            newDeck[i] = deck.Deck[i];
+            newDeck.Add(deck.Deck[i]);
         }
 
         Deck.Deck = newDeck;
