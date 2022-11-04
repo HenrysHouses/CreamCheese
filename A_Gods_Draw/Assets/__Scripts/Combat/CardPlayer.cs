@@ -39,9 +39,11 @@ public class CardPlayer : MonoBehaviour
                 return;
             }
             //if (_selectCard.MissedClick())
-            _selectedCard.CancelSelection();
-            _selectedCard = null;
-            Debug.Log("unselected");
+            if (_selectedCard.CancelSelection())
+            {
+                _selectedCard = null;
+                Debug.Log("unselected");
+            }
         }
     }
 

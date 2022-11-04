@@ -27,14 +27,17 @@ public class AttackCardAction : CardAction
 
     bool HasClickedMonster()
     {
-
-        BoardElement element = TurnController.PlayerClick();
-        IMonster clickedMonster = element as IMonster;
-        if (clickedMonster)
+        if (Input.GetMouseButtonDown(0))
         {
-            Debug.Log(clickedMonster);
-            target = clickedMonster;
-            return true;
+            BoardElement element = TurnController.PlayerClick();
+            IMonster clickedMonster = element as IMonster;
+            if (clickedMonster)
+            {
+                Debug.Log(clickedMonster);
+                target = clickedMonster;
+                return true;
+            }
+            current.MissClick();
         }
         return false;
     }

@@ -14,7 +14,7 @@ public class ChainCardAction : CardAction
         camAnim.SetBool("EnemyCloseUp", true);
         isReady = false;
 
-        if (mult > 1.01f)
+        if (/*mult > 1.01f*/true)
         {
             totalTargets = 2;
         }
@@ -35,34 +35,37 @@ public class ChainCardAction : CardAction
 
     bool HasClickedMonsters()
     {
-
-        BoardElement element = TurnController.PlayerClick();
-        IMonster clickedMonster = element as IMonster;
-        if (clickedMonster)
+        if (Input.GetMouseButtonDown(0))
         {
-            Debug.Log(clickedMonster);
+            BoardElement element = TurnController.PlayerClick();
+            IMonster clickedMonster = element as IMonster;
+            if (clickedMonster)
+            {
+                Debug.Log(clickedMonster);
 
-            if (totalTargets == 1)
-            {
-                targets.Add(clickedMonster);
-                return true;
-            }
-            else if (totalTargets == 2)
-            {
-                if (targets.Count == 0)
+                if (totalTargets == 1)
                 {
                     targets.Add(clickedMonster);
-                    return false;
+                    return true;
                 }
-                if (clickedMonster != targets[0])
+                else if (totalTargets == 2)
                 {
-                    targets.Add(clickedMonster);
-                    if (targets.Count == totalTargets)
+                    if (targets.Count == 0)
                     {
-                        return true;
+                        targets.Add(clickedMonster);
+                        return false;
+                    }
+                    if (clickedMonster != targets[0])
+                    {
+                        targets.Add(clickedMonster);
+                        if (targets.Count == totalTargets)
+                        {
+                            return true;
+                        }
                     }
                 }
             }
+            current.MissClick();
         }
         return false;
     }

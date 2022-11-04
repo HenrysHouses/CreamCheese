@@ -151,9 +151,12 @@ public class NonGod_Behaviour : Card_Behaviour
         controller.shouldWaitForAnims = false;
     }
 
-    public override void CancelSelection()
+    public override bool CancelSelection()
     {
-        if (this != null)
+        if (this == null)
+            return true;
+
+        if (HasMissedClick())
         {
             base.CancelSelection();
             if (onSelectedRoutine != null)
@@ -165,7 +168,26 @@ public class NonGod_Behaviour : Card_Behaviour
 
             foreach (CardAction act in actions)
                 act.ResetCamera();
+
+            return true;
         }
+
+        return false;
+    }
+
+    bool missedClick = false;
+    private bool HasMissedClick()
+    {
+        if (missedClick)
+        {
+            missedClick = false;
+            return true;
+        }
+        return false;
+    }
+    public void MissClick()
+    {
+        missedClick = true;
     }
 
     public override bool CardIsReady()
@@ -178,5 +200,6 @@ public class NonGod_Behaviour : Card_Behaviour
         {
             action.OnLanePlaced(controller.GetBoard());
         }
+        missedClick = true;
     }
 }

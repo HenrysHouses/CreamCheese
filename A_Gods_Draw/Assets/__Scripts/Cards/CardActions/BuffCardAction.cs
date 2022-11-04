@@ -47,13 +47,17 @@ public class BuffCardAction : CardAction
 
     bool HasClickedNonGod()
     {
-        BoardElement element = TurnController.PlayerClick();
-        NonGod_Behaviour clickedCard = element as NonGod_Behaviour;
-        if (clickedCard)
+        if (Input.GetMouseButtonDown(0))
         {
-            Debug.Log("To buff: " + clickedCard.CardSO.cardName);
-            target = clickedCard;
-            return true;
+            BoardElement element = TurnController.PlayerClick();
+            NonGod_Behaviour clickedCard = element as NonGod_Behaviour;
+            if (clickedCard)
+            {
+                Debug.Log("To buff: " + clickedCard.CardSO.cardName);
+                target = clickedCard;
+                return true;
+            }
+            current.MissClick();
         }
         return false;
     }
