@@ -38,7 +38,7 @@ public class CardPlayer : MonoBehaviour
                 _selectedCard = selectCard();
                 return;
             }
-
+            //if (_selectCard.MissedClick())
             _selectedCard.CancelSelection();
             _selectedCard = null;
             Debug.Log("unselected");
@@ -73,9 +73,10 @@ public class CardPlayer : MonoBehaviour
         return false;
     }
 
-    void placeCard(Card_Behaviour behaviour, Transform lane = null)
+    void placeCard(Card_Behaviour behaviour)
     {
         _Hand.RemoveCard(behaviour.GetComponent<Card_Loader>());
-        _Board.placeCardOnLane(behaviour, lane);
+        _Board.placeCardOnLane(behaviour);
+        behaviour.OnPlacedInLane();
     }
 }

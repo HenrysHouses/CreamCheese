@@ -18,6 +18,8 @@ public class NonGod_Card_SO : Card_SO
         {
             while (cardActions[cardStrenghIndex].actionEnum != CardActionEnum.Attack)
             {
+                if (cardStrenghIndex == cardActions.Count - 1)
+                    break;
                 cardStrenghIndex++;
             }
         }
@@ -25,6 +27,8 @@ public class NonGod_Card_SO : Card_SO
         {
             while (cardActions[cardStrenghIndex].actionEnum != CardActionEnum.Defend)
             {
+                if (cardStrenghIndex == cardActions.Count - 1)
+                    break;
                 cardStrenghIndex++;
             }
         }
@@ -32,10 +36,12 @@ public class NonGod_Card_SO : Card_SO
         {
             while (cardActions[cardStrenghIndex].actionEnum != CardActionEnum.Buff)
             {
+                if (cardStrenghIndex == cardActions.Count - 1)
+                    break;
                 cardStrenghIndex++;
             }
         }
-        else if (type == CardType.Special)
+        else
         {
             cardStrenghIndex = 0;
         }

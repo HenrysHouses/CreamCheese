@@ -79,7 +79,7 @@ public class NonGod_Behaviour : Card_Behaviour
     {
         if (onSelectedRoutine == null)
         {
-            if (controller.GetBoard().playedCards.Count >= 4 && card_so.type != CardType.Buff)
+            if (controller.GetBoard().thingsInLane.Count >= 4 && card_so.type != CardType.Buff)
             {
                 return;
             }
@@ -171,5 +171,12 @@ public class NonGod_Behaviour : Card_Behaviour
     public override bool CardIsReady()
     {
         return AllActionsReady();
+    }
+    public override void OnPlacedInLane()
+    {
+        foreach (CardAction action in actions)
+        {
+            action.OnLanePlaced(controller.GetBoard());
+        }
     }
 }

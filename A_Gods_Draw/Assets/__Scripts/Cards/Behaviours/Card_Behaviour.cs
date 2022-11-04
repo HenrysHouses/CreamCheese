@@ -100,9 +100,16 @@ public abstract class Card_Behaviour : BoardElement
                 return new InstakillCardAction(card.actionStrength);
             case CardActionEnum.Chained:
                 return new ChainCardAction(card.actionStrength);
+            case CardActionEnum.Storr:
+                return new StorrCardAction(card.actionStrength);
             default:
                 return null;
         }
+    }
+
+    public virtual void OnPlacedInLane()
+    {
+        
     }
 
     protected GodCardAction GetAction(GodActionEnum card)

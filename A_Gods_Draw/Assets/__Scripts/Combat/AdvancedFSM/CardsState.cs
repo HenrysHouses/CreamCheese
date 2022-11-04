@@ -39,6 +39,7 @@ public class CardsState : CombatFSMState
             else
             {
                 Controller.GetBoard().playedCards.Clear();
+                Controller.GetBoard().thingsInLane.Clear();
                 readyToMoveOn = true;
             }
             Controller.shouldWaitForAnims = true;

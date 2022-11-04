@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public abstract class BoardElement : MonoBehaviour
+public class BoardElement : MonoBehaviour
 {
     protected static bool isInCombat;
     public bool clickable;

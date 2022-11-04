@@ -48,6 +48,8 @@ public abstract class CardAction : Action
 
     public abstract IEnumerator ChoosingTargets(BoardStateController board, float mult);
 
+    public virtual void OnLanePlaced(BoardStateController board) { }
+
     public abstract IEnumerator OnAction(BoardStateController board);
 
     public virtual void OnPlay(BoardStateController board) { }

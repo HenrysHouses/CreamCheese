@@ -22,6 +22,7 @@ public class BoardStateController : MonoBehaviour
     public Transform getGodLane() => _GodLane;
     [HideInInspector] public List<NonGod_Behaviour> playedCards;
     [HideInInspector] public God_Behaviour playedGodCard;
+    [HideInInspector] public List<BoardElement> thingsInLane;
     public NonGod_Behaviour getCardInLane(int i) => playedCards[i];
 
     public bool isEnemyDefeated
@@ -114,21 +115,35 @@ public class BoardStateController : MonoBehaviour
         return _Enemies[index].GetIntent().GetID();
     }
 
-    public void placeCardOnLane(Card_Behaviour card, Transform targetlane = null)
+    public void placeThingOnLane(BoardElement thing)
+    {
+        if (thingsInLane.Count >= _Lane.Length)
+        {
+            return;
+        }
+
+        Transform targetlane = _Lane[thingsInLane.Count];
+
+        thing.transform.position = targetlane.position;
+        thing.transform.parent = targetlane;
+
+        thingsInLane.Add(thing);
+    }
+
+    public void placeCardOnLane(Card_Behaviour card)
     {
         SoundPlayer.Playsound(placeCard_SFX,gameObject);
 
-        if (!targetlane)
-        {
-            if (card is God_Behaviour)
-            {
-                targetlane = _GodLane;
-            }
-            else
-            {
-                targetlane = _Lane[playedCards.Count];
+        Transform targetlane = null;
 
-            }
+        if (card is God_Behaviour)
+        {
+            targetlane = _GodLane;
+        }
+        else
+        {
+            targetlane = _Lane[thingsInLane.Count];
+
         }
 
         if (_GodLane.Equals(targetlane))
@@ -160,8 +175,9 @@ public class BoardStateController : MonoBehaviour
                 NonGod_Behaviour behaviour = card as NonGod_Behaviour;
 
                 playedCards.Add(behaviour);
+                thingsInLane.Add(behaviour);
 
-                Transform cardTransform = playedCards[i].transform;
+                Transform cardTransform = thingsInLane[i].transform;
 
                 cardTransform.parent.parent.SetParent(_Lane[i]);
                 cardTransform.parent.parent.localPosition = new Vector3();
