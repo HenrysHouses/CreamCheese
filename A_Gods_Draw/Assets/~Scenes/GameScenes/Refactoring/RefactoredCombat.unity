@@ -1358,6 +1358,10 @@ PrefabInstance:
       propertyPath: m_Enabled
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 6061264133702810440, guid: 631764b858e1f4643af096adb3245efe, type: 3}
+      propertyPath: m_AdditionalShaderChannelsFlag
+      value: 25
+      objectReference: {fileID: 0}
     - target: {fileID: 6061264133702810441, guid: 631764b858e1f4643af096adb3245efe, type: 3}
       propertyPath: m_Pivot.x
       value: 0.5
@@ -1460,7 +1464,15 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 6061264133702810445, guid: 631764b858e1f4643af096adb3245efe, type: 3}
       propertyPath: m_Name
-      value: ArrowCanvas
+      value: GodCanvas
+      objectReference: {fileID: 0}
+    - target: {fileID: 8423055009835142094, guid: 631764b858e1f4643af096adb3245efe, type: 3}
+      propertyPath: m_Name
+      value: Health
+      objectReference: {fileID: 0}
+    - target: {fileID: 9070263395330246200, guid: 631764b858e1f4643af096adb3245efe, type: 3}
+      propertyPath: m_fontSizeBase
+      value: 0.1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 631764b858e1f4643af096adb3245efe, type: 3}
@@ -1478,6 +1490,17 @@ MonoBehaviour:
   m_Enabled: 0
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: fe87c0e1cc204ed48ad3b37840f39efc, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!114 &837589349 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 9070263395330246200, guid: 631764b858e1f4643af096adb3245efe, type: 3}
+  m_PrefabInstance: {fileID: 837589346}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f4688fdb7df04437aeb418b961361dc5, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
 --- !u!1 &899169203
@@ -1527,6 +1550,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   godArrow: {fileID: 837589348}
+  health: {fileID: 837589349}
 --- !u!65 &899169206
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -4015,6 +4039,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   BoardStateController: {fileID: 1141156025}
   player: {fileID: 11400000, guid: 101dced3cf57d584886aaa18b2a84f50, type: 2}
+  godPlace: {fileID: 899169205}
   deckManager: {fileID: 11400000, guid: a9ef532ce763b474e868648e2e3843ac, type: 2}
   DiscardAnimator: {fileID: 120732638}
   DrawAnimator: {fileID: 1598012057}

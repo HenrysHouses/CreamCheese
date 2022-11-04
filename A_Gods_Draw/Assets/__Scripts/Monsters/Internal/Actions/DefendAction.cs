@@ -9,6 +9,7 @@ public class DefendAction : Action
     public DefendAction(int _min, int _max) : base(_min, _max)
     {
         ActionID = (int)EnemyIntent.Defend;
+        actionIcon = Resources.Load<Sprite>("EnemyData/Icons/21");
     }
 
     public override void Execute(BoardStateController BoardStateController, int strengh)

@@ -20,7 +20,6 @@ public class AttackCardAction : CardAction
 
         camAnim.SetBool("EnemyCloseUp", false);
 
-
         board.SetClickable(3, false);
 
         isReady = true;

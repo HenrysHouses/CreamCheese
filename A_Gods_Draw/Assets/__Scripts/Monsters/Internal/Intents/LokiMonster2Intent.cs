@@ -33,24 +33,23 @@ public class LokiMonster2Intent : Intent
                 return;
             }
         }
-
-        actionSelected = GetAction<AttackPlayerAction>();
+        if (board.getLivingEnemies().Length == 1)
+        {
+            actionSelected = GetAction<AttackPlayerAction>();
+        }
     }
     public override void LateDecideIntent(BoardStateController board)
     {
         if (!actionSelected)
         {
-            foreach (IMonster a in board.Enemies)
+            foreach (IMonster a in board.getLivingEnemies())
             {
-                if(a == null)
+                if (a == null)
                     continue;
 
                 Intent _intent = a.GetIntent();
-                if(_intent == null)
+                if (_intent == null)
                     continue;
-
-                // Debug.Log(_intent);
-                // Debug.Log(_intent.GetID());
 
                 if (_intent.GetID() != EnemyIntent.AttackPlayer || _intent.GetID() != EnemyIntent.AttackGod)
                     continue;
@@ -61,6 +60,10 @@ public class LokiMonster2Intent : Intent
                 }
                 break;
             }
+        }
+        if (!actionSelected)
+        {
+            actionSelected = GetAction<AttackPlayerAction>();
         }
         // Debug.Log( actionSelected);
         strengh = Random.Range(actionSelected.Min(), actionSelected.Max() + 1);

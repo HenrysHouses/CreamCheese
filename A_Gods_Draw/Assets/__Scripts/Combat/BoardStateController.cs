@@ -174,7 +174,5 @@ public class BoardStateController : MonoBehaviour
                 return;
             }
         }
-
-
     }
 }

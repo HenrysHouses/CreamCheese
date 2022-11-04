@@ -14,10 +14,10 @@ public class ChainCardAction : CardAction
         camAnim.SetBool("EnemyCloseUp", true);
         isReady = false;
 
-        //if (mult > 1.2f)
-        //{
-        //    totalTargets = 2;
-        //}
+        if (mult > 1.01f)
+        {
+            totalTargets = 2;
+        }
 
         //foreach monster in bpard, enable click
         board.SetClickable(3);
@@ -42,13 +42,27 @@ public class ChainCardAction : CardAction
         {
             Debug.Log(clickedMonster);
 
-            if (targets.Count == 0)
+            if (totalTargets == 1)
+            {
                 targets.Add(clickedMonster);
-            else if (targets[0] != clickedMonster)
-                targets.Add(clickedMonster);
-
-            if (targets.Count == totalTargets)
                 return true;
+            }
+            else if (totalTargets == 2)
+            {
+                if (targets.Count == 0)
+                {
+                    targets.Add(clickedMonster);
+                    return false;
+                }
+                if (clickedMonster != targets[0])
+                {
+                    targets.Add(clickedMonster);
+                    if (targets.Count == totalTargets)
+                    {
+                        return true;
+                    }
+                }
+            }
         }
         return false;
     }

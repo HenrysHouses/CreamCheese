@@ -8,12 +8,14 @@ using System.Collections.Generic;
 using UnityEngine;
 using FMODUnity;
 using UnityEngine.Events;
+using System;
 
 public class TurnController : CombatFSM
 {
     // * Combat Mechanic references
     [SerializeField] BoardStateController BoardStateController;
     [SerializeField] PlayerTracker player;
+    [SerializeField] GodPlacement godPlace;
     [SerializeField] DeckManager_SO deckManager;
     [SerializeField] PathAnimatorController DiscardAnimator;
     [SerializeField] PathAnimatorController DrawAnimator;
@@ -74,6 +76,17 @@ public class TurnController : CombatFSM
         AddFSMState(_combatCard);
         AddFSMState(_combatEnemy);
         AddFSMState(_endStep);
+    }
+
+    internal void GodDied(God_Behaviour god)
+    {
+        //Animation of god dying????
+
+        Destroy(god.transform.parent.parent.gameObject, 1);
+
+        _Hand.RemoveCard(god.GetComponent<Card_Loader>());
+
+        BoardStateController.playedGodCard = null;
     }
 
     public void SetTransition(Transition t) 
@@ -213,7 +226,6 @@ public class TurnController : CombatFSM
                 yield return new WaitForSeconds(delayBetweenCards);
             }
 
-            Debug.LogWarning("Discard animsAreDone() is not triggering");
             lastAnim.OnAnimCompletionTrigger.AddListener(animsAreDone);
         }
         else
@@ -260,6 +272,7 @@ public class TurnController : CombatFSM
     public BoardStateController GetBoard() { return BoardStateController; }
 
     public Card_Behaviour SelectedCard => selectedCard;
+    public GodPlacement GodPlacement => godPlace;
     public void SetSelectedCard(Card_Behaviour sel = null)
     {
         if (sel)

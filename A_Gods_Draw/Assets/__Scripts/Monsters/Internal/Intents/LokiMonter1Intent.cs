@@ -43,7 +43,7 @@ public class LokiMonter1Intent : Intent
             {
                 actionSelected = attackPlayer;
             }
-            strengh = Random.Range(actionSelected.Min(), actionSelected.Max() + 1);
         }
+        strengh = Random.Range(actionSelected.Min(), actionSelected.Max() + 1);
     }
 }

@@ -29,6 +29,7 @@ public abstract class IMonster : BoardElement
 
     [SerializeField]
     Sprite attackIcon;
+
     [SerializeField]
     Sprite abilityIcon;
 
@@ -52,7 +53,7 @@ public abstract class IMonster : BoardElement
 
     public void DealDamage(int amount)
     {
-        if (amount > defendedFor)
+        if (amount >= defendedFor)
         {
             health = health - (amount - defendedFor);
             defendedFor = 0;
@@ -105,6 +106,16 @@ public abstract class IMonster : BoardElement
         UpdateUI();
     }
 
+    public void Buff(int amount)
+    {
+        if (enemyIntent.GetID() == EnemyIntent.AttackGod || enemyIntent.GetID() == EnemyIntent.AttackPlayer)
+        {
+            enemyIntent.SetCurrStrengh(enemyIntent.GetCurrStrengh() + amount);
+        }
+
+        UpdateUI();
+    }
+
     public void UpdateUI()
     {
         if (strengh)
@@ -113,7 +124,10 @@ public abstract class IMonster : BoardElement
             strengh.enabled = true;
         }
         if (image)
+        {
+            image.sprite = enemyIntent.GetCurrentIcon();
             image.enabled = true;
+        }
     }
 
     public void Act(BoardStateController board)

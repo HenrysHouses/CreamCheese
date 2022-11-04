@@ -9,6 +9,7 @@ public class God_Behaviour : Card_Behaviour
     int maxHealth;
     [SerializeField]
     int health;
+    public int Health => health;
 
     GodCardAction action;
 
@@ -77,6 +78,8 @@ public class God_Behaviour : Card_Behaviour
         {
             health -= amount + defendFor;
             defendFor = 0;
+
+            godPlacement.UpdateUI();
         }
         else
         {
@@ -88,7 +91,10 @@ public class God_Behaviour : Card_Behaviour
         if (health <= 0)
         {
             health = 0;
-            // manager.GodDied();
+
+            godPlacement.UpdateUI();
+            godPlacement.RemoveGod();
+            controller.GodDied(this);
         }
     }
 
@@ -132,6 +138,7 @@ public class God_Behaviour : Card_Behaviour
 
     protected override void OnBeingSelected()
     {
+        controller.GodPlacement.SetGod(this);
         StartCoroutine(Play(controller.GetBoard()));
     }
 

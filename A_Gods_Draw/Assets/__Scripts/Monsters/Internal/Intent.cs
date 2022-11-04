@@ -30,6 +30,14 @@ public abstract class Intent
 
     public int GetCurrStrengh() => strengh;
     public int SetCurrStrengh(int newS) => strengh = newS;
+    public Sprite GetCurrentIcon()
+    {
+        if (actionSelected != null)
+        {
+            return actionSelected.Icon;
+        }
+        return null;
+    }
 
     public void Act(BoardStateController board)
     {

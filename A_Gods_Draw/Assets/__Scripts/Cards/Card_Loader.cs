@@ -85,10 +85,12 @@ public class Card_Loader : MonoBehaviour
         else
         {
             NonGod_Card_SO nonGod = card_so as NonGod_Card_SO;
+
             //Debug.Log(nonGod);
             elements.health.enabled = false;
+
             // elements.typeIcon.sprite = nonGod.icon;
-            elements.strength.text = nonGod.strengh.ToString();
+            elements.strength.text = nonGod.cardActions[0].actionStrength.ToString();
 
             ChangeOrm(nonGod.type);
 

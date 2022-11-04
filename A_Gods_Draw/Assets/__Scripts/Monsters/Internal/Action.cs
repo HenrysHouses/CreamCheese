@@ -12,6 +12,9 @@ public abstract class Action
 
     protected bool isReady = false;
 
+    protected Sprite actionIcon;
+    public Sprite Icon => actionIcon;
+
     public Action(int _min, int _max)
     {
         min = _min;
@@ -30,6 +33,6 @@ public abstract class Action
 
     public static bool operator!(Action action)
     {
-        return action != null;
+        return action == null;
     }
 }

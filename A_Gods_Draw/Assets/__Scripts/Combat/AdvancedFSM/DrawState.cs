@@ -40,11 +40,11 @@ public class DrawState : CombatFSMState
 
         Controller.Draw(Controller.DrawStepCardAmount);
 
-        foreach (IMonster monster in Controller.GetBoard().Enemies)
+        foreach (IMonster monster in Controller.GetBoard().getLivingEnemies())
         {
             monster.DecideIntent(Controller.GetBoard());
         }
-        foreach (IMonster monster in Controller.GetBoard().Enemies)
+        foreach (IMonster monster in Controller.GetBoard().getLivingEnemies())
         {
             monster.LateDecideIntent(Controller.GetBoard());
         }

@@ -7,6 +7,7 @@ public class AttackPlayerAction : Action
     public AttackPlayerAction(int _min, int _max) : base(_min, _max)
     {
         ActionID = (int)EnemyIntent.AttackPlayer;
+        actionIcon = Resources.Load<Sprite>("EnemyData/Icons/39");
     }
 
     public override void Execute(BoardStateController BoardStateController, int strengh)
