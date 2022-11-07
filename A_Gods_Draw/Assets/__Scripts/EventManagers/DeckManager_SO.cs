@@ -102,7 +102,7 @@ public class DeckManager_SO : ScriptableObject
     {
         Debug.Log("add card: " + card);
         deckList.GetDeck().Add(card);
-        GameSaver.SaveData(deckList);
+        GameSaver.SaveData(deckList.deckData.GetDeckCardNames());
         //SavingDeck();
     }
 
@@ -111,7 +111,7 @@ public class DeckManager_SO : ScriptableObject
     public void removeCardFromDeck(Card_SO card)
     {
         deckList.GetDeck().Remove(card);
-        GameSaver.SaveData(deckList);
+        GameSaver.SaveData(deckList.deckData.GetDeckCardNames());
         //SavingDeck();
     }
 

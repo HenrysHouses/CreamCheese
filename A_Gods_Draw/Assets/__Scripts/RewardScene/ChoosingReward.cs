@@ -57,15 +57,23 @@ public class ChoosingReward : MonoBehaviour
     /// </summary>
     public void GettingType(NodeType nodeType)
     {
+
         switch (nodeType)
         {
             case NodeType.Reward:
                 searchResult = CardSearch.Search<Card_SO>();
                 break;
             case NodeType.AttackReward:
+                searchResult = CardSearch.Search<NonGod_Card_SO>(new string[] { CardType.Attack.ToString() });
+                break;
             case NodeType.DefenceReward:
+                searchResult = CardSearch.Search<NonGod_Card_SO>(new string[] { CardType.Defence.ToString() });
+                break;
             case NodeType.BuffReward:
-                searchResult = CardSearch.Search<NonGod_Card_SO>(new string[] { GameManager.instance.nextRewardType.ToString() });
+                searchResult = CardSearch.Search<NonGod_Card_SO>(new string[] { CardType.Buff.ToString() });
+                break;
+            case NodeType.GodReward:
+                searchResult = CardSearch.Search<God_Card_SO>(new string[] { CardType.God.ToString() });
                 break;
         }
         InstantiateCards();
@@ -75,6 +83,11 @@ public class ChoosingReward : MonoBehaviour
     {
         for (int i = 0; i < spots.Length; i++)
         {
+            if(searchResult.Count <= 0)
+            {
+                break;
+            }
+
             GameObject spawn = Instantiate(prefab, spots[i]);
 
             Debug.Log(searchResult);

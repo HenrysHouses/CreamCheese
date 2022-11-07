@@ -29,13 +29,16 @@ public static class GameSaver
         }
     }
 
-    public static void SaveData(DeckList_SO deck)
+    public static void SaveData(CardQuantityContainer deck)
     {
         string savePath = persistantPath; // <- path for us to see in assets, persistantPath is what should be used
         string json = JsonUtility.ToJson(deck);
 
         using StreamWriter writer = new StreamWriter(savePath);
         writer.Write(json);
+        
+        
+        Debug.Log(json);
         Debug.Log("Saving is happening");
     }
 
@@ -44,14 +47,21 @@ public static class GameSaver
         using StreamReader streamReader = new StreamReader(persistantPath); // <- path for us to see in assets, persistantPath is what should be used
         string json = streamReader.ReadToEnd();
 
-        DeckListData deck = JsonUtility.FromJson<DeckListData>(json);
-
-        if(deck == null)
+        CardQuantityContainer deck = JsonUtility.FromJson<CardQuantityContainer>(json);
+        
+        if(deck.Cards == null)
         {
-            deck = DeckManager_SO.getStarterDeck().deckData;
+            deck = DeckManager_SO.getStarterDeck().deckData.GetDeckCardNames();
         }
+        else if(deck.Cards.Length == 0)
+        {
+            deck = DeckManager_SO.getStarterDeck().deckData.GetDeckCardNames();
+        }
+
         Debug.Log("Loading completed");
 
-        return deck;
+        DeckListData loadedDeck = new DeckListData(deck.Cards);
+
+        return loadedDeck;
     }
 }

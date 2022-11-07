@@ -26,15 +26,22 @@ public class GameManager : MonoBehaviour
 
     private void Start()
     {
+        loadGameData();
+        Debug.Log("player has deck");
+    }
+
+    private void loadGameData()
+    {
         DeckListData deckList = GameSaver.LoadData();
         PlayerTracker.setDeck(deckList);
-        Debug.Log("player has deck");
     }
 
     public void newGame()
     {
         shouldGenerateNewMap = true;
-        PlayerPrefs.DeleteAll();
+        CardQuantityContainer newSave = new CardQuantityContainer();
+        GameSaver.SaveData(newSave);
+        loadGameData();
     }
 
     public EncounterDifficulty nextCombatType{
