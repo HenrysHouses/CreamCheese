@@ -6,42 +6,46 @@ public static class CardSearch
 {
     public static List<Card_SO> Search<T>(string[] SearchOptions = null) where T : Card_SO
     {
-        List<Card_SO> Results = new List<Card_SO>();
+        List<Card_SO> outputResults = new List<Card_SO>();
 
-        Card_SO[] currResults = Resources.LoadAll<Card_SO>("Cards");
-
-        for (int i = 0; i < currResults.Length; i++)
-        {
-            if(currResults[i] is T)
-                Results.Add(currResults[i]);
-        }
+        Card_SO[] allResults = Resources.LoadAll<Card_SO>("Cards");
 
         if(SearchOptions != null)
         {
-            for (int i = 0; i < SearchOptions.Length; i++)
+            for (int j = 0; j < allResults.Length-1; j++)
             {
-                for (int j = 0; j < Results.Count; j++)
+                for (int i = 0; i < SearchOptions.Length; i++)
                 {
-                    bool shouldBeRemoved = true;
+                    if(allResults[j] == null)
+                    {
+                        break;
+                    }
 
-                    if (!Results[j].name.Equals(SearchOptions[i]))
-                        shouldBeRemoved = false;
+                    if (allResults[j].cardName == SearchOptions[i])
+                    {
+                        outputResults.Add(allResults[j]);
+                        break;
+                    }
 
-                    NonGod_Card_SO card = Results[j] as NonGod_Card_SO;
-                    if (!card.name.Equals(SearchOptions[i]))
-                        shouldBeRemoved = false;
+                    if (allResults[j].type.ToString() == SearchOptions[i])
+                    {
+                        outputResults.Add(allResults[j]);
+                        break;
+                    }
                     
-                    if (!card.type.ToString().Equals(SearchOptions[i]))
-                        shouldBeRemoved = false;
+                    NonGod_Card_SO card = allResults[j] as NonGod_Card_SO;
 
-                    if (!card.correspondingGod.ToString().Equals(SearchOptions[i]))
-                        shouldBeRemoved = false;
-
-                    if(shouldBeRemoved)
-                        Results.RemoveAt(j);
+                    if(card)
+                    {
+                        if (card.correspondingGod.ToString() == SearchOptions[i])
+                        {
+                            outputResults.Add(allResults[j]);
+                            break;
+                        }
+                    }                        
                 }
             }
         }
-        return Results as List<Card_SO>;
+        return outputResults as List<Card_SO>;
     }
 }

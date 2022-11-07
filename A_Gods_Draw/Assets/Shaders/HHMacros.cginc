@@ -28,5 +28,13 @@
 #define DECLARE_SCRNPOS_COORDS(idx) float4 scrPos : TEXCOORD##idx;
 #define TRANSFER_SCREENPOSITION(o) o.scrPos = ComputeScreenPos(o.pos);
 
+float2 GetScrSpaceUV(float4 scrPos, float4 ScreenParams, float ScreenRez)
+{
+    float2 _ScreenSpaceUV = scrPos.xy/scrPos.w;
+    float x = _ScreenSpaceUV.x * ScreenParams.x/(ScreenRez); // fixes texture stretching on widescreens
+    float y = _ScreenSpaceUV.y * ScreenParams.y/(ScreenRez);
+    return float2(x,y);
+    // return _ScreenSpaceUV;
+}
 
 #endif // MACROS_INCLUDED
