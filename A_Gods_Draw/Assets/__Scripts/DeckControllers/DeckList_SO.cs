@@ -48,12 +48,13 @@ public class DeckListData
             }
         }
 
-        Debug.Log(deckListData.Count);
+        UniqueCards = cardQuantities;
     }
 
     public DeckListData(){}
 
     public List<Card_SO> deckListData;
+    public CardQuantity[] UniqueCards;
     
     public CardQuantityContainer GetDeckCardNames()
     {
