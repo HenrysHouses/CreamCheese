@@ -8,5 +8,22 @@ using UnityEngine;
 public class DeckList_SO : ScriptableObject
 {
     [SerializeField]
-    public List<Card_SO> Deck;
+    public DeckListData deckData;
+
+    public List<Card_SO> GetDeck()
+    {
+        return deckData.deckListData;
+    }
+
+    public void SetDeck(List<Card_SO> deckList)
+    {
+        deckData.deckListData = deckList;
+        Debug.Log(deckList.Count);
+    }
+}
+
+[System.Serializable]
+public class DeckListData
+{
+    public List<Card_SO> deckListData;
 }

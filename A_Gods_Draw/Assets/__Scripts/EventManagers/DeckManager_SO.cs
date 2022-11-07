@@ -32,10 +32,6 @@ public class DeckManager_SO : ScriptableObject
     public DeckList_SO getDeck => deckList;
     static DeckList_SO starterDeck;
 
-    [SerializeField]
-    private string itemName;
-    private SaveableItemSet saveableItemSet;
-    private UniqueID uniqueID;
 
     public static DeckList_SO getStarterDeck()
     {
@@ -78,16 +74,16 @@ public class DeckManager_SO : ScriptableObject
 
     private void Awake()
     {
-        GameSaver.LoadData();
+        
     }
 
     // Setup
     void OnEnable()
     {
         pLibrary = new List<Card_SO>();
-        for (int i = 0; i < deckList.Deck.Count; i++)
+        for (int i = 0; i < deckList.GetDeck().Count; i++)
         {
-            pLibrary.Add(deckList.Deck[i]);
+            pLibrary.Add(deckList.GetDeck()[i]);
         }
 
         pDiscard = new List<Card_SO>();
@@ -105,7 +101,7 @@ public class DeckManager_SO : ScriptableObject
     public void addCardToDeck(Card_SO card)
     {
         Debug.Log("add card: " + card);
-        deckList.Deck.Add(card);
+        deckList.GetDeck().Add(card);
         GameSaver.SaveData(deckList);
         //SavingDeck();
     }
@@ -114,7 +110,7 @@ public class DeckManager_SO : ScriptableObject
     /// <param name="card">The scriptable object for the desired card</param>
     public void removeCardFromDeck(Card_SO card)
     {
-        deckList.Deck.Remove(card);
+        deckList.GetDeck().Remove(card);
         GameSaver.SaveData(deckList);
         //SavingDeck();
     }
@@ -123,9 +119,9 @@ public class DeckManager_SO : ScriptableObject
     public void reset()
     {
         pLibrary.Clear();
-        for (int i = 0; i < deckList.Deck.Count; i++)
+        for (int i = 0; i < deckList.GetDeck().Count; i++)
         {
-            pLibrary.Add(deckList.Deck[i]);
+            pLibrary.Add(deckList.GetDeck()[i]);
         }
         pHand.Clear();
         pDiscard.Clear();
@@ -380,76 +376,4 @@ public class DeckManager_SO : ScriptableObject
     {
         deckList = deckList_;
     }
-
-    void Save()
-    {
-        TEST_SaveJson.Save("Decklist", deckList);
-    }
-
-    void Load()
-    {
-        if (TEST_SaveJson.SaveExists("Decklist"))
-        {
-            
-        }
-    }
-
-    // public void SavingDeck()
-    // {
-    //     var settings = new JsonSerializerSettings()
-    //     {
-    //         TypeNameHandling = TypeNameHandling.All,
-    //         NullValueHandling = NullValueHandling.Ignore,
-    //         ReferenceLoopHandling = ReferenceLoopHandling.Ignore
-    //     };
-    //     settings.Converters.Add(new Newtonsoft.Json.Converters.StringEnumConverter());
-
-    //     var json = JsonUtility.ToJson(deckList).ToString();
-
-    //     PlayerPrefs.SetString("Deck", json);
-    //     PlayerPrefs.Save();
-
-    //     Debug.Log("deck list has been saved");
-    // }
-
-    // public void LoadDeck()
-    // {
-    //     JsonSerializerSettings settings = new JsonSerializerSettings()
-    //     {
-    //         TypeNameHandling = TypeNameHandling.All,
-    //         NullValueHandling = NullValueHandling.Ignore,
-    //         ReferenceLoopHandling = ReferenceLoopHandling.Ignore
-    //     };
-
-    //     string deckJson = PlayerPrefs.GetString("Deck");
-        
-    //     DeckList_SO loadedDeck = ScriptableObject.CreateInstance<DeckList_SO>();
-    //     JsonUtility.FromJsonOverwrite(deckJson, loadedDeck);
-
-    //     Debug.Log(loadedDeck);
-        
-    //     if(loadedDeck.Deck == null)
-    //     {
-    //         Debug.LogWarning("The list in the Loaded deck is null");
-    //         deckList.Deck = starterDeck.Deck;
-    //         SavingDeck();
-    //         return;
-    //     }
-
-    //     if(loadedDeck.Deck.Count < 1) // ! probably never going to happen
-    //     {
-    //         Debug.LogWarning("Loaded deck is length of 0");
-    //         deckList.Deck = starterDeck.Deck;
-    //         return;
-    //     }
-
-    //     deckList.Deck = loadedDeck.Deck;
-    //     Debug.Log(loadedDeck.Deck[0].cardName);
-
-    // //    PlayerPrefs.SetString("Deck", json);
-    // //    PlayerPrefs.Save();
-
-    // //    Debug.Log("deck list has been saved");
-    // //
-    // }
 }

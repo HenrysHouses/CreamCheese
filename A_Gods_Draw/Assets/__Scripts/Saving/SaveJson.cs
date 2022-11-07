@@ -6,8 +6,6 @@ using UnityEngine;
 
 public static class GameSaver
 {
-
-
     private static string path = "";
     private static string persistantPath = "";
 
@@ -20,9 +18,9 @@ public static class GameSaver
     private static void SetPaths()
     {
         path = Application.dataPath + Path.AltDirectorySeparatorChar + "SaveData.json";
-        persistantPath = (Path.Combine(Application.persistentDataPath, "GameSave.txt"));
+        persistantPath = Path.Combine(Application.persistentDataPath, "GameSave.json");
 
-        if (!Directory.Exists(persistantPath))
+        if (Directory.Exists(persistantPath))
         {
             string savePath = persistantPath;
             using StreamWriter writer = new StreamWriter(savePath);
@@ -38,18 +36,22 @@ public static class GameSaver
 
         using StreamWriter writer = new StreamWriter(savePath);
         writer.Write(json);
+        Debug.Log("Saving is happening");
     }
 
-    public static void LoadData()
+    public static DeckListData LoadData()
     {
         using StreamReader streamReader = new StreamReader(persistantPath); // <- path for us to see in assets, persistantPath is what should be used
         string json = streamReader.ReadToEnd();
 
-        DeckList_SO deck = JsonUtility.FromJson<DeckList_SO>(json);
+        DeckListData deck = JsonUtility.FromJson<DeckListData>(json);
 
-        Debug.Log(deck);
+        if(deck == null)
+        {
+            deck = DeckManager_SO.getStarterDeck().deckData;
+        }
+        Debug.Log("Loading completed");
 
-        //if(deck == null)
-        //    deck = DeckManager_SO.getStarterDeck();
+        return deck;
     }
 }

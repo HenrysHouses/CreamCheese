@@ -26,7 +26,9 @@ public class GameManager : MonoBehaviour
 
     private void Start()
     {
-        //PlayerTracker.setDeck(GameSaver.LoadData());
+        DeckListData deckList = GameSaver.LoadData();
+        PlayerTracker.setDeck(deckList);
+        Debug.Log("player has deck");
     }
 
     public void newGame()

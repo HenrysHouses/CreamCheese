@@ -23,14 +23,14 @@ public class PlayerTracker : ScriptableObject
         HealthChanges.Add(difference);
     }
 
-    public void setDeck(DeckList_SO deck)
+    public void setDeck(DeckListData deckData)
     {
         List<Card_SO> newDeck = new List<Card_SO>();
-        for (int i = 0; i < deck.Deck.Count; i++)
+        for (int i = 0; i < deckData.deckListData.Count; i++)
         {
-            newDeck.Add(deck.Deck[i]);
+            newDeck.Add(deckData.deckListData[i]);
         }
 
-        CurrentDeck.Deck = newDeck;
+        CurrentDeck.SetDeck(newDeck);
     }
 }
