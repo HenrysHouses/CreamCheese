@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.IO;
@@ -19,7 +20,7 @@ public static class GameSaver
     private static void SetPaths()
     {
         path = Application.dataPath + Path.AltDirectorySeparatorChar + "SaveData.json";
-        persistantPath = Application.persistentDataPath + Path.AltDirectorySeparatorChar + "SaveData.json";
+        persistantPath = (Path.Combine(Application.persistentDataPath, "GameSave.txt"));
 
         if (!Directory.Exists(persistantPath))
         {
@@ -39,7 +40,7 @@ public static class GameSaver
         writer.Write(json);
     }
 
-    public static DeckList_SO LoadData()
+    public static void LoadData()
     {
         using StreamReader streamReader = new StreamReader(persistantPath); // <- path for us to see in assets, persistantPath is what should be used
         string json = streamReader.ReadToEnd();
@@ -48,9 +49,7 @@ public static class GameSaver
 
         Debug.Log(deck);
 
-        if(deck == null)
-            deck = DeckManager_SO.getStarterDeck();
-
-        return deck;
+        //if(deck == null)
+        //    deck = DeckManager_SO.getStarterDeck();
     }
 }
