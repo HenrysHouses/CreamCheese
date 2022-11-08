@@ -12,7 +12,6 @@ public static class GameSaver
     public static void InitializeSaving()
     {
         SetPaths();
-        Debug.Log("AAAA setpaths plz!");
     }
 
     private static void SetPaths()
@@ -37,9 +36,7 @@ public static class GameSaver
         using StreamWriter writer = new StreamWriter(savePath);
         writer.Write(json);
         
-        
         Debug.Log(json);
-        Debug.Log("Saving is happening");
     }
 
     public static DeckListData LoadData()
@@ -58,7 +55,7 @@ public static class GameSaver
             deck = DeckManager_SO.getStarterDeck().deckData.GetDeckCardNames();
         }
 
-        Debug.Log("Loading completed");
+        // Debug.Log("Loading completed");
 
         DeckListData loadedDeck = new DeckListData(deck.Cards);
 

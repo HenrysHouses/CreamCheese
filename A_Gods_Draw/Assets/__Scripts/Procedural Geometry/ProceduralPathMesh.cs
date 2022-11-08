@@ -108,6 +108,7 @@ public class ProceduralPathMesh : MonoBehaviour
 		mesh.SetUVs(0, uvs);
 	}
 
+#if UNITY_EDITOR
 	/// <summary>
 	/// Callback to draw gizmos that are pickable and always drawn.
 	/// </summary>
@@ -180,7 +181,8 @@ public class ProceduralPathMesh : MonoBehaviour
 		
 		Gizmos.color = Color.white;
 	}
-	
+#endif	
+
 	OrientedPoint GetBezierOP(float t)
 	{
 		Vector3 p0 = GetPos(0); 

@@ -41,7 +41,7 @@ public static class MultiSceneLoader
                 TargetCollection = target;
         }
 
-        Debug.Log(TargetCollection.Title);
+        Debug.Log("Loaded: " + TargetCollection.Title + " in mode: " + mode.ToString());
 
         if(TargetCollection == null)
             return;

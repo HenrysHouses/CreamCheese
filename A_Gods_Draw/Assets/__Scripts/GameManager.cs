@@ -27,7 +27,6 @@ public class GameManager : MonoBehaviour
     private void Start()
     {
         loadGameData();
-        Debug.Log("player has deck");
     }
 
     private void loadGameData()

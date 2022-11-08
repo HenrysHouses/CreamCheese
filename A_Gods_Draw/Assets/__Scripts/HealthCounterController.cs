@@ -40,6 +40,7 @@ public class HealthCounterController : MonoBehaviour
     void Start()
     {
         initPlayerHealth();
+        MaxHealth = player.MaxHealth;
     }
 
     // Update is called once per frame
