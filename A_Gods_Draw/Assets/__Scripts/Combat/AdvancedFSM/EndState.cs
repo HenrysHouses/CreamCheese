@@ -11,17 +11,20 @@ public class EndState : CombatFSMState
 {
     TurnController Controller;
     bool hasEndTriggered = false;
+    PlayerTracker _player;
 
-    public EndState(TurnController controller)
+    public EndState(TurnController controller, PlayerTracker player)
     {
         Controller = controller;
         Controller.isCombatStarted = false;
         stateID = CombatState.EndStep;
+        _player = player;
+
     }
 
     public override void Reason(bool override_ = false)
     {
-        if(Controller.shouldEndTurn)
+        if (Controller.shouldEndTurn)
             return;
 
         Controller.PerformTransition(Transition.EnterDraw);
@@ -34,8 +37,17 @@ public class EndState : CombatFSMState
         BoardElement.ExitCombat();
         // end of combat triggers here
         // hasEndTriggered = true;
-        if(Controller.GetBoard().isEnemyDefeated)
-            MultiSceneLoader.loadCollection("Map",collectionLoadMode.difference);
+
+        if (_player.Health <= 0)
+        {
+            MultiSceneLoader.loadCollection("Death", collectionLoadMode.difference);
+
+            _player.Health = 10;
+            return;
+
+        }
+        if (Controller.GetBoard().isEnemyDefeated)
+            MultiSceneLoader.loadCollection("Map", collectionLoadMode.difference);
 
     }
 }

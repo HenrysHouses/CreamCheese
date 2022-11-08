@@ -65,7 +65,7 @@ public class TurnController : CombatFSM
         EnemyState _combatEnemy = new EnemyState(this);
         _combatEnemy.AddTransition(Transition.EnterEnd, CombatState.EndStep);
 
-        EndState _endStep = new EndState(this);
+        EndState _endStep = new EndState(this,player);
         _endStep.AddTransition(Transition.EnterDraw, CombatState.DrawStep);
 
         AddFSMState(_combatSetup);
