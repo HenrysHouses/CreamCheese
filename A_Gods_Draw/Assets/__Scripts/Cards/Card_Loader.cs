@@ -41,7 +41,7 @@ public struct CardElements
 
 public class Card_Loader : MonoBehaviour
 {
-    Card_SO card_so;
+    [SerializeField] Card_SO card_so;
     public Card_SO GetCardSO => card_so;
 
     [SerializeField]
