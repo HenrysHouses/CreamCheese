@@ -4,7 +4,6 @@ using UnityEngine;
 
 public class DefendCardAction : CardAction
 {
-    IMonster target;
 
     public DefendCardAction(int strengh) : base(strengh, strengh) { }
 

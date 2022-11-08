@@ -4,7 +4,6 @@ using UnityEngine;
 
 public class AttackCardAction : CardAction
 {
-    IMonster target;
     public AttackCardAction(int strengh) : base(strengh, strengh) { }
 
     public override IEnumerator ChoosingTargets(BoardStateController board, float mult)

@@ -44,7 +44,6 @@ public class DeckListData
                 List<Card_SO> card = CardSearch.Search<Card_SO>(name);
                 deckListData.Add(card[0]);
                 n++;
-                Debug.Log(n);
             }
         }
 

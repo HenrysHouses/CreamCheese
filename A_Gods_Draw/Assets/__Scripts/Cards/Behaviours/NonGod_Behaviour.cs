@@ -7,6 +7,7 @@ using System;
 public class NonGod_Behaviour : Card_Behaviour
 {
     List<CardAction> actions = new List<CardAction>();
+    public int TargetedActions => actions.Count;
 
     [SerializeField]
     EventReference SoundClick;
@@ -64,6 +65,11 @@ public class NonGod_Behaviour : Card_Behaviour
 
     //    //Debug.Log(manager.CurrentlySelectedCard().gameObject);
     //}
+
+    public IMonster getActionTarget(int action)
+    {
+        return actions[action].target;
+    }
 
 
     public void CheckForGod()

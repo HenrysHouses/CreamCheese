@@ -4,6 +4,8 @@ using UnityEngine;
 
 public abstract class CardAction : Action
 {
+    public IMonster target;
+
     protected NonGod_Behaviour current;
 
     protected int strengh;

@@ -12,6 +12,7 @@ using UnityEngine;
 public class PlayerTracker : ScriptableObject
 {
     public int Health;
+    public int MaxHealth;
     [HideInInspector] public List<int> HealthChanges = new List<int>();
     public DeckList_SO CurrentDeck;
 
@@ -21,6 +22,11 @@ public class PlayerTracker : ScriptableObject
     {
         Health += difference;
         HealthChanges.Add(difference);
+    }
+
+    public void resetHealth()
+    {
+        Health = MaxHealth;
     }
 
     public void setDeck(DeckListData deckData)

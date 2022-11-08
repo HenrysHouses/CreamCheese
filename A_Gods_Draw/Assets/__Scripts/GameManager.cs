@@ -39,6 +39,7 @@ public class GameManager : MonoBehaviour
     public void newGame()
     {
         shouldGenerateNewMap = true;
+        PlayerTracker.resetHealth();
         CardQuantityContainer newSave = new CardQuantityContainer();
         GameSaver.SaveData(newSave);
         loadGameData();

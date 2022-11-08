@@ -14,6 +14,8 @@ public class BoardStateController : MonoBehaviour
     // * Public
     public bool isEncounterInstantiated = false;
 
+    [SerializeField] GameObject TargetingMesh;
+
     // Getters
     public PlayerController Player => _Player;
     public Encounter_SO Encounter => _Encounter;
@@ -164,7 +166,10 @@ public class BoardStateController : MonoBehaviour
             cardTransform.parent.rotation = new Quaternion();
             cardTransform.parent.GetComponent<Card_Selector>().enabled = false;
             cardTransform.parent.parent.localScale = new Vector3(1.5f,1.5f,1.5f); // !!REMOVE THIS AFTER FINDING A PREFERABLE SIZE FOR THE CARDS
-            Instantiate(playedGodCard.CardSO.God_Model,targetlane.position,transform.localRotation = new Quaternion(0,-0.577358961f,0,0.816490531f));
+            
+            GameObject spawn = Instantiate(playedGodCard.CardSO.God_Model,targetlane.position,transform.localRotation = new Quaternion(0,-0.577358961f,0,0.816490531f));
+            spawn.transform.SetParent(cardTransform, true);
+            
             Debug.LogWarning("REMOVE SIZE HERE");
             return;
         }
@@ -190,6 +195,22 @@ public class BoardStateController : MonoBehaviour
                 cardTransform.parent.rotation = new Quaternion();
                 cardTransform.parent.GetComponent<Card_Selector>().enabled = false;
                 cardTransform.parent.parent.localScale = new Vector3(1.5f,1.5f,1.5f);  // !!REMOVE THIS AFTER FINDING A PREFERABLE SIZE FOR THE CARDS
+
+
+                for (int j = 0; j < behaviour.TargetedActions; j++) // should run this for each targetable action
+                {
+                    IMonster target = behaviour.getActionTarget(j);
+                    if(target == null)
+                        continue;
+
+                    GameObject spawn = Instantiate(TargetingMesh, Vector3.zero, Quaternion.identity);
+                    spawn.transform.SetParent(cardTransform, true);
+                    ProceduralPathMesh Mesh = spawn.GetComponent<ProceduralPathMesh>();
+                    Mesh.startPoint.position = cardTransform.position;
+                    
+                    Debug.Log(target);
+                    Mesh.endPoint.position = target.transform.position;
+                }
                 return;
             }
         }
