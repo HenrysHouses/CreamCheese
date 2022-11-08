@@ -21,8 +21,8 @@ namespace Map
     public class Map_Nodes : MonoBehaviour
     {
         //for ui and sprites for nodes of the map
-        public SpriteRenderer sr;
-        MeshRenderer mr;
+        public SpriteRenderer spriteRenderer;
+        MeshRenderer meshRenderer;
         public SpriteRenderer visitedSprite;
         public Image visitedImage; //image showing that you have visited that node
 
@@ -41,26 +41,26 @@ namespace Map
             Node = node;
             Blueprint = blueprint;
 
-            GameObject mdl;
+            GameObject mdl; //? i think mdl stands for model
             if(blueprint.models)
             {
                 mdl = Instantiate(blueprint.models);
                 mdl.transform.SetParent(transform, false);
                 mdl.transform.localPosition = new Vector3();
-                mr = mdl.GetComponent<MeshRenderer>();
+                meshRenderer = mdl.GetComponent<MeshRenderer>();
             }
 
-            if(sr)
-                sr.sprite = blueprint.sprite;
+            if(spriteRenderer)
+                spriteRenderer.sprite = blueprint.sprite;
 
             if (node.nodeType == NodeType.Boss)
             {
                 transform.localScale *= 1.5f;
             }
 
-            if(sr)
+            if(spriteRenderer)
             {
-                initialScale = sr.transform.localScale.x;
+                initialScale = spriteRenderer.transform.localScale.x;
                 visitedSprite.color = Map_View.instance.visitedColor;
                 visitedSprite.gameObject.SetActive(false);
             }
@@ -70,33 +70,33 @@ namespace Map
 
         public void SetState(NodeStates states)
         {
-            if(sr)
+            if(spriteRenderer)
                 visitedSprite.gameObject.SetActive(false);
 
             switch (states)
             {
                 case NodeStates.Locked:
-                    if(sr)
-                        sr.color = Map_View.instance.lockedColor;
-                    if(mr)
-                        mr.material.color = Map_View.instance.lockedColor;
+                    if(spriteRenderer)
+                        spriteRenderer.color = Map_View.instance.lockedColor;
+                    if(meshRenderer)
+                        meshRenderer.material.color = Map_View.instance.lockedColor;
                     break;
 
                 case NodeStates.Visited:
-                    if(sr)
+                    if(spriteRenderer)
                     {
-                        sr.color = Map_View.instance.visitedColor;
+                        spriteRenderer.color = Map_View.instance.visitedColor;
                         visitedSprite.gameObject.SetActive(true);
                     }
-                    if(mr)
-                        mr.material.color = Map_View.instance.visitedColor;
+                    if(meshRenderer)
+                        meshRenderer.material.color = Map_View.instance.visitedColor;
                     break;
 
                 case NodeStates.Taken:
-                    if(sr)
-                        sr.color = Map_View.instance.AvailableColor;
-                    if(mr)
-                        mr.material.color = Map_View.instance.AvailableColor;
+                    if(spriteRenderer)
+                        spriteRenderer.color = Map_View.instance.AvailableColor;
+                    if(meshRenderer)
+                        meshRenderer.material.color = Map_View.instance.AvailableColor;
                     break;
 
                 default:

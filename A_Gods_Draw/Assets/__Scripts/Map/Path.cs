@@ -22,8 +22,8 @@ namespace Map
 
         public void SetColor(Color col)
         {
-            var gradient = lineRenderer.colorGradient;
-            var colorKeys = gradient.colorKeys;
+            Gradient gradient = lineRenderer.colorGradient;
+            GradientColorKey[] colorKeys = gradient.colorKeys;
 
             for(var i = 0; i < colorKeys.Length; i++)
             {

@@ -15,7 +15,7 @@ namespace Map
         public static void Shuffling<T>(this IList<T> list)
         {
             int n = list.Count;
-
+            //n for number v for value
             while(n > 1)
             {
                 n--;

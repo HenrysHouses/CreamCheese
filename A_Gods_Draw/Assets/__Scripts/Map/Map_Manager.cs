@@ -18,8 +18,8 @@ namespace Map
         {
             if (PlayerPrefs.HasKey("Map"))
             {
-                var mapJson = PlayerPrefs.GetString("Map");
-                var map = JsonConvert.DeserializeObject<Map>(mapJson);
+                string mapJson = PlayerPrefs.GetString("Map");
+                Map map = JsonConvert.DeserializeObject<Map>(mapJson);
 
                 // if (map.path.Contains(map.GetBossNode().point))
                 // {
@@ -51,7 +51,7 @@ namespace Map
 
         public void GenerateNewMap()
         {
-            var map = Map_Generator.GetMap(configuration);
+            Map map = Map_Generator.GetMap(configuration);
             CurrentMap = map;
             view.MapShow(map);
             GameManager.instance.shouldGenerateNewMap = false;
@@ -64,7 +64,7 @@ namespace Map
                 return;
             }
             // scuffed fix for now, should def check if there a better way of fixing this
-            var json = JsonConvert.SerializeObject(CurrentMap, Formatting.None,
+            string json = JsonConvert.SerializeObject(CurrentMap, Formatting.None,
                         new JsonSerializerSettings()
                         {
                             ReferenceLoopHandling = ReferenceLoopHandling.Ignore

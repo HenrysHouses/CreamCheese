@@ -32,7 +32,7 @@ namespace Map
 
             GenerateLayerDist();
 
-            for(var i = 0; i < configuration.layers.Count; i++)
+            for(int i = 0; i < configuration.layers.Count; i++)
             {
                 PlaceLayer(i);
             }
@@ -42,9 +42,9 @@ namespace Map
             SetupConnections();
             RemoveCrossConnections();
 
-            var nodeList = nodes.SelectMany(n => n).Where(n => n.incoming.Count > 0 || n.outgoing.Count > 0).ToList();
+            List<Node> nodeList = nodes.SelectMany(n => n).Where(n => n.incoming.Count > 0 || n.outgoing.Count > 0).ToList();
 
-            var bossNodeName = config.nodeBlueprints.Where(b => b.nodeType == NodeType.Boss).ToList().Random().name;
+            string bossNodeName = config.nodeBlueprints.Where(b => b.nodeType == NodeType.Boss).ToList().Random().name;
             return new Map(configuration.name, bossNodeName, nodeList, new List<MapPoint>());
         }
 
@@ -52,7 +52,7 @@ namespace Map
         {
             layerDist = new List<float>();
 
-            foreach(var layer in config.layers)
+            foreach(Map_Layer layer in config.layers)
             {
                 layerDist.Add(layer.distLayers.Value());
             }
@@ -70,17 +70,17 @@ namespace Map
 
         private static void PlaceLayer(int layerIndex)
         {
-            var layer = config.layers[layerIndex];
-            var nodesOnThisLayer = new List<Node>();
+            Map_Layer layer = config.layers[layerIndex];
+            List<Node> nodesOnThisLayer = new List<Node>();
 
-            var offset = layer.nodesApartDist * config.GridWidth / 2f;
+            float offset = layer.nodesApartDist * config.GridWidth / 2f;
 
-            for(var i = 0; i < config.GridWidth; i++)
+            for(int i = 0; i < config.GridWidth; i++)
             {
-                var nodeType = Random.Range(0f, 1f) < layer.randomNodes ? GetRandomNodes() : layer.nodeType;
-                var blueprintName = config.nodeBlueprints.Where(b => b.nodeType == nodeType).ToList().Random().name;
+                NodeType nodeType = Random.Range(0f, 1f) < layer.randomNodes ? GetRandomNodes() : layer.nodeType;
+                string blueprintName = config.nodeBlueprints.Where(b => b.nodeType == nodeType).ToList().Random().name;
 
-                var node = new Node(nodeType, blueprintName, new MapPoint(i, layerIndex))
+                Node node = new Node(nodeType, blueprintName, new MapPoint(i, layerIndex))
                 {
                     pos = new Vector2(-offset + i * layer.nodesApartDist, GetDistToPlayer(layerIndex))
                 };
@@ -92,22 +92,22 @@ namespace Map
 
         private static void RandomNodePos()
         {
-            for(var index = 0; index < nodes.Count; index++)
+            for(int index = 0; index < nodes.Count; index++)
             {
-                var list = nodes[index];
-                var layer = config.layers[index];
-                var distToNextLayer = index + 1 >= layerDist.Count
+                List<Node> list = nodes[index];
+                Map_Layer layer = config.layers[index];
+                float distToNextLayer = index + 1 >= layerDist.Count
                     ? 0f
                     : layerDist[index + 1];
-                var distToPrevLayer = layerDist[index];
+                float distToPrevLayer = layerDist[index];
 
-                foreach(var node in list)
+                foreach(Node node in list)
                 {
-                    var xRandom = Random.Range(-1f, 1f);
-                    var yRandom = Random.Range(-1f, 1f);
+                    float xRandom = Random.Range(-1f, 1f);
+                    float yRandom = Random.Range(-1f, 1f);
 
-                    var x = xRandom * layer.nodesApartDist / 2f;
-                    var y = yRandom < 0 ? distToPrevLayer * yRandom / 2f : distToNextLayer * yRandom / 2f;
+                    float x = xRandom * layer.nodesApartDist / 2f;
+                    float y = yRandom < 0 ? distToPrevLayer * yRandom / 2f : distToNextLayer * yRandom / 2f;
 
                     node.pos += new Vector2(x, y) * layer.randomPos;
                 }
@@ -116,22 +116,22 @@ namespace Map
 
         private static void SetupConnections()
         {
-            foreach(var path in paths)
+            foreach(List<MapPoint> path in paths)
             {
-                for(var i = 0; i < path.Count; i++)
+                for(int i = 0; i < path.Count; i++)
                 {
-                    var node = GetNode(path[i]);
+                    Node node = GetNode(path[i]);
                     
                     if(i > 0)
                     {
-                        var nextNode = GetNode(path[i - 1]);
+                        Node nextNode = GetNode(path[i - 1]);
                         nextNode.AddingIncoming(node.point);
                         node.AddingOutgoing(nextNode.point);
                     }
 
                     if(i < path.Count - 1)
                     {
-                        var previousNode = GetNode(path[i + 1]);
+                        Node previousNode = GetNode(path[i + 1]);
                         previousNode.AddingOutgoing(node.point);
                         node.AddingIncoming(previousNode.point);
                     }
@@ -141,29 +141,29 @@ namespace Map
 
         private static void RemoveCrossConnections()
         {
-            for(var i = 0; i < config.GridWidth - 1; i++)
+            for(int i = 0; i < config.GridWidth - 1; i++)
             {
-                for (var j = 0; j < config.layers.Count - 1; j++)
+                for (int j = 0; j < config.layers.Count - 1; j++)
                 {
-                    var node = GetNode(new MapPoint(i, j));
+                    Node node = GetNode(new MapPoint(i, j));
                     if (node == null || node.ItHasNoConnections())
                     {
                         continue;
                     }
 
-                    var right = GetNode(new MapPoint(i + 1, j));
+                    Node right = GetNode(new MapPoint(i + 1, j));
                     if (right == null || right.ItHasNoConnections())
                     {
                         continue;
                     }
 
-                    var top = GetNode(new MapPoint(i, j + 1));
+                    Node top = GetNode(new MapPoint(i, j + 1));
                     if(top == null || top.ItHasNoConnections())
                     {
                         continue;
                     }
 
-                    var topRight = GetNode(new MapPoint(i + 1, j + 1));
+                    Node topRight = GetNode(new MapPoint(i + 1, j + 1));
                     if(topRight == null || topRight.ItHasNoConnections())
                     {
                         continue;
@@ -184,7 +184,7 @@ namespace Map
                     right.AddingOutgoing(topRight.point);
                     topRight.AddingIncoming(right.point);
 
-                    var random = Random.Range(0f, 1f);
+                    float random = Random.Range(0f, 1f);
                     if(random < 0.2f)
                     {
                         node.RemovingOutgoing(topRight.point);
@@ -223,7 +223,7 @@ namespace Map
 
         private static MapPoint GetFinalNode()
         {
-            var y = config.layers.Count - 1;
+            int y = config.layers.Count - 1;
             if(config.GridWidth % 2 == 1)
             {
                 return new MapPoint(config.GridWidth / 2, y);
@@ -236,25 +236,25 @@ namespace Map
 
         private static void GeneratePath()
         {
-            var finalNode = GetFinalNode();
+            MapPoint finalNode = GetFinalNode();
             paths = new List<List<MapPoint>>();
-            var numberOfStartingNodes = config.numOfStartingNodes.Value();
-            var numberOfBossNodes = config.numOfPreBossNodes.Value();
+            int numberOfStartingNodes = config.numOfStartingNodes.Value();
+            int numberOfBossNodes = config.numOfPreBossNodes.Value();
 
-            var candidateXs = new List<int>();
-            for(var i = 0; i < config.GridWidth; i++)
+            List<int> candidateXs = new List<int>();
+            for(int i = 0; i < config.GridWidth; i++)
             {
                 candidateXs.Add(i);
             }
 
             candidateXs.Shuffling();
-            var preBossX = candidateXs.Take(numberOfBossNodes);
-            var preBossPoints = (from x in preBossX select new MapPoint(x, finalNode.y - 1)).ToList();
-            var attempts = 0;
+            IEnumerable<int> preBossX = candidateXs.Take(numberOfBossNodes);
+            List<MapPoint> preBossPoints = (from x in preBossX select new MapPoint(x, finalNode.y - 1)).ToList();
+            int attempts = 0;
 
-            foreach(var point in preBossPoints)
+            foreach(MapPoint point in preBossPoints)
             {
-                var path = Path(point, 0, config.GridWidth);
+                List<MapPoint> path = Path(point, 0, config.GridWidth);
                 path.Insert(0, finalNode);
                 paths.Add(path);
                 attempts++;
@@ -262,8 +262,8 @@ namespace Map
 
             while(!PathToDiffPoints(paths, numberOfStartingNodes) && attempts < 100)
             {
-                var rndPreBossPoint = preBossPoints[Random.Range(0, preBossPoints.Count)];
-                var path = Path(rndPreBossPoint, 0, config.GridWidth);
+                MapPoint rndPreBossPoint = preBossPoints[Random.Range(0, preBossPoints.Count)];
+                List<MapPoint> path = Path(rndPreBossPoint, 0, config.GridWidth);
                 path.Insert(0, finalNode);
                 paths.Add(path);
                 attempts++;
@@ -282,17 +282,17 @@ namespace Map
                 return null;
             }
 
-            var dir = from.y > toY ? -1 : 1;
-            var path = new List<MapPoint> { from };
+            int dir = from.y > toY ? -1 : 1;
+            List<MapPoint> path = new List<MapPoint> { from };
 
             while (path[path.Count - 1].y != toY)
             {
-                var lastPoint = path[path.Count - 1];
-                var candidateXs = new List<int>();
+                MapPoint lastPoint = path[path.Count - 1];
+                List<int> candidateXs = new List<int>();
 
                 if(firstStepUnconstrained && lastPoint.Equals(from))
                 {
-                    for(var i = 0; i < width; i++)
+                    for(int i = 0; i < width; i++)
                     {
                         candidateXs.Add(i);
                     }
@@ -312,7 +312,7 @@ namespace Map
                     }
                 }
 
-                var nextPoint = new MapPoint(candidateXs[Random.Range(0, candidateXs.Count)], lastPoint.y + dir);
+                MapPoint nextPoint = new MapPoint(candidateXs[Random.Range(0, candidateXs.Count)], lastPoint.y + dir);
                 path.Add(nextPoint);
             }
 

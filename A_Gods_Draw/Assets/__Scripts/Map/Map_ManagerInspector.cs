@@ -16,7 +16,7 @@ namespace Map
         {
             DrawDefaultInspector();
 
-            var myScript = (Map_Manager)target;
+            Map_Manager myScript = (Map_Manager)target;
             GUILayout.Space(10);
 
             if (GUILayout.Button("Generate"))

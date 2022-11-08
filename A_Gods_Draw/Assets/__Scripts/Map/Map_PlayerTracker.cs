@@ -48,8 +48,8 @@ namespace Map
             }
             else
             {
-                var currentPoint = mapManager.CurrentMap.path[mapManager.CurrentMap.path.Count - 1];
-                var currentNode = mapManager.CurrentMap.GetNode(currentPoint);
+                MapPoint currentPoint = mapManager.CurrentMap.path[mapManager.CurrentMap.path.Count - 1];
+                Node currentNode = mapManager.CurrentMap.GetNode(currentPoint);
 
                 if (currentNode != null && currentNode.outgoing.Any(point => point.Equals(mapNode.Node.point)))
                 {

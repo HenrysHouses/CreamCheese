@@ -29,7 +29,6 @@ namespace Map
             this.point = point;
         }
 
-        #region ADDING points
         public void AddingIncoming(MapPoint point)
         {
             if (incoming.Any(element => element.Equals(point)))
@@ -47,9 +46,7 @@ namespace Map
             }
             outgoing.Add(point);
         }
-        #endregion
 
-        #region REMOVING points
         public void RemovingIncoming(MapPoint point)
         {
             incoming.RemoveAll(element => element.Equals(point));
@@ -60,7 +57,6 @@ namespace Map
             outgoing.RemoveAll(element => element.Equals(point));
         }
 
-        #endregion
 
         public bool ItHasNoConnections()
         {
