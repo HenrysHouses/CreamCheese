@@ -139,6 +139,7 @@ public class BoardStateController : MonoBehaviour
         if (card is God_Behaviour)
         {
             targetlane = _GodLane;
+
         }
         else
         {
@@ -151,6 +152,7 @@ public class BoardStateController : MonoBehaviour
 
             Debug.Log("god lane");
             playedGodCard = card as God_Behaviour;
+            
 
             Transform cardTransform = playedGodCard.transform;
 
@@ -162,6 +164,7 @@ public class BoardStateController : MonoBehaviour
             cardTransform.parent.rotation = new Quaternion();
             cardTransform.parent.GetComponent<Card_Selector>().enabled = false;
             cardTransform.parent.parent.localScale = new Vector3(1.5f,1.5f,1.5f); // !!REMOVE THIS AFTER FINDING A PREFERABLE SIZE FOR THE CARDS
+            Instantiate(playedGodCard.CardSO.God_Model,targetlane.position,transform.localRotation = new Quaternion(0,-0.577358961f,0,0.816490531f));
             Debug.LogWarning("REMOVE SIZE HERE");
             return;
         }

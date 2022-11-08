@@ -10,6 +10,8 @@ public class God_Card_SO : Card_SO
     public int health;
     public GodActionEnum godAction;
 
+    public GameObject God_Model;
+
     private void OnValidate() {
         type = CardType.God;
     }
