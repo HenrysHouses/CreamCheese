@@ -73,7 +73,7 @@ public class ChoosingReward : MonoBehaviour
                 searchResult = CardSearch.Search<NonGod_Card_SO>(new string[] { CardType.Buff.ToString() });
                 break;
             case NodeType.GodReward:
-                searchResult = CardSearch.Search<God_Card_SO>(new string[] { CardType.God.ToString() });
+                searchResult = CardSearch.Search<NonGod_Card_SO>(new string[] { "Tyr" });
                 break;
         }
         InstantiateCards();
