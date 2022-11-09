@@ -132,7 +132,7 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: -8679921383154817045, guid: 00a448390627cbd4dab213a180fe46b9, type: 3}
       propertyPath: m_RootOrder
-      value: 2
+      value: 3
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: 00a448390627cbd4dab213a180fe46b9, type: 3}
       propertyPath: m_LocalScale.x
@@ -253,7 +253,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 5966793606316453687, guid: 34c1257041d2a3047b3bf9834d494027, type: 3}
       propertyPath: m_RootOrder
-      value: 9
+      value: 10
       objectReference: {fileID: 0}
     - target: {fileID: 5966793606316453687, guid: 34c1257041d2a3047b3bf9834d494027, type: 3}
       propertyPath: m_LocalScale.x
@@ -835,7 +835,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a1bc08f72c27c2e4ca93c4330283c48a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  manager_SO: {fileID: 11400000, guid: c819ad97e2edda747b2fd65c048f3bf9, type: 2}
+  _Animations: []
   _pathName: Library-Hand
   path: {fileID: 1709361203}
   _speedCurve:
@@ -1083,17 +1083,6 @@ Transform:
   m_Father: {fileID: 2100381818}
   m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &867169053 stripped
-MonoBehaviour:
-  m_CorrespondingSourceObject: {fileID: 2787173845142387412, guid: ebd4ee4be4c2d8140b812add65bf6712, type: 3}
-  m_PrefabInstance: {fileID: 2787173845383465417}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: f7a8b174d2d257a40a4dddefbb1b7e50, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!1 &914404586
 GameObject:
   m_ObjectHideFlags: 0
@@ -1213,11 +1202,6 @@ RectTransform:
   m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: 0, y: 0}
   m_Pivot: {x: 0, y: 0}
---- !u!1 &964028781 stripped
-GameObject:
-  m_CorrespondingSourceObject: {fileID: 2314056414891485881, guid: ebd4ee4be4c2d8140b812add65bf6712, type: 3}
-  m_PrefabInstance: {fileID: 2787173845383465417}
-  m_PrefabAsset: {fileID: 0}
 --- !u!1 &983950875
 GameObject:
   m_ObjectHideFlags: 0
@@ -1589,7 +1573,7 @@ MonoBehaviour:
   - {fileID: 1584770088}
   godLane: {fileID: 1582442418}
   board:
-    player: {fileID: 867169053}
+    player: {fileID: 0}
     deckManager: {fileID: 11400000, guid: a9ef532ce763b474e868648e2e3843ac, type: 2}
     enemies:
     - {fileID: 1666808573}
@@ -1611,7 +1595,7 @@ Transform:
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 5
+  m_RootOrder: 6
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1228086055
 GameObject:
@@ -1659,7 +1643,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a1bc08f72c27c2e4ca93c4330283c48a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  manager_SO: {fileID: 11400000, guid: c819ad97e2edda747b2fd65c048f3bf9, type: 2}
+  _Animations: []
   _pathName: Hand-Discard
   path: {fileID: 1276232970}
   _speedCurve:
@@ -1876,9 +1860,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   handPlace: {fileID: 668714948}
-  _turnManager: {fileID: 1222430437}
-  behaviours: []
-  CardinHandPrefab: {fileID: 6442596572218373804, guid: 4bf9de04b4e5b754781a2ea0b433379b, type: 3}
+  CardHandPrefab: {fileID: 0}
 --- !u!4 &1299495810
 Transform:
   m_ObjectHideFlags: 0
@@ -2524,7 +2506,7 @@ Transform:
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 4
+  m_RootOrder: 5
   m_LocalEulerAnglesHint: {x: 50, y: -30, z: 0}
 --- !u!1 &1566279782
 GameObject:
@@ -2571,7 +2553,7 @@ Transform:
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 6
+  m_RootOrder: 7
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1582442417
 GameObject:
@@ -2747,7 +2729,7 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 3906570212389293051, guid: 9cc7aca4dca708d4989197e3f8af295f, type: 3}
       propertyPath: m_RootOrder
-      value: 3
+      value: 4
       objectReference: {fileID: 0}
     - target: {fileID: 3906570212389293051, guid: 9cc7aca4dca708d4989197e3f8af295f, type: 3}
       propertyPath: m_LocalScale.x
@@ -2921,7 +2903,7 @@ Transform:
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 1
+  m_RootOrder: 2
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &2026212018
 GameObject:
@@ -2997,7 +2979,7 @@ Transform:
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 0
+  m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 27.794, y: 0.925, z: 0.945}
 --- !u!114 &2026212022
 MonoBehaviour:
@@ -3314,7 +3296,7 @@ Transform:
   - {fileID: 709311717}
   - {fileID: 1299495810}
   m_Father: {fileID: 0}
-  m_RootOrder: 7
+  m_RootOrder: 8
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1001 &2787173845383465417
 PrefabInstance:
@@ -3330,7 +3312,7 @@ PrefabInstance:
     - target: {fileID: 2787173845142387412, guid: ebd4ee4be4c2d8140b812add65bf6712, type: 3}
       propertyPath: shieldObject
       value: 
-      objectReference: {fileID: 964028781}
+      objectReference: {fileID: 0}
     - target: {fileID: 2787173845142387413, guid: ebd4ee4be4c2d8140b812add65bf6712, type: 3}
       propertyPath: m_Name
       value: Player
@@ -3398,7 +3380,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 5966793606316453687, guid: 34c1257041d2a3047b3bf9834d494027, type: 3}
       propertyPath: m_RootOrder
-      value: 8
+      value: 9
       objectReference: {fileID: 0}
     - target: {fileID: 5966793606316453687, guid: 34c1257041d2a3047b3bf9834d494027, type: 3}
       propertyPath: m_LocalScale.x

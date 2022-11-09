@@ -49,6 +49,9 @@ public class BoardStateController : MonoBehaviour
     // Sounds
     [SerializeField] EventReference placeCard_SFX;
 
+    //particle effect
+    [SerializeField] SlashParticles slashParticles;
+
     /// <param name="whatToSet">
     /// 0: cards in lane
     /// 1: godCard
