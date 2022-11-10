@@ -22,7 +22,7 @@ public class DiscardState : CombatFSMState
     {
         bool shouldTrigger = hasDiscarded 
                         && !Controller.isDiscardAnimating 
-                        && !Controller.shouldWaitForAnims;
+                        && !TurnController.shouldWaitForAnims;
 
         if(!shouldTrigger)
             return;
@@ -39,7 +39,7 @@ public class DiscardState : CombatFSMState
         //god.OnDiscardState();
 
         Controller.shouldEndTurn = false;
-        Controller.shouldWaitForAnims = true;
+        TurnController.shouldWaitForAnims = true;
         Controller.DiscardAll(0.25f);
         hasDiscarded = true;
     }

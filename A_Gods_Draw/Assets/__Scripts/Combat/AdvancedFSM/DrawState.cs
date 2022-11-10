@@ -22,7 +22,7 @@ public class DrawState : CombatFSMState
     {
         bool shouldTrigger = hasDrawn 
                         && !Controller.isDrawAnimating 
-                        && !Controller.shouldWaitForAnims;
+                        && !TurnController.shouldWaitForAnims;
 
         if (!shouldTrigger)
             return;
@@ -51,6 +51,6 @@ public class DrawState : CombatFSMState
 
         hasDrawn = true;
 
-        Controller.shouldWaitForAnims = true;
+        TurnController.shouldWaitForAnims = true;
     }
 }

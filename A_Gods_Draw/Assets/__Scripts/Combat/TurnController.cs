@@ -32,7 +32,7 @@ public class TurnController : CombatFSM
     public bool isShuffleAnimating => ShuffleAnimator.isAnimating;
     public bool isCombatStarted = false;
     public bool shouldEndTurn = false;
-    public bool shouldWaitForAnims = false;
+    public static bool shouldWaitForAnims = false;
     [SerializeField] bool waitForLibraryShuffle = false;
 
     public CombatState state;

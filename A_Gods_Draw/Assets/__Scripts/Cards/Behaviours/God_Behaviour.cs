@@ -52,7 +52,7 @@ public class God_Behaviour : Card_Behaviour
         //Wait for animations, etc
         yield return new WaitUntil(() => true /* action.IsReady() */);
 
-        controller.shouldWaitForAnims = false;
+        TurnController.shouldWaitForAnims = false;
     }
     public void OnRetire(BoardStateController board)
     {

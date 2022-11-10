@@ -61,6 +61,9 @@ public class PlayerController : BoardElement
             shieldText.text = defendedFor.ToString();
         }
 
+        if (playerTracker.Health < 0)
+            playerTracker.Health = 0;
+
         healthTxt.text = "HP: " + playerTracker.Health.ToString();
 
     }

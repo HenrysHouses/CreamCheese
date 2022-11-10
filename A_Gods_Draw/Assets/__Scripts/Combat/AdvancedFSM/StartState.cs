@@ -16,7 +16,7 @@ public class StartState : CombatFSMState
     public override void Reason(bool override_ = false)
     {
         BoardElement.EnterCombat();
-        Controller.shouldWaitForAnims = false;
+        TurnController.shouldWaitForAnims = false;
         Controller.PerformTransition(Transition.EnterCombatCard); // ! this should be enter main not discard
     }
 

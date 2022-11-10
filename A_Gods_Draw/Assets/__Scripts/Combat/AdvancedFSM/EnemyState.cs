@@ -16,7 +16,7 @@ public class EnemyState : CombatFSMState
 
     public override void Reason(bool override_ = false)
     {
-        if (numOfEnemiesActed >= Controller.GetBoard().Enemies.Length)
+        if (numOfEnemiesActed >= Controller.GetBoard().getLivingEnemies().Length)
         {
             Controller.PerformTransition(Transition.EnterEnd);
             numOfEnemiesActed = 0;
@@ -25,14 +25,13 @@ public class EnemyState : CombatFSMState
 
     public override void Act()
     {
-        if (/*!Controller.shouldWaitForAnims*/ true)
+        if (!TurnController.shouldWaitForAnims)
         {
-            if (numOfEnemiesActed < Controller.GetBoard().Enemies.Length)
+            if (numOfEnemiesActed < Controller.GetBoard().getLivingEnemies().Length)
             {
-                Controller.GetBoard().Enemies[numOfEnemiesActed].Act(Controller.GetBoard());
+                Controller.GetBoard().getLivingEnemies()[numOfEnemiesActed].Act(Controller.GetBoard());
                 numOfEnemiesActed++;
             }
-            //Controller.shouldWaitForAnims = true;
         }
     }
 }

@@ -89,7 +89,7 @@ public class NonGod_Behaviour : Card_Behaviour
             {
                 return;
             }
-            controller.shouldWaitForAnims = true;
+            TurnController.shouldWaitForAnims = true;
             onSelectedRoutine = SelectingTargets();
             StartCoroutine(onSelectedRoutine);
         }
@@ -115,7 +115,7 @@ public class NonGod_Behaviour : Card_Behaviour
             yield return new WaitUntil(() => action.Ready());
         }
         CheckForGod();
-        controller.shouldWaitForAnims = false;
+        TurnController.shouldWaitForAnims = false;
     }
 
     bool AllActionsReady()
@@ -134,7 +134,7 @@ public class NonGod_Behaviour : Card_Behaviour
 
     public override void OnAction()
     {
-        controller.shouldWaitForAnims = true;
+        TurnController.shouldWaitForAnims = true;
         StartCoroutine(Play(controller.GetBoard()));
     }
 
@@ -154,7 +154,7 @@ public class NonGod_Behaviour : Card_Behaviour
         }
 
         controller.Discard(this);
-        controller.shouldWaitForAnims = false;
+        TurnController.shouldWaitForAnims = false;
     }
 
     public override bool CancelSelection()

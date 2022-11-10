@@ -44,6 +44,7 @@ public class AttackCardAction : CardAction
     public override IEnumerator OnAction(BoardStateController board)
     {
         isReady = false;
+
         //StartAnimations...
 
         //yield return new WaitUntil(() => true);

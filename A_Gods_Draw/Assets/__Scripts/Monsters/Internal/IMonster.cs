@@ -26,6 +26,8 @@ public abstract class IMonster : BoardElement
     Text strengh;
     [SerializeField]
     TMP_Text healthTxt;
+    [SerializeField]
+    TMP_Text defendTxt;
 
     [SerializeField]
     Sprite attackIcon;
@@ -46,6 +48,8 @@ public abstract class IMonster : BoardElement
 
         image.enabled = false;
         strengh.enabled = false;
+
+        defendTxt.enabled = false;
     }
 
     public int GetMaxHealth() { return maxHealth; }
@@ -57,11 +61,14 @@ public abstract class IMonster : BoardElement
         {
             health = health - (amount - defendedFor);
             defendedFor = 0;
+            image.color = Color.white;
+            defendTxt.enabled = false;
         }
         else
         {
             defendedFor -= amount;
         }
+        defendTxt.text = defendedFor.ToString();
 
         if (health <= 0)
         {
@@ -90,6 +97,9 @@ public abstract class IMonster : BoardElement
     public void Defend(int amount)
     {
         defendedFor += amount;
+        image.color = Color.cyan;
+        defendTxt.text = defendedFor.ToString();
+        defendTxt.enabled = true;
     }
 
     public void DeBuff(int amount)
@@ -133,7 +143,14 @@ public abstract class IMonster : BoardElement
     public void Act(BoardStateController board)
     {
         enemyIntent.Act(board);
-        //waitforanimations
+        StartCoroutine(WaitForAnims());
+    }
+
+    IEnumerator WaitForAnims()
+    {
+        yield return new WaitForSeconds(0.5f);
+
+        TurnController.shouldWaitForAnims = false;
     }
 
     private void OnMouseOver()

@@ -24,12 +24,13 @@ public class CardsState : CombatFSMState
             Controller.PerformTransition(Transition.EnterCombatEnemy);
             numOfCardsActed = 0;
             readyToMoveOn = false;
+            TurnController.shouldWaitForAnims = false;
         }
     }
 
     public override void Act()
     {
-        if (!Controller.shouldWaitForAnims)
+        if (!TurnController.shouldWaitForAnims)
         {
             if (numOfCardsActed < Controller.GetBoard().playedCards.Count)
             {
@@ -42,7 +43,7 @@ public class CardsState : CombatFSMState
                 Controller.GetBoard().thingsInLane.Clear();
                 readyToMoveOn = true;
             }
-            Controller.shouldWaitForAnims = true;
+            TurnController.shouldWaitForAnims = true;
         }
     }
 }
