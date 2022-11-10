@@ -137,7 +137,7 @@ public class BoardStateController : MonoBehaviour
 
     public void placeCardOnLane(Card_Behaviour card)
     {
-        SoundPlayer.Playsound(placeCard_SFX,gameObject);
+        SoundPlayer.PlaySound(placeCard_SFX,gameObject);
 
         Transform targetlane = null;
 

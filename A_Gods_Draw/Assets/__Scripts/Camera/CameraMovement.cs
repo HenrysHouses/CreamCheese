@@ -80,7 +80,7 @@ public class CameraMovement : MonoBehaviour
             anim.SetBool("Right", false);
             anim.SetBool("Up", false);
             anim.SetBool("Left", false);
-            SoundPlayer.Playsound(cameraSound, gameObject);
+            SoundPlayer.PlaySound(cameraSound, gameObject);
 
         }
         if(goLeft) // go left
@@ -90,7 +90,7 @@ public class CameraMovement : MonoBehaviour
             anim.SetBool("Right", true);
             anim.SetBool("Up", false);
             anim.SetBool("Left", false);
-            SoundPlayer.Playsound(cameraSound, gameObject);
+            SoundPlayer.PlaySound(cameraSound, gameObject);
 
         }
         if(goRight) // go right
@@ -100,7 +100,7 @@ public class CameraMovement : MonoBehaviour
             anim.SetBool("Right", false);
             anim.SetBool("Up", false);
             anim.SetBool("Left", true);
-            SoundPlayer.Playsound(cameraSound, gameObject);
+            SoundPlayer.PlaySound(cameraSound, gameObject);
 
         }
         if(goUp) // go up
@@ -110,7 +110,7 @@ public class CameraMovement : MonoBehaviour
             anim.SetBool("Right", false);
             anim.SetBool("Up", true);
             anim.SetBool("Left", false);
-            SoundPlayer.Playsound(cameraSound, gameObject);
+            SoundPlayer.PlaySound(cameraSound, gameObject);
 
         }
 
@@ -118,14 +118,14 @@ public class CameraMovement : MonoBehaviour
         if(MultiSceneLoader.getLoadedCollectionTitle.Equals("Map"))
         {
             anim.SetBool("MapCamera", true);
-            SoundPlayer.Playsound(cameraSound, gameObject);
+            SoundPlayer.PlaySound(cameraSound, gameObject);
 
         }
 
         else if(MultiSceneLoader.getLoadedCollectionTitle.Equals("HowToPlay"))
         {
             anim.SetBool("MapCamera",true);
-            SoundPlayer.Playsound(cameraSound,gameObject);
+            SoundPlayer.PlaySound(cameraSound,gameObject);
         }
         else 
         {

@@ -84,15 +84,15 @@ namespace Map
             switch (mapNode.Node.nodeType)
             {
                 case NodeType.Enemy:
-                    sceneTransition.TransitionScene(false, "Refactored Combat");
+                    sceneTransition.TransitionScene(false, "Combat");
                     GameManager.instance.nextCombatType = EncounterDifficulty.Easy;
                     break;
                 case NodeType.Elite:
-                    sceneTransition.TransitionScene(false, "Refactored Combat");
+                    sceneTransition.TransitionScene(false, "Combat");
                     GameManager.instance.nextCombatType = EncounterDifficulty.elites;
                     break;
                 case NodeType.RestPlace:
-                    sceneTransition.TransitionScene(false, "Refactored Combat");
+                    sceneTransition.TransitionScene(false, "Combat");
                     break;
                 case NodeType.RandomReward:
                     sceneTransition.TransitionScene(false, "CardReward");
@@ -115,7 +115,7 @@ namespace Map
                     Debug.Log(CardType.God);
                     break;
                 case NodeType.Boss:
-                    sceneTransition.TransitionScene(false, "Refactored Combat");
+                    sceneTransition.TransitionScene(false, "Combat");
                     GameManager.instance.nextCombatType = EncounterDifficulty.Boss;
                     break;
                 default:

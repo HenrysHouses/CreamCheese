@@ -182,7 +182,7 @@ public class HealthCounterController : MonoBehaviour
         shouldTriggerGears.RemoveAt(0);
 
         HealthTick_Parameter.Value = player.Health;
-        SoundPlayer.Playsound(HealthTick_SFX, gameObject, HealthTick_Parameter);
+        SoundPlayer.PlaySound(HealthTick_SFX, gameObject, HealthTick_Parameter);
         
         float[] currRotationAmount = new float[gear.Length];
         bool[] gearState = new bool[gear.Length];

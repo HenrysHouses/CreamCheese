@@ -15,4 +15,7 @@ public class God_Card_SO : Card_SO
     private void OnValidate() {
         type = CardType.God;
     }
+
+    public GodDialogue[] dialogues;
 }
+
