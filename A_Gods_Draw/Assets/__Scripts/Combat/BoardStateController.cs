@@ -44,7 +44,7 @@ public class BoardStateController : MonoBehaviour
     IMonster[] _Enemies;
     [SerializeField] Transform[] _Lane;
     [SerializeField] Transform _GodLane;
-    [SerializeField] PlayerController _Player; 
+    [SerializeField] PlayerController _Player;
 
     // Sounds
     [SerializeField] EventReference placeCard_SFX;
@@ -137,7 +137,7 @@ public class BoardStateController : MonoBehaviour
 
     public void placeCardOnLane(Card_Behaviour card)
     {
-        SoundPlayer.Playsound(placeCard_SFX,gameObject);
+        
 
         Transform targetlane = null;
 
@@ -149,6 +149,7 @@ public class BoardStateController : MonoBehaviour
         else
         {
             targetlane = _Lane[thingsInLane.Count];
+            SoundPlayer.Playsound(placeCard_SFX, gameObject);
 
         }
 
@@ -157,7 +158,8 @@ public class BoardStateController : MonoBehaviour
 
             Debug.Log("god lane");
             playedGodCard = card as God_Behaviour;
-            
+            SoundPlayer.Playsound(playedGodCard.CardSO.enterBattlefield_SFX, gameObject);
+
 
             Transform cardTransform = playedGodCard.transform;
 
@@ -168,11 +170,11 @@ public class BoardStateController : MonoBehaviour
             cardTransform.parent.parent.localRotation = new Quaternion();
             cardTransform.parent.rotation = new Quaternion();
             cardTransform.parent.GetComponent<Card_Selector>().enabled = false;
-            cardTransform.parent.parent.localScale = new Vector3(1.5f,1.5f,1.5f); // !!REMOVE THIS AFTER FINDING A PREFERABLE SIZE FOR THE CARDS
-            
-            GameObject spawn = Instantiate(playedGodCard.CardSO.God_Model,targetlane.position,transform.localRotation = new Quaternion(0,-0.577358961f,0,0.816490531f));
+            cardTransform.parent.parent.localScale = new Vector3(1.5f, 1.5f, 1.5f); // !!REMOVE THIS AFTER FINDING A PREFERABLE SIZE FOR THE CARDS
+
+            GameObject spawn = Instantiate(playedGodCard.CardSO.God_Model, targetlane.position, transform.localRotation = new Quaternion(0, -0.577358961f, 0, 0.816490531f));
             spawn.transform.SetParent(cardTransform, true);
-            
+
             Debug.LogWarning("REMOVE SIZE HERE");
             return;
         }
@@ -197,20 +199,20 @@ public class BoardStateController : MonoBehaviour
                 cardTransform.parent.parent.localRotation = new Quaternion();
                 cardTransform.parent.rotation = new Quaternion();
                 cardTransform.parent.GetComponent<Card_Selector>().enabled = false;
-                cardTransform.parent.parent.localScale = new Vector3(1.5f,1.5f,1.5f);  // !!REMOVE THIS AFTER FINDING A PREFERABLE SIZE FOR THE CARDS
+                cardTransform.parent.parent.localScale = new Vector3(1.5f, 1.5f, 1.5f);  // !!REMOVE THIS AFTER FINDING A PREFERABLE SIZE FOR THE CARDS
 
 
                 for (int j = 0; j < behaviour.TargetedActions; j++) // should run this for each targetable action
                 {
                     IMonster target = behaviour.getActionTarget(j);
-                    if(target == null)
+                    if (target == null)
                         continue;
 
                     GameObject spawn = Instantiate(TargetingMesh, Vector3.zero, Quaternion.identity);
                     spawn.transform.SetParent(cardTransform, true);
                     ProceduralPathMesh Mesh = spawn.GetComponent<ProceduralPathMesh>();
                     Mesh.startPoint.position = cardTransform.position;
-                    
+
                     Debug.Log(target);
                     Mesh.endPoint.position = target.transform.position;
                 }
