@@ -39,6 +39,9 @@ public class TurnController : CombatFSM
 
     Card_Behaviour selectedCard;
 
+    //particle effect
+    [SerializeField] SlashParticles slashParticles;
+
     protected override void Initialize()
     {
         deckManager.SetCurrentDeck(player.CurrentDeck);

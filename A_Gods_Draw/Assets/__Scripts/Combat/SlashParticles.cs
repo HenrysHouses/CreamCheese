@@ -4,15 +4,12 @@ using UnityEngine;
 
 public class SlashParticles : MonoBehaviour
 {
-    // Start is called before the first frame update
-    void Start()
-    {
-        
-    }
+    public ParticleSystem slash;
+    public Transform card;
 
-    // Update is called once per frame
-    void Update()
+    public void Slashing()
     {
-        
+        ParticleSystem slashInstance = Instantiate(slash);
+        Destroy(slashInstance, 1); //can change the time to something that feels natural
     }
 }
