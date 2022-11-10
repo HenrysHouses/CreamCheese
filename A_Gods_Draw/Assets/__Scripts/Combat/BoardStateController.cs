@@ -137,7 +137,7 @@ public class BoardStateController : MonoBehaviour
 
     public void placeCardOnLane(Card_Behaviour card)
     {
-        
+        SoundPlayer.PlaySound(placeCard_SFX,gameObject);
 
         Transform targetlane = null;
 
@@ -149,7 +149,7 @@ public class BoardStateController : MonoBehaviour
         else
         {
             targetlane = _Lane[thingsInLane.Count];
-            SoundPlayer.Playsound(placeCard_SFX, gameObject);
+            SoundPlayer.PlaySound(placeCard_SFX, gameObject);
 
         }
 
@@ -158,7 +158,7 @@ public class BoardStateController : MonoBehaviour
 
             Debug.Log("god lane");
             playedGodCard = card as God_Behaviour;
-            SoundPlayer.Playsound(playedGodCard.CardSO.enterBattlefield_SFX, gameObject);
+            SoundPlayer.PlaySound(playedGodCard.CardSO.enterBattlefield_SFX, gameObject);
 
 
             Transform cardTransform = playedGodCard.transform;

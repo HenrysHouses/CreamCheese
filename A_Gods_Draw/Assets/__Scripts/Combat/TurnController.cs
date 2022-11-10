@@ -117,7 +117,7 @@ public class TurnController : CombatFSM
 
     void CardSound(EventReference event_, GameObject target)
     {
-        SoundPlayer.Playsound(event_, target);
+        SoundPlayer.PlaySound(event_, target);
     }
 
     // * --- Turn Management ---

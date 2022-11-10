@@ -39,7 +39,7 @@ public abstract class Card_Behaviour : BoardElement
     {
         if (onPlayerHand)
         {
-            SoundPlayer.Playsound(elements.OnClickSFX,gameObject);
+            SoundPlayer.PlaySound(elements.OnClickSFX,gameObject);
             controller.SetSelectedCard(this);
             OnBeingSelected();
         }

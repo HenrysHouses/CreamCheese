@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
+using UnityEngine.Events;
 
 public enum collectionLoadMode
 {
@@ -12,6 +13,7 @@ public enum collectionLoadMode
 
 public static class MultiSceneLoader
 {
+    public static UnityEvent OnSceneLoad = new UnityEvent();
     static SceneCollectionObject[] Collection;
     static SceneCollectionObject[] GetSceneCollections()
     {
@@ -61,6 +63,8 @@ public static class MultiSceneLoader
                 
                 break;
         }
+
+        OnSceneLoad?.Invoke();
     }
 
     static void loadDifference(SceneCollectionObject Collection)

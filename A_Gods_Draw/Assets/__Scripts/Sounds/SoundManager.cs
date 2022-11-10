@@ -11,7 +11,7 @@ public static class SoundPlayer
 {   
     private static Dictionary<(EventReference, GameObject),EventInstance> eventInstances = new Dictionary<(EventReference, GameObject), EventInstance>();
 
-    public static void Playsound(EventReference _soundEvenet, GameObject soundGO, ParamRef parameterID = null)
+    public static void PlaySound(EventReference _soundEvenet, GameObject soundGO, ParamRef parameterID = null)
     {
         // Debug.Log("Played sound: " + _soundEvenet.Path);
         EventInstance temperaryEvent;
