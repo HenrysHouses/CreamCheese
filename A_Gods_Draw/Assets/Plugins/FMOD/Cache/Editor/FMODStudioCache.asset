@@ -1,5 +1,32 @@
 %YAML 1.1
 %TAG !u! tag:unity3d.com,2011:
+--- !u!114 &-8361324344680007583
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ceb653cd98e289a4e8697a1af55201f2, type: 3}
+  m_Name: event:/Combat/Card Combat/SwordAttack
+  m_EditorClassIdentifier: 
+  Path: event:/Combat/Card Combat/SwordAttack
+  Guid:
+    Data1: -59291840
+    Data2: 1217564090
+    Data3: 1609589929
+    Data4: -360794834
+  Banks:
+  - {fileID: 794753253420131033}
+  IsStream: 0
+  Is3D: 0
+  IsOneShot: 1
+  Parameters: []
+  MinDistance: 1
+  MaxDistance: 20
+  Length: 770
 --- !u!114 &-7265340613661459933
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -102,6 +129,60 @@ MonoBehaviour:
   IsGlobal: 1
   Labels: []
   Exists: 1
+--- !u!114 &-5104366375569523753
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ceb653cd98e289a4e8697a1af55201f2, type: 3}
+  m_Name: event:/Combat/Enemy/EnemyDialogCharachters
+  m_EditorClassIdentifier: 
+  Path: event:/Combat/Enemy/EnemyDialogCharachters
+  Guid:
+    Data1: 2019886543
+    Data2: 1258154104
+    Data3: 119802265
+    Data4: -447201182
+  Banks:
+  - {fileID: 794753253420131033}
+  IsStream: 1
+  Is3D: 0
+  IsOneShot: 1
+  Parameters: []
+  MinDistance: 1
+  MaxDistance: 20
+  Length: 540
+--- !u!114 &-5027003206129430838
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ceb653cd98e289a4e8697a1af55201f2, type: 3}
+  m_Name: event:/Combat/Enemy/EnemyKilled
+  m_EditorClassIdentifier: 
+  Path: event:/Combat/Enemy/EnemyKilled
+  Guid:
+    Data1: 55962543
+    Data2: 1104511573
+    Data3: 823004837
+    Data4: -1532201799
+  Banks:
+  - {fileID: 794753253420131033}
+  IsStream: 0
+  Is3D: 0
+  IsOneShot: 1
+  Parameters: []
+  MinDistance: 1
+  MaxDistance: 20
+  Length: 1500
 --- !u!114 &-4822279630965835551
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -117,10 +198,10 @@ MonoBehaviour:
   Path: Assets/FMODBanks/Desktop/Master.strings.bank
   Name: Master.strings
   StudioPath: bank:/Master.strings
-  lastModified: 638030842318789478
+  lastModified: 638036940544540790
   FileSizes:
   - Name: 
-    Value: 1688
+    Value: 2056
   Exists: 1
 --- !u!114 &-3902489308834136702
 MonoBehaviour:
@@ -258,6 +339,33 @@ MonoBehaviour:
   - Enemy grunt
   - Enemy Defend
   Exists: 1
+--- !u!114 &-809297789796148776
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ceb653cd98e289a4e8697a1af55201f2, type: 3}
+  m_Name: event:/Combat/EndTurn
+  m_EditorClassIdentifier: 
+  Path: event:/Combat/EndTurn
+  Guid:
+    Data1: 999653234
+    Data2: 1139444638
+    Data3: 2062513328
+    Data4: -856870951
+  Banks:
+  - {fileID: 794753253420131033}
+  IsStream: 1
+  Is3D: 0
+  IsOneShot: 1
+  Parameters: []
+  MinDistance: 1
+  MaxDistance: 20
+  Length: 1393
 --- !u!114 &-587572218137199265
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -286,6 +394,33 @@ MonoBehaviour:
   MinDistance: 1
   MaxDistance: 20
   Length: 89864
+--- !u!114 &-389963344431970092
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ceb653cd98e289a4e8697a1af55201f2, type: 3}
+  m_Name: event:/Combat/God/GodEnters
+  m_EditorClassIdentifier: 
+  Path: event:/Combat/God/GodEnters
+  Guid:
+    Data1: -1378885153
+    Data2: 1230558042
+    Data3: 1344752009
+    Data4: -742545908
+  Banks:
+  - {fileID: 794753253420131033}
+  IsStream: 1
+  Is3D: 0
+  IsOneShot: 1
+  Parameters: []
+  MinDistance: 1
+  MaxDistance: 20
+  Length: 1800
 --- !u!114 &-218946236829467293
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -344,6 +479,13 @@ MonoBehaviour:
   - {fileID: 4920163687644758434}
   - {fileID: 2354061555520665187}
   - {fileID: 1963985170467998783}
+  - {fileID: -8361324344680007583}
+  - {fileID: -809297789796148776}
+  - {fileID: 6471167561174028489}
+  - {fileID: -5027003206129430838}
+  - {fileID: -5104366375569523753}
+  - {fileID: -389963344431970092}
+  - {fileID: 4348325549410373758}
   EditorParameters:
   - {fileID: -7265340613661459933}
   - {fileID: -861201357751457843}
@@ -355,7 +497,7 @@ MonoBehaviour:
   - {fileID: 2284276540301729918}
   StringsBanks:
   - {fileID: -4822279630965835551}
-  cacheTime: 638030842318789478
+  cacheTime: 638036940544540790
   cacheVersion: 131592
 --- !u!114 &601750260413816558
 MonoBehaviour:
@@ -377,7 +519,7 @@ MonoBehaviour:
     Data4: -1814946090
   Banks:
   - {fileID: 794753253420131033}
-  IsStream: 1
+  IsStream: 0
   Is3D: 0
   IsOneShot: 1
   Parameters: []
@@ -399,7 +541,7 @@ MonoBehaviour:
   Path: Assets/FMODBanks/Desktop/Effects.bank
   Name: Effects
   StudioPath: bank:/Effects
-  lastModified: 638030842318779469
+  lastModified: 638036940544485476
   FileSizes: []
   Exists: 1
 --- !u!114 &1963985170467998783
@@ -444,7 +586,7 @@ MonoBehaviour:
   Path: Assets/FMODBanks/Desktop/Master.bank
   Name: Master
   StudioPath: bank:/Master
-  lastModified: 638030842318779469
+  lastModified: 638036940544530782
   FileSizes: []
   Exists: 1
 --- !u!114 &2354061555520665187
@@ -556,6 +698,33 @@ MonoBehaviour:
   MinDistance: 1
   MaxDistance: 20
   Length: 4837
+--- !u!114 &4348325549410373758
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ceb653cd98e289a4e8697a1af55201f2, type: 3}
+  m_Name: event:/Combat/God/Tyr/TyrDies
+  m_EditorClassIdentifier: 
+  Path: event:/Combat/God/Tyr/TyrDies
+  Guid:
+    Data1: 1689406183
+    Data2: 1255456034
+    Data3: -1683625557
+    Data4: 841660919
+  Banks:
+  - {fileID: 794753253420131033}
+  IsStream: 0
+  Is3D: 0
+  IsOneShot: 1
+  Parameters: []
+  MinDistance: 1
+  MaxDistance: 20
+  Length: 708
 --- !u!114 &4658744612584646019
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -571,7 +740,7 @@ MonoBehaviour:
   Path: Assets/FMODBanks/Desktop/Ambience.bank
   Name: Ambience
   StudioPath: bank:/Ambience
-  lastModified: 638030842318619323
+  lastModified: 638036940543430902
   FileSizes: []
   Exists: 1
 --- !u!114 &4812284380466909776
@@ -677,3 +846,30 @@ MonoBehaviour:
   IsGlobal: 1
   Labels: []
   Exists: 1
+--- !u!114 &6471167561174028489
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ceb653cd98e289a4e8697a1af55201f2, type: 3}
+  m_Name: event:/Combat/God/Tyr/CHrachterAppear
+  m_EditorClassIdentifier: 
+  Path: event:/Combat/God/Tyr/CHrachterAppear
+  Guid:
+    Data1: 2004915618
+    Data2: 1330019366
+    Data3: -2095186242
+    Data4: 2122433884
+  Banks:
+  - {fileID: 794753253420131033}
+  IsStream: 1
+  Is3D: 0
+  IsOneShot: 1
+  Parameters: []
+  MinDistance: 1
+  MaxDistance: 20
+  Length: 420

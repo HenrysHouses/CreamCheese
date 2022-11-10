@@ -5,7 +5,7 @@
 			<value>Enemy Attack</value>
 		</property>
 		<property name="outputFormat">
-			<value>1</value>
+			<value>0</value>
 		</property>
 		<relationship name="folder">
 			<destination>{949fb0af-b2e6-4a5f-96b9-a29a779a53f9}</destination>
@@ -93,10 +93,9 @@
 			<value>0.5</value>
 		</property>
 		<relationship name="sounds">
-			<destination>{09d53315-4967-44e1-966a-f0ff31d43629}</destination>
-			<destination>{d28d7c50-db8a-42d2-819f-3039932183f9}</destination>
-			<destination>{7000c60a-bb86-4557-98fa-bcd618930e78}</destination>
-			<destination>{68fc83e8-f223-4c16-991d-ca6411860cfc}</destination>
+			<destination>{3ac0450c-5fcb-470c-87ad-7fbf4e480377}</destination>
+			<destination>{9b64bd5b-d61e-435e-81f7-8f450ba0f155}</destination>
+			<destination>{93474909-9d85-4e09-ba8b-89c8e3491694}</destination>
 		</relationship>
 	</object>
 	<object class="EventMixerGroup" id="{a919498c-151c-4210-98e4-2809fddba30c}">
@@ -124,24 +123,19 @@
 	</object>
 	<object class="MixerBusPanner" id="{c789a21a-05a6-4b30-bffc-6411a2029f6f}" />
 	<object class="MixerBusFader" id="{2138f7ba-f6fb-43f2-8a84-de58190a1abb}" />
-	<object class="EventSound" id="{09d53315-4967-44e1-966a-f0ff31d43629}">
-		<relationship name="event">
-			<destination>{c1c280ca-45a3-4213-a9bb-28fb5759716b}</destination>
-		</relationship>
-	</object>
-	<object class="EventSound" id="{d28d7c50-db8a-42d2-819f-3039932183f9}">
-		<relationship name="event">
-			<destination>{cc6da74c-7952-4ee7-a417-ffa82068b132}</destination>
-		</relationship>
-	</object>
-	<object class="EventSound" id="{7000c60a-bb86-4557-98fa-bcd618930e78}">
+	<object class="EventSound" id="{3ac0450c-5fcb-470c-87ad-7fbf4e480377}">
 		<relationship name="event">
 			<destination>{3b113c84-70de-4291-aeb7-1895fe2b94db}</destination>
 		</relationship>
 	</object>
-	<object class="EventSound" id="{68fc83e8-f223-4c16-991d-ca6411860cfc}">
+	<object class="EventSound" id="{9b64bd5b-d61e-435e-81f7-8f450ba0f155}">
 		<relationship name="event">
 			<destination>{cfe262f0-7d0d-4a69-ab32-524e896c5d94}</destination>
+		</relationship>
+	</object>
+	<object class="EventSound" id="{93474909-9d85-4e09-ba8b-89c8e3491694}">
+		<relationship name="event">
+			<destination>{c1c280ca-45a3-4213-a9bb-28fb5759716b}</destination>
 		</relationship>
 	</object>
 	<object class="MixerBusEffectChain" id="{e0d24765-83c8-4db3-a8e1-010b97a3a9e0}">
@@ -153,7 +147,7 @@
 	<object class="MixerBusFader" id="{d5fb9089-726a-4aa9-aa0b-40fbf9b360d0}" />
 	<object class="SFXReverbEffect" id="{02c6ab02-1233-4718-8768-150bfa844043}">
 		<property name="decayTime">
-			<value>650</value>
+			<value>300</value>
 		</property>
 		<property name="earlyDelay">
 			<value>15</value>
