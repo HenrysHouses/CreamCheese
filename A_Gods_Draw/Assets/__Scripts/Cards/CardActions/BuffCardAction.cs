@@ -19,10 +19,7 @@ public class BuffCardAction : CardAction
 
     public override void SetClickableTargets(BoardStateController board, bool to = true)
     {
-        ResetCamera();
-
-        Object.Destroy(current.transform.parent.parent.gameObject);
-        current.RemoveFromHand();
+        board.SetClickable(0, to);
     }
 
     public override IEnumerator OnAction(BoardStateController board)
@@ -33,7 +30,7 @@ public class BuffCardAction : CardAction
 
         isReady = true;
     }
-    public override void OnLanePlaced(BoardStateController board)
+    public override void OnActionReady(BoardStateController board)
     {
         foreach (NonGod_Behaviour card in targets)
         {
@@ -44,6 +41,9 @@ public class BuffCardAction : CardAction
 
         Object.Destroy(current.transform.parent.parent.gameObject);
         current.RemoveFromHand();
+    }
+    public override void OnLanePlaced(BoardStateController board)
+    {
     }
 
     public override void Reset(BoardStateController board)
