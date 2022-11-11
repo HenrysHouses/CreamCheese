@@ -13,12 +13,6 @@ public static class SoundPlayer
 
     public static void PlaySound(EventReference _soundEvenet, GameObject soundGO, ParamRef parameterID = null)
     {
-        if(_soundEvenet.Path == "")
-        {
-            Debug.LogError(soundGO.name + ": Missing event reference");
-            return;
-        }
-
         // Debug.Log("Played sound: " + _soundEvenet.Path);
         EventInstance temperaryEvent;
         PLAYBACK_STATE pbstate;
@@ -49,6 +43,7 @@ public static class SoundPlayer
         }
         else
         {
+            Debug.Log(parameterID.Value);
             temperaryEvent.start();
             temperaryEvent.setParameterByName(parameterID.Name, parameterID.Value);
         }

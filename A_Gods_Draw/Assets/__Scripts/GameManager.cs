@@ -2,6 +2,8 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using Map;
+using FMOD.Studio;
+using FMODUnity;
 
 public class GameManager : MonoBehaviour
 {
@@ -14,14 +16,25 @@ public class GameManager : MonoBehaviour
     EncounterDifficulty nextCombatDiff;
     [SerializeField]
     NodeType nextReward;
-    
-    private void Awake() 
+
+    [SerializeField] EventDescription eventDescription;
+
+    private void Awake()
     {
+
         GameSaver.InitializeSaving();
-        if(!instance)
+        if (!instance)
             instance = this;
         else
             Destroy(gameObject);
+
+        RuntimeManager.LoadBank("Ambience", true);
+        RuntimeManager.LoadBank("PlayerEffects", true);
+        RuntimeManager.LoadBank("Master", true);
+        RuntimeManager.LoadBank("CardEffects", true);
+        RuntimeManager.LoadBank("MonsterEffects", true);
+        RuntimeManager.LoadBank("GodEffects", true);
+        //RuntimeManager.LoadBank("Master", true);
     }
 
     private void Start()
@@ -44,10 +57,11 @@ public class GameManager : MonoBehaviour
         loadGameData();
     }
 
-    public EncounterDifficulty nextCombatType{
-        get { return nextCombatDiff; } 
+    public EncounterDifficulty nextCombatType
+    {
+        get { return nextCombatDiff; }
         set { nextCombatDiff = value; }
-    }  
+    }
 
     public NodeType nextRewardType
     {

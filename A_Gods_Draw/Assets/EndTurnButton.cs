@@ -14,7 +14,6 @@ public class EndTurnButton : MonoBehaviour
 
     private void OnMouseDown()
     {
-        //RuntimeManager.PlayOneShot(endTurn_SFX);
         SoundPlayer.PlaySound(endTurn_SFX,gameObject);
         turnEnd.Invoke();
     }

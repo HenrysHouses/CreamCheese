@@ -11,11 +11,14 @@ public class BuffCardAction : CardAction
 
     public override IEnumerator ChoosingTargets(BoardStateController board, float mult)
     {
-        camAnim.SetBool("Up", true);
-
         isReady = false;
 
+        if(!isReady)
+            camAnim.SetBool("Up", true);
+
         board.SetClickable(0);
+
+
 
         yield return new WaitUntil(HasClickedNonGod);
 
@@ -34,6 +37,8 @@ public class BuffCardAction : CardAction
         Object.Destroy(current.transform.parent.parent.gameObject);
 
         isReady = true;
+
+
     }
 
     void SpawnCoins(int mount)
@@ -43,6 +48,7 @@ public class BuffCardAction : CardAction
             var aux = Object.Instantiate(Resources.Load<GameObject>("Prop_Coin_PRE_v1"), target.transform);
             aux.transform.localPosition = Vector3.back * 8 + Vector3.back * i;
         }
+        ResetCamera();
     }
 
     bool HasClickedNonGod()
@@ -80,6 +86,7 @@ public class BuffCardAction : CardAction
     }
     public override void ResetCamera()
     {
+        Debug.Log("Why? D:");
         camAnim.SetBool("Up", false);
     }
 }

@@ -9,42 +9,25 @@ public class AttackCardAction : CardAction
     public override IEnumerator ChoosingTargets(BoardStateController board, float mult)
     {
         camAnim.SetBool("EnemyCloseUp", true);
+        
         isReady = false;
         //foreach monster in bpard, enable click
         board.SetClickable(3);
 
-        // Debug.Log("waiting for selecting enemies...");
+        Debug.Log("waiting for selecting enemies...");
 
-        yield return new WaitUntil(HasClickedMonster);
+        yield return new WaitUntil(() => true);
 
         camAnim.SetBool("EnemyCloseUp", false);
 
         board.SetClickable(3, false);
 
         isReady = true;
-    }
-
-    bool HasClickedMonster()
-    {
-        if (Input.GetMouseButtonDown(0))
-        {
-            BoardElement element = TurnController.PlayerClick();
-            IMonster clickedMonster = element as IMonster;
-            if (clickedMonster)
-            {
-                // Debug.Log(clickedMonster);
-                target = clickedMonster;
-                return true;
-            }
-            current.MissClick();
-        }
-        return false;
-    }
-
+    
+  }
     public override IEnumerator OnAction(BoardStateController board)
     {
         isReady = false;
-
         //StartAnimations...
 
         //yield return new WaitUntil(() => true);

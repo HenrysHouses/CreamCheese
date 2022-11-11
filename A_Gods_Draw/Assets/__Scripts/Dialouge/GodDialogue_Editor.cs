@@ -1,3 +1,5 @@
+#if UNITY_EDITOR
+
 using UnityEngine;
 using UnityEditor;
 
@@ -31,3 +33,4 @@ public class GodDialogue_Editor : Editor
         }
     }
 }
+#endif

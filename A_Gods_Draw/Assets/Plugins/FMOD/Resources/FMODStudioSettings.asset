@@ -157,7 +157,7 @@ MonoBehaviour:
       Value: 0
       HasValue: 0
     Overlay:
-      Value: 1
+      Value: 0
       HasValue: 1
     Logging:
       Value: 0
@@ -558,11 +558,11 @@ MonoBehaviour:
   ShowBankRefreshWindow: 1
   AutomaticEventLoading: 0
   BankLoadType: 0
-  AutomaticSampleLoading: 0
+  AutomaticSampleLoading: 1
   EncryptionKey: 
-  ImportType: 0
-  TargetAssetPath: FMODBanks
-  TargetBankFolder: 
+  ImportType: 1
+  TargetAssetPath: Desktop
+  TargetBankFolder: FMODBanks
   EventLinkage: 0
   LoggingLevel: 2
   SpeakerModeSettings: []
@@ -578,7 +578,11 @@ MonoBehaviour:
   - Master
   Banks:
   - Ambience
+  - CardEffects
   - Effects
+  - GodEffects
+  - MonsterEffects
+  - PlayerEffects
   BanksToLoad:
   - Ambience
   - Effects
