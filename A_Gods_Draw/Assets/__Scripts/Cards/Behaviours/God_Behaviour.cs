@@ -70,13 +70,14 @@ public class God_Behaviour : Card_Behaviour
         nonGod_Behaviour.Buff(card_so.strengh, true);
     }
 
-    public void DealDamage(int amount)
+    public void DealDamage(int amount, UnityEngine.Object source)
     {
         //Debug.Log("God damaged, defended for: " + defendFor);
 
         if (amount > defendFor)
         {
             health -= amount + defendFor;
+            card_so.StartDialogue(GodDialogueTrigger.Hurt, source);
             defendFor = 0;
 
             godPlacement.UpdateUI();
@@ -117,7 +118,6 @@ public class God_Behaviour : Card_Behaviour
         defendFor += amount;
     }
 
-
     private void OnMouseOver()
     {
         if (onPlayerHand)
@@ -152,91 +152,4 @@ public class God_Behaviour : Card_Behaviour
         return true;
     }
 
-    public void StartDialogue(GodDialogueTrigger trigger, UnityEngine.Object source = null)
-    {
-        Card_SO targetCard;
-        GodDialogue data;
-
-        switch(trigger)
-        {
-            case GodDialogueTrigger.Played:
-            case GodDialogueTrigger.Draw:
-            case GodDialogueTrigger.Discard:
-                targetCard = source as Card_SO;
-                data = findRelatedDialogue(trigger, targetCard);
-                if(data == null)
-                {
-                    data = findRelatedDialogue(trigger);
-                    if(data == null)
-                        break;
-                }
-                Debug.Log("Dialogue source: " + source);
-                DialogueController.instance.SpawnDialogue(data.dialogue);
-                break;
-            default:
-                throw new NotImplementedException();
-        }
-    }
-
-    /// <summary>Finds a dialogue related to a board element</summary>
-    /// <param name="target">The board element to react to</param>
-    /// <returns>matching dialogue or null</returns>
-    GodDialogue findRelatedDialogue<T>(T target) where T : BoardElement
-    {
-        throw new NotImplementedException();
-    }
-
-    /// <summary>Finds a dialogue related to a card</summary>
-    /// <param name="card">Target card to react to</param>
-    /// <returns>matching dialogue or null</returns>
-    GodDialogue findRelatedDialogue(GodDialogueTrigger trigger, Card_SO card)
-    {
-        List<GodDialogue> matches = new List<GodDialogue>();
-
-        foreach (var dialogue in card_so.dialogues)
-        {
-            if(dialogue.GenericTrigger)
-                continue;
-
-            if(dialogue.cardTrigger == null)
-                continue;
-
-            if(dialogue.trigger != trigger)
-                continue;
-
-            if(dialogue.cardTrigger.cardName == card.cardName)
-                matches.Add(dialogue);            
-        }
-
-        if(matches.Count == 0)
-            return null;
-
-        int rand = UnityEngine.Random.Range(0, matches.Count);
-        return matches[rand];
-    }
-
-    /// <summary>Finds a generic dialogue related to a trigger</summary>
-    /// <param name="trigger">Type of dialogue trigger</param>
-    /// <returns>A random matching dialogue or null</returns>
-    GodDialogue findRelatedDialogue(GodDialogueTrigger trigger)
-    {
-        List<GodDialogue> matches = new List<GodDialogue>();
-
-        foreach (var dialogue in card_so.dialogues)
-        {
-            if(dialogue.trigger == trigger && dialogue.GenericTrigger)
-                matches.Add(dialogue);            
-        }
-
-        if(matches.Count == 0)
-            return null;
-
-        // Finds random dialogue and decides if it should play based on its chance
-        int rand = UnityEngine.Random.Range(0, matches.Count);
-        float randPlayChance = UnityEngine.Random.Range(0f, 1f);
-
-        if(matches[rand].checkChance(randPlayChance))
-            return matches[rand];
-        return null;
-    }
 }

@@ -10,7 +10,7 @@ public class BuffAttackersAction : Action
         actionIcon = Resources.Load<Sprite>("EnemyData/Icons/32");
     }
 
-    public override void Execute(BoardStateController BoardStateController, int strengh)
+    public override void Execute(BoardStateController BoardStateController, int strengh, UnityEngine.Object source)
     {
         foreach (IMonster enemy in BoardStateController.getLivingEnemies())
         {
