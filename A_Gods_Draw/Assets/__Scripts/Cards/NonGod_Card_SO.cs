@@ -8,35 +8,43 @@ public class NonGod_Card_SO : Card_SO
     //public Sprite icon;
     [HideInInspector]
     public int cardStrenghIndex;
-    public List<CardActionData> cardActions;
+    public List<ActionsForTarget> targetActions = new();
     public GodActionEnum correspondingGod;
 
     private void OnValidate()
     {
         cardStrenghIndex = 0;
+        if (targetActions.Count == 0)
+            return;
+
+        foreach (ActionsForTarget a in targetActions)
+        {
+            a.SetNTar(1);
+        }
+
         if (type == CardType.Attack)
         {
-            while (cardActions[cardStrenghIndex].actionEnum != CardActionEnum.Attack)
+            while (targetActions[0][cardStrenghIndex].actionEnum != CardActionEnum.Attack)
             {
-                if (cardStrenghIndex == cardActions.Count - 1)
+                if (cardStrenghIndex == targetActions.Count - 1)
                     break;
                 cardStrenghIndex++;
             }
         }
         else if (type == CardType.Defence)
         {
-            while (cardActions[cardStrenghIndex].actionEnum != CardActionEnum.Defend)
+            while (targetActions[0][cardStrenghIndex].actionEnum != CardActionEnum.Defend)
             {
-                if (cardStrenghIndex == cardActions.Count - 1)
+                if (cardStrenghIndex == targetActions.Count - 1)
                     break;
                 cardStrenghIndex++;
             }
         }
         else if (type == CardType.Buff)
         {
-            while (cardActions[cardStrenghIndex].actionEnum != CardActionEnum.Buff)
+            while (targetActions[0][cardStrenghIndex].actionEnum != CardActionEnum.Buff)
             {
-                if (cardStrenghIndex == cardActions.Count - 1)
+                if (cardStrenghIndex == targetActions.Count - 1)
                     break;
                 cardStrenghIndex++;
             }
@@ -53,4 +61,25 @@ public struct CardActionData
 {
     public CardActionEnum actionEnum;
     public int actionStrength;
+}
+
+
+[System.Serializable]
+public struct ActionsForTarget
+{
+    public int numOfTargets;
+    public List<CardActionData> targetActions;
+
+    public void SetNTar(int a)
+    {
+        numOfTargets = a;
+    }
+
+    public CardActionData this[int key]
+    {
+        get => targetActions[key];
+        set => targetActions[key] = value;
+    }
+
+    public int Count => targetActions.Count;
 }

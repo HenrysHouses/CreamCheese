@@ -5,22 +5,7 @@ using UnityEngine;
 public class StorrCardAction : CardAction
 {
     GameObject thing = null;
-    public StorrCardAction(int strengh) : base(strengh, strengh) { }
-
-    public override IEnumerator ChoosingTargets(BoardStateController board, float mult)
-    {
-        if (board.thingsInLane.Count < 3)
-        {
-            isReady = false;
-            yield return new WaitUntil(() => true);
-            isReady = true;
-        }
-        else
-        {
-            current.CancelSelection();
-            yield return null;
-        }
-    }
+    public StorrCardAction(int strengh) : base(strengh, strengh) { neededLanes = 2; }
 
     public override void OnLanePlaced(BoardStateController board)
     {
@@ -44,6 +29,9 @@ public class StorrCardAction : CardAction
         ResetCamera();
     }
     public override void ResetCamera()
+    {
+    }
+    public override void SetCamera()
     {
     }
 }

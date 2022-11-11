@@ -5,61 +5,25 @@ using UnityEngine;
 public class BuffCardAction : CardAction
 {
     bool multiplies;
-    new NonGod_Behaviour target;
+    new List<NonGod_Behaviour> targets = new();
 
-    public BuffCardAction(int strengh, bool mult) : base(strengh, strengh) { multiplies = mult; }
-
-    public override IEnumerator ChoosingTargets(BoardStateController board, float mult)
-    {
-        camAnim.SetBool("Up", true);
-
-        isReady = false;
-
-        board.SetClickable(0);
-
-        yield return new WaitUntil(HasClickedNonGod);
-
-        camAnim.SetBool("Up", false);
-
-
-        board.SetClickable(0, false);
-
-        int totalStrengh = max * (int)(mult + 0.1f);
-
-        target.Buff(totalStrengh, multiplies);
-
-        SpawnCoins(totalStrengh);
-
-        current.RemoveFromHand();
-        Object.Destroy(current.transform.parent.parent.gameObject);
-
-        isReady = true;
-    }
+    public BuffCardAction(int strengh, bool mult) : base(strengh, strengh) { multiplies = mult; neededLanes = 0; }
 
     void SpawnCoins(int mount)
     {
-        for (int i = 0; i < mount; i++)
+        foreach (var tar in targets)
         {
-            var aux = Object.Instantiate(Resources.Load<GameObject>("Prop_Coin_PRE_v1"), target.transform);
-            aux.transform.localPosition = Vector3.back * 8 + Vector3.back * i;
+            for (int i = 0; i < mount; i++)
+            {
+                var aux = Object.Instantiate(Resources.Load<GameObject>("Prop_Coin_PRE_v1"), tar.transform);
+                aux.transform.localPosition = Vector3.back * 8 + Vector3.back * i;
+            }
         }
     }
 
-    bool HasClickedNonGod()
+    public override void SetClickableTargets(BoardStateController board, bool to = true)
     {
-        if (Input.GetMouseButtonDown(0))
-        {
-            BoardElement element = TurnController.PlayerClick();
-            NonGod_Behaviour clickedCard = element as NonGod_Behaviour;
-            if (clickedCard)
-            {
-                // Debug.Log("To buff: " + clickedCard.CardSO.cardName);
-                target = clickedCard;
-                return true;
-            }
-            current.MissClick();
-        }
-        return false;
+        board.SetClickable(0, to);
     }
 
     public override IEnumerator OnAction(BoardStateController board)
@@ -71,9 +35,22 @@ public class BuffCardAction : CardAction
         isReady = true;
     }
 
+    public override void OnLanePlaced(BoardStateController board)
+    {
+        foreach (NonGod_Behaviour card in targets)
+        {
+            card.Buff(strengh, multiplies);
+        }
+
+        SpawnCoins(strengh);
+
+        current.RemoveFromHand();
+        Object.Destroy(current.transform.parent.parent.gameObject);
+    }
+
     public override void Reset(BoardStateController board)
     {
-        target = null;
+        targets.Clear();
         isReady = false;
         board.SetClickable(0, false);
         ResetCamera();
@@ -81,5 +58,9 @@ public class BuffCardAction : CardAction
     public override void ResetCamera()
     {
         camAnim.SetBool("Up", false);
+    }
+    public override void SetCamera()
+    {
+        camAnim.SetBool("Up", true);
     }
 }

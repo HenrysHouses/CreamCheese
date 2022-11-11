@@ -4,28 +4,76 @@ using UnityEngine;
 using FMODUnity;
 using System;
 
+public struct ActionGroup
+{
+    public int nTargets;
+    public List<CardAction> actions;
+
+    public ActionGroup(int nOfTargets)
+    {
+        nTargets = nOfTargets;
+        actions = new();
+    }
+
+    public CardAction this[int key]
+    {
+        get => actions[key];
+        set => actions[key] = value;
+    }
+
+    public int Count => actions.Count;
+
+    public void InitList()
+    {
+        if (actions == null)
+            actions = new();
+    }
+
+    public void SetNTargets(int n)
+    {
+        nTargets = n;
+    }
+
+    internal void Add(CardAction act)
+    {
+        actions.Add(act);
+    }
+}
+
 public class NonGod_Behaviour : Card_Behaviour
 {
-    List<CardAction> actions = new List<CardAction>();
+    public List<ActionGroup> actions = new();
     public int TargetedActions => actions.Count;
     CardType cardType;
     public CardType GetCardType => cardType;
     [SerializeField]
     EventReference SoundClick;
 
+    bool cardIsReady = false;
+
     protected new NonGod_Card_SO card_so;
     public new NonGod_Card_SO CardSO => card_so;
 
     IEnumerator onSelectedRoutine;
     IEnumerator actionRoutine;
+
     public void Initialize(NonGod_Card_SO card, CardElements elements)
     {
         this.card_so = card;
 
-        for (int i = 0; i < card.cardActions.Count; i++)
+        actions = new();
+
+        for (int i = 0; i < card.targetActions.Count; i++)
         {
-            actions.Add(GetAction(card.cardActions[i]));
-            actions[i].SetBehaviour(this);
+            actions.Add(new(card.targetActions[i].numOfTargets));
+            actions[i].InitList();
+
+            for (int j = 0; j < card.targetActions[i].Count; j++)
+            {
+                var act = GetAction(card.targetActions[i][j]);
+                act.SetBehaviour(this);
+                actions[i].Add(act);
+            }
         }
 
         this.cardType = card.type;
@@ -34,20 +82,26 @@ public class NonGod_Behaviour : Card_Behaviour
 
     public void Buff(int value, bool isMult)
     {
-        foreach (CardAction act in actions)
+        foreach (var target in actions)
         {
-            act.Buff(value, isMult);
+            foreach (var act in target.actions)
+            {
+                act.Buff(value, isMult);
+            }
         }
-        ChangeStrengh(actions[card_so.cardStrenghIndex].Strengh);
+        ChangeStrengh(actions[0][card_so.cardStrenghIndex].Strengh);
     }
 
     public void DeBuff(int value, bool isMult)
     {
-        foreach (CardAction act in actions)
+        foreach (var target in actions)
         {
-            act.DeBuff(value, isMult);
+            foreach (var act in target.actions)
+            {
+                act.DeBuff(value, isMult);
+            }
         }
-        ChangeStrengh(actions[card_so.cardStrenghIndex].Strengh);
+        ChangeStrengh(actions[0][card_so.cardStrenghIndex].Strengh);
     }
 
     //public override void OnClick()
@@ -70,7 +124,16 @@ public class NonGod_Behaviour : Card_Behaviour
 
     public IMonster getActionTarget(int action)
     {
-        return actions[action].target;
+    //    int aux = action;
+    //    foreach (var actionsInTarget in actions)
+    //    {
+    //        aux -= actionsInTarget.Count;
+    //        if (aux <= 0)
+    //        {
+    //            return null;//actionsInTarget[actionsInTarget.Count - 1 + aux].targets[0];
+    //        }
+    //    }
+        return null;
     }
 
 
@@ -92,8 +155,7 @@ public class NonGod_Behaviour : Card_Behaviour
                 return;
             }
             TurnController.shouldWaitForAnims = true;
-            onSelectedRoutine = SelectingTargets();
-            StartCoroutine(onSelectedRoutine);
+            StartCoroutine(SelectingTargets());
         }
     }
 
@@ -102,36 +164,72 @@ public class NonGod_Behaviour : Card_Behaviour
         controller.Discard(this);
     }
 
+    BoardElement target;
+
     IEnumerator SelectingTargets()
     {
-        float mult = 1f;
-        if (controller.GetBoard().playedGodCard)
-            if (card_so.correspondingGod == controller.GetBoard().playedGodCard.CardSO.godAction)
-            {
-                mult = controller.GetBoard().playedGodCard.GetStrengh();
-            }
-        foreach (CardAction action in actions)
+        yield return new WaitForSeconds(0.2f);
+        foreach (var actionGroup in actions)
         {
-            actionRoutine = action.ChoosingTargets(controller.GetBoard(), mult);
-            StartCoroutine(actionRoutine);
-            yield return new WaitUntil(() => action.Ready());
+            foreach (var act in actionGroup.actions)
+            {
+                if (!act.CanBePlaced(controller.GetBoard()))
+                {
+                    DeSelected();
+                    CancelSelection();
+                    StopAllCoroutines();
+                    yield return null;
+                }
+
+                act.SetCamera();
+                act.SetClickableTargets(controller.GetBoard(), true);
+            }
+            for (int i = 0; i < actionGroup.nTargets; i++)
+            {
+                yield return new WaitUntil(HasClickedTarget);
+                foreach (var act in actionGroup.actions)
+                {
+                    act.AddTarget(target);
+                }
+            }
+            foreach (var act in actionGroup.actions)
+            {
+                act.ResetCamera();
+                act.SetClickableTargets(controller.GetBoard(), false);
+            }
         }
+
+        foreach (var target in actions)
+        {
+            foreach (var act in target.actions)
+            {
+            }
+        }
+
         CheckForGod();
+        cardIsReady = true;
         TurnController.shouldWaitForAnims = false;
+    }
+
+    bool HasClickedTarget()
+    {
+        if (Input.GetMouseButtonDown(0))
+        {
+            BoardElement element = TurnController.PlayerClick();
+            if (element)
+            {
+                Debug.Log(element);
+                target = element;
+                return true;
+            }
+            MissClick();
+        }
+        return false;
     }
 
     bool AllActionsReady()
     {
-        bool aux = true;
-        for (int i = 0; i < actions.Count && aux; i++)
-        {
-            aux = actions[i].Ready();
-        }
-        if (aux)
-        {
-            // Debug.Log("ready");
-        }
-        return aux && onPlayerHand;
+        return cardIsReady && onPlayerHand;
     }
 
     public override void OnAction()
@@ -142,17 +240,23 @@ public class NonGod_Behaviour : Card_Behaviour
 
     protected override IEnumerator Play(BoardStateController board)
     {
-        foreach (CardAction action in actions)
+        foreach (var target in actions)
         {
-            StartCoroutine(action.OnAction(board));
-            yield return new WaitUntil(() => action.Ready());
+            foreach (var action in target.actions)
+            {
+                StartCoroutine(action.OnAction(board));
+                yield return new WaitUntil(() => action.Ready());
+            }
         }
 
         yield return new WaitForSeconds(0.2f);
 
-        foreach (CardAction action in actions)
+        foreach (var target in actions)
         {
-            action.Reset(board);
+            foreach (var action in target.actions)
+            {
+                action.Reset(board);
+            }
         }
 
         controller.Discard(this);
@@ -174,8 +278,13 @@ public class NonGod_Behaviour : Card_Behaviour
             onSelectedRoutine = null;
             actionRoutine = null;
 
-            foreach (CardAction act in actions)
-                act.ResetCamera();
+            foreach (var target in actions)
+            {
+                foreach (var action in target.actions)
+                {
+                    action.ResetCamera();
+                }
+            }
 
             return true;
         }
@@ -204,10 +313,14 @@ public class NonGod_Behaviour : Card_Behaviour
     }
     public override void OnPlacedInLane()
     {
-        foreach (CardAction action in actions)
+        foreach (var target in actions)
         {
-            action.OnLanePlaced(controller.GetBoard());
+            foreach (var action in target.actions)
+            {
+                action.OnLanePlaced(controller.GetBoard());
+            }
         }
+
         missedClick = true;
     }
 }

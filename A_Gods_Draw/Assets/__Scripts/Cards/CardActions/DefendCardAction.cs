@@ -8,46 +8,33 @@ public class DefendCardAction : CardAction
     public DefendCardAction(int strengh) : base(strengh, strengh) { }
 
 
-    public override IEnumerator ChoosingTargets(BoardStateController board, float mult)
-    {
-        camAnim.SetBool("EnemyCloseUp", true);
-        isReady = false;
-
-        board.SetClickable(3);
-
-        yield return new WaitUntil(HasClickedMonster);
-
-         camAnim.SetBool("EnemyCloseUp", false);
-
-        board.SetClickable(3, false);
-
-
-        isReady = true;
-    }
-
-    bool HasClickedMonster()
-    {
-        if (Input.GetMouseButtonDown(0))
-        {
-            BoardElement element = TurnController.PlayerClick();
-            IMonster clickedMonster = element as IMonster;
-            if (clickedMonster)
-            {
-                // Debug.Log(clickedMonster);
-                target = clickedMonster;
-                return true;
-            }
-            current.MissClick();
-        }
-        return false;
-    }
+    //bool HasClickedMonster()
+    //{
+    //    if (Input.GetMouseButtonDown(0))
+    //    {
+    //        BoardElement element = TurnController.PlayerClick();
+    //        IMonster clickedMonster = element as IMonster;
+    //        if (clickedMonster)
+    //        {
+    //            Debug.Log(clickedMonster);
+    //            target = clickedMonster;
+    //            return true;
+    //        }
+    //        current.MissClick();
+    //    }
+    //    return false;
+    //}
 
     public override IEnumerator OnAction(BoardStateController board)
     {
         isReady = false;
 
-        if (target)
-            target.DeBuff(strengh);
+        foreach (IMonster target in targets)
+        {
+            if (target)
+                target.DeBuff(strengh);
+        }
+        targets.Clear();
 
         yield return new WaitForSeconds(0.4f);
 
@@ -56,7 +43,7 @@ public class DefendCardAction : CardAction
 
     public override void Reset(BoardStateController board)
     {
-        target = null;
+        targets.Clear();
         isReady = false;
         board.SetClickable(3, false);
         ResetCamera();
@@ -64,5 +51,9 @@ public class DefendCardAction : CardAction
     public override void ResetCamera()
     {
         camAnim.SetBool("EnemyCloseUp", false);
+    }
+    public override void SetCamera()
+    {
+        camAnim.SetBool("EnemyCloseUp", true);
     }
 }

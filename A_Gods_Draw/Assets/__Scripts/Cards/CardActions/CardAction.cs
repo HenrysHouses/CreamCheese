@@ -4,11 +4,13 @@ using UnityEngine;
 
 public abstract class CardAction : Action
 {
-    public IMonster target;
+    public List<BoardElement> targets = new();
 
     protected NonGod_Behaviour current;
 
     protected int strengh;
+
+    protected int neededLanes = 1;
 
     public int Strengh => strengh;
 
@@ -41,14 +43,17 @@ public abstract class CardAction : Action
 
     public Animator camAnim = Camera.main.GetComponent<Animator>();
 
+    public virtual void SetClickableTargets(BoardStateController board, bool to = true)
+    {
+        board.SetClickable(3, to);
+    }
+
     public void SetBehaviour(NonGod_Behaviour beh)
     {
         current = beh;
     }
 
     public override void Execute(BoardStateController board, int strengh) { }
-
-    public abstract IEnumerator ChoosingTargets(BoardStateController board, float mult);
 
     public virtual void OnLanePlaced(BoardStateController board) { }
 
@@ -63,5 +68,16 @@ public abstract class CardAction : Action
 
     public abstract void Reset(BoardStateController board);
     public abstract void ResetCamera();
+    public abstract void SetCamera();
+
+    internal void AddTarget(BoardElement target)
+    {
+        targets.Add(target);
+    }
+
+    public bool CanBePlaced(BoardStateController cont)
+    {
+        return cont.thingsInLane.Count + neededLanes <= 4;
+    }
 }
  

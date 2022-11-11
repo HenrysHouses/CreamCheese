@@ -107,6 +107,7 @@ public abstract class Card_Behaviour : BoardElement
             default:
                 return null;
         }
+
     }
 
     public virtual void OnPlacedInLane()

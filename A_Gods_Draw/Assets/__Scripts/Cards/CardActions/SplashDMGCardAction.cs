@@ -7,40 +7,6 @@ public class SplashDMGCardAction : CardAction
     IMonster target;
     public SplashDMGCardAction(int strengh) : base(strengh, strengh) { }
 
-    public override IEnumerator ChoosingTargets(BoardStateController board, float mult)
-    {
-        camAnim.SetBool("EnemyCloseUp", true);
-        isReady = false;
-        //foreach monster in bpard, enable click
-        board.SetClickable(3);
-
-        Debug.Log("waiting for selecting enemies...");
-
-        yield return new WaitUntil(HasClickedMonster);
-
-        camAnim.SetBool("EnemyCloseUp", false);
-
-        board.SetClickable(3, false);
-
-        isReady = true;
-    }
-
-    bool HasClickedMonster()
-    {
-        if (Input.GetMouseButtonDown(0))
-        {
-            BoardElement element = TurnController.PlayerClick();
-            IMonster clickedMonster = element as IMonster;
-            if (clickedMonster)
-            {
-                Debug.Log(clickedMonster);
-                target = clickedMonster;
-                return true;
-            }
-            current.MissClick();
-        }
-        return false;
-    }
 
     public override IEnumerator OnAction(BoardStateController board)
     {
@@ -58,7 +24,7 @@ public class SplashDMGCardAction : CardAction
                 IMonster monster = allinside.collider.GetComponent<IMonster>();
                 if (monster && monster != target)
                 {
-                    monster.DealDamage(strengh);
+                    monster.DealDamage((int)((strengh / 2f) + 0.6f));
                 }
             }
         }
@@ -78,5 +44,9 @@ public class SplashDMGCardAction : CardAction
     public override void ResetCamera()
     {
         camAnim.SetBool("EnemyCloseUp", false);
+    }
+    public override void SetCamera()
+    {
+        camAnim.SetBool("EnemyCloseUp", true);
     }
 }
