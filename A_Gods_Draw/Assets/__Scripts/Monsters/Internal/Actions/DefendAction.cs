@@ -12,7 +12,7 @@ public class DefendAction : Action
         actionIcon = Resources.Load<Sprite>("EnemyData/Icons/21");
     }
 
-    public override void Execute(BoardStateController BoardStateController, int strengh)
+    public override void Execute(BoardStateController BoardStateController, int strengh, UnityEngine.Object source)
     {
         toDefend.Defend(strengh);
     }

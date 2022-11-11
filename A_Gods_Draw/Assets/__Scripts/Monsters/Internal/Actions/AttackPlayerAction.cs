@@ -10,7 +10,7 @@ public class AttackPlayerAction : Action
         actionIcon = Resources.Load<Sprite>("EnemyData/Icons/39");
     }
 
-    public override void Execute(BoardStateController BoardStateController, int strengh)
+    public override void Execute(BoardStateController BoardStateController, int strengh, UnityEngine.Object source)
     {
         BoardStateController.Player.DealDamage(strengh);
     }

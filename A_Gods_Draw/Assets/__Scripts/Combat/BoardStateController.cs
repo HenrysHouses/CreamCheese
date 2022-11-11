@@ -18,7 +18,7 @@ public class BoardStateController : MonoBehaviour
     [SerializeField] Color AttackColor;
     [SerializeField] Color DefendColor;
 
-    // Getters
+    // * Getters
     public PlayerController Player => _Player;
     public Encounter_SO Encounter => _Encounter;
     public IMonster[] Enemies => _Enemies;
@@ -49,7 +49,7 @@ public class BoardStateController : MonoBehaviour
     [SerializeField] Transform _GodLane;
     [SerializeField] PlayerController _Player;
 
-    // Sounds
+    // * Sounds
     [SerializeField] EventReference placeCard_SFX;
 
     //particle effect
@@ -140,7 +140,6 @@ public class BoardStateController : MonoBehaviour
 
     public void placeCardOnLane(Card_Behaviour card)
     {
-        SoundPlayer.PlaySound(placeCard_SFX,gameObject);
 
         Transform targetlane = null;
 

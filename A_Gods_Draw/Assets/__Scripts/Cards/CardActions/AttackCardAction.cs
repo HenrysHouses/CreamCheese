@@ -6,27 +6,9 @@ public class AttackCardAction : CardAction
 {
     public AttackCardAction(int strengh) : base(strengh, strengh) { }
 
-    //bool HasClickedMonster()
-    //{
-    //    if (Input.GetMouseButtonDown(0))
-    //    {
-    //        BoardElement element = TurnController.PlayerClick();
-    //        IMonster clickedMonster = element as IMonster;
-    //        if (clickedMonster)
-    //        {
-    //            Debug.Log(clickedMonster);
-    //            target = clickedMonster;
-    //            return true;
-    //        }
-    //        current.MissClick();
-    //    }
-    //    return false;
-    //}
-
     public override IEnumerator OnAction(BoardStateController board)
     {
         isReady = false;
-
         //StartAnimations...
 
         //yield return new WaitUntil(() => true);

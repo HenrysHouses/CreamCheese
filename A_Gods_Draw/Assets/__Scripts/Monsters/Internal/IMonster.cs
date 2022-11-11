@@ -10,13 +10,15 @@ public abstract class IMonster : BoardElement
 {
     public Intent GetIntent() => enemyIntent;
     protected Intent enemyIntent;
+
+    public GameObject deathEffect;
     
     [SerializeField]
     int maxHealth;
     int health;
 
     [SerializeField]
-    private EventReference SoundSelectCard;
+    private EventReference SoundSelectCard,death_SFX;
 
     int defendedFor;
 
@@ -74,6 +76,8 @@ public abstract class IMonster : BoardElement
         {
             health = 0;
             // manager.EnemyDied(this);
+            SoundPlayer.PlaySound(death_SFX,gameObject);
+            deathEffect.SetActive(true);
             Destroy(this.gameObject);
         }
 
@@ -142,7 +146,7 @@ public abstract class IMonster : BoardElement
 
     public void Act(BoardStateController board)
     {
-        enemyIntent.Act(board);
+        enemyIntent.Act(board, this);
         StartCoroutine(WaitForAnims());
     }
 

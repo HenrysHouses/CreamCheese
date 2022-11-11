@@ -39,14 +39,14 @@ public abstract class Intent
         return null;
     }
 
-    public void Act(BoardStateController board)
+    public void Act(BoardStateController board, UnityEngine.Object source)
     {
         if (actionSelected != null)
         {
             if (actionSelected.ID == (int)EnemyIntent.None)
                 return;
 
-            actionSelected.Execute(board, strengh);
+            actionSelected.Execute(board, strengh, source);
         }
 
         CancelIntent();

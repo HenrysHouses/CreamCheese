@@ -10,9 +10,9 @@ public class AttackGodAction : Action
         actionIcon = Resources.Load<Sprite>("EnemyData/Icons/15");
     }
 
-    public override void Execute(BoardStateController BoardStateController, int strengh)
+    public override void Execute(BoardStateController BoardStateController, int strengh, UnityEngine.Object source)
     {
         if (BoardStateController.playedGodCard != null)
-            BoardStateController.playedGodCard.DealDamage(strengh);
+            BoardStateController.playedGodCard.DealDamage(strengh, source);
     }
 }

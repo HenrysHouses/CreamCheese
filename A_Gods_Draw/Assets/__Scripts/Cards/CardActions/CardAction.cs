@@ -53,7 +53,7 @@ public abstract class CardAction : Action
         current = beh;
     }
 
-    public override void Execute(BoardStateController board, int strengh) { }
+    public override void Execute(BoardStateController board, int strengh, UnityEngine.Object source) { }
 
     public virtual void OnLanePlaced(BoardStateController board) { }
 

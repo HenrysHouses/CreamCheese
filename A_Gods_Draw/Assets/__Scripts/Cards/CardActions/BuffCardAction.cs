@@ -19,6 +19,7 @@ public class BuffCardAction : CardAction
                 aux.transform.localPosition = Vector3.back * 8 + Vector3.back * i;
             }
         }
+        ResetCamera();
     }
 
     public override void SetClickableTargets(BoardStateController board, bool to = true)
@@ -57,6 +58,7 @@ public class BuffCardAction : CardAction
     }
     public override void ResetCamera()
     {
+        Debug.Log("Why? D:");
         camAnim.SetBool("Up", false);
     }
     public override void SetCamera()

@@ -24,12 +24,12 @@ public abstract class Action
     public int Min() => min;
     public int Max() => max;
 
-    public void Act(BoardStateController BoardStateController, int strengh)
+    public void Act(BoardStateController BoardStateController, int strengh, UnityEngine.Object source = null)
     {
         isReady = false;
-        Execute(BoardStateController, strengh);
+        Execute(BoardStateController, strengh, source);
     }
-    public abstract void Execute(BoardStateController board, int strengh);
+    public abstract void Execute(BoardStateController board, int strengh, UnityEngine.Object source = null);
 
     public static bool operator!(Action action)
     {
