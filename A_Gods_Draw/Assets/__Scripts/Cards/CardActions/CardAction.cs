@@ -46,7 +46,7 @@ public abstract class CardAction : Action
         current = beh;
     }
 
-    public override void Execute(BoardStateController board, int strengh) { }
+    public override void Execute(BoardStateController board, int strengh, UnityEngine.Object source) { }
 
     public abstract IEnumerator ChoosingTargets(BoardStateController board, float mult);
 

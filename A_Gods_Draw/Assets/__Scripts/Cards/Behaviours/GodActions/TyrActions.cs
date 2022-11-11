@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class TyrActions : GodCardAction
 {
-    public override void Execute(BoardStateController board, int strengh)
+    public override void Execute(BoardStateController board, int strengh, UnityEngine.Object source)
     {
         
     }

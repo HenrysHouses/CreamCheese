@@ -142,7 +142,7 @@ public abstract class IMonster : BoardElement
 
     public void Act(BoardStateController board)
     {
-        enemyIntent.Act(board);
+        enemyIntent.Act(board, this);
         StartCoroutine(WaitForAnims());
     }
 
