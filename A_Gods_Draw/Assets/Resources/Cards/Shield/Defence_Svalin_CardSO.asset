@@ -18,7 +18,9 @@ MonoBehaviour:
   description: Svalin is the shield that protects the horses that pulled the sun
     across the sky from the heat of that sun
   cardStrenghIndex: 0
-  cardActions:
-  - actionEnum: 1
-    actionStrength: 3
+  targetActions:
+  - numOfTargets: 1
+    targetActions:
+    - actionEnum: 1
+      actionStrength: 3
   correspondingGod: 0

@@ -17,5 +17,11 @@ MonoBehaviour:
   cardName: Dane Axe
   description: Adjacent enemies take x/2 dmg rounded down
   cardStrenghIndex: 0
-  targetActions: []
+  targetActions:
+  - numOfTargets: 1
+    targetActions:
+    - actionEnum: 0
+      actionStrength: 2
+    - actionEnum: 6
+      actionStrength: 10
   correspondingGod: 0

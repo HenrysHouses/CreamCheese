@@ -15,7 +15,7 @@ MonoBehaviour:
   Path: Assets/FMODBanks/Desktop/MonsterEffects.bank
   Name: MonsterEffects
   StudioPath: bank:/MonsterEffects
-  lastModified: 638037723104441212
+  lastModified: 638037765815007657
   FileSizes: []
   Exists: 1
 --- !u!114 &-8361324344680007583
@@ -87,7 +87,7 @@ MonoBehaviour:
   Path: Assets/FMODBanks/Desktop/PlayerEffects.bank
   Name: PlayerEffects
   StudioPath: bank:/PlayerEffects
-  lastModified: 638037723103722320
+  lastModified: 638037765815117041
   FileSizes: []
   Exists: 1
 --- !u!114 &-6498739723113037913
@@ -238,7 +238,7 @@ MonoBehaviour:
   Path: Assets/FMODBanks/Desktop/Master.strings.bank
   Name: Master.strings
   StudioPath: bank:/Master.strings
-  lastModified: 638037723103777410
+  lastModified: 638037765814997380
   FileSizes:
   - Name: 
     Value: 2256
@@ -290,8 +290,8 @@ MonoBehaviour:
     Data3: -1438661999
     Data4: 1883429168
   Banks:
-  - {fileID: 794753253420131033}
   - {fileID: -812227945806410639}
+  - {fileID: 794753253420131033}
   - {fileID: -6985516995730060941}
   IsStream: 0
   Is3D: 0
@@ -319,8 +319,8 @@ MonoBehaviour:
     Data3: -1063256898
     Data4: 1449369350
   Banks:
-  - {fileID: 794753253420131033}
   - {fileID: -812227945806410639}
+  - {fileID: 794753253420131033}
   - {fileID: -6985516995730060941}
   IsStream: 0
   Is3D: 0
@@ -348,6 +348,7 @@ MonoBehaviour:
     Data3: -213709634
     Data4: 419368703
   Banks:
+  - {fileID: 794753253420131033}
   - {fileID: -6985516995730060941}
   IsStream: 0
   Is3D: 0
@@ -426,7 +427,7 @@ MonoBehaviour:
   Path: Assets/FMODBanks/Desktop/CardEffects.bank
   Name: CardEffects
   StudioPath: bank:/CardEffects
-  lastModified: 638037723104078475
+  lastModified: 638037765814847771
   FileSizes: []
   Exists: 1
 --- !u!114 &-809297789796148776
@@ -568,7 +569,6 @@ MonoBehaviour:
   - {fileID: -587572218137199265}
   - {fileID: -218946236829467293}
   - {fileID: -3165762735329176678}
-  - {fileID: 2894532624051656469}
   - {fileID: -3344032892734753576}
   - {fileID: 5049270176136396048}
   - {fileID: 2647117457465395969}
@@ -597,7 +597,7 @@ MonoBehaviour:
   - {fileID: 2284276540301729918}
   StringsBanks:
   - {fileID: -4822279630965835551}
-  cacheTime: 638037723104651435
+  cacheTime: 638037765815117041
   cacheVersion: 131592
 --- !u!114 &601750260413816558
 MonoBehaviour:
@@ -642,8 +642,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   Path: Assets/FMODBanks/Desktop/Effects.bank
   Name: Effects
-  StudioPath: bank:/Effects
-  lastModified: 638036940544485476
+  StudioPath: bank:/PlayerEffects
+  lastModified: 638036976364496275
   FileSizes: []
   Exists: 1
 --- !u!114 &1470858570566702010
@@ -661,7 +661,7 @@ MonoBehaviour:
   Path: Assets/FMODBanks/Desktop/GodEffects.bank
   Name: GodEffects
   StudioPath: bank:/GodEffects
-  lastModified: 638037723104651435
+  lastModified: 638037765814987397
   FileSizes: []
   Exists: 1
 --- !u!114 &1963985170467998783
@@ -706,7 +706,7 @@ MonoBehaviour:
   Path: Assets/FMODBanks/Desktop/Master.bank
   Name: Master
   StudioPath: bank:/Master
-  lastModified: 638037723103767408
+  lastModified: 638019773747451454
   FileSizes: []
   Exists: 1
 --- !u!114 &2354061555520665187
@@ -794,33 +794,6 @@ MonoBehaviour:
   - DrawCards
   - Pickcards
   Exists: 1
---- !u!114 &2894532624051656469
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: ceb653cd98e289a4e8697a1af55201f2, type: 3}
-  m_Name: event:/Horn
-  m_EditorClassIdentifier: 
-  Path: event:/Horn
-  Guid:
-    Data1: -1129949362
-    Data2: 1340245276
-    Data3: -213709634
-    Data4: 419368703
-  Banks:
-  - {fileID: 794753253420131033}
-  IsStream: 0
-  Is3D: 0
-  IsOneShot: 1
-  Parameters: []
-  MinDistance: 1
-  MaxDistance: 20
-  Length: 3592
 --- !u!114 &4348325549410373758
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -865,7 +838,7 @@ MonoBehaviour:
   Path: Assets/FMODBanks/Desktop/Ambience.bank
   Name: Ambience
   StudioPath: bank:/Ambience
-  lastModified: 638037723102583359
+  lastModified: 638036976363837969
   FileSizes: []
   Exists: 1
 --- !u!114 &4812284380466909776
@@ -967,8 +940,8 @@ MonoBehaviour:
     Data3: -1252100417
     Data4: 1216301398
   Banks:
-  - {fileID: 794753253420131033}
   - {fileID: -812227945806410639}
+  - {fileID: 794753253420131033}
   - {fileID: -6985516995730060941}
   IsStream: 0
   Is3D: 0

@@ -5,26 +5,24 @@ using UnityEngine;
 public class BuffCardAction : CardAction
 {
     bool multiplies;
-    new List<NonGod_Behaviour> targets = new();
 
-    public BuffCardAction(int strengh, bool mult) : base(strengh, strengh) { multiplies = mult; neededLanes = 0; }
+    public BuffCardAction(int strengh, bool mult) : base(strengh, strengh) { multiplies = mult; neededLanes = 0;}
 
-    void SpawnCoins(int mount)
+    void SpawnCoins(int mount, NonGod_Behaviour card)
     {
-        foreach (var tar in targets)
+        for (int i = 0; i < mount; i++)
         {
-            for (int i = 0; i < mount; i++)
-            {
-                var aux = Object.Instantiate(Resources.Load<GameObject>("Prop_Coin_PRE_v1"), tar.transform);
-                aux.transform.localPosition = Vector3.back * 8 + Vector3.back * i;
-            }
+            var aux = Object.Instantiate(Resources.Load<GameObject>("Prop_Coin_PRE_v1"), card.transform);
+            aux.transform.localPosition = Vector3.back * 8 + Vector3.back * i;
         }
-        ResetCamera();
     }
 
     public override void SetClickableTargets(BoardStateController board, bool to = true)
     {
-        board.SetClickable(0, to);
+        ResetCamera();
+
+        Object.Destroy(current.transform.parent.parent.gameObject);
+        current.RemoveFromHand();
     }
 
     public override IEnumerator OnAction(BoardStateController board)
@@ -35,18 +33,17 @@ public class BuffCardAction : CardAction
 
         isReady = true;
     }
-
     public override void OnLanePlaced(BoardStateController board)
     {
         foreach (NonGod_Behaviour card in targets)
         {
             card.Buff(strengh, multiplies);
+            SpawnCoins(strengh, card);
         }
+        ResetCamera();
 
-        SpawnCoins(strengh);
-
-        current.RemoveFromHand();
         Object.Destroy(current.transform.parent.parent.gameObject);
+        current.RemoveFromHand();
     }
 
     public override void Reset(BoardStateController board)
@@ -58,7 +55,6 @@ public class BuffCardAction : CardAction
     }
     public override void ResetCamera()
     {
-        Debug.Log("Why? D:");
         camAnim.SetBool("Up", false);
     }
     public override void SetCamera()

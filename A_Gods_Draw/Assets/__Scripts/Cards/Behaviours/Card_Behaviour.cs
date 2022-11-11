@@ -49,8 +49,11 @@ public abstract class Card_Behaviour : BoardElement
 
     public void DeSelected()
     {
-        StopCoroutine(cor);
-        cor = null;
+        if (cor != null)
+        {
+            StopCoroutine(cor);
+            cor = null;
+        }
         GetComponentInParent<Card_ClickGlowing>().RemoveBorder();
     }
 

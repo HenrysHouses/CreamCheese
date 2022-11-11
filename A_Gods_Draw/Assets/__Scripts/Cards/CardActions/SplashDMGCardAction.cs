@@ -18,7 +18,7 @@ public class SplashDMGCardAction : CardAction
 
         if (target)
         {
-            var enemies = Physics.SphereCastAll(target.transform.position, 0.3f, Vector3.one);
+            var enemies = Physics.SphereCastAll(target.transform.position, 0.6f, Vector3.one);
             foreach (RaycastHit allinside in enemies)
             {
                 IMonster monster = allinside.collider.GetComponent<IMonster>();

@@ -204,7 +204,7 @@ public class BoardStateController : MonoBehaviour
                 cardTransform.parent.parent.localScale = new Vector3(1.5f, 1.5f, 1.5f);  // !!REMOVE THIS AFTER FINDING A PREFERABLE SIZE FOR THE CARDS
 
 
-                for (int j = 0; j < behaviour.TargetedActions; j++) // should run this for each targetable action
+                for (int j = 0; j < behaviour.TargetedActions(); j++) // should run this for each targetable action
                 {
                     IMonster target = behaviour.getActionTarget(j);
                     if (target == null)

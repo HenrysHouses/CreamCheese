@@ -67,6 +67,7 @@ public abstract class CardAction : Action
     }
 
     public abstract void Reset(BoardStateController board);
+    public virtual void OnActionReady(BoardStateController board) { }
     public abstract void ResetCamera();
     public abstract void SetCamera();
 

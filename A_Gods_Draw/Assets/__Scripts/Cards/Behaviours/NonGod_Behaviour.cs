@@ -43,7 +43,15 @@ public struct ActionGroup
 public class NonGod_Behaviour : Card_Behaviour
 {
     public List<ActionGroup> actions = new();
-    public int TargetedActions => actions.Count;
+    public int TargetedActions()
+    {
+        int aux = 0;
+        foreach (var group in actions)
+        {
+            aux++;
+        }
+        return aux;
+    }
     CardType cardType;
     public CardType GetCardType => cardType;
     [SerializeField]
@@ -124,15 +132,15 @@ public class NonGod_Behaviour : Card_Behaviour
 
     public IMonster getActionTarget(int action)
     {
-    //    int aux = action;
-    //    foreach (var actionsInTarget in actions)
-    //    {
-    //        aux -= actionsInTarget.Count;
-    //        if (aux <= 0)
-    //        {
-    //            return null;//actionsInTarget[actionsInTarget.Count - 1 + aux].targets[0];
-    //        }
-    //    }
+        int aux = action;
+        foreach (var actionsInTarget in actions)
+        {
+            aux -= (actionsInTarget.Count - 1);
+            if (aux <= 0)
+            {
+                return (actionsInTarget[actionsInTarget.Count - 1 + aux].targets[0] as IMonster);
+            }
+        }
         return null;
     }
 
@@ -155,7 +163,8 @@ public class NonGod_Behaviour : Card_Behaviour
                 return;
             }
             TurnController.shouldWaitForAnims = true;
-            StartCoroutine(SelectingTargets());
+            onSelectedRoutine = SelectingTargets();
+            StartCoroutine(onSelectedRoutine);
         }
     }
 
@@ -168,7 +177,10 @@ public class NonGod_Behaviour : Card_Behaviour
 
     IEnumerator SelectingTargets()
     {
-        yield return new WaitForSeconds(0.2f);
+        //yield return new WaitForSeconds(0.2f);
+
+        CheckForGod();
+
         foreach (var actionGroup in actions)
         {
             foreach (var act in actionGroup.actions)
@@ -176,7 +188,7 @@ public class NonGod_Behaviour : Card_Behaviour
                 if (!act.CanBePlaced(controller.GetBoard()))
                 {
                     DeSelected();
-                    CancelSelection();
+                    ForceCancelSelection();
                     StopAllCoroutines();
                     yield return null;
                 }
@@ -194,27 +206,44 @@ public class NonGod_Behaviour : Card_Behaviour
             }
             foreach (var act in actionGroup.actions)
             {
+                act.OnActionReady(controller.GetBoard());
                 act.ResetCamera();
                 act.SetClickableTargets(controller.GetBoard(), false);
             }
         }
 
-        foreach (var target in actions)
-        {
-            foreach (var act in target.actions)
-            {
-            }
-        }
-
-        CheckForGod();
         cardIsReady = true;
         TurnController.shouldWaitForAnims = false;
     }
 
+    private void ForceCancelSelection()
+    {
+        base.CancelSelection();
+        if (onSelectedRoutine != null)
+            StopCoroutine(onSelectedRoutine);
+        if (actionRoutine != null)
+            StopCoroutine(actionRoutine);
+        onSelectedRoutine = null;
+        actionRoutine = null;
+
+        RemoveGodBuff();
+
+        foreach (var target in actions)
+        {
+            foreach (var action in target.actions)
+            {
+                action.ResetCamera();
+            }
+        }
+    }
+
+    bool hasClickedThisFrame = false;
+
     bool HasClickedTarget()
     {
-        if (Input.GetMouseButtonDown(0))
+        if (Input.GetMouseButtonDown(0) && !hasClickedThisFrame)
         {
+            hasClickedThisFrame = true;
             BoardElement element = TurnController.PlayerClick();
             if (element)
             {
@@ -224,6 +253,7 @@ public class NonGod_Behaviour : Card_Behaviour
             }
             MissClick();
         }
+        hasClickedThisFrame = false;
         return false;
     }
 
@@ -278,6 +308,8 @@ public class NonGod_Behaviour : Card_Behaviour
             onSelectedRoutine = null;
             actionRoutine = null;
 
+            RemoveGodBuff();
+
             foreach (var target in actions)
             {
                 foreach (var action in target.actions)
@@ -290,6 +322,15 @@ public class NonGod_Behaviour : Card_Behaviour
         }
 
         return false;
+    }
+
+    private void RemoveGodBuff()
+    {
+        if (controller.GetBoard().playedGodCard)
+            if (card_so.correspondingGod == controller.GetBoard().playedGodCard.CardSO.godAction)
+            {
+                controller.GetBoard().playedGodCard.DeBuff(this);
+            }
     }
 
     bool missedClick = false;

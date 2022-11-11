@@ -13,6 +13,10 @@ public class StorrCardAction : CardAction
         board.placeThingOnLane(thing.GetComponent<BoardElement>());
     }
 
+    public override void SetClickableTargets(BoardStateController board, bool to = true)
+    {
+    }
+
     public override IEnumerator OnAction(BoardStateController board)
     {
         isReady = false;

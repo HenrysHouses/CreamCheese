@@ -20,9 +20,11 @@ MonoBehaviour:
     Defends
     and attack for the x value'
   cardStrenghIndex: 0
-  cardActions:
-  - actionEnum: 1
-    actionStrength: 2
-  - actionEnum: 0
-    actionStrength: 2
+  targetActions:
+  - numOfTargets: 1
+    targetActions:
+    - actionEnum: 1
+      actionStrength: 2
+    - actionEnum: 0
+      actionStrength: 2
   correspondingGod: 0
