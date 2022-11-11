@@ -17,7 +17,11 @@ public class AttackCardAction : CardAction
         foreach (IMonster target in targets)
         {
             if (target)
+            {
                 target.DealDamage(strengh);
+                
+
+            }
         }
 
         targets.Clear();
