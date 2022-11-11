@@ -102,7 +102,7 @@ public abstract class IMonster : BoardElement
     {
         defendedFor += amount;
         image.color = Color.cyan;
-        // defendTxt.text = defendedFor.ToString();
+        // defendTxt.text = defendedFor.ToString(); // ! was trying to access after being destroyed so i commented it out
         // defendTxt.enabled = true;
     }
 
