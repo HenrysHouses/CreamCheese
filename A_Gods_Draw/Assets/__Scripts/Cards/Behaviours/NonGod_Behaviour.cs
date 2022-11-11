@@ -8,7 +8,8 @@ public class NonGod_Behaviour : Card_Behaviour
 {
     List<CardAction> actions = new List<CardAction>();
     public int TargetedActions => actions.Count;
-
+    CardType cardType;
+    public CardType GetCardType => cardType;
     [SerializeField]
     EventReference SoundClick;
 
@@ -27,6 +28,7 @@ public class NonGod_Behaviour : Card_Behaviour
             actions[i].SetBehaviour(this);
         }
 
+        this.cardType = card.type;
         this.elements = elements;
     }
 
@@ -127,7 +129,7 @@ public class NonGod_Behaviour : Card_Behaviour
         }
         if (aux)
         {
-            Debug.Log("ready");
+            // Debug.Log("ready");
         }
         return aux && onPlayerHand;
     }

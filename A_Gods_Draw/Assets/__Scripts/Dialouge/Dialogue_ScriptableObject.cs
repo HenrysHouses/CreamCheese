@@ -6,14 +6,21 @@ using FMODUnity;
 [CreateAssetMenu(menuName = "DialogueBox/Dialogue")]
 public class Dialogue_ScriptableObject : ScriptableObject
 {
-    public Dialogue dialogue;
+    [SerializeField] public Dialogue dialogue;
 }
 
 [System.Serializable]
 public class Dialogue
 {
-    [TextArea(5, 20)]
-    public string[] text;
-    public string TransformName = "Camera";
+    public sentence[] pages;
+    public string TransformName = "MainCamera";
     public EventReference SFX;
+}
+
+[System.Serializable]
+public struct sentence
+{
+    [TextArea(5, 20)]
+    public string text;
+    public float speed;
 }

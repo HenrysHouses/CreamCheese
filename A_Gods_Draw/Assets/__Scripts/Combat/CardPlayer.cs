@@ -77,7 +77,15 @@ public class CardPlayer : MonoBehaviour
 
     void placeCard(Card_Behaviour behaviour)
     {
-        _Hand.RemoveCard(behaviour.GetComponent<Card_Loader>());
+        Card_Loader loader = behaviour.GetComponent<Card_Loader>();
+
+        if(_Board.isGodPlayed)
+        {
+            Debug.Log(loader.GetCardSO.cardName);
+            _Board.playedGodCard.StartDialogue(GodDialogueTrigger.Played , loader.GetCardSO);
+        }
+
+        _Hand.RemoveCard(loader);
         _Board.placeCardOnLane(behaviour);
         behaviour.OnPlacedInLane();
     }

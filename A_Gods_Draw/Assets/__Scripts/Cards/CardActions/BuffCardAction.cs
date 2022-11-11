@@ -5,7 +5,7 @@ using UnityEngine;
 public class BuffCardAction : CardAction
 {
     bool multiplies;
-    NonGod_Behaviour target;
+    new NonGod_Behaviour target;
 
     public BuffCardAction(int strengh, bool mult) : base(strengh, strengh) { multiplies = mult; }
 
@@ -53,7 +53,7 @@ public class BuffCardAction : CardAction
             NonGod_Behaviour clickedCard = element as NonGod_Behaviour;
             if (clickedCard)
             {
-                Debug.Log("To buff: " + clickedCard.CardSO.cardName);
+                // Debug.Log("To buff: " + clickedCard.CardSO.cardName);
                 target = clickedCard;
                 return true;
             }

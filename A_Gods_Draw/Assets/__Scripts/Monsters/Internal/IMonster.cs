@@ -98,8 +98,8 @@ public abstract class IMonster : BoardElement
     {
         defendedFor += amount;
         image.color = Color.cyan;
-        defendTxt.text = defendedFor.ToString();
-        defendTxt.enabled = true;
+        // defendTxt.text = defendedFor.ToString();
+        // defendTxt.enabled = true;
     }
 
     public void DeBuff(int amount)

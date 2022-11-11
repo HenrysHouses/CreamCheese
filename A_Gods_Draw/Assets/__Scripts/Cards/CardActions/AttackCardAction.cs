@@ -13,7 +13,7 @@ public class AttackCardAction : CardAction
         //foreach monster in bpard, enable click
         board.SetClickable(3);
 
-        Debug.Log("waiting for selecting enemies...");
+        // Debug.Log("waiting for selecting enemies...");
 
         yield return new WaitUntil(HasClickedMonster);
 
@@ -32,7 +32,7 @@ public class AttackCardAction : CardAction
             IMonster clickedMonster = element as IMonster;
             if (clickedMonster)
             {
-                Debug.Log(clickedMonster);
+                // Debug.Log(clickedMonster);
                 target = clickedMonster;
                 return true;
             }

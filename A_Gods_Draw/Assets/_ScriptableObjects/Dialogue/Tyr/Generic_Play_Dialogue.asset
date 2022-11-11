@@ -10,21 +10,21 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 9a6afa83f6a9bc5458cb340187ecdfef, type: 3}
-  m_Name: BlessedSword_Dialogue
+  m_Name: Generic_Play_Dialogue
   m_EditorClassIdentifier: 
   dialogue:
-    text:
-    - I am Tyr
-    - 'I am.... '
-    - whatever
-    TransformName: Camera
+    pages:
+    - text: Good choice
+      speed: 0.1
+    TransformName: MainCamera
     SFX:
       Guid:
-        Data1: 0
-        Data2: 0
-        Data3: 0
-        Data4: 0
-      Path: 
+        Data1: 2004915618
+        Data2: 1330019366
+        Data3: -2095186242
+        Data4: 2122433884
+      Path: event:/Combat/God/Tyr/CHrachterAppear
   trigger: 5
-  GenericTrigger: 0
-  DialogueName: Tyrs Blessed Sword
+  GenericTrigger: 1
+  cardTrigger: {fileID: 0}
+  chanceToPlay: 0.105

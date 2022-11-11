@@ -8,7 +8,17 @@ public class GodDialogue : Dialogue_ScriptableObject
 {
     public GodDialogueTrigger trigger;
     public bool GenericTrigger = true;
-    [HideInInspector] public string DialogueName;
+    [HideInInspector] public Card_SO cardTrigger;
+    [HideInInspector] public float chanceToPlay;
+
+    /// <summary>Checks if the dialogue should trigger</summary>
+    /// <param name="rand">the random % to check</param>
+    public bool checkChance(float rand)
+    {
+        if(rand < chanceToPlay)
+            return true;
+        return false;
+    }
 }
 
 public enum GodDialogueTrigger
@@ -19,4 +29,6 @@ public enum GodDialogueTrigger
     Dying,
     Draw,
     Played,
+    Discard,
+    Shuffle
 }

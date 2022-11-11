@@ -203,7 +203,7 @@ public class DeckManager_SO : ScriptableObject
             _Loader.shouldAddComponent = false;
             _Loader.Set(pLibrary[0]);
             pLibrary.Remove(pLibrary[0]);
-            animations[i] = new CardPathAnim(_Loader.GetCardSO, Draw_SFX, cards[i]);
+            animations[i] = new CardPathAnim(_Loader.GetCardSO, Draw_SFX, cards[i], GodDialogueTrigger.Draw);
 
             // ! not clear purpose of this code
             // if (i == amount - 1 && mngr != null)
@@ -247,7 +247,7 @@ public class DeckManager_SO : ScriptableObject
 
             pDiscard.Add(pHand[i]);
 
-            animations[i] = new CardPathAnim(_Loader.GetCardSO, Discard_SFX, _card);
+            animations[i] = new CardPathAnim(_Loader.GetCardSO, Discard_SFX, _card, GodDialogueTrigger.Discard);
         }
 
         // requests animations for all discarded cards
@@ -279,7 +279,7 @@ public class DeckManager_SO : ScriptableObject
                 cards.Add(_card);
                 pDiscard.Add(pHand[i]);
             }
-            animations[i] = new CardPathAnim(_Loader.GetCardSO, Discard_SFX, _card);
+            animations[i] = new CardPathAnim(_Loader.GetCardSO, Discard_SFX, _card, GodDialogueTrigger.Discard);
         }
         // requests animations for all discarded cards
 
@@ -310,7 +310,7 @@ public class DeckManager_SO : ScriptableObject
             Card_Loader _Loader = _card.GetComponentInChildren<Card_Loader>();
             _Loader.shouldAddComponent = false;
             _Loader.Set(card);
-            CardPathAnim anim = new CardPathAnim(card, Discard_SFX, _card);
+            CardPathAnim anim = new CardPathAnim(card, Discard_SFX, _card, GodDialogueTrigger.Discard);
             AnimationEventManager.getInstance.requestAnimation("Hand-Discard", _card, 0, anim);
 
             pDiscard.Add(card);
@@ -363,7 +363,7 @@ public class DeckManager_SO : ScriptableObject
             Card_Loader _Loader = cards[i].GetComponentInChildren<Card_Loader>();
             _Loader.shouldAddComponent = false;
             _Loader.Set(pDiscard[i]);
-            animations[i] = new CardPathAnim(_Loader.GetCardSO, Shuffle_SFX, cards[i]);
+            animations[i] = new CardPathAnim(_Loader.GetCardSO, Shuffle_SFX, cards[i], GodDialogueTrigger.Shuffle);
         }
         // Request discard to library animations
         AnimationEventManager.getInstance.requestAnimation("ShuffleDiscard", cards, delay, animations);

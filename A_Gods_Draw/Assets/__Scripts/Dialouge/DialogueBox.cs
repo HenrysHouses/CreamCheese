@@ -7,11 +7,10 @@ using TMPro;
 public class DialogueBox : MonoBehaviour
 {
     public TextMeshPro TextMesh;
-    public float speed = 0.1f;
     public float TimeBetweenPages = 1;
 
     [TextArea(5,20), Tooltip("Each dimension is one page of the dialogue")]
-    public string[] DialogueText;
+    public sentence[] DialogueText;
     private char[] currDialogue;
     int pageIndex = -1;
 
@@ -67,7 +66,7 @@ public class DialogueBox : MonoBehaviour
         while(_char < currDialogue.Length)
         {
             displayChar(_char);
-            yield return new WaitForSeconds(speed);
+            yield return new WaitForSeconds(DialogueText[pageIndex].speed);
             _char++;
         }
         isDisplayingPage = false;
@@ -82,7 +81,7 @@ public class DialogueBox : MonoBehaviour
     void goToDialoguePage(int i)
     {
         if(i < DialogueText.Length)
-            currDialogue = DialogueText[i].ToCharArray();
+            currDialogue = DialogueText[i].text.ToCharArray();
         else
             currDialogue = new char[0];
         TextMesh.text = "";
@@ -90,7 +89,7 @@ public class DialogueBox : MonoBehaviour
 
     public void SetDialogue(Dialogue dialogue)
     {
-        DialogueText = dialogue.text;
+        DialogueText = dialogue.pages;
         character_SFX = dialogue.SFX;
     }
 }

@@ -5,8 +5,8 @@ using UnityEditor;
 public class GodDialogue_Editor : Editor
 {
     private GodDialogue script;
-
-    private SerializedProperty drawAmountProperty;
+    
+    private SerializedProperty serializedProperty;
 
     private void OnEnable()
     {
@@ -19,11 +19,15 @@ public class GodDialogue_Editor : Editor
 
         if(!script.GenericTrigger)
         {
-            script.DialogueName = GUILayout.TextField(
-                // new GUIContent("Card", "What Special card triggers this dialogue"), 
-                script.DialogueName);
+            script.cardTrigger = (Card_SO)EditorGUILayout.ObjectField(
+                new GUIContent("Card Trigger", "The card that triggers this dialogue"), 
+                script.cardTrigger, typeof(Card_SO), false);
         }
         else
-            script.DialogueName = "";
+        {
+            script.chanceToPlay = EditorGUILayout.Slider(
+                new GUIContent("Chance To Play", "Chance in percent (%)"), 
+                script.chanceToPlay, 0, 1);
+        }
     }
 }

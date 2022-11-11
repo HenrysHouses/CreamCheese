@@ -11,6 +11,7 @@ public class DialogueController : MonoBehaviour
 
     void Start()
     {
+        UpdateTransforms();
         MultiSceneLoader.OnSceneLoad.AddListener(UpdateTransforms);
 
         if(instance == null)
@@ -33,6 +34,9 @@ public class DialogueController : MonoBehaviour
         {
             if(holder.TransformName == dialogue.TransformName)
             {
+                if(holder.hasDialogue())
+                    return;
+
                 GameObject spawn = Instantiate(dialoguePrefab);
                 spawn.GetComponent<DialogueBox>().SetDialogue(dialogue);
                 spawn.transform.SetParent(holder.transform);

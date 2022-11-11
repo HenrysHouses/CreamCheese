@@ -5,4 +5,11 @@ using UnityEngine;
 public class DialogueTransform : MonoBehaviour
 {
     public string TransformName;
+
+    public bool hasDialogue()
+    {
+        if(transform.childCount > 0)
+            return true;
+        return false;
+    }
 }

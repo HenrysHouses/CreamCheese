@@ -154,8 +154,9 @@ public class TurnController : CombatFSM
         // # if trigger data == null, then there was not enough cards in library to draw
         if(animData != null) 
         {
-            animData[animData.Length-1].OnAnimCompletionTrigger.AddListener(animsAreDone);
+            animData[animData.Length - 1].OnAnimCompletionTrigger.AddListener(animsAreDone);
             animData[animData.Length - 1].OnAnimCompletionTrigger.AddListener(SetCards);
+            
 
             foreach (var trigger in animData)
             {
@@ -164,6 +165,10 @@ public class TurnController : CombatFSM
 
                 trigger.OnCardCompletionTrigger.AddListener(_Hand.AddCard);
                 trigger.OnAnimStartSound.AddListener(CardSound);
+            
+                // Dialogue draw trigger
+                if(BoardStateController.playedGodCard is not null)
+                    trigger.OnCardDrawDialogue.AddListener(BoardStateController.playedGodCard.StartDialogue);
             }
 
             yield break; // stops Coroutine here
@@ -213,7 +218,6 @@ public class TurnController : CombatFSM
     {
         yield return new WaitUntil(() => !DrawAnimator.isAnimating && !ShuffleAnimator.isAnimating);
 
-        Debug.Log("DISCARD");
         CardPathAnim lastAnim = null;
 
 
@@ -227,6 +231,10 @@ public class TurnController : CombatFSM
                 _Hand.RemoveCard(_Hand.CardSelectionAnimators[i].loader);
                 Destroy(selectorParentToDestroy);
                 yield return new WaitForSeconds(delayBetweenCards);
+
+                // Dialogue discard trigger
+                if(BoardStateController.playedGodCard is not null)
+                    lastAnim.OnCardDrawDialogue.AddListener(BoardStateController.playedGodCard.StartDialogue);
             }
 
             lastAnim.OnAnimCompletionTrigger.AddListener(animsAreDone);
@@ -242,12 +250,15 @@ public class TurnController : CombatFSM
     {
         //yield return new WaitUntil(() => !DrawAnimator.isAnimating && !ShuffleAnimator.isAnimating);
 
-        CardPathAnim lastAnim = null;
+        // CardPathAnim lastAnim = null;
 
         if (card_b != null)
         {
-            deckManager.discardCard(card_b.GetComponent<Card_Loader>().GetCardSO);
+            CardPathAnim anim = deckManager.discardCard(card_b.GetComponent<Card_Loader>().GetCardSO);
 
+            // Dialogue discard trigger
+            if(BoardStateController.playedGodCard is not null)
+                anim.OnCardDrawDialogue.AddListener(BoardStateController.playedGodCard.StartDialogue);
             //lastAnim.OnAnimCompletionTrigger.AddListener(animsAreDone);
             _Hand.RemoveCard(card_b.GetComponent<Card_Loader>());
 
@@ -276,6 +287,8 @@ public class TurnController : CombatFSM
 
     public Card_Behaviour SelectedCard => selectedCard;
     public GodPlacement GodPlacement => godPlace;
+
+    // * --- Clicking --- 
     public void SetSelectedCard(Card_Behaviour sel = null)
     {
         if (sel)

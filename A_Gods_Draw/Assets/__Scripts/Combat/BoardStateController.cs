@@ -15,6 +15,8 @@ public class BoardStateController : MonoBehaviour
     public bool isEncounterInstantiated = false;
 
     [SerializeField] GameObject TargetingMesh;
+    [SerializeField] Color AttackColor;
+    [SerializeField] Color DefendColor;
 
     // Getters
     public PlayerController Player => _Player;
@@ -23,6 +25,7 @@ public class BoardStateController : MonoBehaviour
     public Transform getLane(int i) => _Lane[i];
     public Transform getGodLane() => _GodLane;
     [HideInInspector] public List<NonGod_Behaviour> playedCards;
+    public bool isGodPlayed => playedGodCard;
     [HideInInspector] public God_Behaviour playedGodCard;
     [HideInInspector] public List<BoardElement> thingsInLane;
     public NonGod_Behaviour getCardInLane(int i) => playedCards[i];
@@ -183,7 +186,7 @@ public class BoardStateController : MonoBehaviour
         {
             if (_Lane[i].Equals(targetlane))
             {
-                Debug.Log(i);
+                // Debug.Log(i);
 
                 NonGod_Behaviour behaviour = card as NonGod_Behaviour;
 
@@ -208,12 +211,20 @@ public class BoardStateController : MonoBehaviour
                     if (target == null)
                         continue;
 
+                    // Targeting instantiation
                     GameObject spawn = Instantiate(TargetingMesh, Vector3.zero, Quaternion.identity);
                     spawn.transform.SetParent(cardTransform, true);
-                    ProceduralPathMesh Mesh = spawn.GetComponent<ProceduralPathMesh>();
-                    Mesh.startPoint.position = cardTransform.position;
 
-                    Debug.Log(target);
+                    // Targeting color
+                    MeshRenderer renderer = spawn.GetComponent<MeshRenderer>();
+                    if(behaviour.GetCardType == CardType.Attack)
+                        renderer.material.SetColor("_MainColor", AttackColor);
+                    else
+                        renderer.material.SetColor("_MainColor", DefendColor);
+                    
+                    // Targeting positions
+                    ProceduralPathMesh Mesh = spawn.GetComponent<ProceduralPathMesh>();
+                    Mesh.startPoint.position = cardTransform.position;                    
                     Mesh.endPoint.position = target.transform.position;
                 }
                 return;

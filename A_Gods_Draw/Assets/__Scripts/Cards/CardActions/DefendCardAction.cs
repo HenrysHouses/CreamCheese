@@ -33,7 +33,7 @@ public class DefendCardAction : CardAction
             IMonster clickedMonster = element as IMonster;
             if (clickedMonster)
             {
-                Debug.Log(clickedMonster);
+                // Debug.Log(clickedMonster);
                 target = clickedMonster;
                 return true;
             }

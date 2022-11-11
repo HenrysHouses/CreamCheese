@@ -1863,11 +1863,11 @@ MonoBehaviour:
         m_CallState: 1
   endTurn_SFX:
     Guid:
-      Data1: 999653234
-      Data2: 1139444638
-      Data3: 2062513328
-      Data4: -856870951
-    Path: event:/Combat/EndTurn
+      Data1: 0
+      Data2: 0
+      Data3: 0
+      Data4: 0
+    Path: 
 --- !u!65 &975887042
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -2244,6 +2244,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   isEncounterInstantiated: 0
   TargetingMesh: {fileID: 7368309248694883949, guid: 172b63a08932a94488295dbb8b000a0a, type: 3}
+  AttackColor: {r: 0.49019608, g: 0.08627451, b: 0.12328834, a: 0.8235294}
+  DefendColor: {r: 0.08627451, g: 0.18039216, b: 0.49019608, a: 0.8235294}
   playedCards: []
   playedGodCard: {fileID: 0}
   thingsInLane: []

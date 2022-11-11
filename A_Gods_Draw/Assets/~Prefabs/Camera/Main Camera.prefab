@@ -14,6 +14,7 @@ GameObject:
   - component: {fileID: -2628737895112786819}
   - component: {fileID: 974159974}
   - component: {fileID: 1993144584737243806}
+  - component: {fileID: 2028920027}
   m_Layer: 0
   m_Name: Main Camera
   m_TagString: MainCamera
@@ -126,11 +127,11 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   cameraSound:
     Guid:
-      Data1: 0
-      Data2: 0
-      Data3: 0
-      Data4: 0
-    Path: 
+      Data1: -276706622
+      Data2: 1138704296
+      Data3: -163930997
+      Data4: 1806548138
+    Path: event:/Player/Camera
 --- !u!114 &1993144584737243806
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -143,3 +144,33 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2fb3bc2f536c0384ea297a5a3c39e130, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!114 &2028920027
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6049076613374906663}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9a6610d2e704f1648819acc8d7460285, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  CollisionTag: 
+  EventReference:
+    Guid:
+      Data1: 1548319315
+      Data2: 1223810149
+      Data3: 869982112
+      Data4: 1883496905
+    Path: event:/Ambiences/Ambience
+  Event: 
+  PlayEvent: 1
+  StopEvent: 0
+  AllowFadeout: 1
+  TriggerOnce: 0
+  Preload: 0
+  Params: []
+  OverrideAttenuation: 0
+  OverrideMinDistance: 1
+  OverrideMaxDistance: 20
