@@ -21,9 +21,29 @@ public class GodDialogue_Editor : Editor
 
         if(!script.GenericTrigger)
         {
-            script.cardTrigger = (Card_SO)EditorGUILayout.ObjectField(
-                new GUIContent("Card Trigger", "The card that triggers this dialogue"), 
-                script.cardTrigger, typeof(Card_SO), false);
+            bool enemySelection = script.trigger == GodDialogueTrigger.Hurt || 
+                                  script.trigger == GodDialogueTrigger.EnemyKill || 
+                                  script.trigger == GodDialogueTrigger.SeeEnemy;
+
+            bool cardSelection = script.trigger == GodDialogueTrigger.Played || 
+                                 script.trigger == GodDialogueTrigger.Draw || 
+                                 script.trigger == GodDialogueTrigger.Discard || 
+                                 script.trigger == GodDialogueTrigger.Dying;
+
+            if(enemySelection)
+            {
+                script.enemyTrigger = EditorGUILayout.Popup(
+                    new GUIContent("Enemy", "The enemy that triggers this dialogue"),
+                    script.enemyTrigger,
+                    GodDialogue.EnemyClassNames);
+            }
+            
+            if (cardSelection)
+            {
+                script.cardTrigger = (Card_SO)EditorGUILayout.ObjectField(
+                    new GUIContent("Card Trigger", "The card that triggers this dialogue"), 
+                    script.cardTrigger, typeof(Card_SO), false);
+            }
         }
         else
         {

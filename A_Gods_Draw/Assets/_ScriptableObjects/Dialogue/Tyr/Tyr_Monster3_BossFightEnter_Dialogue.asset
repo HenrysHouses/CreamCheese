@@ -10,11 +10,13 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 9a6afa83f6a9bc5458cb340187ecdfef, type: 3}
-  m_Name: BlessedSword_Play_Dialogue
+  m_Name: Tyr_Monster3_BossFightEnter_Dialogue
   m_EditorClassIdentifier: 
   dialogue:
     pages:
-    - text: 
+    - text: LokiMonster3...
+      speed: 0.1
+    - text: that bastard sucks >:C
       speed: 0.1
     TransformName: MainCamera
     SFX:
@@ -24,7 +26,8 @@ MonoBehaviour:
         Data3: -2095186242
         Data4: 2122433884
       Path: event:/Combat/God/Tyr/CHrachterAppear
-  trigger: 5
+  trigger: 0
   GenericTrigger: 0
-  cardTrigger: {fileID: 11400000, guid: 42f86eae57b079b4ba5f764da654efbd, type: 2}
+  cardTrigger: {fileID: 11400000, guid: aa8e30ae6f0221046bca3cf537fb0c5f, type: 2}
   chanceToPlay: 0
+  enemyTrigger: 3

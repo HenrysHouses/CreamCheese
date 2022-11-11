@@ -79,18 +79,17 @@ public class CardPlayer : MonoBehaviour
     {
         Card_Loader loader = behaviour.GetComponent<Card_Loader>();
         God_Behaviour _God = behaviour as God_Behaviour;
-        Debug.Log(behaviour);
 
         if(_God is null)
         {
             if(_Board.isGodPlayed)
             {
-                Debug.Log(loader.GetCardSO.cardName);
                 _Board.playedGodCard.CardSO.StartDialogue(GodDialogueTrigger.Played , loader.GetCardSO);
             }
         }
         else
         {
+            _God.CardSO.StartDialogue(GodDialogueTrigger.SeeEnemy, _Board.Enemies[0]);
             _God.CardSO.StartDialogue(GodDialogueTrigger.Played, loader.GetCardSO);
         }
 

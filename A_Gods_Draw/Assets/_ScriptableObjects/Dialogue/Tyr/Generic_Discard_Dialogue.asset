@@ -10,11 +10,11 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 9a6afa83f6a9bc5458cb340187ecdfef, type: 3}
-  m_Name: BlessedSword_Play_Dialogue
+  m_Name: Generic_Discard_Dialogue
   m_EditorClassIdentifier: 
   dialogue:
     pages:
-    - text: 
+    - text: Prepeare yourself..
       speed: 0.1
     TransformName: MainCamera
     SFX:
@@ -24,7 +24,7 @@ MonoBehaviour:
         Data3: -2095186242
         Data4: 2122433884
       Path: event:/Combat/God/Tyr/CHrachterAppear
-  trigger: 5
-  GenericTrigger: 0
-  cardTrigger: {fileID: 11400000, guid: 42f86eae57b079b4ba5f764da654efbd, type: 2}
-  chanceToPlay: 0
+  trigger: 6
+  GenericTrigger: 1
+  cardTrigger: {fileID: 0}
+  chanceToPlay: 0.096

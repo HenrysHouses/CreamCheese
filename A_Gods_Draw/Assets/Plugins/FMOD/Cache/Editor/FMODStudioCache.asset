@@ -1,5 +1,34 @@
 %YAML 1.1
 %TAG !u! tag:unity3d.com,2011:
+--- !u!114 &-9185472922014320037
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ceb653cd98e289a4e8697a1af55201f2, type: 3}
+  m_Name: event:/Card Effects/DrawCards
+  m_EditorClassIdentifier: 
+  Path: event:/Card Effects/DrawCards
+  Guid:
+    Data1: -1855550642
+    Data2: 1183617777
+    Data3: -1438661999
+    Data4: 1883429168
+  Banks:
+  - {fileID: -3742761664147203961}
+  - {fileID: 1305190569015249246}
+  - {fileID: -8005897933986652263}
+  IsStream: 0
+  Is3D: 0
+  IsOneShot: 1
+  Parameters: []
+  MinDistance: 1
+  MaxDistance: 20
+  Length: 260
 --- !u!114 &-8912911320942751166
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -15,9 +44,64 @@ MonoBehaviour:
   Path: Assets/FMODBanks/Desktop/MonsterEffects.bank
   Name: MonsterEffects
   StudioPath: bank:/MonsterEffects
-  lastModified: 638037765815007657
+  lastModified: 638037782793801464
   FileSizes: []
   Exists: 1
+--- !u!114 &-8660644795751610414
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ceb653cd98e289a4e8697a1af55201f2, type: 3}
+  m_Name: event:/Tests/Horn
+  m_EditorClassIdentifier: 
+  Path: event:/Tests/Horn
+  Guid:
+    Data1: -1129949362
+    Data2: 1340245276
+    Data3: -213709634
+    Data4: 419368703
+  Banks:
+  - {fileID: -3742761664147203961}
+  - {fileID: -8005897933986652263}
+  IsStream: 0
+  Is3D: 0
+  IsOneShot: 1
+  Parameters: []
+  MinDistance: 1
+  MaxDistance: 20
+  Length: 3592
+--- !u!114 &-8395386905918564551
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ceb653cd98e289a4e8697a1af55201f2, type: 3}
+  m_Name: snapshot:/SlowDownSoundTest
+  m_EditorClassIdentifier: 
+  Path: snapshot:/SlowDownSoundTest
+  Guid:
+    Data1: 2042714898
+    Data2: 1231183997
+    Data3: -1403003756
+    Data4: -56587560
+  Banks:
+  - {fileID: 354025419047621160}
+  IsStream: 0
+  Is3D: 0
+  IsOneShot: 0
+  Parameters: []
+  MinDistance: 0
+  MaxDistance: 0
+  Length: 0
 --- !u!114 &-8361324344680007583
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -46,6 +130,99 @@ MonoBehaviour:
   MinDistance: 1
   MaxDistance: 20
   Length: 770
+--- !u!114 &-8188353966515598334
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ceb653cd98e289a4e8697a1af55201f2, type: 3}
+  m_Name: event:/Card Effects/Card Scrolling
+  m_EditorClassIdentifier: 
+  Path: event:/Card Effects/Card Scrolling
+  Guid:
+    Data1: 1925774154
+    Data2: 1228889240
+    Data3: -1063256898
+    Data4: 1449369350
+  Banks:
+  - {fileID: -3742761664147203961}
+  - {fileID: 1305190569015249246}
+  - {fileID: -8005897933986652263}
+  IsStream: 0
+  Is3D: 0
+  IsOneShot: 1
+  Parameters: []
+  MinDistance: 1
+  MaxDistance: 20
+  Length: 225
+--- !u!114 &-8005897933986652263
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c18180ecb35941f4682ae60107b85b7c, type: 3}
+  m_Name: bank:/PlayerEffects.bank
+  m_EditorClassIdentifier: 
+  Path: Assets/FMODBanks/Desktop/PlayerEffects.bank
+  Name: PlayerEffects
+  StudioPath: bank:/PlayerEffects
+  lastModified: 638037833584658786
+  FileSizes: []
+  Exists: 1
+--- !u!114 &-7975275770987109253
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c18180ecb35941f4682ae60107b85b7c, type: 3}
+  m_Name: bank:/Master.strings.bank
+  m_EditorClassIdentifier: 
+  Path: Assets/FMODBanks/Desktop/Master.strings.bank
+  Name: Master.strings
+  StudioPath: bank:/Master.strings
+  lastModified: 638037833584723071
+  FileSizes:
+  - Name: 
+    Value: 2256
+  Exists: 1
+--- !u!114 &-7626564355247070922
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fecb8ef7f94ca804a8ab72049b86782e, type: 3}
+  m_Name: parameter:/DrawCards
+  m_EditorClassIdentifier: 
+  Name: DrawCards
+  StudioPath: parameter:/DrawCards
+  Min: 0
+  Max: 1
+  Default: 0
+  ID:
+    data1: 4219009450
+    data2: 3718968038
+  Type: 2
+  IsGlobal: 1
+  Labels:
+  - Draw Card
+  - Draw Last cards
+  Exists: 1
 --- !u!114 &-7265340613661459933
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -72,6 +249,34 @@ MonoBehaviour:
   - Draw Card
   - Draw Last cards
   Exists: 1
+--- !u!114 &-7175667058584717838
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ceb653cd98e289a4e8697a1af55201f2, type: 3}
+  m_Name: event:/Player/Camera
+  m_EditorClassIdentifier: 
+  Path: event:/Player/Camera
+  Guid:
+    Data1: -276706622
+    Data2: 1138704296
+    Data3: -163930997
+    Data4: 1806548138
+  Banks:
+  - {fileID: -3742761664147203961}
+  - {fileID: -8005897933986652263}
+  IsStream: 0
+  Is3D: 0
+  IsOneShot: 1
+  Parameters: []
+  MinDistance: 1
+  MaxDistance: 20
+  Length: 220
 --- !u!114 &-6985516995730060941
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -87,7 +292,25 @@ MonoBehaviour:
   Path: Assets/FMODBanks/Desktop/PlayerEffects.bank
   Name: PlayerEffects
   StudioPath: bank:/PlayerEffects
-  lastModified: 638037765815117041
+  lastModified: 638037827205718161
+  FileSizes: []
+  Exists: 1
+--- !u!114 &-6909171538343308998
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c18180ecb35941f4682ae60107b85b7c, type: 3}
+  m_Name: bank:/MonsterEffects.bank
+  m_EditorClassIdentifier: 
+  Path: Assets/FMODBanks/Desktop/MonsterEffects.bank
+  Name: MonsterEffects
+  StudioPath: bank:/MonsterEffects
+  lastModified: 638037819279591104
   FileSizes: []
   Exists: 1
 --- !u!114 &-6498739723113037913
@@ -118,6 +341,35 @@ MonoBehaviour:
   - Selecting Node
   - Clicking on Node
   Exists: 1
+--- !u!114 &-6257716206382439857
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ceb653cd98e289a4e8697a1af55201f2, type: 3}
+  m_Name: event:/Combat/Enemy/EnemyKilled
+  m_EditorClassIdentifier: 
+  Path: event:/Combat/Enemy/EnemyKilled
+  Guid:
+    Data1: 55962543
+    Data2: 1104511573
+    Data3: 823004837
+    Data4: -1532201799
+  Banks:
+  - {fileID: -3742761664147203961}
+  - {fileID: -4218156732340185762}
+  - {fileID: -8005897933986652263}
+  IsStream: 0
+  Is3D: 0
+  IsOneShot: 1
+  Parameters: []
+  MinDistance: 1
+  MaxDistance: 20
+  Length: 1500
 --- !u!114 &-6159818448864888698
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -142,6 +394,35 @@ MonoBehaviour:
   IsGlobal: 1
   Labels: []
   Exists: 1
+--- !u!114 &-6150480217173938610
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ceb653cd98e289a4e8697a1af55201f2, type: 3}
+  m_Name: event:/Player/HealthDial
+  m_EditorClassIdentifier: 
+  Path: event:/Player/HealthDial
+  Guid:
+    Data1: -1605970208
+    Data2: 1251534219
+    Data3: -694300737
+    Data4: 703649307
+  Banks:
+  - {fileID: -3742761664147203961}
+  - {fileID: -8005897933986652263}
+  IsStream: 0
+  Is3D: 0
+  IsOneShot: 1
+  Parameters:
+  - {fileID: -1554929978576513754}
+  MinDistance: 1
+  MaxDistance: 20
+  Length: 1
 --- !u!114 &-5235620977633386030
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -194,6 +475,24 @@ MonoBehaviour:
   MinDistance: 1
   MaxDistance: 20
   Length: 540
+--- !u!114 &-5056919629850141808
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c18180ecb35941f4682ae60107b85b7c, type: 3}
+  m_Name: bank:/PlayerEffects.bank
+  m_EditorClassIdentifier: 
+  Path: Assets/FMODBanks/Desktop/PlayerEffects.bank
+  Name: PlayerEffects
+  StudioPath: bank:/PlayerEffects
+  lastModified: 638037819279711128
+  FileSizes: []
+  Exists: 1
 --- !u!114 &-5027003206129430838
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -238,10 +537,109 @@ MonoBehaviour:
   Path: Assets/FMODBanks/Desktop/Master.strings.bank
   Name: Master.strings
   StudioPath: bank:/Master.strings
-  lastModified: 638037765814997380
+  lastModified: 638037782793190780
   FileSizes:
   - Name: 
     Value: 2256
+  Exists: 1
+--- !u!114 &-4809086247740652399
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ceb653cd98e289a4e8697a1af55201f2, type: 3}
+  m_Name: event:/Combat/God/Tyr/CHrachterAppear
+  m_EditorClassIdentifier: 
+  Path: event:/Combat/God/Tyr/CHrachterAppear
+  Guid:
+    Data1: 2004915618
+    Data2: 1330019366
+    Data3: -2095186242
+    Data4: 2122433884
+  Banks:
+  - {fileID: -3742761664147203961}
+  - {fileID: 2900232695774019741}
+  - {fileID: -8005897933986652263}
+  IsStream: 0
+  Is3D: 0
+  IsOneShot: 1
+  Parameters: []
+  MinDistance: 1
+  MaxDistance: 20
+  Length: 110
+--- !u!114 &-4218156732340185762
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c18180ecb35941f4682ae60107b85b7c, type: 3}
+  m_Name: bank:/MonsterEffects.bank
+  m_EditorClassIdentifier: 
+  Path: Assets/FMODBanks/Desktop/MonsterEffects.bank
+  Name: MonsterEffects
+  StudioPath: bank:/MonsterEffects
+  lastModified: 638037833585368757
+  FileSizes: []
+  Exists: 1
+--- !u!114 &-4174694828510047115
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fecb8ef7f94ca804a8ab72049b86782e, type: 3}
+  m_Name: parameter:/Map Effects/Map Effects
+  m_EditorClassIdentifier: 
+  Name: Map Effects
+  StudioPath: 
+  Min: 0
+  Max: 3
+  Default: 0
+  ID:
+    data1: 2761957964
+    data2: 3403347211
+  Type: 2
+  IsGlobal: 1
+  Labels:
+  - Lightning
+  - Going to Node
+  - Selecting Node
+  - Clicking on Node
+  Exists: 1
+--- !u!114 &-4065455605563977583
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fecb8ef7f94ca804a8ab72049b86782e, type: 3}
+  m_Name: parameter:/Ambience/Ambience
+  m_EditorClassIdentifier: 
+  Name: Ambience
+  StudioPath: 
+  Min: 0
+  Max: 3
+  Default: 0
+  ID:
+    data1: 2927777880
+    data2: 3409605
+  Type: 0
+  IsGlobal: 1
+  Labels: []
   Exists: 1
 --- !u!114 &-3902489308834136702
 MonoBehaviour:
@@ -271,6 +669,53 @@ MonoBehaviour:
   MinDistance: 1
   MaxDistance: 20
   Length: 1000
+--- !u!114 &-3742761664147203961
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c18180ecb35941f4682ae60107b85b7c, type: 3}
+  m_Name: bank:/Effects.bank
+  m_EditorClassIdentifier: 
+  Path: Assets/FMODBanks/Desktop/Effects.bank
+  Name: Effects
+  StudioPath: bank:/PlayerEffects
+  lastModified: 638036940544485476
+  FileSizes: []
+  Exists: 1
+--- !u!114 &-3633921156540097567
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ceb653cd98e289a4e8697a1af55201f2, type: 3}
+  m_Name: event:/Combat/God/Tyr/TyrDies
+  m_EditorClassIdentifier: 
+  Path: event:/Combat/God/Tyr/TyrDies
+  Guid:
+    Data1: 1689406183
+    Data2: 1255456034
+    Data3: -1683625557
+    Data4: 841660919
+  Banks:
+  - {fileID: -3742761664147203961}
+  - {fileID: 2900232695774019741}
+  - {fileID: -8005897933986652263}
+  IsStream: 0
+  Is3D: 0
+  IsOneShot: 1
+  Parameters: []
+  MinDistance: 1
+  MaxDistance: 20
+  Length: 708
 --- !u!114 &-3344032892734753576
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -357,6 +802,34 @@ MonoBehaviour:
   MinDistance: 1
   MaxDistance: 20
   Length: 3592
+--- !u!114 &-2646275290084001583
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fecb8ef7f94ca804a8ab72049b86782e, type: 3}
+  m_Name: parameter:/Card Effects
+  m_EditorClassIdentifier: 
+  Name: Card Effects
+  StudioPath: parameter:/Card Effects
+  Min: 0
+  Max: 3
+  Default: 0
+  ID:
+    data1: 3823256222
+    data2: 1950744258
+  Type: 2
+  IsGlobal: 1
+  Labels:
+  - Card Scrolling
+  - Reshuffle
+  - DrawCards
+  - Pickcards
+  Exists: 1
 --- !u!114 &-1824712892574369002
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -384,6 +857,54 @@ MonoBehaviour:
   - Going to Node
   - Selecting Node
   - Clicking on Node
+  Exists: 1
+--- !u!114 &-1554929978576513754
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fecb8ef7f94ca804a8ab72049b86782e, type: 3}
+  m_Name: parameter:/HealthDial/Health
+  m_EditorClassIdentifier: 
+  Name: Health
+  StudioPath: 
+  Min: 0
+  Max: 100
+  Default: 100
+  ID:
+    data1: 2774083151
+    data2: 3232156098
+  Type: 0
+  IsGlobal: 1
+  Labels: []
+  Exists: 1
+--- !u!114 &-1551392401844634931
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fecb8ef7f94ca804a8ab72049b86782e, type: 3}
+  m_Name: parameter:/Ambience
+  m_EditorClassIdentifier: 
+  Name: Ambience
+  StudioPath: parameter:/Ambience
+  Min: 0
+  Max: 3
+  Default: 0
+  ID:
+    data1: 2927777880
+    data2: 3409605
+  Type: 0
+  IsGlobal: 1
+  Labels: []
   Exists: 1
 --- !u!114 &-861201357751457843
 MonoBehaviour:
@@ -427,7 +948,7 @@ MonoBehaviour:
   Path: Assets/FMODBanks/Desktop/CardEffects.bank
   Name: CardEffects
   StudioPath: bank:/CardEffects
-  lastModified: 638037765814847771
+  lastModified: 638037782793456051
   FileSizes: []
   Exists: 1
 --- !u!114 &-809297789796148776
@@ -557,48 +1078,122 @@ MonoBehaviour:
   m_Name: FMODStudioCache
   m_EditorClassIdentifier: 
   EditorBanks:
-  - {fileID: -4822279630965835551}
-  - {fileID: 4658744612584646019}
-  - {fileID: 794753253420131033}
-  - {fileID: 2284276540301729918}
-  - {fileID: -812227945806410639}
-  - {fileID: 1470858570566702010}
-  - {fileID: -8912911320942751166}
-  - {fileID: -6985516995730060941}
+  - {fileID: -7975275770987109253}
+  - {fileID: 2969074197331373740}
+  - {fileID: 1305190569015249246}
+  - {fileID: -3742761664147203961}
+  - {fileID: 2900232695774019741}
+  - {fileID: 354025419047621160}
+  - {fileID: -4218156732340185762}
+  - {fileID: -8005897933986652263}
   EditorEvents:
-  - {fileID: -587572218137199265}
-  - {fileID: -218946236829467293}
-  - {fileID: -3165762735329176678}
-  - {fileID: -3344032892734753576}
-  - {fileID: 5049270176136396048}
-  - {fileID: 2647117457465395969}
-  - {fileID: 601750260413816558}
-  - {fileID: -3902489308834136702}
-  - {fileID: 4920163687644758434}
-  - {fileID: 2354061555520665187}
-  - {fileID: 1963985170467998783}
-  - {fileID: -8361324344680007583}
-  - {fileID: -809297789796148776}
-  - {fileID: 6471167561174028489}
-  - {fileID: -5027003206129430838}
-  - {fileID: -5104366375569523753}
-  - {fileID: -389963344431970092}
-  - {fileID: 4348325549410373758}
-  - {fileID: -2934400145721111738}
-  - {fileID: 4896658654515245185}
+  - {fileID: 8417763610850701452}
+  - {fileID: -8188353966515598334}
+  - {fileID: -9185472922014320037}
+  - {fileID: 6179582722870488567}
+  - {fileID: 5944144890557419081}
+  - {fileID: 7562694848049594627}
+  - {fileID: -8660644795751610414}
+  - {fileID: 4759838026839295792}
+  - {fileID: -4809086247740652399}
+  - {fileID: -6257716206382439857}
+  - {fileID: -7175667058584717838}
+  - {fileID: 4732948587012165388}
+  - {fileID: 824023202291564920}
+  - {fileID: 4585820526548870159}
+  - {fileID: 184070306273675570}
+  - {fileID: -6150480217173938610}
+  - {fileID: 4433409103832569198}
+  - {fileID: -3633921156540097567}
+  - {fileID: -8395386905918564551}
+  - {fileID: 248231819754204547}
   EditorParameters:
-  - {fileID: -7265340613661459933}
-  - {fileID: -861201357751457843}
-  - {fileID: 2829919495503454004}
-  - {fileID: -6498739723113037913}
-  - {fileID: -5235620977633386030}
-  - {fileID: 4812284380466909776}
+  - {fileID: -7626564355247070922}
+  - {fileID: 2133209220102977308}
+  - {fileID: -2646275290084001583}
+  - {fileID: 5695628148316928777}
+  - {fileID: -1551392401844634931}
+  - {fileID: 7674559198379496045}
   MasterBanks:
-  - {fileID: 2284276540301729918}
+  - {fileID: 354025419047621160}
   StringsBanks:
-  - {fileID: -4822279630965835551}
-  cacheTime: 638037765815117041
+  - {fileID: -7975275770987109253}
+  cacheTime: 638037833585592454
   cacheVersion: 131592
+--- !u!114 &184070306273675570
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ceb653cd98e289a4e8697a1af55201f2, type: 3}
+  m_Name: event:/Combat/God/GodEnters
+  m_EditorClassIdentifier: 
+  Path: event:/Combat/God/GodEnters
+  Guid:
+    Data1: -1378885153
+    Data2: 1230558042
+    Data3: 1344752009
+    Data4: -742545908
+  Banks:
+  - {fileID: -3742761664147203961}
+  - {fileID: 2900232695774019741}
+  - {fileID: -8005897933986652263}
+  IsStream: 0
+  Is3D: 0
+  IsOneShot: 1
+  Parameters: []
+  MinDistance: 1
+  MaxDistance: 20
+  Length: 1509
+--- !u!114 &248231819754204547
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ceb653cd98e289a4e8697a1af55201f2, type: 3}
+  m_Name: event:/Tests/HonkHonk
+  m_EditorClassIdentifier: 
+  Path: event:/Tests/HonkHonk
+  Guid:
+    Data1: 85991383
+    Data2: 1212199196
+    Data3: -290138976
+    Data4: -369634708
+  Banks:
+  - {fileID: -8005897933986652263}
+  IsStream: 0
+  Is3D: 0
+  IsOneShot: 1
+  Parameters: []
+  MinDistance: 1
+  MaxDistance: 20
+  Length: 615
+--- !u!114 &354025419047621160
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c18180ecb35941f4682ae60107b85b7c, type: 3}
+  m_Name: bank:/Master.bank
+  m_EditorClassIdentifier: 
+  Path: Assets/FMODBanks/Desktop/Master.bank
+  Name: Master
+  StudioPath: bank:/Master
+  lastModified: 638037833584712995
+  FileSizes: []
+  Exists: 1
 --- !u!114 &601750260413816558
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -643,7 +1238,80 @@ MonoBehaviour:
   Path: Assets/FMODBanks/Desktop/Effects.bank
   Name: Effects
   StudioPath: bank:/PlayerEffects
-  lastModified: 638036976364496275
+  lastModified: 638036940544485476
+  FileSizes: []
+  Exists: 1
+--- !u!114 &824023202291564920
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ceb653cd98e289a4e8697a1af55201f2, type: 3}
+  m_Name: event:/Combat/Enemy/EnemyDialogCharachters
+  m_EditorClassIdentifier: 
+  Path: event:/Combat/Enemy/EnemyDialogCharachters
+  Guid:
+    Data1: 2019886543
+    Data2: 1258154104
+    Data3: 119802265
+    Data4: -447201182
+  Banks:
+  - {fileID: -3742761664147203961}
+  - {fileID: -8005897933986652263}
+  IsStream: 1
+  Is3D: 0
+  IsOneShot: 1
+  Parameters: []
+  MinDistance: 1
+  MaxDistance: 20
+  Length: 540
+--- !u!114 &988001386670902617
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ceb653cd98e289a4e8697a1af55201f2, type: 3}
+  m_Name: event:/Tests/Horn
+  m_EditorClassIdentifier: 
+  Path: event:/Tests/Horn
+  Guid:
+    Data1: -1129949362
+    Data2: 1340245276
+    Data3: -213709634
+    Data4: 419368703
+  Banks:
+  - {fileID: -5056919629850141808}
+  IsStream: 0
+  Is3D: 0
+  IsOneShot: 1
+  Parameters: []
+  MinDistance: 1
+  MaxDistance: 20
+  Length: 3592
+--- !u!114 &1305190569015249246
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c18180ecb35941f4682ae60107b85b7c, type: 3}
+  m_Name: bank:/CardEffects.bank
+  m_EditorClassIdentifier: 
+  Path: Assets/FMODBanks/Desktop/CardEffects.bank
+  Name: CardEffects
+  StudioPath: bank:/CardEffects
+  lastModified: 638037833585004737
   FileSizes: []
   Exists: 1
 --- !u!114 &1470858570566702010
@@ -661,7 +1329,7 @@ MonoBehaviour:
   Path: Assets/FMODBanks/Desktop/GodEffects.bank
   Name: GodEffects
   StudioPath: bank:/GodEffects
-  lastModified: 638037765814987397
+  lastModified: 638037827205547498
   FileSizes: []
   Exists: 1
 --- !u!114 &1963985170467998783
@@ -691,6 +1359,33 @@ MonoBehaviour:
   MinDistance: 0
   MaxDistance: 0
   Length: 0
+--- !u!114 &2133209220102977308
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fecb8ef7f94ca804a8ab72049b86782e, type: 3}
+  m_Name: parameter:/Enemies
+  m_EditorClassIdentifier: 
+  Name: Enemies
+  StudioPath: parameter:/Enemies
+  Min: 0
+  Max: 2
+  Default: 0
+  ID:
+    data1: 1099183825
+    data2: 3830818947
+  Type: 2
+  IsGlobal: 1
+  Labels:
+  - Enemy Attack
+  - Enemy grunt
+  - Enemy Defend
+  Exists: 1
 --- !u!114 &2284276540301729918
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -706,7 +1401,7 @@ MonoBehaviour:
   Path: Assets/FMODBanks/Desktop/Master.bank
   Name: Master
   StudioPath: bank:/Master
-  lastModified: 638019773747451454
+  lastModified: 638037782793180777
   FileSizes: []
   Exists: 1
 --- !u!114 &2354061555520665187
@@ -794,6 +1489,96 @@ MonoBehaviour:
   - DrawCards
   - Pickcards
   Exists: 1
+--- !u!114 &2894532624051656469
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ceb653cd98e289a4e8697a1af55201f2, type: 3}
+  m_Name: event:/Horn
+  m_EditorClassIdentifier: 
+  Path: event:/Horn
+  Guid:
+    Data1: -1129949362
+    Data2: 1340245276
+    Data3: -213709634
+    Data4: 419368703
+  Banks:
+  - {fileID: 794753253420131033}
+  IsStream: 0
+  Is3D: 0
+  IsOneShot: 1
+  Parameters: []
+  MinDistance: 1
+  MaxDistance: 20
+  Length: 4837
+--- !u!114 &2900232695774019741
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c18180ecb35941f4682ae60107b85b7c, type: 3}
+  m_Name: bank:/GodEffects.bank
+  m_EditorClassIdentifier: 
+  Path: Assets/FMODBanks/Desktop/GodEffects.bank
+  Name: GodEffects
+  StudioPath: bank:/GodEffects
+  lastModified: 638037833585592454
+  FileSizes: []
+  Exists: 1
+--- !u!114 &2949675264644978184
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ceb653cd98e289a4e8697a1af55201f2, type: 3}
+  m_Name: event:/Tests/HonkHonk
+  m_EditorClassIdentifier: 
+  Path: event:/Tests/HonkHonk
+  Guid:
+    Data1: 85991383
+    Data2: 1212199196
+    Data3: -290138976
+    Data4: -369634708
+  Banks:
+  - {fileID: -5056919629850141808}
+  IsStream: 0
+  Is3D: 0
+  IsOneShot: 1
+  Parameters: []
+  MinDistance: 1
+  MaxDistance: 20
+  Length: 615
+--- !u!114 &2969074197331373740
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c18180ecb35941f4682ae60107b85b7c, type: 3}
+  m_Name: bank:/Ambience.bank
+  m_EditorClassIdentifier: 
+  Path: Assets/FMODBanks/Desktop/Ambience.bank
+  Name: Ambience
+  StudioPath: bank:/Ambience
+  lastModified: 638037833583614340
+  FileSizes: []
+  Exists: 1
 --- !u!114 &4348325549410373758
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -823,6 +1608,63 @@ MonoBehaviour:
   MinDistance: 1
   MaxDistance: 20
   Length: 708
+--- !u!114 &4433409103832569198
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ceb653cd98e289a4e8697a1af55201f2, type: 3}
+  m_Name: event:/Card Effects/ClickEnemy
+  m_EditorClassIdentifier: 
+  Path: event:/Card Effects/ClickEnemy
+  Guid:
+    Data1: 199999973
+    Data2: 1228848883
+    Data3: 234812576
+    Data4: 601707487
+  Banks:
+  - {fileID: -3742761664147203961}
+  - {fileID: -4218156732340185762}
+  - {fileID: -8005897933986652263}
+  IsStream: 0
+  Is3D: 0
+  IsOneShot: 1
+  Parameters: []
+  MinDistance: 1
+  MaxDistance: 20
+  Length: 827
+--- !u!114 &4585820526548870159
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ceb653cd98e289a4e8697a1af55201f2, type: 3}
+  m_Name: event:/Combat/Enemy/Enemy Ability
+  m_EditorClassIdentifier: 
+  Path: event:/Combat/Enemy/Enemy Ability
+  Guid:
+    Data1: -50251825
+    Data2: 1140817054
+    Data3: -1457995116
+    Data4: 1746539433
+  Banks:
+  - {fileID: -3742761664147203961}
+  - {fileID: -8005897933986652263}
+  IsStream: 0
+  Is3D: 0
+  IsOneShot: 1
+  Parameters: []
+  MinDistance: 1
+  MaxDistance: 20
+  Length: 1000
 --- !u!114 &4658744612584646019
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -838,9 +1680,66 @@ MonoBehaviour:
   Path: Assets/FMODBanks/Desktop/Ambience.bank
   Name: Ambience
   StudioPath: bank:/Ambience
-  lastModified: 638036976363837969
+  lastModified: 638037782791520931
   FileSizes: []
   Exists: 1
+--- !u!114 &4732948587012165388
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ceb653cd98e289a4e8697a1af55201f2, type: 3}
+  m_Name: event:/Combat/Enemy/Enemy Attack
+  m_EditorClassIdentifier: 
+  Path: event:/Combat/Enemy/Enemy Attack
+  Guid:
+    Data1: 1118862281
+    Data2: 1238309055
+    Data3: 1298832056
+    Data4: -1814946090
+  Banks:
+  - {fileID: -3742761664147203961}
+  - {fileID: -4218156732340185762}
+  - {fileID: -8005897933986652263}
+  IsStream: 0
+  Is3D: 0
+  IsOneShot: 1
+  Parameters: []
+  MinDistance: 1
+  MaxDistance: 20
+  Length: 500
+--- !u!114 &4759838026839295792
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ceb653cd98e289a4e8697a1af55201f2, type: 3}
+  m_Name: event:/Combat/EndTurn
+  m_EditorClassIdentifier: 
+  Path: event:/Combat/EndTurn
+  Guid:
+    Data1: 999653234
+    Data2: 1139444638
+    Data3: 2062513328
+    Data4: -856870951
+  Banks:
+  - {fileID: -3742761664147203961}
+  - {fileID: -8005897933986652263}
+  IsStream: 0
+  Is3D: 0
+  IsOneShot: 1
+  Parameters: []
+  MinDistance: 1
+  MaxDistance: 20
+  Length: 200
 --- !u!114 &4812284380466909776
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -950,6 +1849,52 @@ MonoBehaviour:
   MinDistance: 1
   MaxDistance: 20
   Length: 332
+--- !u!114 &5344996143094178827
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c18180ecb35941f4682ae60107b85b7c, type: 3}
+  m_Name: bank:/GodEffects.bank
+  m_EditorClassIdentifier: 
+  Path: Assets/FMODBanks/Desktop/GodEffects.bank
+  Name: GodEffects
+  StudioPath: bank:/GodEffects
+  lastModified: 638037819279571095
+  FileSizes: []
+  Exists: 1
+--- !u!114 &5695628148316928777
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fecb8ef7f94ca804a8ab72049b86782e, type: 3}
+  m_Name: parameter:/Map Effects
+  m_EditorClassIdentifier: 
+  Name: Map Effects
+  StudioPath: parameter:/Map Effects
+  Min: 0
+  Max: 3
+  Default: 0
+  ID:
+    data1: 2761957964
+    data2: 3403347211
+  Type: 2
+  IsGlobal: 1
+  Labels:
+  - Lightning
+  - Going to Node
+  - Selecting Node
+  - Clicking on Node
+  Exists: 1
 --- !u!114 &5804362296012349999
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -974,6 +1919,64 @@ MonoBehaviour:
   IsGlobal: 1
   Labels: []
   Exists: 1
+--- !u!114 &5944144890557419081
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ceb653cd98e289a4e8697a1af55201f2, type: 3}
+  m_Name: event:/Map Effects
+  m_EditorClassIdentifier: 
+  Path: event:/Map Effects
+  Guid:
+    Data1: 489818135
+    Data2: 1127196259
+    Data3: 437162642
+    Data4: -1701009012
+  Banks:
+  - {fileID: -3742761664147203961}
+  - {fileID: -8005897933986652263}
+  IsStream: 1
+  Is3D: 1
+  IsOneShot: 1
+  Parameters:
+  - {fileID: -4174694828510047115}
+  MinDistance: 1
+  MaxDistance: 20
+  Length: 0
+--- !u!114 &6179582722870488567
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ceb653cd98e289a4e8697a1af55201f2, type: 3}
+  m_Name: event:/Card Effects/Click Card
+  m_EditorClassIdentifier: 
+  Path: event:/Card Effects/Click Card
+  Guid:
+    Data1: 1178499744
+    Data2: 1135240324
+    Data3: -1252100417
+    Data4: 1216301398
+  Banks:
+  - {fileID: -3742761664147203961}
+  - {fileID: 1305190569015249246}
+  - {fileID: -8005897933986652263}
+  IsStream: 0
+  Is3D: 0
+  IsOneShot: 1
+  Parameters: []
+  MinDistance: 1
+  MaxDistance: 20
+  Length: 332
 --- !u!114 &6471167561174028489
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -996,10 +1999,108 @@ MonoBehaviour:
   - {fileID: 794753253420131033}
   - {fileID: 1470858570566702010}
   - {fileID: -6985516995730060941}
-  IsStream: 1
+  IsStream: 0
   Is3D: 0
   IsOneShot: 1
   Parameters: []
   MinDistance: 1
   MaxDistance: 20
-  Length: 420
+  Length: 110
+--- !u!114 &7562694848049594627
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ceb653cd98e289a4e8697a1af55201f2, type: 3}
+  m_Name: event:/Combat/Card Combat/SwordAttack
+  m_EditorClassIdentifier: 
+  Path: event:/Combat/Card Combat/SwordAttack
+  Guid:
+    Data1: -59291840
+    Data2: 1217564090
+    Data3: 1609589929
+    Data4: -360794834
+  Banks:
+  - {fileID: -3742761664147203961}
+  - {fileID: -8005897933986652263}
+  IsStream: 0
+  Is3D: 0
+  IsOneShot: 1
+  Parameters: []
+  MinDistance: 1
+  MaxDistance: 20
+  Length: 770
+--- !u!114 &7674559198379496045
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fecb8ef7f94ca804a8ab72049b86782e, type: 3}
+  m_Name: parameter:/Health
+  m_EditorClassIdentifier: 
+  Name: Health
+  StudioPath: parameter:/Health
+  Min: 0
+  Max: 100
+  Default: 100
+  ID:
+    data1: 2774083151
+    data2: 3232156098
+  Type: 0
+  IsGlobal: 1
+  Labels: []
+  Exists: 1
+--- !u!114 &8037841232705841483
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c18180ecb35941f4682ae60107b85b7c, type: 3}
+  m_Name: bank:/CardEffects.bank
+  m_EditorClassIdentifier: 
+  Path: Assets/FMODBanks/Desktop/CardEffects.bank
+  Name: CardEffects
+  StudioPath: bank:/CardEffects
+  lastModified: 638037819279441076
+  FileSizes: []
+  Exists: 1
+--- !u!114 &8417763610850701452
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ceb653cd98e289a4e8697a1af55201f2, type: 3}
+  m_Name: event:/Ambiences/Ambience
+  m_EditorClassIdentifier: 
+  Path: event:/Ambiences/Ambience
+  Guid:
+    Data1: 1548319315
+    Data2: 1223810149
+    Data3: 869982112
+    Data4: 1883496905
+  Banks:
+  - {fileID: 2969074197331373740}
+  IsStream: 1
+  Is3D: 1
+  IsOneShot: 0
+  Parameters:
+  - {fileID: -4065455605563977583}
+  MinDistance: 1
+  MaxDistance: 20
+  Length: 89864

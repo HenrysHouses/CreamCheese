@@ -11,7 +11,7 @@ public abstract class IMonster : BoardElement
     public Intent GetIntent() => enemyIntent;
     protected Intent enemyIntent;
 
-    public GameObject deathEffect;
+    public GameObject penisEffect;
     
     [SerializeField]
     int maxHealth;
@@ -77,7 +77,7 @@ public abstract class IMonster : BoardElement
             health = 0;
             // manager.EnemyDied(this);
             SoundPlayer.PlaySound(death_SFX,gameObject);
-            deathEffect.SetActive(true);
+            Instantiate(penisEffect,image.transform.position,Quaternion.identity);
             Destroy(this.gameObject);
         }
 
@@ -102,7 +102,7 @@ public abstract class IMonster : BoardElement
     {
         defendedFor += amount;
         image.color = Color.cyan;
-        // defendTxt.text = defendedFor.ToString();
+        // defendTxt.text = defendedFor.ToString(); // ! was trying to access after being destroyed so i commented it out
         // defendTxt.enabled = true;
     }
 

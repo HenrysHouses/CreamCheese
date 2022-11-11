@@ -77,7 +77,9 @@ public class God_Behaviour : Card_Behaviour
         if (amount > defendFor)
         {
             health -= amount + defendFor;
-            card_so.StartDialogue(GodDialogueTrigger.Hurt, source);
+
+            if(health > 0)
+                card_so.StartDialogue(GodDialogueTrigger.Hurt, source);
             defendFor = 0;
 
             godPlacement.UpdateUI();

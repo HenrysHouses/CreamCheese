@@ -49,25 +49,30 @@ public class God_Card_SO : Card_SO
                 DialogueController.instance.SpawnDialogue(data.dialogue);
                 break;
             case GodDialogueTrigger.Hurt:
-                // LokiMonster1 damageSource = source as LokiMonster1;
-
-
-                // // data = findRelatedDialogue<>(trigger, targetCard);
-                // if(data == null)
-                // {
-                //     data = findRelatedDialogue(trigger);
-                //     if(data == null)
-                //     {
-                //         break;
-                //     }
-                // }
+            case GodDialogueTrigger.SeeEnemy:
+                string damageSourceName = "None";
                 
-                // break;
-            case GodDialogueTrigger.BossKill:
-            case GodDialogueTrigger.EnterBossFight:
+                foreach (var enemy in GodDialogue.EnemyClassNames)
+                {
+                    if(source.ToString().Contains(enemy))
+                        damageSourceName = enemy;
+                }
+                Debug.Log(damageSourceName);
+            
+                data = findRelatedDialogue(trigger, damageSourceName);
+                if(data == null)
+                {
+                    break;
+                }
+                DialogueController.instance.SpawnDialogue(data.dialogue);
+                Debug.Log("Dialogue source: " + damageSourceName + "(IMonster), type: " + trigger);                
+                break;
+            case GodDialogueTrigger.EnemyKill:
                 throw new NotImplementedException();
         }
     }
+
+    
 
     /// <summary>Finds a dialogue related to a board element</summary>
     /// <param name="target">The board element to react to</param>
@@ -75,6 +80,32 @@ public class God_Card_SO : Card_SO
     GodDialogue findRelatedDialogue<T>(T target) where T : BoardElement
     {
         throw new NotImplementedException();
+    }
+
+    /// <summary>Finds a dialogue related to an enemy</summary>
+    /// <param name="enemy">The enemy to react to</param>
+    /// <returns>matching dialogue or null</returns>
+    GodDialogue findRelatedDialogue(GodDialogueTrigger trigger, string enemy)
+    {
+        List<GodDialogue> matches = new List<GodDialogue>();
+
+        foreach (var currDialogue in dialogues)
+        {
+            if(trigger != currDialogue.trigger)
+                continue;
+
+            if(enemy == GodDialogue.EnemyClassNames[currDialogue.enemyTrigger])
+                matches.Add(currDialogue);
+        }
+
+        if(matches.Count == 0)
+        {
+            // Debug.LogWarning("Found no dialogue for the trigger: " + enemy + "(IMonster)");
+            return null;
+        }
+
+        int rand = UnityEngine.Random.Range(0, matches.Count);
+        return matches[rand];
     }
 
     /// <summary>Finds a dialogue related to a card</summary>
@@ -101,7 +132,7 @@ public class God_Card_SO : Card_SO
 
         if(matches.Count == 0)
         {
-            Debug.LogWarning("Found no dialogue for the trigger: " + trigger + " by soure: " + card);
+            // Debug.LogWarning("Found no dialogue for the trigger: " + trigger + " by soure: " + card);
             return null;
         }
 
@@ -124,7 +155,7 @@ public class God_Card_SO : Card_SO
 
         if(matches.Count == 0)
         {
-            Debug.LogWarning("Found no dialogue for the trigger: " + trigger);
+            // Debug.LogWarning("Found no dialogue for the trigger: " + trigger);
             return null;
         }
 
