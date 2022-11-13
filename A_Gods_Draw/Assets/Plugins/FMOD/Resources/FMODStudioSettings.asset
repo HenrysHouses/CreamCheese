@@ -355,9 +355,9 @@ MonoBehaviour:
   SourceBankPathUnformatted: 
   BankRefreshCooldown: 5
   ShowBankRefreshWindow: 1
-  AutomaticEventLoading: 1
-  BankLoadType: 0
-  AutomaticSampleLoading: 0
+  AutomaticEventLoading: 0
+  BankLoadType: 1
+  AutomaticSampleLoading: 1
   EncryptionKey: 
   ImportType: 0
   TargetAssetPath: FMODBanks
@@ -382,7 +382,15 @@ MonoBehaviour:
   - GodEffects
   - MonsterEffects
   - PlayerEffects
-  BanksToLoad: []
+  BanksToLoad:
+  - Ambience
+  - CardEffects
+  - Effects
+  - GodEffects
+  - Master
+  - Master.strings
+  - MonsterEffects
+  - PlayerEffects
   LiveUpdatePort: 9264
   EnableMemoryTracking: 0
   AndroidUseOBB: 0
@@ -396,17 +404,17 @@ MonoBehaviour:
   HideSetupWizard: 1
   LastEventReferenceScanVersion: 131592
   Platforms:
-  - {fileID: 6004670011645870174}
-  - {fileID: -914584070992292414}
-  - {fileID: -977950880393678002}
-  - {fileID: 191423297605285587}
-  - {fileID: -8901568224222575139}
-  - {fileID: 2554269267171422263}
-  - {fileID: -3651179839738366158}
-  - {fileID: -786398991596848949}
-  - {fileID: 1895831626022190257}
-  - {fileID: 8922758788317041824}
   - {fileID: 7968701190079766573}
+  - {fileID: 8922758788317041824}
+  - {fileID: 1895831626022190257}
+  - {fileID: -786398991596848949}
+  - {fileID: -3651179839738366158}
+  - {fileID: 2554269267171422263}
+  - {fileID: -8901568224222575139}
+  - {fileID: 191423297605285587}
+  - {fileID: -977950880393678002}
+  - {fileID: -914584070992292414}
+  - {fileID: 6004670011645870174}
   MigratedPlatforms: 060000000a0000000b000000080000001500000012000000090000000c000000050000000200000001000000
 --- !u!114 &191423297605285587
 MonoBehaviour:
@@ -807,8 +815,15 @@ MonoBehaviour:
     HasValue: 0
   displaySortOrder: 0
   childIdentifiers:
-  - c88d16e5272a4e241b0ef0ac2e53b73d
+  - fd7c55dab0fce234b8c25f6ffca523c1
+  - 2fea114e74ecf3c4f920e1d5cc1c4c40
+  - 52eb9df5db46521439908db3a29a1bbb
+  - e7a046c753c3c3d4aacc91f6597f310d
+  - 46fbfdf3fc43db0458918377fd40293e
+  - 2c5177b11d81d824dbb064f9ac8527da
+  - 0f8eb3f400726694eb47beb1a9f94ce8
   - b7716510a1f36934c87976f3a81dbf3d
+  - c88d16e5272a4e241b0ef0ac2e53b73d
   codecChannels:
     Value: []
     HasValue: 0
