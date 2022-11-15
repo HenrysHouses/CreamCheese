@@ -155,9 +155,9 @@ namespace Map
 
         private void CreateNodes(IEnumerable<Node> nodes)
         {
-            foreach (var node in nodes)
+            foreach (Node node in nodes)
             {
-                var mapNode = CreateMapNode(node);
+                Map_Nodes mapNode = CreateMapNode(node);
                 MapNodes.Add(mapNode);
             }
         }
@@ -176,26 +176,26 @@ namespace Map
         }
 
 
-        public void SetPickableNodes() //fix
+        public void SetPickableNodes()
         {
             //here we are putting all the map nodes as locked/non pickable
-            foreach (var node in MapNodes)
+            foreach (Map_Nodes node in MapNodes)
             {
                 node.SetState(NodeStates.Locked);
             }
 
             if (mapManager.CurrentMap.path.Count == 0)
             {
-                foreach (var node in MapNodes.Where(n => n.Node.point.y == 0))
+                foreach (Map_Nodes node in MapNodes.Where(n => n.Node.point.y == 0))
                 {
                     node.SetState(NodeStates.Taken);
                 }
             }
             else
             {
-                foreach (var point in mapManager.CurrentMap.path)
+                foreach (MapPoint point in mapManager.CurrentMap.path)
                 {
-                    var mapNodes = GetNodes(point);
+                    Map_Nodes mapNodes = GetNodes(point);
                     if (mapNodes != null)
                     {
                         mapNodes.SetState(NodeStates.Visited);
@@ -205,9 +205,9 @@ namespace Map
                 MapPoint currentPoint = mapManager.CurrentMap.path[mapManager.CurrentMap.path.Count - 1];
                 Node currentNode = mapManager.CurrentMap.GetNode(currentPoint);
 
-                foreach(var point in currentNode.outgoing)
+                foreach(MapPoint point in currentNode.outgoing)
                 {
-                    var mapNode = GetNodes(point);
+                    Map_Nodes mapNode = GetNodes(point);
                     if(mapNode != null)
                     {
                         mapNode.SetState(NodeStates.Taken);
@@ -217,7 +217,7 @@ namespace Map
         }
         public void SetPathColor()
         {
-            foreach(var connection in path) //path is line connections
+            foreach(Path connection in path) //path is line connections
             {
                 connection.SetColor(lineLockedColor);
             }
@@ -230,7 +230,7 @@ namespace Map
             MapPoint currentPoint = mapManager.CurrentMap.path[mapManager.CurrentMap.path.Count - 1];
             Node currentNode = mapManager.CurrentMap.GetNode(currentPoint);
 
-            foreach(var point in currentNode.outgoing)
+            foreach(MapPoint point in currentNode.outgoing)
             {
                 Path pathConnection = path.FirstOrDefault(conn => conn.from.Node == currentNode && conn.to.Node.point.Equals(point));
                 pathConnection?.SetColor(lineVisitedColor);
@@ -241,7 +241,7 @@ namespace Map
                 return;
             }
 
-            for(var i = 0; i < mapManager.CurrentMap.path.Count - 1; i++)
+            for(int i = 0; i < mapManager.CurrentMap.path.Count - 1; i++)
             {
                 MapPoint current = mapManager.CurrentMap.path[i];
                 MapPoint next = mapManager.CurrentMap.path[i + 1];
@@ -355,9 +355,9 @@ namespace Map
 
         private void DrawPath()
         {
-            foreach(var node in MapNodes)
+            foreach(Map_Nodes node in MapNodes)
             {
-                foreach(var connection in node.Node.outgoing)
+                foreach(MapPoint connection in node.Node.outgoing)
                 {
                     AddPathConnection(node, GetNodes(connection));
                 }
@@ -366,7 +366,7 @@ namespace Map
 
         private void ResetRotation() //node rot
         {
-            foreach(var node in MapNodes)
+            foreach(Map_Nodes node in MapNodes)
             {
                 node.transform.rotation = Quaternion.identity;
             }
@@ -391,7 +391,7 @@ namespace Map
             // lineRenderer.useWorldSpace = false;
             // lineRenderer.positionCount = linePointCount;
 
-            for(var i = 0; i < linePointCount; i++)
+            for(int i = 0; i < linePointCount; i++)
             {
                 // lineRenderer.SetPosition(i, Vector3.Lerp(Vector3.zero, toPoint - fromPoint, (float)i / (linePointCount - 1)));
             }
