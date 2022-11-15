@@ -1808,7 +1808,6 @@ GameObject:
   - component: {fileID: 975887040}
   - component: {fileID: 975887044}
   - component: {fileID: 975887043}
-  - component: {fileID: 975887042}
   - component: {fileID: 975887041}
   m_Layer: 0
   m_Name: EndTurnButton
@@ -1825,7 +1824,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 975887039}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0.423, y: -0.015, z: -0.6288}
+  m_LocalPosition: {x: 0.4101, y: -0.015, z: -0.6288}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
@@ -1861,6 +1860,8 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 1
+  Horn: {fileID: 0}
+  OnSize: 0.01
   endTurn_SFX:
     Guid:
       Data1: 2114686207
@@ -1868,19 +1869,6 @@ MonoBehaviour:
       Data3: 1039524021
       Data4: -1677458716
     Path: event:/Combat/EndTurnNew
---- !u!65 &975887042
-BoxCollider:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 975887039}
-  m_Material: {fileID: 0}
-  m_IsTrigger: 0
-  m_Enabled: 1
-  serializedVersion: 2
-  m_Size: {x: 0.18215525, y: 0.33161712, z: 0.5716128}
-  m_Center: {x: 0.14527488, y: 0.3363111, z: 0.18306533}
 --- !u!23 &975887043
 MeshRenderer:
   m_ObjectHideFlags: 0
@@ -3072,7 +3060,7 @@ GameObject:
   - component: {fileID: 1574500897}
   - component: {fileID: 1574500900}
   - component: {fileID: 1574500899}
-  - component: {fileID: 1574500898}
+  - component: {fileID: 1574500902}
   - component: {fileID: 1574500901}
   m_Layer: 15
   m_Name: Mesh
@@ -3096,19 +3084,6 @@ Transform:
   m_Father: {fileID: 975887040}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: -14.739, z: 0}
---- !u!65 &1574500898
-BoxCollider:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1574500896}
-  m_Material: {fileID: 0}
-  m_IsTrigger: 0
-  m_Enabled: 0
-  serializedVersion: 2
-  m_Size: {x: 1, y: 1, z: 1}
-  m_Center: {x: 0, y: 0, z: 0}
 --- !u!23 &1574500899
 MeshRenderer:
   m_ObjectHideFlags: 0
@@ -3173,6 +3148,42 @@ MeshCollider:
   m_Convex: 0
   m_CookingOptions: 30
   m_Mesh: {fileID: 7427408133154240846, guid: d048a6dddf9438944b8ef6ab3ae183e2, type: 3}
+--- !u!114 &1574500902
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1574500896}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 826506830f15eca4eb8cee56a8a4c83c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  turnEnd:
+    m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 2135670412}
+        m_TargetAssemblyTypeName: TurnController, Assembly-CSharp
+        m_MethodName: EndTurn
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+  Horn: {fileID: 0}
+  OnSize: 0.01
+  endTurn_SFX:
+    Guid:
+      Data1: 2114686207
+      Data2: 1144617745
+      Data3: 1039524021
+      Data4: -1677458716
+    Path: event:/Combat/EndTurnNew
 --- !u!1 &1580440613
 GameObject:
   m_ObjectHideFlags: 0
