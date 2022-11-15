@@ -18,9 +18,7 @@ public class EndTurnButton : MonoBehaviour
 
     void Start()
     {
-        Debug.Log(Horn.materials.Length);
         Outline = Horn.materials[1];
-        Debug.Log(Outline);
     }
 
     private void OnMouseDown()

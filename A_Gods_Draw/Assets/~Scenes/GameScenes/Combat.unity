@@ -1808,9 +1808,8 @@ GameObject:
   - component: {fileID: 975887040}
   - component: {fileID: 975887044}
   - component: {fileID: 975887043}
-  - component: {fileID: 975887041}
   m_Layer: 0
-  m_Name: EndTurnButton
+  m_Name: EndTurn
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -1833,42 +1832,6 @@ Transform:
   m_Father: {fileID: 1066247366}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &975887041
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 975887039}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 826506830f15eca4eb8cee56a8a4c83c, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  turnEnd:
-    m_PersistentCalls:
-      m_Calls:
-      - m_Target: {fileID: 2135670412}
-        m_TargetAssemblyTypeName: TurnController, Assembly-CSharp
-        m_MethodName: EndTurn
-        m_Mode: 1
-        m_Arguments:
-          m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-          m_IntArgument: 0
-          m_FloatArgument: 0
-          m_StringArgument: 
-          m_BoolArgument: 0
-        m_CallState: 1
-  Horn: {fileID: 0}
-  OnSize: 0.01
-  endTurn_SFX:
-    Guid:
-      Data1: 2114686207
-      Data2: 1144617745
-      Data3: 1039524021
-      Data4: -1677458716
-    Path: event:/Combat/EndTurnNew
 --- !u!23 &975887043
 MeshRenderer:
   m_ObjectHideFlags: 0
@@ -3063,7 +3026,7 @@ GameObject:
   - component: {fileID: 1574500902}
   - component: {fileID: 1574500901}
   m_Layer: 15
-  m_Name: Mesh
+  m_Name: EndTurnHorn
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
