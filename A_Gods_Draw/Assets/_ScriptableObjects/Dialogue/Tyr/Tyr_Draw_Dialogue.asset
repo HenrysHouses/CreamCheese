@@ -10,14 +10,10 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 9a6afa83f6a9bc5458cb340187ecdfef, type: 3}
-  m_Name: Tyr_Monster3_Hurt_Dialogue
+  m_Name: Tyr_Draw_Dialogue
   m_EditorClassIdentifier: 
   dialogue:
-    pages:
-    - text: Kill him!!
-      speed: 0.1
-    - text: Kill LokiMonster3!!!
-      speed: 0.1
+    pages: []
     TransformName: MainCamera
     SFX:
       Guid:
@@ -26,8 +22,8 @@ MonoBehaviour:
         Data3: -1845500527
         Data4: 74687593
       Path: event:/Combat/God/Tyr/TyrDialouge
-  trigger: 2
+  trigger: 4
   GenericTrigger: 0
   cardTrigger: {fileID: 11400000, guid: aa8e30ae6f0221046bca3cf537fb0c5f, type: 2}
   chanceToPlay: 0
-  enemyTrigger: 3
+  enemyTrigger: 0
