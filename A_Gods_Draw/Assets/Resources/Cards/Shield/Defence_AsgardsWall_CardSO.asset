@@ -15,10 +15,15 @@ MonoBehaviour:
   type: 1
   image: {fileID: 21300000, guid: 09cabb40dbbabb946a72214e13f7d358, type: 3}
   cardName: "Asgard\u2018s Wall"
-  description: "Built by a Jotun in disguise, Asgard\u2018s wall was built in only
-    one winter, and was so mighty that it would stand strong till the day of Ragnarok"
+  description: "Block incoming damage from two enemies\n\nBuilt by a Jotun in disguise,
+    Asgard\u2018s wall was built in only one winter, and was so mighty that it would
+    stand strong till the day of Ragnarok"
   cardStrenghIndex: 0
   targetActions:
+  - numOfTargets: 2
+    targetActions:
+    - actionEnum: 1
+      actionStrength: 2
   - numOfTargets: 2
     targetActions:
     - actionEnum: 1
