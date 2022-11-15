@@ -3,6 +3,7 @@ Shader "Unlit/ScreenSpaceOutline"
     Properties
     {
         _MainTex ("Texture", 2D) = "white" {}
+        _Color ("Color", Color) = (1,1,1,1)
         _ScreenResolution ("Screen Resolution", float) = 1000
         _Size ("Outline Size", Range(0, 3)) = 1.5
         _Alpha ("Alpha", float) = 1
@@ -17,10 +18,55 @@ Shader "Unlit/ScreenSpaceOutline"
         ZTest LEqual // LEqual - Default (under), GEqual - only behind something, Always - Always above
         Blend SrcAlpha OneMinusSrcAlpha
 
-        Cull Front
+        Pass
+        {
+
+            Stencil {
+                Ref 1
+                Pass Replace
+            }
+
+            CGPROGRAM
+            #pragma vertex vert
+            #pragma fragment frag
+            // make fog work
+
+            #include "UnityCG.cginc"
+            #include "Assets/Shaders/HHMacros.cginc"
+
+            struct MeshData
+            {
+                float4 vertex : POSITION;
+                float2 uv : TEXCOORD0;
+            };
+
+            struct Interpolators
+            {
+                float4 vertex : SV_POSITION;
+            };
+
+            Interpolators vert (MeshData v)
+            {
+                Interpolators o;
+                o.vertex = UnityObjectToClipPos(v.vertex);
+                return o;
+            }
+
+            fixed4 frag (Interpolators i) : SV_Target
+            {
+                return float4(0,0,0,0);
+            }
+            ENDCG
+        }
 
         Pass
         {
+            Stencil {
+                Ref 1
+                Comp NotEqual
+                Pass Keep
+            }
+
             CGPROGRAM
             #pragma vertex vert
             #pragma fragment frag
@@ -47,6 +93,7 @@ Shader "Unlit/ScreenSpaceOutline"
 
             sampler2D _MainTex;
             float4 _MainTex_ST;
+            float4 _Color;
             float _Alpha;
             float _Alpha1;
             float _Alpha2;
@@ -79,9 +126,9 @@ Shader "Unlit/ScreenSpaceOutline"
                 float fresnel = saturate(dot(V * _Alpha, N * _Alpha1));
                 // fresnel = 1-step(fresnel, _Alpha2);
                 // return float4(fresnel.xxx, 1);
-                col.w = fresnel;
+                // col.w = fresnel;
 
-                return col;
+                return col * _Color;
             }
             ENDCG
         }
