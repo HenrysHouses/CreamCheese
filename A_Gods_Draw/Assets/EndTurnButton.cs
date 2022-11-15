@@ -15,6 +15,7 @@ public class EndTurnButton : MonoBehaviour
     [SerializeField] float OnSize = 0.01f;
 
     public EventReference endTurn_SFX;
+    public ParticleSystem hornEffect;
 
     void Start()
     {
@@ -24,6 +25,7 @@ public class EndTurnButton : MonoBehaviour
     private void OnMouseDown()
     {
         SoundPlayer.PlaySound(endTurn_SFX,gameObject);
+        hornEffect.Play();
         turnEnd.Invoke();
     }
 
