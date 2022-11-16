@@ -372,7 +372,7 @@ GameObject:
   - component: {fileID: 1679078048}
   - component: {fileID: 1679078047}
   - component: {fileID: 1679078046}
-  - component: {fileID: 1679078045}
+  - component: {fileID: 1679078049}
   m_Layer: 5
   m_Name: Button
   m_TagString: Untagged
@@ -401,18 +401,6 @@ RectTransform:
   m_AnchoredPosition: {x: 0, y: -166.7}
   m_SizeDelta: {x: 160, y: 30}
   m_Pivot: {x: 0.5, y: 0.5}
---- !u!114 &1679078045
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1679078043}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 877a9cbcbedc7d74594a86cf75fba852, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!114 &1679078046
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -457,8 +445,8 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 1679078045}
-        m_TargetAssemblyTypeName: TriggerSceneLoad, Assembly-CSharp
+      - m_Target: {fileID: 1679078049}
+        m_TargetAssemblyTypeName: HH.MultiSceneTools.Examples.TriggerSceneLoad, MultiSceneTools
         m_MethodName: LoadScene
         m_Mode: 5
         m_Arguments:
@@ -507,6 +495,19 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1679078043}
   m_CullTransparentMesh: 1
+--- !u!114 &1679078049
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1679078043}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: aafdbb487393414429d8bc5d36607173, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  CollectionTitle: MainMenu
 --- !u!1 &2056257773
 GameObject:
   m_ObjectHideFlags: 0

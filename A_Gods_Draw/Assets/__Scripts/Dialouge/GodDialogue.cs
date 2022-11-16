@@ -1,8 +1,4 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
-using System;
-using System.Linq;
 
 
 [CreateAssetMenu(menuName = "DialogueBox/God Dialogue")]
@@ -12,8 +8,8 @@ public class GodDialogue : Dialogue_ScriptableObject
     public bool GenericTrigger = true;
     [HideInInspector] public Card_SO cardTrigger;
     [HideInInspector] public float chanceToPlay;
-    [HideInInspector] static public string[] EnemyClassNames;
     [HideInInspector] public int enemyTrigger;
+    public EnemyClassNames enemyClassNames;
 
     /// <summary>Checks if the dialogue should trigger</summary>
     /// <param name="rand">the random % to check</param>
@@ -23,31 +19,8 @@ public class GodDialogue : Dialogue_ScriptableObject
             return true;
         return false;
     }
-
-    private void OnValidate() {
-        UpdateEnemyList();
-    }
-
-    private void UpdateEnemyList()
-    {
-        // # Found this code at: https://stackoverflow.com/questions/857705/get-all-derived-types-of-a-type
-        // gets a list of all classes derived by class typeof(IMonster)
-        var listOfBs = AppDomain.CurrentDomain.GetAssemblies()
-            // alternative: .GetExportedTypes()
-            .SelectMany(domainAssembly => domainAssembly.GetTypes())
-            .Where(type => typeof(IMonster).IsAssignableFrom(type)
-            // alternative: => type.IsSubclassOf(typeof(B))
-            // alternative: && type != typeof(B)
-            // alternative: && ! type.IsAbstract
-            ).ToArray();
-        
-        EnemyClassNames = new string[listOfBs.Length];
-        for (int i = 0; i < listOfBs.Length; i++)
-            EnemyClassNames[i] = listOfBs[i].Name;
-
-        EnemyClassNames[0] = "Any";
-    }
 }
+
 
 public enum GodDialogueTrigger
 {

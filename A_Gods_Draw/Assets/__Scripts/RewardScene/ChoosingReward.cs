@@ -5,6 +5,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.EventSystems;
+using HH.MultiSceneTools;
 public enum CardType
 {
     Attack,
@@ -47,7 +48,7 @@ public class ChoosingReward : MonoBehaviour
 
             if (SelectIndex > -1)
             {
-                MultiSceneLoader.loadCollection("Map", collectionLoadMode.difference);
+                MultiSceneLoader.loadCollection("Map", collectionLoadMode.Difference);
             }
         }
     }

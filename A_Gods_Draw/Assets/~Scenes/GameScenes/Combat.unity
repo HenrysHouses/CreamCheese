@@ -2615,7 +2615,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 1300015209}
-  - component: {fileID: 1300015208}
+  - component: {fileID: 1300015210}
   m_Layer: 0
   m_Name: SceneTransitioner
   m_TagString: Untagged
@@ -2623,21 +2623,6 @@ GameObject:
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
---- !u!114 &1300015208
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1300015207}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 962b5fed1692d0f4ca951488ee904e6e, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  TransitionIN: Transition_IN
-  TransitionOUT: Transition_OUT
-  TransitionAnim: {fileID: 1580440614}
 --- !u!4 &1300015209
 Transform:
   m_ObjectHideFlags: 0
@@ -2653,6 +2638,21 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 2
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1300015210
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1300015207}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 50212e70f8b8ee54b88b6375074879a5, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  TransitionIN: Transition_IN
+  TransitionOUT: Transition_OUT
+  TransitionAnim: {fileID: 1580440614}
 --- !u!1 &1324972900
 GameObject:
   m_ObjectHideFlags: 0
@@ -4201,7 +4201,7 @@ MonoBehaviour:
   DiscardAnimator: {fileID: 120732638}
   DrawAnimator: {fileID: 1598012057}
   ShuffleAnimator: {fileID: 706838724}
-  SceneTransition: {fileID: 1300015208}
+  SceneTransition: {fileID: 1300015210}
   DrawStepCardAmount: 5
   _Hand: {fileID: 410426621}
   isCombatStarted: 0

@@ -4,6 +4,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
+using HH.MultiSceneTools;
 
 public class PauseMenu : MonoBehaviour
 {
@@ -56,7 +57,7 @@ public class PauseMenu : MonoBehaviour
 
     public void QuitGame()
     {
-        MultiSceneLoader.loadCollection("MainMenu", collectionLoadMode.difference);
+        MultiSceneLoader.loadCollection("MainMenu", collectionLoadMode.Difference);
         Time.timeScale = 1;
         panel.SetActive(false);
         resumeButton.gameObject.SetActive(false);

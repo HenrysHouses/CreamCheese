@@ -35,7 +35,7 @@ public class GodDialogue_Editor : Editor
                 script.enemyTrigger = EditorGUILayout.Popup(
                     new GUIContent("Enemy", "The enemy that triggers this dialogue"),
                     script.enemyTrigger,
-                    GodDialogue.EnemyClassNames);
+                    EnemyClassNames.instance.Names);
             }
             
             if (cardSelection)

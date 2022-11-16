@@ -1,9 +1,15 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Events;
+using HH.MultiSceneTools;
+
+using System;
 
 public class DialogueController : MonoBehaviour
 {
+    event Action<GameObject> event_;
+
     public static DialogueController instance; 
     [SerializeField] GameObject dialoguePrefab;
 
@@ -12,7 +18,7 @@ public class DialogueController : MonoBehaviour
     void Start()
     {
         UpdateTransforms();
-        MultiSceneLoader.OnSceneLoad.AddListener(UpdateTransforms);
+        MultiSceneLoader.OnSceneCollectionLoaded.AddListener(UpdateTransforms);
 
         if(instance == null)
             instance = this;
@@ -50,6 +56,6 @@ public class DialogueController : MonoBehaviour
 
     void OnDestroy()
     {
-        MultiSceneLoader.OnSceneLoad.RemoveListener(UpdateTransforms);
+        // MultiSceneLoader.OnSceneLoad.RemoveListener(UpdateTransforms);
     }
 }

@@ -570,7 +570,7 @@ PrefabInstance:
     - target: {fileID: 9073794629974404458, guid: 97b082dc098e7644fa021f9d05861e01, type: 3}
       propertyPath: _SceneTransitioner
       value: 
-      objectReference: {fileID: 1429497189}
+      objectReference: {fileID: 1429497191}
     - target: {fileID: 9073794630240006012, guid: 97b082dc098e7644fa021f9d05861e01, type: 3}
       propertyPath: m_Name
       value: Map_3D
@@ -785,7 +785,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 1429497190}
-  - component: {fileID: 1429497189}
+  - component: {fileID: 1429497191}
   m_Layer: 0
   m_Name: SceneTransitioner
   m_TagString: Untagged
@@ -793,21 +793,6 @@ GameObject:
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
---- !u!114 &1429497189
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1429497188}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 962b5fed1692d0f4ca951488ee904e6e, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  TransitionIN: Transition_IN
-  TransitionOUT: Transition_OUT
-  TransitionAnim: {fileID: 388852647}
 --- !u!4 &1429497190
 Transform:
   m_ObjectHideFlags: 0
@@ -823,6 +808,21 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1429497191
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1429497188}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 50212e70f8b8ee54b88b6375074879a5, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  TransitionIN: Transition_IN
+  TransitionOUT: Transition_OUT
+  TransitionAnim: {fileID: 388852647}
 --- !u!1 &1931332700
 GameObject:
   m_ObjectHideFlags: 0
@@ -835,7 +835,7 @@ GameObject:
   - component: {fileID: 1931332705}
   - component: {fileID: 1931332704}
   - component: {fileID: 1931332703}
-  - component: {fileID: 1931332702}
+  - component: {fileID: 1931332706}
   m_Layer: 5
   m_Name: Return
   m_TagString: Untagged
@@ -864,18 +864,6 @@ RectTransform:
   m_AnchoredPosition: {x: -413, y: -326.8}
   m_SizeDelta: {x: 72.82, y: 35.3}
   m_Pivot: {x: 0.5, y: 0.5}
---- !u!114 &1931332702
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1931332700}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 877a9cbcbedc7d74594a86cf75fba852, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!114 &1931332703
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -920,8 +908,8 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 1931332702}
-        m_TargetAssemblyTypeName: TriggerSceneLoad, Assembly-CSharp
+      - m_Target: {fileID: 1931332706}
+        m_TargetAssemblyTypeName: HH.MultiSceneTools.Examples.TriggerSceneLoad, MultiSceneTools
         m_MethodName: LoadScene
         m_Mode: 5
         m_Arguments:
@@ -970,3 +958,16 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1931332700}
   m_CullTransparentMesh: 1
+--- !u!114 &1931332706
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1931332700}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: aafdbb487393414429d8bc5d36607173, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  CollectionTitle: MainMenu

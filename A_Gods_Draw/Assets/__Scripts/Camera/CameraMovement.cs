@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using FMODUnity;
+using HH.MultiSceneTools;
 
 public class CameraMovement : MonoBehaviour
 {

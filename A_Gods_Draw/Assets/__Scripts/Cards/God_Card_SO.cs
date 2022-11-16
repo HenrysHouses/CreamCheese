@@ -15,6 +15,7 @@ public class God_Card_SO : Card_SO
     public GameObject God_Model;
 
     public EventReference enterBattlefield_SFX;
+    [SerializeField] EnemyClassNames enemyClassNames;
 
 
     private void OnValidate() {
@@ -52,7 +53,7 @@ public class God_Card_SO : Card_SO
             case GodDialogueTrigger.SeeEnemy:
                 string damageSourceName = "None";
                 
-                foreach (var enemy in GodDialogue.EnemyClassNames)
+                foreach (var enemy in EnemyClassNames.instance.Names)
                 {
                     if(source.ToString().Contains(enemy))
                         damageSourceName = enemy;
@@ -94,7 +95,7 @@ public class God_Card_SO : Card_SO
             if(trigger != currDialogue.trigger)
                 continue;
 
-            if(enemy == GodDialogue.EnemyClassNames[currDialogue.enemyTrigger])
+            if(enemy == EnemyClassNames.instance.Names[currDialogue.enemyTrigger])
                 matches.Add(currDialogue);
         }
 

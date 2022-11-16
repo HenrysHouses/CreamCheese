@@ -4,6 +4,7 @@ using UnityEngine;
 using System.Linq;
 using System;
 using UnityEngine.SceneManagement;
+using HH.MultiSceneTools.Examples;
 
 namespace Map
 {

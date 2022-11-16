@@ -4,11 +4,9 @@
 */
 
 using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 using FMODUnity;
-using UnityEngine.Events;
-using System;
+using HH.MultiSceneTools.Examples;
 
 public class TurnController : CombatFSM
 {

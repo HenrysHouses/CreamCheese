@@ -6,6 +6,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using HH.MultiSceneTools;
 
 public class EndState : CombatFSMState
 {
@@ -40,14 +41,14 @@ public class EndState : CombatFSMState
 
         if (_player.Health <= 0)
         {
-            MultiSceneLoader.loadCollection("Death", collectionLoadMode.difference);
+            MultiSceneLoader.loadCollection("Death", collectionLoadMode.Difference);
 
             _player.Health = 10;
             return;
 
         }
         if (Controller.GetBoard().isEnemyDefeated)
-            MultiSceneLoader.loadCollection("Map", collectionLoadMode.difference);
+            MultiSceneLoader.loadCollection("Map", collectionLoadMode.Difference);
 
     }
 }
