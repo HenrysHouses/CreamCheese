@@ -16,6 +16,7 @@ public enum CardActionEnum
     SplashDMG,
     Heal,
     Draw,
+    Weaken,
 }
 
 [System.Serializable]

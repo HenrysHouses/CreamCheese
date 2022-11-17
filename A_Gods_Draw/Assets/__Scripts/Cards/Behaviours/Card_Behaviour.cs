@@ -113,6 +113,8 @@ public abstract class Card_Behaviour : BoardElement
                 return new HealCardAction(card.actionStrength);
             case CardActionEnum.Draw:
                 return new DrawCardAction(card.actionStrength);
+            case CardActionEnum.Weaken:
+                return new WeakenCardAction(card.actionStrength);
             default:
                 return null;
         }
