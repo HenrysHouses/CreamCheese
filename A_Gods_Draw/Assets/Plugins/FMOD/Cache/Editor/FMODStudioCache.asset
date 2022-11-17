@@ -19,8 +19,8 @@ MonoBehaviour:
     Data3: -1438661999
     Data4: 1883429168
   Banks:
-  - {fileID: 1305190569015249246}
   - {fileID: -3742761664147203961}
+  - {fileID: 1305190569015249246}
   - {fileID: -8005897933986652263}
   IsStream: 0
   Is3D: 0
@@ -149,8 +149,8 @@ MonoBehaviour:
     Data3: -1063256898
     Data4: 1449369350
   Banks:
-  - {fileID: 1305190569015249246}
   - {fileID: -3742761664147203961}
+  - {fileID: 1305190569015249246}
   - {fileID: -8005897933986652263}
   IsStream: 0
   Is3D: 0
@@ -174,7 +174,7 @@ MonoBehaviour:
   Path: Assets/FMODBanks/Desktop/PlayerEffects.bank
   Name: PlayerEffects
   StudioPath: bank:/PlayerEffects
-  lastModified: 638042171206679827
+  lastModified: 638042914677766523
   FileSizes: []
   Exists: 1
 --- !u!114 &-7975275770987109253
@@ -192,10 +192,10 @@ MonoBehaviour:
   Path: Assets/FMODBanks/Desktop/Master.strings.bank
   Name: Master.strings
   StudioPath: bank:/Master.strings
-  lastModified: 638042171206470370
+  lastModified: 638042914676245262
   FileSizes:
   - Name: 
-    Value: 2250
+    Value: 2332
   Exists: 1
 --- !u!114 &-7632861203397964191
 MonoBehaviour:
@@ -368,6 +368,24 @@ MonoBehaviour:
   - Going to Node
   - Selecting Node
   - Clicking on Node
+  Exists: 1
+--- !u!114 &-6411885436038604072
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c18180ecb35941f4682ae60107b85b7c, type: 3}
+  m_Name: bank:/Music.bank
+  m_EditorClassIdentifier: 
+  Path: Assets/FMODBanks/Desktop/Music.bank
+  Name: Music
+  StudioPath: bank:/Music
+  lastModified: 638042914678072353
+  FileSizes: []
   Exists: 1
 --- !u!114 &-6257716206382439857
 MonoBehaviour:
@@ -585,7 +603,7 @@ MonoBehaviour:
   Path: Assets/FMODBanks/Desktop/MonsterEffects.bank
   Name: MonsterEffects
   StudioPath: bank:/MonsterEffects
-  lastModified: 638037765815007657
+  lastModified: 638042914676622941
   FileSizes: []
   Exists: 1
 --- !u!114 &-4180866667080798002
@@ -710,7 +728,7 @@ MonoBehaviour:
   Path: Assets/FMODBanks/Desktop/Effects.bank
   Name: Effects
   StudioPath: bank:/PlayerEffects
-  lastModified: 638036976364496275
+  lastModified: 638036940544485476
   FileSizes: []
   Exists: 1
 --- !u!114 &-3633921156540097567
@@ -790,7 +808,6 @@ MonoBehaviour:
     Data3: -2095186242
     Data4: 2122433884
   Banks:
-  - {fileID: -3742761664147203961}
   - {fileID: -3742761664147203961}
   IsStream: 1
   Is3D: 0
@@ -960,6 +977,34 @@ MonoBehaviour:
   IsGlobal: 1
   Labels: []
   Exists: 1
+--- !u!114 &-1106492688624329101
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ceb653cd98e289a4e8697a1af55201f2, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  Path: 
+  Guid:
+    Data1: 2004915618
+    Data2: 1330019366
+    Data3: -2095186242
+    Data4: 2122433884
+  Banks:
+  - {fileID: -3742761664147203961}
+  - {fileID: -3742761664147203961}
+  IsStream: 1
+  Is3D: 0
+  IsOneShot: 1
+  Parameters: []
+  MinDistance: 1
+  MaxDistance: 20
+  Length: 420
 --- !u!114 &-861201357751457843
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1140,6 +1185,7 @@ MonoBehaviour:
   - {fileID: 354025419047621160}
   - {fileID: -4218156732340185762}
   - {fileID: -8005897933986652263}
+  - {fileID: -6411885436038604072}
   EditorEvents:
   - {fileID: 8417763610850701452}
   - {fileID: -8188353966515598334}
@@ -1161,8 +1207,9 @@ MonoBehaviour:
   - {fileID: 248231819754204547}
   - {fileID: -7632861203397964191}
   - {fileID: 4796004649042361289}
-  - {fileID: 3215460601070512520}
   - {fileID: -3329424479218595264}
+  - {fileID: 7001743389870734787}
+  - {fileID: -1106492688624329101}
   EditorParameters:
   - {fileID: -7626564355247070922}
   - {fileID: 2133209220102977308}
@@ -1174,7 +1221,7 @@ MonoBehaviour:
   - {fileID: 354025419047621160}
   StringsBanks:
   - {fileID: -7975275770987109253}
-  cacheTime: 638042171206679827
+  cacheTime: 638042914678072353
   cacheVersion: 131592
 --- !u!114 &184070306273675570
 MonoBehaviour:
@@ -1247,7 +1294,7 @@ MonoBehaviour:
   Path: Assets/FMODBanks/Desktop/Master.bank
   Name: Master
   StudioPath: bank:/Master
-  lastModified: 638019773747451454
+  lastModified: 638042914676235305
   FileSizes: []
   Exists: 1
 --- !u!114 &601750260413816558
@@ -1367,7 +1414,7 @@ MonoBehaviour:
   Path: Assets/FMODBanks/Desktop/CardEffects.bank
   Name: CardEffects
   StudioPath: bank:/CardEffects
-  lastModified: 638040445226635573
+  lastModified: 638042914675979673
   FileSizes: []
   Exists: 1
 --- !u!114 &1470858570566702010
@@ -1587,7 +1634,7 @@ MonoBehaviour:
   Path: Assets/FMODBanks/Desktop/GodEffects.bank
   Name: GodEffects
   StudioPath: bank:/GodEffects
-  lastModified: 638042171206460398
+  lastModified: 638042914676204899
   FileSizes: []
   Exists: 1
 --- !u!114 &2949675264644978184
@@ -1632,36 +1679,9 @@ MonoBehaviour:
   Path: Assets/FMODBanks/Desktop/Ambience.bank
   Name: Ambience
   StudioPath: bank:/Ambience
-  lastModified: 638042171206450445
+  lastModified: 638042914675681071
   FileSizes: []
   Exists: 1
---- !u!114 &3215460601070512520
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: ceb653cd98e289a4e8697a1af55201f2, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  Path: 
-  Guid:
-    Data1: 2004915618
-    Data2: 1330019366
-    Data3: -2095186242
-    Data4: 2122433884
-  Banks:
-  - {fileID: -3742761664147203961}
-  IsStream: 1
-  Is3D: 0
-  IsOneShot: 1
-  Parameters: []
-  MinDistance: 1
-  MaxDistance: 20
-  Length: 420
 --- !u!114 &4348325549410373758
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2049,8 +2069,8 @@ MonoBehaviour:
     Data3: -1252100417
     Data4: 1216301398
   Banks:
-  - {fileID: 1305190569015249246}
   - {fileID: -3742761664147203961}
+  - {fileID: 1305190569015249246}
   - {fileID: -8005897933986652263}
   IsStream: 0
   Is3D: 0
@@ -2088,6 +2108,34 @@ MonoBehaviour:
   MinDistance: 1
   MaxDistance: 20
   Length: 110
+--- !u!114 &7001743389870734787
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ceb653cd98e289a4e8697a1af55201f2, type: 3}
+  m_Name: event:/Ambiences/Music
+  m_EditorClassIdentifier: 
+  Path: event:/Ambiences/Music
+  Guid:
+    Data1: -637218222
+    Data2: 1340524949
+    Data3: -2128459382
+    Data4: -942039337
+  Banks:
+  - {fileID: 2969074197331373740}
+  - {fileID: -6411885436038604072}
+  IsStream: 1
+  Is3D: 0
+  IsOneShot: 0
+  Parameters: []
+  MinDistance: 1
+  MaxDistance: 20
+  Length: 288000
 --- !u!114 &7562694848049594627
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2185,4 +2233,4 @@ MonoBehaviour:
   - {fileID: -4065455605563977583}
   MinDistance: 1
   MaxDistance: 20
-  Length: 89864
+  Length: 180000
