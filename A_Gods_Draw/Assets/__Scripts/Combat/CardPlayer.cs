@@ -30,6 +30,19 @@ public class CardPlayer : MonoBehaviour
             placeCard(_selectedCard);
             _selectedCard = null;
         }
+        if(_selectedCard is NonGod_Behaviour card)
+        {
+            switch(card.GetCardType)
+            {
+                case CardType.Attack:
+                case CardType.Defence:
+                    setEnemyHighlight();
+                    break;
+                case CardType.Buff:
+                    setCardHighlight();
+                    break;
+            }
+        }
 
         if (Input.GetKeyUp(KeyCode.Mouse0))
         {
@@ -44,6 +57,35 @@ public class CardPlayer : MonoBehaviour
                 _selectedCard = null;
                 Debug.Log("unselected");
             }
+        }
+    }
+
+    private void setEnemyHighlight()
+    {
+        int layer = 1 << 9;
+        Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
+
+
+        if(Physics.Raycast(ray, out RaycastHit hit, 10000, layer))
+        {
+            IMonster monster = hit.collider.GetComponent<IMonster>();
+            
+            monster.setOutline(monster.outlineSize);
+        }
+    }
+
+    private void setCardHighlight()
+    {
+        int layer = 1 << 6;
+        Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
+
+
+        if(Physics.Raycast(ray, out RaycastHit hit, 10000, layer))
+        {
+            GameObject card = hit.collider.gameObject;
+            CardHighlight highlight = card.GetComponent<CardHighlight>();
+            if(highlight)
+                highlight.EnableHighlight();
         }
     }
 
@@ -86,6 +128,8 @@ public class CardPlayer : MonoBehaviour
             {
                 _Board.playedGodCard.CardSO.StartDialogue(GodDialogueTrigger.Played , loader.GetCardSO);
             }
+            CardHighlight highlight = behaviour.GetComponentInChildren<CardHighlight>();
+            highlight.enabled = true;
         }
         else
         {

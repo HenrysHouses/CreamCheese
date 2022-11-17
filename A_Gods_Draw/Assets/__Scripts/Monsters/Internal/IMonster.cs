@@ -11,8 +11,11 @@ public abstract class IMonster : BoardElement
     public Intent GetIntent() => enemyIntent;
     protected Intent enemyIntent;
 
-    public GameObject penisEffect;
-    
+    public GameObject deathParticleVFX;
+    [SerializeField] Renderer[] MonsterRenderers;
+    public float outlineSize = 0.01f;
+    bool outlineShouldTurnOff;
+
     [SerializeField]
     int maxHealth;
     int health;
@@ -58,6 +61,12 @@ public abstract class IMonster : BoardElement
         defendTxt.enabled = false;
     }
 
+    private void Update() 
+    {
+        UpdateOutline();
+    }
+
+
     public int GetMaxHealth() { return maxHealth; }
     public int GetHealth() { return health; }
 
@@ -84,7 +93,7 @@ public abstract class IMonster : BoardElement
             health = 0;
             // manager.EnemyDied(this);
             SoundPlayer.PlaySound(death_SFX,gameObject);
-            Instantiate(penisEffect,image.transform.position,Quaternion.identity);
+            Instantiate(deathParticleVFX,image.transform.position,Quaternion.identity);
             Destroy(this.gameObject);
         }
 
@@ -157,6 +166,26 @@ public abstract class IMonster : BoardElement
             image.sprite = enemyIntent.GetCurrentIcon();
             image.enabled = true;
         }
+    }
+
+    public void setOutline(float size)
+    {
+        if(size > 0)
+            outlineShouldTurnOff = false;
+
+        foreach (var rend in MonsterRenderers)
+        {
+            if(rend.materials.Length > 1)
+                rend.materials[1].SetFloat("_Size", size);            
+        }
+    }
+
+    private void UpdateOutline()
+    {
+        if(outlineShouldTurnOff)
+            setOutline(0);
+        else
+            outlineShouldTurnOff = true;
     }
 
     public void Act(BoardStateController board)

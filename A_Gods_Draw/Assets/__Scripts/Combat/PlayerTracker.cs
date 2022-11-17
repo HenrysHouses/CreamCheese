@@ -17,6 +17,8 @@ public class PlayerTracker : ScriptableObject
     public DeckList_SO CurrentDeck;
 
     // player's runes here
+    public List<Rune> CurrentRunes = new List<Rune>();
+
 
     public void UpdateHealth(int difference)
     {

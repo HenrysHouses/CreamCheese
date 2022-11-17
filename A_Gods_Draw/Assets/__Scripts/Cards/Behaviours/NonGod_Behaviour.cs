@@ -216,6 +216,22 @@ public class NonGod_Behaviour : Card_Behaviour
         TurnController.shouldWaitForAnims = false;
     }
 
+    private void setEnemyHighlight()
+    {
+        int layer = 1 << 9;
+        Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
+
+        Debug.Log("something");
+
+        if(Physics.Raycast(ray, out RaycastHit hit, 10000, layer))
+        {
+            IMonster monster = hit.collider.GetComponent<IMonster>();
+            Debug.Log("hit: " + hit.collider.name);
+            
+            monster.setOutline(monster.outlineSize);
+        }
+    }
+
     private void ForceCancelSelection()
     {
         base.CancelSelection();

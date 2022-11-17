@@ -464,7 +464,7 @@ GameObject:
   - component: {fileID: 5966793606316453577}
   - component: {fileID: 5966793606316453576}
   - component: {fileID: 5966793606316453579}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: LokiMonster1
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -566,7 +566,17 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   clickable: 0
-  penisEffect: {fileID: 2505349679200391838, guid: 05a4cc1903228714997c82ae6e193f32, type: 3}
+  deathParticleVFX: {fileID: 0}
+  MonsterRenderers:
+  - {fileID: 75468507053845441}
+  - {fileID: 6860124988551214923}
+  - {fileID: 7509817283458658271}
+  - {fileID: 4761960096567982669}
+  - {fileID: 2061239273547515276}
+  - {fileID: 2199126585414418648}
+  - {fileID: 6347618652351847496}
+  - {fileID: 7563238990882325037}
+  outlineSize: 0.01
   maxHealth: 6
   SoundSelectCard:
     Guid:
@@ -953,9 +963,44 @@ PrefabInstance:
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 73f398d7ddd7c0445ad0a47cb1101c9e, type: 3}
+--- !u!23 &75468507053845441 stripped
+MeshRenderer:
+  m_CorrespondingSourceObject: {fileID: 1990048505137218222, guid: 73f398d7ddd7c0445ad0a47cb1101c9e, type: 3}
+  m_PrefabInstance: {fileID: 1914606704195807599}
+  m_PrefabAsset: {fileID: 0}
 --- !u!4 &1027029502580474959 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 1500456528984665376, guid: 73f398d7ddd7c0445ad0a47cb1101c9e, type: 3}
+  m_PrefabInstance: {fileID: 1914606704195807599}
+  m_PrefabAsset: {fileID: 0}
+--- !u!23 &2061239273547515276 stripped
+MeshRenderer:
+  m_CorrespondingSourceObject: {fileID: 434864087966313699, guid: 73f398d7ddd7c0445ad0a47cb1101c9e, type: 3}
+  m_PrefabInstance: {fileID: 1914606704195807599}
+  m_PrefabAsset: {fileID: 0}
+--- !u!23 &2199126585414418648 stripped
+MeshRenderer:
+  m_CorrespondingSourceObject: {fileID: 294653023329888695, guid: 73f398d7ddd7c0445ad0a47cb1101c9e, type: 3}
+  m_PrefabInstance: {fileID: 1914606704195807599}
+  m_PrefabAsset: {fileID: 0}
+--- !u!23 &4761960096567982669 stripped
+MeshRenderer:
+  m_CorrespondingSourceObject: {fileID: 6379328931151532834, guid: 73f398d7ddd7c0445ad0a47cb1101c9e, type: 3}
+  m_PrefabInstance: {fileID: 1914606704195807599}
+  m_PrefabAsset: {fileID: 0}
+--- !u!23 &6347618652351847496 stripped
+MeshRenderer:
+  m_CorrespondingSourceObject: {fileID: 4793317845544957223, guid: 73f398d7ddd7c0445ad0a47cb1101c9e, type: 3}
+  m_PrefabInstance: {fileID: 1914606704195807599}
+  m_PrefabAsset: {fileID: 0}
+--- !u!23 &6860124988551214923 stripped
+MeshRenderer:
+  m_CorrespondingSourceObject: {fileID: 5018703180877012516, guid: 73f398d7ddd7c0445ad0a47cb1101c9e, type: 3}
+  m_PrefabInstance: {fileID: 1914606704195807599}
+  m_PrefabAsset: {fileID: 0}
+--- !u!23 &7509817283458658271 stripped
+MeshRenderer:
+  m_CorrespondingSourceObject: {fileID: 8262477629325067952, guid: 73f398d7ddd7c0445ad0a47cb1101c9e, type: 3}
   m_PrefabInstance: {fileID: 1914606704195807599}
   m_PrefabAsset: {fileID: 0}
 --- !u!1001 &2243973284080723165
