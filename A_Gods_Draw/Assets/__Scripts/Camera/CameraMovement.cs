@@ -6,17 +6,19 @@ using HH.MultiSceneTools;
 
 public class CameraMovement : MonoBehaviour
 {
-  //  [SerializeField] EventReference MainCave_AMBX;
+    //  [SerializeField] EventReference MainCave_AMBX;
     private Animator anim;
     // private TurnManager TM;
     private bool attack, buff, godcard, shield;
-
+    private GameObject battlemusicCheck;
+    public GameObject menuMusicCheck,battleMusicG;
     [SerializeField] EventReference cameraSound;
     // Start is called before the first frame update
     void Start()
     {
         anim = GetComponent<Animator>();
-      //  SoundPlayer.Playsound(MainCave_AMBX, gameObject);
+
+
     }
 
     void SelectCardCamera()
@@ -40,6 +42,25 @@ public class CameraMovement : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+
+        battlemusicCheck = GameObject.Find("BattleMusic");
+
+
+        if (battlemusicCheck == null)
+        {
+            menuMusicCheck.SetActive(true);
+            battleMusicG.SetActive(false);
+            
+
+        }
+        else
+        {
+            menuMusicCheck.SetActive(false);
+            battleMusicG.SetActive(true);
+
+        }
+
+
         // if(TM == null && MultiSceneLoader.getLoadedCollectionTitle.Equals("Combat"))
         // {
         //      GameObject G = GameObject.Find("TurnManager");
@@ -50,7 +71,8 @@ public class CameraMovement : MonoBehaviour
         //         TM.OnDeSelectedAttackCard.AddListener(ResetView);
         //    } 
         // }
-        
+
+
         bool _W = Input.GetKeyDown(KeyCode.W);
         bool _A = Input.GetKeyDown(KeyCode.A);
         bool _S = Input.GetKeyDown(KeyCode.S);
@@ -58,23 +80,23 @@ public class CameraMovement : MonoBehaviour
 
         bool goDown = _S && !anim.GetBool("Down");
         bool goRight = _A && !anim.GetBool("Right");
-        bool goUp =  _W && !anim.GetBool("Up");
+        bool goUp = _W && !anim.GetBool("Up");
         bool goLeft = _D && !anim.GetBool("Left");
-        
-        bool resetView = _W && anim.GetBool("Down") 
-                      || _A && anim.GetBool("Right") 
-                      || _S && anim.GetBool("Up") 
+
+        bool resetView = _W && anim.GetBool("Down")
+                      || _A && anim.GetBool("Right")
+                      || _S && anim.GetBool("Up")
                       || _D && anim.GetBool("Left");
 
-        
-        if(resetView) // Go to middle
+
+        if (resetView) // Go to middle
         {
             ResetView();
             //SoundPlayer.Playsound(cameraSound, gameObject);
 
             return;
         }
-        if(goDown)
+        if (goDown)
         {
             anim.SetBool("EnemyCloseUp", false);
             anim.SetBool("Down", true);
@@ -84,7 +106,7 @@ public class CameraMovement : MonoBehaviour
             SoundPlayer.PlaySound(cameraSound, gameObject);
 
         }
-        if(goLeft) // go left
+        if (goLeft) // go left
         {
             anim.SetBool("EnemyCloseUp", false);
             anim.SetBool("Down", false);
@@ -94,7 +116,7 @@ public class CameraMovement : MonoBehaviour
             SoundPlayer.PlaySound(cameraSound, gameObject);
 
         }
-        if(goRight) // go right
+        if (goRight) // go right
         {
             anim.SetBool("EnemyCloseUp", false);
             anim.SetBool("Down", false);
@@ -104,7 +126,7 @@ public class CameraMovement : MonoBehaviour
             SoundPlayer.PlaySound(cameraSound, gameObject);
 
         }
-        if(goUp) // go up
+        if (goUp) // go up
         {
             anim.SetBool("EnemyCloseUp", false);
             anim.SetBool("Down", false);
@@ -116,22 +138,22 @@ public class CameraMovement : MonoBehaviour
         }
 
         // Map Scene View
-        if(MultiSceneLoader.getLoadedCollectionTitle.Equals("Map"))
+        if (MultiSceneLoader.getLoadedCollectionTitle.Equals("Map"))
         {
             anim.SetBool("MapCamera", true);
             SoundPlayer.PlaySound(cameraSound, gameObject);
 
         }
 
-        else if(MultiSceneLoader.getLoadedCollectionTitle.Equals("HowToPlay"))
+        else if (MultiSceneLoader.getLoadedCollectionTitle.Equals("HowToPlay"))
         {
-            anim.SetBool("MapCamera",true);
-            SoundPlayer.PlaySound(cameraSound,gameObject);
+            anim.SetBool("MapCamera", true);
+            SoundPlayer.PlaySound(cameraSound, gameObject);
         }
-        else 
+        else
         {
             anim.SetBool("MapCamera", false);
         }
-        
+
     }
 }
