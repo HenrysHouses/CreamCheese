@@ -43,22 +43,22 @@ public class CameraMovement : MonoBehaviour
     void Update()
     {
 
-        battlemusicCheck = GameObject.Find("BattleMusic");
-
-
-        if (battlemusicCheck == null)
-        {
-            menuMusicCheck.SetActive(true);
-            battleMusicG.SetActive(false);
-            
-
-        }
-        else
-        {
-            menuMusicCheck.SetActive(false);
-            battleMusicG.SetActive(true);
-
-        }
+       // battlemusicCheck = GameObject.Find("BattleMusic");
+//
+//
+       // if (battlemusicCheck == null)
+       // {
+       //     menuMusicCheck.SetActive(true);
+       //     battleMusicG.SetActive(false);
+       //     
+//
+       // }
+       // else
+       // {
+       //     menuMusicCheck.SetActive(false);
+       //     battleMusicG.SetActive(true);
+//
+       // }
 
 
         // if(TM == null && MultiSceneLoader.getLoadedCollectionTitle.Equals("Combat"))
