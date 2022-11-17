@@ -130,33 +130,6 @@ MonoBehaviour:
   MinDistance: 1
   MaxDistance: 20
   Length: 770
---- !u!114 &-8298954943966222520
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: ceb653cd98e289a4e8697a1af55201f2, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  Path: 
-  Guid:
-    Data1: 2004915618
-    Data2: 1330019366
-    Data3: -2095186242
-    Data4: 2122433884
-  Banks:
-  - {fileID: -3742761664147203961}
-  IsStream: 1
-  Is3D: 0
-  IsOneShot: 1
-  Parameters: []
-  MinDistance: 1
-  MaxDistance: 20
-  Length: 420
 --- !u!114 &-8188353966515598334
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -201,7 +174,7 @@ MonoBehaviour:
   Path: Assets/FMODBanks/Desktop/PlayerEffects.bank
   Name: PlayerEffects
   StudioPath: bank:/PlayerEffects
-  lastModified: 638041110511066000
+  lastModified: 638041109317393437
   FileSizes: []
   Exists: 1
 --- !u!114 &-7975275770987109253
@@ -219,7 +192,7 @@ MonoBehaviour:
   Path: Assets/FMODBanks/Desktop/Master.strings.bank
   Name: Master.strings
   StudioPath: bank:/Master.strings
-  lastModified: 638041094754644018
+  lastModified: 638041109314595221
   FileSizes:
   - Name: 
     Value: 2250
@@ -612,7 +585,7 @@ MonoBehaviour:
   Path: Assets/FMODBanks/Desktop/MonsterEffects.bank
   Name: MonsterEffects
   StudioPath: bank:/MonsterEffects
-  lastModified: 638038103367252814
+  lastModified: 638041109315784342
   FileSizes: []
   Exists: 1
 --- !u!114 &-4180866667080798002
@@ -737,7 +710,7 @@ MonoBehaviour:
   Path: Assets/FMODBanks/Desktop/Effects.bank
   Name: Effects
   StudioPath: bank:/PlayerEffects
-  lastModified: 638036943289704817
+  lastModified: 638036940544485476
   FileSizes: []
   Exists: 1
 --- !u!114 &-3633921156540097567
@@ -1160,8 +1133,8 @@ MonoBehaviour:
   - {fileID: 248231819754204547}
   - {fileID: -7632861203397964191}
   - {fileID: 4796004649042361289}
-  - {fileID: -8298954943966222520}
   - {fileID: 896749261261151825}
+  - {fileID: 3215460601070512520}
   EditorParameters:
   - {fileID: -7626564355247070922}
   - {fileID: 2133209220102977308}
@@ -1173,7 +1146,7 @@ MonoBehaviour:
   - {fileID: 354025419047621160}
   StringsBanks:
   - {fileID: -7975275770987109253}
-  cacheTime: 638041110511066000
+  cacheTime: 638041109317393437
   cacheVersion: 131592
 --- !u!114 &184070306273675570
 MonoBehaviour:
@@ -1246,7 +1219,7 @@ MonoBehaviour:
   Path: Assets/FMODBanks/Desktop/Master.bank
   Name: Master
   StudioPath: bank:/Master
-  lastModified: 638030842318779469
+  lastModified: 638041109314585220
   FileSizes: []
   Exists: 1
 --- !u!114 &601750260413816558
@@ -1344,7 +1317,6 @@ MonoBehaviour:
     Data4: 2122433884
   Banks:
   - {fileID: -3742761664147203961}
-  - {fileID: -3742761664147203961}
   IsStream: 1
   Is3D: 0
   IsOneShot: 1
@@ -1394,7 +1366,7 @@ MonoBehaviour:
   Path: Assets/FMODBanks/Desktop/CardEffects.bank
   Name: CardEffects
   StudioPath: bank:/CardEffects
-  lastModified: 638040571922487013
+  lastModified: 638041109313808876
   FileSizes: []
   Exists: 1
 --- !u!114 &1470858570566702010
@@ -1614,7 +1586,7 @@ MonoBehaviour:
   Path: Assets/FMODBanks/Desktop/GodEffects.bank
   Name: GodEffects
   StudioPath: bank:/GodEffects
-  lastModified: 638041110510835789
+  lastModified: 638041109314555212
   FileSizes: []
   Exists: 1
 --- !u!114 &2949675264644978184
@@ -1659,9 +1631,37 @@ MonoBehaviour:
   Path: Assets/FMODBanks/Desktop/Ambience.bank
   Name: Ambience
   StudioPath: bank:/Ambience
-  lastModified: 638041110510785742
+  lastModified: 638041109312740370
   FileSizes: []
   Exists: 1
+--- !u!114 &3215460601070512520
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ceb653cd98e289a4e8697a1af55201f2, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  Path: 
+  Guid:
+    Data1: 2004915618
+    Data2: 1330019366
+    Data3: -2095186242
+    Data4: 2122433884
+  Banks:
+  - {fileID: -3742761664147203961}
+  - {fileID: -3742761664147203961}
+  IsStream: 1
+  Is3D: 0
+  IsOneShot: 1
+  Parameters: []
+  MinDistance: 1
+  MaxDistance: 20
+  Length: 420
 --- !u!114 &4348325549410373758
 MonoBehaviour:
   m_ObjectHideFlags: 0
