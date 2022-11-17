@@ -107,6 +107,11 @@ public abstract class IMonster : BoardElement
         UpdateUI();
     }
 
+    public void Weaken(int amount)
+    {
+        weakened += amount;
+    }
+
     public void Defend(int amount)
     {
         defendedFor += amount;
