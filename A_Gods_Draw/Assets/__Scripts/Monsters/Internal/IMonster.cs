@@ -93,7 +93,8 @@ public abstract class IMonster : BoardElement
             health = 0;
             // manager.EnemyDied(this);
             SoundPlayer.PlaySound(death_SFX,gameObject);
-            Instantiate(deathParticleVFX,image.transform.position,Quaternion.identity);
+            if (deathParticleVFX != null)
+                Instantiate(deathParticleVFX,image.transform.position,Quaternion.identity);
             Destroy(this.gameObject);
         }
 

@@ -12,13 +12,14 @@ public class AttackCardAction : CardAction
         //StartAnimations...
 
         //yield return new WaitUntil(() => true);
-        yield return new WaitForSeconds(0.5f);
+        yield return new WaitForSeconds(0.6f);
 
         foreach (IMonster target in targets)
         {
             if (target)
             {
                 target.DealDamage(strengh);
+                yield return new WaitForSeconds(0.2f);
             }
         }
 

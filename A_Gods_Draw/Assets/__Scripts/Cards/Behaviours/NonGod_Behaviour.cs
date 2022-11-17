@@ -188,6 +188,7 @@ public class NonGod_Behaviour : Card_Behaviour
                 if (!act.CanBePlaced(controller.GetBoard()))
                 {
                     DeSelected();
+                    RemoveGodBuff();
                     ForceCancelSelection();
                     StopAllCoroutines();
                     yield return null;
@@ -323,8 +324,6 @@ public class NonGod_Behaviour : Card_Behaviour
                 StopCoroutine(actionRoutine);
             onSelectedRoutine = null;
             actionRoutine = null;
-
-            RemoveGodBuff();
 
             foreach (var target in actions)
             {

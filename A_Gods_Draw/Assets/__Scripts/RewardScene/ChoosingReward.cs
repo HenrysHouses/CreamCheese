@@ -19,7 +19,7 @@ public class ChoosingReward : MonoBehaviour
 {
     [SerializeField] DeckManager_SO deckManager;
     
-    List<Card_SO> searchResult;
+    List<Card_SO> searchResult = new();
 
     public Transform[] spots;
     Card_SO[] CardOptions;
@@ -84,7 +84,7 @@ public class ChoosingReward : MonoBehaviour
     {
         for (int i = 0; i < spots.Length; i++)
         {
-            if(searchResult.Count <= 0)
+            if (searchResult.Count <= 0)
             {
                 break;
             }
