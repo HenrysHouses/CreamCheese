@@ -27,7 +27,7 @@ namespace Map
         public List<Map_Configuration> allMapConfigs;
         public GameObject nodePrefab;
         public float orientationOffset;
-        public Vector2 ScrollBounds;
+        public Vector3 ScrollBounds;
 
         [Header("Background Settings")]
         [Tooltip("If the background sprite is null, background will not be shown")]
@@ -148,8 +148,8 @@ namespace Map
                 scrollNonUI.freezeZ = false;
             }
 
-            // var boxColl = mapParent.AddComponent<BoxCollider>();
-            // boxColl.size = new Vector3(100, 100, 1); //can be changed
+            var boxColl = mapParent.AddComponent<BoxCollider>();
+            boxColl.size = new Vector3(100, 100, 100); //can be changed
 
         }
 
@@ -317,7 +317,7 @@ namespace Map
                     }
                     break;
 
-                case MapOrientations.ForwardToBack:
+                case MapOrientations.ForwardToBack: //! the one we are using
                     offset *= cam.aspect;
                     mapParent.transform.eulerAngles = new Vector3(90, 0, 0);
                     desiredPos = firstParent.transform.localPosition + new Vector3(0, 0, offset);
