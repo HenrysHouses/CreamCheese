@@ -8,6 +8,7 @@ namespace Map
 {
     public enum NodeType //more node types can be added
     {
+        Boss,
         Enemy,
         Reward,
         RandomReward,
@@ -17,7 +18,6 @@ namespace Map
         BuffReward,
         Elite,
         RestPlace,
-        Boss,
     }
 }
 

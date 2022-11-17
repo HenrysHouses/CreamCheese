@@ -56,6 +56,11 @@ namespace Map
             if (node.nodeType == NodeType.Boss)
             {
                 transform.localScale *= 1.5f;
+
+                //if(NodeType.Boss != null)
+                //{
+                //    Destroy(gameObject);
+                //}
             }
 
             if(spriteRenderer)

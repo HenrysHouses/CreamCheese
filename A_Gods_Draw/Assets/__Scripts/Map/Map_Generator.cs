@@ -12,7 +12,7 @@ namespace Map
         private static Map_Configuration config;
 
         private static readonly List<NodeType> RandomNodes = new List<NodeType> 
-        { NodeType.RestPlace, NodeType.Boss, NodeType.Elite, NodeType.BuffReward, NodeType.AttackReward, NodeType.DefenceReward, NodeType.GodReward};
+        { NodeType.RestPlace, NodeType.Elite, NodeType.BuffReward, NodeType.AttackReward, NodeType.DefenceReward, NodeType.GodReward};
 
         private static List<float> layerDist;
         private static List<List<MapPoint>> paths;
