@@ -38,7 +38,7 @@ public class DrawState : CombatFSMState
             return;
         }
 
-        // Controller.Draw(Controller.DrawStepCardAmount + Controller.DrawCardExtra);
+        Controller.Draw(Controller.DrawStepCardAmount + Controller.DrawCardExtra);
         Controller.DrawCardExtra = 0;
 
         foreach (IMonster monster in Controller.GetBoard().getLivingEnemies())

@@ -17,7 +17,7 @@ public abstract class IMonster : BoardElement
     int maxHealth;
     int health;
 
-    int weakened;
+    int weakened = 0;
 
     [SerializeField]
     private EventReference SoundSelectCard,death_SFX;
@@ -95,7 +95,8 @@ public abstract class IMonster : BoardElement
     {
         enemyIntent.CancelIntent();
 
-        weakened--;
+        if (weakened > 0)
+            weakened--;
 
         enemyIntent.DecideIntent(board);
     }
