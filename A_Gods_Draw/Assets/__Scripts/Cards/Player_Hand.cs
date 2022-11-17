@@ -88,11 +88,6 @@ public class Player_Hand : MonoBehaviour
         CardSelectionAnimators.Clear();
         UpdateCards();
     }
-    private void Start()
-    {
-        CardHandPrefab.transform.localScale = new Vector3(0.75f, 0.75f, 0.75f);
-    }
-
 
     private void Update()
     {
