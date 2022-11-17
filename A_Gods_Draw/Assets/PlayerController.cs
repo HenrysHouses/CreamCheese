@@ -13,53 +13,21 @@ public class PlayerController : BoardElement
     [SerializeField]
     TMP_Text healthTxt;
 
-    int defendedFor = 0;
-    // TurnManager manager;
-
     [SerializeField]
     Image arrowImage;
-    [SerializeField]
-    GameObject shieldObject;
-
-    TMP_Text shieldText;
-
-    TurnController controller;
 
     // Start is called before the first frame update
     void Start()
     {
         healthTxt.text = "HP: " + playerTracker.Health.ToString();
-        shieldText = shieldObject.transform.GetChild(0).GetComponentInChildren<TMP_Text>();
     }
 
     // public int GetHealth() { return health; }
 
-    public void Defend(int value)
-    {
-        if (defendedFor == 0)
-        {
-            shieldObject.SetActive(true);
-        }
-        defendedFor += value;
-        shieldText.text = defendedFor.ToString();
-    }
-
     public void DealDamage(int amount)
     {
-        if (amount > defendedFor)
-        {
-            int diff = amount - defendedFor;
-            Debug.Log("Damage taken:" + -diff);
-            playerTracker.UpdateHealth(-diff);
-            defendedFor = 0;
-            shieldText.text = defendedFor.ToString();
-            shieldObject.SetActive(false);
-        }
-        else
-        {
-            defendedFor -= amount;
-            shieldText.text = defendedFor.ToString();
-        }
+        Debug.Log("Damage taken:" + -amount);
+        playerTracker.UpdateHealth(-amount);
 
         if (playerTracker.Health < 0)
             playerTracker.Health = 0;
@@ -68,11 +36,15 @@ public class PlayerController : BoardElement
 
     }
 
-    public void OnNewTurn()
+    public void Heal(int amount)
     {
-        defendedFor = 0;
-        shieldText.text = defendedFor.ToString();
-        shieldObject.SetActive(false);
+        playerTracker.UpdateHealth(amount);
+
+        if (playerTracker.Health > playerTracker.MaxHealth)
+            playerTracker.Health = playerTracker.MaxHealth;
+
+        healthTxt.text = "HP: " + playerTracker.Health.ToString();
+
     }
 
     private void OnMouseOver()

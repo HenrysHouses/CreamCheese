@@ -36,29 +36,19 @@ public class Player_Hand : MonoBehaviour
 
     public void AddCard(Card_SO card)
     {
-        float posX = handPlace.position.x;
-        handPlace.position += Vector3.right * (-0.3f + CardSelectionAnimators.Count * 0.1f);
-        float posZ = handPlace.position.z;
-        handPlace.position += Vector3.forward * (0.0001f + CardSelectionAnimators.Count * 0.01f / 2.5f); // << This puts the cards behing eacother, but makes unity angery
         GameObject spawn = Instantiate(CardHandPrefab, handPlace.position, Quaternion.identity);
-        CardHandPrefab.transform.localScale = new Vector3(0.75f,0.75f,0.75f);
-        Card_Loader _loader = spawn.GetComponentInChildren<Card_Loader>();
-        //Debug.Log(card);
-        _loader.Set(card);
-        CardHandAnim _card = new CardHandAnim(spawn.GetComponentInChildren<Card_Selector>(), _loader);
-        handPlace.position = new Vector3(posX, handPlace.position.y, posZ);
+        spawn.transform.SetParent(handPlace);
 
-        spawn.transform.parent = handPlace;
+        Card_Loader _loader = spawn.GetComponentInChildren<Card_Loader>();
+        _loader.Set(card);
+
+        CardHandAnim _card = new CardHandAnim(spawn.GetComponentInChildren<Card_Selector>(), _loader);
 
         CardSelectionAnimators.Add(_card);
 
         spawn.transform.GetComponentInChildren<BoxCollider>().enabled = true;
-
-        // Debug.Log("Card in hand: " + spawn.name + ", this one is number: " + (CAH.Count - 1));
         
         UpdateCards();
-
-        //Debug.Log("Card Added to hand");
     }
     
     /// <summary></summary>
@@ -99,9 +89,8 @@ public class Player_Hand : MonoBehaviour
         UpdateCards();
     }
     private void Start()
-    {   
-
-
+    {
+        CardHandPrefab.transform.localScale = new Vector3(0.75f, 0.75f, 0.75f);
     }
 
 
@@ -124,8 +113,9 @@ public class Player_Hand : MonoBehaviour
         float count = (float)CardSelectionAnimators.Count;
         for (int i = 0; i < CardSelectionAnimators.Count; i++)
         {
+            var firstCardPos = ((CardSelectionAnimators.Count) * -0.05f);
+            CardSelectionAnimators[i].Selector.transform.parent.localPosition = new Vector3(firstCardPos + (0.1f * i), 0, i * 0.005f);
             CardSelectionAnimators[i].Selector.transform.rotation = Quaternion.Euler(0, 0, (cardRotation * ((count - 1) / 2f)) - cardRotation * i);
-            
         }
         
     }

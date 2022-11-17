@@ -35,6 +35,8 @@ public abstract class Card_Behaviour : BoardElement
         controller = cont;
     }
 
+    public TurnController Controller => controller;
+
     public void OnBeingClicked()
     {
         if (onPlayerHand)
@@ -107,6 +109,10 @@ public abstract class Card_Behaviour : BoardElement
                 return new StorrCardAction(card.actionStrength);
             case CardActionEnum.SplashDMG:
                 return new SplashDMGCardAction(card.actionStrength);
+            case CardActionEnum.Heal:
+                return new HealCardAction(card.actionStrength);
+            case CardActionEnum.Draw:
+                return new DrawCardAction(card.actionStrength);
             default:
                 return null;
         }

@@ -23,7 +23,8 @@ public class TurnController : CombatFSM
     // * Combat Variables
 
     /// <summary>How many cards the player draws at their draw step</summary>
-    public int DrawStepCardAmount = 5;
+    public readonly int DrawStepCardAmount = 5;
+    public int DrawCardExtra = 0;
     public Player_Hand _Hand;
     public bool isDiscardAnimating => DiscardAnimator.isAnimating;
     public bool isDrawAnimating => DrawAnimator.isAnimating;
@@ -144,7 +145,6 @@ public class TurnController : CombatFSM
     {
         // wait until the discard has been shuffled into the library before drawing cards
         yield return new WaitUntil(() => !ShuffleAnimator.isAnimating);
-
 
         CardPathAnim[] animData = deckManager.drawCard(amount, 0.25f);
 

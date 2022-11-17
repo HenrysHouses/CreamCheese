@@ -14,6 +14,8 @@ public enum CardActionEnum
     Chained,
     Storr,
     SplashDMG,
+    Heal,
+    Draw,
 }
 
 [System.Serializable]

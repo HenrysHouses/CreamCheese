@@ -19,8 +19,6 @@ public class AttackCardAction : CardAction
             if (target)
             {
                 target.DealDamage(strengh);
-                
-
             }
         }
 
