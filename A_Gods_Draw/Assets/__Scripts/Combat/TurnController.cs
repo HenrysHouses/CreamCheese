@@ -23,7 +23,9 @@ public class TurnController : CombatFSM
     // * Combat Variables
 
     /// <summary>How many cards the player draws at their draw step</summary>
-    public readonly int DrawStepCardAmount = 5;
+    [SerializeField]
+    public const int DrawStepCardAmount = 7;
+    [HideInInspector]
     public int DrawCardExtra = 0;
     public Player_Hand _Hand;
     public bool isDiscardAnimating => DiscardAnimator.isAnimating;
