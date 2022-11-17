@@ -9,6 +9,7 @@ Shader "Unlit/ScreenSpaceOutline"
         _Alpha ("Alpha", float) = 1
         _Alpha1 ("Alpha1", float) = 1
         _Alpha2 ("Alpha1", float) = 1
+        [Toggle(_USE_OUTLINEFRESNEL)] _UseOutlineFade ("Use Outline Fade", int) = 0
     }
     SubShader
     {
@@ -17,6 +18,10 @@ Shader "Unlit/ScreenSpaceOutline"
         ZWrite Off // Off needed for transparency. this shader does not write to the debth buffer
         ZTest LEqual // LEqual - Default (under), GEqual - only behind something, Always - Always above
         Blend SrcAlpha OneMinusSrcAlpha
+
+        // #pragma multi_compile __ _USE_OUTLINEFRESNEL
+    
+
 
         Pass
         {
@@ -123,10 +128,12 @@ Shader "Unlit/ScreenSpaceOutline"
                 float2 scrUV = GetScrSpaceUV(i.scrPos, _ScreenParams, _ScreenResolution);
                 fixed4 col = tex2D(_MainTex, _MainTex_ST.xy * scrUV * depth);
             
-                float fresnel = saturate(dot(V * _Alpha, N * _Alpha1));
-                // fresnel = 1-step(fresnel, _Alpha2);
-                // return float4(fresnel.xxx, 1);
-                // col.w = fresnel;
+                #ifdef _USE_OUTLINEFRESNEL
+                    float fresnel = saturate(dot(V * _Alpha, N * _Alpha1));
+                    fresnel = 1-step(fresnel, _Alpha2);
+                    return float4(fresnel.xxx, 1);
+                    col.w = fresnel;
+                #endif
 
                 return col * _Color;
             }
