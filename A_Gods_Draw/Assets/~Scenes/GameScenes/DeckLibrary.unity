@@ -216,8 +216,8 @@ RectTransform:
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 1157832725}
-  - {fileID: 588248186}
   - {fileID: 812296152}
+  - {fileID: 588248186}
   m_Father: {fileID: 0}
   m_RootOrder: 2
   m_LocalEulerAnglesHint: {x: 90, y: 0, z: 0}
@@ -394,7 +394,7 @@ RectTransform:
   m_Children:
   - {fileID: 1742363947}
   m_Father: {fileID: 84414764}
-  m_RootOrder: 1
+  m_RootOrder: 2
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
@@ -444,7 +444,19 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 588248188}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 1373845114}
+        m_TargetAssemblyTypeName: CardLibrary, Assembly-CSharp
+        m_MethodName: TurnBack
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!114 &588248188
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -516,7 +528,7 @@ RectTransform:
   m_Children:
   - {fileID: 1571824520}
   m_Father: {fileID: 84414764}
-  m_RootOrder: 2
+  m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
@@ -566,7 +578,19 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 812296154}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 1373845114}
+        m_TargetAssemblyTypeName: CardLibrary, Assembly-CSharp
+        m_MethodName: TurnForward
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!114 &812296154
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1086,7 +1110,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1373845112}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 604.5, y: 295.5, z: 0}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -1106,15 +1130,17 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   manager: {fileID: 11400000, guid: a9ef532ce763b474e868648e2e3843ac, type: 2}
+  deckList: {fileID: 11400000, guid: 79f54d6a0268d644381e0b3bda208b5b, type: 2}
+  cardPrefab: {fileID: 3702977321711636186, guid: 9fcf30b81c1d4274696333e3c7c9c9b7, type: 3}
   cardSlots:
-  - {fileID: 522458175}
-  - {fileID: 1953439213}
-  - {fileID: 199191159}
-  - {fileID: 271306970}
-  - {fileID: 1122262268}
-  - {fileID: 1409644888}
-  - {fileID: 1049935727}
-  - {fileID: 1175618019}
+  - {fileID: 522458176}
+  - {fileID: 1953439214}
+  - {fileID: 199191160}
+  - {fileID: 271306971}
+  - {fileID: 1122262269}
+  - {fileID: 1409644889}
+  - {fileID: 1049935728}
+  - {fileID: 1175618020}
 --- !u!1 &1409644888
 GameObject:
   m_ObjectHideFlags: 0

@@ -6,7 +6,15 @@ using UnityEngine.UI;
 public class CardLibrary : MonoBehaviour
 {
     [SerializeField] DeckManager_SO manager;
-    public GameObject[] cardSlots;
+    [SerializeField] DeckList_SO deckList;
+    public GameObject cardPrefab;
+    public Transform[] cardSlots;
+    bool isCreated;
+
+    private void Start()
+    {
+        isCreated = false;
+    }
 
     private void Update()
     {
@@ -15,9 +23,28 @@ public class CardLibrary : MonoBehaviour
 
     private void DisplayCard()
     {
-        for (int i = 0; i < manager.getDeck.deckData.deckListData.Count; i++)
+
+        if (!isCreated)
         {
-            Instantiate(manager.getDeck.deckData.deckListData[i]);
+            for (int i = 0; i < manager.getDeck.deckData.deckListData.Count; i++)
+            {
+                GameObject newObject = Instantiate(cardPrefab);
+                newObject.transform.SetParent(cardSlots[i]);
+
+                isCreated = true;
+                Debug.Log("cards library");
+            }
+
         }
+    }
+
+    public void TurnForward()
+    {
+
+    }
+
+    public void TurnBack()
+    {
+
     }
 }
