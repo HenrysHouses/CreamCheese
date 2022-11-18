@@ -43,7 +43,7 @@ public class CameraMovement : MonoBehaviour
     void Update()
     {
 
-        battlemusicCheck = GameObject.Find("BattleMusic");
+       /* battlemusicCheck = GameObject.Find("BattleMusic");
 
 
         if (battlemusicCheck == null)
@@ -59,7 +59,7 @@ public class CameraMovement : MonoBehaviour
             battleMusicG.SetActive(true);
 
         }
-
+*/
 
         // if(TM == null && MultiSceneLoader.getLoadedCollectionTitle.Equals("Combat"))
         // {
