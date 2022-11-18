@@ -8,7 +8,7 @@ public class CardLibrary : MonoBehaviour
     [SerializeField] DeckManager_SO manager;
     public GameObject[] cardSlots;
 
-    private void Start()
+    private void Update()
     {
         DisplayCard();
     }
@@ -17,7 +17,7 @@ public class CardLibrary : MonoBehaviour
     {
         for (int i = 0; i < manager.getDeck.deckData.deckListData.Count; i++)
         {
-            //TODO Display name, type, sprite
+            Instantiate(manager.getDeck.deckData.deckListData[i]);
         }
     }
 }
