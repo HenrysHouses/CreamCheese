@@ -3,8 +3,6 @@
  * Henrik
 */
 
-using System;
-using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -17,7 +15,8 @@ public class PlayerTracker : ScriptableObject
     public DeckList_SO CurrentDeck;
 
     // player's runes here
-    public List<Rune> CurrentRunes = new List<Rune>();
+    [SerializeField] private List<RuneData> _runeData = new List<RuneData>();
+    public List<rune> CurrentRunes = new List<rune>();
 
 
     public void UpdateHealth(int difference)
@@ -40,5 +39,15 @@ public class PlayerTracker : ScriptableObject
         }
 
         CurrentDeck.SetDeck(newDeck);
+    }
+
+    public void addRune(rune rune)
+    {
+        CurrentRunes.Add(rune);
+        
+        foreach (var _rune in CurrentRunes)
+        {
+            _runeData.Add(_rune.RuneID);
+        }
     }
 }

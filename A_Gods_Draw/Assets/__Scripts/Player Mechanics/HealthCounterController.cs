@@ -27,7 +27,6 @@ public class HealthCounterController : MonoBehaviour
     [SerializeField] float GearAnimSpeed = 1;
     // Health Anim
     bool healthIsAnimating = false;
-    int shouldTriggerHealth = 0;
 
 
     // Gear Anim

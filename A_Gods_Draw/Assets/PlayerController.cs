@@ -8,8 +8,8 @@ public class PlayerController : BoardElement
 {
     [SerializeField] 
     PlayerTracker playerTracker;
-    [SerializeField]
-    int maxHealth = 10;
+    // [SerializeField]
+    // int maxHealth = 10;
     [SerializeField]
     TMP_Text healthTxt;
 

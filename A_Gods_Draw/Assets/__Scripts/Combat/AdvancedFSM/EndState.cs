@@ -11,7 +11,7 @@ using HH.MultiSceneTools;
 public class EndState : CombatFSMState
 {
     TurnController Controller;
-    bool hasEndTriggered = false;
+    // bool hasEndTriggered = false;
     PlayerTracker _player;
 
     public EndState(TurnController controller, PlayerTracker player)
@@ -30,7 +30,7 @@ public class EndState : CombatFSMState
 
         Controller.PerformTransition(Transition.EnterDraw);
         Controller.shouldEndTurn = false;
-        hasEndTriggered = false;
+        // hasEndTriggered = false;
     }
 
     public override void Act()

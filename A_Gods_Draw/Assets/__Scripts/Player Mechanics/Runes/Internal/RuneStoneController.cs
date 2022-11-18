@@ -1,16 +1,33 @@
-using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
 public class RuneStoneController : MonoBehaviour
 {
     [SerializeField] PlayerTracker playerState;
-    [SerializeField] Rune[] runes;
+    public List<rune> AvailableRunes = new List<rune>();
+    [ReadOnly] public RuneData[] runes;
     [SerializeField] runeRenderer[] renderers;
+
+    void Start()
+    {
+        WealthRune rune = new WealthRune(1);
+        playerState.addRune(rune);
+    }
 
     void Update()
     {
         updateRunes(playerState);
+    }
+
+    private void getRunes(List<rune> Runes = null)
+    {
+        if(Runes is null)
+            return;
+
+        for (int i = 0; i < Runes.Count; i++)
+        {
+            runes[i] = Runes[i].RuneID;
+        }
     }
 
     public void ToggleRune(RuneType TargetRune)
@@ -43,13 +60,15 @@ public class RuneStoneController : MonoBehaviour
 
     void updateRunes(PlayerTracker player)
     {
+        getRunes(player.CurrentRunes);
+
         foreach (var rune in runes)
         {
             foreach (var playRune in player.CurrentRunes)
             {
-                if(rune.Name.Equals(playRune.Name))
+                if(rune.Name.Equals(playRune.RuneID.Name))
                 {
-                    switch(playRune.State)
+                    switch(playRune.RuneID.State)
                     {
                         case RuneState.Active:
                             renderers[rune.ID].setColor(Color.cyan);
@@ -66,35 +85,6 @@ public class RuneStoneController : MonoBehaviour
         }        
     }
 }
-
-public enum RuneType
-{
-    UrrStrength = 0,
-    FeWealth = 1,
-    TursChaos = 2
-}
-
-public enum RuneState
-{
-    Active,
-    Disabled,
-    Temporary
-}
-
-[System.Serializable]
-public class Rune
-{
-    public int ID => (int)Name;
-    public RuneType Name;
-    public RuneState State;
-
-    public Rune(RuneType type, RuneState state)
-    {
-        this.Name = type;
-        this.State = state;
-    }
-}
-
 
 [System.Serializable]
 public class runeRenderer
