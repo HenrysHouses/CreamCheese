@@ -25,6 +25,7 @@ public class CardsState : CombatFSMState
             numOfCardsActed = 0;
             readyToMoveOn = false;
             TurnController.shouldWaitForAnims = false;
+            ResetRuneTriggers(Controller);
         }
     }
 
@@ -32,6 +33,8 @@ public class CardsState : CombatFSMState
     {
         if (!TurnController.shouldWaitForAnims)
         {
+            ActivateRune(Controller);
+
             if (numOfCardsActed < Controller.GetBoard().playedCards.Count)
             {
                 Controller.GetBoard().playedCards[numOfCardsActed].OnAction();

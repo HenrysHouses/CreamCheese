@@ -18,10 +18,12 @@ public class StartState : CombatFSMState
         BoardElement.EnterCombat();
         TurnController.shouldWaitForAnims = false;
         Controller.PerformTransition(Transition.EnterCombatCard); // ! this should be enter main not discard
+        ResetRuneTriggers(Controller);
     }
 
     public override void Act()
     {
+        ActivateRune(Controller);
     }
 }
 

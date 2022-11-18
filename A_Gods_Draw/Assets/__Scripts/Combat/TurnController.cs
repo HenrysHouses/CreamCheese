@@ -12,7 +12,7 @@ public class TurnController : CombatFSM
 {
     // * Combat Mechanic references
     [SerializeField] BoardStateController BoardStateController;
-    [SerializeField] PlayerTracker player;
+    [field:SerializeField] public PlayerTracker player {get; private set;}
     [SerializeField] GodPlacement godPlace;
     [SerializeField] DeckManager_SO deckManager;
     [SerializeField] PathAnimatorController DiscardAnimator;

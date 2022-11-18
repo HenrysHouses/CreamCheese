@@ -20,6 +20,7 @@ public class EnemyState : CombatFSMState
         {
             Controller.PerformTransition(Transition.EnterEnd);
             numOfEnemiesActed = 0;
+            ResetRuneTriggers(Controller);
         }
     }
 
@@ -27,6 +28,8 @@ public class EnemyState : CombatFSMState
     {
         if (!TurnController.shouldWaitForAnims)
         {
+            ActivateRune(Controller);
+
             if (numOfEnemiesActed < Controller.GetBoard().getLivingEnemies().Length)
             {
                 Controller.GetBoard().getLivingEnemies()[numOfEnemiesActed].Act(Controller.GetBoard());

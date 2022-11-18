@@ -22,6 +22,7 @@ public class MainState : CombatFSMState
 
         Controller.PerformTransition(Transition.EnterDiscard);
         HasExitMain = false;
+        ResetRuneTriggers(Controller);
     }
 
     public override void Act()
@@ -29,6 +30,7 @@ public class MainState : CombatFSMState
         if (!Controller.shouldEndTurn)
             return;
 
+        ActivateRune(Controller);
         HasExitMain = true;
     }
 }

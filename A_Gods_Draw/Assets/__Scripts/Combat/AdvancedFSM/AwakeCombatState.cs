@@ -27,12 +27,15 @@ public class AwakeCombatState : CombatFSMState
         Controller.PerformTransition(Transition.EnterDraw);
         Controller.isCombatStarted = true;
         hasShuffled = false;
+        ResetRuneTriggers(Controller);
     }
 
     public override void Act()
     {
         if(hasShuffled)
             return;
+
+        ActivateRune(Controller);
 
         Controller.ShuffleLibrary();
         hasShuffled = true;

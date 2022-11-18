@@ -5,13 +5,14 @@ public class RuneStoneController : MonoBehaviour
 {
     [SerializeField] PlayerTracker playerState;
     public List<rune> AvailableRunes = new List<rune>();
-    [ReadOnly] public RuneData[] runes;
+    [ReadOnly] public List<RuneData> runes;
     [SerializeField] runeRenderer[] renderers;
 
     void Start()
     {
-        WealthRune rune = new WealthRune(1);
-        playerState.addRune(rune);
+        runes.Clear();
+        // WealthRune rune = new WealthRune(1);
+        // playerState.addRune(rune);
     }
 
     void Update()
@@ -26,13 +27,14 @@ public class RuneStoneController : MonoBehaviour
 
         for (int i = 0; i < Runes.Count; i++)
         {
-            runes[i] = Runes[i].RuneID;
+            if(!runes.Contains(Runes[i].RuneData))
+                runes.Add(Runes[i].RuneData);
         }
     }
 
     public void ToggleRune(RuneType TargetRune)
     {
-        for (int i = 0; i < runes.Length; i++)
+        for (int i = 0; i < runes.Count; i++)
         {
             if(runes[i].Name != TargetRune)
                 continue;
@@ -48,7 +50,7 @@ public class RuneStoneController : MonoBehaviour
 
     public void SetRune(RuneType TargetRune, RuneState state)
     {
-        for (int i = 0; i < runes.Length; i++)
+        for (int i = 0; i < runes.Count; i++)
         {
             if(runes[i].Name != TargetRune)
                 continue;
@@ -66,20 +68,20 @@ public class RuneStoneController : MonoBehaviour
         {
             foreach (var playRune in player.CurrentRunes)
             {
-                if(rune.Name.Equals(playRune.RuneID.Name))
+                if(!rune.Name.Equals(playRune.RuneData.Name))
+                    continue;
+
+                switch(playRune.RuneData.State)
                 {
-                    switch(playRune.RuneID.State)
-                    {
-                        case RuneState.Active:
-                            renderers[rune.ID].setColor(Color.cyan);
-                            break;
-                        case RuneState.Temporary:
-                            renderers[rune.ID].setColor(Color.red);
-                            break;
-                        case RuneState.Disabled:
-                            renderers[rune.ID].setColor(Color.gray);
-                            break;
-                    }
+                    case RuneState.Active:
+                        renderers[rune.ID].setColor(Color.cyan);
+                        break;
+                    case RuneState.Temporary:
+                        renderers[rune.ID].setColor(Color.red);
+                        break;
+                    case RuneState.Disabled:
+                        renderers[rune.ID].setColor(Color.gray);
+                        break;
                 }
             }
         }        

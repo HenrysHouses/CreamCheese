@@ -31,6 +31,7 @@ public class EndState : CombatFSMState
         Controller.PerformTransition(Transition.EnterDraw);
         Controller.shouldEndTurn = false;
         // hasEndTriggered = false;
+        ResetRuneTriggers(Controller);
     }
 
     public override void Act()
@@ -38,6 +39,8 @@ public class EndState : CombatFSMState
         BoardElement.ExitCombat();
         // end of combat triggers here
         // hasEndTriggered = true;
+
+        ActivateRune(Controller);
 
         if (_player.Health <= 0)
         {

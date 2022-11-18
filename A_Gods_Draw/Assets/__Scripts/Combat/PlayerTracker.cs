@@ -18,6 +18,9 @@ public class PlayerTracker : ScriptableObject
     [SerializeField] private List<RuneData> _runeData = new List<RuneData>();
     public List<rune> CurrentRunes = new List<rune>();
 
+    private void OnEnable() {
+        _runeData.Clear();
+    }
 
     public void UpdateHealth(int difference)
     {
@@ -43,11 +46,38 @@ public class PlayerTracker : ScriptableObject
 
     public void addRune(rune rune)
     {
+        Debug.Log(CurrentRunes.Count);
+        Debug.Log(_runeData.Count);
+
+        foreach (var runesData in _runeData)
+        {
+            if(runesData.Name == rune.RuneData.Name)
+                return;
+        }
+
         CurrentRunes.Add(rune);
         
         foreach (var _rune in CurrentRunes)
         {
-            _runeData.Add(_rune.RuneID);
+            _runeData.Add(_rune.RuneData);
+        }
+    }
+
+    public void triggerRune(TurnController controller, CombatState trigger)
+    {
+        foreach (var rune in CurrentRunes)
+        {
+            if(rune.RuneData.Trigger.Equals(trigger))
+                rune.RuneEffect(controller);
+        }
+    }
+
+    public void resetRune(TurnController controller, CombatState trigger)
+    {
+        foreach (var rune in CurrentRunes)
+        {
+            if(rune.RuneData.Trigger.Equals(trigger))
+                rune.resetTrigger();
         }
     }
 }

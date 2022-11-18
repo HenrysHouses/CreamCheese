@@ -5,15 +5,27 @@ using UnityEngine;
 
 public abstract class rune
 {
-    public RuneData RuneID;
+    public RuneData RuneData;
+    public bool hasTriggered;
 
     void Reset()
     {
-        RuneID.Strength = 0;
-        RuneID.State = RuneState.Disabled;   
+        RuneData.Strength = 0;
+        RuneData.State = RuneState.Disabled;   
+        hasTriggered = false;
     }
 
-    protected virtual void RuneEffect(TurnController controller){}
+    public virtual void RuneEffect(TurnController controller){}
+
+    public void triggerOnce()
+    {
+        hasTriggered = true;
+    }
+
+    public void resetTrigger()
+    {
+        hasTriggered = false;
+    }
 
     public rune(int str, RuneState state){}
     public rune(int str){}

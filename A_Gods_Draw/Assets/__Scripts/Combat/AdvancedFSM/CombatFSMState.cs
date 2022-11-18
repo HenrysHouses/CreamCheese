@@ -26,7 +26,7 @@ public abstract class CombatFSMState
     protected Dictionary<Transition, CombatState> map = new Dictionary<Transition, CombatState>();
     protected CombatState stateID;
     public CombatState ID { get { return stateID; } }
-
+    
     public void AddTransition(Transition transition, CombatState id)
     {
         // Check if anyone of the args is invallid
@@ -103,4 +103,14 @@ public abstract class CombatFSMState
     /// This method controls the behavior in the game World.
     /// </summary>
     public abstract void Act();
+
+    public void ActivateRune(TurnController controller)
+    {
+        controller.player.triggerRune(controller, stateID);
+    }
+
+    public void ResetRuneTriggers(TurnController controller)
+    {
+        controller.player.resetRune(controller, stateID);
+    }
 }

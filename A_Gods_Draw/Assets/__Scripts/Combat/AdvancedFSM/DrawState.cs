@@ -3,10 +3,6 @@
  * Henrik
 */
 
-using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
-
 public class DrawState : CombatFSMState
 {
     TurnController Controller;
@@ -29,6 +25,7 @@ public class DrawState : CombatFSMState
 
         Controller.PerformTransition(Transition.EnterMain);
         hasDrawn = false;
+        ResetRuneTriggers(Controller);
     }
 
     public override void Act()
@@ -39,6 +36,8 @@ public class DrawState : CombatFSMState
         }
 
         Controller.Draw(Controller.DrawStepCardAmount + Controller.DrawCardExtra);
+        
+        ActivateRune(Controller);
         Controller.DrawCardExtra = 0;
 
         foreach (IMonster monster in Controller.GetBoard().getLivingEnemies())

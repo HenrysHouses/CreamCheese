@@ -1878,6 +1878,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 1066247366}
+  - component: {fileID: 1066247367}
   m_Layer: 0
   m_Name: TableController
   m_TagString: Untagged
@@ -1906,6 +1907,31 @@ Transform:
   m_Father: {fileID: 1580440615}
   m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1066247367
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1066247365}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: bcdf6c616326c4aaeb610b335fbb67fe, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  useDefaultBackgroundColor: 0
+  backgroundColor:
+    serializedVersion: 2
+    rgba: 4278233855
+  useDefaultTextColor: 0
+  textColor:
+    serializedVersion: 2
+    rgba: 4278190080
+  font: {fileID: 0}
+  fontSize: 12
+  fontStyle: 0
+  alignment: 0
+  textDropShadow: 0
 --- !u!1 &1076020942
 GameObject:
   m_ObjectHideFlags: 0
@@ -3627,7 +3653,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   BoardStateController: {fileID: 1141156025}
-  player: {fileID: 11400000, guid: 101dced3cf57d584886aaa18b2a84f50, type: 2}
+  <player>k__BackingField: {fileID: 11400000, guid: 101dced3cf57d584886aaa18b2a84f50, type: 2}
   godPlace: {fileID: 899169205}
   deckManager: {fileID: 11400000, guid: a9ef532ce763b474e868648e2e3843ac, type: 2}
   DiscardAnimator: {fileID: 120732638}
@@ -3673,11 +3699,11 @@ MonoBehaviour:
   useDefaultBackgroundColor: 0
   backgroundColor:
     serializedVersion: 2
-    rgba: 4280821989
+    rgba: 4278233855
   useDefaultTextColor: 0
   textColor:
     serializedVersion: 2
-    rgba: 4294967295
+    rgba: 4278190080
   font: {fileID: 0}
   fontSize: 12
   fontStyle: 0

@@ -1,22 +1,18 @@
-public class WealthRune : rune
+public class ChaosRune : rune
 {
     public override void RuneEffect(TurnController controller)
     {
-        if(hasTriggered)
-            return;
-
-        controller.Draw(RuneData.Strength);
-        triggerOnce();
+        // controller.Draw(RuneData.Strength);
     }
 
-    public WealthRune(int str, RuneState state) : base(str, state)
+    public ChaosRune(int str, RuneState state) : base(str, state)
     {
         this.RuneData = new RuneData(RuneType.FeWealth, CombatState.DrawStep);
         this.RuneData.Strength = str;
         this.RuneData.State = state;
     }
 
-    public WealthRune(int str) : base(str)
+    public ChaosRune(int str) : base(str)
     {
         this.RuneData = new RuneData(RuneType.FeWealth, CombatState.DrawStep);
         this.RuneData.Strength = str;
