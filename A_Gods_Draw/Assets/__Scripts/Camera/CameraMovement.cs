@@ -43,22 +43,22 @@ public class CameraMovement : MonoBehaviour
     void Update()
     {
 
-       // battlemusicCheck = GameObject.Find("BattleMusic");
-//
-//
-       // if (battlemusicCheck == null)
-       // {
-       //     menuMusicCheck.SetActive(true);
-       //     battleMusicG.SetActive(false);
-       //     
-//
-       // }
-       // else
-       // {
-       //     menuMusicCheck.SetActive(false);
-       //     battleMusicG.SetActive(true);
-//
-       // }
+        battlemusicCheck = GameObject.Find("BattleMusic");
+
+
+        if (battlemusicCheck == null)
+        {
+            menuMusicCheck.SetActive(true);
+            battleMusicG.SetActive(false);
+            
+
+        }
+        else
+        {
+            menuMusicCheck.SetActive(false);
+            battleMusicG.SetActive(true);
+
+        }
 
 
         // if(TM == null && MultiSceneLoader.getLoadedCollectionTitle.Equals("Combat"))
@@ -141,14 +141,14 @@ public class CameraMovement : MonoBehaviour
         if (MultiSceneLoader.getLoadedCollectionTitle.Equals("Map"))
         {
             anim.SetBool("MapCamera", true);
-            SoundPlayer.PlaySound(cameraSound, gameObject);
+            //SoundPlayer.PlaySound(cameraSound, gameObject);
 
         }
 
         else if (MultiSceneLoader.getLoadedCollectionTitle.Equals("HowToPlay"))
         {
             anim.SetBool("MapCamera", true);
-            SoundPlayer.PlaySound(cameraSound, gameObject);
+            //SoundPlayer.PlaySound(cameraSound, gameObject);
         }
         else
         {

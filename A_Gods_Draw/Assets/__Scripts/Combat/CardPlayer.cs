@@ -15,6 +15,9 @@ public class CardPlayer : MonoBehaviour
 
     Card_Behaviour _selectedCard;
 
+    [HideInInspector]
+    public bool playedSFX;
+
     // Start is called before the first frame update
     void Start()
     {
@@ -30,9 +33,9 @@ public class CardPlayer : MonoBehaviour
             placeCard(_selectedCard);
             _selectedCard = null;
         }
-        if(_selectedCard is NonGod_Behaviour card)
+        if (_selectedCard is NonGod_Behaviour card)
         {
-            switch(card.GetCardType)
+            switch (card.GetCardType)
             {
                 case CardType.Attack:
                 case CardType.Defence:
@@ -46,7 +49,7 @@ public class CardPlayer : MonoBehaviour
 
         if (Input.GetKeyUp(KeyCode.Mouse0))
         {
-            if(_selectedCard is null)
+            if (_selectedCard is null)
             {
                 _selectedCard = selectCard();
                 return;
@@ -64,13 +67,24 @@ public class CardPlayer : MonoBehaviour
     {
         int layer = 1 << 9;
         Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
+        IMonster monster = null;
 
 
-        if(Physics.Raycast(ray, out RaycastHit hit, 10000, layer))
+        if (Physics.Raycast(ray, out RaycastHit hit, 10000, layer))
         {
-            IMonster monster = hit.collider.GetComponent<IMonster>();
-            
+            monster = hit.collider.GetComponent<IMonster>();
+
+            if (!playedSFX)
+            {
+                SoundPlayer.PlaySound(monster.hoverOver_SFX, gameObject);
+                playedSFX = true;
+
+            }
             monster.setOutline(monster.outlineSize);
+        }
+        if(monster == null)
+        {
+            playedSFX = false;
         }
     }
 
@@ -78,22 +92,38 @@ public class CardPlayer : MonoBehaviour
     {
         int layer = 1 << 6;
         Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
+        CardHighlight highlight = null;
 
 
-        if(Physics.Raycast(ray, out RaycastHit hit, 10000, layer))
+        if (Physics.Raycast(ray, out RaycastHit hit, 10000, layer))
         {
             GameObject card = hit.collider.gameObject;
-            CardHighlight highlight = card.GetComponent<CardHighlight>();
-            if(highlight)
+            highlight = card.GetComponent<CardHighlight>();
+            
+            if (highlight)
+            {
                 highlight.EnableHighlight();
+
+                if (!playedSFX)
+                {
+                    SoundPlayer.PlaySound(highlight.hoveringover_SFX, gameObject);
+                    playedSFX = true;
+
+                }
+            }
+            if(highlight == null)
+            {
+                playedSFX = false;
+            }
         }
+
     }
 
     Card_Behaviour selectCard()
     {
         Ray ray = mainCam.ScreenPointToRay(Input.mousePosition);
 
-        if(Physics.Raycast(ray, out RaycastHit hit, 1000000, cardLayer))
+        if (Physics.Raycast(ray, out RaycastHit hit, 1000000, cardLayer))
         {
             Card_Behaviour _Loader = hit.collider.GetComponentInChildren<Card_Behaviour>();
             if (_Loader.IsOnHand())
@@ -107,12 +137,12 @@ public class CardPlayer : MonoBehaviour
         lane = null;
         Ray ray = mainCam.ScreenPointToRay(Input.mousePosition);
 
-        if(Physics.Raycast(ray, out RaycastHit hit, 100, laneLayer))
+        if (Physics.Raycast(ray, out RaycastHit hit, 100, laneLayer))
         {
             lane = hit.collider.transform;
         }
 
-        if(lane is not null)
+        if (lane is not null)
             return true;
         return false;
     }
@@ -122,11 +152,11 @@ public class CardPlayer : MonoBehaviour
         Card_Loader loader = behaviour.GetComponent<Card_Loader>();
         God_Behaviour _God = behaviour as God_Behaviour;
 
-        if(_God is null)
+        if (_God is null)
         {
-            if(_Board.isGodPlayed)
+            if (_Board.isGodPlayed)
             {
-                _Board.playedGodCard.CardSO.StartDialogue(GodDialogueTrigger.Played , loader.GetCardSO);
+                _Board.playedGodCard.CardSO.StartDialogue(GodDialogueTrigger.Played, loader.GetCardSO);
             }
             CardHighlight highlight = behaviour.GetComponentInChildren<CardHighlight>();
             highlight.enabled = true;

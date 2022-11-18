@@ -25,6 +25,8 @@ public class TurnController : CombatFSM
     /// <summary>How many cards the player draws at their draw step</summary>
     [SerializeField]
     public int DrawStepCardAmount = 7;
+    [SerializeField]
+    private float drawDelay;
     [HideInInspector]
     public int DrawCardExtra = 0;
     public Player_Hand _Hand;
@@ -148,7 +150,7 @@ public class TurnController : CombatFSM
         // wait until the discard has been shuffled into the library before drawing cards
         yield return new WaitUntil(() => !ShuffleAnimator.isAnimating);
 
-        CardPathAnim[] animData = deckManager.drawCard(amount, 0.25f);
+        CardPathAnim[] animData = deckManager.drawCard(amount, drawDelay);
 
         // if(animData != null)
         //     Debug.Log("draw: " + animData.Length + " - " + amount);
@@ -205,7 +207,12 @@ public class TurnController : CombatFSM
         yield return new WaitUntil(() => !DrawAnimator.isAnimating);
 
 
-        CardPathAnim[] animData = deckManager.shuffleDiscard(0.18f);
+        CardPathAnim[] animData = deckManager.shuffleDiscard(drawDelay);
+        
+        foreach (CardPathAnim trigger in animData)
+        {
+            trigger.OnAnimStartSound.AddListener(CardSound);
+        }
 
         if(drawAfterShuffle <= 0) // stops animations here
         {
@@ -223,7 +230,7 @@ public class TurnController : CombatFSM
         }
     }
 
-    public void DiscardAll(float delay) => StartCoroutine(discardAllTrigger(delay));
+    public void DiscardAll() => StartCoroutine(discardAllTrigger(drawDelay));
     IEnumerator discardAllTrigger(float delayBetweenCards)
     {
         yield return new WaitUntil(() => !DrawAnimator.isAnimating && !ShuffleAnimator.isAnimating);
@@ -231,11 +238,14 @@ public class TurnController : CombatFSM
         CardPathAnim lastAnim = null;
 
 
+
         if (_Hand.CardSelectionAnimators.Count > 0)
         {
             for (int i = _Hand.CardSelectionAnimators.Count - 1; i >= 0; i--)
             {
                 lastAnim = deckManager.discardCard(_Hand.CardSelectionAnimators[i].cardSO);
+                
+                lastAnim.OnAnimStartSound.AddListener(CardSound);
 
                 var selectorParentToDestroy = _Hand.CardSelectionAnimators[i].Selector.transform.parent.gameObject;
                 

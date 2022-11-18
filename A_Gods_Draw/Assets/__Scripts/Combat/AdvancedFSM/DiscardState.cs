@@ -40,7 +40,7 @@ public class DiscardState : CombatFSMState
 
         Controller.shouldEndTurn = false;
         TurnController.shouldWaitForAnims = true;
-        Controller.DiscardAll(0.25f);
+        Controller.DiscardAll();
         hasDiscarded = true;
     }
 }

@@ -24,6 +24,7 @@ public abstract class IMonster : BoardElement
 
     [SerializeField]
     private EventReference SoundSelectCard,death_SFX;
+    public EventReference hoverOver_SFX;
 
     int defendedFor;
 
@@ -171,8 +172,12 @@ public abstract class IMonster : BoardElement
 
     public void setOutline(float size)
     {
+        
         if(size > 0)
+        {
             outlineShouldTurnOff = false;
+
+        }
 
         foreach (var rend in MonsterRenderers)
         {
@@ -186,7 +191,11 @@ public abstract class IMonster : BoardElement
         if(outlineShouldTurnOff)
             setOutline(0);
         else
+        {
             outlineShouldTurnOff = true;
+            
+            
+        }
     }
 
     public void Act(BoardStateController board)

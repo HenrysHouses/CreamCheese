@@ -1,11 +1,13 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using FMODUnity;
 
 public class CardHighlight : MonoBehaviour
 {
     [SerializeField] Renderer Highlight;
     bool shouldTurnOff = true;
+    public EventReference hoveringover_SFX;
 
     // Start is called before the first frame update
     void Start()
