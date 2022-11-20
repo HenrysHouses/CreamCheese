@@ -76,6 +76,7 @@ public class DialogueBox : MonoBehaviour
     {
         TextMesh.text += currDialogue[i];
         //SoundPlayer.PlaySound(character_SFX, gameObject);
+        Debug.Log("Remove comment here to add sound");
     }
 
     void goToDialoguePage(int i)
