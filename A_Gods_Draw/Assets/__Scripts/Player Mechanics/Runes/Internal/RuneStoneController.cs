@@ -5,13 +5,13 @@ public class RuneStoneController : MonoBehaviour
 {
     [SerializeField] PlayerTracker playerState;
     public List<rune> AvailableRunes = new List<rune>();
-    [ReadOnly] public List<RuneData> runes;
+    public List<RuneData> runes;
     [SerializeField] runeRenderer[] renderers;
 
     void Start()
     {
         runes.Clear();
-        // WealthRune rune = new WealthRune(1);
+        // ChaosRune rune = new ChaosRune(1);
         // playerState.addRune(rune);
     }
 

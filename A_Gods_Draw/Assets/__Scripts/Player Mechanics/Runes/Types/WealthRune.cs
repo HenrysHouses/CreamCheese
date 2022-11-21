@@ -2,11 +2,11 @@ public class WealthRune : rune
 {
     public override void RuneEffect(TurnController controller)
     {
-        if(hasTriggered)
+        if(hasTriggeredThisTurn)
             return;
 
         controller.Draw(RuneData.Strength);
-        triggerOnce();
+        triggerOnceEachTurn();
     }
 
     public WealthRune(int str, RuneState state) : base(str, state)

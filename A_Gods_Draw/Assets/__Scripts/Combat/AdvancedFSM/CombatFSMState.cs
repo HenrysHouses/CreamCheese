@@ -109,8 +109,13 @@ public abstract class CombatFSMState
         controller.player.triggerRune(controller, stateID);
     }
 
-    public void ResetRuneTriggers(TurnController controller)
+    public void ResetRuneTurnTriggers(TurnController controller)
     {
-        controller.player.resetRune(controller, stateID);
+        controller.player.resetTurnRunes(controller, stateID);
+    }
+
+    public void ResetRuneGameTriggers(TurnController controller)
+    {
+        controller.player.resetGameRunes(controller, stateID);
     }
 }

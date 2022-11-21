@@ -2,7 +2,6 @@ public class StrengthRune : rune
 {
     public override void RuneEffect(TurnController controller)
     {
-        // controller.Draw(RuneData.Strength);
     }
 
     public StrengthRune(int str, RuneState state) : base(str, state)

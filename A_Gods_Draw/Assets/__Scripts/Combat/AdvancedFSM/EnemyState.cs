@@ -20,7 +20,7 @@ public class EnemyState : CombatFSMState
         {
             Controller.PerformTransition(Transition.EnterEnd);
             numOfEnemiesActed = 0;
-            ResetRuneTriggers(Controller);
+            ResetRuneTurnTriggers(Controller);
         }
     }
 

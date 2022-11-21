@@ -29,7 +29,7 @@ public class DiscardState : CombatFSMState
 
         Controller.PerformTransition(Transition.EnterCombatStart);
         hasDiscarded = false;
-        ResetRuneTriggers(Controller);
+        ResetRuneTurnTriggers(Controller);
     }
 
     public override void Act()

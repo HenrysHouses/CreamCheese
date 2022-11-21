@@ -25,7 +25,7 @@ public class DrawState : CombatFSMState
 
         Controller.PerformTransition(Transition.EnterMain);
         hasDrawn = false;
-        ResetRuneTriggers(Controller);
+        ResetRuneTurnTriggers(Controller);
     }
 
     public override void Act()

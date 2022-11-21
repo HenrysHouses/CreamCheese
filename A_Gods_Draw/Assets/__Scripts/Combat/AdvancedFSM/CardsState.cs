@@ -25,7 +25,7 @@ public class CardsState : CombatFSMState
             numOfCardsActed = 0;
             readyToMoveOn = false;
             TurnController.shouldWaitForAnims = false;
-            ResetRuneTriggers(Controller);
+            ResetRuneTurnTriggers(Controller);
         }
     }
 

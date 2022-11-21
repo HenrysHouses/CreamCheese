@@ -31,7 +31,7 @@ public class EndState : CombatFSMState
         Controller.PerformTransition(Transition.EnterDraw);
         Controller.shouldEndTurn = false;
         // hasEndTriggered = false;
-        ResetRuneTriggers(Controller);
+        ResetRuneTurnTriggers(Controller);
     }
 
     public override void Act()

@@ -72,12 +72,21 @@ public class PlayerTracker : ScriptableObject
         }
     }
 
-    public void resetRune(TurnController controller, CombatState trigger)
+    public void resetTurnRunes(TurnController controller, CombatState trigger)
     {
         foreach (var rune in CurrentRunes)
         {
             if(rune.RuneData.Trigger.Equals(trigger))
-                rune.resetTrigger();
+                rune.resetTurnTrigger();
+        }
+    }
+
+    public void resetGameRunes(TurnController controller, CombatState trigger)
+    {
+        foreach (var rune in CurrentRunes)
+        {
+            if(rune.RuneData.Trigger.Equals(trigger))
+                rune.resetGameTrigger();
         }
     }
 }

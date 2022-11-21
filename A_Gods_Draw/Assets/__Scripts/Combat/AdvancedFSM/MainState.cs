@@ -22,7 +22,7 @@ public class MainState : CombatFSMState
 
         Controller.PerformTransition(Transition.EnterDiscard);
         HasExitMain = false;
-        ResetRuneTriggers(Controller);
+        ResetRuneTurnTriggers(Controller);
     }
 
     public override void Act()
