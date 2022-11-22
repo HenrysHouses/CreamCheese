@@ -1,10 +1,12 @@
 using UnityEngine;
+using UnityEngine.UI;
 using HH.MultiSceneTools;
 
 public class DialogueController : MonoBehaviour
 {
     public static DialogueController instance; 
     [SerializeField] GameObject dialoguePrefab;
+    [SerializeField] GameObject dialoguePrefabUI;
 
     [SerializeField] DialogueTransform[] dialogueTransform;
 
@@ -42,6 +44,32 @@ public class DialogueController : MonoBehaviour
                 spawn.transform.localPosition = Vector3.zero;
                 spawn.transform.localRotation = Quaternion.identity;
                 return;
+            }
+        }
+        Debug.LogWarning(dialogue.TransformName + " Dialogue Transform was not found");
+    }
+
+    public void SpawnDialogue(Dialogue dialogue, Vector2 rectAnchor)
+    {
+        foreach (var holder in dialogueTransform)
+        {
+            if(holder.TransformName == dialogue.TransformName)
+            {
+                if(holder.hasDialogue())
+                    return;
+
+                GameObject spawn = Instantiate(dialoguePrefabUI);
+                spawn.GetComponent<DialogueBox>().SetDialogue(dialogue);
+                spawn.transform.SetParent(holder.transform);
+
+                if(rectAnchor != Vector2.negativeInfinity)
+                {
+                    RectTransform _transform = spawn.GetComponent<RectTransform>();
+                    _transform.anchoredPosition = rectAnchor;
+                    _transform.localPosition = Vector3.zero;
+                    _transform.localRotation = Quaternion.identity;
+                    return;
+                }
             }
         }
         Debug.LogWarning(dialogue.TransformName + " Dialogue Transform was not found");

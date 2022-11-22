@@ -47,7 +47,8 @@ public class God_Card_SO : Card_SO
                     }
                 }
                 Debug.Log("Dialogue source: " + source + ", type: " + trigger);
-                DialogueController.instance.SpawnDialogue(data.dialogue);
+
+                DialogueController.instance.SpawnDialogue(data.dialogue, Vector2.zero);
                 break;
             case GodDialogueTrigger.Hurt:
             case GodDialogueTrigger.SeeEnemy:
@@ -65,7 +66,7 @@ public class God_Card_SO : Card_SO
                 {
                     break;
                 }
-                DialogueController.instance.SpawnDialogue(data.dialogue);
+                DialogueController.instance.SpawnDialogue(data.dialogue, Vector2.zero);
                 Debug.Log("Dialogue source: " + damageSourceName + "(IMonster), type: " + trigger);                
                 break;
             case GodDialogueTrigger.EnemyKill:

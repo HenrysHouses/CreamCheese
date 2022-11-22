@@ -173,7 +173,7 @@ public class God_Behaviour : Card_Behaviour
                         break;
                 }
                 Debug.Log("Dialogue source: " + source);
-                DialogueController.instance.SpawnDialogue(data.dialogue);
+                DialogueController.instance.SpawnDialogue(data.dialogue, Vector2.zero);
                 break;
             default:
                 throw new NotImplementedException();
