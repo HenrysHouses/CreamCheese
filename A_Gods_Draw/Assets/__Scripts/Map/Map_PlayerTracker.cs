@@ -97,7 +97,7 @@ namespace Map
                     break;
                 case NodeType.RandomReward:
                     sceneTransition.TransitionScene(false, "CardReward");
-                    Debug.Log(CardType.None);
+                    Debug.Log(GameManager.instance.nextRewardType);
                     Debug.LogWarning("Should card type be none?, fix card type");
                     break;
                 case NodeType.AttackReward:
