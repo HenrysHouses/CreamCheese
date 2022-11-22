@@ -15,13 +15,17 @@ MonoBehaviour:
   type: 2
   image: {fileID: 21300000, guid: 1c04ce86249cdc943834c9c25f9f11ea, type: 3}
   cardName: Sigrdrifa
-  description: "Sigurd Fafnir\u2019s Bane found atop the mountain Hindafjall a woman,
-    sleeping, in full armor. He awoke her, and as a reward she gave him a mead of
-    memory, mystic wisdom and prophecies of the future.\r\n"
+  description: 'Buff target card for X.
+
+    Heals for X
+
+'
   cardStrenghIndex: 0
   targetActions:
   - numOfTargets: 1
     targetActions:
     - actionEnum: 2
+      actionStrength: 2
+    - actionEnum: 7
       actionStrength: 2
   correspondingGod: 0

@@ -11,7 +11,7 @@ public class CameraMovement : MonoBehaviour
     // private TurnManager TM;
     private bool attack, buff, godcard, shield;
     private GameObject battlemusicCheck;
-    public GameObject menuMusicCheck,battleMusicG;
+    public GameObject menuMusicCheck, battleMusicG;
     [SerializeField] EventReference cameraSound;
     // Start is called before the first frame update
     void Start()
@@ -50,7 +50,7 @@ public class CameraMovement : MonoBehaviour
         {
             menuMusicCheck.SetActive(true);
             battleMusicG.SetActive(false);
-            
+
 
         }
         else
@@ -144,14 +144,23 @@ public class CameraMovement : MonoBehaviour
             //SoundPlayer.PlaySound(cameraSound, gameObject);
         }
 
+        else if (MultiSceneLoader.getLoadedCollectionTitle.Equals("CardReward"))
+        {
+            anim.SetBool("MapCamera",false);
+            anim.SetBool("Up", true);
+            //SoundPlayer.PlaySound(cameraSound, gameObject);
+        }
+
         else if (MultiSceneLoader.getLoadedCollectionTitle.Equals("HowToPlay"))
         {
+            anim.SetBool("Up",false);
             anim.SetBool("MapCamera", true);
             //SoundPlayer.PlaySound(cameraSound, gameObject);
         }
         else
         {
             anim.SetBool("MapCamera", false);
+            anim.SetBool("Up",false);
         }
 
     }

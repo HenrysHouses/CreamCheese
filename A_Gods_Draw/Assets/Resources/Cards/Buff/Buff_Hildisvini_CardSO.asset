@@ -15,13 +15,17 @@ MonoBehaviour:
   type: 2
   image: {fileID: 21300000, guid: 3dd5c6c5659f7554e88cf6b4d15525b8, type: 3}
   cardName: Hildisvini
-  description: "After Turn, draw 1 extra card\n\nFreyja\u2018s servant, Ottar, could
-    take the form of a boar, and was then named Hildisvini, meaning Battle-Pig. He
-    was big and had golden bristles, and Freyja sometimes rode him like a steed."
+  description: 'Buff target card for X
+
+    Draw 1 next turn'
   cardStrenghIndex: 0
   targetActions:
   - numOfTargets: 1
     targetActions:
     - actionEnum: 2
       actionStrength: 2
+  - numOfTargets: 1
+    targetActions:
+    - actionEnum: 8
+      actionStrength: 1
   correspondingGod: 0

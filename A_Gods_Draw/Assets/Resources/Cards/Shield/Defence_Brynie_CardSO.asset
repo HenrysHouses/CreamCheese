@@ -14,14 +14,16 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   type: 1
   image: {fileID: 21300000, guid: a2b8ff38be96d8d41a1c9a78133bb083, type: 3}
-  cardName: Brynie
-  description: 'Basic armor of warriors of the Viking Era.
+  cardName: Byrnie
+  description: 'Blocks for X and draw one next turn
 
 '
   cardStrenghIndex: 0
   targetActions:
   - numOfTargets: 1
     targetActions:
-    - actionEnum: 0
+    - actionEnum: 1
+      actionStrength: 2
+    - actionEnum: 8
       actionStrength: 2
   correspondingGod: 0

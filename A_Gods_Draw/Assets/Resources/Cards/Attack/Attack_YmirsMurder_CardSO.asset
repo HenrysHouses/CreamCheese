@@ -15,9 +15,12 @@ MonoBehaviour:
   type: 0
   image: {fileID: 21300000, guid: dd89233fc597d4042b14fdc3c4351821, type: 3}
   cardName: "Ymir\u2018s Murder"
-  description: 'Ymir was the first of the Jotnar. Odin and his brothers, Vili and
-    Ve, murdered him and used his flesh to create the earth, bones for the mountains
-    and everything else for the rest of the world.
+  description: 'Deals X DMG to selected enemy.
+
+    Has Storr effect
+
+    (takes
+    one extra slot, cannot be played if only one slot avavible)
 
 
 '
@@ -26,7 +29,7 @@ MonoBehaviour:
   - numOfTargets: 1
     targetActions:
     - actionEnum: 0
-      actionStrength: 4
+      actionStrength: 6
     - actionEnum: 5
       actionStrength: 1
   correspondingGod: 0
