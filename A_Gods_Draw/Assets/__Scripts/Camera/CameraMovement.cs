@@ -140,6 +140,7 @@ public class CameraMovement : MonoBehaviour
         // Map Scene View
         if (MultiSceneLoader.getLoadedCollectionTitle.Equals("Map"))
         {
+            anim.SetBool("Up", false);
             anim.SetBool("MapCamera", true);
             //SoundPlayer.PlaySound(cameraSound, gameObject);
         }
