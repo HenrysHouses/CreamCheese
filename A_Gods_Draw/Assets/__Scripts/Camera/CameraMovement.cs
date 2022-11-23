@@ -157,10 +157,10 @@ public class CameraMovement : MonoBehaviour
             anim.SetBool("MapCamera", true);
             //SoundPlayer.PlaySound(cameraSound, gameObject);
         }
-        else
+        else 
         {
             anim.SetBool("MapCamera", false);
-            anim.SetBool("Up",false);
+            
         }
 
     }
