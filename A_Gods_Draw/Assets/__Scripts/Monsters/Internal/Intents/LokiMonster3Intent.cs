@@ -8,8 +8,8 @@ public class LokiMonster3Intent : Intent
     AttackPlayerAction attackPlayer;
     public LokiMonster3Intent()
     {
-        attackGod = new(4, 8);
-        attackPlayer = new(4, 8);
+        attackGod = new(5, 8);
+        attackPlayer = new(5, 8);
     }
 
     public override void DecideIntent(BoardStateController board)

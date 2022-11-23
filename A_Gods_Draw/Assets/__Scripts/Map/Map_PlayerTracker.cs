@@ -81,6 +81,7 @@ namespace Map
         {
             // Debug.Log("Node: " + mapNode.Node.blueprintName + " of type " + mapNode.Node.nodeType);
             GameManager.instance.nextRewardType = mapNode.Node.nodeType;
+            
 
             switch (mapNode.Node.nodeType)
             {

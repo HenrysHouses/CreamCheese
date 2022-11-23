@@ -10,7 +10,7 @@ public class LokiMonter1Intent : Intent
     public LokiMonter1Intent()
     {
         attackGod = new(1, 3);
-        attackPlayer = new(1, 3);
+        attackPlayer = new(3, 6);
         defend = new(2, 2);
     }
 

@@ -8,8 +8,8 @@ public class LokiMonster2Intent : Intent
 
     public LokiMonster2Intent()
     {
-        Actions.Add(new AttackGodAction(2, 4));
-        Actions.Add(new AttackPlayerAction(2, 4));
+        Actions.Add(new AttackGodAction(3, 5));
+        Actions.Add(new AttackPlayerAction(3, 5));
         Actions.Add(new BuffAttackersAction(2, 2));
     }
 
