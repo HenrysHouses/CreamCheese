@@ -96,11 +96,11 @@ namespace Map
                 case NodeType.RestPlace:
                     sceneTransition.TransitionScene(false, "Combat");
                     break;
-                case NodeType.RandomReward:
-                    sceneTransition.TransitionScene(false, "CardReward");
-                    Debug.Log(GameManager.instance.nextRewardType);
-                    Debug.LogWarning("Should card type be none?, fix card type");
-                    break;
+                //case NodeType.RandomReward:
+                //    sceneTransition.TransitionScene(false, "CardReward");
+                //    Debug.Log(GameManager.instance.nextRewardType);
+                //    Debug.LogWarning("Should card type be none?, fix card type");
+                //    break;
                 case NodeType.AttackReward:
                     sceneTransition.TransitionScene(false, "CardReward");
                     Debug.Log(CardType.Attack);
