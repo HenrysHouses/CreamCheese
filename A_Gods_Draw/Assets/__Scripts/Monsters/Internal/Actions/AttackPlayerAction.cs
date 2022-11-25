@@ -7,7 +7,7 @@ public class AttackPlayerAction : Action
     public AttackPlayerAction(int _min, int _max) : base(_min, _max)
     {
         ActionID = (int)EnemyIntent.AttackPlayer;
-        actionIcon = Resources.Load<Sprite>("EnemyData/Icons/39");
+        actionIcon = Resources.Load<Sprite>("EnemyData/Icons/Icon_Sword_IMG_v1");
     }
 
     public override void Execute(BoardStateController BoardStateController, int strengh, UnityEngine.Object source)

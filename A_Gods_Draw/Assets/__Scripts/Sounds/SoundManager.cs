@@ -43,9 +43,10 @@ public static class SoundPlayer
         }
         else
         {
-            Debug.Log(parameterID.Value);
-            temperaryEvent.start();
+          //  Debug.LogError("HealthTestName: " + parameterID.Name);
+          //  Debug.LogError("HealthTestValue: " + parameterID.Value);
             temperaryEvent.setParameterByName(parameterID.Name, parameterID.Value);
+            temperaryEvent.start();
         }
     }
 

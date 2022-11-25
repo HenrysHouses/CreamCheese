@@ -7,7 +7,7 @@ public class BuffAttackersAction : Action
     public BuffAttackersAction(int _min, int _max) : base(_min, _max)
     {
         ActionID = (int)EnemyIntent.BuffAttackers;
-        actionIcon = Resources.Load<Sprite>("EnemyData/Icons/32");
+        actionIcon = Resources.Load<Sprite>("EnemyData/Icons/Icon_Buff_IMG_v7");
     }
 
     public override void Execute(BoardStateController BoardStateController, int strengh, UnityEngine.Object source)

@@ -147,22 +147,24 @@ public class CameraMovement : MonoBehaviour
 
         else if (MultiSceneLoader.getLoadedCollectionTitle.Equals("CardReward"))
         {
-            anim.SetBool("MapCamera",false);
+            anim.SetBool("MapCamera", false);
             anim.SetBool("Up", true);
             //SoundPlayer.PlaySound(cameraSound, gameObject);
         }
 
         else if (MultiSceneLoader.getLoadedCollectionTitle.Equals("HowToPlay"))
         {
-            anim.SetBool("Up",false);
-            anim.SetBool("MapCamera", true);
+            anim.SetBool("Up", false);
+            anim.SetBool("HowToPlay", true);
             //SoundPlayer.PlaySound(cameraSound, gameObject);
         }
-        else 
+        else
         {
+            anim.SetBool("HowToPlay", false);
             anim.SetBool("MapCamera", false);
-            
+
         }
+
 
     }
 }
