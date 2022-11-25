@@ -52,6 +52,8 @@ public class GameManager : MonoBehaviour
     {
         shouldGenerateNewMap = true;
         PlayerTracker.resetHealth();
+        PlayerTracker.CurrentRunes.Clear();
+        Debug.Log("needs to reset the dial position");
         CardQuantityContainer newSave = new CardQuantityContainer();
         GameSaver.SaveData(newSave);
         loadGameData();

@@ -9,7 +9,8 @@ public class Card_Selector : MonoBehaviour
     private Animator anim;
     [SerializeField] EventReference cardflip;
     public ParamRef pp;
-    
+    public Vector3 targetHandPos;
+    public Vector3 targetHandLocalPos;
     
     public bool holdingOver;
     
@@ -37,19 +38,31 @@ public class Card_Selector : MonoBehaviour
 
     }
 
+    public void setHandPos(Vector3 localPos)
+    {
+        transform.parent.localPosition = localPos;
+        targetHandPos = transform.parent.position;
+        targetHandLocalPos = localPos;
+    }
     
 
     public void OnMouseEnter()
     {
-        holdingOver = true;
+        if(!this.enabled)
+            return;
         
-        SoundPlayer.PlaySound(cardflip, gameObject);
-        anim.SetBool("SelectedCard", true);
-       // Debug.Log("Called");
+            holdingOver = true;
+            
+            SoundPlayer.PlaySound(cardflip, gameObject);
+            anim.SetBool("SelectedCard", true);
+            // Debug.Log("Called");
     }
 
     public void OnMouseExit()
     {
+        if(!this.enabled)
+            return;
+
         holdingOver = false;
         //SoundManager.Instance.StopSound(cardflip,gameObject);
         //anim.SetBool("SelectedCard", false);
@@ -58,11 +71,38 @@ public class Card_Selector : MonoBehaviour
 
     private void OnMouseUp()
     {
+        if(!this.enabled)
+            return;
+
         gameObject.GetComponentInChildren<Card_Behaviour>().OnBeingClicked();
     }
 
 
+    public void disableSelection()
+    {
+        anim.enabled = false;
+        this.enabled = false;
+    }
 
+    public IEnumerator enableSelection(Player_Hand hand)
+    {
+        anim.enabled = true;
+        bool isAnimating = true;
+        float t = 0;
+        holdingOver = false;
+        
+        while (isAnimating)
+        {
+            t += Time.deltaTime;
+            if(t >= anim.GetCurrentAnimatorStateInfo(0).length)
+            {
+                isAnimating = false;
+            }
+            yield return new WaitForEndOfFrame();
+        }
+        this.enabled = true;
+        hand.UpdateCards();
+    }
 
 
 }

@@ -8,7 +8,7 @@ using FMODUnity;
 public abstract class Card_Behaviour : BoardElement
 {
     IEnumerator cor;
-
+    [field:SerializeField] public Transform ParentTransform {get; private set;}
     protected Card_SO card_so;
     public Card_SO CardSO => card_so;
     public string Name => card_so.cardName;
@@ -29,6 +29,12 @@ public abstract class Card_Behaviour : BoardElement
     // {
     //     this.manager = manager;
     // }
+
+    private void Awake() 
+    {
+        ParentTransform = transform.parent.parent;    
+    }
+
     public void SetController(TurnController cont)
     {
         onPlayerHand = true;

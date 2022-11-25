@@ -13,7 +13,12 @@ public class CardPlayer : MonoBehaviour
     [SerializeField] LayerMask cardLayer;
     [SerializeField] LayerMask laneLayer;
 
+    bool shouldCancelSelection;
     Card_Behaviour _selectedCard;
+    Card_Selector _currSelectedCard;
+    [SerializeField] PathController path;
+    [SerializeField] float cardSelectSpeed;
+    float SelectedCardT = 0;
 
     [HideInInspector]
     public bool playedSFX;
@@ -52,15 +57,59 @@ public class CardPlayer : MonoBehaviour
             if (_selectedCard is null)
             {
                 _selectedCard = selectCard();
+                if(_selectedCard is null)
+                    return;
+
+                SelectedCardT = 0;
+                _currSelectedCard = _selectedCard.GetComponentInParent<Card_Selector>();
+                path.controlPoints[0].position = _selectedCard.ParentTransform.position;
+                path.recalculatePath();
+                _currSelectedCard.disableSelection();
+                shouldCancelSelection = false;
                 return;
             }
             //if (_selectCard.MissedClick())
             if (_selectedCard.CancelSelection())
             {
-                _selectedCard = null;
+                shouldCancelSelection = true;
+                path.controlPoints[0].position = _currSelectedCard.targetHandPos;
                 Debug.Log("unselected");
             }
         }
+
+        if(shouldCancelSelection)
+        {
+            OrientedPoint OP = path.GetEvenPathOP(SelectedCardT);
+            _selectedCard.ParentTransform.position = OP.pos;
+            SelectedCardT = Mathf.Clamp01(SelectedCardT - Time.deltaTime * cardSelectSpeed);
+
+            if(SelectedCardT == 0)
+            {
+                Debug.Log(OP.pos + " - " + _selectedCard.ParentTransform.position);
+                removeSelection();
+            }
+            return;
+        }
+
+
+        if(_selectedCard)
+        {
+            _currSelectedCard.holdingOver = true;
+            OrientedPoint OP = path.GetEvenPathOP(SelectedCardT);
+            _selectedCard.ParentTransform.position = OP.pos;
+            SelectedCardT = Mathf.Clamp01(SelectedCardT + Time.deltaTime * cardSelectSpeed);
+        }
+
+    }
+
+    void removeSelection()
+    {
+        shouldCancelSelection = false;
+        _selectedCard = null;
+        
+        if(_currSelectedCard)
+            StartCoroutine(_currSelectedCard.enableSelection(_Hand));
+        _currSelectedCard = null;
     }
 
     private void setEnemyHighlight()

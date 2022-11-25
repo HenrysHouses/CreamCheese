@@ -16,7 +16,6 @@ public class Player_Hand : MonoBehaviour
 
     private float cardRotation = 10; 
     public List<CardHandAnim> CardSelectionAnimators = new List<CardHandAnim>();
-
     public GameObject CardHandPrefab;
     public class CardHandAnim
     {
@@ -109,7 +108,7 @@ public class Player_Hand : MonoBehaviour
         for (int i = 0; i < CardSelectionAnimators.Count; i++)
         {
             var firstCardPos = ((CardSelectionAnimators.Count) * -0.05f);
-            CardSelectionAnimators[i].Selector.transform.parent.localPosition = new Vector3(firstCardPos + (0.1f * i), 0, i * 0.005f);
+            CardSelectionAnimators[i].Selector.setHandPos(new Vector3(firstCardPos + (0.1f * i), 0, i * 0.005f));
             CardSelectionAnimators[i].Selector.transform.rotation = Quaternion.Euler(0, 0, (cardRotation * ((count - 1) / 2f)) - cardRotation * i);
         }
         
