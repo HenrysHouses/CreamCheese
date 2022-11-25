@@ -10,18 +10,24 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 5a3a49401d7d7994699d21f4777abe3d, type: 3}
-  m_Name: Special_HymirsCauldron_CardSO
+  m_Name: Buff_HymirsCauldron_CardSO
   m_EditorClassIdentifier: 
   type: 2
   image: {fileID: 21300000, guid: 88b568f8f55f29c4fbe42778a8e37edd, type: 3}
   cardName: "Hymir\u2018s Cauldron"
-  description: "The Aesir wanted to host a feast, and needed a lot of mead for it.
-    Tyr and Thor traveled to Hymir\u2019s kingdom, and won his challenge, and as
-    a reward took a cauldron that's a mile deep home to the Aesir.\r\n"
+  description: 'Buff target for x, heals for 4
+
+    If Tyr is in play
+
+'
   cardStrenghIndex: 0
   targetActions:
   - numOfTargets: 1
     targetActions:
     - actionEnum: 2
-      actionStrength: 2
+      actionStrength: 1
+  - numOfTargets: 1
+    targetActions:
+    - actionEnum: 7
+      actionStrength: 3
   correspondingGod: 1
