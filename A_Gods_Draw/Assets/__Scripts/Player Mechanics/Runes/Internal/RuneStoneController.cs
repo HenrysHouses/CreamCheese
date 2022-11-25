@@ -8,13 +8,6 @@ public class RuneStoneController : MonoBehaviour
     public List<RuneData> runes;
     [SerializeField] runeRenderer[] renderers;
 
-    void Start()
-    {
-        runes.Clear();
-        // ChaosRune rune = new ChaosRune(1);
-        // playerState.addRune(rune);
-    }
-
     void Update()
     {
         updateRunes(playerState);
