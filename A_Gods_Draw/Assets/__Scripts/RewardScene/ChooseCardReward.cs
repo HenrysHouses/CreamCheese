@@ -15,7 +15,7 @@ public enum CardType
     God,
     None
 }
-public class ChoosingReward : MonoBehaviour
+public class ChooseCardReward : MonoBehaviour
 {
     [SerializeField] DeckManager_SO deckManager;
     
@@ -120,7 +120,7 @@ public class ChoosingReward : MonoBehaviour
                 }
             }
         }
-
+        Debug.LogError("Could not select rune");
         return -1;
     }
 }
