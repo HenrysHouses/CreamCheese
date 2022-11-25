@@ -80,6 +80,13 @@ public class CardPlayer : MonoBehaviour
         if(shouldCancelSelection)
         {
             OrientedPoint OP = path.GetEvenPathOP(SelectedCardT);
+            
+            if(!_selectedCard)
+            {
+                removeSelection();
+                return;
+            }
+
             _selectedCard.ParentTransform.position = OP.pos;
             SelectedCardT = Mathf.Clamp01(SelectedCardT - Time.deltaTime * cardSelectSpeed);
 
