@@ -58,7 +58,6 @@ public class ChooseCardReward : MonoBehaviour
     /// </summary>
     public void GettingType(NodeType nodeType)
     {
-
         switch (nodeType)
         {
             case NodeType.Reward:

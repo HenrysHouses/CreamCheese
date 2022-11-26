@@ -18,6 +18,7 @@ namespace Map
         BuffReward,
         Elite,
         RestPlace,
+        RuneReward
     }
 }
 

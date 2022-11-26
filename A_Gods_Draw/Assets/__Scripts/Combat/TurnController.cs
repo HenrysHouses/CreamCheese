@@ -43,7 +43,7 @@ public class TurnController : CombatFSM
     Card_Behaviour selectedCard;
 
     //particle effect
-    [SerializeField] SlashParticles slashParticles;
+    [SerializeField] GameObject slashParticles;
 
     protected override void Initialize()
     {

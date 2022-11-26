@@ -117,6 +117,10 @@ namespace Map
                     sceneTransition.TransitionScene(false, "CardReward");
                     Debug.Log(CardType.God);
                     break;
+                case NodeType.RuneReward:
+                    sceneTransition.TransitionScene(false, "RuneReward");
+                    Debug.Log("rune scene");
+                    break;
                 case NodeType.Boss:
                     sceneTransition.TransitionScene(false, "Combat");
                     GameManager.instance.nextCombatType = EncounterDifficulty.Boss;
