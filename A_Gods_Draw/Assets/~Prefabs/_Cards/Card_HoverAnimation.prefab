@@ -15,6 +15,7 @@ GameObject:
   - component: {fileID: 2808737037390992811}
   - component: {fileID: 7422019885416029419}
   - component: {fileID: 836989337843942036}
+  - component: {fileID: 6793149742098705319}
   m_Layer: 6
   m_Name: Card_HoverAnimation
   m_TagString: Untagged
@@ -73,6 +74,8 @@ MonoBehaviour:
   pp:
     Name: Card Effects
     Value: 0
+  targetHandPos: {x: 0, y: 0, z: 0}
+  targetHandLocalPos: {x: 0, y: 0, z: 0}
   holdingOver: 0
 --- !u!95 &8501157556123439535
 Animator:
@@ -173,6 +176,19 @@ MonoBehaviour:
   ui: {fileID: 8623900760853474544}
   background: {fileID: 5164336368999390812}
   isMade: 0
+--- !u!114 &6793149742098705319
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4233728436802522217}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d4106f9d63829314a93f9381706f85e4, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  description: {fileID: 8623900760853474545}
 --- !u!1001 &2372912659449434823
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -522,3 +538,14 @@ GameObject:
   m_CorrespondingSourceObject: {fileID: 6287033262282292791, guid: 8d1e21834bc021b42841bee8fd5d71cc, type: 3}
   m_PrefabInstance: {fileID: 2372912659449434823}
   m_PrefabAsset: {fileID: 0}
+--- !u!114 &8623900760853474545 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 6287033262282292790, guid: 8d1e21834bc021b42841bee8fd5d71cc, type: 3}
+  m_PrefabInstance: {fileID: 2372912659449434823}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8623900760853474544}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5f7201a12d95ffc409449d95f23cf332, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
