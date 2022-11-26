@@ -182,8 +182,9 @@ public class CardPlayer : MonoBehaviour
         if (Physics.Raycast(ray, out RaycastHit hit, 1000000, cardLayer))
         {
             Card_Behaviour _Loader = hit.collider.GetComponentInChildren<Card_Behaviour>();
-            if (_Loader.IsOnHand())
-                return _Loader;
+            if (_Loader)
+                if (_Loader.IsOnHand())
+                    return _Loader;
         }
         return null;
     }

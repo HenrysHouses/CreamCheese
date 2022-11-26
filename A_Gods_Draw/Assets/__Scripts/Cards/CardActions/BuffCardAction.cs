@@ -42,12 +42,12 @@ public class BuffCardAction : CardAction
             SpawnCoins(strengh, card);
         }
         ResetCamera();
-
-        Object.Destroy(current.transform.parent.parent.gameObject);
-        current.RemoveFromHand();
     }
     public override void OnLanePlaced(BoardStateController board)
     {
+        board.RemoveFromLane(current);
+        Object.Destroy(current.transform.parent.parent.gameObject);
+        current.RemoveFromHand();
     }
 
     public override void Reset(BoardStateController board)

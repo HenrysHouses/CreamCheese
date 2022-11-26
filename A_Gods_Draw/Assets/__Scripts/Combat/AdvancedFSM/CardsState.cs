@@ -43,6 +43,11 @@ public class CardsState : CombatFSMState
             else
             {
                 Controller.GetBoard().playedCards.Clear();
+                foreach (BoardElement thing in Controller.GetBoard().thingsInLane)
+                {
+                    if (thing)
+                        Object.Destroy(thing.gameObject);
+                }
                 Controller.GetBoard().thingsInLane.Clear();
                 readyToMoveOn = true;
             }

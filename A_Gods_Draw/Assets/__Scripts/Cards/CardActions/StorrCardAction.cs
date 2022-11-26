@@ -20,13 +20,13 @@ public class StorrCardAction : CardAction
     public override IEnumerator OnAction(BoardStateController board)
     {
         isReady = false;
+        //Object.Destroy(thing);
         yield return new WaitUntil(() => true);
         isReady = true;
     }
 
     public override void Reset(BoardStateController board)
     {
-        Object.Destroy(thing);
         thing = null;
         isReady = false;
         board.SetClickable(3, false);

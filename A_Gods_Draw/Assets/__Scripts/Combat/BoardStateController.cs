@@ -230,4 +230,15 @@ public class BoardStateController : MonoBehaviour
             }
         }
     }
+
+    internal void RemoveFromLane(BoardElement current)
+    {
+        thingsInLane.Remove(current);
+
+        NonGod_Behaviour currentCard = current as NonGod_Behaviour;
+        if (currentCard)
+        {
+            playedCards.Remove(currentCard);
+        }
+    }
 }
