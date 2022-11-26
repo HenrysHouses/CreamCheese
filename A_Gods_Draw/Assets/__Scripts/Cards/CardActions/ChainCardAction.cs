@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class ChainCardAction : CardAction
 {
@@ -22,7 +23,7 @@ public class ChainCardAction : CardAction
             if (monster)
             {
                 monster.GetIntent().CancelIntent();
-                monster.UpdateUI();
+                monster.SetOverlay(Resources.Load<Sprite>("ImageResources/Icon_Chain_v1"));
             }
         }
 

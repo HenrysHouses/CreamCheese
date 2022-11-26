@@ -14,6 +14,7 @@ public class DefendAction : Action
 
     public override void Execute(BoardStateController BoardStateController, int strengh, UnityEngine.Object source)
     {
-        toDefend.Defend(strengh);
+        if (toDefend)
+            toDefend.Defend(strengh);
     }
 }

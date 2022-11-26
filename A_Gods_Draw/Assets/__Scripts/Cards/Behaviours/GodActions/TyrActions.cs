@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class TyrActions : GodCardAction
 {
@@ -14,7 +15,7 @@ public class TyrActions : GodCardAction
         foreach (IMonster monster in board.Enemies)
         {
             monster.GetIntent().CancelIntent();
-            monster.UpdateUI();
+            monster.SetOverlay(Resources.Load<Sprite>("ImageResources/Icon_Chain_v1"));
         }
     }
 }

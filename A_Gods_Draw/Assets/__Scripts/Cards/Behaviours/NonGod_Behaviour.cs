@@ -191,7 +191,7 @@ public class NonGod_Behaviour : Card_Behaviour
                     RemoveGodBuff();
                     ForceCancelSelection();
                     StopAllCoroutines();
-                    yield return null;
+                    yield break;
                 }
 
                 act.SetCamera();
@@ -204,6 +204,7 @@ public class NonGod_Behaviour : Card_Behaviour
                 {
                     act.AddTarget(target);
                 }
+                target = null;
             }
             foreach (var act in actionGroup.actions)
             {

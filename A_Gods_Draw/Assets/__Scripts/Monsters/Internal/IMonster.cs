@@ -31,7 +31,7 @@ public abstract class IMonster : BoardElement
     [SerializeField]
     Image image;
     [SerializeField]
-    Text strengh;
+    TMP_Text strengh;
     [SerializeField]
     TMP_Text healthTxt;
     [SerializeField]
@@ -39,6 +39,8 @@ public abstract class IMonster : BoardElement
 
     [SerializeField]
     Sprite attackIcon;
+
+    Image overlay;
 
     [SerializeField]
     Sprite abilityIcon;
@@ -60,6 +62,9 @@ public abstract class IMonster : BoardElement
         strengh.enabled = false;
 
         defendTxt.enabled = false;
+
+        overlay = gameObject.GetComponentInChildren<Canvas>().gameObject.AddComponent<Image>();
+        overlay.enabled = false;
     }
 
     private void Update() 
@@ -117,6 +122,13 @@ public abstract class IMonster : BoardElement
         enemyIntent.LateDecideIntent(board);
 
         UpdateUI();
+        overlay.enabled = false;
+    }
+
+    public void SetOverlay(Sprite sprite)
+    {
+        overlay.sprite = sprite;
+        overlay.enabled = true;
     }
 
     public void Weaken(int amount)
@@ -126,10 +138,13 @@ public abstract class IMonster : BoardElement
 
     public void Defend(int amount)
     {
-        defendedFor += amount;
-        image.color = Color.cyan;
-        // defendTxt.text = defendedFor.ToString(); // ! was trying to access after being destroyed so i commented it out
-        // defendTxt.enabled = true;
+        if (gameObject)
+        {
+            defendedFor += amount;
+            image.color = Color.cyan;
+            defendTxt.text = defendedFor.ToString(); // ! was trying to access after being destroyed so i commented it out
+            defendTxt.enabled = true;
+        }
     }
 
     public void DeBuff(int amount)
