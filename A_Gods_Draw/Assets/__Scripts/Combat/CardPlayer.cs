@@ -132,7 +132,7 @@ public class CardPlayer : MonoBehaviour
 
             if (!playedSFX)
             {
-                SoundPlayer.PlaySound(monster.hoverOver_SFX, gameObject);
+                //SoundPlayer.PlaySound(monster.hoverOver_SFX, gameObject);
                 playedSFX = true;
 
             }

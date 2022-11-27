@@ -161,7 +161,7 @@ RectTransform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 3021750004847524009}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: -0}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -170,7 +170,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 1, y: 0}
   m_AnchorMax: {x: 1, y: 0}
-  m_AnchoredPosition: {x: -0.5, y: 0.25}
+  m_AnchoredPosition: {x: -1.1169997, y: 0.25}
   m_SizeDelta: {x: 0.5, y: 0.5}
   m_Pivot: {x: 1, y: 0}
 --- !u!222 &6338759154967579769
@@ -650,7 +650,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   clickable: 0
   deathParticleVFX: {fileID: 2505349679200391838, guid: 05a4cc1903228714997c82ae6e193f32, type: 3}
-  slashParticleVFX: {fileID: 2604885081968657841, guid: 68774ee4712f84144802b43008224235, type: 3}
   MonsterRenderers:
   - {fileID: 4340402677366224029}
   - {fileID: 7062810095953717271}
@@ -677,11 +676,11 @@ MonoBehaviour:
     Path: event:/Combat/Enemy/EnemyKilled
   hoverOver_SFX:
     Guid:
-      Data1: 2101580348
-      Data2: 1101359871
-      Data3: -92037745
-      Data4: -1129825697
-    Path: event:/UI/HoverOverAnything
+      Data1: 1925774154
+      Data2: 1228889240
+      Data3: -1063256898
+      Data4: 1449369350
+    Path: event:/Card Effects/Card Scrolling
   image: {fileID: 4234167644619405970}
   strengh: {fileID: 8112181742564616489}
   healthTxt: {fileID: 6382542219921771750}
@@ -724,7 +723,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 0, y: 0}
-  m_AnchoredPosition: {x: 0.25, y: 0.25}
+  m_AnchoredPosition: {x: 0.62, y: 0.25}
   m_SizeDelta: {x: 0.5, y: 0.5}
   m_Pivot: {x: 0, y: 0}
 --- !u!222 &7827218219675705258
