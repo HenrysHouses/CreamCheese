@@ -79,7 +79,7 @@ public class BoardStateController : MonoBehaviour
 
                 break;
             case 3:
-                foreach (IMonster ene in Enemies)
+                foreach (IMonster ene in getLivingEnemies())
                 {
                     ene.clickable = clickable;
                 }
@@ -140,7 +140,6 @@ public class BoardStateController : MonoBehaviour
 
     public void placeCardOnLane(Card_Behaviour card)
     {
-
         Transform targetlane = null;
 
         if (card is God_Behaviour)
@@ -150,9 +149,10 @@ public class BoardStateController : MonoBehaviour
         }
         else
         {
+            if (thingsInLane.Count >= 4)
+                return;
             targetlane = _Lane[thingsInLane.Count];
             SoundPlayer.PlaySound(placeCard_SFX, gameObject);
-
         }
 
         if (_GodLane.Equals(targetlane))

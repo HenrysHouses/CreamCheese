@@ -9,8 +9,16 @@ public class StorrCardAction : CardAction
 
     public override void OnLanePlaced(BoardStateController board)
     {
-        thing = Object.Instantiate(Resources.Load<GameObject>("StorrThing"));
-        board.placeThingOnLane(thing.GetComponent<BoardElement>());
+        for (int i = 0; i < strengh; i++)
+        {
+            thing = Object.Instantiate(Resources.Load<GameObject>("StorrThing"));
+            board.placeThingOnLane(thing.GetComponent<BoardElement>());
+        }
+    }
+
+    protected override void UpdateNeededLanes(NonGod_Behaviour beh)
+    {
+        beh.neededLanes += strengh;
     }
 
     public override void SetClickableTargets(BoardStateController board, bool to = true)

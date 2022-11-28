@@ -51,11 +51,19 @@ public abstract class CardAction : Action
     public void SetBehaviour(NonGod_Behaviour beh)
     {
         current = beh;
+        UpdateNeededLanes(beh);
+    }
+
+    protected virtual void UpdateNeededLanes(NonGod_Behaviour beh)
+    {
     }
 
     public override void Execute(BoardStateController board, int strengh, UnityEngine.Object source) { }
 
-    public virtual void OnLanePlaced(BoardStateController board) { }
+    public virtual void OnLanePlaced(BoardStateController board)
+    {
+
+    }
 
     public abstract IEnumerator OnAction(BoardStateController board);
 

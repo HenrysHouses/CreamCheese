@@ -330,6 +330,11 @@ public class TurnController : CombatFSM
         selectedCard = sel;
     }
 
+    public void PlacedCard()
+    {
+        selectedCard = null;
+    }
+
     public static BoardElement PlayerClick()
     {
         LayerMask layerMask = LayerMask.GetMask("Board Element", "Card");

@@ -16,13 +16,10 @@ public class Card_Selector : MonoBehaviour
     
 
      private void Start()
-    {
+     {
         CB = gameObject.GetComponentInChildren<Card_Behaviour>();
         anim = GetComponent<Animator>();
-        
-      
-
-    }
+     }
 
      private void Update() 
      {
@@ -74,7 +71,7 @@ public class Card_Selector : MonoBehaviour
         if(!this.enabled)
             return;
 
-        gameObject.GetComponentInChildren<Card_Behaviour>().OnBeingClicked();
+        CB.OnBeingClicked();
     }
 
 

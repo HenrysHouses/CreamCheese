@@ -5,8 +5,6 @@ using UnityEngine.UI;
 
 public class ChainCardAction : CardAction
 {
-    public new List<IMonster> targets = new();
-    private int totalTargets = 1;
 
     public ChainCardAction(int strengh) : base(strengh, strengh) { }
 

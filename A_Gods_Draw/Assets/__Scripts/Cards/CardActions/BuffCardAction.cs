@@ -50,6 +50,12 @@ public class BuffCardAction : CardAction
         current.RemoveFromHand();
     }
 
+    protected override void UpdateNeededLanes(NonGod_Behaviour beh)
+    {
+        if (beh.neededLanes > 0)
+            beh.neededLanes--;
+    }
+
     public override void Reset(BoardStateController board)
     {
         targets.Clear();

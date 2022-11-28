@@ -22,6 +22,7 @@ public class CardPlayer : MonoBehaviour
 
     [HideInInspector]
     public bool playedSFX;
+    private bool hasClickedLastFrame;
 
     // Start is called before the first frame update
     void Start()
@@ -54,10 +55,16 @@ public class CardPlayer : MonoBehaviour
 
         if (Input.GetKeyUp(KeyCode.Mouse0))
         {
+            hasClickedLastFrame = true;
+        }
+        if (hasClickedLastFrame)
+        {
+            hasClickedLastFrame = false;
+
             if (_selectedCard is null)
             {
                 _selectedCard = selectCard();
-                if(_selectedCard is null)
+                if (_selectedCard is null)
                     return;
 
                 SelectedCardT = 0;
@@ -68,12 +75,16 @@ public class CardPlayer : MonoBehaviour
                 shouldCancelSelection = false;
                 return;
             }
-            //if (_selectCard.MissedClick())
-            if (_selectedCard.CancelSelection())
+            else
             {
-                shouldCancelSelection = true;
-                path.controlPoints[0].position = _currSelectedCard.targetHandPos;
-                Debug.Log("unselected");
+                if (_selectedCard.ShouldCancelSelection())
+                {
+                    _selectedCard.CancelSelection();
+                    _selectedCard = null;
+                    shouldCancelSelection = true;
+                    path.controlPoints[0].position = _currSelectedCard.targetHandPos;
+                    Debug.Log("unselected");
+                }
             }
         }
 
@@ -183,7 +194,7 @@ public class CardPlayer : MonoBehaviour
         {
             Card_Behaviour _Loader = hit.collider.GetComponentInChildren<Card_Behaviour>();
             if (_Loader)
-                if (_Loader.IsOnHand())
+                if (_Loader.CanBeSelected())
                     return _Loader;
         }
         return null;

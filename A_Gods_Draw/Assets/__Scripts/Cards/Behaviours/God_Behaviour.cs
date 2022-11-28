@@ -68,6 +68,7 @@ public class God_Behaviour : Card_Behaviour
     internal void Buff(NonGod_Behaviour nonGod_Behaviour)
     {
         nonGod_Behaviour.Buff(card_so.strengh, true);
+        nonGod_Behaviour.BuffedByGod();
     }
 
     public void DealDamage(int amount, UnityEngine.Object source)

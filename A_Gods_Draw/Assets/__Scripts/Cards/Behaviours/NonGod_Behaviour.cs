@@ -58,12 +58,17 @@ public class NonGod_Behaviour : Card_Behaviour
     EventReference SoundClick;
 
     bool cardIsReady = false;
+    public int neededLanes = 1;
+
+    bool godBuffed;
+
+    public void BuffedByGod() { godBuffed = true; }
 
     protected new NonGod_Card_SO card_so;
     public new NonGod_Card_SO CardSO => card_so;
 
-    IEnumerator onSelectedRoutine;
-    IEnumerator actionRoutine;
+    Coroutine onSelectedRoutine;
+    Coroutine actionRoutine;
 
     public void Initialize(NonGod_Card_SO card, CardElements elements)
     {
@@ -158,13 +163,14 @@ public class NonGod_Behaviour : Card_Behaviour
     {
         if (onSelectedRoutine == null)
         {
-            if (controller.GetBoard().thingsInLane.Count >= 4 && card_so.type != CardType.Buff)
+            if (!CanBeSelected())
             {
+                CancelSelection();
                 return;
             }
+            hasClickedThisFrame = true;
             TurnController.shouldWaitForAnims = true;
-            onSelectedRoutine = SelectingTargets();
-            StartCoroutine(onSelectedRoutine);
+            onSelectedRoutine = StartCoroutine(SelectingTargets());
         }
     }
 
@@ -177,23 +183,12 @@ public class NonGod_Behaviour : Card_Behaviour
 
     IEnumerator SelectingTargets()
     {
-        //yield return new WaitForSeconds(0.2f);
-
         CheckForGod();
 
         foreach (var actionGroup in actions)
         {
             foreach (var act in actionGroup.actions)
             {
-                if (!act.CanBePlaced(controller.GetBoard()))
-                {
-                    DeSelected();
-                    RemoveGodBuff();
-                    ForceCancelSelection();
-                    StopAllCoroutines();
-                    yield break;
-                }
-
                 act.SetCamera();
                 act.SetClickableTargets(controller.GetBoard(), true);
             }
@@ -234,27 +229,6 @@ public class NonGod_Behaviour : Card_Behaviour
         }
     }
 
-    private void ForceCancelSelection()
-    {
-        base.CancelSelection();
-        if (onSelectedRoutine != null)
-            StopCoroutine(onSelectedRoutine);
-        if (actionRoutine != null)
-            StopCoroutine(actionRoutine);
-        onSelectedRoutine = null;
-        actionRoutine = null;
-
-        RemoveGodBuff();
-
-        foreach (var target in actions)
-        {
-            foreach (var action in target.actions)
-            {
-                action.ResetCamera();
-            }
-        }
-    }
-
     bool hasClickedThisFrame = false;
 
     bool HasClickedTarget()
@@ -263,16 +237,25 @@ public class NonGod_Behaviour : Card_Behaviour
         {
             hasClickedThisFrame = true;
             BoardElement element = TurnController.PlayerClick();
+            Debug.Log(element);
             if (element)
             {
-                Debug.Log(element);
                 target = element;
                 return true;
             }
-            MissClick();
+            else
+            {
+                MissClick();
+                return false;
+            }
         }
         hasClickedThisFrame = false;
         return false;
+    }
+
+    public override bool ShouldCancelSelection()
+    {
+        return this == null || missedClick;
     }
 
     bool AllActionsReady()
@@ -311,42 +294,42 @@ public class NonGod_Behaviour : Card_Behaviour
         TurnController.shouldWaitForAnims = false;
     }
 
-    public override bool CancelSelection()
+    public override void CancelSelection()
     {
-        if (this == null)
-            return true;
+        //if (this == null)
+            //return true;
 
-        if (HasMissedClick())
+        base.CancelSelection();
+        if (onSelectedRoutine != null)
+            StopCoroutine(onSelectedRoutine);
+        if (actionRoutine != null)
+            StopCoroutine(actionRoutine);
+        onSelectedRoutine = null;
+        actionRoutine = null;
+        target = null;
+
+        foreach (var target in actions)
         {
-            base.CancelSelection();
-            if (onSelectedRoutine != null)
-                StopCoroutine(onSelectedRoutine);
-            if (actionRoutine != null)
-                StopCoroutine(actionRoutine);
-            onSelectedRoutine = null;
-            actionRoutine = null;
-
-            foreach (var target in actions)
+            foreach (var action in target.actions)
             {
-                foreach (var action in target.actions)
-                {
-                    action.ResetCamera();
-                }
+                action.Reset(controller.GetBoard());
             }
-
-            return true;
         }
 
-        return false;
+        RemoveGodBuff();
     }
 
     private void RemoveGodBuff()
     {
-        if (controller.GetBoard().playedGodCard)
-            if (card_so.correspondingGod == controller.GetBoard().playedGodCard.CardSO.godAction)
-            {
-                controller.GetBoard().playedGodCard.DeBuff(this);
-            }
+        if (godBuffed)
+        {
+            if (controller.GetBoard().playedGodCard)
+                if (card_so.correspondingGod == controller.GetBoard().playedGodCard.CardSO.godAction)
+                {
+                    controller.GetBoard().playedGodCard.DeBuff(this);
+                }
+            godBuffed = false;
+        }
     }
 
     bool missedClick = false;
@@ -362,6 +345,7 @@ public class NonGod_Behaviour : Card_Behaviour
     public void MissClick()
     {
         missedClick = true;
+        CancelSelection();
     }
 
     public override bool CardIsReady()
@@ -378,6 +362,13 @@ public class NonGod_Behaviour : Card_Behaviour
             }
         }
 
+        controller.PlacedCard();
+
         missedClick = true;
+    }
+
+    public override bool CanBeSelected()
+    {
+        return base.CanBeSelected() && (controller.GetBoard().thingsInLane.Count + neededLanes <= 4);
     }
 }

@@ -149,14 +149,17 @@ public abstract class Card_Behaviour : BoardElement
     public virtual void LatePlayed(BoardStateController board) { }
     public abstract void OnAction();
 
-    public virtual bool CancelSelection() { controller.SetSelectedCard(); return true; }
+    public virtual void CancelSelection() { controller.SetSelectedCard(); }
+
+    public virtual bool ShouldCancelSelection() { return false; }
+
     public virtual void Placed(bool placed = false)
     {
         GetComponent<BoxCollider>().enabled = true;
         transform.parent.GetComponent<BoxCollider>().enabled = false;
         onPlayerHand = placed;
     }
-    public bool IsOnHand() { return onPlayerHand; }
+    public virtual bool CanBeSelected() { return onPlayerHand; }
 
     public abstract bool CardIsReady();
 }
