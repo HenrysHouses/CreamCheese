@@ -43,11 +43,11 @@ public class ChooseCardReward : MonoBehaviour
         if (Input.GetMouseButtonDown(0))
         {
             int SelectIndex = SelectReward();
-            deckManager.addCardToDeck(CardOptions[SelectIndex]);
 
 
             if (SelectIndex > -1)
             {
+                deckManager.addCardToDeck(CardOptions[SelectIndex]);
                 MultiSceneLoader.loadCollection("Map", collectionLoadMode.Difference);
             }
         }
