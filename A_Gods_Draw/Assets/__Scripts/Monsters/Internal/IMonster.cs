@@ -1,3 +1,5 @@
+// modified by charlie
+
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -12,6 +14,7 @@ public abstract class IMonster : BoardElement
     protected Intent enemyIntent;
 
     public GameObject deathParticleVFX;
+    public GameObject slashParticleVFX;
     [SerializeField] Renderer[] MonsterRenderers;
     public float outlineSize = 0.01f;
     bool outlineShouldTurnOff;
