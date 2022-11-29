@@ -18,12 +18,29 @@ MonoBehaviour:
   description: 'Blocks for X and draw one next turn
 
 '
+  effect: 
   cardStrenghIndex: 0
   targetActions:
   - numOfTargets: 1
     targetActions:
     - actionEnum: 1
       actionStrength: 2
+      PlayOnPlacedOrTriggered_SFX: 1
+      action_SFX:
+        Guid:
+          Data1: -1202444277
+          Data2: 1082531919
+          Data3: -43431291
+          Data4: -1906492248
+        Path: event:/Card Effects/CardShield
     - actionEnum: 8
       actionStrength: 1
+      PlayOnPlacedOrTriggered_SFX: 0
+      action_SFX:
+        Guid:
+          Data1: 0
+          Data2: 0
+          Data3: 0
+          Data4: 0
+        Path: 
   correspondingGod: 0

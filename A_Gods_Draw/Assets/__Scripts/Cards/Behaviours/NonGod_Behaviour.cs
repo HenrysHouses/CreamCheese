@@ -86,11 +86,14 @@ public class NonGod_Behaviour : Card_Behaviour
                 var act = GetAction(card.targetActions[i][j]);
                 act.SetBehaviour(this);
                 actions[i].Add(act);
+                act.action_SFX = card.targetActions[i].targetActions[j].action_SFX;
+                act.PlayOnPlacedOrTriggered_SFX = card.targetActions[i].targetActions[j].PlayOnPlacedOrTriggered_SFX;
             }
         }
 
         this.cardType = card.type;
         this.elements = elements;
+        
     }
 
     public void Buff(int value, bool isMult)
@@ -268,7 +271,9 @@ public class NonGod_Behaviour : Card_Behaviour
     public override void OnAction()
     {
         TurnController.shouldWaitForAnims = true;
+        
         StartCoroutine(Play(controller.GetBoard()));
+        
     }
 
     protected override IEnumerator Play(BoardStateController board)
@@ -278,6 +283,10 @@ public class NonGod_Behaviour : Card_Behaviour
             foreach (var action in target.actions)
             {
                 StartCoroutine(action.OnAction(board));
+                if(action.PlayOnPlacedOrTriggered_SFX)
+                {
+                    SoundPlayer.PlaySound(action.action_SFX,gameObject); 
+                }
                 yield return new WaitUntil(() => action.Ready());
             }
         }

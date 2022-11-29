@@ -19,10 +19,19 @@ MonoBehaviour:
 
 
     X + 4 if Thor is in play'
+  effect: 
   cardStrenghIndex: 0
   targetActions:
   - numOfTargets: 1
     targetActions:
     - actionEnum: 1
       actionStrength: 1
+      PlayOnPlacedOrTriggered_SFX: 1
+      action_SFX:
+        Guid:
+          Data1: -1202444277
+          Data2: 1082531919
+          Data3: -43431291
+          Data4: -1906492248
+        Path: event:/Card Effects/CardShield
   correspondingGod: 0

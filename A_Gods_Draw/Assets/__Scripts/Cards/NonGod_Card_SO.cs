@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using FMODUnity;
 
 [CreateAssetMenu(menuName = "ScriptableObjects/Non-God card"), System.Serializable]
 public class NonGod_Card_SO : Card_SO
@@ -61,6 +62,10 @@ public struct CardActionData
 {
     public CardActionEnum actionEnum;
     public int actionStrength;
+    public bool PlayOnPlacedOrTriggered_SFX;
+    public EventReference action_SFX;
+
+
 }
 
 

@@ -16,12 +16,29 @@ MonoBehaviour:
   image: {fileID: 21300000, guid: 714b2624c67717b41b60350169eb7ce6, type: 3}
   cardName: Dane Axe
   description: Adjacent enemies take x/2 DMG rounded down
+  effect: 
   cardStrenghIndex: 0
   targetActions:
   - numOfTargets: 1
     targetActions:
     - actionEnum: 0
       actionStrength: 2
+      PlayOnPlacedOrTriggered_SFX: 1
+      action_SFX:
+        Guid:
+          Data1: -525728556
+          Data2: 1248637871
+          Data3: 920202369
+          Data4: 1841172474
+        Path: event:/Card Effects/Card ATK
     - actionEnum: 6
       actionStrength: 10
+      PlayOnPlacedOrTriggered_SFX: 0
+      action_SFX:
+        Guid:
+          Data1: 2004915618
+          Data2: 1330019366
+          Data3: -2095186242
+          Data4: 2122433884
+        Path: 
   correspondingGod: 0

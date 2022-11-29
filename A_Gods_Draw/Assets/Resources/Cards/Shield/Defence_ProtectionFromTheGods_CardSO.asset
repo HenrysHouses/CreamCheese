@@ -22,12 +22,29 @@ MonoBehaviour:
     two targets for X
 
 '
+  effect: 
   cardStrenghIndex: 0
   targetActions:
   - numOfTargets: 2
     targetActions:
     - actionEnum: 1
       actionStrength: 3
+      PlayOnPlacedOrTriggered_SFX: 1
+      action_SFX:
+        Guid:
+          Data1: -1202444277
+          Data2: 1082531919
+          Data3: -43431291
+          Data4: -1906492248
+        Path: event:/Card Effects/CardShield
     - actionEnum: 5
       actionStrength: 1
+      PlayOnPlacedOrTriggered_SFX: 0
+      action_SFX:
+        Guid:
+          Data1: 0
+          Data2: 0
+          Data3: 0
+          Data4: 0
+        Path: 
   correspondingGod: 0

@@ -13,6 +13,7 @@ GameObject:
   - component: {fileID: 5687052237351884097}
   - component: {fileID: 259128037}
   - component: {fileID: 2041352227633824520}
+  - component: {fileID: 9056250302650067405}
   m_Layer: 16
   m_Name: Prop_Coin_PRE_v1
   m_TagString: Untagged
@@ -116,6 +117,36 @@ BoxCollider:
   serializedVersion: 2
   m_Size: {x: 0.1, y: 0.007, z: 0.1}
   m_Center: {x: 0, y: 0, z: 0}
+--- !u!114 &9056250302650067405
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6191477042024592532}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9a6610d2e704f1648819acc8d7460285, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  CollisionTag: 
+  EventReference:
+    Guid:
+      Data1: -986278551
+      Data2: 1246205654
+      Data3: 1273093782
+      Data4: -1925434271
+    Path: event:/Card Effects/CionDrop
+  Event: 
+  PlayEvent: 1
+  StopEvent: 2
+  AllowFadeout: 1
+  TriggerOnce: 0
+  Preload: 0
+  Params: []
+  OverrideAttenuation: 0
+  OverrideMinDistance: 1
+  OverrideMaxDistance: 20
 --- !u!1 &6426041013029298871
 GameObject:
   m_ObjectHideFlags: 0

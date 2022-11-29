@@ -16,8 +16,6 @@ public class BuffCardAction : CardAction
         {
             var aux = Object.Instantiate(Resources.Load<GameObject>("Prop_Coin_PRE_v1"), card.transform);
             aux.transform.localPosition = Vector3.back * 8 + Vector3.back * i;
-          //  SoundPlayer.PlaySound(cionDrop_SFX,aux);
-            Debug.LogWarning("Hvor er lyden? :Pleading:");
         }
     }
 

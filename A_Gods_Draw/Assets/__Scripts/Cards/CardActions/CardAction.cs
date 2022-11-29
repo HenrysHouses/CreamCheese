@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using FMODUnity;
 
 public abstract class CardAction : Action
 {
@@ -13,6 +14,10 @@ public abstract class CardAction : Action
     protected int neededLanes = 1;
 
     public int Strengh => strengh;
+
+    public EventReference action_SFX;
+    public bool PlayOnPlacedOrTriggered_SFX;
+
 
     public CardAction(int _min, int _max) : base(_min, _max) { strengh = _max; }
 
@@ -89,4 +94,3 @@ public abstract class CardAction : Action
         return cont.thingsInLane.Count + neededLanes <= 4;
     }
 }
- 
