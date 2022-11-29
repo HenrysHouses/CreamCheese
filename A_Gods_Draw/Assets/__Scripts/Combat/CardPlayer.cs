@@ -72,6 +72,8 @@ public class CardPlayer : MonoBehaviour
                 if(_selectedCard is null) // checks if no card was selected
                     return;
 
+                _selectedCard.OnBeingClicked();
+
                 // get ready to move selected card to hover position
                 SelectedCardT = 0;
                 _currSelectedCard = _selectedCard.GetComponentInParent<Card_Selector>();
@@ -96,6 +98,8 @@ public class CardPlayer : MonoBehaviour
             }
             else
             {
+                _selectedCard.OnClickOnSelected();
+
                 if (_selectedCard.ShouldCancelSelection())
                 {
                     _selectedCard.CancelSelection();

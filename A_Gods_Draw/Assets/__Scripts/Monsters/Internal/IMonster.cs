@@ -66,7 +66,7 @@ public abstract class IMonster : BoardElement
 
         defendTxt.enabled = false;
 
-        overlay = gameObject.GetComponentInChildren<Canvas>().gameObject.AddComponent<Image>();
+        overlay = transform.GetChild(1).GetComponent<Canvas>().gameObject.AddComponent<Image>();
         overlay.enabled = false;
     }
 
@@ -184,6 +184,7 @@ public abstract class IMonster : BoardElement
         if (image)
         {
             image.sprite = enemyIntent.GetCurrentIcon();
+            image.GetComponent<ShowDescription>().SetText(enemyIntent.GetCurrentDescription());
             image.enabled = true;
         }
     }

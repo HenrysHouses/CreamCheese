@@ -35,14 +35,15 @@ public class CardsState : CombatFSMState
         {
             ActivateRune(Controller);
 
-            if (numOfCardsActed < Controller.GetBoard().playedCards.Count)
+            if (numOfCardsActed < Controller.GetBoard().allPlayedCards.Count)
             {
-                Controller.GetBoard().playedCards[numOfCardsActed].OnAction();
+                Controller.GetBoard().allPlayedCards[numOfCardsActed].OnAction();
                 numOfCardsActed++;
             }
             else
             {
-                Controller.GetBoard().playedCards.Clear();
+                Controller.GetBoard().allPlayedCards.Clear();
+                Controller.GetBoard().placedCards.Clear();
                 foreach (BoardElement thing in Controller.GetBoard().thingsInLane)
                 {
                     if (thing)

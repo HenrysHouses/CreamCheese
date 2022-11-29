@@ -44,7 +44,7 @@ public class BuffCardAction : CardAction
     public override void OnLanePlaced(BoardStateController board)
     {
         board.RemoveFromLane(current);
-        Object.Destroy(current.transform.parent.parent.gameObject);
+        current.transform.parent.parent.position += Vector3.down * 10;
         current.RemoveFromHand();
     }
 
