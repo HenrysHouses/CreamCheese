@@ -5,46 +5,71 @@ using UnityEngine.UI;
 
 public class CardLibrary : MonoBehaviour
 {
-    [SerializeField] DeckManager_SO manager;
     [SerializeField] DeckList_SO deckList;
     public GameObject cardPrefab;
     public Transform[] cardSlots;
-    bool isCreated;
+    int currPage;
+    GameObject[] currDisplayedCards;
+
+    public bool shouldDestroyACard;
+    [SerializeField] Button backButton;
 
     private void Start()
     {
-        isCreated = false;
+        currDisplayedCards = new GameObject[cardSlots.Length];
+        currPage = 0;
+        DisplayCardPage(currPage);
+
+        if(shouldDestroyACard)
+            backButton.interactable = false;
     }
 
-    private void Update()
+    private bool DisplayCardPage(int page)
     {
-        DisplayCard();
-    }
+        List<Card_SO> deck = deckList.deckData.deckListData;
+        int DisplayOffset = cardSlots.Length * page;
 
-    private void DisplayCard()
-    {
-
-        if (!isCreated)
+        if(DisplayOffset > deck.Count || page < 0)
         {
-            for (int i = 0; i < manager.getDeck.deckData.deckListData.Count; i++)
-            {
-                GameObject newObject = Instantiate(cardPrefab);
-                newObject.transform.SetParent(cardSlots[i]);
+            Debug.Log("You are at the last page");
+            return false;
+        }
+        else
+            clearPage();
 
-                isCreated = true;
-                Debug.Log("cards library");
-            }
+        Debug.Log("displaying library page: " + page);
+        for (int i = 0; i < cardSlots.Length; i++)
+        {   
+            if(DisplayOffset+i >= deck.Count)
+                return true;
 
+            GameObject spawnCard = Instantiate(cardPrefab);
+            Card_Loader _Loader = spawnCard.GetComponentInChildren<Card_Loader>();
+            _Loader.Set(deck[DisplayOffset+i]);
+
+            spawnCard.transform.SetParent(cardSlots[i], false);
+            currDisplayedCards[i] = spawnCard;
+        }
+        return true;
+    }
+
+    void clearPage()
+    {
+        foreach (var card in currDisplayedCards)
+        {
+            Destroy(card);
         }
     }
 
     public void TurnForward()
     {
-
+        if(DisplayCardPage(currPage++))
+            currPage++;
     }
 
     public void TurnBack()
     {
-
+        if(DisplayCardPage(currPage--))
+            currPage--;
     }
 }
