@@ -140,6 +140,9 @@ public class NonGod_Behaviour : Card_Behaviour
         int aux = action;
         foreach (var actionsInTarget in actions)
         {
+            if(actionsInTarget.Count == 0) // ! TEMPORARY
+                return null;
+
             aux -= (actionsInTarget.Count - 1);
             if (aux <= 0)
             {
