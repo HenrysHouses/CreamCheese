@@ -75,13 +75,13 @@ public class Card_Selector : MonoBehaviour
     }
 
 
-    public void disableSelection()
+    public void disableHover()
     {
         anim.enabled = false;
         this.enabled = false;
     }
 
-    public IEnumerator enableSelection(Player_Hand hand)
+    public IEnumerator enableHover(Player_Hand hand)
     {
         anim.enabled = true;
         bool isAnimating = true;

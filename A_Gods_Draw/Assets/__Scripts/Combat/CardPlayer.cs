@@ -7,6 +7,7 @@ public class CardPlayer : MonoBehaviour
     // * Mechanic References
     [SerializeField] Player_Hand _Hand;
     [SerializeField] BoardStateController _Board;
+    [SerializeField] GameObject ProceduralMeshPrefab;
 
     // * Variables
     Camera mainCam;
@@ -14,9 +15,11 @@ public class CardPlayer : MonoBehaviour
     [SerializeField] LayerMask laneLayer;
 
     bool shouldCancelSelection;
+    List<GameObject> MeshSelections = new List<GameObject>();
     Card_Behaviour _selectedCard;
     Card_Selector _currSelectedCard;
     [SerializeField] PathController path;
+    [SerializeField] Transform CardHoverPos, BuffCardHoverPos;
     [SerializeField] float cardSelectSpeed;
     float SelectedCardT = 0;
 
@@ -57,6 +60,7 @@ public class CardPlayer : MonoBehaviour
         {
             hasClickedLastFrame = true;
         }
+        
         if (hasClickedLastFrame)
         {
             hasClickedLastFrame = false;
@@ -64,15 +68,30 @@ public class CardPlayer : MonoBehaviour
             if (_selectedCard is null)
             {
                 _selectedCard = selectCard();
-                if (_selectedCard is null)
+
+                if(_selectedCard is null) // checks if no card was selected
                     return;
 
+                // get ready to move selected card to hover position
                 SelectedCardT = 0;
                 _currSelectedCard = _selectedCard.GetComponentInParent<Card_Selector>();
+
+                NonGod_Behaviour _card = _selectedCard as NonGod_Behaviour;
+                if(_card is null)
+                    return;
+
+                if(_card.CardSO.type.Equals(CardType.Buff))
+                    path.controlPoints[1].position = BuffCardHoverPos.position;
+                else
+                    path.controlPoints[1].position = CardHoverPos.position;
+
                 path.controlPoints[0].position = _selectedCard.ParentTransform.position;
                 path.recalculatePath();
-                _currSelectedCard.disableSelection();
+                _currSelectedCard.disableHover();
                 shouldCancelSelection = false;
+
+                spawnSelectionMesh(_selectedCard.transform);
+
                 return;
             }
             else
@@ -80,44 +99,108 @@ public class CardPlayer : MonoBehaviour
                 if (_selectedCard.ShouldCancelSelection())
                 {
                     _selectedCard.CancelSelection();
-                    _selectedCard = null;
+                    // _selectedCard = null;
                     shouldCancelSelection = true;
                     path.controlPoints[0].position = _currSelectedCard.targetHandPos;
                     Debug.Log("unselected");
+                    clearTargetMeshes();
                 }
             }
         }
 
         if(shouldCancelSelection)
         {
-            OrientedPoint OP = path.GetEvenPathOP(SelectedCardT);
-            
-            if(!_selectedCard)
+            if(!_selectedCard || SelectedCardT == 0)
             {
                 removeSelection();
                 return;
             }
-
+            
+            // Moves deselected card back to hand
+            OrientedPoint OP = path.GetEvenPathOP(SelectedCardT);
             _selectedCard.ParentTransform.position = OP.pos;
             SelectedCardT = Mathf.Clamp01(SelectedCardT - Time.deltaTime * cardSelectSpeed);
 
-            if(SelectedCardT == 0)
-            {
-                Debug.Log(OP.pos + " - " + _selectedCard.ParentTransform.position);
-                removeSelection();
-            }
+            if(_selectedCard is not NonGod_Behaviour _card || !_card.GetCardType.Equals(CardType.Buff))
+                    return;
+
+            Vector3 rot = _selectedCard.transform.eulerAngles;
+            rot.x -=  cardSelectSpeed * Time.deltaTime * 200;
+            rot.x = Mathf.Clamp(rot.x, 0, 89);
+
+            _selectedCard.transform.eulerAngles = rot;
             return;
         }
 
-
+        // Moves selected card to hover position
         if(_selectedCard)
         {
             _currSelectedCard.holdingOver = true;
-            OrientedPoint OP = path.GetEvenPathOP(SelectedCardT);
-            _selectedCard.ParentTransform.position = OP.pos;
-            SelectedCardT = Mathf.Clamp01(SelectedCardT + Time.deltaTime * cardSelectSpeed);
-        }
+         
+            updateMeshTargeting();
 
+            if(SelectedCardT != 1)
+            {
+                OrientedPoint OP = path.GetEvenPathOP(SelectedCardT);
+                _selectedCard.ParentTransform.position = OP.pos;
+                SelectedCardT = Mathf.Clamp01(SelectedCardT + Time.deltaTime * cardSelectSpeed);
+
+                Transform targetOrigin = getCurrSelectionMesh().GetChild(1);
+                targetOrigin.position = _selectedCard.transform.position;    
+                Vector3 localPos = targetOrigin.transform.localPosition;
+                localPos.z += 0.1f;
+                targetOrigin.transform.localPosition = localPos;
+
+                if(_selectedCard is not NonGod_Behaviour _card || !_card.GetCardType.Equals(CardType.Buff))
+                        return;
+
+                Vector3 rot = _selectedCard.transform.eulerAngles;
+                rot.x +=  cardSelectSpeed * Time.deltaTime * 100;
+                rot.x = Mathf.Clamp(rot.x, 0, 89);
+
+                _selectedCard.transform.eulerAngles = rot;
+            }
+        }
+    }
+
+    void updateMeshTargeting()
+    {
+        Vector3 mousePos = Input.mousePosition;
+        mousePos.z = mainCam.nearClipPlane + 1;
+        getCurrSelectionMesh().GetChild(0).position = mainCam.ScreenToWorldPoint(mousePos);
+    }
+
+    void clearTargetMeshes()
+    {
+        foreach (var mesh in MeshSelections)
+        {
+            Destroy(mesh);
+        }
+        MeshSelections.Clear();
+    }
+
+    Transform getCurrSelectionMesh()
+    {
+        if(MeshSelections.Count == 0)
+            return null;
+
+        return MeshSelections[MeshSelections.Count-1].transform;
+    }
+
+    void spawnSelectionMesh(Transform parent)
+    {
+        GameObject spawn = Instantiate(ProceduralMeshPrefab);
+        spawn.transform.GetChild(1).position = parent.position;
+        
+        Vector3 localPos = spawn.transform.localPosition;
+        localPos.z += 0.1f;
+        spawn.transform.localPosition = localPos;
+        
+        spawn.transform.GetChild(1).localScale = new Vector3(0,0, 0.01f);
+        MeshSelections.Add(spawn);
+        spawn.transform.position = Vector3.zero;
+
+        spawn.GetComponent<Renderer>().material.SetColor("_MainColor", Color.white);
     }
 
     void removeSelection()
@@ -126,7 +209,7 @@ public class CardPlayer : MonoBehaviour
         _selectedCard = null;
         
         if(_currSelectedCard)
-            StartCoroutine(_currSelectedCard.enableSelection(_Hand));
+            StartCoroutine(_currSelectedCard.enableHover(_Hand));
         _currSelectedCard = null;
     }
 
@@ -211,7 +294,9 @@ public class CardPlayer : MonoBehaviour
         }
 
         if (lane is not null)
+        {
             return true;
+        }
         return false;
     }
 
@@ -239,5 +324,6 @@ public class CardPlayer : MonoBehaviour
         _Hand.RemoveCard(loader);
         _Board.placeCardOnLane(behaviour);
         behaviour.OnPlacedInLane();
+        clearTargetMeshes();
     }
 }

@@ -237,7 +237,6 @@ public class NonGod_Behaviour : Card_Behaviour
         {
             hasClickedThisFrame = true;
             BoardElement element = TurnController.PlayerClick();
-            Debug.Log(element);
             if (element)
             {
                 target = element;
