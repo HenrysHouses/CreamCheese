@@ -29,7 +29,7 @@ public class GodPlacement : MonoBehaviour
 
     public void UpdateUI()
     {
-        health.text = god.Health.ToString();
+        health.text = "HP " + god.Health.ToString();
     }
 
     public void GodShowArrow()
