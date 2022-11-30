@@ -26,6 +26,14 @@ public class ChooseRuneReward : MonoBehaviour
 
     private void Update()
     {
+        findRune();
+    }
+
+    void findRune()
+    {
+
+
+
         if (Input.GetMouseButtonDown(0))
         {
             rune SelectedRune = SelectReward();

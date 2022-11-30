@@ -52,10 +52,12 @@ public class RuneData
     public int Strength;
     public RuneType Name;
     public CombatState Trigger;
+    public string Description;
 
-    public RuneData(RuneType type, CombatState runeTrigger)
+    public RuneData(RuneType type, string Description, CombatState runeTrigger)
     {
         this.Name = type;
+        this.Description = Description;
         this.Trigger = runeTrigger;
         this.State = RuneState.Disabled;
     }

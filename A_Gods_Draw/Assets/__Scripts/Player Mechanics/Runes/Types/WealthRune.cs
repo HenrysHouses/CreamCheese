@@ -11,14 +11,18 @@ public class WealthRune : rune
 
     public WealthRune(int str, RuneState state) : base(str, state)
     {
-        this.RuneData = new RuneData(RuneType.FeWealth, CombatState.DrawStep);
+        string desc = "Draw one extra card each turn";
+
+        this.RuneData = new RuneData(RuneType.FeWealth, desc, CombatState.DrawStep);
         this.RuneData.Strength = str;
         this.RuneData.State = state;
     }
 
     public WealthRune(int str) : base(str)
     {
-        this.RuneData = new RuneData(RuneType.FeWealth, CombatState.DrawStep);
+        string desc = "Draw one extra card each turn";
+
+        this.RuneData = new RuneData(RuneType.FeWealth, desc, CombatState.DrawStep);
         this.RuneData.Strength = str;
         this.RuneData.State = RuneState.Active;
     }
