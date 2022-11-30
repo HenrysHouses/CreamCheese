@@ -12,6 +12,7 @@ public class GameManager : MonoBehaviour
     [SerializeField] PlayerTracker PlayerTracker;
 
     public bool shouldGenerateNewMap;
+    public bool shouldDestroyCardInDeck {get; private set;}
     public static GameManager instance;
     EncounterDifficulty nextCombatDiff;
     [SerializeField]

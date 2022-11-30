@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
+using TMPro;
 
 public class CardLibrary : MonoBehaviour
 {
@@ -13,6 +14,7 @@ public class CardLibrary : MonoBehaviour
 
     public bool shouldDestroyACard;
     [SerializeField] Button backButton;
+    [SerializeField] TextMeshPro PickCardText; 
 
     private void Start()
     {
@@ -20,8 +22,12 @@ public class CardLibrary : MonoBehaviour
         currPage = 0;
         DisplayCardPage(currPage);
 
+        shouldDestroyACard = GameManager.instance.shouldDestroyCardInDeck;
         if(shouldDestroyACard)
+        {
             backButton.interactable = false;
+            PickCardText.gameObject.SetActive(true);
+        }
     }
 
     private bool DisplayCardPage(int page)
@@ -63,13 +69,13 @@ public class CardLibrary : MonoBehaviour
 
     public void TurnForward()
     {
-        if(DisplayCardPage(currPage++))
+        if(DisplayCardPage(currPage+1))
             currPage++;
     }
 
     public void TurnBack()
     {
-        if(DisplayCardPage(currPage--))
+        if(DisplayCardPage(currPage-1))
             currPage--;
     }
 }
