@@ -27,7 +27,7 @@ MonoBehaviour:
     max: 4
   numOfStartingNodes:
     min: 3
-    max: 4
+    max: 5
   layers:
     array:
     - nodeType: 1
@@ -39,45 +39,52 @@ MonoBehaviour:
       randomNodes: 0
     - nodeType: 10
       distLayers:
-        min: 2
+        min: 1
         max: 2
       nodesApartDist: 2
-      randomPos: 0.47
-      randomNodes: 0
+      randomPos: 0.24
+      randomNodes: 0.58
     - nodeType: 1
       distLayers:
-        min: 2
+        min: 1
         max: 2
       nodesApartDist: 2
-      randomPos: 0.44
+      randomPos: 0.31
+      randomNodes: 0.51
+    - nodeType: 9
+      distLayers:
+        min: 1
+        max: 2
+      nodesApartDist: 2
+      randomPos: 0.33
       randomNodes: 0.51
     - nodeType: 5
       distLayers:
-        min: 2
+        min: 1
         max: 2
       nodesApartDist: 2
-      randomPos: 0.51
+      randomPos: 0.47
       randomNodes: 0.59
     - nodeType: 7
       distLayers:
-        min: 2
+        min: 1
         max: 2
       nodesApartDist: 2
-      randomPos: 0.49
+      randomPos: 0.46
       randomNodes: 0.46
-    - nodeType: 1
+    - nodeType: 8
       distLayers:
-        min: 2
+        min: 1
         max: 2
       nodesApartDist: 2
-      randomPos: 0.54
+      randomPos: 0.51
       randomNodes: 0.71
     - nodeType: 6
       distLayers:
-        min: 2
+        min: 1
         max: 2
       nodesApartDist: 2
-      randomPos: 0
+      randomPos: 0.26
       randomNodes: 0.54
     - nodeType: 0
       distLayers:
