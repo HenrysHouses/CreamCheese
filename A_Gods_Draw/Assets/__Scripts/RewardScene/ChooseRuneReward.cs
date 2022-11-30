@@ -35,7 +35,8 @@ public class ChooseRuneReward : MonoBehaviour
 
     private void Update()
     {
-        findRune();
+        if(RuneAnimationT <= 0)
+            findRune();
     }
 
     void findRune()
