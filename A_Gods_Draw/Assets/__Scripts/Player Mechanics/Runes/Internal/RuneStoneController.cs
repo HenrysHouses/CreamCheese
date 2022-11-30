@@ -4,9 +4,8 @@ using UnityEngine;
 public class RuneStoneController : MonoBehaviour
 {
     [SerializeField] PlayerTracker playerState;
-    public List<rune> AvailableRunes = new List<rune>();
     public List<RuneData> runes;
-    [SerializeField] runeRenderer[] renderers;
+    public runeRenderer[] renderers;
 
     void Update()
     {

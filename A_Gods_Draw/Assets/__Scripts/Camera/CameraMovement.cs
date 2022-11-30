@@ -31,14 +31,7 @@ public class CameraMovement : MonoBehaviour
         anim.Play("EnemyCloseup");
     }
 
-    void ResetView()
-    {
-        anim.SetBool("EnemyCloseUp", false);
-        anim.SetBool("Down", false);
-        anim.SetBool("Right", false);
-        anim.SetBool("Up", false);
-        anim.SetBool("Left", false);
-    }
+
     // Update is called once per frame
     void Update()
     {
@@ -92,49 +85,24 @@ public class CameraMovement : MonoBehaviour
         if (resetView) // Go to middle
         {
             ResetView();
-            //SoundPlayer.Playsound(cameraSound, gameObject);
 
             return;
         }
         if (goDown)
         {
-            anim.SetBool("EnemyCloseUp", false);
-            anim.SetBool("Down", true);
-            anim.SetBool("Right", false);
-            anim.SetBool("Up", false);
-            anim.SetBool("Left", false);
-            SoundPlayer.PlaySound(cameraSound, gameObject);
-
+            LookDown();
         }
         if (goLeft) // go left
         {
-            anim.SetBool("EnemyCloseUp", false);
-            anim.SetBool("Down", false);
-            anim.SetBool("Right", true);
-            anim.SetBool("Up", false);
-            anim.SetBool("Left", false);
-            SoundPlayer.PlaySound(cameraSound, gameObject);
-
+            LookRight();
         }
         if (goRight) // go right
         {
-            anim.SetBool("EnemyCloseUp", false);
-            anim.SetBool("Down", false);
-            anim.SetBool("Right", false);
-            anim.SetBool("Up", false);
-            anim.SetBool("Left", true);
-            SoundPlayer.PlaySound(cameraSound, gameObject);
-
+            LookLeft();
         }
         if (goUp) // go up
         {
-            anim.SetBool("EnemyCloseUp", false);
-            anim.SetBool("Down", false);
-            anim.SetBool("Right", false);
-            anim.SetBool("Up", true);
-            anim.SetBool("Left", false);
-            SoundPlayer.PlaySound(cameraSound, gameObject);
-
+            LookUp();
         }
 
         // Map Scene View
@@ -178,7 +146,55 @@ public class CameraMovement : MonoBehaviour
             anim.SetBool("MapCamera", false);
 
         }
+    }
 
+    void ResetView()
+    {
+        anim.SetBool("EnemyCloseUp", false);
+        anim.SetBool("Down", false);
+        anim.SetBool("Right", false);
+        anim.SetBool("Up", false);
+        anim.SetBool("Left", false);
+        SoundPlayer.PlaySound(cameraSound, gameObject);
+    }
 
+    public void LookRight()
+    {
+        anim.SetBool("EnemyCloseUp", false);
+        anim.SetBool("Down", false);
+        anim.SetBool("Right", true);
+        anim.SetBool("Up", false);
+        anim.SetBool("Left", false);
+        SoundPlayer.PlaySound(cameraSound, gameObject);
+    }
+
+    public void LookLeft()
+    {
+        anim.SetBool("EnemyCloseUp", false);
+        anim.SetBool("Down", false);
+        anim.SetBool("Right", false);
+        anim.SetBool("Up", false);
+        anim.SetBool("Left", true);
+        SoundPlayer.PlaySound(cameraSound, gameObject);
+    }
+
+    public void LookDown()
+    {
+        anim.SetBool("EnemyCloseUp", false);
+        anim.SetBool("Down", true);
+        anim.SetBool("Right", false);
+        anim.SetBool("Up", false);
+        anim.SetBool("Left", false);
+        SoundPlayer.PlaySound(cameraSound, gameObject);
+    }
+
+    public void LookUp()
+    {
+        anim.SetBool("EnemyCloseUp", false);
+        anim.SetBool("Down", false);
+        anim.SetBool("Right", false);
+        anim.SetBool("Up", true);
+        anim.SetBool("Left", false);
+        SoundPlayer.PlaySound(cameraSound, gameObject);
     }
 }

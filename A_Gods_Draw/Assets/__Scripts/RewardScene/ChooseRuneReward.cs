@@ -1,5 +1,10 @@
-//modified by Charlie
+// *
+// * Written By Henrik
+// *
+// * modified by Charlie
+// *
 
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using HH.MultiSceneTools;
@@ -7,8 +12,11 @@ using System;
 
 public class ChooseRuneReward : MonoBehaviour
 {
+    RuneStoneController RuneController;
     [SerializeField] PlayerTracker _player;
-    
+    [SerializeField] PathController Path;
+    [SerializeField] float animSpeed = 0.5f;
+    float RuneAnimationT;
     [SerializeField] List<RuneType> runeOptions = new List<RuneType>();
 
     public Transform[] spots;
@@ -22,6 +30,7 @@ public class ChooseRuneReward : MonoBehaviour
     {
         CardOptions = new rune[spots.Length];
         getRandomRunes();
+        RuneController = GameObject.FindObjectOfType<RuneStoneController>();
     }
 
     private void Update()
@@ -31,20 +40,41 @@ public class ChooseRuneReward : MonoBehaviour
 
     void findRune()
     {
+        GameObject runeObj;
+        rune SelectedRune = SelectReward(out runeObj); // Hover
 
-
-
-        if (Input.GetMouseButtonDown(0))
+        if (Input.GetMouseButtonDown(0)) // Confirm
         {
-            rune SelectedRune = SelectReward();
-            
-            if(SelectedRune != null)
-            {
-                Debug.Log(SelectedRune.RuneData.Name);
-                _player.addRune(SelectedRune);
+            StartCoroutine(PickRune(SelectedRune, runeObj));
+        }
+    }
 
-                MultiSceneLoader.loadCollection("Map", collectionLoadMode.Difference);
+    IEnumerator PickRune(rune SelectedRune, GameObject obj)
+    {
+        if(SelectedRune != null)
+        {
+            Path.startPoint.position = obj.transform.position;
+            Path.endPoint.position = RuneController.renderers[(int)SelectedRune.RuneData.Name].renderers[0].transform.parent.position;
+            Path.recalculatePath();
+
+            CameraMovement cameraMovement = GameObject.FindObjectOfType<CameraMovement>();
+            cameraMovement.LookLeft();
+
+            RuneAnimationT = 0;
+
+            while(RuneAnimationT < 1)
+            {
+                OrientedPoint OP = Path.GetEvenPathOP(RuneAnimationT);
+                obj.transform.position = OP.pos;
+                RuneAnimationT += Time.deltaTime * animSpeed;
+                yield return new WaitForEndOfFrame();
             }
+
+            _player.addRune(SelectedRune);
+            Destroy(obj);
+            yield return new WaitForSeconds(1);
+            cameraMovement.LookUp();
+            MultiSceneLoader.loadCollection("Map", collectionLoadMode.Difference);
         }
     }
 
@@ -87,7 +117,7 @@ public class ChooseRuneReward : MonoBehaviour
         }
     }
 
-    rune SelectReward()
+    rune SelectReward(out GameObject obj)
     {
         Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
 
@@ -98,11 +128,14 @@ public class ChooseRuneReward : MonoBehaviour
                 Transform target = hit.collider.transform.parent;
                 if (target.Equals(spots[i]))
                 {
+                    hit.collider.GetComponent<DisableHighlight>().StayEnabled();
+                    hit.transform.GetChild(0).gameObject.SetActive(true);
+                    obj = hit.collider.gameObject;
                     return hit.collider.GetComponent<RuneSelector>().Rune;
                 }
             }
         }
-        Debug.LogError("Could not select rune");
+        obj = null;
         return null;
     }
 }
