@@ -39,7 +39,7 @@ public class God_Behaviour : Card_Behaviour
 
     protected override IEnumerator Play(BoardStateController board)
     {
-        foreach (NonGod_Behaviour card in board.playedCards)
+        foreach (NonGod_Behaviour card in board.placedCards)
         {
             if (card.CardSO.correspondingGod == card_so.godAction)
             {
@@ -56,7 +56,7 @@ public class God_Behaviour : Card_Behaviour
     }
     public void OnRetire(BoardStateController board)
     {
-        foreach (NonGod_Behaviour card in board.playedCards)
+        foreach (NonGod_Behaviour card in board.placedCards)
         {
             if (card.CardSO.correspondingGod == card_so.godAction)
             {

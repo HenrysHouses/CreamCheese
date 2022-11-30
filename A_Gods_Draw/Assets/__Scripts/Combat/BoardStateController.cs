@@ -24,11 +24,12 @@ public class BoardStateController : MonoBehaviour
     public IMonster[] Enemies => _Enemies;
     public Transform getLane(int i) => _Lane[i];
     public Transform getGodLane() => _GodLane;
-    [HideInInspector] public List<NonGod_Behaviour> playedCards;
+    [HideInInspector] public List<NonGod_Behaviour> placedCards;
+    [HideInInspector] public List<NonGod_Behaviour> allPlayedCards;
     public bool isGodPlayed => playedGodCard;
     [HideInInspector] public God_Behaviour playedGodCard;
     [HideInInspector] public List<BoardElement> thingsInLane;
-    public NonGod_Behaviour getCardInLane(int i) => playedCards[i];
+    public NonGod_Behaviour getCardInLane(int i) => placedCards[i];
 
     public bool isEnemyDefeated
     {
@@ -66,7 +67,7 @@ public class BoardStateController : MonoBehaviour
         switch (whatToSet)
         {
             case 0:
-                foreach (NonGod_Behaviour card in playedCards)
+                foreach (NonGod_Behaviour card in placedCards)
                 {
                     card.clickable = clickable;
                 }
@@ -138,6 +139,11 @@ public class BoardStateController : MonoBehaviour
         thingsInLane.Add(thing);
     }
 
+    public void PlayCard(NonGod_Behaviour card)
+    {
+        allPlayedCards.Add(card);
+    }
+
     public void placeCardOnLane(Card_Behaviour card)
     {
         Transform targetlane = null;
@@ -189,7 +195,7 @@ public class BoardStateController : MonoBehaviour
 
                 NonGod_Behaviour behaviour = card as NonGod_Behaviour;
 
-                playedCards.Add(behaviour);
+                placedCards.Add(behaviour);
                 thingsInLane.Add(behaviour);
 
                 Transform cardTransform = thingsInLane[i].transform;
@@ -238,7 +244,7 @@ public class BoardStateController : MonoBehaviour
         NonGod_Behaviour currentCard = current as NonGod_Behaviour;
         if (currentCard)
         {
-            playedCards.Remove(currentCard);
+            placedCards.Remove(currentCard);
         }
     }
 }

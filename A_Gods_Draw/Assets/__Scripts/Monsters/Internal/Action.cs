@@ -15,6 +15,8 @@ public abstract class Action
     protected Sprite actionIcon;
     public Sprite Icon => actionIcon;
 
+    public string Explanation => "";
+
     public Action(int _min, int _max)
     {
         min = _min;

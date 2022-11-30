@@ -288,12 +288,11 @@ public class TurnController : CombatFSM
             CardPathAnim anim = deckManager.discardCard(card_b.GetComponent<Card_Loader>().GetCardSO);
 
             // Dialogue discard trigger
-            if(BoardStateController.playedGodCard is not null)
+            if(BoardStateController.playedGodCard is not null && anim is not null)
                 anim.OnCardDrawDialogue.AddListener(BoardStateController.playedGodCard.CardSO.StartDialogue);
+
             //lastAnim.OnAnimCompletionTrigger.AddListener(animsAreDone);
             _Hand.RemoveCard(card_b.GetComponent<Card_Loader>());
-
-            Destroy(card_b.transform.parent.parent.gameObject);
         }
         else
         {
@@ -341,7 +340,7 @@ public class TurnController : CombatFSM
         Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
         BoardElement element = null;
 
-        if (Physics.Raycast(ray, out RaycastHit hit, 100, ~layerMask) && Input.GetMouseButtonDown(0))
+        if (Physics.Raycast(ray, out RaycastHit hit, 100, ~layerMask))
         {
             GameObject clicked = hit.collider.gameObject;
 

@@ -32,11 +32,11 @@ public abstract class Intent
     public int SetCurrStrengh(int newS) => strengh = newS;
     public Sprite GetCurrentIcon()
     {
-        if (actionSelected != null)
-        {
-            return actionSelected.Icon;
-        }
-        return null;
+        return actionSelected?.Icon;
+    }
+    public string GetCurrentDescription()
+    {
+        return actionSelected?.Explanation;
     }
 
     public void Act(BoardStateController board, UnityEngine.Object source)

@@ -66,14 +66,6 @@ public class Card_Selector : MonoBehaviour
         
     }
 
-    private void OnMouseUp()
-    {
-        if(!this.enabled)
-            return;
-
-        CB.OnBeingClicked();
-    }
-
 
     public void disableHover()
     {

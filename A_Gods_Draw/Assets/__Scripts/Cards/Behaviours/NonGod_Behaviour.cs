@@ -174,7 +174,6 @@ public class NonGod_Behaviour : Card_Behaviour
                 CancelSelection();
                 return;
             }
-            hasClickedThisFrame = true;
             TurnController.shouldWaitForAnims = true;
             onSelectedRoutine = StartCoroutine(SelectingTargets());
         }
@@ -200,7 +199,9 @@ public class NonGod_Behaviour : Card_Behaviour
             }
             for (int i = 0; i < actionGroup.nTargets; i++)
             {
-                yield return new WaitUntil(HasClickedTarget);
+                hasClickedTarget = false;
+                missedClick = false;
+                yield return new WaitUntil(() => hasClickedTarget);
                 foreach (var act in actionGroup.actions)
                 {
                     act.AddTarget(target);
@@ -216,6 +217,7 @@ public class NonGod_Behaviour : Card_Behaviour
         }
 
         cardIsReady = true;
+        controller.GetBoard().PlayCard(this);
         TurnController.shouldWaitForAnims = false;
     }
 
@@ -235,28 +237,24 @@ public class NonGod_Behaviour : Card_Behaviour
         }
     }
 
-    bool hasClickedThisFrame = false;
-
-    bool HasClickedTarget()
+    internal override void OnClickOnSelected()
     {
-        if (Input.GetMouseButtonDown(0) && !hasClickedThisFrame)
+        base.OnClickOnSelected();
+        BoardElement element = TurnController.PlayerClick();
+
+        if (element)
         {
-            hasClickedThisFrame = true;
-            BoardElement element = TurnController.PlayerClick();
-            if (element)
-            {
-                target = element;
-                return true;
-            }
-            else
-            {
-                MissClick();
-                return false;
-            }
+            target = element;
+            hasClickedTarget = true;
         }
-        hasClickedThisFrame = false;
-        return false;
+        else
+        {
+            MissClick();
+            hasClickedTarget = false;
+        }
     }
+
+    bool hasClickedTarget = false;
 
     public override bool ShouldCancelSelection()
     {
@@ -273,7 +271,6 @@ public class NonGod_Behaviour : Card_Behaviour
         TurnController.shouldWaitForAnims = true;
         
         StartCoroutine(Play(controller.GetBoard()));
-        
     }
 
     protected override IEnumerator Play(BoardStateController board)
@@ -283,9 +280,9 @@ public class NonGod_Behaviour : Card_Behaviour
             foreach (var action in target.actions)
             {
                 StartCoroutine(action.OnAction(board));
-                if(action.PlayOnPlacedOrTriggered_SFX)
+                if (action.PlayOnPlacedOrTriggered_SFX)
                 {
-                    SoundPlayer.PlaySound(action.action_SFX,gameObject); 
+                    SoundPlayer.PlaySound(action.action_SFX, gameObject); 
                 }
                 yield return new WaitUntil(() => action.Ready());
             }
@@ -302,6 +299,7 @@ public class NonGod_Behaviour : Card_Behaviour
         }
 
         controller.Discard(this);
+        Destroy(transform.parent.parent.gameObject);
         TurnController.shouldWaitForAnims = false;
     }
 
@@ -318,6 +316,8 @@ public class NonGod_Behaviour : Card_Behaviour
         onSelectedRoutine = null;
         actionRoutine = null;
         target = null;
+
+        StopAllCoroutines();
 
         foreach (var target in actions)
         {

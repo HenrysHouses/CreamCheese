@@ -32,4 +32,11 @@ public class DrawCardAction : CardAction
     public override void SetCamera()
     {
     }
+
+    public override void Buff(int amount, bool isMult)
+    {
+    }
+    public override void DeBuff(int amount, bool isMult)
+    {
+    }
 }

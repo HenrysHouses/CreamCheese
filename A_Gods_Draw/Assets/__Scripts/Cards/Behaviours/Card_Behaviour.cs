@@ -127,6 +127,11 @@ public abstract class Card_Behaviour : BoardElement
 
     }
 
+    internal virtual void OnClickOnSelected()
+    {
+        
+    }
+
     public virtual void OnPlacedInLane()
     {
         
