@@ -5,7 +5,8 @@ using TMPro;
 
 public class RuneSelector : MonoBehaviour
 {
-    public TextMeshPro text;
+    public TextMeshPro RuneName;
+    public TextMeshPro RuneDescription;
     public rune Rune;
     public void set(RuneType type)
     {
@@ -28,7 +29,10 @@ public class RuneSelector : MonoBehaviour
                 break;
         }   
         if(Rune != null)
-            text.text = Rune.RuneData.Name.ToString();
+        {
+            RuneName.text = Rune.RuneData.Name.ToString();
+            RuneDescription.text = Rune.RuneData.Description;
+        }
         else
             Destroy(gameObject);
     }

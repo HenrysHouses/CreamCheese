@@ -17,14 +17,18 @@ public class ChaosRune : rune
 
     public ChaosRune(int str, RuneState state) : base(str, state)
     {
-        this.RuneData = new RuneData(RuneType.TursChaos, CombatState.DrawStep);
+        string desc = "Deal 1 damage to each enemy at start of combat";
+        
+        this.RuneData = new RuneData(RuneType.TursChaos, desc, CombatState.DrawStep);
         this.RuneData.Strength = str;
         this.RuneData.State = state;
     }
 
     public ChaosRune(int str) : base(str)
     {
-        this.RuneData = new RuneData(RuneType.TursChaos, CombatState.DrawStep);
+        string desc = "Deal 1 damage to each enemy at start of combat";
+
+        this.RuneData = new RuneData(RuneType.TursChaos, desc, CombatState.DrawStep);
         this.RuneData.Strength = str;
         this.RuneData.State = RuneState.Active;
     }
