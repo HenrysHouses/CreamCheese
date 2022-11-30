@@ -5,6 +5,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 using System;
+using FMODUnity;
 
 namespace Map
 {
@@ -35,6 +36,7 @@ namespace Map
         private const float HoverScaleFactor = 1.2f;
         private float mouseDownTime;
         private const float maxClickDuration = 0.5f;
+        public EventReference click_SFX;
         
         public void SetUp(Node node, NodeBlueprint blueprint)
         {
@@ -112,6 +114,7 @@ namespace Map
         private void OnMouseDown()
         {
            mouseDownTime = Time.time;
+           SoundPlayer.PlaySound(click_SFX,gameObject);
         }
 
         private void OnMouseUp()

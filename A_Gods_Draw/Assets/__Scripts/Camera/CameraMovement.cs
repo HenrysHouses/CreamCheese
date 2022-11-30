@@ -159,6 +159,13 @@ public class CameraMovement : MonoBehaviour
             //SoundPlayer.PlaySound(cameraSound, gameObject);
         }
 
+        else if (MultiSceneLoader.getLoadedCollectionTitle.Equals("DeckLibrary"))
+        {
+            anim.SetBool("MapCamera", false);
+            anim.SetBool("Up", true);
+            //SoundPlayer.PlaySound(cameraSound, gameObject);
+        }
+
         else if (MultiSceneLoader.getLoadedCollectionTitle.Equals("HowToPlay"))
         {
             anim.SetBool("Up", false);
