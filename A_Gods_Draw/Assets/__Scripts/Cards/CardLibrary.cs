@@ -6,9 +6,11 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 using TMPro;
+using HH.MultiSceneTools;
 
 public class CardLibrary : MonoBehaviour
 {
+    [SerializeField] DeckManager_SO deckManager;
     [SerializeField] DeckList_SO deckList;
     public GameObject cardPrefab;
     public Transform[] cardSlots;
@@ -18,6 +20,7 @@ public class CardLibrary : MonoBehaviour
     public bool shouldDestroyACard;
     [SerializeField] Button backButton;
     [SerializeField] TextMeshPro PickCardText; 
+    bool isAnimating;
 
     private void Start()
     {
@@ -30,6 +33,14 @@ public class CardLibrary : MonoBehaviour
         {
             backButton.interactable = false;
             PickCardText.gameObject.SetActive(true);
+        }
+    }
+
+    void Update()
+    {
+        if(shouldDestroyACard)
+        {
+            tryDestroyCard();
         }
     }
 
@@ -80,5 +91,36 @@ public class CardLibrary : MonoBehaviour
     {
         if(DisplayCardPage(currPage-1))
             currPage--;
+    }
+
+    void tryDestroyCard()
+    {
+        int layer = 1 << 7;
+        Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
+
+        if(!Physics.Raycast(ray, out RaycastHit hit, 10000, layer))
+            return;            
+
+        hit.transform.GetChild(0).gameObject.SetActive(true);
+        hit.collider.GetComponentInChildren<DisableHighlight>().StayEnabled();
+
+        if(!Input.GetMouseButtonDown(0))
+            return;
+
+        Card_SO _selectedCard = hit.collider.GetComponentInChildren<Card_Loader>().GetCardSO;
+        deckManager.removeCardFromDeck(_selectedCard);
+        Destroy(hit.collider.gameObject);
+        shouldDestroyACard = false;
+
+        StartCoroutine(destroyAnim());
+    }
+
+    IEnumerator destroyAnim()
+    {
+        isAnimating = true;
+        yield return new WaitForEndOfFrame();
+        isAnimating = false;
+        GameManager.instance.DestroyedCardIsDone();
+        MultiSceneLoader.loadCollection("Map", collectionLoadMode.Difference);
     }
 }

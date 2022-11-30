@@ -71,4 +71,14 @@ public class GameManager : MonoBehaviour
         get { return nextReward; }
         set { nextReward = value; }
     }
+
+    public void DestroyCardFromDeck()
+    {
+        shouldDestroyCardInDeck = true;
+    }
+
+    public void DestroyedCardIsDone()
+    {
+        shouldDestroyCardInDeck = false;
+    }
 }
