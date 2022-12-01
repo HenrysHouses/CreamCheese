@@ -337,7 +337,7 @@ public class NonGod_Behaviour : Card_Behaviour
             {
                 foreach (var action in target.actions)
                 {
-                    StartCoroutine(action.OnAction(board));
+                    StartCoroutine(action.OnAction(board, this));
                     if (action.PlayOnPlacedOrTriggered_SFX)
                     {
                         SoundPlayer.PlaySound(action.action_SFX, gameObject);
