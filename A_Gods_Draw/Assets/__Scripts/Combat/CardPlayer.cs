@@ -70,7 +70,7 @@ public class CardPlayer : MonoBehaviour
         {
             hasClickedLastFrame = false;
 
-            if (_selectedCard is null)
+            if (_selectedCard is null) 
             {
                 _selectedCard = selectCard();
 
@@ -97,8 +97,7 @@ public class CardPlayer : MonoBehaviour
                 _currSelectedCard.disableHover();
                 shouldCancelSelection = false;
 
-                spawnSelectionMesh(_selectedCard.transform);
-
+                StartCoroutine(spawnSelectionMesh(_card)); // TODO multiple targets
                 return;
             }
             else
@@ -196,10 +195,39 @@ public class CardPlayer : MonoBehaviour
         return MeshSelections[MeshSelections.Count-1].transform;
     }
 
-    void spawnSelectionMesh(Transform parent)
+    IEnumerator spawnSelectionMesh(NonGod_Behaviour Card) // TODO multiple targets
+    {
+        instantiateTargetingMesh(Card.transform);
+
+        for (int i = 0; i < Card.actions.Count; i++)
+        {
+            int lastTargetIndex = 0;
+            int currLastTargetNum = Card.actions[i].actions[0].targets.Count;
+            int totalLastTargetNum = Card.actions[i].nTargets;
+            
+            while(currLastTargetNum < totalLastTargetNum)
+            {
+                currLastTargetNum = Card.actions[i].actions[0].targets.Count;
+
+                if(currLastTargetNum != lastTargetIndex)
+                {
+                    Debug.Log("Update");
+
+                    getCurrSelectionMesh().GetChild(0).position = Card.actions[i].actions[0].targets[lastTargetIndex].transform.position;
+                    instantiateTargetingMesh(Card.transform);
+
+                    lastTargetIndex = currLastTargetNum;
+                }
+
+                yield return new WaitForEndOfFrame();
+            }
+        }
+    }
+
+    void instantiateTargetingMesh(Transform Card)
     {
         GameObject spawn = Instantiate(ProceduralMeshPrefab);
-        spawn.transform.GetChild(1).position = parent.position;
+        spawn.transform.GetChild(1).position = Card.parent.position;
         
         Vector3 localPos = spawn.transform.localPosition;
         localPos.z += 0.1f;

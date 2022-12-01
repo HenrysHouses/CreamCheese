@@ -178,12 +178,12 @@ public class BoardStateController : MonoBehaviour
             cardTransform.parent.parent.localRotation = new Quaternion();
             cardTransform.parent.rotation = new Quaternion();
             cardTransform.parent.GetComponent<Card_Selector>().enabled = false;
-           cardTransform.parent.parent.localScale = new Vector3(1.5f, 1.5f, 1.5f); // !!REMOVE THIS AFTER FINDING A PREFERABLE SIZE FOR THE CARDS
+            cardTransform.parent.parent.localScale = new Vector3(1.5f, 1.5f, 1.5f); // !!REMOVE THIS AFTER FINDING A PREFERABLE SIZE FOR THE CARDS
 
             GameObject spawn = Instantiate(playedGodCard.CardSO.God_Model, targetlane.position, transform.localRotation = new Quaternion(0, -0.577358961f, 0, 0.816490531f));
             spawn.transform.SetParent(cardTransform, true);
 
-            Debug.LogWarning("REMOVE SIZE HERE");
+            // Debug.LogWarning("REMOVE SIZE HERE");
             return;
         }
 
@@ -210,27 +210,31 @@ public class BoardStateController : MonoBehaviour
                 cardTransform.parent.parent.localScale = new Vector3(1.5f, 1.5f, 1.5f);  // !!REMOVE THIS AFTER FINDING A PREFERABLE SIZE FOR THE CARDS
 
 
-                for (int j = 0; j < behaviour.TargetedActions(); j++) // should run this for each targetable action
+                for (int j = 0; j < behaviour.actions.Count; j++) // should run this for each targetable action
                 {
-                    IMonster target = behaviour.getActionTarget(j);
-                    if (target == null)
-                        continue;
+                    BoardElement[] targets = behaviour.getActionTargets(j);
 
-                    // Targeting instantiation
-                    GameObject spawn = Instantiate(TargetingMesh, Vector3.zero, Quaternion.identity);
-                    spawn.transform.SetParent(cardTransform, true);
+                    for (int k = 0; k < targets.Length; k++)
+                    {   
+                        if (targets[k] == null)
+                            continue;
 
-                    // Targeting color
-                    MeshRenderer renderer = spawn.GetComponent<MeshRenderer>();
-                    if(behaviour.GetCardType == CardType.Attack)
-                        renderer.material.SetColor("_MainColor", AttackColor);
-                    else
-                        renderer.material.SetColor("_MainColor", DefendColor);
-                    
-                    // Targeting positions
-                    ProceduralPathMesh Mesh = spawn.GetComponent<ProceduralPathMesh>();
-                    Mesh.startPoint.position = cardTransform.position;                    
-                    Mesh.endPoint.position = target.transform.position;
+                        // Targeting instantiation
+                        GameObject spawn = Instantiate(TargetingMesh, Vector3.zero, Quaternion.identity);
+                        spawn.transform.SetParent(cardTransform, true);
+
+                        // Targeting color
+                        MeshRenderer renderer = spawn.GetComponent<MeshRenderer>();
+                        if(behaviour.GetCardType == CardType.Attack)
+                            renderer.material.SetColor("_MainColor", AttackColor);
+                        else
+                            renderer.material.SetColor("_MainColor", DefendColor);
+                        
+                        // Targeting positions
+                        ProceduralPathMesh Mesh = spawn.GetComponent<ProceduralPathMesh>();
+                        Mesh.startPoint.position = cardTransform.position;                    
+                        Mesh.endPoint.position = targets[k].transform.position;
+                    }
                 }
                 return;
             }

@@ -45,6 +45,7 @@ public class NonGod_Behaviour : Card_Behaviour
     public List<ActionGroup> actions = new();
     public int TargetedActions()
     {
+
         int aux = 0;
         foreach (var group in actions)
         {
@@ -138,21 +139,9 @@ public class NonGod_Behaviour : Card_Behaviour
     //    //Debug.Log(manager.CurrentlySelectedCard().gameObject);
     //}
 
-    public IMonster getActionTarget(int action)
+    public BoardElement[] getActionTargets(int action)
     {
-        int aux = action;
-        foreach (var actionsInTarget in actions)
-        {
-            if(actionsInTarget.Count == 0) // ! TEMPORARY
-                return null;
-
-            aux -= (actionsInTarget.Count - 1);
-            if (aux <= 0)
-            {
-                return (actionsInTarget[actionsInTarget.Count - 1 + aux].targets[0] as IMonster);
-            }
-        }
-        return null;
+        return actions[action].actions[0].targets.ToArray();
     }
 
 
