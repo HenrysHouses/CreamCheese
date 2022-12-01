@@ -97,7 +97,7 @@ public class CardPlayer : MonoBehaviour
                 _currSelectedCard.disableHover();
                 shouldCancelSelection = false;
 
-                StartCoroutine(spawnSelectionMesh(_card)); // TODO multiple targets
+                StartCoroutine(SpawnSelectionsForTargeting(_card));
                 return;
             }
             else
@@ -195,7 +195,7 @@ public class CardPlayer : MonoBehaviour
         return MeshSelections[MeshSelections.Count-1].transform;
     }
 
-    IEnumerator spawnSelectionMesh(NonGod_Behaviour Card) // TODO multiple targets
+    IEnumerator SpawnSelectionsForTargeting(NonGod_Behaviour Card)
     {
         instantiateTargetingMesh(Card.transform);
 
@@ -211,14 +211,11 @@ public class CardPlayer : MonoBehaviour
 
                 if(currLastTargetNum != lastTargetIndex)
                 {
-                    Debug.Log("Update");
-
                     getCurrSelectionMesh().GetChild(0).position = Card.actions[i].actions[0].targets[lastTargetIndex].transform.position;
                     instantiateTargetingMesh(Card.transform);
 
                     lastTargetIndex = currLastTargetNum;
                 }
-
                 yield return new WaitForEndOfFrame();
             }
         }
