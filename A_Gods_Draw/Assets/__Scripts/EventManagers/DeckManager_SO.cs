@@ -194,6 +194,7 @@ public class DeckManager_SO : ScriptableObject
             // adds the top card to player hand
             pHand.Add(pLibrary[0]); 
             cards[i] = Instantiate(CardDrawAnimationPrefab);
+            cards[i].transform.position = Vector3.zero;  
 
             Card_Loader _Loader = cards[i].GetComponentInChildren<Card_Loader>();
             _Loader.shouldAddComponent = false;

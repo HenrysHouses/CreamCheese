@@ -231,8 +231,12 @@ public class PathAnimatorController : MonoBehaviour
         // Finds and moves the target that should be animated
         request.anim.AnimationTarget = GameObject.Find(request.target);
         request.anim.AnimationTarget.transform.SetParent(request.anim.AnimationTransform);
-        request.anim.AnimationTarget.transform.position = new Vector3();  
+        request.anim.AnimationTarget.transform.position = Vector3.zero;  
         request.anim.AnimationTransform.SetParent(transform, false);
+        
+        OrientedPoint OP = path.GetEvenPathOP(0);
+        request.anim.AnimationTransform.transform.position = OP.pos;  
+        request.anim.AnimationTransform.transform.rotation = OP.rot;  
         
         // Decides if the animation is played regularly or in reverse.
         if(request.anim.speedMultiplier > 0)
@@ -308,7 +312,7 @@ public class PathAnimatorController : MonoBehaviour
                         isAnimating = true;
                     
                     // Update the animation's position on the path
-                    _Animations[i].t = Mathf.Clamp(_Animations[i].t + currentSpeed, 0, 1);
+                    _Animations[i].t = Mathf.Clamp01(_Animations[i].t + currentSpeed);
                     OrientedPoint OP = path.GetEvenPathOP(_Animations[i].t); 
                     // ? Skip this animation's frame if the animation dont have a transform
                     if(!_Animations[i].AnimationTransform)
