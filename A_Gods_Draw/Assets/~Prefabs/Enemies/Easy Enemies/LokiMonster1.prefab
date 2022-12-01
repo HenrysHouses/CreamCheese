@@ -11,6 +11,7 @@ GameObject:
   - component: {fileID: 2359073749505070563}
   - component: {fileID: 3238007056726951274}
   - component: {fileID: 7275231435915238593}
+  - component: {fileID: 3393133460939249122}
   - component: {fileID: 3155346713377134894}
   m_Layer: 5
   m_Name: Image
@@ -77,6 +78,19 @@ MonoBehaviour:
   m_FillOrigin: 0
   m_UseSpriteMesh: 0
   m_PixelsPerUnitMultiplier: 1
+--- !u!65 &3393133460939249122
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 780271048738210438}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 1
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Size: {x: 0.5, y: 0.5, z: 0.05}
+  m_Center: {x: -0.25, y: 0.25, z: 0}
 --- !u!114 &3155346713377134894
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -317,8 +331,8 @@ MonoBehaviour:
   m_faceColor:
     serializedVersion: 2
     rgba: 4294967295
-  m_fontSize: 0.1
-  m_fontSizeBase: 0.1
+  m_fontSize: 0.2
+  m_fontSizeBase: 0.2
   m_fontWeight: 400
   m_enableAutoSizing: 0
   m_fontSizeMin: 18
@@ -611,6 +625,8 @@ GameObject:
   - component: {fileID: 6622056206470510186}
   - component: {fileID: 320428763501243010}
   - component: {fileID: 3019920312811463159}
+  - component: {fileID: 6950781959985644053}
+  - component: {fileID: 2356346516529560713}
   m_Layer: 5
   m_Name: Icon Description
   m_TagString: Untagged
@@ -658,7 +674,7 @@ Canvas:
   m_SortingBucketNormalizedSize: 0
   m_AdditionalShaderChannelsFlag: 25
   m_SortingLayerID: 0
-  m_SortingOrder: 0
+  m_SortingOrder: 5
   m_TargetDisplay: 0
 --- !u!114 &320428763501243010
 MonoBehaviour:
@@ -700,6 +716,44 @@ MonoBehaviour:
   m_BlockingMask:
     serializedVersion: 2
     m_Bits: 4294967295
+--- !u!222 &6950781959985644053
+CanvasRenderer:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4768560679268970526}
+  m_CullTransparentMesh: 1
+--- !u!114 &2356346516529560713
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4768560679268970526}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fe87c0e1cc204ed48ad3b37840f39efc, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_Material: {fileID: 0}
+  m_Color: {r: 0, g: 0, b: 0, a: 0.5019608}
+  m_RaycastTarget: 1
+  m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
+  m_Maskable: 1
+  m_OnCullStateChanged:
+    m_PersistentCalls:
+      m_Calls: []
+  m_Sprite: {fileID: 0}
+  m_Type: 0
+  m_PreserveAspect: 0
+  m_FillCenter: 1
+  m_FillMethod: 4
+  m_FillAmount: 1
+  m_FillClockwise: 1
+  m_FillOrigin: 0
+  m_UseSpriteMesh: 0
+  m_PixelsPerUnitMultiplier: 1
 --- !u!1 &5966793606316453578
 GameObject:
   m_ObjectHideFlags: 0
@@ -801,8 +855,8 @@ BoxCollider:
   m_IsTrigger: 0
   m_Enabled: 1
   serializedVersion: 2
-  m_Size: {x: 0.50421137, y: 1.484206, z: 1}
-  m_Center: {x: -0.026964402, y: 0.34854114, z: 1.9878452e-12}
+  m_Size: {x: 0.5, y: 0.9, z: 1}
+  m_Center: {x: 0, y: 0.15, z: 0}
 --- !u!114 &5966793606316453579
 MonoBehaviour:
   m_ObjectHideFlags: 0

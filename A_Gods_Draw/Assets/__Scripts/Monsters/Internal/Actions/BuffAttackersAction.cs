@@ -8,6 +8,7 @@ public class BuffAttackersAction : Action
     {
         ActionID = (int)EnemyIntent.BuffAttackers;
         actionIcon = Resources.Load<Sprite>("EnemyData/Icons/Icon_Buff_IMG_v7");
+        desc = "This enemy will buff enemies that want to attack";
     }
 
     public override void Execute(BoardStateController BoardStateController, int strengh, UnityEngine.Object source)

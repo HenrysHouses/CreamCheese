@@ -10,6 +10,7 @@ public class DefendAction : Action
     {
         ActionID = (int)EnemyIntent.Defend;
         actionIcon = Resources.Load<Sprite>("EnemyData/Icons/Icon_Shield_IMG_v1");
+        desc = "This enemy will defend an enemy for the next turn onward";
     }
 
     public override void Execute(BoardStateController BoardStateController, int strengh, UnityEngine.Object source)

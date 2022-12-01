@@ -12,6 +12,7 @@ public class ShowDescription : MonoBehaviour
     {
         description = transform.parent.parent.GetComponentInChildren<Canvas>();
         descText = description.GetComponentInChildren<TMP_Text>();
+        description.enabled = false;
     }
 
     public void SetText(string newDesc)
