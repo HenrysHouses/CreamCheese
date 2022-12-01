@@ -24,6 +24,9 @@ public class SplashDMGCardAction : CardAction
                 IMonster monster = allinside.collider.GetComponent<IMonster>();
                 if (monster && monster != target)
                 {
+                    // Playing VFX
+                    board.StartCoroutine(playTriggerVFX(target.gameObject, null, new Vector3(0, 1 ,0)));
+                    yield return new WaitUntil(() => !_VFX.isAnimating);
                     monster.DealDamage((int)((strengh / 2f) + 0.6f));
                 }
             }

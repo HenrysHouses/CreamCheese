@@ -15,6 +15,9 @@ public class HealCardAction : CardAction
         isReady = false;
 
         board.Player.Heal(strengh);
+        // Playing VFX for each action
+        board.StartCoroutine(playTriggerVFX(source.gameObject, board.Player.transform, new Vector3(0, 1, 0)));
+        yield return new WaitUntil(() => !_VFX.isAnimating);
 
         yield return new WaitForSeconds(0.3f);
 

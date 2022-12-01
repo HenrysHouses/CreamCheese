@@ -20,6 +20,9 @@ public class ChainCardAction : CardAction
         {
             if (monster)
             {
+                // Playing VFX for each action
+                board.StartCoroutine(playTriggerVFX(source.gameObject, monster));
+                yield return new WaitUntil(() => !_VFX.isAnimating);
                 monster.GetIntent().CancelIntent();
                 monster.SetOverlay(Resources.Load<Sprite>("ImageResources/Icon_Chain_v1"));
             }

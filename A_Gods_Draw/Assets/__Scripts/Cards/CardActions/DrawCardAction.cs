@@ -16,6 +16,10 @@ public class DrawCardAction : CardAction
 
         current.Controller.DrawCardExtra = strengh;
 
+        // Playing VFX for each action
+        board.StartCoroutine(playTriggerVFX(source.gameObject, null, new Vector3(0, 1, 0)));
+        yield return new WaitUntil(() => !_VFX.isAnimating);
+
         yield return new WaitForSeconds(0.3f);
 
         isReady = true;

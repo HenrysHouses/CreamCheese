@@ -15,6 +15,9 @@ public class WeakenCardAction : CardAction
         {
             if (target)
             {
+                // Playing VFX
+                board.StartCoroutine(playTriggerVFX(target.gameObject, null, new Vector3(0, 1 ,0)));
+                yield return new WaitUntil(() => !_VFX.isAnimating);
                 target.Weaken(strengh);
             }
         }

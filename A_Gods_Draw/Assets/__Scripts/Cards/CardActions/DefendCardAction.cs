@@ -32,7 +32,12 @@ public class DefendCardAction : CardAction
         foreach (IMonster target in targets)
         {
             if (target)
+            {
+                // Playing VFX for each action
+                board.StartCoroutine(playTriggerVFX(source.gameObject, target));
+                yield return new WaitUntil(() => !_VFX.isAnimating);
                 target.DeBuff(strengh);
+            }
         }
         targets.Clear();
 
