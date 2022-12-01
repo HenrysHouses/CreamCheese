@@ -46,7 +46,7 @@ public class God_Card_SO : Card_SO
                         break;
                     }
                 }
-                Debug.Log("Dialogue source: " + source + ", type: " + trigger);
+                // Debug.Log("Dialogue source: " + source + ", type: " + trigger);
 
                 DialogueController.instance.SpawnDialogue(data.dialogue, Vector2.zero);
                 break;
@@ -59,7 +59,6 @@ public class God_Card_SO : Card_SO
                     if(source.ToString().Contains(enemy))
                         damageSourceName = enemy;
                 }
-                Debug.Log(damageSourceName);
             
                 data = findRelatedDialogue(trigger, damageSourceName);
                 if(data == null)

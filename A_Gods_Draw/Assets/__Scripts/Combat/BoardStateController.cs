@@ -164,7 +164,6 @@ public class BoardStateController : MonoBehaviour
         if (_GodLane.Equals(targetlane))
         {
 
-            Debug.Log("god lane");
             playedGodCard = card as God_Behaviour;
             SoundPlayer.PlaySound(playedGodCard.CardSO.enterBattlefield_SFX, gameObject);
 
@@ -234,6 +233,8 @@ public class BoardStateController : MonoBehaviour
                         ProceduralPathMesh Mesh = spawn.GetComponent<ProceduralPathMesh>();
                         Mesh.startPoint.position = cardTransform.position;                    
                         Mesh.endPoint.position = targets[k].transform.position;
+                        Mesh.GenerateMesh();
+                        Mesh.enabled = false;
                     }
                 }
                 return;

@@ -180,7 +180,7 @@ public class DeckManager_SO : ScriptableObject
     {
         if (pLibrary.Count < amount) // if there is no cards in library to draw, shuffle the discard into the library and return
         {
-            Debug.Log("cant draw cards, shuffle discard first");
+            // Debug.Log("cant draw cards, shuffle discard first");
             return null;
             // shuffleDiscard();
         }

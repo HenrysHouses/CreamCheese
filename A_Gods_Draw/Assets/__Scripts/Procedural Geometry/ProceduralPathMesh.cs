@@ -14,7 +14,7 @@ using System.Linq;
 [RequireComponent(typeof(MeshFilter))]
 public class ProceduralPathMesh : MonoBehaviour
 {
-	[SerializeField] PathController Path;
+	[SerializeField] bool DrawGizmos = false;
 	[SerializeField] Mesh2D shape2D;
 	[SerializeField] Material Mat;
 	public void setShape(Mesh2D shape) => shape2D = shape; 
@@ -61,7 +61,7 @@ public class ProceduralPathMesh : MonoBehaviour
 	
 	void Update() => GenerateMesh();
 	
-	void GenerateMesh()
+	public void GenerateMesh()
 	{
 		mesh.Clear();
 		
@@ -115,18 +115,15 @@ public class ProceduralPathMesh : MonoBehaviour
 		mesh.SetUVs(0, uvs);
 	}
 
-	public PathController getPath()
-	{
-		Path.recalculatePath();
-		return Path;
-	}
-
 #if UNITY_EDITOR
 	/// <summary>
 	/// Callback to draw gizmos that are pickable and always drawn.
 	/// </summary>
 	void OnDrawGizmos()
 	{
+		if(!DrawGizmos)
+			return;
+
 		if(gameObject.name.Contains("p") && endPoint == null)
 			DestroyImmediate(this);
 		if(endPoint == null || startPoint == null)

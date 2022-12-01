@@ -21,6 +21,10 @@ public class TurnController : CombatFSM
     [SerializeField] PathAnimatorController DrawAnimator;
     [SerializeField] PathAnimatorController ShuffleAnimator;
     [SerializeField] SceneTransition SceneTransition;
+    [SerializeField] PathController DrawAnimController, DiscardAnimController;
+    [SerializeField] Transform DrawEndPoint;
+    [SerializeField] Transform DiscardStartPoint;
+    [SerializeField] Transform[] DiscardPositions;
 
     // * Combat Variables
 
@@ -227,7 +231,7 @@ public class TurnController : CombatFSM
 
             yield return new WaitUntil(() => !waitForLibraryShuffle);
             Draw(drawAfterShuffle);
-            Debug.Log("DRAW after shuffle");
+            // Debug.Log("DRAW after shuffle");
             
         }
     }
@@ -240,9 +244,11 @@ public class TurnController : CombatFSM
         CardPathAnim lastAnim = null;
 
 
-
         if (_Hand.CardSelectionAnimators.Count > 0)
         {
+            Vector3 position = _Hand.CardSelectionAnimators[_Hand.CardSelectionAnimators.Count-1].loader.transform.position;
+            setDiscardPathToHandPosition(position);
+
             for (int i = _Hand.CardSelectionAnimators.Count - 1; i >= 0; i--)
             {
                 lastAnim = deckManager.discardCard(_Hand.CardSelectionAnimators[i].cardSO);
@@ -252,7 +258,7 @@ public class TurnController : CombatFSM
                 var selectorParentToDestroy = _Hand.CardSelectionAnimators[i].Selector.transform.parent.gameObject;
                 
                 Card_Loader _Loader = _Hand.CardSelectionAnimators[i].loader; 
-                
+
                 _Hand.RemoveCard(_Loader);
                 Destroy(selectorParentToDestroy);
                 yield return new WaitForSeconds(delayBetweenCards);
@@ -282,6 +288,17 @@ public class TurnController : CombatFSM
         //yield return new WaitUntil(() => !DrawAnimator.isAnimating && !ShuffleAnimator.isAnimating);
 
         // CardPathAnim lastAnim = null;
+        Transform ClosestPos = DiscardPositions[0];
+        foreach (var pos in DiscardPositions)
+        {
+            if(Vector3.Distance(ClosestPos.position, card_b.transform.position) > Vector3.Distance(pos.position, card_b.transform.position))
+                ClosestPos = pos;
+        }
+        Debug.Log("DiscardPosChange");
+        DiscardStartPoint.position = ClosestPos.position;
+        DiscardStartPoint.rotation = ClosestPos.rotation;
+        DiscardStartPoint.localScale = ClosestPos.localScale;
+        DiscardAnimController.recalculatePath();
 
         if (card_b != null)
         {
@@ -300,6 +317,14 @@ public class TurnController : CombatFSM
         }
     }
 
+    void setDiscardPathToHandPosition(Vector3 position)
+    {
+        DiscardStartPoint.position = position;
+        DiscardStartPoint.rotation = new Quaternion(0, -0.710754335f, 0, 0.703440309f);
+        DiscardStartPoint.localScale = new Vector3(1, 1, 0.0614522696f);
+        DiscardAnimController.recalculatePath();
+    }
+
     void animsAreDone()
     {
         shouldWaitForAnims = false;
@@ -308,7 +333,7 @@ public class TurnController : CombatFSM
     void waitForShuffleAnims()
     {
         waitForLibraryShuffle = false;
-        Debug.Log("ShuffleDone");
+        // Debug.Log("ShuffleDone");
     }
 
 
