@@ -1,3 +1,9 @@
+/*
+ * Written by:
+ * Henrik
+ * 
+ */
+
 public class FmodExtensions
 {    
     public static bool IsPlaying(FMOD.Studio.EventInstance instance)

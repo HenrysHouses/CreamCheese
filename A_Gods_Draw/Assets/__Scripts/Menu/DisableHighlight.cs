@@ -1,3 +1,11 @@
+/*
+ * Written by:
+ * Henrik
+ * 
+ * Purpose:
+ * Turns off a highlight or description when its not being hovered over
+ */
+
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;

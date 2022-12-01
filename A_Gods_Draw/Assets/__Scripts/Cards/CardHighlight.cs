@@ -1,5 +1,8 @@
-using System.Collections;
-using System.Collections.Generic;
+// *
+// * Written By Henrik
+// *
+// *
+
 using UnityEngine;
 using FMODUnity;
 

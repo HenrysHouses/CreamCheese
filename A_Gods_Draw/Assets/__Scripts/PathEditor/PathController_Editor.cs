@@ -1,3 +1,9 @@
+/*
+ * Written by:
+ * Henrik
+ * 
+ */
+
 #if UNITY_EDITOR
 
 using System.Collections;

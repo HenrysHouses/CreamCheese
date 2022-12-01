@@ -1,3 +1,8 @@
+/* 
+ * Written by 
+ * Henrik
+*/
+
 using UnityEngine;
 using UnityEngine.UI;
 using HH.MultiSceneTools;

@@ -1,5 +1,5 @@
 /*
- * Edited by
+ * Refactored by
  * Henrik
 */
 

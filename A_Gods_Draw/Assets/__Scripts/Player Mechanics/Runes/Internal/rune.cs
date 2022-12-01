@@ -1,3 +1,9 @@
+/*
+ * Written by:
+ * Henrik
+ * 
+ */
+
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;

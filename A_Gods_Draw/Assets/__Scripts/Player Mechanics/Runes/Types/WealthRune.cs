@@ -1,3 +1,9 @@
+/*
+ * Written by:
+ * Henrik
+ * 
+ */
+
 public class WealthRune : rune
 {
     public override void RuneEffect(TurnController controller)

@@ -10,15 +10,9 @@
  * Requests animations for card draw, discard, and deck shuffles.
 */
 
-using Newtonsoft.Json;
-using Newtonsoft.Json.Linq;
-using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using FMODUnity;
-using UnityEngine.Events;
-using System;
-using Random = UnityEngine.Random;
 
 /// <summary>Keeps track of how many and which cards are in the player's Deck, Library, Hand, and Discard. Requests animations for card draw, discard, and deck shuffles.</summary>
 [CreateAssetMenu(menuName = "Events/DeckManager")]
@@ -204,19 +198,6 @@ public class DeckManager_SO : ScriptableObject
             _Loader.Set(pLibrary[0]);
             pLibrary.Remove(pLibrary[0]);
             animations[i] = new CardPathAnim(_Loader.GetCardSO, Draw_SFX, cards[i], GodDialogueTrigger.Draw);
-
-            // ! not clear purpose of this code
-            // if (i == amount - 1 && mngr != null)
-            // {
-            //     animations[i].CompletionTrigger.AddListener
-            //         (mngr.HandFull);
-            // }
-
-            // Debug.Log("Sent card: " + cards[i].name + " with animation: " + animations[i].index + ", number " + i);
-
-            //Just to make them clickable
-            //cards[i].transform.position = new Vector3(20, 0, 0);
-            //card.transform.rotation = Quaternion.Euler(-20 + i * 10, 90, 0);
         }
         AnimationEventManager.getInstance.requestAnimation("Library-Hand", cards, delay, animations);
         return animations;
@@ -284,18 +265,9 @@ public class DeckManager_SO : ScriptableObject
         // requests animations for all discarded cards
 
         if (cards.Count == 0)
-        {
-            // if (mngr != null)
-            // {
-            //     mngr.FinishedAnimations();
-            // }
             return;
-        }
 
-        // if (mngr != null)
-            // animations[cards.Count - 1].CompletionTrigger.AddListener(mngr.FinishedAnimations);
         AnimationEventManager.getInstance.requestAnimation("Hand-Discard", cards.ToArray(), delay, animations);
-
 
         pHand.Clear();
     }

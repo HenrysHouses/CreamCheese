@@ -1,5 +1,9 @@
-using System.Collections;
-using System.Collections.Generic;
+// *
+// * Modified by Henrik
+// *
+// *
+// *
+
 using UnityEngine;
 using FMODUnity;
 using HH.MultiSceneTools;
@@ -17,8 +21,6 @@ public class CameraMovement : MonoBehaviour
     void Start()
     {
         anim = GetComponent<Animator>();
-
-
     }
 
     void SelectCardCamera()
