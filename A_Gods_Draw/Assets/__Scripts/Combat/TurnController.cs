@@ -214,7 +214,7 @@ public class TurnController : CombatFSM
 
 
         CardPathAnim[] animData = deckManager.shuffleDiscard(drawDelay);
-        
+
         foreach (CardPathAnim trigger in animData)
         {
             trigger.OnAnimStartSound.AddListener(CardSound);
@@ -232,7 +232,6 @@ public class TurnController : CombatFSM
             yield return new WaitUntil(() => !waitForLibraryShuffle);
             Draw(drawAfterShuffle);
             // Debug.Log("DRAW after shuffle");
-            
         }
     }
 
@@ -294,7 +293,6 @@ public class TurnController : CombatFSM
             if(Vector3.Distance(ClosestPos.position, card_b.transform.position) > Vector3.Distance(pos.position, card_b.transform.position))
                 ClosestPos = pos;
         }
-        Debug.Log("DiscardPosChange");
         DiscardStartPoint.position = ClosestPos.position;
         DiscardStartPoint.rotation = ClosestPos.rotation;
         DiscardStartPoint.localScale = ClosestPos.localScale;

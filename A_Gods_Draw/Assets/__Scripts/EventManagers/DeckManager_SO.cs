@@ -12,6 +12,7 @@
 
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Events;
 using FMODUnity;
 
 /// <summary>Keeps track of how many and which cards are in the player's Deck, Library, Hand, and Discard. Requests animations for card draw, discard, and deck shuffles.</summary>
@@ -27,6 +28,9 @@ public class DeckManager_SO : ScriptableObject
     DeckList_SO deckList;
     public DeckList_SO getDeck => deckList;
     static DeckList_SO starterDeck;
+    public UnityEvent OnLibraryChange;
+    public UnityEvent OnDiscardChange;
+    public UnityEvent OnShuffleDiscard;
 
 
     public static DeckList_SO getStarterDeck()
@@ -46,6 +50,7 @@ public class DeckManager_SO : ScriptableObject
 
     [SerializeField, Tooltip("Cards the player can draw")] 
     List<Card_SO> pLibrary;
+    public int GetLibraryCount() => pLibrary.Count;
     
     [SerializeField, Tooltip("Cards the player has discarded")] 
     List<Card_SO> pDiscard;
@@ -53,6 +58,8 @@ public class DeckManager_SO : ScriptableObject
     
     [SerializeField, Tooltip("Cards in the player's current hand")] 
     List<Card_SO> pHand;
+
+    public int GetAllCurrentPlayingCards() => pDiscard.Count + pLibrary.Count + pHand.Count;
 
     [SerializeField] EventReference Draw_SFX;
     [SerializeField] EventReference Discard_SFX;
@@ -70,7 +77,8 @@ public class DeckManager_SO : ScriptableObject
 
     private void Awake()
     {
-        
+        OnLibraryChange = new UnityEvent();
+        OnDiscardChange = new UnityEvent();
     }
 
     // Setup
@@ -202,6 +210,7 @@ public class DeckManager_SO : ScriptableObject
             pLibrary.Remove(pLibrary[0]);
             animations[i] = new CardPathAnim(_Loader.GetCardSO, Draw_SFX, cards[i], GodDialogueTrigger.Draw);
         }
+        OnLibraryChange?.Invoke();
         AnimationEventManager.getInstance.requestAnimation("Library-Hand", cards, delay, animations);
         return animations;
     }
@@ -232,10 +241,16 @@ public class DeckManager_SO : ScriptableObject
             pDiscard.Add(pHand[i]);
 
             animations[i] = new CardPathAnim(_Loader.GetCardSO, Discard_SFX, _card, GodDialogueTrigger.Discard);
+            animations[i].OnAnimCompletionTrigger.AddListener(OnDiscardChange.Invoke);
         }
 
         // requests animations for all discarded cards
         AnimationEventManager.getInstance.requestAnimation("Hand-Discard", cards, delay, animations);
+
+
+
+        // TODO move OnDiscardChange?.Invoke() and OnLibraryChange?.Invoke() to better places
+
 
         pHand.Clear();
         return animations;
@@ -264,6 +279,7 @@ public class DeckManager_SO : ScriptableObject
                 pDiscard.Add(pHand[i]);
             }
             animations[i] = new CardPathAnim(_Loader.GetCardSO, Discard_SFX, _card, GodDialogueTrigger.Discard);
+            animations[i].OnAnimCompletionTrigger.AddListener(OnDiscardChange.Invoke);
         }
         // requests animations for all discarded cards
 
@@ -291,6 +307,7 @@ public class DeckManager_SO : ScriptableObject
             pDiscard.Add(card);
             pHand.Remove(card);
 
+            anim.OnAnimCompletionTrigger.AddListener(OnDiscardChange.Invoke);
             return anim;
         }
         return null;
@@ -318,6 +335,8 @@ public class DeckManager_SO : ScriptableObject
             pLibrary.Add(libraryCopy[rnd]);
             libraryCopy[rnd] = null;
         }
+
+        
     }
     
     /// <summary>Moves all cards from discard to the library, Then shuffle the library</summary>
@@ -339,11 +358,14 @@ public class DeckManager_SO : ScriptableObject
             _Loader.shouldAddComponent = false;
             _Loader.Set(pDiscard[i]);
             animations[i] = new CardPathAnim(_Loader.GetCardSO, Shuffle_SFX, cards[i], GodDialogueTrigger.Shuffle);
+            animations[i].OnAnimCompletionTrigger.AddListener(OnDiscardChange.Invoke);
+            animations[i].OnAnimCompletionTrigger.AddListener(OnLibraryChange.Invoke);
         }
         // Request discard to library animations
         AnimationEventManager.getInstance.requestAnimation("ShuffleDiscard", cards, delay, animations);
         pDiscard.Clear();
         shuffleLibrary();
+        OnShuffleDiscard?.Invoke();
         return animations;
     }
 
