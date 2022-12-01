@@ -80,7 +80,6 @@ public class CardPileController : MonoBehaviour
             {
                 if(time > (duration/NumOfCards)*(6-n))
                 {
-                    Debug.Log(n);
                     Cards[n-1].SetActive(false);
                     n--;
                 }

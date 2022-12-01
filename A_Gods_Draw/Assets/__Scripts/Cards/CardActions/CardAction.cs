@@ -138,44 +138,47 @@ public abstract class CardAction : Action
 
     public IEnumerator playTriggerVFX(GameObject source, Transform target,  Vector3 offset)
     {
-        _VFX.isAnimating= true;
-        float time = 0;
-        
-        ProceduralPathMesh[] meshes = source.GetComponentsInChildren<ProceduralPathMesh>();
-        if(meshes.Length > 0)
-            GameObject.Destroy(meshes[0].gameObject);
-
-        GameObject _thisVFX = null;
-        PathController _path = null;
-        float animTime = 0;
-        
-        if(_VFX.trigger_VFX)
+        if(_VFX != null)
         {
-            _thisVFX = GameObject.Instantiate(_VFX.trigger_VFX);
-            _thisVFX.transform.position = source.transform.position + offset;
-            Animator animator = _thisVFX.GetComponentInChildren<Animator>();
-            animTime = animator.GetCurrentAnimatorStateInfo(0).length;
-        }
+            _VFX.isAnimating= true;
+            float time = 0;
+            
+            ProceduralPathMesh[] meshes = source.GetComponentsInChildren<ProceduralPathMesh>();
+            if(meshes.Length > 0)
+                GameObject.Destroy(meshes[0].gameObject);
 
-        while(time < animTime)
-        {
-            time = Mathf.Clamp01(time + Time.deltaTime * _VFX.PathSpeed);
-            if(_VFX.FollowPath && _thisVFX)
+            GameObject _thisVFX = null;
+            PathController _path = null;
+            float animTime = 0;
+            
+            if(_VFX.trigger_VFX)
             {
-                _thisVFX.transform.position = _path.GetEvenPathOP(time).pos;
-                _thisVFX.transform.rotation = _path.GetEvenPathOP(time).rot;
+                _thisVFX = GameObject.Instantiate(_VFX.trigger_VFX);
+                _thisVFX.transform.position = source.transform.position + offset;
+                Animator animator = _thisVFX.GetComponentInChildren<Animator>();
+                animTime = animator.GetCurrentAnimatorStateInfo(0).length;
             }
-            yield return new WaitForEndOfFrame();
-        }
 
-        GameObject.Destroy(_thisVFX);
-        
-        if(_VFX.hit_VFX && target != null)
-        {
-            GameObject _hitVFX = GameObject.Instantiate(_VFX.hit_VFX);
-            _hitVFX.transform.position = target.transform.position + (target.transform.up * 0.1f);
+            while(time < animTime)
+            {
+                time = Mathf.Clamp01(time + Time.deltaTime * _VFX.PathSpeed);
+                if(_VFX.FollowPath && _thisVFX)
+                {
+                    _thisVFX.transform.position = _path.GetEvenPathOP(time).pos;
+                    _thisVFX.transform.rotation = _path.GetEvenPathOP(time).rot;
+                }
+                yield return new WaitForEndOfFrame();
+            }
+
+            GameObject.Destroy(_thisVFX);
+            
+            if(_VFX.hit_VFX && target != null)
+            {
+                GameObject _hitVFX = GameObject.Instantiate(_VFX.hit_VFX);
+                _hitVFX.transform.position = target.transform.position + (target.transform.up * 0.1f);
+            }
+            _VFX.isAnimating = false;
         }
-        _VFX.isAnimating = false;
     }
 }
 
