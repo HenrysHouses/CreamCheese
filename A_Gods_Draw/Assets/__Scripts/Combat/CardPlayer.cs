@@ -275,7 +275,6 @@ public class CardPlayer : MonoBehaviour
                 playedSFX = false;
             }
         }
-
     }
 
     Card_Behaviour selectCard()

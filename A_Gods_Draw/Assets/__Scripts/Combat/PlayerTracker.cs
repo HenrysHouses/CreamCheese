@@ -30,7 +30,7 @@ public class PlayerTracker : ScriptableObject
 
     public void resetHealth()
     {
-        Health = MaxHealth;
+        UpdateHealth(MaxHealth);
     }
 
     public void setDeck(DeckListData deckData)
