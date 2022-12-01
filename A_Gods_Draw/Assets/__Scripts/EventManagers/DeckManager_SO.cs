@@ -19,7 +19,9 @@ using FMODUnity;
 public class DeckManager_SO : ScriptableObject
 {
     [SerializeField, Tooltip("Prefab used in animations for cards")]
-    GameObject CardAnimationPrefab;
+    GameObject CardDrawAnimationPrefab;
+    [SerializeField, Tooltip("Prefab used in animations for cards")]
+    GameObject CardShuffleAnimationPrefab;
 
     [SerializeField, Tooltip("Cards the player has obtained")]
     DeckList_SO deckList;
@@ -191,7 +193,7 @@ public class DeckManager_SO : ScriptableObject
         {
             // adds the top card to player hand
             pHand.Add(pLibrary[0]); 
-            cards[i] = Instantiate(CardAnimationPrefab);
+            cards[i] = Instantiate(CardDrawAnimationPrefab);
 
             Card_Loader _Loader = cards[i].GetComponentInChildren<Card_Loader>();
             _Loader.shouldAddComponent = false;
@@ -219,7 +221,7 @@ public class DeckManager_SO : ScriptableObject
         for (int i = 0; i < pHand.Count; i++)
         {
             // preps the discard animations
-            GameObject _card = Instantiate(CardAnimationPrefab);
+            GameObject _card = Instantiate(CardDrawAnimationPrefab);
             Card_Loader _Loader = _card.GetComponentInChildren<Card_Loader>();
             _Loader.shouldAddComponent = false;
             _Loader.Set(pHand[i]);
@@ -253,7 +255,7 @@ public class DeckManager_SO : ScriptableObject
             {
                 Debug.LogWarning("ExceptFor variable may cause issues with animations");
                 // preps the discard animations
-                _card = Instantiate(CardAnimationPrefab);
+                _card = Instantiate(CardDrawAnimationPrefab);
                 _Loader = _card.GetComponentInChildren<Card_Loader>();
                 _Loader.shouldAddComponent = false;
                 _Loader.Set(pHand[i]);
@@ -278,7 +280,7 @@ public class DeckManager_SO : ScriptableObject
         if (pHand.Contains(card))
         {
             // preps the discard animation
-            GameObject _card = Instantiate(CardAnimationPrefab);
+            GameObject _card = Instantiate(CardDrawAnimationPrefab);
             Card_Loader _Loader = _card.GetComponentInChildren<Card_Loader>();
             _Loader.shouldAddComponent = false;
             _Loader.Set(card);
@@ -331,7 +333,7 @@ public class DeckManager_SO : ScriptableObject
         for (int i = 0; i < pDiscard.Count; i++)
         {
             pLibrary.Add(pDiscard[i]);
-            cards[i] = Instantiate(CardAnimationPrefab);
+            cards[i] = Instantiate(CardShuffleAnimationPrefab);
             Card_Loader _Loader = cards[i].GetComponentInChildren<Card_Loader>();
             _Loader.shouldAddComponent = false;
             _Loader.Set(pDiscard[i]);
