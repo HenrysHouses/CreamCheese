@@ -43,6 +43,7 @@ public struct ActionGroup
 public class NonGod_Behaviour : Card_Behaviour
 {
     public List<ActionGroup> actions = new();
+    public List<ActionGroup> godBuffActions = new();
     public int TargetedActions()
     {
 
@@ -50,6 +51,13 @@ public class NonGod_Behaviour : Card_Behaviour
         foreach (var group in actions)
         {
             aux++;
+        }
+        if (godBuffed)
+        {
+            foreach (var group in godBuffActions)
+            {
+                aux++;
+            }
         }
         return aux;
     }
@@ -76,6 +84,7 @@ public class NonGod_Behaviour : Card_Behaviour
         this.card_so = card;
 
         actions = new();
+        godBuffActions = new();
 
         for (int i = 0; i < card.targetActions.Count; i++)
         {
@@ -94,6 +103,21 @@ public class NonGod_Behaviour : Card_Behaviour
                 act.PlayOnPlacedOrTriggered_SFX = currAction.PlayOnPlacedOrTriggered_SFX;
                 
                 act._VFX = currAction._VFX;
+            }
+        }
+
+        for (int i = 0; i < card.onGodBuff.Count; i++)
+        {
+            godBuffActions.Add(new(card.onGodBuff[i].numOfTargets));
+            godBuffActions[i].InitList();
+
+            for (int j = 0; j < card.onGodBuff[i].Count; j++)
+            {
+                var act = GetAction(card.onGodBuff[i][j]);
+                act.SetBehaviour(this);
+                godBuffActions[i].Add(act);
+                act.action_SFX = card.onGodBuff[i].targetActions[j].action_SFX;
+                act.PlayOnPlacedOrTriggered_SFX = card.onGodBuff[i].targetActions[j].PlayOnPlacedOrTriggered_SFX;
             }
         }
 
@@ -208,6 +232,34 @@ public class NonGod_Behaviour : Card_Behaviour
                 act.SetClickableTargets(controller.GetBoard(), false);
             }
         }
+        if (godBuffed)
+        {
+            foreach (var actionGroup in godBuffActions)
+            {
+                foreach (var act in actionGroup.actions)
+                {
+                    act.SetCamera();
+                    act.SetClickableTargets(controller.GetBoard(), true);
+                }
+                for (int i = 0; i < actionGroup.nTargets; i++)
+                {
+                    hasClickedTarget = false;
+                    missedClick = false;
+                    yield return new WaitUntil(() => hasClickedTarget);
+                    foreach (var act in actionGroup.actions)
+                    {
+                        act.AddTarget(target);
+                    }
+                    target = null;
+                }
+                foreach (var act in actionGroup.actions)
+                {
+                    act.OnActionReady(controller.GetBoard());
+                    act.ResetCamera();
+                    act.SetClickableTargets(controller.GetBoard(), false);
+                }
+            }
+        }
 
         cardIsReady = true;
         controller.GetBoard().PlayCard(this);
@@ -280,6 +332,19 @@ public class NonGod_Behaviour : Card_Behaviour
                 yield return new WaitUntil(() => action.Ready());
             }
         }
+        if (godBuffed)
+            foreach (var target in godBuffActions)
+            {
+                foreach (var action in target.actions)
+                {
+                    StartCoroutine(action.OnAction(board));
+                    if (action.PlayOnPlacedOrTriggered_SFX)
+                    {
+                        SoundPlayer.PlaySound(action.action_SFX, gameObject);
+                    }
+                    yield return new WaitUntil(() => action.Ready());
+                }
+            }
 
         yield return new WaitForSeconds(0.2f);
 
@@ -290,6 +355,14 @@ public class NonGod_Behaviour : Card_Behaviour
                 action.Reset(board);
             }
         }
+        if (godBuffed)
+            foreach (var target in godBuffActions)
+            {
+                foreach (var action in target.actions)
+                {
+                    action.Reset(board);
+                }
+            }
 
         controller.Discard(this);
         Destroy(transform.parent.parent.gameObject);
@@ -313,6 +386,14 @@ public class NonGod_Behaviour : Card_Behaviour
         StopAllCoroutines();
 
         foreach (var target in actions)
+        {
+            foreach (var action in target.actions)
+            {
+                action.Reset(controller.GetBoard());
+            }
+        }
+
+        foreach (var target in godBuffActions)
         {
             foreach (var action in target.actions)
             {
@@ -363,6 +444,16 @@ public class NonGod_Behaviour : Card_Behaviour
             foreach (var action in target.actions)
             {
                 action.OnLanePlaced(controller.GetBoard());
+            }
+        }
+        if (godBuffed)
+        {
+            foreach (var target in godBuffActions)
+            {
+                foreach (var action in target.actions)
+                {
+                    action.OnLanePlaced(controller.GetBoard());
+                }
             }
         }
 

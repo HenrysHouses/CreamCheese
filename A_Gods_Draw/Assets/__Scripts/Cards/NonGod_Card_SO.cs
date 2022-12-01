@@ -10,6 +10,7 @@ public class NonGod_Card_SO : Card_SO
     [HideInInspector]
     public int cardStrenghIndex;
     public List<ActionsForTarget> targetActions = new();
+    public List<ActionsForTarget> onGodBuff = new();
     public GodActionEnum correspondingGod;
 
     private void OnValidate()
