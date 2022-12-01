@@ -18,6 +18,8 @@ public abstract class CardAction : Action
     public EventReference action_SFX;
     public bool PlayOnPlacedOrTriggered_SFX;
 
+    public GameObject actionVFX;
+    public GameObject actionHitVFX;
 
     public CardAction(int _min, int _max) : base(_min, _max) { strengh = _max; }
 
