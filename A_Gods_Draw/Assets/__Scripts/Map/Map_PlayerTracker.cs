@@ -94,7 +94,7 @@ namespace Map
                     GameManager.instance.nextCombatType = EncounterDifficulty.elites;
                     break;
                 case NodeType.RestPlace:
-                    sceneTransition.TransitionScene(false, "Combat");
+                    sceneTransition.TransitionScene(false, "RestPlace");
                     break;
                 //case NodeType.RandomReward:
                 //    sceneTransition.TransitionScene(false, "CardReward");
