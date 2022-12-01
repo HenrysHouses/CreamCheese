@@ -264,7 +264,7 @@ public class CardPlayer : MonoBehaviour
                 playedSFX = true;
 
             }
-            monster.setOutline(monster.outlineSize);
+            monster.setOutline(monster.outlineSize, Color.white);
         }
         if(monster == null)
         {

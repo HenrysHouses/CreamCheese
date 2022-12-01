@@ -18,6 +18,7 @@ public abstract class IMonster : BoardElement
     [SerializeField] Renderer[] MonsterRenderers;
     public float outlineSize = 0.01f;
     bool outlineShouldTurnOff;
+    float outlineRemainingTime;
 
     [SerializeField]
     int maxHealth;
@@ -108,6 +109,8 @@ public abstract class IMonster : BoardElement
         }
 
         healthTxt.text = "HP: " + health.ToString();
+        setOutline(outlineSize, Color.red, 0.25f);
+
     }
 
     internal void DecideIntent(BoardStateController board)
@@ -189,31 +192,33 @@ public abstract class IMonster : BoardElement
         }
     }
 
-    public void setOutline(float size)
+    public void setOutline(float size, Color color, float duration = 0)
     {
-        
         if(size > 0)
         {
             outlineShouldTurnOff = false;
-
+            outlineRemainingTime = duration;
         }
 
         foreach (var rend in MonsterRenderers)
         {
             if(rend.materials.Length > 1)
+            {
                 rend.materials[1].SetFloat("_Size", size);            
+                rend.materials[1].SetColor("_Color", color);            
+            }
         }
     }
 
     private void UpdateOutline()
     {
+        outlineRemainingTime = Mathf.Clamp01(outlineRemainingTime - Time.deltaTime);
+        
         if(outlineShouldTurnOff)
-            setOutline(0);
-        else
+            setOutline(0, Color.white);
+        else if (outlineRemainingTime == 0)
         {
             outlineShouldTurnOff = true;
-            
-            
         }
     }
 

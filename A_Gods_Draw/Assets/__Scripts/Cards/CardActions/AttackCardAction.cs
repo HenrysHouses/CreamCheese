@@ -16,7 +16,7 @@ public class AttackCardAction : CardAction
             if (target)
             {
                 // Playing VFX for each action
-                board.StartCoroutine(playTriggerVFX(source.gameObject, target.transform));
+                board.StartCoroutine(playTriggerVFX(source.gameObject, target));
                 yield return new WaitUntil(() => !_VFX.isAnimating);
                 target.DealDamage(strengh);
                 yield return new WaitForSeconds(0.2f);

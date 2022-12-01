@@ -94,7 +94,7 @@ public abstract class CardAction : Action
         return cont.thingsInLane.Count + neededLanes <= 4;
     }
 
-    public IEnumerator playTriggerVFX(GameObject source, Transform target)
+    public IEnumerator playTriggerVFX(GameObject source, IMonster target)
     {
         _VFX.isAnimating= true;
         float time = 0;
@@ -111,7 +111,7 @@ public abstract class CardAction : Action
             _path = GameObject.FindGameObjectWithTag("VFXActionPath").GetComponent<PathController>();
             _thisVFX.transform.position = _path.GetEvenPathOP(time).pos;
             _path.startPoint.position = source.transform.position - (source.transform.forward * 0.1f);
-            _path.endPoint.position = target.position + (target.forward * 0.1f);
+            _path.endPoint.position = target.transform.position + (target.transform.forward * 0.1f);
             _path.recalculatePath();
         }
 
@@ -131,7 +131,7 @@ public abstract class CardAction : Action
         if(_VFX.hit_VFX)
         {
             GameObject _hitVFX = GameObject.Instantiate(_VFX.hit_VFX);
-            _hitVFX.transform.position = target.transform.position;
+            _hitVFX.transform.position = target.transform.position + (target.transform.up * 0.1f);
         }
         _VFX.isAnimating = false;
     }
