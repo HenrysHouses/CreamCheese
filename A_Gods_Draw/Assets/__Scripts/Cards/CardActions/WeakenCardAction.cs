@@ -7,7 +7,7 @@ public class WeakenCardAction : CardAction
 {
     public WeakenCardAction(int strengh) : base(strengh, strengh) { }
 
-    public override IEnumerator OnAction(BoardStateController board)
+    public override IEnumerator OnAction(BoardStateController board, NonGod_Behaviour source)
     {
         isReady = false;
 

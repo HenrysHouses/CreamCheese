@@ -64,8 +64,7 @@ public struct CardActionData
     public int actionStrength;
     public bool PlayOnPlacedOrTriggered_SFX;
     public EventReference action_SFX;
-
-
+    public ActionVFX _VFX;
 }
 
 

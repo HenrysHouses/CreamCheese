@@ -25,7 +25,7 @@ public class DefendCardAction : CardAction
     //    return false;
     //}
 
-    public override IEnumerator OnAction(BoardStateController board)
+    public override IEnumerator OnAction(BoardStateController board, NonGod_Behaviour source)
     {
         isReady = false;
 

@@ -8,7 +8,7 @@ public class InstakillCardAction : CardAction
 
     public InstakillCardAction(int strengh) : base(strengh, strengh) { }
 
-    public override IEnumerator OnAction(BoardStateController board)
+    public override IEnumerator OnAction(BoardStateController board, NonGod_Behaviour source)
     {
         isReady = false;
 

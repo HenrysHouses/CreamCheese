@@ -8,7 +8,7 @@ public class SplashDMGCardAction : CardAction
     public SplashDMGCardAction(int strengh) : base(strengh, strengh) { }
 
 
-    public override IEnumerator OnAction(BoardStateController board)
+    public override IEnumerator OnAction(BoardStateController board, NonGod_Behaviour source)
     {
         isReady = false;
         //StartAnimations...

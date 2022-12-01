@@ -14,7 +14,6 @@ using System.Linq;
 [RequireComponent(typeof(MeshFilter))]
 public class ProceduralPathMesh : MonoBehaviour
 {
-	[SerializeField] Transform PathPoint0, PathPoint1;
 	[SerializeField] PathController Path;
 	[SerializeField] Mesh2D shape2D;
 	[SerializeField] Material Mat;
@@ -114,9 +113,6 @@ public class ProceduralPathMesh : MonoBehaviour
 		mesh.SetTriangles(triIndices, 0);
 		mesh.SetNormals(normals);
 		mesh.SetUVs(0, uvs);
-
-		PathPoint0.position = startPoint.position;
-		PathPoint1.position = endPoint.position;
 	}
 
 	public PathController getPath()

@@ -6,18 +6,18 @@ public class AttackCardAction : CardAction
 {
     public AttackCardAction(int strengh) : base(strengh, strengh) { }
 
-    public override IEnumerator OnAction(BoardStateController board)
+    public override IEnumerator OnAction(BoardStateController board, NonGod_Behaviour source)
     {
         isReady = false;
-        //StartAnimations...
 
-        //yield return new WaitUntil(() => true);
         yield return new WaitForSeconds(0.6f);
-
         foreach (IMonster target in targets)
         {
             if (target)
             {
+                // Playing VFX for each action
+                board.StartCoroutine(playTriggerVFX(source.gameObject, target.transform));
+                yield return new WaitUntil(() => !_VFX.isAnimating);
                 target.DealDamage(strengh);
                 yield return new WaitForSeconds(0.2f);
             }

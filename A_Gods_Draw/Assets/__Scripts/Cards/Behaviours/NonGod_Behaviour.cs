@@ -87,14 +87,18 @@ public class NonGod_Behaviour : Card_Behaviour
                 var act = GetAction(card.targetActions[i][j]);
                 act.SetBehaviour(this);
                 actions[i].Add(act);
-                act.action_SFX = card.targetActions[i].targetActions[j].action_SFX;
-                act.PlayOnPlacedOrTriggered_SFX = card.targetActions[i].targetActions[j].PlayOnPlacedOrTriggered_SFX;
+
+                CardActionData currAction = card.targetActions[i].targetActions[j];
+
+                act.action_SFX = currAction.action_SFX;
+                act.PlayOnPlacedOrTriggered_SFX = currAction.PlayOnPlacedOrTriggered_SFX;
+                
+                act._VFX = currAction._VFX;
             }
         }
 
         this.cardType = card.type;
-        this.elements = elements;
-        
+        this.elements = elements;        
     }
 
     public void Buff(int value, bool isMult)
@@ -210,21 +214,21 @@ public class NonGod_Behaviour : Card_Behaviour
         TurnController.shouldWaitForAnims = false;
     }
 
-    private void setEnemyHighlight()
-    {
-        int layer = 1 << 9;
-        Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
+    // private void setEnemyHighlight()
+    // {
+    //     int layer = 1 << 9;
+    //     Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
 
-        Debug.Log("something");
+    //     Debug.Log("something");
 
-        if(Physics.Raycast(ray, out RaycastHit hit, 10000, layer))
-        {
-            IMonster monster = hit.collider.GetComponent<IMonster>();
-            Debug.Log("hit: " + hit.collider.name);
+    //     if(Physics.Raycast(ray, out RaycastHit hit, 10000, layer))
+    //     {
+    //         IMonster monster = hit.collider.GetComponent<IMonster>();
+    //         Debug.Log("hit: " + hit.collider.name);
             
-            monster.setOutline(monster.outlineSize);
-        }
-    }
+    //         monster.setOutline(monster.outlineSize);
+    //     }
+    // }
 
     internal override void OnClickOnSelected()
     {
@@ -268,7 +272,7 @@ public class NonGod_Behaviour : Card_Behaviour
         {
             foreach (var action in target.actions)
             {
-                StartCoroutine(action.OnAction(board));
+                StartCoroutine(action.OnAction(board, this));
                 if (action.PlayOnPlacedOrTriggered_SFX)
                 {
                     SoundPlayer.PlaySound(action.action_SFX, gameObject); 

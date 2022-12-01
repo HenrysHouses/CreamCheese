@@ -10,7 +10,7 @@ public class HealCardAction : CardAction
     {
     }
 
-    public override IEnumerator OnAction(BoardStateController board)
+    public override IEnumerator OnAction(BoardStateController board, NonGod_Behaviour source)
     {
         isReady = false;
 
