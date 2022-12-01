@@ -20,12 +20,29 @@ MonoBehaviour:
     Heals for X
 
 '
+  effect: 
   cardStrenghIndex: 0
   targetActions:
   - numOfTargets: 1
     targetActions:
     - actionEnum: 2
       actionStrength: 2
+      PlayOnPlacedOrTriggered_SFX: 0
+      action_SFX:
+        Guid:
+          Data1: -986278551
+          Data2: 1246205654
+          Data3: 1273093782
+          Data4: -1925434271
+        Path: event:/Card Effects/CionDrop
     - actionEnum: 7
       actionStrength: 2
+      PlayOnPlacedOrTriggered_SFX: 0
+      action_SFX:
+        Guid:
+          Data1: 0
+          Data2: 0
+          Data3: 0
+          Data4: 0
+        Path: 
   correspondingGod: 0
