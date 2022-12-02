@@ -96,34 +96,6 @@ public class NonGod_Behaviour : Card_Behaviour
                 act.SetClickableTargets(controller.GetBoard(), false);
             }
         }
-        if (godBuffed)
-        {
-            foreach (var actionGroup in godBuffActions)
-            {
-                foreach (var act in actionGroup.actions)
-                {
-                    act.SetCamera();
-                    act.SetClickableTargets(controller.GetBoard(), true);
-                }
-                for (int i = 0; i < actionGroup.nTargets; i++)
-                {
-                    hasClickedTarget = false;
-                    missedClick = false;
-                    yield return new WaitUntil(() => hasClickedTarget);
-                    foreach (var act in actionGroup.actions)
-                    {
-                        act.AddTarget(target);
-                    }
-                    target = null;
-                }
-                foreach (var act in actionGroup.actions)
-                {
-                    act.OnActionReady(controller.GetBoard());
-                    act.ResetCamera();
-                    act.SetClickableTargets(controller.GetBoard(), false);
-                }
-            }
-        }
 
         cardIsReady = true;
         controller.GetBoard().PlayCard(this);
@@ -143,6 +115,9 @@ public class NonGod_Behaviour : Card_Behaviour
                     controller.GetBoard().playedGodCard.DeBuff(this);
                 }
             godBuffed = false;
+
+            foreach (var godAction in godBuffActions)
+                actions.Remove(godAction);
         }
     }
 
@@ -225,6 +200,9 @@ public class NonGod_Behaviour : Card_Behaviour
             if (card_so.correspondingGod == controller.GetBoard().playedGodCard.CardSO.godAction)
             {
                 controller.GetBoard().playedGodCard.Buff(this);
+
+                foreach (var godAction in godBuffActions)
+                    actions.Add(godAction);
             }
     }
     public void RemoveFromHand()
@@ -264,19 +242,6 @@ public class NonGod_Behaviour : Card_Behaviour
                 yield return new WaitUntil(() => action.Ready());
             }
         }
-        if (godBuffed)
-            foreach (var target in godBuffActions)
-            {
-                foreach (var action in target.actions)
-                {
-                    StartCoroutine(action.OnAction(board, this));
-                    if (action.PlayOnPlacedOrTriggered_SFX)
-                    {
-                        SoundPlayer.PlaySound(action.action_SFX, gameObject);
-                    }
-                    yield return new WaitUntil(() => action.Ready());
-                }
-            }
 
         yield return new WaitForSeconds(0.2f);
 
@@ -287,14 +252,6 @@ public class NonGod_Behaviour : Card_Behaviour
                 action.Reset(board);
             }
         }
-        if (godBuffed)
-            foreach (var target in godBuffActions)
-            {
-                foreach (var action in target.actions)
-                {
-                    action.Reset(board);
-                }
-            }
 
         controller.Discard(this);
         Destroy(transform.parent.parent.gameObject);
