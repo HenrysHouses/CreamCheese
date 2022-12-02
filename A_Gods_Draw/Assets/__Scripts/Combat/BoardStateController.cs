@@ -11,14 +11,12 @@ using FMODUnity;
 
 public class BoardStateController : MonoBehaviour
 {
-    // * Public
     public bool isEncounterInstantiated = false;
 
     [SerializeField] GameObject TargetingMesh;
     [SerializeField] Color AttackColor;
     [SerializeField] Color DefendColor;
 
-    // * Getters
     public PlayerController Player => _Player;
     public Encounter_SO Encounter => _Encounter;
     public IMonster[] Enemies => _Enemies;
@@ -45,6 +43,7 @@ public class BoardStateController : MonoBehaviour
     // * Private
     [SerializeField] Transform EnemyParent;
     Encounter_SO _Encounter;
+    [SerializeField] Battlefield[] Battlefields;
     IMonster[] _Enemies;
     [SerializeField] Transform[] _Lane;
     [SerializeField] Transform _GodLane;
@@ -95,6 +94,13 @@ public class BoardStateController : MonoBehaviour
         Encounter_SO[] possibleEncounters = EncounterLoader.LoadAllEncountersOf(GameManager.instance.nextCombatType);
         Debug.Log(GameManager.instance.nextCombatType);
         _Enemies = EncounterLoader.InstantiateRandomEncounter(possibleEncounters, EnemyParent, out _Encounter);
+        
+        foreach (var field in Battlefields)
+        {
+            if(field.type.Equals(_Encounter.battlefieldID))
+                field.Mesh.SetActive(true);
+        }
+
         isEncounterInstantiated = true;
     }
 
@@ -252,4 +258,17 @@ public class BoardStateController : MonoBehaviour
             placedCards.Remove(currentCard);
         }
     }
+}
+
+[Serializable]
+public class Battlefield
+{
+    public GameObject Mesh;
+    public BattlefieldID type;
+}
+
+public enum BattlefieldID
+{
+    Dragr,
+    Fenrir
 }

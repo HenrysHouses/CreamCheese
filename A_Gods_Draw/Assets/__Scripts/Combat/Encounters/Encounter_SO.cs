@@ -13,7 +13,7 @@ public struct EnemyData
 
 public class Encounter_SO : ScriptableObject
 {
-
+    public BattlefieldID battlefieldID;
     public List<EnemyData> enemies = new List<EnemyData>();
 
     
