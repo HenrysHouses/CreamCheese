@@ -1,0 +1,46 @@
+using UnityEngine;
+using HH.MultiSceneTools.Examples;
+
+public class EncoutnerAnimator : MonoBehaviour
+{
+    [SerializeField] Transform[] AnimateTransforms;
+    [SerializeField] SceneTransition BoardTransition;
+    [SerializeField] float speed = 1;
+
+    float totalOffset;
+    [SerializeField] float startOffset;
+    
+
+    void Start()
+    {
+        foreach (var anim in AnimateTransforms)
+        {
+            anim.position = anim.position - new Vector3(0, startOffset, 0);
+        }
+    }
+
+    // Update is called once per frame
+    void Update()
+    {
+        if(!BoardTransition.isTransitioning)
+        {
+            AnimateTransforms[1].gameObject.SetActive(true);
+
+            for (int i = 0; i < AnimateTransforms.Length; i++)
+            {
+                Vector3 pos = AnimateTransforms[i].position;
+                float offset = Time.deltaTime * speed;
+                pos.y = pos.y + offset;
+                AnimateTransforms[i].position = pos;
+
+                if(i != AnimateTransforms.Length-1)
+                    continue;
+
+                totalOffset += offset;
+
+                if(totalOffset >= startOffset)
+                    Destroy(this);
+            }
+        }
+    }
+}

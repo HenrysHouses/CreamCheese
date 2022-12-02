@@ -24,14 +24,17 @@ public class PlayerTracker : ScriptableObject
 
     public void UpdateHealth(int difference)
     {
-        Health += difference;
-        HealthChanges.Add(difference);
+        int totalDiff = difference;
+        if(Health + difference > MaxHealth)
+            totalDiff = MaxHealth - Health;
+
+        Health = Mathf.Clamp(Health + difference, 0, MaxHealth);
+        HealthChanges.Add(totalDiff);
     }
 
     public void resetHealth()
     {
         UpdateHealth(MaxHealth);
-        Health = 30;
     }
 
     public void setDeck(DeckListData deckData)
@@ -47,9 +50,6 @@ public class PlayerTracker : ScriptableObject
 
     public void addRune(rune rune)
     {
-        Debug.Log(CurrentRunes.Count);
-        Debug.Log(_runeData.Count);
-
         foreach (var runesData in _runeData)
         {
             if(runesData.Name == rune.RuneData.Name)
