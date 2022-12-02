@@ -15,18 +15,22 @@ MonoBehaviour:
   type: 0
   image: {fileID: 21300000, guid: 89efc1735d971dc4d97568c67709bb01, type: 3}
   cardName: Tyr-Blessed Sword
-  description: "Warriors would carve victory runes into their sword\u2018s hilt,
-    on the blade guards and the blades, invoking the Gods names"
-  effect: 'Deals X DMG to selected target
+  description: 'Deals X DMG to selected target
 
 
-    X is doubled with Tyr, God Of Justice'
+    X is doubled with Tyr, God Of
+    Justice
+
+
+
+'
+  effect: 
   cardStrenghIndex: 0
   targetActions:
   - numOfTargets: 1
     targetActions:
     - actionEnum: 0
-      actionStrength: 2
+      actionStrength: 1
       PlayOnPlacedOrTriggered_SFX: 1
       action_SFX:
         Guid:

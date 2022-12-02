@@ -16,12 +16,5 @@ public class HealPlayer : MonoBehaviour
     {
         if (player.Health < player.MaxHealth)
             player.UpdateHealth(HealAmount);
-
-        if (player.Health >= 30)
-        {
-            player.Health = 30;
-            player.UpdateHealth(30);
-
-        }
     }
 }

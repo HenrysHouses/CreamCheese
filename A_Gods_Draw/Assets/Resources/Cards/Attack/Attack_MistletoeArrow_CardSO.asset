@@ -15,16 +15,14 @@ MonoBehaviour:
   type: 0
   image: {fileID: 21300000, guid: b386c81d7bdd28a4a895d6409f1ef62a, type: 3}
   cardName: Mistletoe Arrow
-  description: Mistletoe was the only object not asked to never harm Baldr, so Loke
-    saw it as a chance to craft an arrow from it, and ask Hodr the Blind to shoot
-    it at Baldr, resulting in his death.
-  effect: Deals X DMG to selected target
+  description: Deals X DMG to selected target
+  effect: 
   cardStrenghIndex: 0
   targetActions:
-  - numOfTargets: 1
+  - numOfTargets: 2
     targetActions:
     - actionEnum: 0
-      actionStrength: 2
+      actionStrength: 1
       PlayOnPlacedOrTriggered_SFX: 1
       action_SFX:
         Guid:
