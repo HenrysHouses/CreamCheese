@@ -15,12 +15,12 @@ MonoBehaviour:
   type: 2
   image: {fileID: 21300000, guid: 1c04ce86249cdc943834c9c25f9f11ea, type: 3}
   cardName: Sigrdrifa
-  description: 'Buff target card for X.
+  description: "Sigurd Fafnir\u2019s Bane found atop the mountain Hindafjall a woman,
+    sleeping, in full armor. He awoke her, and as a reward she gave him a mead of
+    memory, mystic wisdom and prophecies of the future."
+  effect: 'Buff target card for X.
 
-    Heals for X
-
-'
-  effect: 
+    Heals for X'
   cardStrenghIndex: 0
   targetActions:
   - numOfTargets: 1
@@ -35,6 +35,12 @@ MonoBehaviour:
           Data3: 1273093782
           Data4: -1925434271
         Path: event:/Card Effects/CionDrop
+      _VFX:
+        FollowPath: 1
+        isAnimating: 0
+        PathSpeed: 1
+        trigger_VFX: {fileID: 0}
+        hit_VFX: {fileID: 0}
     - actionEnum: 7
       actionStrength: 2
       PlayOnPlacedOrTriggered_SFX: 0
@@ -45,4 +51,11 @@ MonoBehaviour:
           Data3: 0
           Data4: 0
         Path: 
+      _VFX:
+        FollowPath: 1
+        isAnimating: 0
+        PathSpeed: 1
+        trigger_VFX: {fileID: 0}
+        hit_VFX: {fileID: 0}
+  onGodBuff: []
   correspondingGod: 0

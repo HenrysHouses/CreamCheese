@@ -15,10 +15,10 @@ MonoBehaviour:
   type: 1
   image: {fileID: 21300000, guid: a5f33b472708bcc4f874678d2bd50444, type: 3}
   cardName: Huginn And Muninn
-  description: 'Defends two targets for X
-
-'
-  effect: 
+  description: The two ravens Huginn and Muninn flew out from Asgard every morning,
+    and returned by breakfast, bringing news from all the realms to Odin, so he could
+    prepare for Ragnarok.
+  effect: Defends two targets for X
   cardStrenghIndex: 0
   targetActions:
   - numOfTargets: 2
@@ -33,4 +33,11 @@ MonoBehaviour:
           Data3: -43431291
           Data4: -1906492248
         Path: event:/Card Effects/CardShield
+      _VFX:
+        FollowPath: 1
+        isAnimating: 0
+        PathSpeed: 1
+        trigger_VFX: {fileID: 0}
+        hit_VFX: {fileID: 0}
+  onGodBuff: []
   correspondingGod: 0
