@@ -45,13 +45,15 @@ public class EndState : CombatFSMState
         if (_player.Health <= 0)
         {
             MultiSceneLoader.loadCollection("Death", collectionLoadMode.Difference);
-
             _player.Health = 10;
             return;
-
         }
         if (Controller.GetBoard().isEnemyDefeated)
+        {
+            if (Controller.GetBoard().Encounter.name.Equals("Boss"))
+                GameManager.timesDefeatedBoss++;
             MultiSceneLoader.loadCollection("Map", collectionLoadMode.Difference);
+        }
 
     }
 }

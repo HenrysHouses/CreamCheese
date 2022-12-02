@@ -2,16 +2,16 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class LokiMonster3Intent : Intent
+public class BossIntent : Intent
 {
     AttackGodAction attackGod;
     AttackPlayerAction attackPlayer;
-    public LokiMonster3Intent()
+    public BossIntent()
     {
         int scale = GameManager.timesDefeatedBoss;
 
-        attackGod = new(5 + scale, 8 + scale);
-        attackPlayer = new(5 + scale, 8 + scale * 2);
+        attackGod = new(6 + scale, 10 + scale * 2);
+        attackPlayer = new(6 + scale, 10 + scale * 2);
     }
 
     public override void DecideIntent(BoardStateController board)

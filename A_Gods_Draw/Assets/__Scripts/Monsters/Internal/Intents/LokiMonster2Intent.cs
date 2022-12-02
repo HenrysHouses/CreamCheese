@@ -8,9 +8,11 @@ public class LokiMonster2Intent : Intent
 
     public LokiMonster2Intent()
     {
-        Actions.Add(new AttackGodAction(3, 5));
-        Actions.Add(new AttackPlayerAction(3, 5));
-        Actions.Add(new BuffAttackersAction(2, 2));
+        int scale = GameManager.timesDefeatedBoss;
+
+        Actions.Add(new AttackGodAction(3 + scale, 5 + scale));
+        Actions.Add(new AttackPlayerAction(3 + scale, 5 + scale));
+        //Actions.Add(new BuffAttackersAction(2 + scale, 2 + scale));
     }
 
     public T GetAction<T>() where T : Action
@@ -56,7 +58,7 @@ public class LokiMonster2Intent : Intent
 
                 if (UnityEngine.Random.Range(0, 4) < 3)
                 {
-                    actionSelected = GetAction<BuffAttackersAction>();
+                    //actionSelected = GetAction<BuffAttackersAction>();
                 }
                 break;
             }
