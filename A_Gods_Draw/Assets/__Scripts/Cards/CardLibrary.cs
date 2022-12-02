@@ -12,6 +12,7 @@ public class CardLibrary : MonoBehaviour
 {
     [SerializeField] DeckManager_SO deckManager;
     [SerializeField] DeckList_SO deckList;
+    [SerializeField] GameObject DestroyParticle;
     public GameObject cardPrefab;
     public Transform[] cardSlots;
     int currPage;
@@ -101,6 +102,9 @@ public class CardLibrary : MonoBehaviour
         if(!Physics.Raycast(ray, out RaycastHit hit, 10000, layer))
             return;            
 
+        if(!hit.collider.GetComponentInChildren<Card_Loader>())
+            return;
+
         hit.transform.GetChild(0).gameObject.SetActive(true);
         hit.collider.GetComponentInChildren<DisableHighlight>().StayEnabled();
 
@@ -109,16 +113,30 @@ public class CardLibrary : MonoBehaviour
 
         Card_SO _selectedCard = hit.collider.GetComponentInChildren<Card_Loader>().GetCardSO;
         deckManager.removeCardFromDeck(_selectedCard);
-        Destroy(hit.collider.gameObject);
         shouldDestroyACard = false;
 
-        StartCoroutine(destroyAnim());
+        StartCoroutine(destroyAnim(DestroyParticle, hit.collider.transform));
     }
 
-    IEnumerator destroyAnim()
+    IEnumerator destroyAnim(GameObject particle, Transform Target)
     {
         isAnimating = true;
-        yield return new WaitForEndOfFrame();
+        float time = 0;
+        GameObject spawn = Instantiate(particle);
+        spawn.transform.position = Target.position;
+        ParticleSystem _system = spawn.GetComponent<ParticleSystem>();
+
+        while(time < _system.main.duration+3)
+        {
+            time += Time.deltaTime;
+
+            if(time > 2 && Target != null)
+                Destroy(Target.gameObject);
+
+            yield return new WaitForEndOfFrame();
+        }
+
+        Destroy(spawn);
         isAnimating = false;
         GameManager.instance.DestroyedCardIsDone();
         MultiSceneLoader.loadCollection("Map", collectionLoadMode.Difference);
