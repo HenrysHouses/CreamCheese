@@ -1,29 +1,33 @@
-using System.Collections;
+// Written by Javier Villegas
+// Modified by Henrik Hustoft
+
 using System.Collections.Generic;
 using UnityEngine;
 using FMODUnity;
 using System;
 
+/// <summary>
+/// SO containing data only necessary for god cards
+/// </summary>
 [CreateAssetMenu(menuName = "ScriptableObjects/God card"), System.Serializable]
 public class God_Card_SO : Card_SO
 {
-    // [HideInInspector]
     public int strengh;
     public int health;
     public GodActionEnum godAction;
-
+    public EventReference enterBattlefield_SFX;
     public GameObject God_Model;
 
-    public EventReference enterBattlefield_SFX;
     [SerializeField] EnemyClassNames enemyClassNames;
-
-
-    private void OnValidate() {
-        type = CardType.God;
-    }
 
     public GodDialogue[] dialogues;
 
+    /// <summary>
+    /// Just to make sure the type is God
+    /// </summary>
+    private void OnValidate() {
+        type = CardType.God;
+    }
     
     public void StartDialogue(GodDialogueTrigger trigger, UnityEngine.Object source = null)
     {
@@ -72,8 +76,6 @@ public class God_Card_SO : Card_SO
                 throw new NotImplementedException();
         }
     }
-
-    
 
     /// <summary>Finds a dialogue related to a board element</summary>
     /// <param name="target">The board element to react to</param>

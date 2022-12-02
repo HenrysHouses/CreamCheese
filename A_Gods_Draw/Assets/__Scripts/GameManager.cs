@@ -20,6 +20,8 @@ public class GameManager : MonoBehaviour
 
     [SerializeField] EventDescription eventDescription;
 
+    static public int timesDefeatedBoss = 0;
+
     private void Awake()
     {
 

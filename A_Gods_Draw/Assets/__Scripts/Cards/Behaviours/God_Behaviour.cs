@@ -1,18 +1,22 @@
+// Written by
+//  Javier Villegas
+// Modified by
+//  Henrik Hustoft,
+//  Nicolay Joahsen
+
 using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using UnityEngine.UI;
 
 public class God_Behaviour : Card_Behaviour
 {
-    int maxHealth;
-    [SerializeField]
     int health;
+    int maxHealth;
+
     public int Health => health;
 
     GodCardAction action;
-
     GodPlacement godPlacement;
 
     int defendFor;
@@ -65,32 +69,14 @@ public class God_Behaviour : Card_Behaviour
         }
     }
 
-    internal void Buff(NonGod_Behaviour nonGod_Behaviour)
-    {
-        nonGod_Behaviour.Buff(card_so.strengh, true);
-        nonGod_Behaviour.BuffedByGod();
-    }
-
     public void DealDamage(int amount, UnityEngine.Object source)
     {
-        //Debug.Log("God damaged, defended for: " + defendFor);
+        health -= amount;
 
-        if (amount > defendFor)
-        {
-            health -= amount + defendFor;
+        if(health > 0)
+            card_so.StartDialogue(GodDialogueTrigger.Hurt, source);
 
-            if(health > 0)
-                card_so.StartDialogue(GodDialogueTrigger.Hurt, source);
-            defendFor = 0;
-
-            godPlacement.UpdateUI();
-        }
-        else
-        {
-            defendFor -= amount;
-        }
-
-        //Debug.Log("God damaged, health left: " + health);
+        godPlacement.UpdateUI();
 
         if (health <= 0)
         {
@@ -116,10 +102,10 @@ public class God_Behaviour : Card_Behaviour
     //    posibleDefender = null;
     //}
 
-    public void Defend(int amount)
-    {
-        defendFor += amount;
-    }
+    //public void Defend(int amount)
+    //{
+    //    defendFor += amount;
+    //}
 
     private void OnMouseOver()
     {
@@ -132,12 +118,12 @@ public class God_Behaviour : Card_Behaviour
         if (onPlayerHand)
             godPlacement.godArrow.color = Color.white;
     }
-    public int GetStrengh()
-    {
-        return card_so.strengh;
-    }
+    //public int GetStrengh()
+    //{
+    //    return card_so.strengh;
+    //}
 
-    public virtual void OnTurnStart() { }
+    //public virtual void OnTurnStart() { }
 
     protected override void OnBeingSelected()
     {
@@ -243,6 +229,12 @@ public class God_Behaviour : Card_Behaviour
         return null;
     }
 
+
+    internal void Buff(NonGod_Behaviour nonGod_Behaviour)
+    {
+        nonGod_Behaviour.Buff(card_so.strengh, true);
+        nonGod_Behaviour.BuffedByGod();
+    }
     internal void DeBuff(NonGod_Behaviour nonGod_Behaviour)
     {
         nonGod_Behaviour.DeBuff(card_so.strengh, true);

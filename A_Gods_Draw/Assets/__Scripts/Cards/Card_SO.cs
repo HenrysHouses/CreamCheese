@@ -1,18 +1,20 @@
-using System.Collections;
-using System.Collections.Generic;
+// Written by
+//  Javier Villegas
+// Modified by
+//  Henrik Hustoft
+
 using UnityEngine;
 
-//[CreateAssetMenu(menuName = "ScriptableObjects/Card_Abs")]
-
+/// <summary>
+/// SO containing all data necessary for all cards
+/// </summary>
 [System.Serializable]
 public abstract class Card_SO : ScriptableObject
 {
     public CardType type;
     public Sprite image;
     public string cardName;
-    [TextArea(6, 20)]
-    public string description;
-    [TextArea(6, 20)]
-    public string effect;
+    [TextArea(6, 20)] public string description;
+    [TextArea(6, 20)] public string effect;
 }
 

@@ -1,9 +1,12 @@
-using System.Collections;
-using System.Collections.Generic;
+// Written by Javier Villegas
+
 using UnityEngine;
 using UnityEngine.UI;
 using FMODUnity;
 
+/// <summary>
+/// Enum for all the possible actions a card can do
+/// </summary>
 [System.Serializable]
 public enum CardActionEnum
 {
@@ -19,6 +22,9 @@ public enum CardActionEnum
     Weaken,
 }
 
+/// <summary>
+/// Enum for each of the possible god actions
+/// </summary>
 [System.Serializable]
 public enum GodActionEnum
 {
@@ -26,6 +32,9 @@ public enum GodActionEnum
     Tyr,
 }
 
+/// <summary>
+/// Struct containing the elements of the prefab
+/// </summary>
 [System.Serializable]
 public struct CardElements
 {
@@ -42,26 +51,56 @@ public struct CardElements
 
 }
 
+
+/// <summary>
+/// Class that given a Card_SO, modifies the elements on it to represent which card is and,
+/// if necessary, adds the corresponding behaviour
+/// </summary>
 public class Card_Loader : MonoBehaviour
 {
-    [SerializeField] Card_SO card_so;
-    public Card_SO GetCardSO => card_so;
-
     [SerializeField]
     CardElements elements;
+    Card_SO card_so;
+    Card_Behaviour CB;
 
-    private Card_Behaviour CB;
-    
+    [HideInInspector]
     public bool shouldAddComponent = true;
+
+    public Card_SO GetCardSO => card_so;
+    public Card_Behaviour Behaviour => CB;
+
+//------------------------------------------
 
     private void Start()
     {
         GetComponent<Canvas>().worldCamera = Camera.main;
-
         elements.prop = transform.GetChild(transform.childCount - 1);
     }
+    void ChangeOrm(CardType card)
+    {
+        if (card == CardType.Attack)
+        {
+            elements.prop.GetChild(3).gameObject.SetActive(true);
+            return;
+        }
 
-    // Start is called before the first frame update
+        if (card == CardType.Defence)
+        {
+            elements.prop.GetChild(4).gameObject.SetActive(true);
+            return;
+        }
+
+        else
+        {
+            elements.prop.GetChild(5).gameObject.SetActive(true);
+            return;
+        }
+    }
+
+    //------------------------------------------
+
+    /// <summary> The method that modifies the card gameobject </summary>
+    /// <param name="card"> The Card_SO object to get the data from </param>
     public void Set(Card_SO card)
     {
         card_so = card;
@@ -109,27 +148,4 @@ public class Card_Loader : MonoBehaviour
 
 
     }
-
-    void ChangeOrm(CardType card)
-    {
-        if (card == CardType.Attack)
-        {
-            elements.prop.GetChild(3).gameObject.SetActive(true);
-            return;
-        }
-        
-        if (card == CardType.Defence)
-        {
-            elements.prop.GetChild(4).gameObject.SetActive(true);
-            return;
-        }
-
-        if (card == CardType.Buff)
-        {
-            elements.prop.GetChild(5).gameObject.SetActive(true);
-            return;
-        }
-    }
-
-    public Card_Behaviour Behaviour => CB;
 }

@@ -10,7 +10,7 @@ public class AttackCardAction : CardAction
     {
         isReady = false;
 
-        yield return new WaitForSeconds(0.6f);
+        yield return new WaitForSeconds(0.2f);
         foreach (IMonster target in targets)
         {
             if (target)
@@ -19,7 +19,7 @@ public class AttackCardAction : CardAction
                 board.StartCoroutine(playTriggerVFX(source.gameObject, target));
                 yield return new WaitUntil(() => !_VFX.isAnimating);
                 target.DealDamage(strengh);
-                yield return new WaitForSeconds(0.2f);
+                yield return new WaitForSeconds(0.1f);
             }
         }
 

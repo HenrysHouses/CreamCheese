@@ -43,8 +43,8 @@ public class CardPlayer : MonoBehaviour
     {
         if (_selectedCard && _selectedCard.CardIsReady())
         {
-            _selectedCard.Placed();
             placeCard(_selectedCard);
+            _selectedCard.Placed();
             _selectedCard = null;
         }
         if (_selectedCard is NonGod_Behaviour card)
@@ -356,7 +356,6 @@ public class CardPlayer : MonoBehaviour
 
         _Hand.RemoveCard(loader);
         _Board.placeCardOnLane(behaviour);
-        behaviour.OnPlacedInLane();
         clearTargetMeshes();
     }
 }

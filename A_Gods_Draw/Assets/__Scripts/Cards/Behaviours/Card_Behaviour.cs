@@ -1,95 +1,46 @@
-using System;
+// Written by
+//  Javier Villegas
+// Modified by
+//  Henrik Hustoft,
+//  Nicolay Joahsen,
+//  Charlie Eikaas
+
 using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
-using FMODUnity;
-// using static TurnManager;
 
 public abstract class Card_Behaviour : BoardElement
 {
-    IEnumerator cor;
-    [field:SerializeField] public Transform ParentTransform {get; private set;}
-    protected Card_SO card_so;
-    public Card_SO CardSO => card_so;
-    public string Name => card_so.cardName;
-
-    // protected TurnManager manager;
-
-    public readonly bool isReady = false;
-
     protected TurnController controller;
-
+    protected Card_SO card_so;
     protected CardElements elements;
-
-    //Sounds
-
     protected bool onPlayerHand = false;
 
-    // public void SetManager(TurnManager manager)
-    // {
-    //     this.manager = manager;
-    // }
+    public readonly bool isReady = false;
+    [field:SerializeField] public Transform ParentTransform {get; private set;}
+
+    public Card_SO CardSO => card_so;
+    public string Name => card_so.cardName;
+    public TurnController Controller => controller;
+
 
     private void Awake() 
     {
         ParentTransform = transform.parent.parent;    
     }
 
-    public void SetController(TurnController cont)
-    {
-        onPlayerHand = true;
-        controller = cont;
-    }
-
-    public TurnController Controller => controller;
-
-    public void OnBeingClicked()
-    {
-        if (onPlayerHand)
-        {
-            SoundPlayer.PlaySound(elements.OnClickSFX,gameObject);
-            controller.SetSelectedCard(this);
-            OnBeingSelected();
-        }
-    }
 
     protected abstract void OnBeingSelected();
 
-    public void DeSelected()
-    {
-        if (cor != null)
-        {
-            StopCoroutine(cor);
-            cor = null;
-        }
-        GetComponentInParent<Card_ClickGlowing>().RemoveBorder();
-    }
-
-    // internal TurnManager GetManager()
-    // {
-    //     return manager;
-    // }
-
-    // public bool IsThisSelected()
-    // {
-    //     if(manager == null)
-    //     {
-    //         return false;
-    //     }
-    //     return manager.CurrentlySelectedCard() == this;
-    // }
-
+    protected virtual void OnPlacedInLane() { }
     protected virtual bool ReadyToBePlaced()
     {
         return true;
     }
-
     protected virtual IEnumerator Play(BoardStateController board)
     {
         yield return new WaitUntil(ReadyToBePlaced);
         GetComponentInParent<Card_ClickGlowing>().RemoveBorder();
         GetComponentInParent<BoxCollider>().enabled = false;
-        LatePlayed(board);
         // manager.FinishedPlay(this);
 
         
@@ -126,17 +77,6 @@ public abstract class Card_Behaviour : BoardElement
         }
 
     }
-
-    internal virtual void OnClickOnSelected()
-    {
-        
-    }
-
-    public virtual void OnPlacedInLane()
-    {
-        
-    }
-
     protected GodCardAction GetAction(GodActionEnum card)
     {
         return card switch
@@ -146,25 +86,74 @@ public abstract class Card_Behaviour : BoardElement
         };
     }
 
+
+    internal virtual void OnClickOnSelected() { }
+
+
+    public abstract bool CardIsReady();
+    public abstract void OnAction();
+
+    public void Placed()
+    {
+        GetComponent<BoxCollider>().enabled = true;
+        transform.parent.GetComponent<BoxCollider>().enabled = false;
+        OnPlacedInLane();
+        onPlayerHand = false;
+    }
+    public virtual void CancelSelection() { controller.SetSelectedCard(); }
+    public virtual bool ShouldCancelSelection() { return false; }
+    public virtual bool CanBeSelected() { return onPlayerHand; }
+
+    public void SetController(TurnController cont)
+    {
+        onPlayerHand = true;
+        controller = cont;
+    }
+    public void OnBeingClicked()
+    {
+        if (onPlayerHand)
+        {
+            SoundPlayer.PlaySound(elements.OnClickSFX, gameObject);
+            controller.SetSelectedCard(this);
+            OnBeingSelected();
+        }
+    }
     public void ChangeStrengh(int newValue)
     {
         elements.strength.text = newValue.ToString();
     }
 
-    public virtual void LatePlayed(BoardStateController board) { }
-    public abstract void OnAction();
 
-    public virtual void CancelSelection() { controller.SetSelectedCard(); }
+    //Unused stuff
 
-    public virtual bool ShouldCancelSelection() { return false; }
+    // public void SetManager(TurnManager manager)
+    // {
+    //     this.manager = manager;
+    // }
 
-    public virtual void Placed(bool placed = false)
-    {
-        GetComponent<BoxCollider>().enabled = true;
-        transform.parent.GetComponent<BoxCollider>().enabled = false;
-        onPlayerHand = placed;
-    }
-    public virtual bool CanBeSelected() { return onPlayerHand; }
+    //public void DeSelected()
+    //{
+    //    if (cor != null)
+    //    {
+    //        StopCoroutine(cor);
+    //        cor = null;
+    //    }
+    //    GetComponentInParent<Card_ClickGlowing>().RemoveBorder();
+    //}
 
-    public abstract bool CardIsReady();
+    // internal TurnManager GetManager()
+    // {
+    //     return manager;
+    // }
+
+    // public bool IsThisSelected()
+    // {
+    //     if(manager == null)
+    //     {
+    //         return false;
+    //     }
+    //     return manager.CurrentlySelectedCard() == this;
+    // }
+
+    // public virtual void LatePlayed(BoardStateController board) { }
 }

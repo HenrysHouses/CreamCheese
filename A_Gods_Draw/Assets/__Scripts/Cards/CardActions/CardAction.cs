@@ -96,44 +96,47 @@ public abstract class CardAction : Action
 
     public IEnumerator playTriggerVFX(GameObject source, IMonster target)
     {
-        _VFX.isAnimating= true;
-        float time = 0;
-        
-        ProceduralPathMesh[] meshes = source.GetComponentsInChildren<ProceduralPathMesh>();
-        if(meshes.Length > 0)
-            GameObject.Destroy(meshes[0].gameObject);
-
-        GameObject _thisVFX = null;
-        PathController _path = null;
-        if(_VFX.trigger_VFX)
+        if (_VFX is not null)
         {
-            _thisVFX = GameObject.Instantiate(_VFX.trigger_VFX);
-            _path = GameObject.FindGameObjectWithTag("VFXActionPath").GetComponent<PathController>();
-            _thisVFX.transform.position = _path.GetEvenPathOP(time).pos;
-            _path.startPoint.position = source.transform.position - (source.transform.forward * 0.1f);
-            _path.endPoint.position = target.transform.position + (target.transform.forward * 0.1f);
-            _path.recalculatePath();
-        }
+            _VFX.isAnimating = true;
+            float time = 0;
 
-        while(time < 1)
-        {
-            time = Mathf.Clamp01(time + Time.deltaTime * _VFX.PathSpeed);
-            if(_VFX.FollowPath && _thisVFX)
+            ProceduralPathMesh[] meshes = source.GetComponentsInChildren<ProceduralPathMesh>();
+            if (meshes.Length > 0)
+                GameObject.Destroy(meshes[0].gameObject);
+
+            GameObject _thisVFX = null;
+            PathController _path = null;
+            if (_VFX.trigger_VFX)
             {
+                _thisVFX = GameObject.Instantiate(_VFX.trigger_VFX);
+                _path = GameObject.FindGameObjectWithTag("VFXActionPath").GetComponent<PathController>();
                 _thisVFX.transform.position = _path.GetEvenPathOP(time).pos;
-                _thisVFX.transform.rotation = _path.GetEvenPathOP(time).rot;
+                _path.startPoint.position = source.transform.position - (source.transform.forward * 0.1f);
+                _path.endPoint.position = target.transform.position + (target.transform.forward * 0.1f);
+                _path.recalculatePath();
             }
-            yield return new WaitForEndOfFrame();
-        }
 
-        GameObject.Destroy(_thisVFX);
-        
-        if(_VFX.hit_VFX)
-        {
-            GameObject _hitVFX = GameObject.Instantiate(_VFX.hit_VFX);
-            _hitVFX.transform.position = target.transform.position + (target.transform.up * 0.1f);
+            while (time < 1)
+            {
+                time = Mathf.Clamp01(time + Time.deltaTime * _VFX.PathSpeed);
+                if (_VFX.FollowPath && _thisVFX)
+                {
+                    _thisVFX.transform.position = _path.GetEvenPathOP(time).pos;
+                    _thisVFX.transform.rotation = _path.GetEvenPathOP(time).rot;
+                }
+                yield return new WaitForEndOfFrame();
+            }
+
+            GameObject.Destroy(_thisVFX);
+
+            if (_VFX.hit_VFX)
+            {
+                GameObject _hitVFX = GameObject.Instantiate(_VFX.hit_VFX);
+                _hitVFX.transform.position = target.transform.position + (target.transform.up * 0.1f);
+            }
+            _VFX.isAnimating = false;
         }
-        _VFX.isAnimating = false;
     }
 
     public IEnumerator playTriggerVFX(GameObject source, Transform target,  Vector3 offset)
