@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 0}
-  m_IndirectSpecularColor: {r: 0.37311953, g: 0.38074014, b: 0.3587274, a: 1}
+  m_IndirectSpecularColor: {r: 0.37311918, g: 0.3807398, b: 0.35872716, a: 1}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
@@ -1869,6 +1869,7 @@ RectTransform:
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 1984964747}
+  - {fileID: 1724503457}
   m_Father: {fileID: 1890161112}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -1952,7 +1953,7 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1488365880}
-  m_Enabled: 1
+  m_Enabled: 0
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: fe87c0e1cc204ed48ad3b37840f39efc, type: 3}
   m_Name: 
@@ -2593,6 +2594,72 @@ PrefabInstance:
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 9fcf30b81c1d4274696333e3c7c9c9b7, type: 3}
+--- !u!1001 &1724503456
+PrefabInstance:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    m_TransformParent: {fileID: 1488365881}
+    m_Modifications:
+    - target: {fileID: 8589173922217360377, guid: c2a4ee52d6623794ea69d7a8496cc5f0, type: 3}
+      propertyPath: m_RootOrder
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 8589173922217360377, guid: c2a4ee52d6623794ea69d7a8496cc5f0, type: 3}
+      propertyPath: m_LocalScale.z
+      value: 395.538
+      objectReference: {fileID: 0}
+    - target: {fileID: 8589173922217360377, guid: c2a4ee52d6623794ea69d7a8496cc5f0, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: -0.5
+      objectReference: {fileID: 0}
+    - target: {fileID: 8589173922217360377, guid: c2a4ee52d6623794ea69d7a8496cc5f0, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: -5
+      objectReference: {fileID: 0}
+    - target: {fileID: 8589173922217360377, guid: c2a4ee52d6623794ea69d7a8496cc5f0, type: 3}
+      propertyPath: m_LocalPosition.z
+      value: 28.54896
+      objectReference: {fileID: 0}
+    - target: {fileID: 8589173922217360377, guid: c2a4ee52d6623794ea69d7a8496cc5f0, type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 0.7071068
+      objectReference: {fileID: 0}
+    - target: {fileID: 8589173922217360377, guid: c2a4ee52d6623794ea69d7a8496cc5f0, type: 3}
+      propertyPath: m_LocalRotation.x
+      value: -0.7071068
+      objectReference: {fileID: 0}
+    - target: {fileID: 8589173922217360377, guid: c2a4ee52d6623794ea69d7a8496cc5f0, type: 3}
+      propertyPath: m_LocalRotation.y
+      value: -0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8589173922217360377, guid: c2a4ee52d6623794ea69d7a8496cc5f0, type: 3}
+      propertyPath: m_LocalRotation.z
+      value: -0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8589173922217360377, guid: c2a4ee52d6623794ea69d7a8496cc5f0, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8589173922217360377, guid: c2a4ee52d6623794ea69d7a8496cc5f0, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8589173922217360377, guid: c2a4ee52d6623794ea69d7a8496cc5f0, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8969253460698472771, guid: c2a4ee52d6623794ea69d7a8496cc5f0, type: 3}
+      propertyPath: m_Name
+      value: UI_Rock_PRE_v1
+      objectReference: {fileID: 0}
+    m_RemovedComponents: []
+  m_SourcePrefab: {fileID: 100100000, guid: c2a4ee52d6623794ea69d7a8496cc5f0, type: 3}
+--- !u!4 &1724503457 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 8589173922217360377, guid: c2a4ee52d6623794ea69d7a8496cc5f0, type: 3}
+  m_PrefabInstance: {fileID: 1724503456}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1 &1733152114
 GameObject:
   m_ObjectHideFlags: 0
@@ -3033,8 +3100,8 @@ MonoBehaviour:
   m_fontMaterials: []
   m_fontColor32:
     serializedVersion: 2
-    rgba: 4281479730
-  m_fontColor: {r: 0.19607843, g: 0.19607843, b: 0.19607843, a: 1}
+    rgba: 4285399039
+  m_fontColor: {r: 1, g: 1, b: 0.42745098, a: 1}
   m_enableVertexGradient: 0
   m_colorMode: 3
   m_fontColorGradient:
