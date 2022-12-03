@@ -6,6 +6,7 @@ using UnityEngine;
 using UnityEngine.UI;
 using System;
 using FMODUnity;
+using UnityEditor;
 
 namespace Map
 {
@@ -24,8 +25,10 @@ namespace Map
         //for ui and sprites for nodes of the map
         public SpriteRenderer spriteRenderer;
         MeshRenderer meshRenderer;
+        [SerializeField] GameObject highlight; //for showing border around the map nodes
         public SpriteRenderer visitedSprite;
         public Image visitedImage; //image showing that you have visited that node
+        bool isHighlightOn;
 
         public Node Node { get; private set; }
         // ! TEMPORARY
@@ -37,7 +40,12 @@ namespace Map
         private float mouseDownTime;
         private const float maxClickDuration = 0.5f;
         public EventReference click_SFX;
-        
+
+        private void Start()
+        {
+            isHighlightOn = false;
+        }
+
         public void SetUp(Node node, NodeBlueprint blueprint)
         {
             Node = node;
@@ -108,6 +116,24 @@ namespace Map
 
                 default:
                     throw new ArgumentOutOfRangeException(nameof(states), states, null);
+            }
+        }
+
+        private void OnMouseOver() //when hovering over node it has a highlight
+        {
+            if (!isHighlightOn)
+            {
+                highlight.SetActive(true);
+                isHighlightOn = true;
+            }
+        }
+
+        private void OnMouseExit()
+        {
+            if (isHighlightOn)
+            {
+                highlight.SetActive(false);
+                isHighlightOn = false;
             }
         }
 
