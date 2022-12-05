@@ -73,7 +73,7 @@ public class PlayerTracker : ScriptableObject
         }
     }
 
-    public void resetTurnRunes(TurnController controller, CombatState trigger)
+    public void resetTurnRunes(CombatState trigger)
     {
         foreach (var rune in CurrentRunes)
         {
@@ -82,7 +82,7 @@ public class PlayerTracker : ScriptableObject
         }
     }
 
-    public void resetGameRunes(TurnController controller, CombatState trigger)
+    public void resetGameRunes(CombatState trigger)
     {
         foreach (var rune in CurrentRunes)
         {

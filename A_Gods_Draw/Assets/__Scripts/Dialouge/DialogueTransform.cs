@@ -3,10 +3,9 @@
  * Henrik
 */
 
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
+/// <summary>Spawn transform for a DialogueBox</summary>
 public class DialogueTransform : MonoBehaviour
 {
     public string TransformName;

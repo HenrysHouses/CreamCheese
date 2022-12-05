@@ -11,7 +11,6 @@ using UnityEngine.Events;
 using System;
 
 /// <summary>Receives and handles animation requests</summary>
-// [CreateAssetMenu(menuName = "Events/DynamicAnimationManager")]
 public class AnimationEventManager : MonoBehaviour
 {
     static AnimationEventManager instance;
@@ -41,7 +40,6 @@ public class AnimationEventManager : MonoBehaviour
     /// <param name="pathName">The animator that should read this request</param>
     /// <param name="target">GameObject that will be animated</param>
     /// <param name="delay">time delay before animation starts</param>
-    /// <param name="coolDown">time cool down before a new animation can start</param>
     /// <param name="animationOverrideOptions">Overrides the settings that are not null</param>
     public void requestAnimation(string pathName, GameObject target, float delay = 0, PathAnimatorController.pathAnimation animationOverrideOptions = null)
     {
@@ -56,7 +54,6 @@ public class AnimationEventManager : MonoBehaviour
     /// <param name="pathName">The animator that should read this request</param>
     /// <param name="targets">GameObject that will be animated in order</param>
     /// <param name="delay">time delay before animation starts</param>
-    /// <param name="coolDown">time cool down before a new animation can start</param>
     /// <param name="animationOverrideOptions">Overrides the settings that are not null</param>
     public void requestAnimation(string pathName, GameObject[] targets, float delay = 0, PathAnimatorController.pathAnimation[] animationOverrideOptions = null)
     {

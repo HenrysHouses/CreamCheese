@@ -7,7 +7,7 @@ using FMODUnity;
 using System;
 
 /// <summary>
-/// SO containing data only necessary for god cards
+/// ScriptableObject containing data only necessary for god cards
 /// </summary>
 [CreateAssetMenu(menuName = "ScriptableObjects/God card"), System.Serializable]
 public class God_Card_SO : Card_SO
@@ -29,6 +29,9 @@ public class God_Card_SO : Card_SO
         type = CardType.God;
     }
     
+    /// <summary>Instantiates a dialogue box with dialogue from the god</summary>
+    /// <param name="trigger">Dialogue trigger type</param>
+    /// <param name="source">Object which dialogue should react to</param>
     public void StartDialogue(GodDialogueTrigger trigger, UnityEngine.Object source = null)
     {
         Card_SO targetCard;

@@ -104,18 +104,24 @@ public abstract class CombatFSMState
     /// </summary>
     public abstract void Act();
 
+    /// <summary>Triggers all runes set to trigger at the current combat state</summary>
+    /// <param name="controller">Controller reference to get the player runes</param>
     public void ActivateRune(TurnController controller)
     {
         controller.player.triggerRune(controller, stateID);
     }
 
+    /// <summary>Resets the rune triggers that triggers each turn for the current combat state</summary>
+    /// <param name="controller">Controller reference to get the player runes</param>
     public void ResetRuneTurnTriggers(TurnController controller)
     {
-        controller.player.resetTurnRunes(controller, stateID);
+        controller.player.resetTurnRunes(stateID);
     }
 
+    /// <summary>Resets the rune triggers that triggers once per combat</summary>
+    /// <param name="controller">Controller reference to get the player runes</param>
     public void ResetRuneGameTriggers(TurnController controller)
     {
-        controller.player.resetGameRunes(controller, stateID);
+        controller.player.resetGameRunes(stateID);
     }
 }

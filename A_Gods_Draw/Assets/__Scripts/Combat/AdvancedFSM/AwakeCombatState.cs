@@ -3,10 +3,9 @@
  * Henrik
 */
 
-using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
-
+/// <summary>
+/// A State to get ready for the combat to start. Triggers Runes that happens at the start of combat
+/// </summary>
 public class AwakeCombatState : CombatFSMState
 {
     TurnController Controller;
@@ -19,6 +18,7 @@ public class AwakeCombatState : CombatFSMState
         stateID = CombatState.EnterCombat;
     }
 
+    /// <summary>Makes the combat ready to start</summary>
     public override void Reason(bool override_ = false)
     {
         if(!hasShuffled)
@@ -30,6 +30,7 @@ public class AwakeCombatState : CombatFSMState
         ResetRuneTurnTriggers(Controller);
     }
 
+    /// <summary>Triggers Runes, Resets rune triggers, Library shuffle</summary>
     public override void Act()
     {
         if(hasShuffled)

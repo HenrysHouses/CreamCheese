@@ -3,6 +3,9 @@
  * Henrik
 */
 
+/// <summary>
+/// A State to draw draw cards, trigger their runes and update the enemies intents.
+/// </summary>
 public class DrawState : CombatFSMState
 {
     TurnController Controller;

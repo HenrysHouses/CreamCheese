@@ -46,7 +46,7 @@ public struct ActionsForTarget
 
 
 /// <summary>
-/// SO containing data only necessary for non-god cards
+/// ScriptableObject containing data only necessary for non-god cards
 /// </summary>
 [CreateAssetMenu(menuName = "ScriptableObjects/Non-God card"), System.Serializable]
 public class NonGod_Card_SO : Card_SO

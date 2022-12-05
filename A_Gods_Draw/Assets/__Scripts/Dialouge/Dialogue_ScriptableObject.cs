@@ -3,17 +3,17 @@
  * Henrik
 */
 
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 using FMODUnity;
 
+/// <summary>ScriptableObject that contains all required data for a dialogue box</summary>
 [CreateAssetMenu(menuName = "DialogueBox/Dialogue")]
 public class Dialogue_ScriptableObject : ScriptableObject
 {
     [SerializeField] public Dialogue dialogue;
 }
 
+/// <summary>Container for dialogue data</summary>
 [System.Serializable]
 public class Dialogue
 {
@@ -22,6 +22,7 @@ public class Dialogue
     public EventReference SFX;
 }
 
+/// <summary>Container for all data in each page of a dialogue</summary>
 [System.Serializable]
 public struct sentence
 {

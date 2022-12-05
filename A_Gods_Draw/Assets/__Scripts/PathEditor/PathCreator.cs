@@ -10,7 +10,7 @@ using UnityEditor;
 #if UNITY_EDITOR
 static public class PathCreator
 {	
-	[MenuItem("GameObject/Level Design/Path", false, 10)]
+	[MenuItem("GameObject/Bezier Curve/Path", false, 10)]
 	static public void CreatePath()
 	{
 		if(!EditorApplication.isPlaying)

@@ -3,10 +3,9 @@
  * Henrik
 */
 
-using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
-
+/// <summary>
+/// A State to discard the player's hand and runes.
+/// </summary>
 public class DiscardState : CombatFSMState
 {
     TurnController Controller;

@@ -3,7 +3,6 @@
  * Henrik
 */
 
-using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -24,6 +23,7 @@ public class DeckList_SO : ScriptableObject
     }
 }
 
+/// <summary>Data container for the player's deck, Used for saving and loading</summary>
 [System.Serializable]
 public class DeckListData
 {

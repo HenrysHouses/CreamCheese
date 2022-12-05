@@ -3,15 +3,14 @@
  * Henrik
 */
 
-using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
 using HH.MultiSceneTools;
 
+/// <summary>
+/// A State to handle when the player dies or wins
+/// </summary>
 public class EndState : CombatFSMState
 {
     TurnController Controller;
-    // bool hasEndTriggered = false;
     PlayerTracker _player;
 
     public EndState(TurnController controller, PlayerTracker player)
@@ -38,7 +37,6 @@ public class EndState : CombatFSMState
     {
         BoardElement.ExitCombat();
         // end of combat triggers here
-        // hasEndTriggered = true;
 
         ActivateRune(Controller);
 
@@ -54,6 +52,5 @@ public class EndState : CombatFSMState
                 GameManager.timesDefeatedBoss++;
             MultiSceneLoader.loadCollection("Map", collectionLoadMode.Difference);
         }
-
     }
 }

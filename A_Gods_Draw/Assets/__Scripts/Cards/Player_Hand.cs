@@ -3,7 +3,6 @@
  * Henrik
 */
 
-using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -11,12 +10,11 @@ public class Player_Hand : MonoBehaviour
 {
     [SerializeField]
     Transform handPlace;
-
-    // public TurnManager _turnManager; // ! this will be phased out after refactoring
-
     private float cardRotation = 10; 
     public List<CardHandAnim> CardSelectionAnimators = new List<CardHandAnim>();
     public GameObject CardHandPrefab;
+
+    /// <summary>Data container for on hover animations</summary>
     public class CardHandAnim
     {
         public Card_Selector Selector;
@@ -33,6 +31,8 @@ public class Player_Hand : MonoBehaviour
         }
     }
 
+    /// <summary>Instantiates a card into the player's hand</summary>
+    /// <param name="card">ScriptableObject for the card</param>
     public void AddCard(Card_SO card)
     {
         GameObject spawn = Instantiate(CardHandPrefab, handPlace.position, Quaternion.identity);
@@ -50,9 +50,8 @@ public class Player_Hand : MonoBehaviour
         UpdateCards();
     }
     
-    /// <summary></summary>
-    /// <param name=""></param>
-    /// <returns>Removed card's scriptable object</returns>
+    /// <summary>Removes a card from the player's hand at index</summary>
+    /// <param name="index">Index of card to remove</param>
     public void RemoveCard(int index)
     {
         if (index >= CardSelectionAnimators.Count)
@@ -62,6 +61,9 @@ public class Player_Hand : MonoBehaviour
         CardSelectionAnimators.RemoveAt(index);
         UpdateCards();
     }
+
+    /// <summary>Removes a card from the player's hand</summary>
+    /// <param name="loader">The target card's Card_Loader that should be removed</param>
     public void RemoveCard(Card_Loader loader)
     {
         int index = 0;
@@ -102,6 +104,8 @@ public class Player_Hand : MonoBehaviour
             }
         }
     }
+
+    /// <summary>Calculates and updates the rotations and positions of the cards in the player's hand</summary>
     public void UpdateCards()
     {
         float count = (float)CardSelectionAnimators.Count;
@@ -114,12 +118,17 @@ public class Player_Hand : MonoBehaviour
         
     }
     
+    /// <summary>Starts on hover animation on a card at index</summary>
+    /// <param name="index">Index of a card in hand</param>
     void HoverOverCard(int index)
     {
         //Debug.Log("HoveringOver");
         CardSelectionAnimators[index].Selector.transform.rotation = Quaternion.Euler(0,0,0);
         CardSelectionAnimators[index].cardAnimation.SetBool("ShowCard",true);
     }
+
+    /// <summary>Stops on hover animation on a card at index</summary>
+    /// <param name="index">Index of a card in hand</param>
     void StopHover(int index)
     {
         float rot = (float)cardRotation, count = (float)CardSelectionAnimators.Count;

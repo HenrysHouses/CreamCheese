@@ -45,6 +45,9 @@ public class CardLibrary : MonoBehaviour
         }
     }
 
+    /// <summary>Instantiates all cards on a page</summary>
+    /// <param name="page">the page number to display</param>
+    /// <returns>If page was Instantiated</returns>
     private bool DisplayCardPage(int page)
     {
         List<Card_SO> deck = deckList.deckData.deckListData;
@@ -74,6 +77,7 @@ public class CardLibrary : MonoBehaviour
         return true;
     }
 
+    /// <summary>Removes all instantiated cards</summary>
     void clearPage()
     {
         foreach (var card in currDisplayedCards)
@@ -82,18 +86,21 @@ public class CardLibrary : MonoBehaviour
         }
     }
 
+    /// <summary>Checks if there is a next page, then instantiates it</summary>
     public void TurnForward()
     {
         if(DisplayCardPage(currPage+1))
             currPage++;
     }
 
+    /// <summary>Checks if there is a next page, then instantiates it</summary>
     public void TurnBack()
     {
         if(DisplayCardPage(currPage-1))
             currPage--;
     }
 
+    /// <summary>Should run every update when the player should destroy a card</summary>
     void tryDestroyCard()
     {
         int layer = 1 << 7;
@@ -105,12 +112,14 @@ public class CardLibrary : MonoBehaviour
         if(!hit.collider.GetComponentInChildren<Card_Loader>())
             return;
 
+        // Enable feedback
         hit.transform.GetChild(0).gameObject.SetActive(true);
         hit.collider.GetComponentInChildren<DisableHighlight>().StayEnabled();
 
         if(!Input.GetMouseButtonDown(0))
             return;
 
+        // Destroy the card
         Card_SO _selectedCard = hit.collider.GetComponentInChildren<Card_Loader>().GetCardSO;
         deckManager.removeCardFromDeck(_selectedCard);
         shouldDestroyACard = false;
@@ -118,6 +127,8 @@ public class CardLibrary : MonoBehaviour
         StartCoroutine(destroyAnim(DestroyParticle, hit.collider.transform));
     }
 
+    /// <summary>Instantiates a particle system/animation when a card is destroyed</summary>
+    /// <param name="particle">Instantiated GameObject</param>
     IEnumerator destroyAnim(GameObject particle, Transform Target)
     {
         isAnimating = true;

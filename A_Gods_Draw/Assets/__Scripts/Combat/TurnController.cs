@@ -48,9 +48,6 @@ public class TurnController : CombatFSM
 
     Card_Behaviour selectedCard;
 
-    //particle effect
-    [SerializeField] GameObject slashParticles;
-
     protected override void Initialize()
     {
         deckManager.SetCurrentDeck(player.CurrentDeck);
@@ -206,8 +203,9 @@ public class TurnController : CombatFSM
     public void ShuffleLibrary() => deckManager.shuffleLibrary();
 
     /// <summary>Shuffles the discard into the library for the player</summary>
+    /// <param name="drawAmount">Amount of cards that should be drawn after shuffling the discard</param>
     public void ShuffleDiscard(int drawAmount = 0) => StartCoroutine(shuffleDiscardTrigger(drawAmount));
-    
+    /// <summary>Moves cards to library and shuffles, Requests animations for each card that was shuffled</summary>
     IEnumerator shuffleDiscardTrigger(int drawAfterShuffle)
     {
         yield return new WaitUntil(() => !DrawAnimator.isAnimating);
@@ -235,6 +233,7 @@ public class TurnController : CombatFSM
         }
     }
 
+    /// <summary>Discards cards then requests animations for each discarded card with a delay between each</summary>
     public void DiscardAll() => StartCoroutine(discardAllTrigger(drawDelay));
     IEnumerator discardAllTrigger(float delayBetweenCards)
     {
@@ -281,6 +280,7 @@ public class TurnController : CombatFSM
         }
     }
 
+    /// <summary>Discards cards then requests animations for each discarded card with a delay between each</summary>
     public void Discard(Card_Behaviour card, float delay = 0f) => discardTrigger(card, delay);
     void discardTrigger(Card_Behaviour card_b, float delayBetweenCards)
     {

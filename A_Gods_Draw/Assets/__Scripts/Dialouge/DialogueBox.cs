@@ -4,11 +4,11 @@
 */
 
 using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 using FMODUnity;
 using TMPro;
 
+/// <summary>MonoBehaviour that controls the dialogue box</summary>
 public class DialogueBox : MonoBehaviour
 {
     public TextMeshPro TextMesh;

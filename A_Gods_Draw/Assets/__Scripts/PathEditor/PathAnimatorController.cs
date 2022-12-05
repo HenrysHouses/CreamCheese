@@ -11,7 +11,6 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Events;
-using Unity.Collections;
 
 /// <summary>Reads requests from the animation manager, and animates the requested gameObjects through its path</summary>
 public class PathAnimatorController : MonoBehaviour

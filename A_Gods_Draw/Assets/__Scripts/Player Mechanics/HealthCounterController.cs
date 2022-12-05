@@ -9,6 +9,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using FMODUnity;
 
+/// <summary>Updates the player's health dial when a change is detected</summary>
 public class HealthCounterController : MonoBehaviour
 {
     [SerializeField] PlayerTracker player;

@@ -1,7 +1,8 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
+/// <summary>
+/// A State to trigger the player's played cards and runes.
+/// </summary>
 public class CardsState : CombatFSMState
 {
     TurnController Controller;
@@ -9,7 +10,6 @@ public class CardsState : CombatFSMState
     ushort numOfCardsActed = 0;
     private bool readyToMoveOn = false;
 
-    //bool isShowingPanel = false;
 
     public CardsState(TurnController controller)
     {
@@ -29,6 +29,7 @@ public class CardsState : CombatFSMState
         }
     }
 
+    /// <summary>Triggers the player's runes, then cards in order</summary>
     public override void Act()
     {
         if (!TurnController.shouldWaitForAnims)

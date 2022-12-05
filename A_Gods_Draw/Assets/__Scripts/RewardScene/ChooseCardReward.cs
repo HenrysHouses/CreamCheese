@@ -1,10 +1,8 @@
 //modified by Charlie
 
 using Map;
-using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using UnityEngine.EventSystems;
 using HH.MultiSceneTools;
 public enum CardType
 {

@@ -4,10 +4,7 @@
  * 
  */
 
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
-
 
 [CreateAssetMenu(menuName = "Mesh2D")]
 public class Mesh2D : ScriptableObject

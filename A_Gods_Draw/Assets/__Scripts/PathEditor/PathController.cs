@@ -7,7 +7,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEditor;
 
-
+/// <summary>A bezier curve controller</summary>
 public class PathController : MonoBehaviour
 {
 	public bool _DrawBezierCurve = true;

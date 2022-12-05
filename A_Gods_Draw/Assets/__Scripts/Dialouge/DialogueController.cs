@@ -4,9 +4,9 @@
 */
 
 using UnityEngine;
-using UnityEngine.UI;
 using HH.MultiSceneTools;
 
+/// <summary>MonoBehaviour which spawns in requested dialogue at specified locations</summary>
 public class DialogueController : MonoBehaviour
 {
     public static DialogueController instance; 
