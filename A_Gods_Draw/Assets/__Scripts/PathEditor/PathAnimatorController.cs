@@ -26,7 +26,7 @@ public class PathAnimatorController : MonoBehaviour
     public string AnimationName => _pathName;
     [Tooltip("The path used for the animation")] 
     public PathController path;
-    [ReadOnly] float AnimLength; 
+    float AnimLength; 
     [Tooltip("Variable animation speed through the path")]
     public AnimationCurve _speedCurve = new AnimationCurve();
     [Tooltip("Animation speed multiplier")]

@@ -1,4 +1,5 @@
 // Written by Javier Villegas
+// Edited by Henrik
 
 using UnityEngine;
 using UnityEngine.UI;
