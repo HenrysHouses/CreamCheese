@@ -1,5 +1,10 @@
-using System.Collections;
-using System.Collections.Generic;
+/*
+ * Written by:
+ * Henrik
+ * 
+ */
+
+
 using UnityEngine;
 
 public class RayCastMenuHighlight : MonoBehaviour
