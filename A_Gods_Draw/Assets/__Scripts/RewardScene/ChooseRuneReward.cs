@@ -13,6 +13,7 @@ using System;
 public class ChooseRuneReward : MonoBehaviour
 {
     RuneStoneController RuneController;
+    [SerializeField] CardReaderController Inspector;
     [SerializeField] PlayerTracker _player;
     [SerializeField] PathController Path;
     [SerializeField] float animSpeed = 0.5f;
@@ -57,6 +58,9 @@ public class ChooseRuneReward : MonoBehaviour
             Path.startPoint.position = obj.transform.position;
             Path.endPoint.position = RuneController.renderers[(int)SelectedRune.RuneData.Name].renderers[0].transform.parent.position;
             Path.recalculatePath();
+
+            if(Inspector.isInspecting)
+                Inspector.enabled = false;
 
             CameraMovement cameraMovement = GameObject.FindObjectOfType<CameraMovement>();
             cameraMovement.LookLeft();

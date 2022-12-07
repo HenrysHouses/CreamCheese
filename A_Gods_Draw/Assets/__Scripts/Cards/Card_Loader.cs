@@ -3,6 +3,7 @@
 
 using UnityEngine;
 using UnityEngine.UI;
+using TMPro;
 using FMODUnity;
 
 /// <summary>
@@ -40,11 +41,11 @@ public enum GodActionEnum
 public struct CardElements
 {
     public Image image;
-    public Text cardName;
-    public Text desc;
-    public Text health;
+    public TextMeshPro cardName;
+    public TextMeshPro desc;
+    public TextMeshPro health;
     public Image typeIcon;
-    public Text strength;
+    public TextMeshPro strength;
 
     public Transform prop;
 
@@ -107,8 +108,10 @@ public class Card_Loader : MonoBehaviour
         card_so = card;
 
         elements.cardName.text = card_so.cardName;
+        elements.cardName.ForceMeshUpdate();
         elements.image.sprite = card_so.image;
         elements.desc.text = card_so.effect;
+        elements.desc.ForceMeshUpdate();
 
         if (card_so is God_Card_SO)
         {
@@ -146,7 +149,5 @@ public class Card_Loader : MonoBehaviour
                 (CB as NonGod_Behaviour).Initialize(nonGod, elements);
             }
         }
-
-
     }
 }

@@ -12,7 +12,8 @@ GameObject:
   - component: {fileID: 8452816826787143886}
   - component: {fileID: 1205421816499665920}
   - component: {fileID: 3450780196989081637}
-  m_Layer: 7
+  - component: {fileID: 1665977337440721670}
+  m_Layer: 8
   m_Name: RuneSelector
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -76,7 +77,19 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d8ccd56f93dc0e249b31ffa3ab0704d4, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  highlight: {fileID: 2817401209083787031}
+  <highlight>k__BackingField: {fileID: 2817401209083787031}
+--- !u!114 &1665977337440721670
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 790803883009184499}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b156c0c36c07986419758b7257251fbe, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &2680056869944725496
 GameObject:
   m_ObjectHideFlags: 0
@@ -88,7 +101,7 @@ GameObject:
   - component: {fileID: 5338615914538063535}
   - component: {fileID: 3754437660521373981}
   - component: {fileID: 8126371294824294330}
-  m_Layer: 7
+  m_Layer: 8
   m_Name: Description
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -135,7 +148,7 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 6741296869441104613, guid: 8d738ef75c7d07e46889e8317fc16dbc, type: 2}
+  - {fileID: 6580897112388456987, guid: e0904d4b7abbe984aac46de62b5f217b, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -180,7 +193,7 @@ MonoBehaviour:
   m_text: Description
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: e0904d4b7abbe984aac46de62b5f217b, type: 2}
-  m_sharedMaterial: {fileID: 6741296869441104613, guid: 8d738ef75c7d07e46889e8317fc16dbc, type: 2}
+  m_sharedMaterial: {fileID: 6580897112388456987, guid: e0904d4b7abbe984aac46de62b5f217b, type: 2}
   m_fontSharedMaterials: []
   m_fontMaterial: {fileID: 0}
   m_fontMaterials: []
@@ -261,7 +274,7 @@ GameObject:
   - component: {fileID: 2348760344801815389}
   - component: {fileID: 9000461889941861048}
   - component: {fileID: 7448790964762120479}
-  m_Layer: 7
+  m_Layer: 8
   m_Name: DescriptionHolder
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -358,7 +371,7 @@ GameObject:
   - component: {fileID: 7694126152523854474}
   - component: {fileID: 3659325836281485026}
   - component: {fileID: 2185856888306427488}
-  m_Layer: 7
+  m_Layer: 8
   m_Name: Name
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -530,7 +543,7 @@ GameObject:
   - component: {fileID: 8048907155479433315}
   - component: {fileID: 3108604501106504916}
   - component: {fileID: 3410933520527420662}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: Mesh
   m_TagString: Untagged
   m_Icon: {fileID: 0}

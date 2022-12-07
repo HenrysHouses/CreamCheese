@@ -61,7 +61,7 @@ public class CardLibrary : MonoBehaviour
         else
             clearPage();
 
-        Debug.Log("displaying library page: " + page);
+        // Debug.Log("displaying library page: " + page);
         for (int i = 0; i < cardSlots.Length; i++)
         {   
             if(DisplayOffset+i >= deck.Count)

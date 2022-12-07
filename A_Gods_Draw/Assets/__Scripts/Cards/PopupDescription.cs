@@ -12,7 +12,9 @@ public class PopupDescription : MonoBehaviour
     /// should be next to the card you click on because that makes sense
     /// </summary>
     public GameObject ui, background; //the canvas object on the card
+    public GameObject ui_lore, background_lore; //the lore 
     public bool isMade;
+    public bool showBoth;
 
 
     private void OnMouseOver()
@@ -22,6 +24,12 @@ public class PopupDescription : MonoBehaviour
             ui.SetActive(true);
             background.SetActive(true);
             isMade = true;
+
+            if(showBoth)
+            {
+                ui_lore.SetActive(true);
+                background_lore.SetActive(true);
+            }
         }
     }
 
@@ -32,6 +40,12 @@ public class PopupDescription : MonoBehaviour
             ui.SetActive(false);
             background.SetActive(false);
             isMade = false;
+
+            if(showBoth)
+            {
+                ui_lore.SetActive(false);
+                background_lore.SetActive(false);
+            }
         }
     }
     /*public void OnButtonClick()

@@ -42,7 +42,6 @@ public class ChooseCardReward : MonoBehaviour
         {
             int SelectIndex = SelectReward();
 
-
             if (SelectIndex > -1)
             {
                 deckManager.addCardToDeck(CardOptions[SelectIndex]);
@@ -89,8 +88,6 @@ public class ChooseCardReward : MonoBehaviour
 
             GameObject spawn = Instantiate(prefab, spots[i]);
 
-            Debug.Log(searchResult);
-
             int randomIndex = Random.Range(0, searchResult.Count);
             Card_SO randomCard = searchResult[randomIndex];
             Card_Loader _Loader = spawn.GetComponentInChildren<Card_Loader>();
@@ -117,7 +114,6 @@ public class ChooseCardReward : MonoBehaviour
                 }
             }
         }
-        Debug.LogError("Could not select rune");
         return -1;
     }
 }
