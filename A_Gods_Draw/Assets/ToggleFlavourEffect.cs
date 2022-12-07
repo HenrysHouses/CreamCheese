@@ -10,7 +10,7 @@ public class ToggleFlavourEffect : MonoBehaviour
 
     Card_SO current;
 
-    bool showingFlavourText = true;
+    bool showingFlavourText = false;
 
     private void OnMouseOver()
     {

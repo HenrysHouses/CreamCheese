@@ -108,7 +108,7 @@ public class Card_Loader : MonoBehaviour
 
         elements.cardName.text = card_so.cardName;
         elements.image.sprite = card_so.image;
-        elements.desc.text = card_so.description;
+        elements.desc.text = card_so.effect;
 
         if (card_so is God_Card_SO)
         {
