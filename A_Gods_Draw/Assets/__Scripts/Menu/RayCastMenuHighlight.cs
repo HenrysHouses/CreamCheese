@@ -31,8 +31,6 @@ public class RayCastMenuHighlight : MonoBehaviour
                     return;
         }
 
-        Debug.Log("sdas");
-
         Ray ray = MainCam.ScreenPointToRay(Input.mousePosition);
 
         if(!Physics.Raycast(ray, out RaycastHit hit, 100, layer))
