@@ -29,6 +29,7 @@ namespace Map
         public SpriteRenderer visitedSprite;
         public Image visitedImage; //image showing that you have visited that node
         bool isHighlightOn;
+        bool shouldHighlight;
 
         public Node Node { get; private set; }
         // ! TEMPORARY
@@ -91,6 +92,7 @@ namespace Map
             switch (states)
             {
                 case NodeStates.Locked:
+                    shouldHighlight = false;
                     if(spriteRenderer)
                         spriteRenderer.color = Map_View.instance.lockedColor;
                     if(meshRenderer)
@@ -98,6 +100,7 @@ namespace Map
                     break;
 
                 case NodeStates.Visited:
+                    shouldHighlight = false;
                     if(spriteRenderer)
                     {
                         spriteRenderer.color = Map_View.instance.visitedColor;
@@ -108,6 +111,7 @@ namespace Map
                     break;
 
                 case NodeStates.Taken:
+                    shouldHighlight = true;
                     if(spriteRenderer)
                         spriteRenderer.color = Map_View.instance.AvailableColor;
                     if(meshRenderer)
@@ -121,7 +125,7 @@ namespace Map
 
         private void OnMouseOver() //when hovering over node it has a highlight
         {
-            if (!isHighlightOn)
+            if (!isHighlightOn && shouldHighlight)
             {
                 highlight.SetActive(true);
                 isHighlightOn = true;
