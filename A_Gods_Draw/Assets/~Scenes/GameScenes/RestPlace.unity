@@ -459,6 +459,9 @@ MonoBehaviour:
   layer:
     serializedVersion: 2
     m_Bits: 32
+  invertHoldHighlights: 0
+  HighlightWhenInspecting: 0
+  cardInspector: {fileID: 0}
 --- !u!1 &751041993
 GameObject:
   m_ObjectHideFlags: 0
@@ -475,6 +478,7 @@ GameObject:
   - component: {fileID: 751041999}
   - component: {fileID: 751042000}
   - component: {fileID: 751042001}
+  - component: {fileID: 751042002}
   m_Layer: 5
   m_Name: RemoveACard
   m_TagString: Untagged
@@ -585,6 +589,18 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
+      - m_Target: {fileID: 751042002}
+        m_TargetAssemblyTypeName: PressButton_SFX, Assembly-CSharp
+        m_MethodName: PressButtonSFX
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!114 &751041997
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -635,6 +651,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c13fb5badb7cf53469e8608a3700fa51, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  cameraMovement: {fileID: 0}
 --- !u!114 &751042000
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -661,6 +678,25 @@ BoxCollider:
   serializedVersion: 2
   m_Size: {x: 146.21, y: 78.51, z: 22.21}
   m_Center: {x: 0, y: 0, z: 19.3}
+--- !u!114 &751042002
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 751041993}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 90ddfa6faa3683e4596fb712c380672a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  buttonSFX:
+    Guid:
+      Data1: -50550644
+      Data2: 1304506936
+      Data3: 1868771480
+      Data4: -1146125638
+    Path: event:/UI/Button
 --- !u!1001 &957774181
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -1022,6 +1058,7 @@ GameObject:
   - component: {fileID: 2089034134}
   - component: {fileID: 2089034135}
   - component: {fileID: 2089034136}
+  - component: {fileID: 2089034137}
   m_Layer: 5
   m_Name: Heal
   m_TagString: Untagged
@@ -1132,6 +1169,18 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
+      - m_Target: {fileID: 2089034137}
+        m_TargetAssemblyTypeName: PressButton_SFX, Assembly-CSharp
+        m_MethodName: PressButtonSFX
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!114 &2089034132
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1209,6 +1258,25 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   <highlight>k__BackingField: {fileID: 1805116720}
+--- !u!114 &2089034137
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2089034127}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 90ddfa6faa3683e4596fb712c380672a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  buttonSFX:
+    Guid:
+      Data1: -50550644
+      Data2: 1304506936
+      Data3: 1868771480
+      Data4: -1146125638
+    Path: event:/UI/Button
 --- !u!4 &2093453541 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 8589173922217360377, guid: c2a4ee52d6623794ea69d7a8496cc5f0, type: 3}

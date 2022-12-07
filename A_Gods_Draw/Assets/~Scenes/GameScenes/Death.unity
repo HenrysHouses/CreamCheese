@@ -455,6 +455,9 @@ MonoBehaviour:
   layer:
     serializedVersion: 2
     m_Bits: 32
+  invertHoldHighlights: 0
+  HighlightWhenInspecting: 0
+  cardInspector: {fileID: 0}
 --- !u!1001 &1590660545
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -533,6 +536,7 @@ GameObject:
   - component: {fileID: 1679078050}
   - component: {fileID: 1679078051}
   - component: {fileID: 1679078052}
+  - component: {fileID: 1679078053}
   m_Layer: 5
   m_Name: Button
   m_TagString: Untagged
@@ -617,6 +621,18 @@ MonoBehaviour:
           m_IntArgument: 0
           m_FloatArgument: 0
           m_StringArgument: MainMenu
+          m_BoolArgument: 0
+        m_CallState: 2
+      - m_Target: {fileID: 1679078053}
+        m_TargetAssemblyTypeName: PressButton_SFX, Assembly-CSharp
+        m_MethodName: PressButtonSFX
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
 --- !u!114 &1679078047
@@ -714,6 +730,25 @@ BoxCollider:
   serializedVersion: 2
   m_Size: {x: 137.72, y: 117.58, z: 26.39}
   m_Center: {x: 0, y: 0, z: 14.73}
+--- !u!114 &1679078053
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1679078043}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 90ddfa6faa3683e4596fb712c380672a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  buttonSFX:
+    Guid:
+      Data1: -50550644
+      Data2: 1304506936
+      Data3: 1868771480
+      Data4: -1146125638
+    Path: event:/UI/Button
 --- !u!1 &2056257773
 GameObject:
   m_ObjectHideFlags: 0
