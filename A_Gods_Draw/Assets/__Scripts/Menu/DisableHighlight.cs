@@ -12,7 +12,7 @@ using UnityEngine;
 
 public class DisableHighlight : MonoBehaviour
 {
-    [SerializeField] GameObject highlight;
+    [field:SerializeField] public GameObject highlight {get; private set;}
     bool shouldDisable;
 
     // Update is called once per frame
