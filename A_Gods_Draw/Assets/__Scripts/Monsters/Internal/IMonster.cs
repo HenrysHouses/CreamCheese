@@ -54,6 +54,7 @@ public abstract class IMonster : BoardElement
     private bool locked;
 
     // Start is called before the first frame update
+
     void Awake()
     {
         maxHealth += Mathf.RoundToInt((float)maxHealth / 10f) * (GameManager.timesDefeatedBoss * 2);

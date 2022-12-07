@@ -84,7 +84,7 @@ public abstract class CardAction : Action
     public abstract void ResetCamera();
     public abstract void SetCamera();
 
-    internal void AddTarget(BoardElement target)
+    internal virtual void AddTarget(BoardElement target)
     {
         targets.Add(target);
     }
