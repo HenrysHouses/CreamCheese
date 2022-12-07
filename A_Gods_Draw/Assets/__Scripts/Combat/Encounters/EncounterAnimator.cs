@@ -1,7 +1,15 @@
+/* 
+ * Written by 
+ * Henrik
+*/
+
 using UnityEngine;
 using HH.MultiSceneTools.Examples;
 
-public class EncoutnerAnimator : MonoBehaviour
+/// <summary>
+/// Animator Script which animates the beginning of combat
+/// </summary>
+public class EncounterAnimator : MonoBehaviour
 {
     [SerializeField] GameObject Particles;
     [SerializeField] Transform[] AnimateTransforms;

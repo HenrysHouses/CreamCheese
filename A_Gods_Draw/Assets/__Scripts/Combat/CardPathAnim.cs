@@ -3,12 +3,13 @@
  * Henrik
 */
 
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 using FMODUnity;
 using UnityEngine.Events;
 
+/// <summary>
+/// Card animation data container for animation requests
+/// </summary>
 public class CardPathAnim : PathAnimatorController.pathAnimation
 {
     public UnityEvent<Card_SO> OnCardCompletionTrigger;

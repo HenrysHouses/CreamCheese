@@ -3,12 +3,15 @@
  * Henrik
 */
 
-using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
+/// <summary>Class for searching for cards</summary>
 public static class CardSearch
 {
+    /// <summary>Search for any cards created in Assets/Resources/Cards/, Filter by Card's ScriptableObject types</summary>
+    /// <param name="SearchOptions">Possible Inputs: Card Name, Card Type, Corresponding God</param>
+    /// <returns>A list of all cards matching the search</returns>
     public static List<Card_SO> Search<T>(string[] SearchOptions = null) where T : Card_SO
     {
         List<Card_SO> outputResults = new List<Card_SO>();

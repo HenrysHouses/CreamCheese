@@ -1,7 +1,11 @@
-using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
+/* 
+ * Written by 
+ * Henrik
+*/
 
+/// <summary>
+/// A State to enter combat
+/// </summary>
 public class StartState : CombatFSMState
 {
     TurnController Controller;
@@ -17,7 +21,7 @@ public class StartState : CombatFSMState
     {
         BoardElement.EnterCombat();
         TurnController.shouldWaitForAnims = false;
-        Controller.PerformTransition(Transition.EnterCombatCard); // ! this should be enter main not discard
+        Controller.PerformTransition(Transition.EnterCombatCard); 
         ResetRuneTurnTriggers(Controller);
     }
 

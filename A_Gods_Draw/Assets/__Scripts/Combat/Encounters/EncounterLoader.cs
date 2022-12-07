@@ -1,4 +1,8 @@
-using System.Collections;
+/* 
+ * Written by 
+ * Henrik
+*/
+
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -12,6 +16,9 @@ public enum EncounterDifficulty
     Any
 }
 
+/// <summary>
+/// Encounter loader manager script which loads the encounters in combat
+/// </summary>
 class EncounterLoader : MonoBehaviour
 {
     /// <summary>Loads all encounters from Assets/Resources/Encounters/ + Encounter Difficulty</summary>

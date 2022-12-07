@@ -5,7 +5,7 @@
 
 using UnityEngine;
 
-
+/// <summary>Extension to define when a god should trigger its dialogue</summary>
 [CreateAssetMenu(menuName = "DialogueBox/God Dialogue")]
 public class GodDialogue : Dialogue_ScriptableObject
 {

@@ -1,7 +1,6 @@
-using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
-
+/// <summary>
+/// A State to handle enemy intents.
+/// </summary>
 public class EnemyState : CombatFSMState
 {
     TurnController Controller;

@@ -4,15 +4,14 @@
 */
 
 using System;
-using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using FMODUnity;
 
 public class BoardStateController : MonoBehaviour
 {
+    // * Serialized / Public
     public bool isEncounterInstantiated = false;
-
     [SerializeField] GameObject TargetingMesh;
     [SerializeField] Color AttackColor;
     [SerializeField] Color DefendColor;
@@ -52,7 +51,7 @@ public class BoardStateController : MonoBehaviour
     // * Sounds
     [SerializeField] EventReference placeCard_SFX;
 
-    //particle effect
+    // * particle effect
     [SerializeField] SlashParticles slashParticles;
 
     /// <param name="whatToSet">
@@ -89,6 +88,7 @@ public class BoardStateController : MonoBehaviour
         }
     }
 
+    /// <summary>Spawns an encounter of difficulty set by the GameManager</summary>
     public void spawnEncounter()
     {
         Encounter_SO[] possibleEncounters = EncounterLoader.LoadAllEncountersOf(GameManager.instance.nextCombatType);
@@ -260,13 +260,16 @@ public class BoardStateController : MonoBehaviour
     }
 }
 
+/// <summary>Enemy board battlefield data container</summary>
 [Serializable]
 public class Battlefield
 {
+    /// <summary>The GameObject with the board mesh renderer</summary>
     public GameObject Mesh;
     public BattlefieldID type;
 }
 
+/// <summary>Possible enemy boards</summary>
 public enum BattlefieldID
 {
     Dragr,

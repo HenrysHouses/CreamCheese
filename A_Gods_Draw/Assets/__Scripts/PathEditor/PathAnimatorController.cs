@@ -11,7 +11,6 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Events;
-using Unity.Collections;
 
 /// <summary>Reads requests from the animation manager, and animates the requested gameObjects through its path</summary>
 public class PathAnimatorController : MonoBehaviour
@@ -27,7 +26,7 @@ public class PathAnimatorController : MonoBehaviour
     public string AnimationName => _pathName;
     [Tooltip("The path used for the animation")] 
     public PathController path;
-    [ReadOnly] float AnimLength; 
+    float AnimLength; 
     [Tooltip("Variable animation speed through the path")]
     public AnimationCurve _speedCurve = new AnimationCurve();
     [Tooltip("Animation speed multiplier")]

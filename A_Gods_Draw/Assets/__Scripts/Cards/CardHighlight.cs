@@ -1,7 +1,7 @@
 // *
 // * Written By Henrik
 // *
-// *
+// * This script is used for disabling a highlight the frame after its not being used.
 
 using UnityEngine;
 using FMODUnity;

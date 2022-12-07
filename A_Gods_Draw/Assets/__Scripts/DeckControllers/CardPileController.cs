@@ -1,7 +1,14 @@
+/* 
+ * Written by 
+ * Henrik
+*/
+
 using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
+/// <summary>
+/// Controls the amount of cards in a pile for visual feedback
+/// </summary>
 public class CardPileController : MonoBehaviour
 {
     [SerializeField] DeckManager_SO deckManager;
@@ -103,25 +110,4 @@ public class CardPileController : MonoBehaviour
         }
         return n;
     }
-
-    internal static decimal RoundFactor(int places)
-    {
-        decimal factor = 1m;
-
-        if (places < 0)
-        {
-            places = -places;
-            for (int i = 0; i < places; i++)
-                factor /= 10m;
-        }
-
-        else
-        {
-            for (int i = 0; i < places; i++)
-                factor *= 10m;
-        }
-
-        return factor;
-    }
-
 }

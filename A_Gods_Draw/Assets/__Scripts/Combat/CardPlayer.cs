@@ -7,6 +7,9 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
+/// <summary>
+/// MonoBehaviour that handles when the player want to play cards and feedback
+/// </summary>
 public class CardPlayer : MonoBehaviour
 {
     // * Mechanic References
@@ -41,12 +44,14 @@ public class CardPlayer : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        // Place the card on the board
         if (_selectedCard && _selectedCard.CardIsReady())
         {
             placeCard(_selectedCard);
             _selectedCard.Placed();
             _selectedCard = null;
         }
+        // highlight feedback
         if (_selectedCard is NonGod_Behaviour card)
         {
             switch (card.GetCardType)
@@ -61,11 +66,12 @@ public class CardPlayer : MonoBehaviour
             }
         }
 
+        // ? not sure
         if (Input.GetKeyUp(KeyCode.Mouse0))
         {
             hasClickedLastFrame = true;
         }
-        
+        // Selects a card
         if (hasClickedLastFrame)
         {
             hasClickedLastFrame = false;
@@ -102,6 +108,7 @@ public class CardPlayer : MonoBehaviour
             }
             else
             {
+                // Check if selection should be cancelled
                 _selectedCard.OnClickOnSelected();
 
                 if (_selectedCard.ShouldCancelSelection())
@@ -116,6 +123,7 @@ public class CardPlayer : MonoBehaviour
             }
         }
 
+        // waits to remove the selection
         if(shouldCancelSelection)
         {
             if(!_selectedCard || SelectedCardT == 0)
@@ -171,6 +179,7 @@ public class CardPlayer : MonoBehaviour
         }
     }
 
+    /// <summary> Moves the procedural targeting mesh's end point to the cursor</summary>
     void updateMeshTargeting()
     {
         Vector3 mousePos = Input.mousePosition;
@@ -178,6 +187,7 @@ public class CardPlayer : MonoBehaviour
         getCurrSelectionMesh().GetChild(0).position = mainCam.ScreenToWorldPoint(mousePos);
     }
 
+    /// <summary>Destroys all procedural targeting meshes</summary>
     void clearTargetMeshes()
     {
         foreach (var mesh in MeshSelections)
@@ -187,6 +197,7 @@ public class CardPlayer : MonoBehaviour
         MeshSelections.Clear();
     }
 
+    /// <summary>Gets the last procedural targeting mesh that was instantiated</summary>
     Transform getCurrSelectionMesh()
     {
         if(MeshSelections.Count == 0)
@@ -195,6 +206,7 @@ public class CardPlayer : MonoBehaviour
         return MeshSelections[MeshSelections.Count-1].transform;
     }
 
+    // Waits for the player to select targets and instantiates new targeting meshes
     IEnumerator SpawnSelectionsForTargeting(NonGod_Behaviour Card)
     {
         instantiateTargetingMesh(Card.transform);
@@ -221,6 +233,8 @@ public class CardPlayer : MonoBehaviour
         }
     }
 
+    /// <summary>Instantiates a procedural targeting mesh at target transform of a card</summary>
+    /// <param name="Card">Target transform which the start points will be set to</param>
     void instantiateTargetingMesh(Transform Card)
     {
         GameObject spawn = Instantiate(ProceduralMeshPrefab);
@@ -247,6 +261,7 @@ public class CardPlayer : MonoBehaviour
         _currSelectedCard = null;
     }
 
+    /// <summary>RayCasts enemies and enables a outline highlight</summary>
     private void setEnemyHighlight()
     {
         int layer = 1 << 9;
@@ -272,6 +287,7 @@ public class CardPlayer : MonoBehaviour
         }
     }
 
+    /// <summary>RayCasts cards and enables a outline highlight</summary>
     private void setCardHighlight()
     {
         int layer = 1 << 6;

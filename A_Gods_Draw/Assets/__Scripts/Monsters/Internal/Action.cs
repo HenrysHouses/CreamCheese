@@ -1,3 +1,8 @@
+/* 
+ * Written by Henrik
+ * Edited by Javier
+ */
+
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;

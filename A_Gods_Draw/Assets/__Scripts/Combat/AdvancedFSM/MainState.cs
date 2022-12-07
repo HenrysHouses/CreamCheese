@@ -1,7 +1,11 @@
-using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
+/* 
+ * Written by 
+ * Henrik
+*/
 
+/// <summary>
+/// A State to wait for the player to make their choices and play cards.
+/// </summary>
 public class MainState : CombatFSMState
 {
     TurnController Controller;
