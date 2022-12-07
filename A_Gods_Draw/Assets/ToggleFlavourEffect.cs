@@ -1,12 +1,12 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using UnityEngine.UI;
+using TMPro;
 
 public class ToggleFlavourEffect : MonoBehaviour
 {
     [SerializeField]
-    Text description;
+    TextMeshPro description;
 
     Card_SO current;
 

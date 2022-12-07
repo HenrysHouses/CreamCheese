@@ -47,6 +47,12 @@ public class ChooseRuneReward : MonoBehaviour
 
         if (Input.GetMouseButtonDown(0)) // Confirm
         {
+            if(Inspector.isInspecting)
+            {
+                Inspector.returnInspection();
+                return;
+            }
+
             StartCoroutine(PickRune(SelectedRune, runeObj));
         }
     }
@@ -59,8 +65,6 @@ public class ChooseRuneReward : MonoBehaviour
             Path.endPoint.position = RuneController.renderers[(int)SelectedRune.RuneData.Name].renderers[0].transform.parent.position;
             Path.recalculatePath();
 
-            if(Inspector.isInspecting)
-                Inspector.enabled = false;
 
             CameraMovement cameraMovement = GameObject.FindObjectOfType<CameraMovement>();
             cameraMovement.LookLeft();

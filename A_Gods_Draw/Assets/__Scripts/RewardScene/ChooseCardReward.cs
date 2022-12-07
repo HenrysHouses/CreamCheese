@@ -15,6 +15,7 @@ public enum CardType
 }
 public class ChooseCardReward : MonoBehaviour
 {
+    [SerializeField] CardReaderController CardInspector;
     [SerializeField] DeckManager_SO deckManager;
     
     List<Card_SO> searchResult = new();
@@ -40,6 +41,12 @@ public class ChooseCardReward : MonoBehaviour
     {
         if (Input.GetMouseButtonDown(0))
         {
+            if(CardInspector.isInspecting)
+            {
+                CardInspector.returnInspection();
+                return;
+            }
+
             int SelectIndex = SelectReward();
 
             if (SelectIndex > -1)

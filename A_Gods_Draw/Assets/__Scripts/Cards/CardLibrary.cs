@@ -10,6 +10,7 @@ using HH.MultiSceneTools;
 
 public class CardLibrary : MonoBehaviour
 {
+    [SerializeField] CardReaderController CardInspector;
     [SerializeField] DeckManager_SO deckManager;
     [SerializeField] DeckList_SO deckList;
     [SerializeField] GameObject DestroyParticle;
@@ -32,7 +33,7 @@ public class CardLibrary : MonoBehaviour
         shouldDestroyACard = GameManager.instance.shouldDestroyCardInDeck;
         if(shouldDestroyACard)
         {
-            backButton.interactable = false;
+            backButton.gameObject.SetActive(false);
             PickCardText.gameObject.SetActive(true);
         }
     }
@@ -106,6 +107,9 @@ public class CardLibrary : MonoBehaviour
         int layer = 1 << 7;
         Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
 
+        if(CardInspector.isInspecting)
+            return;
+
         if(!Physics.Raycast(ray, out RaycastHit hit, 10000, layer))
             return;            
 
@@ -123,7 +127,16 @@ public class CardLibrary : MonoBehaviour
         Card_SO _selectedCard = hit.collider.GetComponentInChildren<Card_Loader>().GetCardSO;
         deckManager.removeCardFromDeck(_selectedCard);
         shouldDestroyACard = false;
+        CardInspector.CanSelect = false;
+        CardInspector.returnInspection();
+        DisableHighlight[] info = hit.collider.GetComponentsInChildren<DisableHighlight>();
+        foreach (var disable in info)
+        {
+            disable.highlight.SetActive(false);
+            Destroy(disable);
+        }
 
+        Destroy(CardInspector);
         StartCoroutine(destroyAnim(DestroyParticle, hit.collider.transform));
     }
 

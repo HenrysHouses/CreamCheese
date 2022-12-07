@@ -14,9 +14,11 @@ public class CardReaderController : MonoBehaviour
     public bool isInspecting => inspectorTarget;
     float inspectorTime;
     Transform inspectorTarget;
-    DisableHighlight HighlightDisabler;
+    DisableHighlight[] HighlightDisabler;
+    public bool keepHighlightsOn = true;
     bool shouldReturn;
     Quaternion cardBaseRot;
+    public bool CanSelect = true;
 
     void Start()
     {
@@ -41,7 +43,7 @@ public class CardReaderController : MonoBehaviour
     {
         Ray ray = MainCam.ScreenPointToRay(Input.mousePosition);
 
-        if(!Input.GetKeyDown(Button))
+        if(!Input.GetKeyDown(Button) && CanSelect)
             return;
 
         if(inspectorTarget != null)
@@ -65,9 +67,14 @@ public class CardReaderController : MonoBehaviour
         inspectorTarget.transform.rotation = MainCam.transform.rotation;
         inspectorTarget.transform.Rotate(RotationOffset, Space.Self);
         
-        HighlightDisabler = inspectorTarget.GetComponent<DisableHighlight>();
-        if(HighlightDisabler)
-            HighlightDisabler.StayEnabled();
+        HighlightDisabler = inspectorTarget.GetComponents<DisableHighlight>();
+        if(HighlightDisabler.Length > 0)
+        {
+            foreach (var highlight in HighlightDisabler)
+            {
+                highlight.StayEnabled();
+            }
+        }
 
         path.startPoint.position = found.transform.position;
         path.recalculatePath();
@@ -84,8 +91,16 @@ public class CardReaderController : MonoBehaviour
         else
             inspectorTime = Mathf.Clamp01(inspectorTime + Time.deltaTime * speed);
     
-        if(HighlightDisabler)
-            HighlightDisabler.StayEnabled();
+        if(HighlightDisabler.Length > 0 && keepHighlightsOn)
+        {
+            foreach (var highlight in HighlightDisabler)
+            {
+                if(!highlight)
+                    continue;
+                highlight.highlight.SetActive(true);
+                highlight.StayEnabled();
+            }
+        }
 
         OrientedPoint OP = path.GetEvenPathOP(inspectorTime);
         inspectorTarget.position = OP.pos;
@@ -96,5 +111,10 @@ public class CardReaderController : MonoBehaviour
             inspectorTarget.transform.rotation = cardBaseRot;
             inspectorTarget = null;
         }
+    }
+
+    public void returnInspection()
+    {
+        shouldReturn = true;
     }
 }
