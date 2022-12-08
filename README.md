@@ -10,5 +10,5 @@ This is a student project by
 - Mathea Walberg
 While at the Games And Entertainment Technology course at Nord University
 
-# try the game
+# Try The Game
 https://thekingcharlie.itch.io/a-gods-draw
