@@ -14,9 +14,7 @@ While at the Games And Entertainment Technology course at Nord University
 # Try The Game
 https://thekingcharlie.itch.io/a-gods-draw
 
-<video width="320" height="240" controls>
-  <source src="https://www.youtube.com/watch?v=yK-aiaYRDqY&ab_channel=CharlieEik%C3%A5s" type="video/mp4">
-</video>
+https://www.youtube.com/watch?v=yK-aiaYRDqY&ab_channel=CharlieEik%C3%A5s
 
 # Contact us
 
