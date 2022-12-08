@@ -1,3 +1,4 @@
+// Written by Javier Villegas
 public abstract class GodCardAction : Action
 {
     public GodCardAction() : base(0, 0) { }

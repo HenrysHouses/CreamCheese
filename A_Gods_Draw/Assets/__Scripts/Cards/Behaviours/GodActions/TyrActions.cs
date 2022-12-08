@@ -1,14 +1,9 @@
-using System.Collections;
-using System.Collections.Generic;
+// Written by Javier Villegas
 using UnityEngine;
-using UnityEngine.UI;
 
 public class TyrActions : GodCardAction
 {
-    public override void Execute(BoardStateController board, int strengh, UnityEngine.Object source)
-    {
-        
-    }
+    public override void Execute(BoardStateController board, int strengh, UnityEngine.Object source) { }
 
     public override void OnPlay(BoardStateController board)
     {

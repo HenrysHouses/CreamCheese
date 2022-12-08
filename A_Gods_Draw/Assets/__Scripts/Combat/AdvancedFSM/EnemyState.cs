@@ -1,3 +1,10 @@
+/* 
+ * Written by 
+ * Henrik
+ * 
+ * Modified by Javier
+*/
+
 /// <summary>
 /// A State to handle enemy intents.
 /// </summary>

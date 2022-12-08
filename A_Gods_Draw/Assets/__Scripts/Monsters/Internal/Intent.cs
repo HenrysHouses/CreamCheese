@@ -1,7 +1,6 @@
-using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
+// Written by Javier
 
+using UnityEngine;
 
 public abstract class Intent
 {

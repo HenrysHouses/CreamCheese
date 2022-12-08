@@ -1,8 +1,6 @@
-using System.Collections;
-using System.Collections.Generic;
+// Written by Javier Villegas
 using UnityEngine;
 using UnityEngine.Events;
-using UnityEngine.UI;
 using FMODUnity;
 
 public class EndTurnButton : MonoBehaviour

@@ -1,7 +1,6 @@
+// Written by Javier Villegas
 using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
-using UnityEngine.UI;
 
 public class WeakenCardAction : CardAction
 {

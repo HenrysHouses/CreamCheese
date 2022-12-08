@@ -1,7 +1,6 @@
+// Written by Javier Villegas
 using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
-using UnityEngine.UI;
 
 public class ChainCardAction : CardAction
 {
@@ -14,7 +13,7 @@ public class ChainCardAction : CardAction
         //StartAnimations...
 
         //yield return new WaitUntil(() => true);
-        yield return new WaitForSeconds(0.5f);
+        yield return new WaitForSeconds(0.1f);
 
         foreach (IMonster monster in targets)
         {

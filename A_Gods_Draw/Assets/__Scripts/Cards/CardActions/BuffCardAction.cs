@@ -1,5 +1,5 @@
+// Written by Javier Villegas
 using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 using FMODUnity;
 
@@ -10,9 +10,9 @@ public class BuffCardAction : CardAction
 
     public BuffCardAction(int strengh, bool mult) : base(strengh, strengh) { multiplies = mult; neededLanes = 0;}
 
-    void SpawnCoins(int mount, NonGod_Behaviour card)
+    void SpawnCoins(int amount, NonGod_Behaviour card)
     {
-        for (int i = 0; i < mount; i++)
+        for (int i = 0; i < amount; i++)
         {
             var aux = Object.Instantiate(Resources.Load<GameObject>("Prop_Coin_PRE_v1"), card.transform);
             aux.transform.localPosition = Vector3.back * 8 + Vector3.back * i;

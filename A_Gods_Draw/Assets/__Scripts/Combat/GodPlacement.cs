@@ -1,7 +1,9 @@
+// Written by Javier Villegas
 using UnityEngine;
 using UnityEngine.UI;
 using TMPro;
 
+//Basically just controls the UI showing god health
 public class GodPlacement : MonoBehaviour
 {
     God_Behaviour god;
@@ -15,7 +17,7 @@ public class GodPlacement : MonoBehaviour
         this.god = god;
         god.SetPlace(this);
         health.enabled = true;
-        health.text = god.CardSO.health.ToString();
+        health.text = "HP: " + god.CardSO.health.ToString();
     }
 
     public void RemoveGod()

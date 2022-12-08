@@ -1,5 +1,5 @@
+// Written by Javier Villegas
 using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
 public class StorrCardAction : CardAction

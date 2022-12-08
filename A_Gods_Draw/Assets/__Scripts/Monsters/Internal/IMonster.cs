@@ -1,11 +1,10 @@
+// Written by Javier Villegas
 // modified by charlie
 
 using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 using TMPro;
-using System;
 using FMODUnity;
 
 public abstract class IMonster : BoardElement
@@ -51,12 +50,10 @@ public abstract class IMonster : BoardElement
 
     [SerializeField]
     Image arrowImage;
-    private bool locked;
-
-    // Start is called before the first frame update
 
     void Awake()
     {
+        //Quick formula for scaling difficulty
         maxHealth += Mathf.RoundToInt((float)maxHealth / 10f) * (GameManager.timesDefeatedBoss * 2);
 
         health = maxHealth;
@@ -99,15 +96,15 @@ public abstract class IMonster : BoardElement
         {
             defendedFor -= amount;
         }
+
         defendTxt.text = defendedFor.ToString();
 
         if (health <= 0)
         {
             health = 0;
-            // manager.EnemyDied(this);
             SoundPlayer.PlaySound(death_SFX,gameObject);
             if (deathParticleVFX != null)
-                Instantiate(deathParticleVFX,image.transform.position,Quaternion.identity);
+                Instantiate(deathParticleVFX,image.transform.position, Quaternion.identity);
             Destroy(this.gameObject);
         }
 
@@ -126,6 +123,7 @@ public abstract class IMonster : BoardElement
         enemyIntent.DecideIntent(board);
     }
 
+    //Just in case a monster needs to know what other enemies will do to decide for itself
     internal void LateDecideIntent(BoardStateController board)
     {
         enemyIntent.LateDecideIntent(board);
@@ -134,6 +132,7 @@ public abstract class IMonster : BoardElement
         overlay.enabled = false;
     }
 
+    //Some overlay for any action that needs to be visualized (used for chains)
     public void SetOverlay(Sprite sprite)
     {
         overlay.sprite = sprite;
@@ -151,11 +150,12 @@ public abstract class IMonster : BoardElement
         {
             defendedFor += amount;
             image.color = Color.cyan;
-            defendTxt.text = defendedFor.ToString(); // ! was trying to access after being destroyed so i commented it out
+            defendTxt.text = defendedFor.ToString();
             defendTxt.enabled = true;
         }
     }
 
+    //for defend cards to reduce the damage of attacks
     public void DeBuff(int amount)
     {
         if (enemyIntent.GetID() == EnemyIntent.AttackGod || enemyIntent.GetID() == EnemyIntent.AttackPlayer)

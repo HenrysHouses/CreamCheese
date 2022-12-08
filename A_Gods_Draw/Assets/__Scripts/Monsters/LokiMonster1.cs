@@ -1,7 +1,4 @@
-using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
-using UnityEngine.UI;
+// Written by Javier
 
 public class LokiMonster1 : IMonster
 {

@@ -1,5 +1,5 @@
+// Written by Javier Villegas
 using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
 public class DrawCardAction : CardAction
@@ -20,7 +20,7 @@ public class DrawCardAction : CardAction
         board.StartCoroutine(playTriggerVFX(source.gameObject, null, new Vector3(0, 1, 0)));
         yield return new WaitUntil(() => !_VFX.isAnimating);
 
-        yield return new WaitForSeconds(0.3f);
+        yield return new WaitForSeconds(0.1f);
 
         isReady = true;
     }

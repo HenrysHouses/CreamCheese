@@ -1,6 +1,8 @@
 /* 
  * Refactoring by 
  * Henrik
+ * 
+ * Modified by Javier
 */
 
 using System;

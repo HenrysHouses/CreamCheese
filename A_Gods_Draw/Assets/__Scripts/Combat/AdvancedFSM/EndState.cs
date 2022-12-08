@@ -1,6 +1,8 @@
 /* 
  * Written by 
  * Henrik
+ * 
+ * Modified by Javier
 */
 
 using HH.MultiSceneTools;

@@ -1,5 +1,5 @@
-using System.Collections;
-using System.Collections.Generic;
+// Written by Javier
+
 using UnityEngine;
 using TMPro;
 using UnityEngine.UI;
@@ -8,21 +8,16 @@ public class PlayerController : BoardElement
 {
     [SerializeField] 
     PlayerTracker playerTracker;
-    // [SerializeField]
-    // int maxHealth = 10;
     [SerializeField]
     TMP_Text healthTxt;
 
     [SerializeField]
     Image arrowImage;
 
-    // Start is called before the first frame update
     void Start()
     {
         healthTxt.text = "HP: " + playerTracker.Health.ToString();
     }
-
-    // public int GetHealth() { return health; }
 
     public void DealDamage(int amount)
     {

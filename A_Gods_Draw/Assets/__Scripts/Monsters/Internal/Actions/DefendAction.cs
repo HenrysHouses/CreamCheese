@@ -1,5 +1,5 @@
-using System.Collections;
-using System.Collections.Generic;
+// Written by Javier
+
 using UnityEngine;
 
 public class DefendAction : Action

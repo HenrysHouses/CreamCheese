@@ -1,6 +1,8 @@
 /* 
  * Written by 
  * Henrik
+ * 
+ * Modified by Javier
 */
 
 /// <summary>
