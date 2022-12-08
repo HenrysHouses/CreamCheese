@@ -8,6 +8,7 @@ This is a student project by
 - Javier Villegas
 - Nicolay Johansen
 - Mathea Walberg
+
 While at the Games And Entertainment Technology course at Nord University
 
 # Try The Game
