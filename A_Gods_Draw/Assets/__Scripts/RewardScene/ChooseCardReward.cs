@@ -98,7 +98,7 @@ public class ChooseCardReward : MonoBehaviour
             int randomIndex = Random.Range(0, searchResult.Count);
             Card_SO randomCard = searchResult[randomIndex];
             Card_Loader _Loader = spawn.GetComponentInChildren<Card_Loader>();
-            _Loader.shouldAddComponent = false;
+            _Loader.addComponentAutomatically = false;
             _Loader.Set(randomCard);
 
             CardOptions[i] = searchResult[randomIndex];

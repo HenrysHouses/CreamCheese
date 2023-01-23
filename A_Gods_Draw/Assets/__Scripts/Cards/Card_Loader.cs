@@ -13,7 +13,7 @@ using FMODUnity;
 public enum CardActionEnum
 {
     Attack,
-    Defend,
+    Defence,
     Buff,
     Instakill,
     Chained,
@@ -40,17 +40,13 @@ public enum GodActionEnum
 [System.Serializable]
 public struct CardElements
 {
-    public Image image;
+    public Renderer ArtRenderer;
+    public Renderer OrmRenderer;
+    public Renderer CardRenderer;
     public TextMeshPro cardName;
     public TextMeshPro desc;
-    public TextMeshPro health;
-    public Image typeIcon;
     public TextMeshPro strength;
-
-    public Transform prop;
-
     public EventReference OnClickSFX;
-
 }
 
 
@@ -60,13 +56,15 @@ public struct CardElements
 /// </summary>
 public class Card_Loader : MonoBehaviour
 {
-    [SerializeField]
-    CardElements elements;
-    Card_SO card_so;
+    [SerializeField] Texture transparentMetallic;
+    [SerializeField] PathController IconPath;
+    [SerializeField] GameObject IconPrefab;
+    [SerializeField] CardElements elements;
+    [SerializeField] Card_SO card_so;
     Card_Behaviour CB;
 
-    [HideInInspector]
-    public bool shouldAddComponent = true;
+    // [HideInInspector]
+    public bool addComponentAutomatically = true;
 
     public Card_SO GetCardSO => card_so;
     public Card_Behaviour Behaviour => CB;
@@ -75,27 +73,25 @@ public class Card_Loader : MonoBehaviour
 
     private void Start()
     {
-        GetComponent<Canvas>().worldCamera = Camera.main;
-        elements.prop = transform.GetChild(transform.childCount - 1);
+        if(card_so)
+            Set(card_so);
     }
     void ChangeOrm(CardType card)
     {
-        if (card == CardType.Attack)
+        switch(card)
         {
-            elements.prop.GetChild(3).gameObject.SetActive(true);
-            return;
-        }
-
-        if (card == CardType.Defence)
-        {
-            elements.prop.GetChild(4).gameObject.SetActive(true);
-            return;
-        }
-
-        else
-        {
-            elements.prop.GetChild(5).gameObject.SetActive(true);
-            return;
+            case CardType.Attack:
+                elements.OrmRenderer.material.color = Color.red;
+                break;
+            case CardType.Defence:
+                elements.OrmRenderer.material.color = Color.blue;
+                break;
+            case CardType.Buff:
+                elements.OrmRenderer.material.color = Color.blue + Color.red;
+                break;
+            case CardType.Special:
+                elements.OrmRenderer.material.color = Color.yellow;
+                break;
         }
     }
 
@@ -109,22 +105,27 @@ public class Card_Loader : MonoBehaviour
 
         elements.cardName.text = card_so.cardName;
         elements.cardName.ForceMeshUpdate();
-        elements.image.sprite = card_so.image;
-        elements.desc.text = card_so.effect;
-        elements.desc.ForceMeshUpdate();
+        elements.ArtRenderer.material.SetTexture("_MainTex", card_so.Background);
+        elements.ArtRenderer.material.SetTexture("_ArtTex", card_so.Art);
+        
+        // Might remove
+        // elements.desc.text = card_so.effect;
+        // elements.desc.ForceMeshUpdate();
 
         if (card_so is God_Card_SO)
         {
             God_Card_SO god_card = card_so as God_Card_SO;
-            elements.typeIcon.enabled = false;
-            elements.strength.enabled = false;
-            elements.health.text = god_card.health.ToString();
-            elements.image.transform.localPosition -= Vector3.up * elements.image.transform.localPosition.y;
+            elements.strength.text = god_card.health.ToString();
 
-            elements.prop.GetChild(1).gameObject.SetActive(true);
-
-
-            if (shouldAddComponent)
+            //  Gold color
+            elements.OrmRenderer.material.color = new Color(1, 0.6458119f, 0);
+            elements.OrmRenderer.material.SetTexture("_MetallicGlossMap", transparentMetallic);
+            elements.OrmRenderer.material.SetFloat("_GlossMapScale", 0.75f);
+            elements.CardRenderer.material.color = new Color(1, 0.6458119f, 0);
+            elements.CardRenderer.material.SetTexture("_MetallicGlossMap", transparentMetallic);
+            elements.CardRenderer.material.SetFloat("_GlossMapScale", 0.75f);
+            
+            if (addComponentAutomatically)
             {
                 CB = gameObject.AddComponent<God_Behaviour>();
                 (CB as God_Behaviour).Initialize(god_card, elements);
@@ -134,20 +135,34 @@ public class Card_Loader : MonoBehaviour
         {
             NonGod_Card_SO nonGod = card_so as NonGod_Card_SO;
 
-            //Debug.Log(nonGod);
-            elements.health.enabled = false;
-
-            // elements.typeIcon.sprite = nonGod.icon;
             if (nonGod.targetActions.Count > 0)
                 elements.strength.text = nonGod.targetActions[0][nonGod.cardStrenghIndex].actionStrength.ToString();
 
+            // border color
             ChangeOrm(nonGod.type);
 
-            if(shouldAddComponent)
+            if(addComponentAutomatically)
             {
                 CB = gameObject.AddComponent<NonGod_Behaviour>();
                 (CB as NonGod_Behaviour).Initialize(nonGod, elements);
             }
+        }
+
+        instantiateIcons();
+    }
+
+    private void instantiateIcons()
+    {
+        float pos = 1/(card_so.Icons.Count+1f);
+
+        for (int i = 0; i < card_so.Icons.Count; i++)
+        {
+
+            GameObject icon = Instantiate(IconPrefab);
+            icon.transform.SetParent(IconPath.transform.parent);
+
+            OrientedPoint OP = IconPath.GetEvenPathOP(pos * (i+1));
+            icon.transform.position = OP.pos;
         }
     }
 }

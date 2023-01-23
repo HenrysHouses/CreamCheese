@@ -54,7 +54,7 @@ public abstract class Card_Behaviour : BoardElement
         {
             case CardActionEnum.Attack:
                 return new AttackCardAction(card.actionStrength);
-            case CardActionEnum.Defend:
+            case CardActionEnum.Defence:
                 return new DefendCardAction(card.actionStrength);
             case CardActionEnum.Buff:
                 return new BuffCardAction(card.actionStrength, false);
