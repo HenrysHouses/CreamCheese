@@ -12,7 +12,7 @@ using System;
 [CreateAssetMenu(menuName = "ScriptableObjects/God card"), System.Serializable]
 public class God_Card_SO : Card_SO
 {
-    public int strengh;
+    public int strength;
     public int health;
     public GodActionEnum godAction;
     public EventReference enterBattlefield_SFX;

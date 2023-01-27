@@ -29,7 +29,7 @@ public struct CardActionData
 [System.Serializable]
 public struct ActionsForTarget
 {
-    public int numOfTargets;
+    public static int numOfTargets = 1;
     public List<CardActionData> targetActions;
 
     public void SetNTar(int a)

@@ -47,11 +47,11 @@ public class God_Behaviour : Card_Behaviour
         {
             if (card.CardSO.correspondingGod == card_so.godAction)
             {
-                card.Buff(card_so.strengh, true);
+                card.Buff(card_so.strength, true);
             }
         }
 
-        action.OnPlay(board);
+        action.OnPlay(board, card_so.strength);
 
         //Wait for animations, etc
         yield return new WaitUntil(() => true /* action.IsReady() */);
@@ -64,7 +64,7 @@ public class God_Behaviour : Card_Behaviour
         {
             if (card.CardSO.correspondingGod == card_so.godAction)
             {
-                card.DeBuff(card_so.strengh, true);
+                card.DeBuff(card_so.strength, true);
             }
         }
     }
@@ -232,11 +232,11 @@ public class God_Behaviour : Card_Behaviour
 
     internal void Buff(NonGod_Behaviour nonGod_Behaviour)
     {
-        nonGod_Behaviour.Buff(card_so.strengh, true);
+        nonGod_Behaviour.Buff(card_so.strength, true);
         nonGod_Behaviour.BuffedByGod();
     }
     internal void DeBuff(NonGod_Behaviour nonGod_Behaviour)
     {
-        nonGod_Behaviour.DeBuff(card_so.strengh, true);
+        nonGod_Behaviour.DeBuff(card_so.strength, true);
     }
 }

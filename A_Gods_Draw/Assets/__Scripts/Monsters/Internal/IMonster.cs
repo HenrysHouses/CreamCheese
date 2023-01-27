@@ -80,6 +80,16 @@ public abstract class IMonster : BoardElement
     public int GetMaxHealth() { return maxHealth; }
     public int GetHealth() { return health; }
 
+    public void ReceiveHealth(int amount)
+    {
+
+        health += amount;
+
+        healthTxt.text = "HP: " + health.ToString();
+        setOutline(outlineSize, Color.red, 0.25f);
+
+    }
+
     public void DealDamage(int amount)
     {
         if (weakened > 0)

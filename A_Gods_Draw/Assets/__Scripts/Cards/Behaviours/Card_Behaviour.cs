@@ -82,6 +82,8 @@ public abstract class Card_Behaviour : BoardElement
         return card switch
         {
             GodActionEnum.Tyr => new TyrActions(),
+            
+            GodActionEnum.Eir => new EirActions(),
             _ => null,
         };
     }

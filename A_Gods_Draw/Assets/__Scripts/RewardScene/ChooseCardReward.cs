@@ -9,7 +9,7 @@ public enum CardType
     Attack,
     Defence,
     Buff,
-    Special,
+    Utility,
     God,
     None
 }

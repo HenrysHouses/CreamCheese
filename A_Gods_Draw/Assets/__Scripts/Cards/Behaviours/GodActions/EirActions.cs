@@ -1,16 +1,23 @@
-// Written by Javier Villegas
+using System.Collections;
+using System.Collections.Generic;
 using UnityEngine;
 
-public class TyrActions : GodCardAction
+public class EirActions : GodCardAction
 {
+
     public override void Execute(BoardStateController board, int strengh, UnityEngine.Object source) { }
 
     public override void OnPlay(BoardStateController board, int strength)
     {
+
         foreach (IMonster monster in board.getLivingEnemies())
         {
-            monster.GetIntent().CancelIntent();
-            monster.SetOverlay(Resources.Load<Sprite>("ImageResources/Icon_Chain_v1"));
+            monster.ReceiveHealth(strength);
+            monster.gameObject.AddComponent<PoisonDebuff>().stacks = strength;
         }
+
+        board.Player.Heal(strength);
+
     }
+
 }

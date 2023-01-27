@@ -20,6 +20,8 @@ public enum CardActionEnum
     Storr,
     SplashDMG,
     Heal,
+    HealPrevention,
+    poison,
     Draw,
     Weaken,
 }
@@ -32,6 +34,7 @@ public enum GodActionEnum
 {
     None,
     Tyr,
+    Eir
 }
 
 /// <summary>
@@ -89,7 +92,7 @@ public class Card_Loader : MonoBehaviour
             case CardType.Buff:
                 elements.OrmRenderer.material.color = Color.blue + Color.red;
                 break;
-            case CardType.Special:
+            case CardType.Utility:
                 elements.OrmRenderer.material.color = Color.yellow;
                 break;
         }

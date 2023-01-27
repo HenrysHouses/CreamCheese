@@ -136,7 +136,7 @@ public class NonGod_Behaviour : Card_Behaviour
 
         for (int i = 0; i < card.targetActions.Count; i++)
         {
-            actions.Add(new(card.targetActions[i].numOfTargets));
+            actions.Add(new(ActionsForTarget.numOfTargets));
             actions[i].InitList();
 
             for (int j = 0; j < card.targetActions[i].Count; j++)
@@ -156,7 +156,7 @@ public class NonGod_Behaviour : Card_Behaviour
 
         for (int i = 0; i < card.onGodBuff.Count; i++)
         {
-            godBuffActions.Add(new(card.onGodBuff[i].numOfTargets));
+            godBuffActions.Add(new(ActionsForTarget.numOfTargets));
             godBuffActions[i].InitList();
 
             for (int j = 0; j < card.onGodBuff[i].Count; j++)

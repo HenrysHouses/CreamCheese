@@ -13,7 +13,7 @@ public class GameManager : MonoBehaviour
 {
     [SerializeField]
     DeckManager_SO deckManager;
-    [SerializeField] PlayerTracker PlayerTracker;
+    [SerializeField] public PlayerTracker PlayerTracker;
 
     public bool shouldGenerateNewMap;
     public bool shouldDestroyCardInDeck {get; private set;}
