@@ -61,6 +61,8 @@ public class NonGod_Card_SO : Card_SO
     /// </summary>
     private void OnValidate()
     {
+        storeIcons();
+
         cardStrenghIndex = 0;
         if (targetActions.Count == 0)
             return;
@@ -81,7 +83,7 @@ public class NonGod_Card_SO : Card_SO
         }
         else if (type == CardType.Defence)
         {
-            while (targetActions[0][cardStrenghIndex].actionEnum != CardActionEnum.Defend)
+            while (targetActions[0][cardStrenghIndex].actionEnum != CardActionEnum.Defence)
             {
                 if (cardStrenghIndex == targetActions.Count - 1)
                     break;
@@ -100,6 +102,21 @@ public class NonGod_Card_SO : Card_SO
         else
         {
             cardStrenghIndex = 0;
+        }
+    }
+
+    protected override void storeIcons()
+    {
+        Icons.Clear();
+        for (int i = 0; i < targetActions.Count; i++)
+        {
+            foreach (var _action in targetActions[i].targetActions)
+            {
+                if(_action.actionEnum.ToString() == type.ToString())
+                    continue;
+
+                Icons.Add(_action.actionEnum);
+            }
         }
     }
 }

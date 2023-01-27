@@ -205,7 +205,7 @@ public class DeckManager_SO : ScriptableObject
             cards[i].transform.position = Vector3.zero;  
 
             Card_Loader _Loader = cards[i].GetComponentInChildren<Card_Loader>();
-            _Loader.shouldAddComponent = false;
+            _Loader.addComponentAutomatically = false;
             _Loader.Set(pLibrary[0]);
             pLibrary.Remove(pLibrary[0]);
             animations[i] = new CardPathAnim(_Loader.GetCardSO, Draw_SFX, cards[i], GodDialogueTrigger.Draw);
@@ -233,7 +233,7 @@ public class DeckManager_SO : ScriptableObject
             // preps the discard animations
             GameObject _card = Instantiate(CardDrawAnimationPrefab);
             Card_Loader _Loader = _card.GetComponentInChildren<Card_Loader>();
-            _Loader.shouldAddComponent = false;
+            _Loader.addComponentAutomatically = false;
             _Loader.Set(pHand[i]);
 
             cards[i] = _card;
@@ -273,7 +273,7 @@ public class DeckManager_SO : ScriptableObject
                 // preps the discard animations
                 _card = Instantiate(CardDrawAnimationPrefab);
                 _Loader = _card.GetComponentInChildren<Card_Loader>();
-                _Loader.shouldAddComponent = false;
+                _Loader.addComponentAutomatically = false;
                 _Loader.Set(pHand[i]);
                 cards.Add(_card);
                 pDiscard.Add(pHand[i]);
@@ -299,7 +299,7 @@ public class DeckManager_SO : ScriptableObject
             // preps the discard animation
             GameObject _card = Instantiate(CardDrawAnimationPrefab);
             Card_Loader _Loader = _card.GetComponentInChildren<Card_Loader>();
-            _Loader.shouldAddComponent = false;
+            _Loader.addComponentAutomatically = false;
             _Loader.Set(card);
             CardPathAnim anim = new CardPathAnim(card, Discard_SFX, _card, GodDialogueTrigger.Discard);
             AnimationEventManager.getInstance.requestAnimation("Hand-Discard", _card, 0, anim);
@@ -355,7 +355,7 @@ public class DeckManager_SO : ScriptableObject
             pLibrary.Add(pDiscard[i]);
             cards[i] = Instantiate(CardShuffleAnimationPrefab);
             Card_Loader _Loader = cards[i].GetComponentInChildren<Card_Loader>();
-            _Loader.shouldAddComponent = false;
+            _Loader.addComponentAutomatically = false;
             _Loader.Set(pDiscard[i]);
             animations[i] = new CardPathAnim(_Loader.GetCardSO, Shuffle_SFX, cards[i], GodDialogueTrigger.Shuffle);
             animations[i].OnAnimCompletionTrigger.AddListener(OnDiscardChange.Invoke);

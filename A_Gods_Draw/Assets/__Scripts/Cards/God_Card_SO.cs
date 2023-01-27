@@ -18,6 +18,7 @@ public class God_Card_SO : Card_SO
     public EventReference enterBattlefield_SFX;
     public GameObject God_Model;
 
+
     [SerializeField] EnemyClassNames enemyClassNames;
 
     public GodDialogue[] dialogues;
@@ -27,8 +28,14 @@ public class God_Card_SO : Card_SO
     /// </summary>
     private void OnValidate() {
         type = CardType.God;
+        storeIcons();
     }
-    
+
+    protected override void storeIcons()
+    {
+        Debug.LogError("God icons are not implemented");
+    }
+
     /// <summary>Instantiates a dialogue box with dialogue from the god</summary>
     /// <param name="trigger">Dialogue trigger type</param>
     /// <param name="source">Object which dialogue should react to</param>

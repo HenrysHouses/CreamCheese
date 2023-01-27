@@ -4,6 +4,7 @@
 //  Henrik Hustoft
 
 using UnityEngine;
+using System.Collections.Generic;
 
 /// <summary>
 /// SO containing all data necessary for all cards
@@ -12,9 +13,12 @@ using UnityEngine;
 public abstract class Card_SO : ScriptableObject
 {
     public CardType type;
-    public Sprite image;
+    public Texture Art;
+    public Texture Background;
     public string cardName;
     [TextArea(6, 20)] public string description;
     [TextArea(6, 20)] public string effect;
+    public List<CardActionEnum> Icons = new List<CardActionEnum>();
+    protected abstract void storeIcons();
 }
 
