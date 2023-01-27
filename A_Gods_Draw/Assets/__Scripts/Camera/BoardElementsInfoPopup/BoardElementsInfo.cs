@@ -68,7 +68,7 @@ public class BoardElementsInfo : MonoBehaviour
             
             }
 
-                Debug.Log(delayCounter);
+                Debug.Log(_hit.transform.name);
 
         }
         else

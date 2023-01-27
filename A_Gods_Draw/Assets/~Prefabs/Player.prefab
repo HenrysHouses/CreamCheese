@@ -425,12 +425,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f7a8b174d2d257a40a4dddefbb1b7e50, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  BoardElementInfo: This is your health dial
   clickable: 0
-  maxHealth: 10
-  health: 0
+  playerTracker: {fileID: 0}
   healthTxt: {fileID: 9098692245611762220}
   arrowImage: {fileID: 9098692245553325710}
-  shieldObject: {fileID: 8403788271450582296}
 --- !u!1001 &9098692244610651121
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -536,11 +535,6 @@ PrefabInstance:
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: cfd8a3d0dd4e9f84488d8ed21057492c, type: 3}
---- !u!1 &8403788271450582296 stripped
-GameObject:
-  m_CorrespondingSourceObject: {fileID: 785117873822072553, guid: cfd8a3d0dd4e9f84488d8ed21057492c, type: 3}
-  m_PrefabInstance: {fileID: 9098692244610651121}
-  m_PrefabAsset: {fileID: 0}
 --- !u!4 &8403788271450582300 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 785117873822072557, guid: cfd8a3d0dd4e9f84488d8ed21057492c, type: 3}
