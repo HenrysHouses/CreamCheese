@@ -30,22 +30,29 @@ public class BoardElementsInfo : MonoBehaviour
     private void FixedUpdate()
     {
 
-        Debug.Log(Input.mousePosition.x + " | " + Input.mousePosition.y);
-        informationPopupWindow.GetComponent<RectTransform>().position = Input.mousePosition;//new Vector3(Mathf.Clamp(Input.mousePosition.x, 0, canvas.renderingDisplaySize.x), Mathf.Clamp(Input.mousePosition.y, 0, canvas.renderingDisplaySize.y), 0);
-
-
         if(Input.GetKey(KeyCode.P) && Physics.Raycast(mainCamera.ScreenPointToRay(Input.mousePosition), out RaycastHit _hit, 50))
         {
+
+            if(_hit.transform != previousInfoElement.transform)
+            {
+
+                previousInfoElement = _hit;
+                Reset();
+                return;
+
+            }
 
             InfoElement _info;
 
             if(!_hit.transform.TryGetComponent<InfoElement>(out _info))
             {
 
-                delayCounter = 0;
+                Reset();
                 return;
 
             }
+
+            delayCounter++;
 
             if(delayCounter >= infoDelay * 60)
             {
@@ -54,11 +61,26 @@ public class BoardElementsInfo : MonoBehaviour
 
             }
             else
-                delayCounter++;
+            {
+
+                informationPopupWindow.GetComponent<RectTransform>().anchoredPosition = Input.mousePosition;
+                informationText.text = "";
+            
+            }
+
+                Debug.Log(delayCounter);
 
         }
         else
-            delayCounter = 0;
+            Reset();
+
+    }
+
+    private void Reset()
+    {
+
+        informationText.text = "";
+        delayCounter = 0;
 
     }
 

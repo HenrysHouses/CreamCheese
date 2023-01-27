@@ -410,6 +410,37 @@ SpriteRenderer:
   m_CorrespondingSourceObject: {fileID: 1980549404032128753, guid: 6bdad53e291ee1f4ebd577ae68613f39, type: 3}
   m_PrefabInstance: {fileID: 1980549404383462042}
   m_PrefabAsset: {fileID: 0}
+--- !u!1 &477080608 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 2264239876840104853, guid: 902ab84c2a5c9244e8fb57f801c8b31d, type: 3}
+  m_PrefabInstance: {fileID: 5256790030515483338}
+  m_PrefabAsset: {fileID: 0}
+--- !u!114 &477080612
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 477080608}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 53f42a1edd264aa4491ee47ca8536797, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  BoardElementInfo: This is dingus, he has mental issues
+--- !u!65 &477080613
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 477080608}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Size: {x: 0.0063305814, y: 0.0035709667, z: 0.003660293}
+  m_Center: {x: 0.00013002742, y: -0.000108478176, z: 0.0016840243}
 --- !u!1 &493536005
 GameObject:
   m_ObjectHideFlags: 0
@@ -2256,11 +2287,15 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 3928232048039383896, guid: 1f2a9c8d1707dc34682a31ad97588d51, type: 3}
       propertyPath: m_LocalPosition.z
-      value: -0.0005181767
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 3928232048039383896, guid: 1f2a9c8d1707dc34682a31ad97588d51, type: 3}
       propertyPath: m_AnchoredPosition.x
-      value: 0.000061035156
+      value: 250
+      objectReference: {fileID: 0}
+    - target: {fileID: 3928232048039383896, guid: 1f2a9c8d1707dc34682a31ad97588d51, type: 3}
+      propertyPath: m_AnchoredPosition.y
+      value: 250
       objectReference: {fileID: 0}
     - target: {fileID: 7730657857665792788, guid: 1f2a9c8d1707dc34682a31ad97588d51, type: 3}
       propertyPath: m_LocalPosition.z
@@ -2545,14 +2580,6 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
-    - target: {fileID: 2289013053853432140, guid: 4cddc2822745ccf43a871a36e771c8ae, type: 3}
-      propertyPath: infoDelay
-      value: 0.5
-      objectReference: {fileID: 0}
-    - target: {fileID: 2289013053853432140, guid: 4cddc2822745ccf43a871a36e771c8ae, type: 3}
-      propertyPath: mainCamera
-      value: 
-      objectReference: {fileID: 2028920038}
     - target: {fileID: 2289013053853432140, guid: 4cddc2822745ccf43a871a36e771c8ae, type: 3}
       propertyPath: informationPopupWindow
       value: 
