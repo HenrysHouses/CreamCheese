@@ -5,6 +5,8 @@ using UnityEngine;
 public class PoisonCardAction : CardAction
 {
 
+    //Use the drawstate from fsm to know when new turn happens to tick poison.
+
     public PoisonCardAction(int strengh) : base(strengh, strengh) { }
 
     public override void SetClickableTargets(BoardStateController board, bool to = true)
