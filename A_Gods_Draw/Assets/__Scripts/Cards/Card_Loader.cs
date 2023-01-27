@@ -163,6 +163,8 @@ public class Card_Loader : MonoBehaviour
 
             OrientedPoint OP = IconPath.GetEvenPathOP(pos * (i+1));
             icon.transform.position = OP.pos;
+
+            icon.GetComponent<IconController>().setIcon(card_so.Icons[i]);
         }
     }
 }
