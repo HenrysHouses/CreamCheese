@@ -5,9 +5,7 @@ using UnityEngine;
 public class PoisonCardAction : CardAction
 {
 
-    //Use the drawstate from fsm to know when new turn happens to tick poison.
-
-    public PoisonCardAction(int strengh) : base(strengh, strengh) { }
+    public PoisonCardAction(int strength) : base(strength, strength) { }
 
     public override void SetClickableTargets(BoardStateController board, bool to = true)
     {
@@ -17,9 +15,25 @@ public class PoisonCardAction : CardAction
     {
         isReady = false;
 
-        foreach (IMonster monster in board.getLivingEnemies())
+        foreach (IMonster target in targets)
         {
             
+            PoisonDebuff _poison;
+            if(target.gameObject.TryGetComponent<PoisonDebuff>(out _poison))
+            {
+
+                _poison.Stacks += strength;
+
+            }
+            else
+            {
+
+                _poison = target.gameObject.AddComponent<PoisonDebuff>();
+                _poison.Stacks = strength;
+                _poison.thisMonster = target;
+
+            }
+
         }
         // Playing VFX for each action
         board.StartCoroutine(playTriggerVFX(source.gameObject, board.Player.transform, new Vector3(0, 1, 0)));

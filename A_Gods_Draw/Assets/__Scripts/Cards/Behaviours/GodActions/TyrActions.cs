@@ -3,7 +3,7 @@ using UnityEngine;
 
 public class TyrActions : GodCardAction
 {
-    public override void Execute(BoardStateController board, int strengh, UnityEngine.Object source) { }
+    public override void Execute(BoardStateController board, int strength, UnityEngine.Object source) { }
 
     public override void OnPlay(BoardStateController board, int strength)
     {

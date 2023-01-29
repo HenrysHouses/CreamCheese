@@ -36,8 +36,8 @@ public class BuffCardAction : CardAction
     {
         foreach (NonGod_Behaviour card in targets)
         {
-            card.Buff(strengh, multiplies);
-            SpawnCoins(strengh, card);
+            card.Buff(strength, multiplies);
+            SpawnCoins(strength, card);
         }
         ResetCamera();
     }

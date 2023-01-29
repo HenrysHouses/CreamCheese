@@ -21,7 +21,7 @@ public enum CardActionEnum
     SplashDMG,
     Heal,
     HealPrevention,
-    poison,
+    Poison,
     Draw,
     Weaken,
 }

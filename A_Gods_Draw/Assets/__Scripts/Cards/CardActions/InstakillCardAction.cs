@@ -13,7 +13,7 @@ public class InstakillCardAction : CardAction
         isReady = false;
 
 
-        if (Random.Range(1, 10) <= strengh)
+        if (Random.Range(1, 10) <= strength)
         {
             // Playing VFX
             board.StartCoroutine(playTriggerVFX(target.gameObject, null, new Vector3(0, 1 ,0)));

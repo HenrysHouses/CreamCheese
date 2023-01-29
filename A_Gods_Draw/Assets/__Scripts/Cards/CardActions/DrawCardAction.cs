@@ -14,7 +14,7 @@ public class DrawCardAction : CardAction
     {
         isReady = false;
 
-        current.Controller.DrawCardExtra = strengh;
+        current.Controller.DrawCardExtra = strength;
 
         // Playing VFX for each action
         board.StartCoroutine(playTriggerVFX(source.gameObject, null, new Vector3(0, 1, 0)));

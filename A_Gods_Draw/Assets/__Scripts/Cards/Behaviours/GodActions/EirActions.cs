@@ -10,10 +10,24 @@ public class EirActions : GodCardAction
     public override void OnPlay(BoardStateController board, int strength)
     {
 
-        foreach (IMonster monster in board.getLivingEnemies())
+        foreach (IMonster _monster in board.getLivingEnemies())
         {
-            monster.ReceiveHealth(strength);
-            monster.gameObject.AddComponent<PoisonDebuff>().stacks = strength;
+            _monster.ReceiveHealth(strength);
+
+            PoisonDebuff _poison;
+            if(_monster.gameObject.TryGetComponent<PoisonDebuff>(out _poison))
+            {
+
+                _poison.Stacks += strength;
+
+            }
+            else
+            {
+
+                _monster.gameObject.AddComponent<PoisonDebuff>().Stacks = strength;
+
+            }
+
         }
 
         board.Player.Heal(strength);

@@ -5,7 +5,7 @@ using UnityEngine;
 public class ChainCardAction : CardAction
 {
 
-    public ChainCardAction(int strengh) : base(strengh, strengh) { }
+    public ChainCardAction(int strength) : base(strength, strength) { }
 
     public override IEnumerator OnAction(BoardStateController board, NonGod_Behaviour source)
     {

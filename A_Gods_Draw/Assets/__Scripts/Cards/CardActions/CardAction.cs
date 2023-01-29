@@ -10,38 +10,38 @@ public abstract class CardAction : Action
 
     protected NonGod_Behaviour current;
 
-    protected int strengh;
+    protected int strength;
 
     protected int neededLanes = 1;
 
-    public int Strengh => strengh;
+    public int Strengh => strength;
 
     public EventReference action_SFX;
     public bool PlayOnPlacedOrTriggered_SFX;
     public ActionVFX _VFX;
 
-    public CardAction(int _min, int _max) : base(_min, _max) { strengh = _max; }
+    public CardAction(int _min, int _max) : base(_min, _max) { strength = _max; }
 
     public virtual void Buff(int amount, bool isMult)
     {
         if (isMult)
         {
-            strengh *= amount;
+            strength *= amount;
         }
         else
         {
-            strengh += amount;
+            strength += amount;
         }
     }
     public virtual void DeBuff(int amount, bool isMult)
     {
         if (isMult)
         {
-            strengh /= amount;
+            strength /= amount;
         }
         else
         {
-            strengh -= amount;
+            strength -= amount;
         }
     }
 
