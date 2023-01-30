@@ -76,6 +76,8 @@ public abstract class Card_Behaviour : BoardElement
                 return new PoisonCardAction(card.actionStrength);
             case CardActionEnum.HealPrevention:
                 return new HealPreventionCardAction(card.actionStrength);
+            case CardActionEnum.Frostbite:
+                return new FrostbiteCardAction(card.actionStrength);
             default:
                 return null;
         }

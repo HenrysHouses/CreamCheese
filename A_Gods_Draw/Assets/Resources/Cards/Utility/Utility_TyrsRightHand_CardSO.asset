@@ -13,17 +13,18 @@ MonoBehaviour:
   m_Name: Utility_TyrsRightHand_CardSO
   m_EditorClassIdentifier: 
   type: 2
-  image: {fileID: 21300000, guid: 79ebe1bdde07b75498872b325a810c3e, type: 3}
+  Art: {fileID: 0}
+  Background: {fileID: 0}
   cardName: Tyrs Right Hand
   description: "When binding the wolf, Fenrir got suspicious, and asked the Aesir
     that one of them put their hand in his mouth as a pledge of honor. Only Tyr was
     brave enough to do so. When Fenrir couldn't break free, he bit Tyr\u2019s hand
     off at what now is called the wolf joint."
   effect: Buff two targets, then draw x
+  Icons: 0a000000
   cardStrenghIndex: 0
   targetActions:
-  - numOfTargets: 2
-    targetActions:
+  - targetActions:
     - actionEnum: 2
       actionStrength: 2
       PlayOnPlacedOrTriggered_SFX: 0
@@ -40,7 +41,7 @@ MonoBehaviour:
         PathSpeed: 1
         trigger_VFX: {fileID: 0}
         hit_VFX: {fileID: 0}
-    - actionEnum: 8
+    - actionEnum: 10
       actionStrength: 2
       PlayOnPlacedOrTriggered_SFX: 0
       action_SFX:

@@ -10,19 +10,19 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 5a3a49401d7d7994699d21f4777abe3d, type: 3}
-  m_Name: Utility_HealPreventionDebuff
+  m_Name: Utility_FrostbiteDebuff
   m_EditorClassIdentifier: 
   type: 3
   Art: {fileID: 2800000, guid: 714b2624c67717b41b60350169eb7ce6, type: 3}
   Background: {fileID: 2800000, guid: 4405501223a59ea48923553bb9318ecc, type: 3}
-  cardName: Malachite Powder
-  description: Prevents all healing on an enemy
-  effect: Prevents enemy from healing in any form
-  Icons: 08000000
+  cardName: Eitr
+  description: Poison
+  effect: Poisons
+  Icons: 09000000
   cardStrenghIndex: 0
   targetActions:
   - targetActions:
-    - actionEnum: 8
+    - actionEnum: 9
       actionStrength: 2
       PlayOnPlacedOrTriggered_SFX: 1
       action_SFX:
@@ -39,4 +39,4 @@ MonoBehaviour:
         trigger_VFX: {fileID: 0}
         hit_VFX: {fileID: 0}
   onGodBuff: []
-  correspondingGod: 2
+  correspondingGod: 0

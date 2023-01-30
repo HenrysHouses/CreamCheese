@@ -24,6 +24,8 @@ public enum CardActionEnum
     Poison,
     Draw,
     Weaken,
+    Frostbite,
+    Leach
 }
 
 /// <summary>

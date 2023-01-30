@@ -52,6 +52,17 @@ public class DrawState : CombatFSMState
         foreach (IMonster monster in Controller.GetBoard().getLivingEnemies())
         {
             monster.LateDecideIntent(Controller.GetBoard());
+
+            if(!monster.gameObject.TryGetComponent<DebuffBase>(out DebuffBase _debuffCheck))
+                continue;
+
+            foreach (DebuffBase _debuff in monster.GetComponents<DebuffBase>())
+            {
+
+                _debuff.PreActDebuff();
+                
+            }
+
         }
 
         hasDrawn = true;

@@ -9,8 +9,11 @@ public class HealPreventionDebuff : DebuffBase
     {
 
         Stacks -= _ticks;
-        if(Stacks <= 0)
-            thisMonster.HealingDisabled = false;
+        if(Stacks > 0)
+            return;
+
+        thisMonster.HealingDisabled = false;
+        Destroy(this);
 
     }
 
