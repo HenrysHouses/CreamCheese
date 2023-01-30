@@ -70,6 +70,9 @@ public abstract class IMonster : BoardElement
 
         overlay = transform.GetChild(1).GetComponent<Canvas>().gameObject.AddComponent<Image>();
         overlay.enabled = false;
+
+        BoardElementInfo = "Hello, I am an enemy";
+
     }
 
     private void Update() 
