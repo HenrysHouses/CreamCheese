@@ -185,7 +185,7 @@ public class BoardStateController : MonoBehaviour
             cardTransform.parent.localRotation = new Quaternion();
             cardTransform.rotation = new Quaternion();
             cardTransform.GetComponent<Card_Selector>().enabled = false;
-            cardTransform.parent.localScale = new Vector3(1.5f, 1.5f, 1.5f); // !!REMOVE THIS AFTER FINDING A PREFERABLE SIZE FOR THE CARDS
+            cardTransform.parent.localScale = new Vector3(1.09843659f,1.09843659f,1.09843659f); // !!REMOVE THIS AFTER FINDING A PREFERABLE SIZE FOR THE CARDS
 
             GameObject spawn = Instantiate(playedGodCard.CardSO.God_Model, targetlane.position, transform.localRotation = new Quaternion(0, -0.577358961f, 0, 0.816490531f));
             spawn.transform.SetParent(cardTransform, true);
@@ -214,7 +214,7 @@ public class BoardStateController : MonoBehaviour
                 cardTransform.parent.localRotation = new Quaternion();
                 cardTransform.rotation = new Quaternion();
                 cardTransform.GetComponent<Card_Selector>().enabled = false;
-                cardTransform.parent.localScale = new Vector3(1.5f, 1.5f, 1.5f);  // !!REMOVE THIS AFTER FINDING A PREFERABLE SIZE FOR THE CARDS
+                cardTransform.parent.localScale = new Vector3(1.09843659f,1.09843659f,1.09843659f);  // !!REMOVE THIS AFTER FINDING A PREFERABLE SIZE FOR THE CARDS
 
 
                 for (int j = 0; j < behaviour.actions.Count; j++) // should run this for each targetable action
