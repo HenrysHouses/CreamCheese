@@ -4,15 +4,17 @@ using UnityEngine;
 
 public class ChainedDebuff : DebuffBase
 {
-    // Start is called before the first frame update
-    void Start()
+
+    public override void TickDebuff(int _ticks = 1)
     {
-        
+
+        thisMonster.GetIntent().CancelIntent();
+        thisMonster.SetOverlay(Resources.Load<Sprite>("ImageResources/Icon_Chain_v1"));
+        Stacks -= _ticks;
+
+        if(Stacks <= 0)
+            Destroy(this);
+
     }
 
-    // Update is called once per frame
-    void Update()
-    {
-        
-    }
 }

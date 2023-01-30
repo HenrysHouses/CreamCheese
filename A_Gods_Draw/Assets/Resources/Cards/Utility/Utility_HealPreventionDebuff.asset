@@ -1,0 +1,42 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5a3a49401d7d7994699d21f4777abe3d, type: 3}
+  m_Name: Utility_HealPreventionDebuff
+  m_EditorClassIdentifier: 
+  type: 3
+  Art: {fileID: 2800000, guid: 714b2624c67717b41b60350169eb7ce6, type: 3}
+  Background: {fileID: 2800000, guid: 4405501223a59ea48923553bb9318ecc, type: 3}
+  cardName: Eitr
+  description: Poison
+  effect: Poisons
+  Icons: 09000000
+  cardStrenghIndex: 0
+  targetActions:
+  - targetActions:
+    - actionEnum: 9
+      actionStrength: 2
+      PlayOnPlacedOrTriggered_SFX: 1
+      action_SFX:
+        Guid:
+          Data1: 0
+          Data2: 0
+          Data3: 0
+          Data4: 0
+        Path: 
+      _VFX:
+        FollowPath: 0
+        isAnimating: 0
+        PathSpeed: 0
+        trigger_VFX: {fileID: 0}
+        hit_VFX: {fileID: 0}
+  onGodBuff: []
+  correspondingGod: 0

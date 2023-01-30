@@ -33,6 +33,22 @@ public class EndState : CombatFSMState
         Controller.shouldEndTurn = false;
         // hasEndTriggered = false;
         ResetRuneTurnTriggers(Controller);
+
+        foreach (IMonster _monster in Controller.GetBoard().getLivingEnemies())
+        {
+
+            if(!_monster.gameObject.TryGetComponent<DebuffBase>(out DebuffBase _debuffCheck))
+                continue;
+
+            foreach (DebuffBase _debuff in _monster.GetComponents<DebuffBase>())
+            {
+
+                _debuff.TickDebuff();
+                
+            }
+            
+        }
+
     }
 
     public override void Act()

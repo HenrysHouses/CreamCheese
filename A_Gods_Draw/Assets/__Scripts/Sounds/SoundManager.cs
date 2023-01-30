@@ -13,6 +13,15 @@ public static class SoundPlayer
 
     public static void PlaySound(EventReference _soundEvenet, GameObject soundGO, ParamRef parameterID = null)
     {
+
+        if(_soundEvenet.Path == "")
+        {
+
+            Debug.Log("no sound .-.");
+            return;
+
+        }
+
         // Debug.Log("Played sound: " + _soundEvenet.Path);
         EventInstance temperaryEvent;
         PLAYBACK_STATE pbstate;

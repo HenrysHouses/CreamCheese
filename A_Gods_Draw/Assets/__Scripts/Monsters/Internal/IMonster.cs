@@ -14,6 +14,7 @@ public abstract class IMonster : BoardElement
 
     public GameObject deathParticleVFX;
     public GameObject slashParticleVFX;
+    public bool HealingDisabled;
     [SerializeField] Renderer[] MonsterRenderers;
     public float outlineSize = 0.01f;
     bool outlineShouldTurnOff;
@@ -83,6 +84,9 @@ public abstract class IMonster : BoardElement
     public void ReceiveHealth(int amount)
     {
 
+        if(!HealingDisabled)
+            return;
+
         health += amount;
 
         healthTxt.text = "HP: " + health.ToString();
@@ -90,22 +94,26 @@ public abstract class IMonster : BoardElement
 
     }
 
-    public void DealDamage(int amount)
+    public void DealDamage(int amount, bool bypassDefence = false)
     {
         if (weakened > 0)
             amount++;
 
-        if (amount >= defendedFor)
+        if (amount > defendedFor && !bypassDefence)
         {
             health = health - (amount - defendedFor);
             defendedFor = 0;
             image.color = Color.white;
             defendTxt.enabled = false;
         }
-        else
+        else if(bypassDefence)
         {
-            defendedFor -= amount;
+            
+            health -= amount;
+
         }
+        else
+            defendedFor -= amount;
 
         defendTxt.text = defendedFor.ToString();
 

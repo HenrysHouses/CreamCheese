@@ -22,8 +22,23 @@ public class ChainCardAction : CardAction
                 // Playing VFX for each action
                 board.StartCoroutine(playTriggerVFX(source.gameObject, monster));
                 yield return new WaitUntil(() => _VFX == null || !_VFX.isAnimating);
-                monster.GetIntent().CancelIntent();
-                monster.SetOverlay(Resources.Load<Sprite>("ImageResources/Icon_Chain_v1"));
+
+                ChainedDebuff _chained;
+                if(monster.gameObject.TryGetComponent<ChainedDebuff>(out _chained))
+                {
+
+                    _chained.Stacks += strength;
+
+                }
+                else
+                {
+
+                    _chained = monster.gameObject.AddComponent<ChainedDebuff>();
+                    _chained.Stacks = strength;
+                    _chained.thisMonster = monster;
+
+                }
+                
             }
         }
 

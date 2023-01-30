@@ -5,11 +5,9 @@ using UnityEngine;
 public class HealPreventionCardAction : CardAction
 {
 
-    public HealPreventionCardAction(int strength) : base(strength, strength) { }
+    
 
-    public override void SetClickableTargets(BoardStateController board, bool to = true)
-    {
-    }
+    public HealPreventionCardAction(int strength) : base(strength, strength) { }
 
     public override IEnumerator OnAction(BoardStateController board, NonGod_Behaviour source)
     {
@@ -18,23 +16,27 @@ public class HealPreventionCardAction : CardAction
         foreach (IMonster target in targets)
         {
             
-            PoisonDebuff _poison;
-            if(target.gameObject.TryGetComponent<PoisonDebuff>(out _poison))
+            HealPreventionDebuff _healPrev;
+            if(target.gameObject.TryGetComponent<HealPreventionDebuff>(out _healPrev))
             {
 
-                _poison.Stacks += strength;
+                _healPrev.Stacks += strength;
 
             }
             else
             {
 
-                _poison = target.gameObject.AddComponent<PoisonDebuff>();
-                _poison.Stacks = strength;
-                _poison.thisMonster = target;
+                _healPrev = target.gameObject.AddComponent<HealPreventionDebuff>();
+                _healPrev.Stacks = strength;
+                _healPrev.thisMonster = target;
+                target.HealingDisabled = true;
 
             }
 
         }
+        
+        targets.Clear();
+
         // Playing VFX for each action
         board.StartCoroutine(playTriggerVFX(source.gameObject, board.Player.transform, new Vector3(0, 1, 0)));
         yield return new WaitUntil(() => _VFX == null || !_VFX.isAnimating);
@@ -46,14 +48,13 @@ public class HealPreventionCardAction : CardAction
 
     public override void Reset(BoardStateController board)
     {
+        targets.Clear();
         isReady = false;
+        board.SetClickable(3, false);
         ResetCamera();
     }
-    public override void ResetCamera()
-    {
-    }
-    public override void SetCamera()
-    {
-    }
+
+    public override void ResetCamera(){}
+    public override void SetCamera(){}
 
 }

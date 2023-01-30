@@ -7,10 +7,6 @@ public class PoisonCardAction : CardAction
 
     public PoisonCardAction(int strength) : base(strength, strength) { }
 
-    public override void SetClickableTargets(BoardStateController board, bool to = true)
-    {
-    }
-
     public override IEnumerator OnAction(BoardStateController board, NonGod_Behaviour source)
     {
         isReady = false;
@@ -35,6 +31,9 @@ public class PoisonCardAction : CardAction
             }
 
         }
+        
+        targets.Clear();
+
         // Playing VFX for each action
         board.StartCoroutine(playTriggerVFX(source.gameObject, board.Player.transform, new Vector3(0, 1, 0)));
         yield return new WaitUntil(() => _VFX == null || !_VFX.isAnimating);
@@ -46,7 +45,9 @@ public class PoisonCardAction : CardAction
 
     public override void Reset(BoardStateController board)
     {
+        targets.Clear();
         isReady = false;
+        board.SetClickable(3, false);
         ResetCamera();
     }
     public override void ResetCamera()
