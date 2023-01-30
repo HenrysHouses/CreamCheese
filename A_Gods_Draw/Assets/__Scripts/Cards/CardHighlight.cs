@@ -15,7 +15,7 @@ public class CardHighlight : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        Highlight = GetComponent<Renderer>();
+        // Highlight = GetComponent<Renderer>();
         Highlight.enabled = false;
     }
 
@@ -35,8 +35,11 @@ public class CardHighlight : MonoBehaviour
 
     public void EnableHighlight()
     {
+        Debug.Log(1);
         if(this.enabled)
         {
+            Debug.Log(2);
+
             shouldTurnOff = false;
             Highlight.enabled = true;
         }

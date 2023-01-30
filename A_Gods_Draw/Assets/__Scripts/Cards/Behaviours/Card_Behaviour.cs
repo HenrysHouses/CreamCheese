@@ -103,15 +103,22 @@ public abstract class Card_Behaviour : BoardElement
 
     public void Placed()
     {
-        GetComponent<BoxCollider>().enabled = true;
-        transform.GetComponent<BoxCollider>().enabled = false;
+        // resizing the collider when exiting the player hand
+        BoxCollider collider = GetComponent<BoxCollider>();
+        Vector3 center = collider.center;
+        center.y = -0.0007099053f;
+        Vector3 size = collider.size;
+        size.y = 0.2012218f;
+        collider.size = size;
+        collider.center = center; // centre -0.0007099053 // size 0.2012218
+        // transform.GetComponent<BoxCollider>().enabled = false;
         OnPlacedInLane();
         onPlayerHand = false;
         Debug.Log("card placed");
     }
     public virtual void CancelSelection() { controller.SetSelectedCard(); }
     public virtual bool ShouldCancelSelection() { return false; }
-    public virtual bool CanBeSelected() { Debug.Log(onPlayerHand); return onPlayerHand;  }
+    public virtual bool CanBeSelected() {return onPlayerHand;  }
 
     public void SetController(TurnController cont)
     {
