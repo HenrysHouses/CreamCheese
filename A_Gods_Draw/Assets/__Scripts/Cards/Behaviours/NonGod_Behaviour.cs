@@ -254,7 +254,7 @@ public class NonGod_Behaviour : Card_Behaviour
         }
 
         controller.Discard(this);
-        Destroy(transform.parent.parent.gameObject);
+        Destroy(transform.parent.gameObject);
         TurnController.shouldWaitForAnims = false;
     }
 

@@ -17,7 +17,7 @@ public class IconController : MonoBehaviour
     {
         for (int i = 0; i < IconIDs.Length; i++)
         {
-            if(Type == IconIDs[i].Type)
+            if(Type == IconIDs[i].Type && IconIDs[i].Texture)
             {
                 IconMesh.material.SetTexture("_ArtTex", IconIDs[i].Texture);
                 IconMesh.material.SetTexture("_EmissionTex", IconIDs[i].Texture);

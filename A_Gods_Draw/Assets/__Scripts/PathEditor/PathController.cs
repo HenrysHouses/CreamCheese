@@ -266,6 +266,7 @@ public class PathController : MonoBehaviour
 	/// <returns>OrientedPoint, contains path transform data</returns>
 	public OrientedPoint GetEvenPathOP(float t)
 	{
+
 		// Remaps path t each point lerp t
 		int selectedSegment = 0;
 		float[] segments = new float[evenlySpacedPoints.Length];
@@ -282,11 +283,20 @@ public class PathController : MonoBehaviour
 				break;
 			}
 		}
+		
+		if(segments.Length <= selectedSegment)
+		{
+			throw new UnityException("Can not find positions before recalculating the path");
+		}
+
+
 		float tPos;
 		if(selectedSegment == segments.Length-1)
 			tPos = ExtensionMethods.RemapT(t, segments[selectedSegment], segments[selectedSegment-1], 0, 1);
 		else
+		{
 			tPos = ExtensionMethods.RemapT(t, segments[selectedSegment], segments[selectedSegment+1], 0, 1);
+		}
 		tPos = 1-tPos;
 		selectedSegment = Mathf.Clamp((selectedSegment-1), 0, segments.Length-1);
 	

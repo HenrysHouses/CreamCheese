@@ -76,8 +76,8 @@ public class Card_Loader : MonoBehaviour
 
     private void Start()
     {
-        if(card_so)
-            Set(card_so);
+        // if(card_so)
+        //     Set(card_so);
     }
     void ChangeOrm(CardType card)
     {
@@ -108,8 +108,11 @@ public class Card_Loader : MonoBehaviour
 
         elements.cardName.text = card_so.cardName;
         elements.cardName.ForceMeshUpdate();
-        elements.ArtRenderer.material.SetTexture("_MainTex", card_so.Background);
-        elements.ArtRenderer.material.SetTexture("_ArtTex", card_so.Art);
+
+        if(card_so.Background)
+            elements.ArtRenderer.material.SetTexture("_MainTex", card_so.Background);
+        if(card_so.Art)
+            elements.ArtRenderer.material.SetTexture("_ArtTex", card_so.Art);
         
         // Might remove
         // elements.desc.text = card_so.effect;
@@ -151,7 +154,8 @@ public class Card_Loader : MonoBehaviour
             }
         }
 
-        instantiateIcons();
+        if(card_so.Icons.Count > 0)
+            instantiateIcons();
     }
 
     private void instantiateIcons()
@@ -160,13 +164,11 @@ public class Card_Loader : MonoBehaviour
 
         for (int i = 0; i < card_so.Icons.Count; i++)
         {
-
             GameObject icon = Instantiate(IconPrefab);
             icon.transform.SetParent(IconPath.transform.parent);
 
             OrientedPoint OP = IconPath.GetEvenPathOP(pos * (i+1));
             icon.transform.position = OP.pos;
-
             icon.GetComponent<IconController>().setIcon(card_so.Icons[i]);
         }
     }

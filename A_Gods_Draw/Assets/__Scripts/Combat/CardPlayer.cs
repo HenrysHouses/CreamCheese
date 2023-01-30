@@ -46,6 +46,7 @@ public class CardPlayer : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+
         // Place the card on the board
         if (_selectedCard && _selectedCard.CardIsReady())
         {
@@ -81,6 +82,7 @@ public class CardPlayer : MonoBehaviour
             if (_selectedCard is null) 
             {
                 _selectedCard = selectCard();
+                Debug.Log(_selectedCard);
 
                 if(_selectedCard is null) // checks if no card was selected
                     return;
@@ -100,7 +102,7 @@ public class CardPlayer : MonoBehaviour
                 else
                     path.controlPoints[1].position = CardHoverPos.position;
 
-                path.controlPoints[0].position = _selectedCard.ParentTransform.position;
+                path.controlPoints[0].position = _selectedCard.transform.position;
                 path.recalculatePath();
                 _currSelectedCard.disableHover();
                 shouldCancelSelection = false;
@@ -136,7 +138,7 @@ public class CardPlayer : MonoBehaviour
             
             // Moves deselected card back to hand
             OrientedPoint OP = path.GetEvenPathOP(SelectedCardT);
-            _selectedCard.ParentTransform.position = OP.pos;
+            _selectedCard.transform.position = OP.pos;
             SelectedCardT = Mathf.Clamp01(SelectedCardT - Time.deltaTime * cardSelectSpeed);
 
             if(_selectedCard is not NonGod_Behaviour _card || !_card.GetCardType.Equals(CardType.Buff))
@@ -160,7 +162,7 @@ public class CardPlayer : MonoBehaviour
             if(SelectedCardT != 1)
             {
                 OrientedPoint OP = path.GetEvenPathOP(SelectedCardT);
-                _selectedCard.ParentTransform.position = OP.pos;
+                _selectedCard.transform.position = OP.pos;
                 SelectedCardT = Mathf.Clamp01(SelectedCardT + Time.deltaTime * cardSelectSpeed);
 
                 Transform targetOrigin = getCurrSelectionMesh().GetChild(1);
@@ -240,7 +242,7 @@ public class CardPlayer : MonoBehaviour
     void instantiateTargetingMesh(Transform Card)
     {
         GameObject spawn = Instantiate(ProceduralMeshPrefab);
-        spawn.transform.GetChild(1).position = Card.parent.position;
+        spawn.transform.GetChild(1).position = Card.position;
         
         Vector3 localPos = spawn.transform.localPosition;
         localPos.z += 0.1f;
@@ -326,7 +328,7 @@ public class CardPlayer : MonoBehaviour
 
         if (Physics.Raycast(ray, out RaycastHit hit, 1000000, cardLayer))
         {
-            Card_Behaviour _Loader = hit.collider.GetComponentInChildren<Card_Behaviour>();
+            Card_Behaviour _Loader = hit.collider.GetComponent<Card_Behaviour>();
             if (_Loader)
                 if (_Loader.CanBeSelected())
                     return _Loader;
@@ -362,8 +364,9 @@ public class CardPlayer : MonoBehaviour
             {
                 _Board.playedGodCard.CardSO.StartDialogue(GodDialogueTrigger.Played, loader.GetCardSO);
             }
-            CardHighlight highlight = behaviour.GetComponentInChildren<CardHighlight>();
-            highlight.enabled = true;
+            // CardHighlight highlight = behaviour.GetComponentInChildren<CardHighlight>();
+            // highlight.enabled = true;
+            Debug.Log("Card_Behaviour Highlight not implemented");
         }
         else
         {

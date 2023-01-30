@@ -169,7 +169,7 @@ public class BoardStateController : MonoBehaviour
             SoundPlayer.PlaySound(placeCard_SFX, gameObject);
         }
 
-        if (_GodLane.Equals(targetlane))
+        if (_GodLane.Equals(targetlane)) // Move card to the godlane
         {
 
             playedGodCard = card as God_Behaviour;
@@ -178,14 +178,14 @@ public class BoardStateController : MonoBehaviour
 
             Transform cardTransform = playedGodCard.transform;
 
-            cardTransform.parent.parent.SetParent(_GodLane);
-            cardTransform.parent.parent.localPosition = new Vector3();
+            cardTransform.parent.SetParent(_GodLane);
             cardTransform.parent.localPosition = new Vector3();
             cardTransform.localPosition = new Vector3();
-            cardTransform.parent.parent.localRotation = new Quaternion();
-            cardTransform.parent.rotation = new Quaternion();
-            cardTransform.parent.GetComponent<Card_Selector>().enabled = false;
-            cardTransform.parent.parent.localScale = new Vector3(1.5f, 1.5f, 1.5f); // !!REMOVE THIS AFTER FINDING A PREFERABLE SIZE FOR THE CARDS
+            cardTransform.localPosition = new Vector3();
+            cardTransform.parent.localRotation = new Quaternion();
+            cardTransform.rotation = new Quaternion();
+            cardTransform.GetComponent<Card_Selector>().enabled = false;
+            cardTransform.parent.localScale = new Vector3(1.5f, 1.5f, 1.5f); // !!REMOVE THIS AFTER FINDING A PREFERABLE SIZE FOR THE CARDS
 
             GameObject spawn = Instantiate(playedGodCard.CardSO.God_Model, targetlane.position, transform.localRotation = new Quaternion(0, -0.577358961f, 0, 0.816490531f));
             spawn.transform.SetParent(cardTransform, true);
@@ -207,14 +207,14 @@ public class BoardStateController : MonoBehaviour
 
                 Transform cardTransform = thingsInLane[i].transform;
 
-                cardTransform.parent.parent.SetParent(_Lane[i]);
-                cardTransform.parent.parent.localPosition = new Vector3();
+                cardTransform.parent.SetParent(_Lane[i]);
                 cardTransform.parent.localPosition = new Vector3();
                 cardTransform.localPosition = new Vector3();
-                cardTransform.parent.parent.localRotation = new Quaternion();
-                cardTransform.parent.rotation = new Quaternion();
-                cardTransform.parent.GetComponent<Card_Selector>().enabled = false;
-                cardTransform.parent.parent.localScale = new Vector3(1.5f, 1.5f, 1.5f);  // !!REMOVE THIS AFTER FINDING A PREFERABLE SIZE FOR THE CARDS
+                cardTransform.localPosition = new Vector3();
+                cardTransform.parent.localRotation = new Quaternion();
+                cardTransform.rotation = new Quaternion();
+                cardTransform.GetComponent<Card_Selector>().enabled = false;
+                cardTransform.parent.localScale = new Vector3(1.5f, 1.5f, 1.5f);  // !!REMOVE THIS AFTER FINDING A PREFERABLE SIZE FOR THE CARDS
 
 
                 for (int j = 0; j < behaviour.actions.Count; j++) // should run this for each targetable action

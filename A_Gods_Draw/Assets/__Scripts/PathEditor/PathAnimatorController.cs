@@ -230,7 +230,7 @@ public class PathAnimatorController : MonoBehaviour
         // Finds and moves the target that should be animated
         request.anim.AnimationTarget = GameObject.Find(request.target);
         request.anim.AnimationTarget.transform.SetParent(request.anim.AnimationTransform);
-        request.anim.AnimationTarget.transform.position = Vector3.zero;  
+        // request.anim.AnimationTarget.transform.position = Vector3.zero;  
         request.anim.AnimationTransform.SetParent(transform, false);
         
         OrientedPoint OP = path.GetEvenPathOP(0);

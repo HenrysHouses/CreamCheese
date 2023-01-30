@@ -113,9 +113,10 @@ public class Player_Hand : MonoBehaviour
         {
             var firstCardPos = ((CardSelectionAnimators.Count) * -0.05f);
             CardSelectionAnimators[i].Selector.setHandPos(new Vector3(firstCardPos + (0.1f * i), 0, i * 0.005f));
+            // CardSelectionAnimators[i].Selector.transform.localPosition = (new Vector3(firstCardPos + (0.1f * i), 0, i * 0.005f));
+            
             CardSelectionAnimators[i].Selector.transform.rotation = Quaternion.Euler(0, 0, (cardRotation * ((count - 1) / 2f)) - cardRotation * i);
         }
-        
     }
     
     /// <summary>Starts on hover animation on a card at index</summary>

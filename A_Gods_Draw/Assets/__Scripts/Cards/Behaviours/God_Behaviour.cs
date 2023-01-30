@@ -107,17 +107,17 @@ public class God_Behaviour : Card_Behaviour
     //    defendFor += amount;
     //}
 
-    private void OnMouseOver()
-    {
-        if (onPlayerHand)
-            godPlacement.godArrow.color = Color.magenta;
-    }
+    // private void OnMouseOver()
+    // {
+    //     // if (onPlayerHand)
+    //     //     godPlacement.godArrow.color = Color.magenta;
+    // }
 
-    private void OnMouseExit()
-    {
-        if (onPlayerHand)
-            godPlacement.godArrow.color = Color.white;
-    }
+    // private void OnMouseExit()
+    // {
+    //     // if (onPlayerHand)
+    //     //     godPlacement.godArrow.color = Color.white;
+    // }
     //public int GetStrengh()
     //{
     //    return card_so.strengh;

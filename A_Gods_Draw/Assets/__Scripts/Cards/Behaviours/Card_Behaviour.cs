@@ -102,24 +102,26 @@ public abstract class Card_Behaviour : BoardElement
     public void Placed()
     {
         GetComponent<BoxCollider>().enabled = true;
-        transform.parent.GetComponent<BoxCollider>().enabled = false;
+        transform.GetComponent<BoxCollider>().enabled = false;
         OnPlacedInLane();
         onPlayerHand = false;
+        Debug.Log("card placed");
     }
     public virtual void CancelSelection() { controller.SetSelectedCard(); }
     public virtual bool ShouldCancelSelection() { return false; }
-    public virtual bool CanBeSelected() { return onPlayerHand; }
+    public virtual bool CanBeSelected() { Debug.Log(onPlayerHand); return onPlayerHand;  }
 
     public void SetController(TurnController cont)
     {
         onPlayerHand = true;
-        controller = cont;
+        controller = cont;        
     }
     public void OnBeingClicked()
     {
         if (onPlayerHand)
         {
-            SoundPlayer.PlaySound(elements.OnClickSFX, gameObject);
+            if(elements.OnClickSFX.Path != "")
+                SoundPlayer.PlaySound(elements.OnClickSFX, gameObject);
             controller.SetSelectedCard(this);
             OnBeingSelected();
         }

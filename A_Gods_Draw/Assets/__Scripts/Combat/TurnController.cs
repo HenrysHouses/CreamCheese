@@ -254,7 +254,7 @@ public class TurnController : CombatFSM
                 lastAnim.OnAnimStartSound.AddListener(CardSound);
 
                 var selectorParentToDestroy = _Hand.CardSelectionAnimators[i].Selector.transform.parent.gameObject;
-                
+
                 Card_Loader _Loader = _Hand.CardSelectionAnimators[i].loader; 
 
                 _Hand.RemoveCard(_Loader);
@@ -287,6 +287,7 @@ public class TurnController : CombatFSM
         //yield return new WaitUntil(() => !DrawAnimator.isAnimating && !ShuffleAnimator.isAnimating);
 
         // CardPathAnim lastAnim = null;
+        Debug.Log(card_b);
         Transform ClosestPos = DiscardPositions[0];
         foreach (var pos in DiscardPositions)
         {

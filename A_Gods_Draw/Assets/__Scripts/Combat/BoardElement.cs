@@ -16,5 +16,4 @@ public class BoardElement : InfoElement
     {
         return clickable && !isInCombat; 
     }
-
 }
