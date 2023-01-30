@@ -28,7 +28,6 @@ public class ChooseCardReward : MonoBehaviour
     LayerMask laneLayer;
 
     
-    //TODO make item database and add here
 
     private void Start()
     {

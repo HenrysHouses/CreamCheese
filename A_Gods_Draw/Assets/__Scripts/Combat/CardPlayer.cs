@@ -60,6 +60,7 @@ public class CardPlayer : MonoBehaviour
             {
                 case CardType.Attack:
                 case CardType.Defence:
+                case CardType.Utility:
                     setEnemyHighlight();
                     break;
                 case CardType.Buff:
@@ -302,7 +303,6 @@ public class CardPlayer : MonoBehaviour
         {
             GameObject card = hit.collider.gameObject;
             highlight = card.GetComponent<CardHighlight>();
-            Debug.Log(card.name);
             if (highlight)
             {
                 highlight.EnableHighlight();

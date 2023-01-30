@@ -232,6 +232,7 @@ public class BoardStateController : MonoBehaviour
 
                         // Targeting color
                         MeshRenderer renderer = spawn.GetComponent<MeshRenderer>();
+                        Debug.Log("target mesh color");
                         if(behaviour.GetCardType == CardType.Attack)
                             renderer.material.SetColor("_MainColor", AttackColor);
                         else

@@ -22,7 +22,7 @@ public class GlyphController : MonoBehaviour
 {
     [SerializeField] ActionGlyphID[] CardGlyphs;
     [SerializeField] GodGlyphID[] GodGlyphs;
-    [SerializeField] Renderer renderer;
+    [SerializeField] Renderer meshRenderer;
 
     public void setGlyph(GodActionEnum type){}
     public void setGlyph(CardActionEnum type)
@@ -32,12 +32,12 @@ public class GlyphController : MonoBehaviour
             if(CardGlyphs[i].GlyphType != type)
                 continue;
             
-            renderer.material.SetTexture("_EmissionTex", CardGlyphs[i].IconTexture);
-            renderer.material.SetTexture("_ArtTex", CardGlyphs[i].IconTexture);
+            meshRenderer.material.SetTexture("_EmissionTex", CardGlyphs[i].IconTexture);
+            meshRenderer.material.SetTexture("_ArtTex", CardGlyphs[i].IconTexture);
             if(CardGlyphs[i].DefaultState)
-                renderer.material.SetFloat("_UseEmission", 1);
+                meshRenderer.material.SetFloat("_UseEmission", 1);
             else
-                renderer.material.SetFloat("_UseEmission", 0);
+                meshRenderer.material.SetFloat("_UseEmission", 0);
             return;
         }
     }

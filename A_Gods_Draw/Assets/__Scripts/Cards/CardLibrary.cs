@@ -22,7 +22,7 @@ public class CardLibrary : MonoBehaviour
     public bool shouldDestroyACard;
     [SerializeField] Button backButton;
     [SerializeField] TextMeshPro PickCardText; 
-    bool isAnimating;
+    // bool isAnimating;
 
     private void Start()
     {
@@ -144,7 +144,7 @@ public class CardLibrary : MonoBehaviour
     /// <param name="particle">Instantiated GameObject</param>
     IEnumerator destroyAnim(GameObject particle, Transform Target)
     {
-        isAnimating = true;
+        // isAnimating = true;
         float time = 0;
         GameObject spawn = Instantiate(particle);
         spawn.transform.position = Target.position;
@@ -161,7 +161,7 @@ public class CardLibrary : MonoBehaviour
         }
 
         Destroy(spawn);
-        isAnimating = false;
+        // isAnimating = false;
         GameManager.instance.DestroyedCardIsDone();
         MultiSceneLoader.loadCollection("Map", collectionLoadMode.Difference);
     }
