@@ -15,6 +15,7 @@ public class TurnController : CombatFSM
     // * Combat Mechanic references
     [SerializeField] BoardStateController BoardStateController;
     [field:SerializeField] public PlayerTracker player {get; private set;}
+    [SerializeField] LayerMask ClickDetectionLayer;
     [SerializeField] GodPlacement godPlace;
     [SerializeField] DeckManager_SO deckManager;
     [SerializeField] PathAnimatorController DiscardAnimator;
@@ -360,15 +361,17 @@ public class TurnController : CombatFSM
 
     public static BoardElement PlayerClick()
     {
-        LayerMask layerMask = LayerMask.GetMask("Board Element", "Card");
         Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
         BoardElement element = null;
-
-        if (Physics.Raycast(ray, out RaycastHit hit, 100, ~layerMask))
+        if (Physics.Raycast(ray, out RaycastHit hit, 10000))
         {
             GameObject clicked = hit.collider.gameObject;
+            Debug.Log(clicked.name);
 
             element = clicked.GetComponent<BoardElement>();
+
+            if(!element)
+                return null;
 
             if (element && element.OnClick())
                 return element;

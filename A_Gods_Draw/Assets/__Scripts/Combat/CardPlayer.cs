@@ -46,7 +46,6 @@ public class CardPlayer : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-
         // Place the card on the board
         if (_selectedCard && _selectedCard.CardIsReady())
         {
@@ -303,7 +302,7 @@ public class CardPlayer : MonoBehaviour
         {
             GameObject card = hit.collider.gameObject;
             highlight = card.GetComponent<CardHighlight>();
-            
+            Debug.Log(card.name);
             if (highlight)
             {
                 highlight.EnableHighlight();
@@ -336,22 +335,22 @@ public class CardPlayer : MonoBehaviour
         return null;
     }
 
-    bool playCard(out Transform lane)
-    {
-        lane = null;
-        Ray ray = mainCam.ScreenPointToRay(Input.mousePosition);
+    // bool playCard(out Transform lane)
+    // {
+    //     lane = null;
+    //     Ray ray = mainCam.ScreenPointToRay(Input.mousePosition);
 
-        if (Physics.Raycast(ray, out RaycastHit hit, 100, laneLayer))
-        {
-            lane = hit.collider.transform;
-        }
+    //     if (Physics.Raycast(ray, out RaycastHit hit, 100, laneLayer))
+    //     {
+    //         lane = hit.collider.transform;
+    //     }
 
-        if (lane is not null)
-        {
-            return true;
-        }
-        return false;
-    }
+    //     if (lane is not null)
+    //     {
+    //         return true;
+    //     }
+    //     return false;
+    // }
 
     void placeCard(Card_Behaviour behaviour)
     {
@@ -364,9 +363,9 @@ public class CardPlayer : MonoBehaviour
             {
                 _Board.playedGodCard.CardSO.StartDialogue(GodDialogueTrigger.Played, loader.GetCardSO);
             }
-            // CardHighlight highlight = behaviour.GetComponentInChildren<CardHighlight>();
-            // highlight.enabled = true;
-            Debug.Log("Card_Behaviour Highlight not implemented");
+            CardHighlight highlight = behaviour.GetComponentInChildren<CardHighlight>();
+            highlight.enabled = true;
+            // Debug.Log("Card_Behaviour Highlight not implemented");
         }
         else
         {
