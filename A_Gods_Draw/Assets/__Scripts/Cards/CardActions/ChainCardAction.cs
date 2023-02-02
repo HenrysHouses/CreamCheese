@@ -4,9 +4,6 @@ using UnityEngine;
 
 public class ChainCardAction : CardAction
 {
-
-    public ChainCardAction(int strength) : base(strength, strength) { }
-
     public override IEnumerator OnAction(BoardStateController board, NonGod_Behaviour source)
     {
         isReady = false;
@@ -27,14 +24,14 @@ public class ChainCardAction : CardAction
                 if(monster.gameObject.TryGetComponent<ChainedDebuff>(out _chained))
                 {
 
-                    _chained.Stacks += strength;
+                    _chained.Stacks += cardStats.strength;
 
                 }
                 else
                 {
 
                     _chained = monster.gameObject.AddComponent<ChainedDebuff>();
-                    _chained.Stacks = strength;
+                    _chained.Stacks = cardStats.strength;
                     _chained.thisMonster = monster;
 
                 }

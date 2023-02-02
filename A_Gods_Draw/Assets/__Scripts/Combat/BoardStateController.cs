@@ -217,13 +217,11 @@ public class BoardStateController : MonoBehaviour
                 cardTransform.parent.localScale = new Vector3(1.09843659f,1.09843659f,1.09843659f);  // !!REMOVE THIS AFTER FINDING A PREFERABLE SIZE FOR THE CARDS
 
 
-                for (int j = 0; j < behaviour.actions.Count; j++) // should run this for each targetable action
+                for (int j = 0; j < behaviour.stats.numberOfTargets; j++) // should run this for each targetable action
                 {
-                    BoardElement[] targets = behaviour.getActionTargets(j);
-
-                    for (int k = 0; k < targets.Length; k++)
+                    for (int k = 0; k < behaviour._targets.Count; k++)
                     {   
-                        if (targets[k] == null)
+                        if (behaviour._targets[k] == null)
                             continue;
 
                         // Targeting instantiation
@@ -241,7 +239,7 @@ public class BoardStateController : MonoBehaviour
                         // Targeting positions
                         ProceduralPathMesh Mesh = spawn.GetComponent<ProceduralPathMesh>();
                         Mesh.startPoint.position = cardTransform.position;                    
-                        Mesh.endPoint.position = targets[k].transform.position;
+                        Mesh.endPoint.position = behaviour._targets[k].transform.position;
                         Mesh.GenerateMesh();
                         Mesh.enabled = false;
                     }

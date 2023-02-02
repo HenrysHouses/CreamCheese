@@ -4,8 +4,6 @@ using UnityEngine;
 
 public class DrawCardAction : CardAction
 {
-    public DrawCardAction(int strengh) : base(strengh, strengh) { }
-
     public override void SetClickableTargets(BoardStateController board, bool to = true)
     {
     }
@@ -14,7 +12,7 @@ public class DrawCardAction : CardAction
     {
         isReady = false;
 
-        current.Controller.DrawCardExtra = strength;
+        current.Controller.DrawCardExtra = cardStats.strength;
 
         // Playing VFX for each action
         board.StartCoroutine(playTriggerVFX(source.gameObject, null, new Vector3(0, 1, 0)));
@@ -34,13 +32,6 @@ public class DrawCardAction : CardAction
     {
     }
     public override void SetCamera()
-    {
-    }
-
-    public override void Buff(int amount, bool isMult)
-    {
-    }
-    public override void DeBuff(int amount, bool isMult)
     {
     }
 }

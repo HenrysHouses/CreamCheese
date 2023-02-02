@@ -53,31 +53,31 @@ public abstract class Card_Behaviour : BoardElement
         switch (card.actionEnum)
         {
             case CardActionEnum.Attack:
-                return new AttackCardAction(card.actionStrength);
+                return new AttackCardAction();
             case CardActionEnum.Defence:
-                return new DefendCardAction(card.actionStrength);
+                return new DefendCardAction();
             case CardActionEnum.Buff:
-                return new BuffCardAction(card.actionStrength, false);
+                return new BuffCardAction();
             case CardActionEnum.Instakill:
-                return new InstakillCardAction(card.actionStrength);
+                return new InstakillCardAction();
             case CardActionEnum.Chained:
-                return new ChainCardAction(card.actionStrength);
+                return new ChainCardAction();
             case CardActionEnum.Storr:
-                return new StorrCardAction(card.actionStrength);
+                return new StorrCardAction();
             case CardActionEnum.SplashDMG:
-                return new SplashDMGCardAction(card.actionStrength);
+                return new SplashDMGCardAction();
             case CardActionEnum.Heal:
-                return new HealCardAction(card.actionStrength);
+                return new HealCardAction();
             case CardActionEnum.Draw:
-                return new DrawCardAction(card.actionStrength);
+                return new DrawCardAction();
             case CardActionEnum.Weaken:
-                return new WeakenCardAction(card.actionStrength);
+                return new WeakenCardAction();
             case CardActionEnum.Poison:
-                return new PoisonCardAction(card.actionStrength);
+                return new PoisonCardAction();
             case CardActionEnum.HealPrevention:
-                return new HealPreventionCardAction(card.actionStrength);
+                return new HealPreventionCardAction();
             case CardActionEnum.Frostbite:
-                return new FrostbiteCardAction(card.actionStrength);
+                return new FrostbiteCardAction();
             default:
                 return null;
         }

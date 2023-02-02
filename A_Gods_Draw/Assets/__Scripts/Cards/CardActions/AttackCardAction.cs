@@ -4,8 +4,6 @@ using UnityEngine;
 
 public class AttackCardAction : CardAction
 {
-    public AttackCardAction(int strengh) : base(strengh, strengh) { }
-
     public override IEnumerator OnAction(BoardStateController board, NonGod_Behaviour source)
     {
         isReady = false;
@@ -18,7 +16,7 @@ public class AttackCardAction : CardAction
                 // Playing VFX for each action
                 board.StartCoroutine(playTriggerVFX(source.gameObject, target));
                 yield return new WaitUntil(() => !_VFX.isAnimating);
-                target.DealDamage(strength);
+                target.DealDamage(cardStats.strength);
                 yield return new WaitForSeconds(0.1f);
             }
         }

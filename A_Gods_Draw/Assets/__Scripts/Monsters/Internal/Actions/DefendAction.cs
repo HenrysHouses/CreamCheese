@@ -6,7 +6,7 @@ public class DefendAction : Action
 {
     public IMonster toDefend;
 
-    public DefendAction(int _min, int _max) : base(_min, _max)
+    public DefendAction()
     {
         ActionID = (int)EnemyIntent.Defend;
         actionIcon = Resources.Load<Sprite>("EnemyData/Icons/Icon_Shield_IMG_v1");

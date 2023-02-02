@@ -28,12 +28,13 @@ public class God_Card_SO : Card_SO
     /// </summary>
     private void OnValidate() {
         type = CardType.God;
-        storeIcons();
+        getGlyphs();
     }
 
-    protected override void storeIcons()
+    public override CardActionEnum[] getGlyphs()
     {
         Debug.LogError("God icons are not implemented");
+        return null;
     }
 
     /// <summary>Instantiates a dialogue box with dialogue from the god</summary>

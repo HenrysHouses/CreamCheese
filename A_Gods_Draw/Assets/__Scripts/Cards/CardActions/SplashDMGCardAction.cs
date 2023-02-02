@@ -6,7 +6,6 @@ using UnityEngine;
 public class SplashDMGCardAction : CardAction
 {
     List<Vector3> splashCenter = new();
-    public SplashDMGCardAction(int strengh) : base(strengh, strengh) { }
 
     public override IEnumerator OnAction(BoardStateController board, NonGod_Behaviour source)
     {
@@ -26,7 +25,7 @@ public class SplashDMGCardAction : CardAction
                 {
                     // Playing VFX
                     board.StartCoroutine(playTriggerVFX(targets[i].gameObject, null, new Vector3(0, 1 ,0)));
-                    monster.DealDamage((int)((strength / 2f) + 0.6f));
+                    monster.DealDamage((int)((cardStats.strength / 2f) + 0.6f));
                 }
             }
         }

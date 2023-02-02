@@ -4,10 +4,6 @@ using UnityEngine;
 
 public class DefendCardAction : CardAction
 {
-
-    public DefendCardAction(int strengh) : base(strengh, strengh) { }
-
-
     //bool HasClickedMonster()
     //{
     //    if (Input.GetMouseButtonDown(0))
@@ -36,7 +32,7 @@ public class DefendCardAction : CardAction
                 // Playing VFX for each action
                 board.StartCoroutine(playTriggerVFX(source.gameObject, target));
                 yield return new WaitUntil(() => !_VFX.isAnimating);
-                target.DeBuff(strength);
+                target.DeBuff(cardStats.strength);
             }
         }
         targets.Clear();

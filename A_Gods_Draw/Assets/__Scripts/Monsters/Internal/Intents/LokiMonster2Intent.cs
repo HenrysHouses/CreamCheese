@@ -11,8 +11,8 @@ public class LokiMonster2Intent : Intent
     {
         int scale = GameManager.timesDefeatedBoss;
 
-        Actions.Add(new AttackGodAction(3 + scale, 5 + scale));
-        Actions.Add(new AttackPlayerAction(3 + scale, 5 + scale));
+        // Actions.Add(new AttackGodAction(3 + scale, 5 + scale));
+        // Actions.Add(new AttackPlayerAction(3 + scale, 5 + scale));
         //Actions.Add(new BuffAttackersAction(2 + scale, 2 + scale));
     }
 

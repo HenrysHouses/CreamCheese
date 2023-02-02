@@ -15,8 +15,6 @@ using FMODUnity;
 public struct CardActionData
 {
     public CardActionEnum actionEnum;
-    public int actionStrength;
-    public bool PlayOnPlacedOrTriggered_SFX;
     public EventReference action_SFX;
     public ActionVFX _VFX;
 }
@@ -26,24 +24,39 @@ public struct CardActionData
 /// Contains an array of actions for a number of targets,
 /// and methods so that it can be treated as an array
 /// </summary>
-[System.Serializable]
-public struct ActionsForTarget
-{
-    public static int numOfTargets = 1;
-    public List<CardActionData> targetActions;
+// [System.Serializable]
+// public struct ActionsForTarget
+// {
 
-    public void SetNTar(int a)
+//     public CardActionData this[int key]
+//     {
+//         get => targetActions[key];
+//         set => targetActions[key] = value;
+//     }
+//     public int Count => targetActions.Count;
+// }
+
+[System.Serializable]
+public struct ActionGroup
+{
+    public List<CardActionData> actionStats;
+    public List<CardAction> actions;
+
+    internal void Add(CardAction act)
     {
-        numOfTargets = a;
+        actions.Add(act);
     }
-    public CardActionData this[int key]
-    {
-        get => targetActions[key];
-        set => targetActions[key] = value;
-    }
-    public int Count => targetActions.Count;
 }
 
+[System.Serializable]
+public class CardStats
+{
+    public int strength;
+    public int numberOfTargets;
+    public ActionGroup actionGroup;
+    public GodActionEnum correspondingGod;
+    public ActionGroup godBuffActions;
+}
 
 /// <summary>
 /// ScriptableObject containing data only necessary for non-god cards
@@ -51,72 +64,63 @@ public struct ActionsForTarget
 [CreateAssetMenu(menuName = "ScriptableObjects/Non-God card"), System.Serializable]
 public class NonGod_Card_SO : Card_SO
 {
-    [HideInInspector] public int cardStrenghIndex;
-    public List<ActionsForTarget> targetActions = new();
-    public List<ActionsForTarget> onGodBuff = new();
-    public GodActionEnum correspondingGod;
+    public CardStats cardStats;
 
     /// <summary>
     /// Used to calculate from where should the card loader get the number of the strengh
     /// </summary>
     private void OnValidate()
     {
-        storeIcons();
+        // cardStrenghIndex = 0;
+        // if (_glyphs.numberOfTargets == 0)
+        //     return;
 
-        cardStrenghIndex = 0;
-        if (targetActions.Count == 0)
-            return;
-
-        foreach (ActionsForTarget a in targetActions)
-        {
-            a.SetNTar(1);
-        }
-
-        if (type == CardType.Attack)
-        {
-            while (targetActions[0][cardStrenghIndex].actionEnum != CardActionEnum.Attack)
-            {
-                if (cardStrenghIndex == targetActions.Count - 1)
-                    break;
-                cardStrenghIndex++;
-            }
-        }
-        else if (type == CardType.Defence)
-        {
-            while (targetActions[0][cardStrenghIndex].actionEnum != CardActionEnum.Defence)
-            {
-                if (cardStrenghIndex == targetActions.Count - 1)
-                    break;
-                cardStrenghIndex++;
-            }
-        }
-        else if (type == CardType.Buff)
-        {
-            while (targetActions[0][cardStrenghIndex].actionEnum != CardActionEnum.Buff)
-            {
-                if (cardStrenghIndex == targetActions.Count - 1)
-                    break;
-                cardStrenghIndex++;
-            }
-        }
-        else
-        {
-            cardStrenghIndex = 0;
-        }
+        // if (type == CardType.Attack)
+        // {
+        //     while (_glyphs.actions[cardStrenghIndex].actionEnum != CardActionEnum.Attack)
+        //     {
+        //         if (cardStrenghIndex == targetActions.Count - 1)
+        //             break;
+        //         cardStrenghIndex++;
+        //     }
+        // }
+        // else if (type == CardType.Defence)
+        // {
+        //     while (targetActions[0][cardStrenghIndex].actionEnum != CardActionEnum.Defence)
+        //     {
+        //         if (cardStrenghIndex == targetActions.Count - 1)
+        //             break;
+        //         cardStrenghIndex++;
+        //     }
+        // }
+        // else if (type == CardType.Buff)
+        // {
+        //     while (targetActions[0][cardStrenghIndex].actionEnum != CardActionEnum.Buff)
+        //     {
+        //         if (cardStrenghIndex == targetActions.Count - 1)
+        //             break;
+        //         cardStrenghIndex++;
+        //     }
+        // }
+        // else
+        // {
+        //     cardStrenghIndex = 0;
+        // }
     }
 
-    protected override void storeIcons()
+    public override CardActionEnum[] getGlyphs()
     {
-        Icons.Clear();
-        for (int i = 0; i < targetActions.Count; i++)
+        List<CardActionEnum> allGlyphs = new List<CardActionEnum>();
+        for (int i = 0; i < cardStats.actionGroup.actions.Count; i++)
         {
-            foreach (var _action in targetActions[i].targetActions)
+            foreach (var _action in cardStats.actionGroup.actionStats)
             {
                 if(_action.actionEnum.ToString() == type.ToString())
                     continue;
 
-                Icons.Add(_action.actionEnum);
+                allGlyphs.Add(_action.actionEnum);
             }
         }
+        return allGlyphs.ToArray();
     }
 }

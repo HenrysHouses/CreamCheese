@@ -4,8 +4,9 @@ using UnityEngine;
 
 public class PoisonCardAction : CardAction
 {
-
-    public PoisonCardAction(int strength) : base(strength, strength) { }
+    public override void SetClickableTargets(BoardStateController board, bool to = true)
+    {
+    }
 
     public override IEnumerator OnAction(BoardStateController board, NonGod_Behaviour source)
     {
@@ -18,14 +19,14 @@ public class PoisonCardAction : CardAction
             if(target.gameObject.TryGetComponent<PoisonDebuff>(out _poison))
             {
 
-                _poison.Stacks += strength;
+                _poison.Stacks += cardStats.strength;
 
             }
             else
             {
 
                 _poison = target.gameObject.AddComponent<PoisonDebuff>();
-                _poison.Stacks = strength;
+                _poison.Stacks = cardStats.strength;
                 _poison.thisMonster = target;
 
             }

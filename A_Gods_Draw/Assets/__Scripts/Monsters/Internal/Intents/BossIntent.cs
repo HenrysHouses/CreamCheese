@@ -10,8 +10,8 @@ public class BossIntent : Intent
     {
         int scale = GameManager.timesDefeatedBoss;
 
-        attackGod = new(6 + scale, 10 + scale * 2);
-        attackPlayer = new(6 + scale, 10 + scale * 2);
+        // attackGod = new(6 + scale, 10 + scale * 2);
+        // attackPlayer = new(6 + scale, 10 + scale * 2);
     }
 
     public override void DecideIntent(BoardStateController board)

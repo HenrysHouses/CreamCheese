@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class BuffAttackersAction : Action
 {
-    public BuffAttackersAction(int _min, int _max) : base(_min, _max)
+    public BuffAttackersAction()
     {
         ActionID = (int)EnemyIntent.BuffAttackers;
         actionIcon = Resources.Load<Sprite>("EnemyData/Icons/Icon_Buff_IMG_v7");

@@ -143,8 +143,7 @@ public class Card_Loader : MonoBehaviour
         {
             NonGod_Card_SO nonGod = card_so as NonGod_Card_SO;
 
-            if (nonGod.targetActions.Count > 0)
-                elements.strength.text = nonGod.targetActions[0][nonGod.cardStrenghIndex].actionStrength.ToString();
+            elements.strength.text = nonGod.cardStats.strength.ToString();
 
             // border color
             ChangeOrm(nonGod.type);
@@ -156,22 +155,24 @@ public class Card_Loader : MonoBehaviour
             }
         }
 
-        if(card_so.Icons.Count > 0)
-            instantiateIcons();
+        instantiateIcons(card_so.getGlyphs());
     }
 
-    private void instantiateIcons()
+    private void instantiateIcons(CardActionEnum[] glyphs)
     {
-        float pos = 1/(card_so.Icons.Count+1f);
+        if(glyphs.Length <= 0)
+            return;
 
-        for (int i = 0; i < card_so.Icons.Count; i++)
+        float pos = 1/(glyphs.Length+1f);
+
+        for (int i = 0; i < glyphs.Length; i++)
         {
             GameObject icon = Instantiate(IconPrefab);
             icon.transform.SetParent(IconPath.transform.parent);
 
             OrientedPoint OP = IconPath.GetEvenPathOP(pos * (i+1));
             icon.transform.position = OP.pos;
-            icon.GetComponent<GlyphController>().setGlyph(card_so.Icons[i]);
+            icon.GetComponent<GlyphController>().setGlyph(glyphs[i]);
         }
     }
 }

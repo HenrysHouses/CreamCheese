@@ -6,49 +6,21 @@ using FMODUnity;
 
 public abstract class CardAction : Action
 {
+    protected CardStats cardStats;
     public List<BoardElement> targets = new();
 
     protected NonGod_Behaviour current;
 
-    protected int strength;
-
     protected int neededLanes = 1;
-
-    public int Strengh => strength;
-
     public EventReference action_SFX;
     public bool PlayOnPlacedOrTriggered_SFX;
     public ActionVFX _VFX;
 
-    public CardAction(int _min, int _max) : base(_min, _max) { strength = _max; }
-
-    public virtual void Buff(int amount, bool isMult)
-    {
-        if (isMult)
-        {
-            strength *= amount;
-        }
-        else
-        {
-            strength += amount;
-        }
-    }
-    public virtual void DeBuff(int amount, bool isMult)
-    {
-        if (isMult)
-        {
-            strength /= amount;
-        }
-        else
-        {
-            strength -= amount;
-        }
-    }
-
     IEnumerator cor;
 
     public Animator camAnim = Camera.main.GetComponent<Animator>();
-
+    /// <summary>This should set whatever stats and other stuff the action needs</summary>
+    public void setStats(CardStats stats){cardStats = stats;}
     public virtual void SetClickableTargets(BoardStateController board, bool to = true)
     {
         board.SetClickable(3, to);

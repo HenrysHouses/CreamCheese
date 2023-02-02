@@ -215,22 +215,18 @@ public class CardPlayer : MonoBehaviour
     {
         instantiateTargetingMesh(Card.transform);
 
-        for (int i = 0; i < Card.actions.Count; i++)
+        for (int i = 0; i < Card.stats.numberOfTargets; i++)
         {
             int lastTargetIndex = 0;
-            int currLastTargetNum = Card.actions[i].actions[0].targets.Count;
-            int totalLastTargetNum = Card.actions[i].nTargets;
             
-            while(currLastTargetNum < totalLastTargetNum)
+            while(Card._targets.Count < Card.stats.numberOfTargets)
             {
-                currLastTargetNum = Card.actions[i].actions[0].targets.Count;
-
-                if(currLastTargetNum != lastTargetIndex)
+                if(lastTargetIndex < Card._targets.Count)
                 {
-                    getCurrSelectionMesh().GetChild(0).position = Card.actions[i].actions[0].targets[lastTargetIndex].transform.position;
+                    getCurrSelectionMesh().GetChild(0).position = Card._targets[lastTargetIndex].transform.position;
                     instantiateTargetingMesh(Card.transform);
 
-                    lastTargetIndex = currLastTargetNum;
+                    lastTargetIndex++;
                 }
                 yield return new WaitForEndOfFrame();
             }

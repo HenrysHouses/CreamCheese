@@ -4,8 +4,6 @@ using UnityEngine;
 
 public class WeakenCardAction : CardAction
 {
-    public WeakenCardAction(int strengh) : base(strengh, strengh) { }
-
     public override IEnumerator OnAction(BoardStateController board, NonGod_Behaviour source)
     {
         isReady = false;
@@ -17,7 +15,7 @@ public class WeakenCardAction : CardAction
                 // Playing VFX
                 board.StartCoroutine(playTriggerVFX(target.gameObject, null, new Vector3(0, 1 ,0)));
                 yield return new WaitUntil(() => !_VFX.isAnimating);
-                target.Weaken(strength);
+                target.Weaken(cardStats.strength);
             }
         }
 

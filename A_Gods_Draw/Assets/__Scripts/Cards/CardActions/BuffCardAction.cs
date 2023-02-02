@@ -8,7 +8,7 @@ public class BuffCardAction : CardAction
     bool multiplies;
     public EventReference cionDrop_SFX;
 
-    public BuffCardAction(int strengh, bool mult) : base(strengh, strengh) { multiplies = mult; neededLanes = 0;}
+    public BuffCardAction(){ multiplies = false; neededLanes = 0;}
 
     void SpawnCoins(int amount, NonGod_Behaviour card)
     {
@@ -36,8 +36,8 @@ public class BuffCardAction : CardAction
     {
         foreach (NonGod_Behaviour card in targets)
         {
-            card.Buff(strength, multiplies);
-            SpawnCoins(strength, card);
+            card.Buff(cardStats.strength, multiplies);
+            SpawnCoins(cardStats.strength, card);
         }
         ResetCamera();
     }

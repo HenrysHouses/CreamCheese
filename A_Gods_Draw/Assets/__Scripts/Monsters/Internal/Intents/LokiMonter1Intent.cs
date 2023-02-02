@@ -12,9 +12,9 @@ public class LokiMonter1Intent : Intent
     {
         int scale = GameManager.timesDefeatedBoss;
 
-        attackGod = new(1 + scale, 3 + scale);
-        attackPlayer = new(3 + scale, 6 + scale * 2);
-        defend = new(2, 2 + scale);
+        // attackGod = new(1 + scale, 3 + scale);
+        // attackPlayer = new(3 + scale, 6 + scale * 2);
+        // defend = new(2, 2 + scale);
     }
 
     public override void DecideIntent(BoardStateController board)

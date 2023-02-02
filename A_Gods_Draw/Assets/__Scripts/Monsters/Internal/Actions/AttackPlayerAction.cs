@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class AttackPlayerAction : Action
 {
-    public AttackPlayerAction(int _min, int _max) : base(_min, _max)
+    public AttackPlayerAction()
     {
         ActionID = (int)EnemyIntent.AttackPlayer;
         actionIcon = Resources.Load<Sprite>("EnemyData/Icons/Icon_Sword_IMG_v1");

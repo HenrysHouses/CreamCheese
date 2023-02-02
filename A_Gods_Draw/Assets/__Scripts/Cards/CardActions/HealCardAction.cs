@@ -4,8 +4,6 @@ using UnityEngine;
 
 public class HealCardAction : CardAction
 {
-    public HealCardAction(int strengh) : base(strengh, strengh) { }
-
     public override void SetClickableTargets(BoardStateController board, bool to = true)
     {
     }
@@ -14,7 +12,7 @@ public class HealCardAction : CardAction
     {
         isReady = false;
 
-        board.Player.Heal(strength);
+        board.Player.Heal(cardStats.strength);
         // Playing VFX for each action
         board.StartCoroutine(playTriggerVFX(source.gameObject, board.Player.transform, new Vector3(0, 1, 0)));
         yield return new WaitUntil(() => _VFX == null || !_VFX.isAnimating);

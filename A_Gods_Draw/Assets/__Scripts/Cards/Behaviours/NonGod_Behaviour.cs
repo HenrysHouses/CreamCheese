@@ -9,41 +9,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using FMODUnity;
 
-public struct ActionGroup
-{
-    public int nTargets;
-    public List<CardAction> actions;
 
-    public ActionGroup(int nOfTargets)
-    {
-        nTargets = nOfTargets;
-        actions = new();
-    }
-
-    public CardAction this[int key]
-    {
-        get => actions[key];
-        set => actions[key] = value;
-    }
-
-    public int Count => actions.Count;
-
-    public void InitList()
-    {
-        if (actions == null)
-            actions = new();
-    }
-
-    public void SetNTargets(int n)
-    {
-        nTargets = n;
-    }
-
-    internal void Add(CardAction act)
-    {
-        actions.Add(act);
-    }
-}
 
 public class NonGod_Behaviour : Card_Behaviour
 {
@@ -57,12 +23,14 @@ public class NonGod_Behaviour : Card_Behaviour
     Coroutine actionRoutine;
     bool hasClickedTarget = false;
     bool cardIsReady = false;
-    bool godBuffed = false;
     bool missedClick = false;
 
     public int neededLanes = 1;
-    public List<ActionGroup> actions = new();
-    public List<ActionGroup> godBuffActions = new();
+
+    public CardStats stats;
+    public List<BoardElement> _targets;
+    ActionGroup _actionGroup {get => stats.actionGroup; set{stats.actionGroup = value;}}
+    ActionGroup _godBuffActions {get => stats.godBuffActions; set{stats.godBuffActions = value;}}
 
     public CardType GetCardType => cardType;
     public new NonGod_Card_SO CardSO => card_so;
@@ -71,30 +39,28 @@ public class NonGod_Behaviour : Card_Behaviour
     {
         CheckForGod();
 
-        foreach (var actionGroup in actions)
+        foreach (var _action in _actionGroup.actions)
         {
-            foreach (var act in actionGroup.actions)
-            {
-                act.SetCamera();
-                act.SetClickableTargets(controller.GetBoard(), true);
-            }
-            for (int i = 0; i < actionGroup.nTargets; i++)
+            _action.SetCamera();
+            _action.SetClickableTargets(controller.GetBoard(), true);
+            
+            for (int i = 0; i < stats.numberOfTargets; i++)
             {
                 hasClickedTarget = false;
                 missedClick = false;
                 yield return new WaitUntil(() => hasClickedTarget);
-                foreach (var act in actionGroup.actions)
-                {
-                    act.AddTarget(target);
-                }
+                
+                _targets.Add(target);
+                // foreach (var _thisAction in _actionGroup.actions)
+                // {
+                //     _thisAction.AddTarget(target);
+                // }
                 target = null;
             }
-            foreach (var act in actionGroup.actions)
-            {
-                act.OnActionReady(controller.GetBoard());
-                act.ResetCamera();
-                act.SetClickableTargets(controller.GetBoard(), false);
-            }
+
+            _action.OnActionReady(controller.GetBoard());
+            _action.ResetCamera();
+            _action.SetClickableTargets(controller.GetBoard(), false);
         }
 
         cardIsReady = true;
@@ -105,68 +71,54 @@ public class NonGod_Behaviour : Card_Behaviour
     {
         return cardIsReady && onPlayerHand;
     }
-    private void RemoveGodBuff()
-    {
-        if (godBuffed)
-        {
-            if (controller.GetBoard().playedGodCard)
-                if (card_so.correspondingGod == controller.GetBoard().playedGodCard.CardSO.godAction)
-                {
-                    controller.GetBoard().playedGodCard.DeBuff(this);
-                }
-            godBuffed = false;
+    // private void RemoveGodBuff()
+    // {
+    //     if (godBuffed)
+    //     {
+    //         if (controller.GetBoard().playedGodCard)
 
-            foreach (var godAction in godBuffActions)
-                actions.Remove(godAction);
-        }
-    }
+    //         if (card_so.correspondingGod == controller.GetBoard().playedGodCard.CardSO.godAction)
+    //         {
+    //             controller.GetBoard().playedGodCard.DeBuff(this);
+    //         }
+    //         godBuffed = false;
+
+    //         foreach (var godAction in godBuffActions)
+    //             actionGroup.Remove(godAction);
+    //     }
+    // }
 
     public void MissClick()
     {
         missedClick = true;
         CancelSelection();
     }
-    public void BuffedByGod() { godBuffed = true; }
     public void Initialize(NonGod_Card_SO card, CardElements elements)
     {
         this.card_so = card;
 
-        actions = new();
-        godBuffActions = new();
+        _actionGroup = card.cardStats.actionGroup;
+        _godBuffActions = card.cardStats.godBuffActions;
 
-        for (int i = 0; i < card.targetActions.Count; i++)
+        for (int i = 0; i < _actionGroup.actions.Count; i++)
         {
-            actions.Add(new(ActionsForTarget.numOfTargets));
-            actions[i].InitList();
+            CardAction act = GetAction(_actionGroup.actionStats[i]);
+            act.SetBehaviour(this);
+            _actionGroup.Add(act);
 
-            for (int j = 0; j < card.targetActions[i].Count; j++)
-            {
-                var act = GetAction(card.targetActions[i][j]);
-                act.SetBehaviour(this);
-                actions[i].Add(act);
-
-                CardActionData currAction = card.targetActions[i].targetActions[j];
-
-                act.action_SFX = currAction.action_SFX;
-                act.PlayOnPlacedOrTriggered_SFX = currAction.PlayOnPlacedOrTriggered_SFX;
-
-                act._VFX = currAction._VFX;
-            }
+            act.action_SFX = _actionGroup.actions[i].action_SFX;
+            act.PlayOnPlacedOrTriggered_SFX = _actionGroup.actions[i].PlayOnPlacedOrTriggered_SFX;
+            act._VFX = _actionGroup.actions[i]._VFX;
         }
 
-        for (int i = 0; i < card.onGodBuff.Count; i++)
+        for (int i = 0; i < _godBuffActions.actions.Count; i++)
         {
-            godBuffActions.Add(new(ActionsForTarget.numOfTargets));
-            godBuffActions[i].InitList();
-
-            for (int j = 0; j < card.onGodBuff[i].Count; j++)
-            {
-                var act = GetAction(card.onGodBuff[i][j]);
-                act.SetBehaviour(this);
-                godBuffActions[i].Add(act);
-                act.action_SFX = card.onGodBuff[i].targetActions[j].action_SFX;
-                act.PlayOnPlacedOrTriggered_SFX = card.onGodBuff[i].targetActions[j].PlayOnPlacedOrTriggered_SFX;
-            }
+            var act = GetAction(_godBuffActions.actionStats[i]);
+            act.SetBehaviour(this);
+            _godBuffActions.Add(act);
+            
+            act.action_SFX = _godBuffActions.actions[i].action_SFX;
+            act.PlayOnPlacedOrTriggered_SFX = _godBuffActions.actions[i].PlayOnPlacedOrTriggered_SFX;
         }
 
         this.cardType = card.type;
@@ -174,45 +126,39 @@ public class NonGod_Behaviour : Card_Behaviour
     }
     public void Buff(int value, bool isMult)
     {
-        foreach (var target in actions)
-        {
-            foreach (var act in target.actions)
-            {
-                act.Buff(value, isMult);
-            }
-        }
-        ChangeStrengh(actions[0][card_so.cardStrenghIndex].Strengh);
+        if(isMult)
+            stats.strength *= value;
+        else
+            stats.strength += value;
     }
-    public void DeBuff(int value, bool isMult)
-    {
-        foreach (var target in actions)
-        {
-            foreach (var act in target.actions)
-            {
-                act.DeBuff(value, isMult);
-            }
-        }
-        ChangeStrengh(actions[0][card_so.cardStrenghIndex].Strengh);
-    }
-    public void CheckForGod()
-    {
-        if (controller.GetBoard().playedGodCard)
-            if (card_so.correspondingGod == controller.GetBoard().playedGodCard.CardSO.godAction)
-            {
-                controller.GetBoard().playedGodCard.Buff(this);
 
-                foreach (var godAction in godBuffActions)
-                    actions.Add(godAction);
-            }
+    public void DeBuff(int value, bool isDivided)
+    {
+        if(isDivided)
+            stats.strength /= value;
+        else
+            stats.strength -= value;
+    }
+    public bool CheckForGod()
+    {
+        if (!controller.GetBoard().playedGodCard)
+            return false;
+
+        if (stats.correspondingGod != controller.GetBoard().playedGodCard.CardSO.godAction)
+            return false;
+
+        // controller.GetBoard().playedGodCard.Buff(this);
+        Debug.LogWarning("something funky might be here");
+        return true;
     }
     public void RemoveFromHand()
     {
         controller.Discard(this);
     }
-    public BoardElement[] getActionTargets(int action)
-    {
-        return actions[action].actions[0].targets.ToArray();
-    }
+    // public BoardElement[] getActionTargets(int action)
+    // {
+    //     return _actionGroup[action].actions[0].targets.ToArray();
+    // }
 
 
     protected override void OnBeingSelected()
@@ -230,9 +176,9 @@ public class NonGod_Behaviour : Card_Behaviour
     }
     protected override IEnumerator Play(BoardStateController board)
     {
-        foreach (var target in actions)
+        foreach (var target in _targets)
         {
-            foreach (var action in target.actions)
+            foreach (var action in _actionGroup.actions)
             {
                 StartCoroutine(action.OnAction(board, this));
                 if (action.PlayOnPlacedOrTriggered_SFX)
@@ -241,15 +187,36 @@ public class NonGod_Behaviour : Card_Behaviour
                 }
                 yield return new WaitUntil(() => action.Ready());
             }
+
+            if(CheckForGod())
+            {
+                foreach (var action in _godBuffActions.actions)
+                {
+                    StartCoroutine(action.OnAction(board, this));
+                    if (action.PlayOnPlacedOrTriggered_SFX)
+                    {
+                        SoundPlayer.PlaySound(action.action_SFX, gameObject);
+                    }
+                    yield return new WaitUntil(() => action.Ready());
+                }
+            }
         }
 
         yield return new WaitForSeconds(0.2f);
 
-        foreach (var target in actions)
+        foreach (var target in _targets)
         {
-            foreach (var action in target.actions)
+            foreach (var action in _actionGroup.actions)
             {
                 action.Reset(board);
+            }
+
+            if(CheckForGod())
+            {
+                foreach (var action in _godBuffActions.actions)
+                {
+                    action.Reset(board);
+                }
             }
         }
 
@@ -289,18 +256,15 @@ public class NonGod_Behaviour : Card_Behaviour
     }
     protected override void OnPlacedInLane()
     {
-        foreach (var target in actions)
+        foreach (var target in _targets)
         {
-            foreach (var action in target.actions)
+            foreach (var action in _actionGroup.actions)
             {
                 action.OnLanePlaced(controller.GetBoard());
             }
-        }
-        if (godBuffed)
-        {
-            foreach (var target in godBuffActions)
+            if (CheckForGod())
             {
-                foreach (var action in target.actions)
+                foreach (var action in _godBuffActions.actions)
                 {
                     action.OnLanePlaced(controller.GetBoard());
                 }
@@ -333,22 +297,16 @@ public class NonGod_Behaviour : Card_Behaviour
 
         StopAllCoroutines();
 
-        foreach (var target in actions)
+        foreach (var target in _targets)
         {
-            foreach (var action in target.actions)
+            foreach (var action in _actionGroup.actions)
+            {
+                action.Reset(controller.GetBoard());
+            }
+            foreach (var action in _godBuffActions.actions)
             {
                 action.Reset(controller.GetBoard());
             }
         }
-
-        foreach (var target in godBuffActions)
-        {
-            foreach (var action in target.actions)
-            {
-                action.Reset(controller.GetBoard());
-            }
-        }
-
-        RemoveGodBuff();
     }
 }

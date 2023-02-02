@@ -4,10 +4,9 @@ using UnityEngine;
 
 public class HealPreventionCardAction : CardAction
 {
-
-    
-
-    public HealPreventionCardAction(int strength) : base(strength, strength) { }
+    public override void SetClickableTargets(BoardStateController board, bool to = true)
+    {
+    }
 
     public override IEnumerator OnAction(BoardStateController board, NonGod_Behaviour source)
     {
@@ -20,14 +19,14 @@ public class HealPreventionCardAction : CardAction
             if(target.gameObject.TryGetComponent<HealPreventionDebuff>(out _healPrev))
             {
 
-                _healPrev.Stacks += strength;
+                _healPrev.Stacks += cardStats.strength;
 
             }
             else
             {
 
                 _healPrev = target.gameObject.AddComponent<HealPreventionDebuff>();
-                _healPrev.Stacks = strength;
+                _healPrev.Stacks = cardStats.strength;
                 _healPrev.thisMonster = target;
                 target.HealingDisabled = true;
 

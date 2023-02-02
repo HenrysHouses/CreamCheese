@@ -10,8 +10,8 @@ public class LokiMonster3Intent : Intent
     {
         int scale = GameManager.timesDefeatedBoss;
 
-        attackGod = new(5 + scale, 8 + scale);
-        attackPlayer = new(5 + scale, 8 + scale * 2);
+        // attackGod = new(5 + scale, 8 + scale);
+        // attackPlayer = new(5 + scale, 8 + scale * 2);
     }
 
     public override void DecideIntent(BoardStateController board)

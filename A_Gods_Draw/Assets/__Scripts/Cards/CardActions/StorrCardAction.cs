@@ -5,11 +5,11 @@ using UnityEngine;
 public class StorrCardAction : CardAction
 {
     GameObject thing = null;
-    public StorrCardAction(int strengh) : base(strengh, strengh) { neededLanes = 2; }
+    public StorrCardAction(){ neededLanes = 2;}
 
     public override void OnLanePlaced(BoardStateController board)
     {
-        for (int i = 0; i < strength; i++)
+        for (int i = 0; i < cardStats.strength; i++)
         {
             thing = Object.Instantiate(Resources.Load<GameObject>("StorrThing"));
             board.placeThingOnLane(thing.GetComponent<BoardElement>());
@@ -18,7 +18,7 @@ public class StorrCardAction : CardAction
 
     protected override void UpdateNeededLanes(NonGod_Behaviour beh)
     {
-        beh.neededLanes += strength;
+        beh.neededLanes += cardStats.strength;
     }
 
     public override void SetClickableTargets(BoardStateController board, bool to = true)

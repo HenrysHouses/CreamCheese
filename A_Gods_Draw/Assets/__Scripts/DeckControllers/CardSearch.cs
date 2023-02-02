@@ -45,7 +45,7 @@ public static class CardSearch
 
                     if(card)
                     {
-                        if (card.correspondingGod.ToString() == SearchOptions[i])
+                        if (card.cardStats.correspondingGod.ToString() == SearchOptions[i])
                         {
                             outputResults.Add(allResults[j]);
                             break;

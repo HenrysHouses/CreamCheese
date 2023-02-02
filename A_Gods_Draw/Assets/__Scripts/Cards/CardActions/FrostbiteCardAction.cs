@@ -5,8 +5,6 @@ using UnityEngine;
 public class FrostbiteCardAction : CardAction
 {
 
-    public FrostbiteCardAction(int strength) : base(strength, strength) { }
-
     public override IEnumerator OnAction(BoardStateController board, NonGod_Behaviour source)
     {
         isReady = false;
@@ -18,19 +16,19 @@ public class FrostbiteCardAction : CardAction
             if(target.gameObject.TryGetComponent<FrostbiteDebuff>(out _frostbite))
             {
 
-                _frostbite.Stacks += strength;
+                _frostbite.Stacks += cardStats.strength;
 
             }
             else
             {
 
                 _frostbite = target.gameObject.AddComponent<FrostbiteDebuff>();
-                _frostbite.Stacks = strength;
+                _frostbite.Stacks = cardStats.strength;
                 _frostbite.thisMonster = target;
 
             }
 
-            target.DeBuff(strength);
+            target.DeBuff(cardStats.strength);
 
         }
         
