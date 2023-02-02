@@ -12,9 +12,9 @@ public class LokiMonter1Intent : Intent
     {
         int scale = GameManager.timesDefeatedBoss;
 
-        // attackGod = new(1 + scale, 3 + scale);
-        // attackPlayer = new(3 + scale, 6 + scale * 2);
-        // defend = new(2, 2 + scale);
+        attackGod = new AttackGodAction(1 + scale, 3 + scale);
+        attackPlayer = new AttackPlayerAction(3 + scale, 6 + scale * 2);
+        defend = new DefendAction(2, 2 + scale);
     }
 
     public override void DecideIntent(BoardStateController board)
@@ -47,6 +47,6 @@ public class LokiMonter1Intent : Intent
                 actionSelected = attackPlayer;
             }
         }
-        strengh = Random.Range(actionSelected.Min(), actionSelected.Max() + 1);
+        strengh = Random.Range(actionSelected.MinStrength, actionSelected.MaxStrength + 1);
     }
 }

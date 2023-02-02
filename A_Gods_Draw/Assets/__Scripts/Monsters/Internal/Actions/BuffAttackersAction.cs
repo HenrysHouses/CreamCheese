@@ -2,9 +2,9 @@
 
 using UnityEngine;
 
-public class BuffAttackersAction : Action
+public class BuffAttackersAction : MonsterAction
 {
-    public BuffAttackersAction()
+    public BuffAttackersAction(int minimumStrength, int maximumStrength) : base(minimumStrength, maximumStrength)
     {
         ActionID = (int)EnemyIntent.BuffAttackers;
         actionIcon = Resources.Load<Sprite>("EnemyData/Icons/Icon_Buff_IMG_v7");

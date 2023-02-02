@@ -15,7 +15,7 @@ public abstract class Intent
 
     protected int strengh;
 
-    protected Action actionSelected;
+    protected MonsterAction actionSelected;
 
     public void CancelIntent()
     {

@@ -33,13 +33,6 @@ public class StorrCardAction : CardAction
         isReady = true;
     }
 
-    public override void Reset(BoardStateController board)
-    {
-        thing = null;
-        isReady = false;
-        board.SetClickable(3, false);
-        ResetCamera();
-    }
     public override void ResetCamera()
     {
     }

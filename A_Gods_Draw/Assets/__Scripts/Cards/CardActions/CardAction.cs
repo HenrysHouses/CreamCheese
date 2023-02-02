@@ -7,20 +7,14 @@ using FMODUnity;
 public abstract class CardAction : Action
 {
     protected CardStats cardStats;
-    public List<BoardElement> targets = new();
-
-    protected NonGod_Behaviour current;
-
+    protected NonGod_Behaviour currentCard;
     protected int neededLanes = 1;
     public EventReference action_SFX;
     public bool PlayOnPlacedOrTriggered_SFX;
     public ActionVFX _VFX;
 
-    IEnumerator cor;
-
     public Animator camAnim = Camera.main.GetComponent<Animator>();
     /// <summary>This should set whatever stats and other stuff the action needs</summary>
-    public void setStats(CardStats stats){cardStats = stats;}
     public virtual void SetClickableTargets(BoardStateController board, bool to = true)
     {
         board.SetClickable(3, to);
@@ -28,7 +22,7 @@ public abstract class CardAction : Action
 
     public void SetBehaviour(NonGod_Behaviour beh)
     {
-        current = beh;
+        currentCard = beh;
         UpdateNeededLanes(beh);
     }
 
@@ -52,15 +46,21 @@ public abstract class CardAction : Action
         return isReady;
     }
 
-    public abstract void Reset(BoardStateController board);
+    public virtual void Reset(BoardStateController board)
+    {
+        cardStats.Targets.Clear();
+        isReady = false;
+        board.SetClickable(3, false);
+        ResetCamera();
+    }
     public virtual void OnActionReady(BoardStateController board) { }
     public abstract void ResetCamera();
     public abstract void SetCamera();
 
-    internal virtual void AddTarget(BoardElement target)
-    {
-        targets.Add(target);
-    }
+    // internal virtual void AddTarget(BoardElement target)
+    // {
+    //     targets.Add(target);
+    // }
 
     public bool CanBePlaced(BoardStateController cont)
     {

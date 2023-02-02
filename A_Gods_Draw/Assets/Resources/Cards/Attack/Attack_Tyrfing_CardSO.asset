@@ -13,7 +13,8 @@ MonoBehaviour:
   m_Name: Attack_Tyrfing_CardSO
   m_EditorClassIdentifier: 
   type: 0
-  image: {fileID: 21300000, guid: 2304819e50c15eb4ebb25b7db36abdf9, type: 3}
+  Art: {fileID: 0}
+  Background: {fileID: 0}
   cardName: Tyrfing
   description: "It is said that Tyr also possessed a magnificent sword, forged by
     the same dwarves who made Odin\u2018s spear. This sword, called Tyrfing, was
@@ -24,25 +25,26 @@ MonoBehaviour:
 
     X is doubled with Tyr, God Of Justice
     is in play'
-  cardStrenghIndex: 0
-  targetActions:
-  - numOfTargets: 1
-    targetActions:
-    - actionEnum: 0
-      actionStrength: 2
-      PlayOnPlacedOrTriggered_SFX: 1
-      action_SFX:
-        Guid:
-          Data1: -525728556
-          Data2: 1248637871
-          Data3: 920202369
-          Data4: 1841172474
-        Path: event:/Card Effects/Card ATK
-      _VFX:
-        FollowPath: 1
-        isAnimating: 0
-        PathSpeed: 1
-        trigger_VFX: {fileID: 3273590495200156951, guid: f2908f3673965cb4390dc705aca60e85, type: 3}
-        hit_VFX: {fileID: 2604885081968657841, guid: 68774ee4712f84144802b43008224235, type: 3}
-  onGodBuff: []
-  correspondingGod: 1
+  cardStats:
+    strength: 0
+    numberOfTargets: 0
+    actionGroup:
+      actionStats:
+      - actionEnum: 0
+        action_SFX:
+          Guid:
+            Data1: 0
+            Data2: 0
+            Data3: 0
+            Data4: 0
+          Path: 
+        _VFX:
+          FollowPath: 0
+          isAnimating: 0
+          PathSpeed: 0
+          trigger_VFX: {fileID: 0}
+          hit_VFX: {fileID: 0}
+    correspondingGod: 1
+    godBuffActions:
+      actionStats: []
+    Targets: []

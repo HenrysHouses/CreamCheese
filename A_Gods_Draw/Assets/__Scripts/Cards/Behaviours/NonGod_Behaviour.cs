@@ -96,9 +96,7 @@ public class NonGod_Behaviour : Card_Behaviour
     public void Initialize(NonGod_Card_SO card, CardElements elements)
     {
         this.card_so = card;
-
-        _actionGroup = card.cardStats.actionGroup;
-        _godBuffActions = card.cardStats.godBuffActions;
+        stats = card.cardStats;
 
         for (int i = 0; i < _actionGroup.actions.Count; i++)
         {

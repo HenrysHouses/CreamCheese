@@ -21,10 +21,10 @@ public class SplashDMGCardAction : CardAction
             foreach (RaycastHit allinside in enemies)
             {
                 IMonster monster = allinside.collider.GetComponent<IMonster>();
-                if (monster && monster != targets[i])
+                if (monster && monster != cardStats.Targets[i])
                 {
                     // Playing VFX
-                    board.StartCoroutine(playTriggerVFX(targets[i].gameObject, null, new Vector3(0, 1 ,0)));
+                    board.StartCoroutine(playTriggerVFX(cardStats.Targets[i].gameObject, null, new Vector3(0, 1 ,0)));
                     monster.DealDamage((int)((cardStats.strength / 2f) + 0.6f));
                 }
             }
@@ -32,7 +32,7 @@ public class SplashDMGCardAction : CardAction
 
         yield return new WaitUntil(() => !_VFX.isAnimating);
 
-        targets.Clear();
+        cardStats.Targets.Clear();
         splashCenter.Clear();
 
         isReady = true;
@@ -40,18 +40,18 @@ public class SplashDMGCardAction : CardAction
 
     public override void Reset(BoardStateController board)
     {
-        targets.Clear();
+        cardStats.Targets.Clear();
         splashCenter.Clear();
         isReady = false;
         board.SetClickable(3, false);
         ResetCamera();
     }
 
-    internal override void AddTarget(BoardElement target)
-    {
-        base.AddTarget(target);
-        splashCenter.Add(target.transform.position);
-    }
+    // internal override void AddTarget(BoardElement target)
+    // {
+    //     base.AddTarget(target);
+    //     splashCenter.Add(target.transform.position);
+    // }
     public override void ResetCamera()
     {
         camAnim.SetBool("EnemyCloseUp", false);

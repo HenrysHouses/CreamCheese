@@ -11,9 +11,9 @@ public class LokiMonster2Intent : Intent
     {
         int scale = GameManager.timesDefeatedBoss;
 
-        // Actions.Add(new AttackGodAction(3 + scale, 5 + scale));
-        // Actions.Add(new AttackPlayerAction(3 + scale, 5 + scale));
-        //Actions.Add(new BuffAttackersAction(2 + scale, 2 + scale));
+        Actions.Add(new AttackGodAction(3 + scale, 5 + scale));
+        Actions.Add(new AttackPlayerAction(3 + scale, 5 + scale));
+        Actions.Add(new BuffAttackersAction(2 + scale, 2 + scale));
     }
 
     public T GetAction<T>() where T : Action
@@ -43,7 +43,7 @@ public class LokiMonster2Intent : Intent
     }
     public override void LateDecideIntent(BoardStateController board)
     {
-        if (!actionSelected)
+        if (actionSelected == null)
         {
             foreach (IMonster a in board.getLivingEnemies())
             {
@@ -59,16 +59,16 @@ public class LokiMonster2Intent : Intent
 
                 if (UnityEngine.Random.Range(0, 4) < 3)
                 {
-                    //actionSelected = GetAction<BuffAttackersAction>();
+                    actionSelected = GetAction<BuffAttackersAction>();
                 }
                 break;
             }
         }
-        if (!actionSelected)
+        if (actionSelected == null)
         {
             actionSelected = GetAction<AttackPlayerAction>();
         }
         // Debug.Log( actionSelected);
-        strengh = Random.Range(actionSelected.Min(), actionSelected.Max() + 1);
+        strengh = Random.Range(actionSelected.MinStrength, actionSelected.MaxStrength + 1);
     }
 }

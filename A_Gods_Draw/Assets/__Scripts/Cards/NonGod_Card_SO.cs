@@ -37,8 +37,13 @@ public struct CardActionData
 // }
 
 [System.Serializable]
-public struct ActionGroup
+public class ActionGroup
 {
+    public ActionGroup()
+    {
+        actionStats = new List<CardActionData>();
+        actions = new List<CardAction>();
+    }
     public List<CardActionData> actionStats;
     public List<CardAction> actions;
 
@@ -56,6 +61,7 @@ public class CardStats
     public ActionGroup actionGroup;
     public GodActionEnum correspondingGod;
     public ActionGroup godBuffActions;
+    [HideInInspector] public List<BoardElement> Targets = new List<BoardElement>();
 }
 
 /// <summary>

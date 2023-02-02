@@ -2,9 +2,9 @@
 
 using UnityEngine;
 
-public class AttackPlayerAction : Action
+public class AttackPlayerAction : MonsterAction
 {
-    public AttackPlayerAction()
+    public AttackPlayerAction(int minimumStrength, int maximumStrength) : base(minimumStrength, maximumStrength)
     {
         ActionID = (int)EnemyIntent.AttackPlayer;
         actionIcon = Resources.Load<Sprite>("EnemyData/Icons/Icon_Sword_IMG_v1");

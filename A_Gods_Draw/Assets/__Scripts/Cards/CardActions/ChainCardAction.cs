@@ -12,7 +12,7 @@ public class ChainCardAction : CardAction
         //yield return new WaitUntil(() => true);
         yield return new WaitForSeconds(0.1f);
 
-        foreach (IMonster monster in targets)
+        foreach (IMonster monster in cardStats.Targets)
         {
             if (monster)
             {
@@ -39,18 +39,11 @@ public class ChainCardAction : CardAction
             }
         }
 
-        targets.Clear();
+        cardStats.Targets.Clear();
 
         isReady = true;
     }
 
-    public override void Reset(BoardStateController board)
-    {
-        targets.Clear();
-        isReady = false;
-        board.SetClickable(3, false);
-        ResetCamera();
-    }
     public override void ResetCamera()
     {
         camAnim.SetBool("EnemyCloseUp", false);

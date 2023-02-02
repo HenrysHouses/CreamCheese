@@ -160,6 +160,9 @@ public class Card_Loader : MonoBehaviour
 
     private void instantiateIcons(CardActionEnum[] glyphs)
     {
+        if(glyphs == null)
+            return;
+
         if(glyphs.Length <= 0)
             return;
 

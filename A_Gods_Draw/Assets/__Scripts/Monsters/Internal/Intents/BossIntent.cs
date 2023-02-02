@@ -10,8 +10,8 @@ public class BossIntent : Intent
     {
         int scale = GameManager.timesDefeatedBoss;
 
-        // attackGod = new(6 + scale, 10 + scale * 2);
-        // attackPlayer = new(6 + scale, 10 + scale * 2);
+        attackGod = new(6 + scale, 10 + scale * 2);
+        attackPlayer = new(6 + scale, 10 + scale * 2);
     }
 
     public override void DecideIntent(BoardStateController board)
@@ -25,6 +25,6 @@ public class BossIntent : Intent
             actionSelected = attackPlayer;
         }
 
-        strengh = Random.Range(actionSelected.Min(), actionSelected.Max() + 1);
+        strengh = Random.Range(actionSelected.MinStrength, actionSelected.MaxStrength + 1);
     }
 }

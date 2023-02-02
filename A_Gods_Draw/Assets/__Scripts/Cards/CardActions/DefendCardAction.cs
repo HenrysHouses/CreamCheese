@@ -25,7 +25,7 @@ public class DefendCardAction : CardAction
     {
         isReady = false;
 
-        foreach (IMonster target in targets)
+        foreach (IMonster target in cardStats.Targets)
         {
             if (target)
             {
@@ -35,20 +35,13 @@ public class DefendCardAction : CardAction
                 target.DeBuff(cardStats.strength);
             }
         }
-        targets.Clear();
+        cardStats.Targets.Clear();
 
         yield return new WaitForSeconds(0.4f);
 
         isReady = true;
     }
-
-    public override void Reset(BoardStateController board)
-    {
-        targets.Clear();
-        isReady = false;
-        board.SetClickable(3, false);
-        ResetCamera();
-    }
+    
     public override void ResetCamera()
     {
         camAnim.SetBool("EnemyCloseUp", false);

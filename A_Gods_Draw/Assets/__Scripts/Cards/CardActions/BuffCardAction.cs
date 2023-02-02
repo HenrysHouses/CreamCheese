@@ -34,7 +34,7 @@ public class BuffCardAction : CardAction
     }
     public override void OnActionReady(BoardStateController board)
     {
-        foreach (NonGod_Behaviour card in targets)
+        foreach (NonGod_Behaviour card in cardStats.Targets)
         {
             card.Buff(cardStats.strength, multiplies);
             SpawnCoins(cardStats.strength, card);
@@ -43,9 +43,9 @@ public class BuffCardAction : CardAction
     }
     public override void OnLanePlaced(BoardStateController board)
     {
-        board.RemoveFromLane(current);
-        current.transform.parent.parent.position += Vector3.down * 10;
-        current.RemoveFromHand();
+        board.RemoveFromLane(currentCard);
+        currentCard.transform.parent.parent.position += Vector3.down * 10;
+        currentCard.RemoveFromHand();
     }
 
     protected override void UpdateNeededLanes(NonGod_Behaviour beh)
@@ -54,13 +54,6 @@ public class BuffCardAction : CardAction
             beh.neededLanes--;
     }
 
-    public override void Reset(BoardStateController board)
-    {
-        targets.Clear();
-        isReady = false;
-        board.SetClickable(0, false);
-        ResetCamera();
-    }
     public override void ResetCamera()
     {
         camAnim.SetBool("Up", false);

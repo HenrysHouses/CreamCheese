@@ -2,11 +2,11 @@
 
 using UnityEngine;
 
-public class DefendAction : Action
+public class DefendAction : MonsterAction
 {
     public IMonster toDefend;
 
-    public DefendAction()
+    public DefendAction(int minimumStrength, int maximumStrength) : base(minimumStrength, maximumStrength)
     {
         ActionID = (int)EnemyIntent.Defend;
         actionIcon = Resources.Load<Sprite>("EnemyData/Icons/Icon_Shield_IMG_v1");

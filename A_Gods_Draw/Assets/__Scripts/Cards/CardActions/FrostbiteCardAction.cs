@@ -9,7 +9,7 @@ public class FrostbiteCardAction : CardAction
     {
         isReady = false;
 
-        foreach (IMonster target in targets)
+        foreach (IMonster target in cardStats.Targets)
         {
             
             FrostbiteDebuff _frostbite;
@@ -32,7 +32,7 @@ public class FrostbiteCardAction : CardAction
 
         }
         
-        targets.Clear();
+        cardStats.Targets.Clear();
 
         // Playing VFX for each action
         board.StartCoroutine(playTriggerVFX(source.gameObject, board.Player.transform, new Vector3(0, 1, 0)));
@@ -43,13 +43,6 @@ public class FrostbiteCardAction : CardAction
         isReady = true;
     }
 
-    public override void Reset(BoardStateController board)
-    {
-        targets.Clear();
-        isReady = false;
-        board.SetClickable(3, false);
-        ResetCamera();
-    }
     public override void ResetCamera()
     {
     }
