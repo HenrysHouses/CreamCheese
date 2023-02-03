@@ -23,6 +23,7 @@ public abstract class IMonster : BoardElement
     [SerializeField]
     int maxHealth;
     int health;
+    int barrier;
 
     int weakened = 0;
 
@@ -97,6 +98,13 @@ public abstract class IMonster : BoardElement
 
     }
 
+    public void ApplyBarrier(int _amount)
+    {
+
+        barrier = _amount;
+
+    }
+
     public int DealDamage(int amount, bool bypassDefence = false)
     {
 
@@ -122,6 +130,18 @@ public abstract class IMonster : BoardElement
             defendedFor -= amount;
 
         defendTxt.text = defendedFor.ToString();
+
+        if(barrier > 0)
+        {
+
+            damageTaken -= barrier;
+
+            if(damageTaken > 0)
+                barrier = 0;
+            else
+                barrier -= damageTaken;
+
+        }
 
         health -= damageTaken;
 
