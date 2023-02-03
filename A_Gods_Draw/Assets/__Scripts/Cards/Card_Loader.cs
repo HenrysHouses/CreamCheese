@@ -28,7 +28,7 @@ public enum CardActionEnum
     Leach,
     Exhaust,
     BuffAll,
-    Barrier
+    Earthquake
 
 }
 

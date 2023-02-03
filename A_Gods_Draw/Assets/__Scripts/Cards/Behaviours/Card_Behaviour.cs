@@ -84,6 +84,8 @@ public abstract class Card_Behaviour : BoardElement
                 return new BuffAllCardAction();
             case CardActionEnum.Exhaust:
                 return new ExhaustCardAction();
+            case CardActionEnum.Earthquake:
+                return new EarthquakeCardAction();
             default:
                 return null;
         }
