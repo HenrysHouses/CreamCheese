@@ -90,7 +90,7 @@ public class CardDrawer_Editor : Editor
         {
             if(EditorApplication.isPlaying)
             {
-                script.DiscardHand();
+                Debug.Log("Pee Pee Poo Poo");
             }
             else
                 Debug.Log("Editor needs to be in play to use this button");

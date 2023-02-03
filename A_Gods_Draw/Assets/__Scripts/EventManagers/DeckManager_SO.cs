@@ -197,10 +197,10 @@ public class DeckManager_SO : ScriptableObject
         GameObject[] cards = new GameObject[amount]; 
         // Animation setup, Sets the event to spawn the card when animation is completed, requests the animation
         CardPathAnim[] animations = new CardPathAnim[amount];
-        for (int i = 0; i < amount; i++) 
+        for (int i = 0; i < amount; i++)
         {
             // adds the top card to player hand
-            pHand.Add(pLibrary[0]); 
+            pHand.Add(pLibrary[0]);
             cards[i] = Instantiate(CardDrawAnimationPrefab);
             cards[i].transform.position = Vector3.zero;  
 
@@ -215,84 +215,8 @@ public class DeckManager_SO : ScriptableObject
         return animations;
     }
 
-    /// <summary>Moves all cards currently in player hand to player discard. Trigger discard animations</summary>
-    /// <returns>List of all animation OnCompletionEvents</returns>
-    public CardPathAnim[] discardAll(float delay)
-    {
-        if(pHand.Count == 0)
-        {
-            return null;
-        }
-        // Moves cards in hand to discard
-        GameObject[] cards = new GameObject[pHand.Count];
-
-        CardPathAnim[] animations = new CardPathAnim[pHand.Count];
-
-        for (int i = 0; i < pHand.Count; i++)
-        {
-            // preps the discard animations
-            GameObject _card = Instantiate(CardDrawAnimationPrefab);
-            Card_Loader _Loader = _card.GetComponentInChildren<Card_Loader>();
-            _Loader.addComponentAutomatically = false;
-            _Loader.Set(pHand[i]);
-
-            cards[i] = _card;
-
-            pDiscard.Add(pHand[i]);
-
-            animations[i] = new CardPathAnim(_Loader.GetCardSO, Discard_SFX, _card, GodDialogueTrigger.Discard);
-            animations[i].OnAnimCompletionTrigger.AddListener(OnDiscardChange.Invoke);
-        }
-
-        // requests animations for all discarded cards
-        AnimationEventManager.getInstance.requestAnimation("Hand-Discard", cards, delay, animations);
-
-
-
-        // TODO move OnDiscardChange?.Invoke() and OnLibraryChange?.Invoke() to better places
-
-
-        pHand.Clear();
-        return animations;
-    }
-
-    public void discardAll(float delay, Card_SO exceptFor)
-    {
-        // Moves cards in hand to discard
-        List<GameObject> cards = new();
-
-        CardPathAnim[] animations = new CardPathAnim[pHand.Count];
-
-        for (int i = 0; i < pHand.Count; i++)
-        {
-            Card_Loader _Loader = null;
-            GameObject _card = null;
-            if (pHand[i] != exceptFor)
-            {
-                Debug.LogWarning("ExceptFor variable may cause issues with animations");
-                // preps the discard animations
-                _card = Instantiate(CardDrawAnimationPrefab);
-                _Loader = _card.GetComponentInChildren<Card_Loader>();
-                _Loader.addComponentAutomatically = false;
-                _Loader.Set(pHand[i]);
-                cards.Add(_card);
-                pDiscard.Add(pHand[i]);
-            }
-            animations[i] = new CardPathAnim(_Loader.GetCardSO, Discard_SFX, _card, GodDialogueTrigger.Discard);
-            animations[i].OnAnimCompletionTrigger.AddListener(OnDiscardChange.Invoke);
-        }
-        // requests animations for all discarded cards
-
-        if (cards.Count == 0)
-            return;
-
-        AnimationEventManager.getInstance.requestAnimation("Hand-Discard", cards.ToArray(), delay, animations);
-
-        pHand.Clear();
-    }
-
     /// <summary>Moves a card currently in player hand to player discard. Trigger discard animation</summary>
-    public CardPathAnim discardCard(Card_SO card)
+    public CardPathAnim discardCard(Card_SO card, List<Card_SO> exhausted)
     {
         if (pHand.Contains(card))
         {
