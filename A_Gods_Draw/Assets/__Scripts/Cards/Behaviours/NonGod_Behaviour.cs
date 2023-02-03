@@ -24,11 +24,8 @@ public class NonGod_Behaviour : Card_Behaviour
     bool hasClickedTarget = false;
     bool cardIsReady = false;
     bool missedClick = false;
-
     public int neededLanes = 1;
-
     public CardStats stats;
-    public List<BoardElement> _targets;
     ActionGroup _actionGroup {get => stats.actionGroup; set{stats.actionGroup = value;}}
     ActionGroup _godBuffActions {get => stats.godBuffActions; set{stats.godBuffActions = value;}}
 
@@ -39,30 +36,26 @@ public class NonGod_Behaviour : Card_Behaviour
     {
         CheckForGod();
 
-        foreach (var _action in _actionGroup.actions)
+        CameraMovement.instance.SetCameraView(stats.TargetingView);
+        // _action.SetClickableTargets(controller.GetBoard(), true);
+        
+        for (int i = 0; i < stats.numberOfTargets; i++)
         {
-            _action.SetCamera();
-            _action.SetClickableTargets(controller.GetBoard(), true);
+            hasClickedTarget = false;
+            missedClick = false;
+            yield return new WaitUntil(() => hasClickedTarget);
             
-            for (int i = 0; i < stats.numberOfTargets; i++)
-            {
-                hasClickedTarget = false;
-                missedClick = false;
-                yield return new WaitUntil(() => hasClickedTarget);
-                
-                _targets.Add(target);
-                // foreach (var _thisAction in _actionGroup.actions)
-                // {
-                //     _thisAction.AddTarget(target);
-                // }
-                target = null;
-            }
-
-            _action.OnActionReady(controller.GetBoard());
-            _action.ResetCamera();
-            _action.SetClickableTargets(controller.GetBoard(), false);
+            stats.Targets.Add(target);
+            // foreach (var _thisAction in _actionGroup.actions)
+            // {
+            //     _thisAction.AddTarget(target);
+            // }
+            target = null;
+            stats.actionGroup.actions[i].OnActionReady(controller.GetBoard(), this);
         }
-
+        
+        // _action.SetClickableTargets(controller.GetBoard(), false);
+        CameraMovement.instance.ResetView();
         cardIsReady = true;
         controller.GetBoard().PlayCard(this);
         TurnController.shouldWaitForAnims = false;
@@ -98,7 +91,7 @@ public class NonGod_Behaviour : Card_Behaviour
         this.card_so = card;
         stats = card.cardStats;
 
-        for (int i = 0; i < _actionGroup.actions.Count; i++)
+        for (int i = 0; i < _actionGroup.actionStats.Count; i++)
         {
             CardAction act = GetAction(_actionGroup.actionStats[i]);
             act.SetBehaviour(this);
@@ -109,7 +102,7 @@ public class NonGod_Behaviour : Card_Behaviour
             act._VFX = _actionGroup.actions[i]._VFX;
         }
 
-        for (int i = 0; i < _godBuffActions.actions.Count; i++)
+        for (int i = 0; i < _godBuffActions.actionStats.Count; i++)
         {
             var act = GetAction(_godBuffActions.actionStats[i]);
             act.SetBehaviour(this);
@@ -174,11 +167,12 @@ public class NonGod_Behaviour : Card_Behaviour
     }
     protected override IEnumerator Play(BoardStateController board)
     {
-        foreach (var target in _targets)
+        foreach (var target in stats.Targets)
         {
             foreach (var action in _actionGroup.actions)
             {
                 StartCoroutine(action.OnAction(board, this));
+                Debug.Break();
                 if (action.PlayOnPlacedOrTriggered_SFX)
                 {
                     SoundPlayer.PlaySound(action.action_SFX, gameObject);
@@ -202,18 +196,18 @@ public class NonGod_Behaviour : Card_Behaviour
 
         yield return new WaitForSeconds(0.2f);
 
-        foreach (var target in _targets)
+        foreach (var target in stats.Targets)
         {
             foreach (var action in _actionGroup.actions)
             {
-                action.Reset(board);
+                action.Reset(board, this);
             }
 
             if(CheckForGod())
             {
                 foreach (var action in _godBuffActions.actions)
                 {
-                    action.Reset(board);
+                    action.Reset(board, this);
                 }
             }
         }
@@ -254,17 +248,17 @@ public class NonGod_Behaviour : Card_Behaviour
     }
     protected override void OnPlacedInLane()
     {
-        foreach (var target in _targets)
+        foreach (var target in stats.Targets)
         {
             foreach (var action in _actionGroup.actions)
             {
-                action.OnLanePlaced(controller.GetBoard());
+                action.OnLanePlaced(controller.GetBoard(), this);
             }
             if (CheckForGod())
             {
                 foreach (var action in _godBuffActions.actions)
                 {
-                    action.OnLanePlaced(controller.GetBoard());
+                    action.OnLanePlaced(controller.GetBoard(), this);
                 }
             }
         }
@@ -276,6 +270,8 @@ public class NonGod_Behaviour : Card_Behaviour
     public override void OnAction()
     {
         TurnController.shouldWaitForAnims = true;
+
+        Debug.Log("Errors happen here");
 
         StartCoroutine(Play(controller.GetBoard()));
     }
@@ -295,15 +291,15 @@ public class NonGod_Behaviour : Card_Behaviour
 
         StopAllCoroutines();
 
-        foreach (var target in _targets)
+        foreach (var target in stats.Targets)
         {
             foreach (var action in _actionGroup.actions)
             {
-                action.Reset(controller.GetBoard());
+                action.Reset(controller.GetBoard(), this);
             }
             foreach (var action in _godBuffActions.actions)
             {
-                action.Reset(controller.GetBoard());
+                action.Reset(controller.GetBoard(), this);
             }
         }
     }

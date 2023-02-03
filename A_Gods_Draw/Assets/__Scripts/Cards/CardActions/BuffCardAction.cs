@@ -19,10 +19,10 @@ public class BuffCardAction : CardAction
         }
     }
 
-    public override void SetClickableTargets(BoardStateController board, bool to = true)
-    {
-        board.SetClickable(0, to);
-    }
+    // public override void SetClickableTargets(BoardStateController board, bool to = true)
+    // {
+    //     board.SetClickable(0, to);
+    // }
 
     public override IEnumerator OnAction(BoardStateController board, NonGod_Behaviour source)
     {
@@ -32,16 +32,15 @@ public class BuffCardAction : CardAction
 
         isReady = true;
     }
-    public override void OnActionReady(BoardStateController board)
+    public override void OnActionReady(BoardStateController board, NonGod_Behaviour source)
     {
-        foreach (NonGod_Behaviour card in cardStats.Targets)
+        foreach (NonGod_Behaviour card in source.stats.Targets)
         {
-            card.Buff(cardStats.strength, multiplies);
-            SpawnCoins(cardStats.strength, card);
+            card.Buff(source.stats.strength, multiplies);
+            SpawnCoins(source.stats.strength, card);
         }
-        ResetCamera();
     }
-    public override void OnLanePlaced(BoardStateController board)
+    public override void OnLanePlaced(BoardStateController board, NonGod_Behaviour source)
     {
         board.RemoveFromLane(currentCard);
         currentCard.transform.parent.parent.position += Vector3.down * 10;
@@ -52,14 +51,5 @@ public class BuffCardAction : CardAction
     {
         if (beh.neededLanes > 0)
             beh.neededLanes--;
-    }
-
-    public override void ResetCamera()
-    {
-        camAnim.SetBool("Up", false);
-    }
-    public override void SetCamera()
-    {
-        camAnim.SetBool("Up", true);
     }
 }

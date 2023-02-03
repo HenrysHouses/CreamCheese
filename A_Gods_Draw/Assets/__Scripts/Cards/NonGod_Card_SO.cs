@@ -50,12 +50,14 @@ public class ActionGroup
     internal void Add(CardAction act)
     {
         actions.Add(act);
+        Debug.Log("added " + act + "to a new card: " + actions.Count);
     }
 }
 
 [System.Serializable]
 public class CardStats
 {
+    public CameraView TargetingView;
     public int strength;
     public int numberOfTargets;
     public ActionGroup actionGroup;
@@ -77,6 +79,8 @@ public class NonGod_Card_SO : Card_SO
     /// </summary>
     private void OnValidate()
     {
+        cardStats.Targets.Clear();
+
         // cardStrenghIndex = 0;
         // if (_glyphs.numberOfTargets == 0)
         //     return;

@@ -13,7 +13,8 @@ MonoBehaviour:
   m_Name: Attack_YmirsMurder_CardSO
   m_EditorClassIdentifier: 
   type: 0
-  image: {fileID: 21300000, guid: dd89233fc597d4042b14fdc3c4351821, type: 3}
+  Art: {fileID: 0}
+  Background: {fileID: 0}
   cardName: "Ymir\u2018s Murder"
   description: "Ymir was the first of the J\xF6tnar. Odin and his brothers, Vili
     and Ve, murdered him and used his flesh to create the earth, bones for the mountains
@@ -21,41 +22,54 @@ MonoBehaviour:
   effect: 'Deals X DMG to selected target
 
     Has Storr effect'
-  cardStrenghIndex: 0
-  targetActions:
-  - numOfTargets: 1
-    targetActions:
-    - actionEnum: 0
-      actionStrength: 6
-      PlayOnPlacedOrTriggered_SFX: 1
-      action_SFX:
-        Guid:
-          Data1: -525728556
-          Data2: 1248637871
-          Data3: 920202369
-          Data4: 1841172474
-        Path: event:/Card Effects/Card ATK
-      _VFX:
-        FollowPath: 1
-        isAnimating: 0
-        PathSpeed: 1
-        trigger_VFX: {fileID: 3273590495200156951, guid: f2908f3673965cb4390dc705aca60e85, type: 3}
-        hit_VFX: {fileID: 2604885081968657841, guid: 68774ee4712f84144802b43008224235, type: 3}
-    - actionEnum: 5
-      actionStrength: 1
-      PlayOnPlacedOrTriggered_SFX: 0
-      action_SFX:
-        Guid:
-          Data1: 0
-          Data2: 0
-          Data3: 0
-          Data4: 0
-        Path: 
-      _VFX:
-        FollowPath: 0
-        isAnimating: 0
-        PathSpeed: 1
-        trigger_VFX: {fileID: 0}
-        hit_VFX: {fileID: 0}
-  onGodBuff: []
-  correspondingGod: 0
+  cardStats:
+    strength: 2
+    numberOfTargets: 0
+    actionGroup:
+      actionStats:
+      - actionEnum: 0
+        action_SFX:
+          Guid:
+            Data1: 0
+            Data2: 0
+            Data3: 0
+            Data4: 0
+          Path: 
+        _VFX:
+          FollowPath: 0
+          isAnimating: 0
+          PathSpeed: 0
+          trigger_VFX: {fileID: 0}
+          hit_VFX: {fileID: 0}
+      - actionEnum: 5
+        action_SFX:
+          Guid:
+            Data1: 0
+            Data2: 0
+            Data3: 0
+            Data4: 0
+          Path: 
+        _VFX:
+          FollowPath: 0
+          isAnimating: 0
+          PathSpeed: 0
+          trigger_VFX: {fileID: 0}
+          hit_VFX: {fileID: 0}
+      - actionEnum: 4
+        action_SFX:
+          Guid:
+            Data1: 0
+            Data2: 0
+            Data3: 0
+            Data4: 0
+          Path: 
+        _VFX:
+          FollowPath: 0
+          isAnimating: 0
+          PathSpeed: 0
+          trigger_VFX: {fileID: 0}
+          hit_VFX: {fileID: 0}
+    correspondingGod: 0
+    godBuffActions:
+      actionStats: []
+    Targets: []

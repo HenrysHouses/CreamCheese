@@ -13,30 +13,32 @@ MonoBehaviour:
   m_Name: Defence_Svalin_CardSO
   m_EditorClassIdentifier: 
   type: 1
-  image: {fileID: 21300000, guid: edbdaf4668d24584ea2602c7de235929, type: 3}
+  Art: {fileID: 0}
+  Background: {fileID: 0}
   cardName: Svalin
   description: Svalin is the shield that protects the horses that pulled the sun
     across the sky from the heat of the sun
   effect: Block for X
-  cardStrenghIndex: 0
-  targetActions:
-  - numOfTargets: 1
-    targetActions:
-    - actionEnum: 1
-      actionStrength: 3
-      PlayOnPlacedOrTriggered_SFX: 1
-      action_SFX:
-        Guid:
-          Data1: -1202444277
-          Data2: 1082531919
-          Data3: -43431291
-          Data4: -1906492248
-        Path: event:/Card Effects/CardShield
-      _VFX:
-        FollowPath: 1
-        isAnimating: 0
-        PathSpeed: 1
-        trigger_VFX: {fileID: 0}
-        hit_VFX: {fileID: 0}
-  onGodBuff: []
-  correspondingGod: 0
+  cardStats:
+    strength: 3
+    numberOfTargets: 1
+    actionGroup:
+      actionStats:
+      - actionEnum: 1
+        action_SFX:
+          Guid:
+            Data1: 0
+            Data2: 0
+            Data3: 0
+            Data4: 0
+          Path: 
+        _VFX:
+          FollowPath: 0
+          isAnimating: 0
+          PathSpeed: 0
+          trigger_VFX: {fileID: 0}
+          hit_VFX: {fileID: 0}
+    correspondingGod: 0
+    godBuffActions:
+      actionStats: []
+    Targets: []

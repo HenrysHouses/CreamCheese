@@ -219,9 +219,9 @@ public class BoardStateController : MonoBehaviour
 
                 for (int j = 0; j < behaviour.stats.numberOfTargets; j++) // should run this for each targetable action
                 {
-                    for (int k = 0; k < behaviour._targets.Count; k++)
+                    for (int k = 0; k < behaviour.stats.Targets.Count; k++)
                     {   
-                        if (behaviour._targets[k] == null)
+                        if (behaviour.stats.Targets[k] == null)
                             continue;
 
                         // Targeting instantiation
@@ -239,7 +239,7 @@ public class BoardStateController : MonoBehaviour
                         // Targeting positions
                         ProceduralPathMesh Mesh = spawn.GetComponent<ProceduralPathMesh>();
                         Mesh.startPoint.position = cardTransform.position;                    
-                        Mesh.endPoint.position = behaviour._targets[k].transform.position;
+                        Mesh.endPoint.position = behaviour.stats.Targets[k].transform.position;
                         Mesh.GenerateMesh();
                         Mesh.enabled = false;
                     }

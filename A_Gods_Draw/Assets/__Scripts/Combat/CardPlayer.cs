@@ -219,11 +219,11 @@ public class CardPlayer : MonoBehaviour
         {
             int lastTargetIndex = 0;
             
-            while(Card._targets.Count < Card.stats.numberOfTargets)
+            while(Card.stats.Targets.Count < Card.stats.numberOfTargets)
             {
-                if(lastTargetIndex < Card._targets.Count)
+                if(lastTargetIndex < Card.stats.Targets.Count)
                 {
-                    getCurrSelectionMesh().GetChild(0).position = Card._targets[lastTargetIndex].transform.position;
+                    getCurrSelectionMesh().GetChild(0).position = Card.stats.Targets[lastTargetIndex].transform.position;
                     instantiateTargetingMesh(Card.transform);
 
                     lastTargetIndex++;

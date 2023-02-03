@@ -13,30 +13,46 @@ MonoBehaviour:
   m_Name: Defence_AsgardsWall_CardSO
   m_EditorClassIdentifier: 
   type: 1
-  image: {fileID: 21300000, guid: 09cabb40dbbabb946a72214e13f7d358, type: 3}
+  Art: {fileID: 0}
+  Background: {fileID: 0}
   cardName: "Asgard\u2018s Wall"
   description: "Built by a Jotun in disguise, Asgard\u2018s wall was built in only
     one winter, and was so mighty that it would stand strong till the day of Ragnarok"
   effect: Block two targets for x
-  cardStrenghIndex: 0
-  targetActions:
-  - numOfTargets: 2
-    targetActions:
-    - actionEnum: 1
-      actionStrength: 2
-      PlayOnPlacedOrTriggered_SFX: 1
-      action_SFX:
-        Guid:
-          Data1: -1202444277
-          Data2: 1082531919
-          Data3: -43431291
-          Data4: -1906492248
-        Path: event:/Card Effects/CardShield
-      _VFX:
-        FollowPath: 1
-        isAnimating: 0
-        PathSpeed: 1
-        trigger_VFX: {fileID: 0}
-        hit_VFX: {fileID: 0}
-  onGodBuff: []
-  correspondingGod: 0
+  cardStats:
+    strength: 3
+    numberOfTargets: 2
+    actionGroup:
+      actionStats:
+      - actionEnum: 1
+        action_SFX:
+          Guid:
+            Data1: 0
+            Data2: 0
+            Data3: 0
+            Data4: 0
+          Path: 
+        _VFX:
+          FollowPath: 0
+          isAnimating: 0
+          PathSpeed: 0
+          trigger_VFX: {fileID: 0}
+          hit_VFX: {fileID: 0}
+      - actionEnum: 5
+        action_SFX:
+          Guid:
+            Data1: 0
+            Data2: 0
+            Data3: 0
+            Data4: 0
+          Path: 
+        _VFX:
+          FollowPath: 0
+          isAnimating: 0
+          PathSpeed: 0
+          trigger_VFX: {fileID: 0}
+          hit_VFX: {fileID: 0}
+    correspondingGod: 0
+    godBuffActions:
+      actionStats: []
+    Targets: []

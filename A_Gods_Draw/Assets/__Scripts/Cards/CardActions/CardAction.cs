@@ -6,7 +6,6 @@ using FMODUnity;
 
 public abstract class CardAction : Action
 {
-    protected CardStats cardStats;
     protected NonGod_Behaviour currentCard;
     protected int neededLanes = 1;
     public EventReference action_SFX;
@@ -14,11 +13,11 @@ public abstract class CardAction : Action
     public ActionVFX _VFX;
 
     public Animator camAnim = Camera.main.GetComponent<Animator>();
-    /// <summary>This should set whatever stats and other stuff the action needs</summary>
-    public virtual void SetClickableTargets(BoardStateController board, bool to = true)
-    {
-        board.SetClickable(3, to);
-    }
+    // /// <summary>This should set whatever stats and other stuff the action needs</summary>
+    // public virtual void SetClickableTargets(BoardStateController board, bool to = true)
+    // {
+    //     board.SetClickable(3, to);
+    // }
 
     public void SetBehaviour(NonGod_Behaviour beh)
     {
@@ -26,13 +25,13 @@ public abstract class CardAction : Action
         UpdateNeededLanes(beh);
     }
 
-    protected virtual void UpdateNeededLanes(NonGod_Behaviour beh)
+    protected virtual void UpdateNeededLanes(NonGod_Behaviour source)
     {
     }
 
     public override void Execute(BoardStateController board, int strengh, UnityEngine.Object source) { }
 
-    public virtual void OnLanePlaced(BoardStateController board)
+    public virtual void OnLanePlaced(BoardStateController board, NonGod_Behaviour source)
     {
 
     }
@@ -46,16 +45,15 @@ public abstract class CardAction : Action
         return isReady;
     }
 
-    public virtual void Reset(BoardStateController board)
+    public virtual void Reset(BoardStateController board, Card_Behaviour source)
     {
-        cardStats.Targets.Clear();
+        // Debug.Log(cardStats);
+        // Debug.Log(cardStats.Targets);
+        // cardStats.Targets.Clear();
         isReady = false;
         board.SetClickable(3, false);
-        ResetCamera();
     }
-    public virtual void OnActionReady(BoardStateController board) { }
-    public abstract void ResetCamera();
-    public abstract void SetCamera();
+    public virtual void OnActionReady(BoardStateController board, NonGod_Behaviour source) { }
 
     // internal virtual void AddTarget(BoardElement target)
     // {

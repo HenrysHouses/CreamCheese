@@ -9,30 +9,30 @@ public class FrostbiteCardAction : CardAction
     {
         isReady = false;
 
-        foreach (IMonster target in cardStats.Targets)
+        foreach (IMonster target in source.stats.Targets)
         {
             
             FrostbiteDebuff _frostbite;
             if(target.gameObject.TryGetComponent<FrostbiteDebuff>(out _frostbite))
             {
 
-                _frostbite.Stacks += cardStats.strength;
+                _frostbite.Stacks += source.stats.strength;
 
             }
             else
             {
 
                 _frostbite = target.gameObject.AddComponent<FrostbiteDebuff>();
-                _frostbite.Stacks = cardStats.strength;
+                _frostbite.Stacks = source.stats.strength;
                 _frostbite.thisMonster = target;
 
             }
 
-            target.DeBuff(cardStats.strength);
+            target.DeBuff(source.stats.strength);
 
         }
         
-        cardStats.Targets.Clear();
+        source.stats.Targets.Clear();
 
         // Playing VFX for each action
         board.StartCoroutine(playTriggerVFX(source.gameObject, board.Player.transform, new Vector3(0, 1, 0)));
@@ -42,12 +42,4 @@ public class FrostbiteCardAction : CardAction
 
         isReady = true;
     }
-
-    public override void ResetCamera()
-    {
-    }
-    public override void SetCamera()
-    {
-    }
-
 }

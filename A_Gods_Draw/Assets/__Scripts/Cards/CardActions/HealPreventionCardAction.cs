@@ -4,29 +4,29 @@ using UnityEngine;
 
 public class HealPreventionCardAction : CardAction
 {
-    public override void SetClickableTargets(BoardStateController board, bool to = true)
-    {
-    }
+    // public override void SetClickableTargets(BoardStateController board, bool to = true)
+    // {
+    // }
 
     public override IEnumerator OnAction(BoardStateController board, NonGod_Behaviour source)
     {
         isReady = false;
 
-        foreach (IMonster target in cardStats.Targets)
+        foreach (IMonster target in source.stats.Targets)
         {
             
             HealPreventionDebuff _healPrev;
             if(target.gameObject.TryGetComponent<HealPreventionDebuff>(out _healPrev))
             {
 
-                _healPrev.Stacks += cardStats.strength;
+                _healPrev.Stacks += source.stats.strength;
 
             }
             else
             {
 
                 _healPrev = target.gameObject.AddComponent<HealPreventionDebuff>();
-                _healPrev.Stacks = cardStats.strength;
+                _healPrev.Stacks = source.stats.strength;
                 _healPrev.thisMonster = target;
                 target.HealingDisabled = true;
 
@@ -34,7 +34,7 @@ public class HealPreventionCardAction : CardAction
 
         }
         
-        cardStats.Targets.Clear();
+        source.stats.Targets.Clear();
 
         // Playing VFX for each action
         board.StartCoroutine(playTriggerVFX(source.gameObject, board.Player.transform, new Vector3(0, 1, 0)));
@@ -44,8 +44,4 @@ public class HealPreventionCardAction : CardAction
 
         isReady = true;
     }
-
-    public override void ResetCamera(){}
-    public override void SetCamera(){}
-
 }
