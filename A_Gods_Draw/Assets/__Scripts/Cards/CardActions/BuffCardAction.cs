@@ -21,9 +21,9 @@ public class BuffCardAction : CardAction
             SpawnedCoins.Add(spawn);
             spawn.transform.SetParent(card.RootTransform, false);
             Vector3 offsetPos = spawn.transform.localPosition;
-            offsetPos.x += Random.Range(-0.01f, 0.01f);
-            offsetPos.y += 10;
-            offsetPos.z += Random.Range(-0.01f, 0.01f);
+            offsetPos.x += Random.Range(-0.0262f, 0.0262f);
+            offsetPos.y += Random.Range(-0.09240003f, 0.09240003f);
+            offsetPos.z += -1.2137f + ((-1.2137f/amount) * i);
             spawn.transform.localPosition = offsetPos;
         }
     }
