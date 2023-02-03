@@ -49,7 +49,7 @@ Shader "CharlieCustom/Dissolve"
             o.Albedo = c.rgb;
             clip(dissolveMap.a - _Cutoff);
             o.Metallic = _Metallic;
-            float edge = step(_DissolveMap, _Cutoff +  _EdgeWidth)
+            float edge = step(dissolveMap, _Cutoff +  _EdgeWidth);
             o.Smoothness = _Glossiness;
             o.Alpha = c.a;
         }

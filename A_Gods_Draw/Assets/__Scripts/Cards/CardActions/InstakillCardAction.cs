@@ -16,7 +16,7 @@ public class InstakillCardAction : CardAction
                 // Playing VFX
                 board.StartCoroutine(playTriggerVFX(enemy.gameObject, null, new Vector3(0, 1 ,0)));
                 yield return new WaitUntil(() => !_VFX.isAnimating);
-                enemy.GetComponent<IMonster>().DealDamage(10000);
+                enemy.GetComponent<Monster>().DealDamage(10000);
             }
         }
         isReady = true;

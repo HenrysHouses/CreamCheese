@@ -13,8 +13,8 @@ MonoBehaviour:
   m_Name: Buff_HymirsCauldron_CardSO
   m_EditorClassIdentifier: 
   type: 2
-  Art: {fileID: 0}
-  Background: {fileID: 0}
+  Art: {fileID: 2800000, guid: 88b568f8f55f29c4fbe42778a8e37edd, type: 3}
+  Background: {fileID: 2800000, guid: 4405501223a59ea48923553bb9318ecc, type: 3}
   cardName: "Hymir\u2018s Cauldron"
   description: "The Aesir wanted to host a feast, and needed a lot of mead for it.
     Tyr and Thor traveled to Hymir\u2019s kingdom, and won his challenge, and as
@@ -23,12 +23,14 @@ MonoBehaviour:
 
     If Tyr is in play'
   cardStats:
-    TargetingView: 0
+    TargetingView: 7
     strength: 4
     numberOfTargets: 0
     actionGroup:
       actionStats:
-      - actionEnum: 2
+      - SelectionType:
+          Index: 1
+        actionEnum: 2
         action_SFX:
           Guid:
             Data1: 0
@@ -45,7 +47,9 @@ MonoBehaviour:
     correspondingGod: 0
     godBuffActions:
       actionStats:
-      - actionEnum: 7
+      - SelectionType:
+          Index: 0
+        actionEnum: 7
         action_SFX:
           Guid:
             Data1: 0

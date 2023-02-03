@@ -6,7 +6,6 @@ using UnityEngine;
 public class StorrCardAction : CardAction
 {
     GameObject thing = null;
-    public StorrCardAction(){ neededLanes = 2;}
 
     public override void OnLanePlaced(BoardStateController board, ActionCard_Behaviour source)
     {
@@ -19,12 +18,8 @@ public class StorrCardAction : CardAction
 
     protected override void UpdateNeededLanes(ActionCard_Behaviour source)
     {
-        source.neededLanes += source.stats.strength;
+        source.neededLanes += 1;
     }
-
-    // public override void SetClickableTargets(BoardStateController board, bool to = true)
-    // {
-    // }
 
     public override IEnumerator OnAction(BoardStateController board, ActionCard_Behaviour source)
     {

@@ -37,7 +37,7 @@ public class EnemyClassNames : ScriptableObject
         var listOfBs = AppDomain.CurrentDomain.GetAssemblies()
             // alternative: .GetExportedTypes()
             .SelectMany(domainAssembly => domainAssembly.GetTypes())
-            .Where(type => typeof(IMonster).IsAssignableFrom(type)
+            .Where(type => typeof(Monster).IsAssignableFrom(type)
             // alternative: => type.IsSubclassOf(typeof(B))
             // alternative: && type != typeof(B)
             // alternative: && ! type.IsAbstract

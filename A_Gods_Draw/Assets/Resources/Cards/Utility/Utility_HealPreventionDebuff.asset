@@ -19,11 +19,14 @@ MonoBehaviour:
   description: Prevents all healing on an enemy
   effect: Prevents enemy from healing in any form
   cardStats:
+    TargetingView: 0
     strength: 2
     numberOfTargets: 1
     actionGroup:
       actionStats:
-      - actionEnum: 8
+      - SelectionType:
+          Index: 6
+        actionEnum: 8
         action_SFX:
           Guid:
             Data1: 0
@@ -40,4 +43,3 @@ MonoBehaviour:
     correspondingGod: 0
     godBuffActions:
       actionStats: []
-    Targets: []

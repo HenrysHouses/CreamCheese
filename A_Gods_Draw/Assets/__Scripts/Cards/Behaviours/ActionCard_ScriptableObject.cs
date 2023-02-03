@@ -82,13 +82,39 @@ public class ActionCard_ScriptableObject : Card_SO
 /// Data that each card action will need
 /// </summary>
 [System.Serializable]
-public struct CardActionData
+public class CardActionData
 {
     /// <summary>This is the index of BoardElement in BoardElementClassNames, Check the scriptable object in _ScriptableObjects</summary>
-    public CardSelectionType SelectionTypeIndex;
+    public CardSelectionType SelectionType;
     public CardActionEnum actionEnum;
     public EventReference action_SFX;
     public ActionVFX _VFX;
+    public bool IsValidSelection(BoardElement target)
+    {
+        string targetClassName = target.GetType().Name;
+
+        Debug.Log(targetClassName);
+
+        if(targetClassName.Equals("None"))
+            return false;
+
+        if(targetClassName.Equals("BoardElement"))
+            return true;
+
+        int monsterIndex = BoardElementClassNames.instance.getIndexOf("Monster"); 
+        int targetIndex = BoardElementClassNames.instance.getIndexOf(targetClassName);
+        
+
+        if(monsterIndex == SelectionType.Index)
+        {
+            if(targetClassName.Contains("Monster"))
+                return true;
+        }
+
+        if(targetIndex == SelectionType.Index)
+            return true;
+        return false;
+    }
 }
 
 [System.Serializable]
@@ -105,7 +131,6 @@ public class ActionGroup
     internal void Add(CardAction act)
     {
         actions.Add(act);
-        Debug.Log("added " + act + " to a new card: " + actions.Count);
     }
 
     public ActionGroup Clone()

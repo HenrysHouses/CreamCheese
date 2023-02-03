@@ -13,14 +13,9 @@ public class GodCard_Behaviour : Card_Behaviour
 {
     int health;
     int maxHealth;
-
     public int Health => health;
-
     GodCardAction action;
     GodPlacement godPlacement;
-
-    int defendFor;
-
     protected new GodCard_ScriptableObject card_so;
     public new GodCard_ScriptableObject CardSO => card_so;
 
@@ -55,9 +50,9 @@ public class GodCard_Behaviour : Card_Behaviour
         action.OnPlay(board, card_so.strength);
 
         //Wait for animations, etc
-        yield return new WaitUntil(() => true /* action.IsReady() */);
 
         TurnController.shouldWaitForAnims = false;
+        yield break;
     }
     public void OnRetire(BoardStateController board)
     {
@@ -90,57 +85,15 @@ public class GodCard_Behaviour : Card_Behaviour
         }
     }
 
-    //public void CanBeDefendedBy(Defense_Behaviour defense_Behaviour)
-    //{
-    //    posibleDefender = defense_Behaviour;
-    //}
-
-    //private void OnMouseDown()
-    //{
-    //    if (posibleDefender)
-    //    {
-    //        posibleDefender.ItDefends(null, this);
-    //    }
-    //    posibleDefender = null;
-    //}
-
-    //public void Defend(int amount)
-    //{
-    //    defendFor += amount;
-    //}
-
-    // private void OnMouseOver()
-    // {
-    //     // if (onPlayerHand)
-    //     //     godPlacement.godArrow.color = Color.magenta;
-    // }
-
-    // private void OnMouseExit()
-    // {
-    //     // if (onPlayerHand)
-    //     //     godPlacement.godArrow.color = Color.white;
-    // }
-    //public int GetStrengh()
-    //{
-    //    return card_so.strengh;
-    //}
-
-    //public virtual void OnTurnStart() { }
-
     protected override void OnBeingSelected()
     {
         controller.GodPlacement.SetGod(this);
-        StartCoroutine(Play(controller.GetBoard()));
+        Play(controller.GetBoard());
     }
 
     public override void OnAction()
     {
         action.Act(controller.GetBoard(), 0);
-    }
-
-    public override bool CardIsReady()
-    {
-        return true;
     }
 
     public void StartDialogue(GodDialogueTrigger trigger, UnityEngine.Object source = null)

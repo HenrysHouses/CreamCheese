@@ -11,7 +11,7 @@ public class EirActions : GodCardAction
     public override void OnPlay(BoardStateController board, int strength)
     {
 
-        foreach (IMonster _monster in board.getLivingEnemies())
+        foreach (Monster _monster in board.getLivingEnemies())
         {
             _monster.ApplyBarrier(strength);
 

@@ -10,7 +10,7 @@ public class EarthquakeCardAction : CardAction
 
         isReady = false;
 
-        foreach(IMonster _target in _board.getLivingEnemies())
+        foreach(Monster _target in _board.getLivingEnemies())
         {
 
             _target.DealDamage(currentCard.stats.strength);

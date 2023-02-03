@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class DefendAction : MonsterAction
 {
-    public IMonster toDefend;
+    public Monster toDefend;
 
     public DefendAction(int minimumStrength, int maximumStrength) : base(minimumStrength, maximumStrength)
     {

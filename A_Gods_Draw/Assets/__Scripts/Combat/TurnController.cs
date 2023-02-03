@@ -251,6 +251,7 @@ public class TurnController : CombatFSM
 
             for (int i = _Hand.CardSelectionAnimators.Count - 1; i >= 0; i--)
             {
+                
                 lastAnim = deckManager.discardCard(_Hand.CardSelectionAnimators[i].cardSO);
                 
                 lastAnim.OnAnimStartSound.AddListener(CardSound);

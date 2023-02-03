@@ -7,7 +7,7 @@ using UnityEngine.UI;
 using TMPro;
 using FMODUnity;
 
-public abstract class IMonster : BoardElement
+public abstract class Monster : BoardElement
 {
     public Intent GetIntent() => enemyIntent;
     protected Intent enemyIntent;

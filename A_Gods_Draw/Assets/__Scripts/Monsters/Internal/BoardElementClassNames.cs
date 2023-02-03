@@ -16,6 +16,16 @@ public class BoardElementClassNames : ScriptableObject
 
     public string[] Names; 
 
+    public int getIndexOf(string name)
+    {
+        for (int i = 0; i < Names.Length; i++)
+        {
+            if(name.Equals(Names[i]))
+                return i;
+        }
+        return -1;
+    }
+
     private void Awake() {
         if(instance == null)
             instance = this;
@@ -43,11 +53,11 @@ public class BoardElementClassNames : ScriptableObject
             // alternative: && ! type.IsAbstract
             ).ToArray();
         
-        Names = new string[listOfBs.Length];
+        Names = new string[listOfBs.Length+1];
         for (int i = 0; i < listOfBs.Length; i++)
-            Names[i] = listOfBs[i].Name;
+            Names[i+1] = listOfBs[i].Name;
 
-        Names[0] = "Any";
+        Names[0] = "None";
     } 
     #endif
 }

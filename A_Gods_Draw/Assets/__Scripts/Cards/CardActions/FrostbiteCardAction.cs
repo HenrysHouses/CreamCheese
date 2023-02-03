@@ -10,7 +10,7 @@ public class FrostbiteCardAction : CardAction
     {
         isReady = false;
 
-        foreach (IMonster target in source.AllTargets)
+        foreach (Monster target in source.AllTargets)
         {
             
             FrostbiteDebuff _frostbite;

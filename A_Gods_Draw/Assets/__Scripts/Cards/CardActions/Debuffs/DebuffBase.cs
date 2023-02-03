@@ -6,7 +6,7 @@ public class DebuffBase : MonoBehaviour
 {
 
     public int Stacks;
-    public IMonster thisMonster;
+    public Monster thisMonster;
 
     ///<Summary> Use this to have debuff do its thing after the turn and tick the debuff adjusting it's stacks </Summary>
     public virtual void TickDebuff(int _ticks = 1){}

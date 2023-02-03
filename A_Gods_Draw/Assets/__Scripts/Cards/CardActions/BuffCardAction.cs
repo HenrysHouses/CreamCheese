@@ -10,7 +10,7 @@ public class BuffCardAction : CardAction
     bool multiplies;
     public EventReference cionDrop_SFX;
     List<GameObject> SpawnedCoins = new List<GameObject>();
-    public BuffCardAction(){ multiplies = false; neededLanes = 0;}
+    public BuffCardAction(){ multiplies = false;}
     
     void SpawnCoins(int amount, ActionCard_Behaviour card)
     {
@@ -65,9 +65,8 @@ public class BuffCardAction : CardAction
         currentCard.RemoveFromHand();
     }
 
-    protected override void UpdateNeededLanes(ActionCard_Behaviour beh)
+    protected override void UpdateNeededLanes(ActionCard_Behaviour _Behaviour)
     {
-        if (beh.neededLanes > 0)
-            beh.neededLanes--;
+        _Behaviour.neededLanes = 0;
     }
 }

@@ -14,6 +14,7 @@ public abstract class Action
     public int ID => this != null ? ActionID : (int)EnemyIntent.None;
 
     protected bool isReady = false;
+    public bool Ready => isReady;
 
     protected Sprite actionIcon;
     public Sprite Icon => actionIcon;

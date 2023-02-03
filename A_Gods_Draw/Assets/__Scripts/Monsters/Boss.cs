@@ -1,6 +1,6 @@
 // Written by Javier
 
-public class Boss : IMonster
+public class Boss : Monster
 {
     private void Start()
     {

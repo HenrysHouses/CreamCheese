@@ -13,8 +13,8 @@ MonoBehaviour:
   m_Name: Buff_Urdarbrunnr_CardSO
   m_EditorClassIdentifier: 
   type: 2
-  Art: {fileID: 0}
-  Background: {fileID: 0}
+  Art: {fileID: 2800000, guid: 31b030cfee46d31469b4b75bc2c95858, type: 3}
+  Background: {fileID: 2800000, guid: 4405501223a59ea48923553bb9318ecc, type: 3}
   cardName: Urdarbrunnr
   description: "In the realm of the Aesir, under Yggdrasill\u2019s roots, was a well
     named Urdarbrunnr. Everyday the Aesir rode there for it was their place for judgment.
@@ -22,11 +22,14 @@ MonoBehaviour:
     everyday."
   effect: Buff target card for X
   cardStats:
+    TargetingView: 7
     strength: 2
     numberOfTargets: 1
     actionGroup:
       actionStats:
-      - actionEnum: 2
+      - SelectionType:
+          Index: 1
+        actionEnum: 2
         action_SFX:
           Guid:
             Data1: 0
@@ -43,4 +46,3 @@ MonoBehaviour:
     correspondingGod: 0
     godBuffActions:
       actionStats: []
-    Targets: []

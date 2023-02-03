@@ -13,19 +13,22 @@ MonoBehaviour:
   m_Name: Attack_Gungnir_CardSO
   m_EditorClassIdentifier: 
   type: 0
-  Art: {fileID: 0}
-  Background: {fileID: 0}
+  Art: {fileID: 2800000, guid: e770d4487460b1f42b68e4f8b4f60ea0, type: 3}
+  Background: {fileID: 2800000, guid: 4405501223a59ea48923553bb9318ecc, type: 3}
   cardName: Gungnir
   description: "It\u2019s Odin\u2018s magical spear that always hits its mark and
     always kills. Gungnir means \u201CSwaying one\u201D. It is made from Yggdrasil\u2018s
     Sacred Ash. Odin has also written his magic runes onto Gungnir.\n"
   effect: Deals X DMG to two selected targets
   cardStats:
+    TargetingView: 6
     strength: 2
     numberOfTargets: 2
     actionGroup:
       actionStats:
-      - actionEnum: 0
+      - SelectionType:
+          Index: 6
+        actionEnum: 0
         action_SFX:
           Guid:
             Data1: 0
@@ -42,4 +45,3 @@ MonoBehaviour:
     correspondingGod: 0
     godBuffActions:
       actionStats: []
-    Targets: []

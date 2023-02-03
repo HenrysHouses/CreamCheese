@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: Buff_Bifrost_CardSO
   m_EditorClassIdentifier: 
   type: 2
-  Art: {fileID: 2800000, guid: 419552a3f736f9c4ab6b69b30bb33bbb, type: 3}
+  Art: {fileID: 2800000, guid: e756c95ab3c36534597b65bdf333cc3b, type: 3}
   Background: {fileID: 2800000, guid: 4405501223a59ea48923553bb9318ecc, type: 3}
   cardName: Bifrost
   description: The bridge between the Realm of Men and Asgard; Men call it the rainbow.
@@ -21,12 +21,14 @@ MonoBehaviour:
     crossing it.
   effect: Buff target card for X
   cardStats:
-    TargetingView: 0
+    TargetingView: 7
     strength: 3
     numberOfTargets: 1
     actionGroup:
       actionStats:
-      - actionEnum: 2
+      - SelectionType:
+          Index: 1
+        actionEnum: 2
         action_SFX:
           Guid:
             Data1: 0

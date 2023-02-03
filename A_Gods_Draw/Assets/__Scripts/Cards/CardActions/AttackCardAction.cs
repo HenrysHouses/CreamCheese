@@ -10,7 +10,7 @@ public class AttackCardAction : CardAction
         isReady = false;
 
         yield return new WaitForSeconds(0.2f);
-        foreach (IMonster target in source.AllTargets)
+        foreach (Monster target in source.AllTargets)
         {
             if (target)
             {

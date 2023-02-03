@@ -21,7 +21,7 @@ public class SplashDMGCardAction : CardAction
             var enemies = Physics.SphereCastAll(splashCenter[i], 0.3f, Vector3.one);
             foreach (RaycastHit allinside in enemies)
             {
-                IMonster monster = allinside.collider.GetComponent<IMonster>();
+                Monster monster = allinside.collider.GetComponent<Monster>();
                 if (monster && monster != source.AllTargets[i])
                 {
                     // Playing VFX

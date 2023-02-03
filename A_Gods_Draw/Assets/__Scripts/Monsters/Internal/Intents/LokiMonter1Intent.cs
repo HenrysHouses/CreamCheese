@@ -29,8 +29,8 @@ public class LokiMonter1Intent : Intent
 
         if (actionSelected == null)
         {
-            List<IMonster> weakMonsters = new();
-            foreach (IMonster a in board.Enemies)
+            List<Monster> weakMonsters = new();
+            foreach (Monster a in board.Enemies)
             {
                 if (a.GetHealth() < a.GetMaxHealth() * 0.75f)
                 {

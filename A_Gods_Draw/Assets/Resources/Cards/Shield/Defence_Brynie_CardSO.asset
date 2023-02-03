@@ -13,17 +13,20 @@ MonoBehaviour:
   m_Name: Defence_Brynie_CardSO
   m_EditorClassIdentifier: 
   type: 1
-  Art: {fileID: 0}
-  Background: {fileID: 0}
+  Art: {fileID: 2800000, guid: a2b8ff38be96d8d41a1c9a78133bb083, type: 3}
+  Background: {fileID: 2800000, guid: 4405501223a59ea48923553bb9318ecc, type: 3}
   cardName: Byrnie
   description: Basic armor of warriors of the Viking Era.
   effect: Blocks for X and draw one next turn
   cardStats:
+    TargetingView: 6
     strength: 2
     numberOfTargets: 1
     actionGroup:
       actionStats:
-      - actionEnum: 1
+      - SelectionType:
+          Index: 6
+        actionEnum: 1
         action_SFX:
           Guid:
             Data1: 0
@@ -37,7 +40,9 @@ MonoBehaviour:
           PathSpeed: 0
           trigger_VFX: {fileID: 0}
           hit_VFX: {fileID: 0}
-      - actionEnum: 10
+      - SelectionType:
+          Index: 0
+        actionEnum: 10
         action_SFX:
           Guid:
             Data1: 0
@@ -54,8 +59,3 @@ MonoBehaviour:
     correspondingGod: 0
     godBuffActions:
       actionStats: []
-    Targets:
-    - {fileID: 0}
-    - {fileID: 0}
-    - {fileID: 0}
-    - {fileID: 0}

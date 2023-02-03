@@ -14,7 +14,7 @@ public class ActionCard_Behaviour : Card_Behaviour
 {
     protected new ActionCard_ScriptableObject card_so;
     public Transform RootTransform;
-    CardType cardType;
+    CardType cardType; 
     [SerializeField]
     EventReference SoundClick;
     BoardElement target;
@@ -38,7 +38,6 @@ public class ActionCard_Behaviour : Card_Behaviour
         CheckForGod();
 
         CameraMovement.instance.SetCameraView(stats.TargetingView);
-        // _action.SetClickableTargets(controller.GetBoard(), true);
         
         for (int i = 0; i < stats.numberOfTargets; i++)
         {
@@ -46,16 +45,20 @@ public class ActionCard_Behaviour : Card_Behaviour
             missedClick = false;
             yield return new WaitUntil(() => hasClickedTarget);
             
+            Debug.LogWarning("This needs to be changed, depending on card stats this may be out of range");
+            if(!stats.actionGroup.actionStats[i].IsValidSelection(target))
+            {
+                MissClick();
+                yield break;    
+            }
+                
             SelectedTargets.Add(target);
-            // foreach (var _thisAction in _actionGroup.actions)
-            // {
-            //     _thisAction.AddTarget(target);
-            // }
             target = null;
+
+            Debug.Log("OnActionReady needs a new implementation");
             stats.actionGroup.actions[i].OnActionReady(controller.GetBoard(), this);
         }
         
-        // _action.SetClickableTargets(controller.GetBoard(), false);
         CameraMovement.instance.ResetView();
         cardIsReady = true;
         controller.GetBoard().PlayCard(this);
@@ -65,23 +68,6 @@ public class ActionCard_Behaviour : Card_Behaviour
     {
         return cardIsReady && onPlayerHand;
     }
-    // private void RemoveGodBuff()
-    // {
-    //     if (godBuffed)
-    //     {
-    //         if (controller.GetBoard().playedGodCard)
-
-    //         if (card_so.correspondingGod == controller.GetBoard().playedGodCard.CardSO.godAction)
-    //         {
-    //             controller.GetBoard().playedGodCard.DeBuff(this);
-    //         }
-    //         godBuffed = false;
-
-    //         foreach (var godAction in godBuffActions)
-    //             actionGroup.Remove(godAction);
-    //     }
-    // }
-
     public void MissClick()
     {
         missedClick = true;
@@ -93,11 +79,6 @@ public class ActionCard_Behaviour : Card_Behaviour
         RootTransform = transform.parent;
         this.card_so = card;
         stats = card.cardStats.Clone();
-
-        if(card.cardName == "Bifrost")
-        {
-            stats = stats;
-        }
 
         for (int i = 0; i < _actionGroup.actionStats.Count; i++)
         {
@@ -155,11 +136,6 @@ public class ActionCard_Behaviour : Card_Behaviour
     {
         controller.Discard(this);
     }
-    // public BoardElement[] getActionTargets(int action)
-    // {
-    //     return _actionGroup[action].actions[0].targets.ToArray();
-    // }
-
 
     protected override void OnBeingSelected()
     {
@@ -174,6 +150,7 @@ public class ActionCard_Behaviour : Card_Behaviour
             onSelectedRoutine = StartCoroutine(SelectingTargets());
         }
     }
+
     protected override IEnumerator Play(BoardStateController board)
     {
         foreach (var target in SelectedTargets)
@@ -185,7 +162,7 @@ public class ActionCard_Behaviour : Card_Behaviour
                 {
                     SoundPlayer.PlaySound(action.action_SFX, gameObject);
                 }
-                yield return new WaitUntil(() => action.Ready());
+                yield return new WaitUntil(() => action.Ready);
             }
 
             if(CheckForGod())
@@ -197,7 +174,7 @@ public class ActionCard_Behaviour : Card_Behaviour
                     {
                         SoundPlayer.PlaySound(action.action_SFX, gameObject);
                     }
-                    yield return new WaitUntil(() => action.Ready());
+                    yield return new WaitUntil(() => action.Ready);
                 }
             }
         }
@@ -223,8 +200,6 @@ public class ActionCard_Behaviour : Card_Behaviour
 
     private void Reset() {
         SelectedTargets.Clear();
-        // stats.actionGroup.actions.Clear();    
-        // stats.godBuffActions.actions.Clear();    
     }
 
     internal override void OnClickOnSelected()
@@ -287,9 +262,6 @@ public class ActionCard_Behaviour : Card_Behaviour
     }
     public override void CancelSelection()
     {
-        //if (this == null)
-        //return true;
-
         base.CancelSelection();
         if (onSelectedRoutine != null)
             StopCoroutine(onSelectedRoutine);

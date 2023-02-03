@@ -13,7 +13,7 @@ public class BuffAttackersAction : MonsterAction
 
     public override void Execute(BoardStateController BoardStateController, int strengh, UnityEngine.Object source)
     {
-        foreach (IMonster enemy in BoardStateController.getLivingEnemies())
+        foreach (Monster enemy in BoardStateController.getLivingEnemies())
         {
             if (enemy.GetIntent().GetID() == EnemyIntent.AttackPlayer || enemy.GetIntent().GetID() == EnemyIntent.AttackGod)
             {

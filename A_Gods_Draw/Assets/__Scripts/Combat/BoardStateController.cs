@@ -20,7 +20,7 @@ public class BoardStateController : MonoBehaviour
 
     public PlayerController Player => _Player;
     public Encounter_SO Encounter => _Encounter;
-    public IMonster[] Enemies => _Enemies;
+    public Monster[] Enemies => _Enemies;
     public Transform getLane(int i) => _Lane[i];
     public Transform getGodLane() => _GodLane;
     [HideInInspector] public List<ActionCard_Behaviour> placedCards;
@@ -45,7 +45,7 @@ public class BoardStateController : MonoBehaviour
     [SerializeField] Transform EnemyParent;
     Encounter_SO _Encounter;
     [SerializeField] Battlefield[] Battlefields;
-    IMonster[] _Enemies;
+    Monster[] _Enemies;
     [SerializeField] Transform[] _Lane;
     [SerializeField] Transform _GodLane;
     [SerializeField] PlayerController _Player;
@@ -106,9 +106,9 @@ public class BoardStateController : MonoBehaviour
         isEncounterInstantiated = true;
     }
 
-    public IMonster[] getLivingEnemies()
+    public Monster[] getLivingEnemies()
     {
-        List<IMonster> livingEnemies = new List<IMonster>();
+        List<Monster> livingEnemies = new List<Monster>();
         for (int i = 0; i < _Enemies.Length; i++)
         {
             if (_Enemies[i].GetHealth() > 0)
@@ -159,7 +159,6 @@ public class BoardStateController : MonoBehaviour
         if (card is GodCard_Behaviour)
         {
             targetlane = _GodLane;
-
         }
         else
         {

@@ -28,7 +28,7 @@ public class DefendCardAction : CardAction
 
         foreach (BoardElement target in source.AllTargets)
         {
-            IMonster Enemy = target as IMonster;
+            Monster Enemy = target as Monster;
 
             if (Enemy)
             {

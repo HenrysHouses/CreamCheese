@@ -13,18 +13,21 @@ MonoBehaviour:
   m_Name: Attack_TyrsBlessedSword_CardSO
   m_EditorClassIdentifier: 
   type: 0
-  Art: {fileID: 0}
-  Background: {fileID: 0}
+  Art: {fileID: 2800000, guid: 89efc1735d971dc4d97568c67709bb01, type: 3}
+  Background: {fileID: 2800000, guid: 4405501223a59ea48923553bb9318ecc, type: 3}
   cardName: Tyr-Blessed Sword
   description: "Warriors would carve victory runes into their sword\u2018s hilt,
     on the blade guards and the blades, invoking the Gods names."
   effect: Deals X DMG to selected target X is doubled with Tyr, God Of Justice
   cardStats:
+    TargetingView: 6
     strength: 2
     numberOfTargets: 0
     actionGroup:
       actionStats:
-      - actionEnum: 0
+      - SelectionType:
+          Index: 6
+        actionEnum: 0
         action_SFX:
           Guid:
             Data1: 0
@@ -41,7 +44,9 @@ MonoBehaviour:
     correspondingGod: 1
     godBuffActions:
       actionStats:
-      - actionEnum: 0
+      - SelectionType:
+          Index: 0
+        actionEnum: 0
         action_SFX:
           Guid:
             Data1: 0
@@ -55,4 +60,3 @@ MonoBehaviour:
           PathSpeed: 0
           trigger_VFX: {fileID: 0}
           hit_VFX: {fileID: 0}
-    Targets: []

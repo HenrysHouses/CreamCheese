@@ -43,15 +43,15 @@ class EncounterLoader : MonoBehaviour
     /// <param name="Encounter">Encounter to spawn</param>
     /// <param name="EnemyParent">Parent Transform for instantiated enemies</param>
     /// <returns>Base class array of all spawned Monsters</returns>
-    static public IMonster[] InstantiateEncounter(Encounter_SO Encounter, Transform EnemyParent)
+    static public Monster[] InstantiateEncounter(Encounter_SO Encounter, Transform EnemyParent)
     {
         // Spawn Encounter
-        List<IMonster> initEnemies = new List<IMonster>();
+        List<Monster> initEnemies = new List<Monster>();
         for (int i = 0; i < Encounter.enemies.Count; i++)
         {
             GameObject spawn = Instantiate(Encounter.enemies[i].enemy,Encounter.enemies[i].enemyPos,Quaternion.identity);
             spawn.transform.SetParent(EnemyParent, false);
-            initEnemies.Add(spawn.GetComponent<IMonster>());
+            initEnemies.Add(spawn.GetComponent<Monster>());
         }
         return initEnemies.ToArray();
     }
@@ -60,7 +60,7 @@ class EncounterLoader : MonoBehaviour
     /// <param name="Encounter">Possible Encounters</param>
     /// <param name="EnemyParent">Parent Transform for instantiated enemies</param>
     /// <returns>Base class array of all spawned Monsters</returns>
-    static public IMonster[] InstantiateRandomEncounter(Encounter_SO[] Encounter, Transform EnemyParent, out Encounter_SO chosenEncounter)
+    static public Monster[] InstantiateRandomEncounter(Encounter_SO[] Encounter, Transform EnemyParent, out Encounter_SO chosenEncounter)
     {
         // Get Random Encounter
         chosenEncounter = Encounter[UnityEngine.Random.Range(0,Encounter.Length-1)];

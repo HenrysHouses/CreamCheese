@@ -13,18 +13,21 @@ MonoBehaviour:
   m_Name: Defence_AsgardsWall_CardSO
   m_EditorClassIdentifier: 
   type: 1
-  Art: {fileID: 0}
-  Background: {fileID: 0}
+  Art: {fileID: 2800000, guid: 09cabb40dbbabb946a72214e13f7d358, type: 3}
+  Background: {fileID: 2800000, guid: 4405501223a59ea48923553bb9318ecc, type: 3}
   cardName: "Asgard\u2018s Wall"
   description: "Built by a Jotun in disguise, Asgard\u2018s wall was built in only
     one winter, and was so mighty that it would stand strong till the day of Ragnarok"
   effect: Block two targets for x
   cardStats:
+    TargetingView: 6
     strength: 3
     numberOfTargets: 2
     actionGroup:
       actionStats:
-      - actionEnum: 1
+      - SelectionType:
+          Index: 6
+        actionEnum: 1
         action_SFX:
           Guid:
             Data1: 0
@@ -38,7 +41,9 @@ MonoBehaviour:
           PathSpeed: 0
           trigger_VFX: {fileID: 0}
           hit_VFX: {fileID: 0}
-      - actionEnum: 5
+      - SelectionType:
+          Index: 0
+        actionEnum: 5
         action_SFX:
           Guid:
             Data1: 0
@@ -55,4 +60,3 @@ MonoBehaviour:
     correspondingGod: 0
     godBuffActions:
       actionStats: []
-    Targets: []

@@ -41,15 +41,6 @@ public class CardPileController : MonoBehaviour
         else
             percent =  (float)deckManager.GetDiscardCount() / (float)deckManager.GetAllCurrentPlayingCards();
         float EnabledCardCount = (Cards.Length * percent);
-        
-        // * Rounding up code
-        // float _factor = (Cards.Length * percent);
-        // decimal EnabledCardCount = (decimal)_factor;
-
-        // decimal factor = RoundFactor(0);
-        // EnabledCardCount *= factor;
-        // EnabledCardCount = System.Math.Ceiling(EnabledCardCount);
-        // EnabledCardCount /= factor;
 
         for (int i = 0; i < Cards.Length; i++)
         {

@@ -45,7 +45,7 @@ public class LokiMonster2Intent : Intent
     {
         if (actionSelected == null)
         {
-            foreach (IMonster a in board.getLivingEnemies())
+            foreach (Monster a in board.getLivingEnemies())
             {
                 if (a == null)
                     continue;

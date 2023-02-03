@@ -34,7 +34,7 @@ public class EndState : CombatFSMState
         // hasEndTriggered = false;
         ResetRuneTurnTriggers(Controller);
 
-        foreach (IMonster _monster in Controller.GetBoard().getLivingEnemies())
+        foreach (Monster _monster in Controller.GetBoard().getLivingEnemies())
         {
 
             if(!_monster.gameObject.TryGetComponent<DebuffBase>(out DebuffBase _debuffCheck))

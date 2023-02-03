@@ -13,8 +13,8 @@ MonoBehaviour:
   m_Name: Defence_ProtectionFromTheGods_CardSO
   m_EditorClassIdentifier: 
   type: 1
-  Art: {fileID: 0}
-  Background: {fileID: 0}
+  Art: {fileID: 2800000, guid: 8150dd8b24419954fb0270f52cb746ac, type: 3}
+  Background: {fileID: 2800000, guid: 4405501223a59ea48923553bb9318ecc, type: 3}
   cardName: Protection From The Gods
   description: The Vikings believed that warriors who died bravely in battle were
     transported to Valhalla by Valkyries, or warrior women, where they feasted every
@@ -26,11 +26,14 @@ MonoBehaviour:
     Has Storr (takes two slots, cannot be placed
     when is the last card)'
   cardStats:
+    TargetingView: 6
     strength: 3
     numberOfTargets: 2
     actionGroup:
       actionStats:
-      - actionEnum: 1
+      - SelectionType:
+          Index: 6
+        actionEnum: 1
         action_SFX:
           Guid:
             Data1: 0
@@ -47,4 +50,3 @@ MonoBehaviour:
     correspondingGod: 0
     godBuffActions:
       actionStats: []
-    Targets: []

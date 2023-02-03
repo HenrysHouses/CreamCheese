@@ -13,7 +13,7 @@ public class HealPreventionCardAction : CardAction
     {
         isReady = false;
 
-        foreach (IMonster target in source.AllTargets)
+        foreach (Monster target in source.AllTargets)
         {
             
             HealPreventionDebuff _healPrev;

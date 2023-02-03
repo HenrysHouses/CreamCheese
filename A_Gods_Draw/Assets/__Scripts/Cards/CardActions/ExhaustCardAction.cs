@@ -10,7 +10,7 @@ public class ExhaustCardAction : CardAction
 
         isReady = false;
 
-        foreach(IMonster _target in _source.AllTargets)
+        foreach(Monster _target in _source.AllTargets)
         {
 
             int _damageDealt = _target.DealDamage( _source.stats.strength);

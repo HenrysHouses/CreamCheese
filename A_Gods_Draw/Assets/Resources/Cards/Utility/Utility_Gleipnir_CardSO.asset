@@ -13,8 +13,8 @@ MonoBehaviour:
   m_Name: Utility_Gleipnir_CardSO
   m_EditorClassIdentifier: 
   type: 3
-  Art: {fileID: 0}
-  Background: {fileID: 0}
+  Art: {fileID: 2800000, guid: 2f2592836370e9249a656065c57aaed7, type: 3}
+  Background: {fileID: 2800000, guid: 4405501223a59ea48923553bb9318ecc, type: 3}
   cardName: Gleipnir
   description: A magic chain made by the dwarfs of Svartalfheim. It was the only
     fetter that could bind Fenrir, and is he bound till the day of Ragnarok
@@ -23,11 +23,14 @@ MonoBehaviour:
 
     2 if Tyr is in play'
   cardStats:
+    TargetingView: 0
     strength: 1
     numberOfTargets: 1
     actionGroup:
       actionStats:
-      - actionEnum: 4
+      - SelectionType:
+          Index: 6
+        actionEnum: 4
         action_SFX:
           Guid:
             Data1: 0
@@ -44,7 +47,9 @@ MonoBehaviour:
     correspondingGod: 1
     godBuffActions:
       actionStats:
-      - actionEnum: 4
+      - SelectionType:
+          Index: 0
+        actionEnum: 4
         action_SFX:
           Guid:
             Data1: 0
@@ -58,4 +63,3 @@ MonoBehaviour:
           PathSpeed: 0
           trigger_VFX: {fileID: 0}
           hit_VFX: {fileID: 0}
-    Targets: []

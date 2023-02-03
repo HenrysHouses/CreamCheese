@@ -8,17 +8,10 @@ using FMODUnity;
 public abstract class CardAction : Action
 {
     protected ActionCard_Behaviour currentCard;
-    protected int neededLanes = 1;
     public EventReference action_SFX;
     public bool PlayOnPlacedOrTriggered_SFX;
     public ActionVFX _VFX;
-
     public Animator camAnim = Camera.main.GetComponent<Animator>();
-    // /// <summary>This should set whatever stats and other stuff the action needs</summary>
-    // public virtual void SetClickableTargets(BoardStateController board, bool to = true)
-    // {
-    //     board.SetClickable(3, to);
-    // }
 
     public void SetBehaviour(ActionCard_Behaviour beh)
     {
@@ -26,47 +19,19 @@ public abstract class CardAction : Action
         UpdateNeededLanes(beh);
     }
 
-    protected virtual void UpdateNeededLanes(ActionCard_Behaviour source)
-    {
-    }
-
+    protected virtual void UpdateNeededLanes(ActionCard_Behaviour source) { }
     public override void Execute(BoardStateController board, int strengh, UnityEngine.Object source) { }
-
-    public virtual void OnLanePlaced(BoardStateController board, ActionCard_Behaviour source)
-    {
-
-    }
-
+    public virtual void OnLanePlaced(BoardStateController board, ActionCard_Behaviour source) { }
     public abstract IEnumerator OnAction(BoardStateController board, ActionCard_Behaviour source);
-
     public virtual void OnPlay(BoardStateController board) { }
-
-    internal bool Ready()
-    {
-        return isReady;
-    }
+    public virtual void OnActionReady(BoardStateController board, ActionCard_Behaviour source) { }
 
     public virtual void Reset(BoardStateController board, Card_Behaviour source)
     {
-        // Debug.Log(cardStats);
-        // Debug.Log(cardStats.Targets);
-        // cardStats.Targets.Clear();
         isReady = false;
-        // board.SetClickable(3, false);
-    }
-    public virtual void OnActionReady(BoardStateController board, ActionCard_Behaviour source) { }
-
-    // internal virtual void AddTarget(BoardElement target)
-    // {
-    //     targets.Add(target);
-    // }
-
-    public bool CanBePlaced(BoardStateController cont)
-    {
-        return cont.thingsInLane.Count + neededLanes <= 4;
     }
 
-    public IEnumerator playTriggerVFX(GameObject source, IMonster target)
+    public IEnumerator playTriggerVFX(GameObject source, Monster target)
     {
         if (_VFX is not null)
         {

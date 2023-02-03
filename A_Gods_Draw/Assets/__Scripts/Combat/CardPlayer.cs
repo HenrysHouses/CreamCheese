@@ -266,12 +266,12 @@ public class CardPlayer : MonoBehaviour
     {
         int layer = 1 << 9;
         Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
-        IMonster monster = null;
+        Monster monster = null;
 
 
         if (Physics.Raycast(ray, out RaycastHit hit, 10000, layer))
         {
-            monster = hit.collider.GetComponent<IMonster>();
+            monster = hit.collider.GetComponent<Monster>();
 
             if (!playedSFX)
             {
@@ -331,23 +331,6 @@ public class CardPlayer : MonoBehaviour
         return null;
     }
 
-    // bool playCard(out Transform lane)
-    // {
-    //     lane = null;
-    //     Ray ray = mainCam.ScreenPointToRay(Input.mousePosition);
-
-    //     if (Physics.Raycast(ray, out RaycastHit hit, 100, laneLayer))
-    //     {
-    //         lane = hit.collider.transform;
-    //     }
-
-    //     if (lane is not null)
-    //     {
-    //         return true;
-    //     }
-    //     return false;
-    // }
-
     void placeCard(Card_Behaviour behaviour)
     {
         Card_Loader loader = behaviour.GetComponent<Card_Loader>();
@@ -368,7 +351,6 @@ public class CardPlayer : MonoBehaviour
             _God.CardSO.StartDialogue(GodDialogueTrigger.SeeEnemy, _Board.Enemies[0]);
             _God.CardSO.StartDialogue(GodDialogueTrigger.Played, loader.GetCardSO);
         }
-
 
         _Hand.RemoveCard(loader);
         _Board.placeCardOnLane(behaviour);

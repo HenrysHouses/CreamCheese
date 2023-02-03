@@ -13,7 +13,7 @@ public class ChainCardAction : CardAction
         //yield return new WaitUntil(() => true);
         yield return new WaitForSeconds(0.1f);
 
-        foreach (IMonster monster in source.AllTargets)
+        foreach (Monster monster in source.AllTargets)
         {
             if (monster)
             {

@@ -13,8 +13,8 @@ MonoBehaviour:
   m_Name: Buff_Draupnit_CardSO
   m_EditorClassIdentifier: 
   type: 2
-  Art: {fileID: 0}
-  Background: {fileID: 0}
+  Art: {fileID: 2800000, guid: b01ffc34de72e854198bedba86527f61, type: 3}
+  Background: {fileID: 2800000, guid: 4405501223a59ea48923553bb9318ecc, type: 3}
   cardName: Draupnir
   description: "An arm ring that belongs to Baldr, and was made by the dwarfs. Every
     9 nights it replicates itself ninefold, the duplicates \u201Cdrip\u201D from
@@ -23,11 +23,14 @@ MonoBehaviour:
 
     Has Storr'
   cardStats:
+    TargetingView: 7
     strength: 9
     numberOfTargets: 0
     actionGroup:
       actionStats:
-      - actionEnum: 2
+      - SelectionType:
+          Index: 1
+        actionEnum: 2
         action_SFX:
           Guid:
             Data1: 0
@@ -41,7 +44,9 @@ MonoBehaviour:
           PathSpeed: 0
           trigger_VFX: {fileID: 0}
           hit_VFX: {fileID: 0}
-      - actionEnum: 5
+      - SelectionType:
+          Index: 0
+        actionEnum: 5
         action_SFX:
           Guid:
             Data1: 0
@@ -58,4 +63,3 @@ MonoBehaviour:
     correspondingGod: 0
     godBuffActions:
       actionStats: []
-    Targets: []

@@ -11,7 +11,7 @@ public class ChaosRune : rune
         if(hasTriggeredThisGame)
             return;
 
-        IMonster[] currEnemies = controller.GetBoard().Enemies;
+        Monster[] currEnemies = controller.GetBoard().Enemies;
 
         foreach (var enemy in currEnemies)
         {

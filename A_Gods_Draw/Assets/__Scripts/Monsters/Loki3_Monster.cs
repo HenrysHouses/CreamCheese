@@ -1,6 +1,6 @@
 // Written by Javier
 
-public class LokiMonster3 : IMonster
+public class Loki3_Monster : Monster
 {
     private void Start()
     {

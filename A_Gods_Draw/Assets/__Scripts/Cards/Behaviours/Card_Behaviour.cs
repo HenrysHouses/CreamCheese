@@ -30,22 +30,12 @@ public abstract class Card_Behaviour : BoardElement
 
 
     protected abstract void OnBeingSelected();
-
     protected virtual void OnPlacedInLane() { }
-    protected virtual bool ReadyToBePlaced()
-    {
-        return true;
-    }
     protected virtual IEnumerator Play(BoardStateController board)
     {
-        yield return new WaitUntil(ReadyToBePlaced);
         GetComponentInParent<Card_ClickGlowing>().RemoveBorder();
         GetComponentInParent<BoxCollider>().enabled = false;
-        // manager.FinishedPlay(this);
-
-        
-        // if(this is Attack_Behaviour attack_)
-        //     manager.OnDeSelectedAttackCard?.Invoke();
+        yield break;
     }
 
     protected CardAction GetAction(CardActionData card)
@@ -93,20 +83,21 @@ public abstract class Card_Behaviour : BoardElement
     }
     protected GodCardAction GetAction(GodActionEnum card)
     {
-        return card switch
+        switch(card)
         {
-            GodActionEnum.Tyr => new TyrActions(),
+            case GodActionEnum.Tyr:
+                return new TyrActions();
+
+            case GodActionEnum.Eir:
+                return new EirActions();
             
-            GodActionEnum.Eir => new EirActions(),
-            _ => null,
-        };
+            default:
+                return null;
+        }
     }
 
-
     internal virtual void OnClickOnSelected() { }
-
-
-    public abstract bool CardIsReady();
+    public virtual bool CardIsReady() { return true; }
     public abstract void OnAction();
 
     public void Placed()
@@ -122,8 +113,8 @@ public abstract class Card_Behaviour : BoardElement
         // transform.GetComponent<BoxCollider>().enabled = false;
         OnPlacedInLane();
         onPlayerHand = false;
-        Debug.Log("card placed");
     }
+
     public virtual void CancelSelection() { controller.SetSelectedCard(); }
     public virtual bool ShouldCancelSelection() { return false; }
     public virtual bool CanBeSelected() {return onPlayerHand;  }
@@ -147,38 +138,4 @@ public abstract class Card_Behaviour : BoardElement
     {
         elements.strength.text = newValue.ToString();
     }
-
-
-    //Unused stuff
-
-    // public void SetManager(TurnManager manager)
-    // {
-    //     this.manager = manager;
-    // }
-
-    //public void DeSelected()
-    //{
-    //    if (cor != null)
-    //    {
-    //        StopCoroutine(cor);
-    //        cor = null;
-    //    }
-    //    GetComponentInParent<Card_ClickGlowing>().RemoveBorder();
-    //}
-
-    // internal TurnManager GetManager()
-    // {
-    //     return manager;
-    // }
-
-    // public bool IsThisSelected()
-    // {
-    //     if(manager == null)
-    //     {
-    //         return false;
-    //     }
-    //     return manager.CurrentlySelectedCard() == this;
-    // }
-
-    // public virtual void LatePlayed(BoardStateController board) { }
 }

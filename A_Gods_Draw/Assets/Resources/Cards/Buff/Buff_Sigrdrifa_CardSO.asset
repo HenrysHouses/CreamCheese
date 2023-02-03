@@ -13,8 +13,8 @@ MonoBehaviour:
   m_Name: Buff_Sigrdrifa_CardSO
   m_EditorClassIdentifier: 
   type: 2
-  Art: {fileID: 0}
-  Background: {fileID: 0}
+  Art: {fileID: 2800000, guid: 1c04ce86249cdc943834c9c25f9f11ea, type: 3}
+  Background: {fileID: 2800000, guid: 4405501223a59ea48923553bb9318ecc, type: 3}
   cardName: Sigrdrifa
   description: "Sigurd Fafnir\u2019s Bane found atop the mountain Hindafjall a woman,
     sleeping, in full armor. He awoke her, and as a reward she gave him a mead of
@@ -23,11 +23,14 @@ MonoBehaviour:
 
     Heals for X'
   cardStats:
+    TargetingView: 7
     strength: 2
     numberOfTargets: 0
     actionGroup:
       actionStats:
-      - actionEnum: 2
+      - SelectionType:
+          Index: 1
+        actionEnum: 2
         action_SFX:
           Guid:
             Data1: 0
@@ -41,7 +44,9 @@ MonoBehaviour:
           PathSpeed: 0
           trigger_VFX: {fileID: 0}
           hit_VFX: {fileID: 0}
-      - actionEnum: 13
+      - SelectionType:
+          Index: 0
+        actionEnum: 13
         action_SFX:
           Guid:
             Data1: 0
@@ -58,4 +63,3 @@ MonoBehaviour:
     correspondingGod: 0
     godBuffActions:
       actionStats: []
-    Targets: []

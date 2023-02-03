@@ -8,7 +8,7 @@ public class TyrActions : GodCardAction
 
     public override void OnPlay(BoardStateController board, int strength)
     {
-        foreach (IMonster monster in board.getLivingEnemies())
+        foreach (Monster monster in board.getLivingEnemies())
         {
             monster.GetIntent().CancelIntent();
             monster.SetOverlay(Resources.Load<Sprite>("ImageResources/Icon_Chain_v1"));
