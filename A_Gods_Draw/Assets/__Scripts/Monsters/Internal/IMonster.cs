@@ -97,14 +97,17 @@ public abstract class IMonster : BoardElement
 
     }
 
-    public void DealDamage(int amount, bool bypassDefence = false)
+    public int DealDamage(int amount, bool bypassDefence = false)
     {
+
+        int damageTaken = 0;
+
         if (weakened > 0)
             amount++;
 
         if (amount > defendedFor && !bypassDefence)
         {
-            health = health - (amount - defendedFor);
+            damageTaken = amount - defendedFor;
             defendedFor = 0;
             image.color = Color.white;
             defendTxt.enabled = false;
@@ -112,13 +115,15 @@ public abstract class IMonster : BoardElement
         else if(bypassDefence)
         {
             
-            health -= amount;
+            damageTaken = amount;
 
         }
         else
             defendedFor -= amount;
 
         defendTxt.text = defendedFor.ToString();
+
+        health -= damageTaken;
 
         if (health <= 0)
         {
@@ -131,6 +136,8 @@ public abstract class IMonster : BoardElement
 
         healthTxt.text = "HP: " + health.ToString();
         setOutline(outlineSize, Color.red, 0.25f);
+
+        return damageTaken;
 
     }
 
