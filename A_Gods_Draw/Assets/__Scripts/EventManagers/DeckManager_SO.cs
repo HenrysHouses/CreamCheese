@@ -216,7 +216,7 @@ public class DeckManager_SO : ScriptableObject
     }
 
     /// <summary>Moves a card currently in player hand to player discard. Trigger discard animation</summary>
-    public CardPathAnim discardCard(Card_SO card, List<Card_SO> exhausted)
+    public CardPathAnim discardCard(Card_SO card)
     {
         if (pHand.Contains(card))
         {
