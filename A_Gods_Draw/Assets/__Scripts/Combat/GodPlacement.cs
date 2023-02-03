@@ -6,12 +6,12 @@ using TMPro;
 //Basically just controls the UI showing god health
 public class GodPlacement : MonoBehaviour
 {
-    God_Behaviour god;
+    GodCard_Behaviour god;
     public Image godArrow;
     [SerializeField]
     TMP_Text health;
 
-    public void SetGod(God_Behaviour god)
+    public void SetGod(GodCard_Behaviour god)
     {
         //CameraShake.Shake(0.25f, 2f);   // I tried.. 
         this.god = god;

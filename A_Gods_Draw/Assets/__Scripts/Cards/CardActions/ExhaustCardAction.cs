@@ -5,12 +5,12 @@ using UnityEngine;
 public class ExhaustCardAction : CardAction
 {
 
-    public override IEnumerator OnAction(BoardStateController _board, NonGod_Behaviour _source)
+    public override IEnumerator OnAction(BoardStateController _board, ActionCard_Behaviour _source)
     {
 
         isReady = false;
 
-        foreach(IMonster _target in _source.stats.Targets)
+        foreach(IMonster _target in _source.AllTargets)
         {
 
             int _damageDealt = _target.DealDamage( _source.stats.strength);
@@ -18,7 +18,7 @@ public class ExhaustCardAction : CardAction
 
         }
 
-         _source.stats.Targets.Clear();
+        //  _source.AllTargets.Clear();
 
         // Playing VFX for each action
         _board.StartCoroutine(playTriggerVFX(_source.gameObject, _board.Player.transform, new Vector3(0, 1, 0)));

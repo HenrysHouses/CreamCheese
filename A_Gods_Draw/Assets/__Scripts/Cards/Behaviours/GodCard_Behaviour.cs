@@ -9,7 +9,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class God_Behaviour : Card_Behaviour
+public class GodCard_Behaviour : Card_Behaviour
 {
     int health;
     int maxHealth;
@@ -21,10 +21,10 @@ public class God_Behaviour : Card_Behaviour
 
     int defendFor;
 
-    protected new God_Card_SO card_so;
-    public new God_Card_SO CardSO => card_so;
+    protected new GodCard_ScriptableObject card_so;
+    public new GodCard_ScriptableObject CardSO => card_so;
 
-    public void Initialize(God_Card_SO card, CardElements elements)
+    public void Initialize(GodCard_ScriptableObject card, CardElements elements)
     {
         this.card_so = card;
         maxHealth = card.health;
@@ -232,11 +232,11 @@ public class God_Behaviour : Card_Behaviour
     }
 
 
-    internal void Buff(NonGod_Behaviour nonGod_Behaviour)
+    internal void Buff(ActionCard_Behaviour nonGod_Behaviour)
     {
         nonGod_Behaviour.Buff(card_so.strength, true);
     }
-    internal void DeBuff(NonGod_Behaviour nonGod_Behaviour)
+    internal void DeBuff(ActionCard_Behaviour nonGod_Behaviour)
     {
         nonGod_Behaviour.DeBuff(card_so.strength, true);
     }

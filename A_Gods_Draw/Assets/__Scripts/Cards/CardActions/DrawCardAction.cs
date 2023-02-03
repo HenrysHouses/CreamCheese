@@ -2,13 +2,14 @@
 using System.Collections;
 using UnityEngine;
 
+[System.Serializable]
 public class DrawCardAction : CardAction
 {
     // public override void SetClickableTargets(BoardStateController board, bool to = true)
     // {
     // }
 
-    public override IEnumerator OnAction(BoardStateController board, NonGod_Behaviour source)
+    public override IEnumerator OnAction(BoardStateController board, ActionCard_Behaviour source)
     {
         isReady = false;
 
@@ -16,7 +17,8 @@ public class DrawCardAction : CardAction
 
         // Playing VFX for each action
         board.StartCoroutine(playTriggerVFX(source.gameObject, null, new Vector3(0, 1, 0)));
-        yield return new WaitUntil(() => !_VFX.isAnimating);
+        if(_VFX is not null)
+            yield return new WaitUntil(() => !_VFX.isAnimating);
 
         yield return new WaitForSeconds(0.1f);
 
@@ -25,8 +27,8 @@ public class DrawCardAction : CardAction
 
     public override void Reset(BoardStateController board, Card_Behaviour Source)
     {
-        NonGod_Behaviour card = Source as NonGod_Behaviour;
-        card.stats.Targets.Clear();
+        ActionCard_Behaviour card = Source as ActionCard_Behaviour;
+        // card.stats.Targets.Clear();
         isReady = false;
     }
 }

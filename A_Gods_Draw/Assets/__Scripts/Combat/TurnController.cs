@@ -88,7 +88,7 @@ public class TurnController : CombatFSM
         AddFSMState(_endStep);
     }
 
-    internal void GodDied(God_Behaviour god)
+    internal void GodDied(GodCard_Behaviour god)
     {
         //Animation of god dying????
 
@@ -96,7 +96,7 @@ public class TurnController : CombatFSM
 
         _Hand.RemoveCard(god.GetComponent<Card_Loader>());
 
-        God_Card_SO _Card_SO = BoardStateController.playedGodCard.CardSO;
+        GodCard_ScriptableObject _Card_SO = BoardStateController.playedGodCard.CardSO;
         _Card_SO.StartDialogue(GodDialogueTrigger.Dying, _Card_SO);
         BoardStateController.playedGodCard = null;
     }
@@ -176,13 +176,13 @@ public class TurnController : CombatFSM
 
 
                 // Dialogue draw trigger
-                if(trigger.cardSO is God_Card_SO _God)
+                if(trigger.cardSO is GodCard_ScriptableObject _God)
                 {
                     trigger.OnCardDrawDialogue.AddListener(_God.StartDialogue);
                 }
                 else if(BoardStateController.playedGodCard is not null)
                 {
-                    God_Card_SO _God_SO = BoardStateController.playedGodCard.CardSO;
+                    GodCard_ScriptableObject _God_SO = BoardStateController.playedGodCard.CardSO;
                     trigger.OnCardDrawDialogue.AddListener(_God_SO.StartDialogue);
                 }   
             }
@@ -226,7 +226,8 @@ public class TurnController : CombatFSM
         else
         {
             waitForLibraryShuffle = true;
-            animData[animData.Length-1].OnAnimCompletionTrigger.AddListener(waitForShuffleAnims);
+            if(animData.Length-1 > -1)
+                animData[animData.Length-1].OnAnimCompletionTrigger.AddListener(waitForShuffleAnims);
 
             yield return new WaitUntil(() => !waitForLibraryShuffle);
             Draw(drawAfterShuffle);
@@ -267,7 +268,7 @@ public class TurnController : CombatFSM
                     lastAnim.OnCardDrawDialogue.AddListener(BoardStateController.playedGodCard.CardSO.StartDialogue);
                 else if(_Loader.GetCardSO.type == CardType.God)
                 {
-                    God_Card_SO _God = _Loader.GetCardSO as God_Card_SO;
+                    GodCard_ScriptableObject _God = _Loader.GetCardSO as GodCard_ScriptableObject;
                     lastAnim.OnCardDrawDialogue.AddListener(_God.StartDialogue);
                 }
 

@@ -2,13 +2,14 @@
 using System.Collections;
 using UnityEngine;
 
+[System.Serializable]
 public class HealCardAction : CardAction
 {
     // public override void SetClickableTargets(BoardStateController board, bool to = true)
     // {
     // }
 
-    public override IEnumerator OnAction(BoardStateController board, NonGod_Behaviour source)
+    public override IEnumerator OnAction(BoardStateController board, ActionCard_Behaviour source)
     {
         isReady = false;
 
@@ -24,8 +25,8 @@ public class HealCardAction : CardAction
 
     public override void Reset(BoardStateController board, Card_Behaviour Source)
     {
-        NonGod_Behaviour card = Source as NonGod_Behaviour;
-        card.stats.Targets.Clear();
+        ActionCard_Behaviour card = Source as ActionCard_Behaviour;
+        // card.stats.Targets.Clear();
         isReady = false;
     }
 }

@@ -4,6 +4,7 @@ using UnityEngine;
 /// <summary>
 /// Class for any element on the board that could be interacted with
 /// </summary>
+[System.Serializable]
 public class BoardElement : InfoElement
 {
     protected static bool isInCombat;

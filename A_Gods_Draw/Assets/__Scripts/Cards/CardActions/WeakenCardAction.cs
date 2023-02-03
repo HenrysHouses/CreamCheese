@@ -2,13 +2,14 @@
 using System.Collections;
 using UnityEngine;
 
+[System.Serializable]
 public class WeakenCardAction : CardAction
 {
-    public override IEnumerator OnAction(BoardStateController board, NonGod_Behaviour source)
+    public override IEnumerator OnAction(BoardStateController board, ActionCard_Behaviour source)
     {
         isReady = false;
 
-        foreach (IMonster target in source.stats.Targets)
+        foreach (IMonster target in source.AllTargets)
         {
             if (target)
             {
@@ -21,7 +22,7 @@ public class WeakenCardAction : CardAction
 
         yield return new WaitForSeconds(0.3f);
 
-        source.stats.Targets.Clear();
+        // source.stats.Targets.Clear();
 
         isReady = true;
     }

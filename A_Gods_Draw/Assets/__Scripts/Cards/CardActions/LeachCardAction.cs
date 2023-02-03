@@ -2,23 +2,24 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
+[System.Serializable]
 public class LeachCardAction : CardAction
 {
 
-    public override IEnumerator OnAction(BoardStateController _board, NonGod_Behaviour _source)
+    public override IEnumerator OnAction(BoardStateController _board, ActionCard_Behaviour _source)
     {
 
         isReady = false;
 
-        foreach(IMonster _target in _source.stats.Targets)
+        foreach(IMonster _target in _source.AllTargets)
         {
 
-            int _damageDealt = _target.DealDamage( _source.stats.strength);
+            int _damageDealt = _target.DealDamage(_source.stats.strength);
             _board.Player.Heal(_damageDealt);
 
         }
 
-         _source.stats.Targets.Clear();
+        // _source.stats.Targets.Clear();
 
         // Playing VFX for each action
         _board.StartCoroutine(playTriggerVFX(_source.gameObject, _board.Player.transform, new Vector3(0, 1, 0)));
@@ -29,5 +30,4 @@ public class LeachCardAction : CardAction
         isReady = true;
 
     }
-
 }

@@ -13,7 +13,8 @@ MonoBehaviour:
   m_Name: Buff_HymirsCauldron_CardSO
   m_EditorClassIdentifier: 
   type: 2
-  image: {fileID: 21300000, guid: 88b568f8f55f29c4fbe42778a8e37edd, type: 3}
+  Art: {fileID: 0}
+  Background: {fileID: 0}
   cardName: "Hymir\u2018s Cauldron"
   description: "The Aesir wanted to host a feast, and needed a lot of mead for it.
     Tyr and Thor traveled to Hymir\u2019s kingdom, and won his challenge, and as
@@ -21,59 +22,40 @@ MonoBehaviour:
   effect: 'Buff target for x, heals for 4
 
     If Tyr is in play'
-  cardStrenghIndex: 0
-  targetActions:
-  - numOfTargets: 1
-    targetActions:
-    - actionEnum: 2
-      actionStrength: 1
-      PlayOnPlacedOrTriggered_SFX: 0
-      action_SFX:
-        Guid:
-          Data1: -986278551
-          Data2: 1246205654
-          Data3: 1273093782
-          Data4: -1925434271
-        Path: event:/Card Effects/CionDrop
-      _VFX:
-        FollowPath: 1
-        isAnimating: 0
-        PathSpeed: 1
-        trigger_VFX: {fileID: 0}
-        hit_VFX: {fileID: 0}
-    - actionEnum: 7
-      actionStrength: 3
-      PlayOnPlacedOrTriggered_SFX: 0
-      action_SFX:
-        Guid:
-          Data1: 0
-          Data2: 0
-          Data3: 0
-          Data4: 0
-        Path: 
-      _VFX:
-        FollowPath: 1
-        isAnimating: 0
-        PathSpeed: 1
-        trigger_VFX: {fileID: 0}
-        hit_VFX: {fileID: 0}
-  onGodBuff:
-  - numOfTargets: 0
-    targetActions:
-    - actionEnum: 7
-      actionStrength: 4
-      PlayOnPlacedOrTriggered_SFX: 0
-      action_SFX:
-        Guid:
-          Data1: 0
-          Data2: 0
-          Data3: 0
-          Data4: 0
-        Path: 
-      _VFX:
-        FollowPath: 1
-        isAnimating: 0
-        PathSpeed: 1
-        trigger_VFX: {fileID: 0}
-        hit_VFX: {fileID: 0}
-  correspondingGod: 1
+  cardStats:
+    TargetingView: 0
+    strength: 4
+    numberOfTargets: 0
+    actionGroup:
+      actionStats:
+      - actionEnum: 2
+        action_SFX:
+          Guid:
+            Data1: 0
+            Data2: 0
+            Data3: 0
+            Data4: 0
+          Path: 
+        _VFX:
+          FollowPath: 0
+          isAnimating: 0
+          PathSpeed: 0
+          trigger_VFX: {fileID: 0}
+          hit_VFX: {fileID: 0}
+    correspondingGod: 0
+    godBuffActions:
+      actionStats:
+      - actionEnum: 7
+        action_SFX:
+          Guid:
+            Data1: 0
+            Data2: 0
+            Data3: 0
+            Data4: 0
+          Path: 
+        _VFX:
+          FollowPath: 0
+          isAnimating: 0
+          PathSpeed: 0
+          trigger_VFX: {fileID: 0}
+          hit_VFX: {fileID: 0}

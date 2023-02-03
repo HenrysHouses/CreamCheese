@@ -10,15 +10,16 @@ using UnityEngine;
 using FMODUnity;
 
 
-
-public class NonGod_Behaviour : Card_Behaviour
+public class ActionCard_Behaviour : Card_Behaviour
 {
-    protected new NonGod_Card_SO card_so;
-
+    protected new ActionCard_ScriptableObject card_so;
+    public Transform RootTransform;
     CardType cardType;
     [SerializeField]
     EventReference SoundClick;
     BoardElement target;
+    List<BoardElement> SelectedTargets = new List<BoardElement>();
+    public BoardElement[] AllTargets => SelectedTargets.ToArray();
     Coroutine onSelectedRoutine;
     Coroutine actionRoutine;
     bool hasClickedTarget = false;
@@ -30,7 +31,7 @@ public class NonGod_Behaviour : Card_Behaviour
     ActionGroup _godBuffActions {get => stats.godBuffActions; set{stats.godBuffActions = value;}}
 
     public CardType GetCardType => cardType;
-    public new NonGod_Card_SO CardSO => card_so;
+    public new ActionCard_ScriptableObject CardSO => card_so;
 
     private IEnumerator SelectingTargets()
     {
@@ -45,7 +46,7 @@ public class NonGod_Behaviour : Card_Behaviour
             missedClick = false;
             yield return new WaitUntil(() => hasClickedTarget);
             
-            stats.Targets.Add(target);
+            SelectedTargets.Add(target);
             // foreach (var _thisAction in _actionGroup.actions)
             // {
             //     _thisAction.AddTarget(target);
@@ -86,10 +87,17 @@ public class NonGod_Behaviour : Card_Behaviour
         missedClick = true;
         CancelSelection();
     }
-    public void Initialize(NonGod_Card_SO card, CardElements elements)
+
+    public void Initialize(ActionCard_ScriptableObject card, CardElements elements)
     {
+        RootTransform = transform.parent;
         this.card_so = card;
-        stats = card.cardStats;
+        stats = card.cardStats.Clone();
+
+        if(card.cardName == "Bifrost")
+        {
+            stats = stats;
+        }
 
         for (int i = 0; i < _actionGroup.actionStats.Count; i++)
         {
@@ -121,6 +129,7 @@ public class NonGod_Behaviour : Card_Behaviour
             stats.strength *= value;
         else
             stats.strength += value;
+        elements.strength.text = stats.strength.ToString();
     }
 
     public void DeBuff(int value, bool isDivided)
@@ -167,12 +176,11 @@ public class NonGod_Behaviour : Card_Behaviour
     }
     protected override IEnumerator Play(BoardStateController board)
     {
-        foreach (var target in stats.Targets)
+        foreach (var target in SelectedTargets)
         {
             foreach (var action in _actionGroup.actions)
             {
                 StartCoroutine(action.OnAction(board, this));
-                Debug.Break();
                 if (action.PlayOnPlacedOrTriggered_SFX)
                 {
                     SoundPlayer.PlaySound(action.action_SFX, gameObject);
@@ -196,25 +204,27 @@ public class NonGod_Behaviour : Card_Behaviour
 
         yield return new WaitForSeconds(0.2f);
 
-        foreach (var target in stats.Targets)
-        {
-            foreach (var action in _actionGroup.actions)
-            {
-                action.Reset(board, this);
-            }
 
-            if(CheckForGod())
-            {
-                foreach (var action in _godBuffActions.actions)
-                {
-                    action.Reset(board, this);
-                }
-            }
-        }
+        // foreach (var action in _actionGroup.actions)
+        // {
+        //     action.Reset(board, this);
+        // }
+
+        // foreach (var action in _godBuffActions.actions)
+        // {
+        //     action.Reset(board, this);
+        // }
+        Reset();
 
         controller.Discard(this);
         Destroy(transform.parent.gameObject);
         TurnController.shouldWaitForAnims = false;
+    }
+
+    private void Reset() {
+        SelectedTargets.Clear();
+        // stats.actionGroup.actions.Clear();    
+        // stats.godBuffActions.actions.Clear();    
     }
 
     internal override void OnClickOnSelected()
@@ -248,7 +258,7 @@ public class NonGod_Behaviour : Card_Behaviour
     }
     protected override void OnPlacedInLane()
     {
-        foreach (var target in stats.Targets)
+        foreach (var target in SelectedTargets)
         {
             foreach (var action in _actionGroup.actions)
             {
@@ -291,7 +301,7 @@ public class NonGod_Behaviour : Card_Behaviour
 
         StopAllCoroutines();
 
-        foreach (var target in stats.Targets)
+        foreach (var target in SelectedTargets)
         {
             foreach (var action in _actionGroup.actions)
             {

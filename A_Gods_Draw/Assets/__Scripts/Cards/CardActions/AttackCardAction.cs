@@ -2,17 +2,15 @@
 using System.Collections;
 using UnityEngine;
 
+[System.Serializable]
 public class AttackCardAction : CardAction
 {
-
-    //Onlane placed check for buff and buff cards when force of will placed
-
-    public override IEnumerator OnAction(BoardStateController board, NonGod_Behaviour source)
+    public override IEnumerator OnAction(BoardStateController board, ActionCard_Behaviour source)
     {
         isReady = false;
 
         yield return new WaitForSeconds(0.2f);
-        foreach (IMonster target in source.stats.Targets)
+        foreach (IMonster target in source.AllTargets)
         {
             if (target)
             {
@@ -24,15 +22,15 @@ public class AttackCardAction : CardAction
             }
         }
 
-        source.stats.Targets.Clear();
+        // source.stats.Targets.Clear();
 
         isReady = true;
     }
 
-    public override void OnLanePlaced(BoardStateController _board, NonGod_Behaviour _source)
+    public override void OnLanePlaced(BoardStateController _board, ActionCard_Behaviour _source)
     {
         
-        foreach(NonGod_Behaviour _card in _board.placedCards)
+        foreach(ActionCard_Behaviour _card in _board.placedCards)
         {
 
             foreach(CardActionData _action in _card.stats.actionGroup.actionStats)

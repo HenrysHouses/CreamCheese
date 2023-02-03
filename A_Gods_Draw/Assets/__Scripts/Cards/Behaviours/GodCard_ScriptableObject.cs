@@ -10,7 +10,7 @@ using System;
 /// ScriptableObject containing data only necessary for god cards
 /// </summary>
 [CreateAssetMenu(menuName = "ScriptableObjects/God card"), System.Serializable]
-public class God_Card_SO : Card_SO
+public class GodCard_ScriptableObject : Card_SO
 {
     public int strength;
     public int health;

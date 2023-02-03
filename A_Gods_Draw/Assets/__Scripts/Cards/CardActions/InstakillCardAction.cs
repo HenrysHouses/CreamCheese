@@ -2,13 +2,14 @@
 using System.Collections;
 using UnityEngine;
 
+[System.Serializable]
 public class InstakillCardAction : CardAction
 {
-    public override IEnumerator OnAction(BoardStateController board, NonGod_Behaviour source)
+    public override IEnumerator OnAction(BoardStateController board, ActionCard_Behaviour source)
     {
         isReady = false;
 
-        foreach (var enemy in source.stats.Targets)
+        foreach (var enemy in source.AllTargets)
         {
             if (Random.Range(1, 10) <= source.stats.strength)
             {

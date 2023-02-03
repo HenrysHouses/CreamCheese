@@ -21,11 +21,25 @@ MonoBehaviour:
     crossing it.
   effect: Buff target card for X
   cardStats:
+    TargetingView: 0
     strength: 3
     numberOfTargets: 1
     actionGroup:
-      actionStats: []
+      actionStats:
+      - actionEnum: 2
+        action_SFX:
+          Guid:
+            Data1: 0
+            Data2: 0
+            Data3: 0
+            Data4: 0
+          Path: 
+        _VFX:
+          FollowPath: 0
+          isAnimating: 0
+          PathSpeed: 0
+          trigger_VFX: {fileID: 0}
+          hit_VFX: {fileID: 0}
     correspondingGod: 0
     godBuffActions:
       actionStats: []
-    Targets: []

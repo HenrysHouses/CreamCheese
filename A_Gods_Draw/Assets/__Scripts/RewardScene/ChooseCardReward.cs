@@ -67,16 +67,16 @@ public class ChooseCardReward : MonoBehaviour
                 searchResult = CardSearch.Search<Card_SO>();
                 break;
             case NodeType.AttackReward:
-                searchResult = CardSearch.Search<NonGod_Card_SO>(new string[] { CardType.Attack.ToString() });
+                searchResult = CardSearch.Search<ActionCard_ScriptableObject>(new string[] { CardType.Attack.ToString() });
                 break;
             case NodeType.DefenceReward:
-                searchResult = CardSearch.Search<NonGod_Card_SO>(new string[] { CardType.Defence.ToString() });
+                searchResult = CardSearch.Search<ActionCard_ScriptableObject>(new string[] { CardType.Defence.ToString() });
                 break;
             case NodeType.BuffReward:
-                searchResult = CardSearch.Search<NonGod_Card_SO>(new string[] { CardType.Buff.ToString() });
+                searchResult = CardSearch.Search<ActionCard_ScriptableObject>(new string[] { CardType.Buff.ToString() });
                 break;
             case NodeType.GodReward:
-                searchResult = CardSearch.Search<NonGod_Card_SO>(new string[] { "Tyr" });
+                searchResult = CardSearch.Search<ActionCard_ScriptableObject>(new string[] { "Tyr" });
                 break;
                 
         }

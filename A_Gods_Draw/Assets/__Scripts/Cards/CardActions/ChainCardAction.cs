@@ -2,9 +2,10 @@
 using System.Collections;
 using UnityEngine;
 
+[System.Serializable]
 public class ChainCardAction : CardAction
 {
-    public override IEnumerator OnAction(BoardStateController board, NonGod_Behaviour source)
+    public override IEnumerator OnAction(BoardStateController board, ActionCard_Behaviour source)
     {
         isReady = false;
         //StartAnimations...
@@ -12,7 +13,7 @@ public class ChainCardAction : CardAction
         //yield return new WaitUntil(() => true);
         yield return new WaitForSeconds(0.1f);
 
-        foreach (IMonster monster in source.stats.Targets)
+        foreach (IMonster monster in source.AllTargets)
         {
             if (monster)
             {
@@ -39,7 +40,7 @@ public class ChainCardAction : CardAction
             }
         }
 
-        source.stats.Targets.Clear();
+        // source.stats.Targets.Clear();
 
         isReady = true;
     }

@@ -3,11 +3,12 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
+[System.Serializable]
 public class SplashDMGCardAction : CardAction
 {
     List<Vector3> splashCenter = new();
 
-    public override IEnumerator OnAction(BoardStateController board, NonGod_Behaviour source)
+    public override IEnumerator OnAction(BoardStateController board, ActionCard_Behaviour source)
     {
         isReady = false;
         //StartAnimations...
@@ -21,10 +22,10 @@ public class SplashDMGCardAction : CardAction
             foreach (RaycastHit allinside in enemies)
             {
                 IMonster monster = allinside.collider.GetComponent<IMonster>();
-                if (monster && monster != source.stats.Targets[i])
+                if (monster && monster != source.AllTargets[i])
                 {
                     // Playing VFX
-                    board.StartCoroutine(playTriggerVFX(source.stats.Targets[i].gameObject, null, new Vector3(0, 1 ,0)));
+                    board.StartCoroutine(playTriggerVFX(source.AllTargets[i].gameObject, null, new Vector3(0, 1 ,0)));
                     monster.DealDamage((int)((source.stats.strength / 2f) + 0.6f));
                 }
             }
@@ -32,7 +33,7 @@ public class SplashDMGCardAction : CardAction
 
         yield return new WaitUntil(() => !_VFX.isAnimating);
 
-        source.stats.Targets.Clear();
+        // source.stats.Targets.Clear();
         splashCenter.Clear();
 
         isReady = true;
@@ -40,11 +41,11 @@ public class SplashDMGCardAction : CardAction
 
    public override void Reset(BoardStateController board, Card_Behaviour Source)
     {
-        NonGod_Behaviour card = Source as NonGod_Behaviour;
-        card.stats.Targets.Clear();
+        ActionCard_Behaviour card = Source as ActionCard_Behaviour;
+        // card.stats.Targets.Clear();
         splashCenter.Clear();
         isReady = false;
-        board.SetClickable(3, false);
+        // board.SetClickable(3, false);
     }
 
     // internal override void AddTarget(BoardElement target)

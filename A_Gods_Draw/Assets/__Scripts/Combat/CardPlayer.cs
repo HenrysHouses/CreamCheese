@@ -54,7 +54,7 @@ public class CardPlayer : MonoBehaviour
             _selectedCard = null;
         }
         // highlight feedback
-        if (_selectedCard is NonGod_Behaviour card)
+        if (_selectedCard is ActionCard_Behaviour card)
         {
             switch (card.GetCardType)
             {
@@ -93,7 +93,7 @@ public class CardPlayer : MonoBehaviour
                 SelectedCardT = 0;
                 _currSelectedCard = _selectedCard.GetComponentInParent<Card_Selector>();
 
-                NonGod_Behaviour _card = _selectedCard as NonGod_Behaviour;
+                ActionCard_Behaviour _card = _selectedCard as ActionCard_Behaviour;
                 if(_card is null)
                     return;
 
@@ -141,7 +141,7 @@ public class CardPlayer : MonoBehaviour
             _selectedCard.transform.position = OP.pos;
             SelectedCardT = Mathf.Clamp01(SelectedCardT - Time.deltaTime * cardSelectSpeed);
 
-            if(_selectedCard is not NonGod_Behaviour _card || !_card.GetCardType.Equals(CardType.Buff))
+            if(_selectedCard is not ActionCard_Behaviour _card || !_card.GetCardType.Equals(CardType.Buff))
                     return;
 
             Vector3 rot = _selectedCard.transform.eulerAngles;
@@ -171,7 +171,7 @@ public class CardPlayer : MonoBehaviour
                 localPos.z += 0.1f;
                 targetOrigin.transform.localPosition = localPos;
 
-                if(_selectedCard is not NonGod_Behaviour _card || !_card.GetCardType.Equals(CardType.Buff))
+                if(_selectedCard is not ActionCard_Behaviour _card || !_card.GetCardType.Equals(CardType.Buff))
                         return;
 
                 Vector3 rot = _selectedCard.transform.eulerAngles;
@@ -211,7 +211,7 @@ public class CardPlayer : MonoBehaviour
     }
 
     // Waits for the player to select targets and instantiates new targeting meshes
-    IEnumerator SpawnSelectionsForTargeting(NonGod_Behaviour Card)
+    IEnumerator SpawnSelectionsForTargeting(ActionCard_Behaviour Card)
     {
         instantiateTargetingMesh(Card.transform);
 
@@ -219,11 +219,11 @@ public class CardPlayer : MonoBehaviour
         {
             int lastTargetIndex = 0;
             
-            while(Card.stats.Targets.Count < Card.stats.numberOfTargets)
+            while(Card.AllTargets.Length < Card.stats.numberOfTargets)
             {
-                if(lastTargetIndex < Card.stats.Targets.Count)
+                if(lastTargetIndex < Card.AllTargets.Length)
                 {
-                    getCurrSelectionMesh().GetChild(0).position = Card.stats.Targets[lastTargetIndex].transform.position;
+                    getCurrSelectionMesh().GetChild(0).position = Card.AllTargets[lastTargetIndex].transform.position;
                     instantiateTargetingMesh(Card.transform);
 
                     lastTargetIndex++;
@@ -351,7 +351,7 @@ public class CardPlayer : MonoBehaviour
     void placeCard(Card_Behaviour behaviour)
     {
         Card_Loader loader = behaviour.GetComponent<Card_Loader>();
-        God_Behaviour _God = behaviour as God_Behaviour;
+        GodCard_Behaviour _God = behaviour as GodCard_Behaviour;
 
         if (_God is null)
         {

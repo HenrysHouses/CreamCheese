@@ -4,9 +4,10 @@ using System.Collections.Generic;
 using UnityEngine;
 using FMODUnity;
 
+[System.Serializable]
 public abstract class CardAction : Action
 {
-    protected NonGod_Behaviour currentCard;
+    protected ActionCard_Behaviour currentCard;
     protected int neededLanes = 1;
     public EventReference action_SFX;
     public bool PlayOnPlacedOrTriggered_SFX;
@@ -19,24 +20,24 @@ public abstract class CardAction : Action
     //     board.SetClickable(3, to);
     // }
 
-    public void SetBehaviour(NonGod_Behaviour beh)
+    public void SetBehaviour(ActionCard_Behaviour beh)
     {
         currentCard = beh;
         UpdateNeededLanes(beh);
     }
 
-    protected virtual void UpdateNeededLanes(NonGod_Behaviour source)
+    protected virtual void UpdateNeededLanes(ActionCard_Behaviour source)
     {
     }
 
     public override void Execute(BoardStateController board, int strengh, UnityEngine.Object source) { }
 
-    public virtual void OnLanePlaced(BoardStateController board, NonGod_Behaviour source)
+    public virtual void OnLanePlaced(BoardStateController board, ActionCard_Behaviour source)
     {
 
     }
 
-    public abstract IEnumerator OnAction(BoardStateController board, NonGod_Behaviour source);
+    public abstract IEnumerator OnAction(BoardStateController board, ActionCard_Behaviour source);
 
     public virtual void OnPlay(BoardStateController board) { }
 
@@ -51,9 +52,9 @@ public abstract class CardAction : Action
         // Debug.Log(cardStats.Targets);
         // cardStats.Targets.Clear();
         isReady = false;
-        board.SetClickable(3, false);
+        // board.SetClickable(3, false);
     }
-    public virtual void OnActionReady(BoardStateController board, NonGod_Behaviour source) { }
+    public virtual void OnActionReady(BoardStateController board, ActionCard_Behaviour source) { }
 
     // internal virtual void AddTarget(BoardElement target)
     // {

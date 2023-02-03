@@ -7,7 +7,8 @@
 using System.Collections.Generic;
 using UnityEngine;
 using FMODUnity;
-
+using System.IO;
+using System.Runtime.Serialization.Formatters.Binary;
 /// <summary>
 /// Data that each card action will need
 /// </summary>
@@ -50,7 +51,14 @@ public class ActionGroup
     internal void Add(CardAction act)
     {
         actions.Add(act);
-        Debug.Log("added " + act + "to a new card: " + actions.Count);
+        Debug.Log("added " + act + " to a new card: " + actions.Count);
+    }
+
+    public ActionGroup Clone()
+    {
+        ActionGroup clone = new ActionGroup();
+        clone.actionStats = this.actionStats;
+        return clone;
     }
 }
 
@@ -63,14 +71,23 @@ public class CardStats
     public ActionGroup actionGroup;
     public GodActionEnum correspondingGod;
     public ActionGroup godBuffActions;
-    [HideInInspector] public List<BoardElement> Targets = new List<BoardElement>();
+
+    public CardStats Clone()
+    {
+        CardStats clone = new CardStats();
+        clone.strength = this.strength;
+        clone.numberOfTargets = this.numberOfTargets;
+        clone.actionGroup = this.actionGroup.Clone();
+        clone.godBuffActions = this.godBuffActions.Clone();
+        return clone;
+    }
 }
 
 /// <summary>
 /// ScriptableObject containing data only necessary for non-god cards
 /// </summary>
 [CreateAssetMenu(menuName = "ScriptableObjects/Non-God card"), System.Serializable]
-public class NonGod_Card_SO : Card_SO
+public class ActionCard_ScriptableObject : Card_SO
 {
     public CardStats cardStats;
 
@@ -79,8 +96,6 @@ public class NonGod_Card_SO : Card_SO
     /// </summary>
     private void OnValidate()
     {
-        cardStats.Targets.Clear();
-
         // cardStrenghIndex = 0;
         // if (_glyphs.numberOfTargets == 0)
         //     return;

@@ -1,6 +1,7 @@
 // Written by Javier Villegas
 using UnityEngine;
 
+[System.Serializable]
 public class TyrActions : GodCardAction
 {
     public override void Execute(BoardStateController board, int strength, UnityEngine.Object source) { }

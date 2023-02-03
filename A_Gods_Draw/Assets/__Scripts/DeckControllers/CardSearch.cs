@@ -41,7 +41,7 @@ public static class CardSearch
                         break;
                     }
                     
-                    NonGod_Card_SO card = allResults[j] as NonGod_Card_SO;
+                    ActionCard_ScriptableObject card = allResults[j] as ActionCard_ScriptableObject;
 
                     if(card)
                     {

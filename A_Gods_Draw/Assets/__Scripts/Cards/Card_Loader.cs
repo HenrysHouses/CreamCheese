@@ -124,9 +124,9 @@ public class Card_Loader : MonoBehaviour
         // elements.desc.text = card_so.effect;
         // elements.desc.ForceMeshUpdate();
 
-        if (card_so is God_Card_SO)
+        if (card_so is GodCard_ScriptableObject)
         {
-            God_Card_SO god_card = card_so as God_Card_SO;
+            GodCard_ScriptableObject god_card = card_so as GodCard_ScriptableObject;
             elements.strength.text = god_card.health.ToString();
 
             //  Gold color
@@ -139,13 +139,13 @@ public class Card_Loader : MonoBehaviour
             
             if (addComponentAutomatically)
             {
-                CB = gameObject.AddComponent<God_Behaviour>();
-                (CB as God_Behaviour).Initialize(god_card, elements);
+                CB = gameObject.AddComponent<GodCard_Behaviour>();
+                (CB as GodCard_Behaviour).Initialize(god_card, elements);
             }
         }
         else
         {
-            NonGod_Card_SO nonGod = card_so as NonGod_Card_SO;
+            ActionCard_ScriptableObject nonGod = card_so as ActionCard_ScriptableObject;
 
             elements.strength.text = nonGod.cardStats.strength.ToString();
 
@@ -154,8 +154,8 @@ public class Card_Loader : MonoBehaviour
 
             if(addComponentAutomatically)
             {
-                CB = gameObject.AddComponent<NonGod_Behaviour>();
-                (CB as NonGod_Behaviour).Initialize(nonGod, elements);
+                CB = gameObject.AddComponent<ActionCard_Behaviour>();
+                (CB as ActionCard_Behaviour).Initialize(nonGod, elements);
             }
         }
 

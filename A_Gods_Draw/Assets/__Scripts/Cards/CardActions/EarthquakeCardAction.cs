@@ -5,7 +5,7 @@ using UnityEngine;
 public class EarthquakeCardAction : CardAction
 {
 
-    public override IEnumerator OnAction(BoardStateController _board, NonGod_Behaviour _source)
+    public override IEnumerator OnAction(BoardStateController _board, ActionCard_Behaviour _source)
     {
 
         isReady = false;

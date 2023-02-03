@@ -23,12 +23,12 @@ public class BoardStateController : MonoBehaviour
     public IMonster[] Enemies => _Enemies;
     public Transform getLane(int i) => _Lane[i];
     public Transform getGodLane() => _GodLane;
-    [HideInInspector] public List<NonGod_Behaviour> placedCards;
-    [HideInInspector] public List<NonGod_Behaviour> allPlayedCards;
+    [HideInInspector] public List<ActionCard_Behaviour> placedCards;
+    [HideInInspector] public List<ActionCard_Behaviour> allPlayedCards;
     public bool isGodPlayed => playedGodCard;
-    [HideInInspector] public God_Behaviour playedGodCard;
+    [HideInInspector] public GodCard_Behaviour playedGodCard;
     [HideInInspector] public List<BoardElement> thingsInLane;
-    public NonGod_Behaviour getCardInLane(int i) => placedCards[i];
+    public ActionCard_Behaviour getCardInLane(int i) => placedCards[i];
 
     public bool isEnemyDefeated
     {
@@ -62,33 +62,33 @@ public class BoardStateController : MonoBehaviour
     /// 2: player
     /// 3: enemies
     /// </param>
-    public void SetClickable(int whatToSet, bool clickable = true)
-    {
-        switch (whatToSet)
-        {
-            case 0:
-                foreach (NonGod_Behaviour card in placedCards)
-                {
-                    card.clickable = clickable;
-                }
-                break;
-            case 1:
-                if (playedGodCard)
-                    playedGodCard.clickable = clickable;
-                break;
-            case 2:
+    // public void SetClickable(int whatToSet, bool clickable = true)
+    // {
+    //     switch (whatToSet)
+    //     {
+    //         case 0:
+    //             foreach (NonGod_Behaviour card in placedCards)
+    //             {
+    //                 card.clickable = clickable;
+    //             }
+    //             break;
+    //         case 1:
+    //             if (playedGodCard)
+    //                 playedGodCard.clickable = clickable;
+    //             break;
+    //         case 2:
 
-                break;
-            case 3:
-                foreach (IMonster ene in getLivingEnemies())
-                {
-                    ene.clickable = clickable;
-                }
-                break;
-            default:
-                break;
-        }
-    }
+    //             break;
+    //         case 3:
+    //             foreach (IMonster ene in getLivingEnemies())
+    //             {
+    //                 ene.clickable = clickable;
+    //             }
+    //             break;
+    //         default:
+    //             break;
+    //     }
+    // }
 
     /// <summary>Spawns an encounter of difficulty set by the GameManager</summary>
     public void spawnEncounter()
@@ -147,7 +147,7 @@ public class BoardStateController : MonoBehaviour
         thingsInLane.Add(thing);
     }
 
-    public void PlayCard(NonGod_Behaviour card)
+    public void PlayCard(ActionCard_Behaviour card)
     {
         allPlayedCards.Add(card);
     }
@@ -156,7 +156,7 @@ public class BoardStateController : MonoBehaviour
     {
         Transform targetlane = null;
 
-        if (card is God_Behaviour)
+        if (card is GodCard_Behaviour)
         {
             targetlane = _GodLane;
 
@@ -172,7 +172,7 @@ public class BoardStateController : MonoBehaviour
         if (_GodLane.Equals(targetlane)) // Move card to the godlane
         {
 
-            playedGodCard = card as God_Behaviour;
+            playedGodCard = card as GodCard_Behaviour;
             SoundPlayer.PlaySound(playedGodCard.CardSO.enterBattlefield_SFX, gameObject);
 
 
@@ -200,7 +200,7 @@ public class BoardStateController : MonoBehaviour
             {
                 // Debug.Log(i);
 
-                NonGod_Behaviour behaviour = card as NonGod_Behaviour;
+                ActionCard_Behaviour behaviour = card as ActionCard_Behaviour;
 
                 placedCards.Add(behaviour);
                 thingsInLane.Add(behaviour);
@@ -219,9 +219,9 @@ public class BoardStateController : MonoBehaviour
 
                 for (int j = 0; j < behaviour.stats.numberOfTargets; j++) // should run this for each targetable action
                 {
-                    for (int k = 0; k < behaviour.stats.Targets.Count; k++)
+                    for (int k = 0; k < behaviour.AllTargets.Length; k++)
                     {   
-                        if (behaviour.stats.Targets[k] == null)
+                        if (behaviour.AllTargets[k] == null)
                             continue;
 
                         // Targeting instantiation
@@ -239,7 +239,7 @@ public class BoardStateController : MonoBehaviour
                         // Targeting positions
                         ProceduralPathMesh Mesh = spawn.GetComponent<ProceduralPathMesh>();
                         Mesh.startPoint.position = cardTransform.position;                    
-                        Mesh.endPoint.position = behaviour.stats.Targets[k].transform.position;
+                        Mesh.endPoint.position = behaviour.AllTargets[k].transform.position;
                         Mesh.GenerateMesh();
                         Mesh.enabled = false;
                     }
@@ -253,7 +253,7 @@ public class BoardStateController : MonoBehaviour
     {
         thingsInLane.Remove(current);
 
-        NonGod_Behaviour currentCard = current as NonGod_Behaviour;
+        ActionCard_Behaviour currentCard = current as ActionCard_Behaviour;
         if (currentCard)
         {
             placedCards.Remove(currentCard);

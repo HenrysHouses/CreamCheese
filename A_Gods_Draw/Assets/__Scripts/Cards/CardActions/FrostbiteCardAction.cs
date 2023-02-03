@@ -2,14 +2,15 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
+[System.Serializable]
 public class FrostbiteCardAction : CardAction
 {
 
-    public override IEnumerator OnAction(BoardStateController board, NonGod_Behaviour source)
+    public override IEnumerator OnAction(BoardStateController board, ActionCard_Behaviour source)
     {
         isReady = false;
 
-        foreach (IMonster target in source.stats.Targets)
+        foreach (IMonster target in source.AllTargets)
         {
             
             FrostbiteDebuff _frostbite;
@@ -32,7 +33,7 @@ public class FrostbiteCardAction : CardAction
 
         }
         
-        source.stats.Targets.Clear();
+        // source.stats.Targets.Clear();
 
         // Playing VFX for each action
         board.StartCoroutine(playTriggerVFX(source.gameObject, board.Player.transform, new Vector3(0, 1, 0)));

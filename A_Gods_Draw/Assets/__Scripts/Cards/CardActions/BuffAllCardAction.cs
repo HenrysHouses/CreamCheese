@@ -5,7 +5,7 @@ using UnityEngine;
 public class BuffAllCardAction : CardAction
 {
 
-    public override IEnumerator OnAction(BoardStateController _board, NonGod_Behaviour _source)
+    public override IEnumerator OnAction(BoardStateController _board, ActionCard_Behaviour _source)
     {
         
         isReady = false;
@@ -16,10 +16,10 @@ public class BuffAllCardAction : CardAction
 
     }
 
-    public override void OnLanePlaced(BoardStateController _board, NonGod_Behaviour _source)
+    public override void OnLanePlaced(BoardStateController _board, ActionCard_Behaviour _source)
     {
 
-        foreach(NonGod_Behaviour _card in _board.placedCards)
+        foreach(ActionCard_Behaviour _card in _board.placedCards)
         {
 
             if(_card.GetCardType == CardType.Attack)
