@@ -25,7 +25,10 @@ public enum CardActionEnum
     Draw,
     Weaken,
     Frostbite,
-    Leach
+    Leach,
+    Exhaust,
+    BuffAll
+
 }
 
 /// <summary>

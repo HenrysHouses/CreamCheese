@@ -29,10 +29,25 @@ public class AttackCardAction : CardAction
         isReady = true;
     }
 
-    public override void OnLanePlaced(BoardStateController board, NonGod_Behaviour source)
+    public override void OnLanePlaced(BoardStateController _board, NonGod_Behaviour _source)
     {
         
-        
+        foreach(NonGod_Behaviour _card in _board.placedCards)
+        {
+
+            foreach(CardActionData _action in _card.stats.actionGroup.actionStats)
+            {
+
+                if(_action.actionEnum == CardActionEnum.BuffAll)
+                {
+
+                    currentCard.Buff(_card.stats.strength, false);
+
+                }
+
+            }
+
+        }
 
     }
 
