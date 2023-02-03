@@ -13,45 +13,49 @@ MonoBehaviour:
   m_Name: Defence_Brynie_CardSO
   m_EditorClassIdentifier: 
   type: 1
-  image: {fileID: 21300000, guid: a2b8ff38be96d8d41a1c9a78133bb083, type: 3}
+  Art: {fileID: 0}
+  Background: {fileID: 0}
   cardName: Byrnie
   description: Basic armor of warriors of the Viking Era.
   effect: Blocks for X and draw one next turn
-  cardStrenghIndex: 0
-  targetActions:
-  - numOfTargets: 1
-    targetActions:
-    - actionEnum: 1
-      actionStrength: 2
-      PlayOnPlacedOrTriggered_SFX: 1
-      action_SFX:
-        Guid:
-          Data1: -1202444277
-          Data2: 1082531919
-          Data3: -43431291
-          Data4: -1906492248
-        Path: event:/Card Effects/CardShield
-      _VFX:
-        FollowPath: 1
-        isAnimating: 0
-        PathSpeed: 1
-        trigger_VFX: {fileID: 0}
-        hit_VFX: {fileID: 0}
-    - actionEnum: 8
-      actionStrength: 1
-      PlayOnPlacedOrTriggered_SFX: 0
-      action_SFX:
-        Guid:
-          Data1: 0
-          Data2: 0
-          Data3: 0
-          Data4: 0
-        Path: 
-      _VFX:
-        FollowPath: 1
-        isAnimating: 0
-        PathSpeed: 1
-        trigger_VFX: {fileID: 0}
-        hit_VFX: {fileID: 0}
-  onGodBuff: []
-  correspondingGod: 0
+  cardStats:
+    strength: 2
+    numberOfTargets: 1
+    actionGroup:
+      actionStats:
+      - actionEnum: 1
+        action_SFX:
+          Guid:
+            Data1: 0
+            Data2: 0
+            Data3: 0
+            Data4: 0
+          Path: 
+        _VFX:
+          FollowPath: 0
+          isAnimating: 0
+          PathSpeed: 0
+          trigger_VFX: {fileID: 0}
+          hit_VFX: {fileID: 0}
+      - actionEnum: 10
+        action_SFX:
+          Guid:
+            Data1: 0
+            Data2: 0
+            Data3: 0
+            Data4: 0
+          Path: 
+        _VFX:
+          FollowPath: 0
+          isAnimating: 0
+          PathSpeed: 0
+          trigger_VFX: {fileID: 0}
+          hit_VFX: {fileID: 0}
+    correspondingGod: 0
+    godBuffActions:
+      actionStats: []
+    Targets:
+    - {fileID: 0}
+    - {fileID: 0}
+    - {fileID: 0}
+    - {fileID: 0}

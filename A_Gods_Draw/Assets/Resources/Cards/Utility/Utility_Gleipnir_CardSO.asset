@@ -22,42 +22,40 @@ MonoBehaviour:
 
 
     2 if Tyr is in play'
-  Icons: 04000000
-  cardStrenghIndex: 0
-  targetActions:
-  - targetActions:
-    - actionEnum: 4
-      actionStrength: 1
-      PlayOnPlacedOrTriggered_SFX: 0
-      action_SFX:
-        Guid:
-          Data1: 0
-          Data2: 0
-          Data3: 0
-          Data4: 0
-        Path: 
-      _VFX:
-        FollowPath: 1
-        isAnimating: 0
-        PathSpeed: 1
-        trigger_VFX: {fileID: 0}
-        hit_VFX: {fileID: 0}
-  onGodBuff:
-  - targetActions:
-    - actionEnum: 4
-      actionStrength: 1
-      PlayOnPlacedOrTriggered_SFX: 0
-      action_SFX:
-        Guid:
-          Data1: 0
-          Data2: 0
-          Data3: 0
-          Data4: 0
-        Path: 
-      _VFX:
-        FollowPath: 1
-        isAnimating: 0
-        PathSpeed: 1
-        trigger_VFX: {fileID: 0}
-        hit_VFX: {fileID: 0}
-  correspondingGod: 1
+  cardStats:
+    strength: 1
+    numberOfTargets: 1
+    actionGroup:
+      actionStats:
+      - actionEnum: 4
+        action_SFX:
+          Guid:
+            Data1: 0
+            Data2: 0
+            Data3: 0
+            Data4: 0
+          Path: 
+        _VFX:
+          FollowPath: 0
+          isAnimating: 0
+          PathSpeed: 0
+          trigger_VFX: {fileID: 0}
+          hit_VFX: {fileID: 0}
+    correspondingGod: 1
+    godBuffActions:
+      actionStats:
+      - actionEnum: 4
+        action_SFX:
+          Guid:
+            Data1: 0
+            Data2: 0
+            Data3: 0
+            Data4: 0
+          Path: 
+        _VFX:
+          FollowPath: 0
+          isAnimating: 0
+          PathSpeed: 0
+          trigger_VFX: {fileID: 0}
+          hit_VFX: {fileID: 0}
+    Targets: []

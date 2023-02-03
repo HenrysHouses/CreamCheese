@@ -9,31 +9,20 @@ public class AttackCardAction : CardAction
         isReady = false;
 
         yield return new WaitForSeconds(0.2f);
-        foreach (IMonster target in cardStats.Targets)
+        foreach (IMonster target in source.stats.Targets)
         {
             if (target)
             {
                 // Playing VFX for each action
                 board.StartCoroutine(playTriggerVFX(source.gameObject, target));
                 yield return new WaitUntil(() => !_VFX.isAnimating);
-                target.DealDamage(cardStats.strength);
+                target.DealDamage(source.stats.strength);
                 yield return new WaitForSeconds(0.1f);
             }
         }
 
-        cardStats.Targets.Clear();
+        source.stats.Targets.Clear();
 
         isReady = true;
     }
-
-    public override void ResetCamera()
-    {
-        camAnim.SetBool("EnemyCloseUp", false);
-    }
-    public override void SetCamera()
-    {
-        camAnim.SetBool("EnemyCloseUp", true);
-    }
-
-
 }

@@ -10,6 +10,7 @@ using HH.MultiSceneTools;
 
 public class CameraMovement : MonoBehaviour
 {
+    public static CameraMovement instance;
     //  [SerializeField] EventReference MainCave_AMBX;
     private Animator anim;
     // private TurnManager TM;
@@ -21,17 +22,14 @@ public class CameraMovement : MonoBehaviour
     void Start()
     {
         anim = GetComponent<Animator>();
+
+        if(instance)
+            Destroy(gameObject);
+        else
+            instance = this;
     }
 
-    void SelectCardCamera()
-    {
-        anim.SetBool("EnemyCloseUp", true);
-        anim.SetBool("Down", true);
-        anim.SetBool("Right", true);
-        anim.SetBool("Up", true);
-        anim.SetBool("Left", true);
-        anim.Play("EnemyCloseup");
-    }
+
 
 
     // Update is called once per frame
@@ -150,9 +148,11 @@ public class CameraMovement : MonoBehaviour
         }
     }
 
-    void ResetView()
+    public void ResetView()
     {
         anim.SetBool("EnemyCloseUp", false);
+        anim.SetBool("CardCloseUp", false);
+        anim.SetBool("MapCamera", false);
         anim.SetBool("Down", false);
         anim.SetBool("Right", false);
         anim.SetBool("Up", false);
@@ -163,6 +163,8 @@ public class CameraMovement : MonoBehaviour
     public void LookRight()
     {
         anim.SetBool("EnemyCloseUp", false);
+        anim.SetBool("CardCloseUp", false);
+        anim.SetBool("MapCamera", false);
         anim.SetBool("Down", false);
         anim.SetBool("Right", true);
         anim.SetBool("Up", false);
@@ -173,6 +175,8 @@ public class CameraMovement : MonoBehaviour
     public void LookLeft()
     {
         anim.SetBool("EnemyCloseUp", false);
+        anim.SetBool("CardCloseUp", false);
+        anim.SetBool("MapCamera", false);
         anim.SetBool("Down", false);
         anim.SetBool("Right", false);
         anim.SetBool("Up", false);
@@ -183,6 +187,8 @@ public class CameraMovement : MonoBehaviour
     public void LookDown()
     {
         anim.SetBool("EnemyCloseUp", false);
+        anim.SetBool("CardCloseUp", false);
+        anim.SetBool("MapCamera", false);
         anim.SetBool("Down", true);
         anim.SetBool("Right", false);
         anim.SetBool("Up", false);
@@ -193,10 +199,89 @@ public class CameraMovement : MonoBehaviour
     public void LookUp()
     {
         anim.SetBool("EnemyCloseUp", false);
+        anim.SetBool("CardCloseUp", false);
+        anim.SetBool("MapCamera", false);
         anim.SetBool("Down", false);
         anim.SetBool("Right", false);
         anim.SetBool("Up", true);
         anim.SetBool("Left", false);
         SoundPlayer.PlaySound(cameraSound, gameObject);
     }
+
+    void LookAtEnemies()
+    {
+        anim.SetBool("EnemyCloseUp", true);
+        anim.SetBool("CardCloseUp", false);
+        anim.SetBool("MapCamera", false);
+        anim.SetBool("Down", false);
+        anim.SetBool("Right", false);
+        anim.SetBool("Up", false);
+        anim.SetBool("Left", false);
+    }
+
+    void LookAtCards()
+    {
+        anim.SetBool("EnemyCloseUp", false);
+        anim.SetBool("CardCloseUp", true);
+        anim.SetBool("MapCamera", false);
+        anim.SetBool("Down", false);
+        anim.SetBool("Right", false);
+        anim.SetBool("Up", false);
+        anim.SetBool("Left", false);
+    }
+
+    void LookAtMap()
+    {
+        anim.SetBool("EnemyCloseUp", false);
+        anim.SetBool("CardCloseUp", false);
+        anim.SetBool("MapCamera", true);
+        anim.SetBool("Down", false);
+        anim.SetBool("Right", false);
+        anim.SetBool("Up", false);
+        anim.SetBool("Left", false);
+    }
+
+    public void SetCameraView(CameraView view)
+    {
+        switch(view)
+        {
+            case CameraView.Reset:
+                ResetView();
+                break;
+            case CameraView.Right:
+                LookRight();
+                break;
+            case CameraView.Left:
+                LookLeft();
+                break;
+            case CameraView.Down:
+                LookDown();
+                break;
+            case CameraView.Up:
+                LookUp();
+                break;
+            case CameraView.EnemyCloseUp:
+                LookAtEnemies();
+                break;
+            case CameraView.CardCloseUp:
+                LookAtCards();
+                break;
+            case CameraView.Map:
+                LookAtMap();
+                break;
+        }
+    }
+}
+
+public enum CameraView
+{
+    None,
+    Reset,
+    Right,
+    Left,
+    Down,
+    Up,
+    EnemyCloseUp,
+    CardCloseUp,
+    Map
 }

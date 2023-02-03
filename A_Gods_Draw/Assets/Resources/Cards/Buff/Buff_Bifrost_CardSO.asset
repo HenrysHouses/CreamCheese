@@ -20,25 +20,12 @@ MonoBehaviour:
     The red color in it is said to be literal fire, and it keeps the Jotnar from
     crossing it.
   effect: Buff target card for X
-  cardStrenghIndex: 0
-  targetActions:
-  - numOfTargets: 1
-    targetActions:
-    - actionEnum: 2
-      actionStrength: 3
-      PlayOnPlacedOrTriggered_SFX: 0
-      action_SFX:
-        Guid:
-          Data1: -986278551
-          Data2: 1246205654
-          Data3: 1273093782
-          Data4: -1925434271
-        Path: event:/Card Effects/CionDrop
-      _VFX:
-        FollowPath: 1
-        isAnimating: 0
-        PathSpeed: 1
-        trigger_VFX: {fileID: 0}
-        hit_VFX: {fileID: 0}
-  onGodBuff: []
-  correspondingGod: 0
+  cardStats:
+    strength: 3
+    numberOfTargets: 1
+    actionGroup:
+      actionStats: []
+    correspondingGod: 0
+    godBuffActions:
+      actionStats: []
+    Targets: []

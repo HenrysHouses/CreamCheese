@@ -8,31 +8,21 @@ public class WeakenCardAction : CardAction
     {
         isReady = false;
 
-        foreach (IMonster target in cardStats.Targets)
+        foreach (IMonster target in source.stats.Targets)
         {
             if (target)
             {
                 // Playing VFX
                 board.StartCoroutine(playTriggerVFX(target.gameObject, null, new Vector3(0, 1 ,0)));
                 yield return new WaitUntil(() => !_VFX.isAnimating);
-                target.Weaken(cardStats.strength);
+                target.Weaken(source.stats.strength);
             }
         }
 
         yield return new WaitForSeconds(0.3f);
 
-        cardStats.Targets.Clear();
+        source.stats.Targets.Clear();
 
         isReady = true;
     }
-    public override void ResetCamera()
-    {
-        camAnim.SetBool("EnemyCloseUp", false);
-    }
-    public override void SetCamera()
-    {
-        camAnim.SetBool("EnemyCloseUp", true);
-    }
-
-
 }

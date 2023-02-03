@@ -18,25 +18,26 @@ MonoBehaviour:
   cardName: Eitr
   description: Poison
   effect: Poisons
-  Icons: 09000000
-  cardStrenghIndex: 0
-  targetActions:
-  - targetActions:
-    - actionEnum: 9
-      actionStrength: 2
-      PlayOnPlacedOrTriggered_SFX: 1
-      action_SFX:
-        Guid:
-          Data1: 0
-          Data2: 0
-          Data3: 0
-          Data4: 0
-        Path: 
-      _VFX:
-        FollowPath: 0
-        isAnimating: 0
-        PathSpeed: 0
-        trigger_VFX: {fileID: 0}
-        hit_VFX: {fileID: 0}
-  onGodBuff: []
-  correspondingGod: 0
+  cardStats:
+    strength: 2
+    numberOfTargets: 1
+    actionGroup:
+      actionStats:
+      - actionEnum: 12
+        action_SFX:
+          Guid:
+            Data1: 0
+            Data2: 0
+            Data3: 0
+            Data4: 0
+          Path: 
+        _VFX:
+          FollowPath: 0
+          isAnimating: 0
+          PathSpeed: 0
+          trigger_VFX: {fileID: 0}
+          hit_VFX: {fileID: 0}
+    correspondingGod: 0
+    godBuffActions:
+      actionStats: []
+    Targets: []

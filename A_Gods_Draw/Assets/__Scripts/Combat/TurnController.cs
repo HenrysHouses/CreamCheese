@@ -366,15 +366,13 @@ public class TurnController : CombatFSM
         if (Physics.Raycast(ray, out RaycastHit hit, 10000))
         {
             GameObject clicked = hit.collider.gameObject;
-            Debug.Log(clicked.name);
 
             element = clicked.GetComponent<BoardElement>();
 
             if(!element)
                 return null;
 
-            if (element && element.OnClick())
-                return element;
+            return element;
         }
         return null;
     }

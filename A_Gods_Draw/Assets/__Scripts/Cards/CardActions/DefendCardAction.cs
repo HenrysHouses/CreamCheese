@@ -25,29 +25,22 @@ public class DefendCardAction : CardAction
     {
         isReady = false;
 
-        foreach (IMonster target in cardStats.Targets)
+        foreach (BoardElement target in source.stats.Targets)
         {
-            if (target)
+            IMonster Enemy = target as IMonster;
+
+            if (Enemy)
             {
                 // Playing VFX for each action
-                board.StartCoroutine(playTriggerVFX(source.gameObject, target));
+                board.StartCoroutine(playTriggerVFX(source.gameObject, Enemy));
                 yield return new WaitUntil(() => !_VFX.isAnimating);
-                target.DeBuff(cardStats.strength);
+                Enemy.DeBuff(source.stats.strength);
             }
         }
-        cardStats.Targets.Clear();
+        source.stats.Targets.Clear();
 
         yield return new WaitForSeconds(0.4f);
 
         isReady = true;
-    }
-    
-    public override void ResetCamera()
-    {
-        camAnim.SetBool("EnemyCloseUp", false);
-    }
-    public override void SetCamera()
-    {
-        camAnim.SetBool("EnemyCloseUp", true);
     }
 }

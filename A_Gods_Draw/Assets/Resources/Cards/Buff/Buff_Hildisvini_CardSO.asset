@@ -13,7 +13,8 @@ MonoBehaviour:
   m_Name: Buff_Hildisvini_CardSO
   m_EditorClassIdentifier: 
   type: 2
-  image: {fileID: 21300000, guid: 3dd5c6c5659f7554e88cf6b4d15525b8, type: 3}
+  Art: {fileID: 0}
+  Background: {fileID: 0}
   cardName: Hildisvini
   description: "Freyja\u2018s servant, Ottar, could take the form of a boar, and
     was then named Hildisvini, meaning Battle-Pig. He was big and had golden bristles,
@@ -21,41 +22,40 @@ MonoBehaviour:
   effect: 'Buff target card for X
 
     Draw 1 next turn'
-  cardStrenghIndex: 0
-  targetActions:
-  - numOfTargets: 1
-    targetActions:
-    - actionEnum: 2
-      actionStrength: 2
-      PlayOnPlacedOrTriggered_SFX: 0
-      action_SFX:
-        Guid:
-          Data1: -986278551
-          Data2: 1246205654
-          Data3: 1273093782
-          Data4: -1925434271
-        Path: event:/Card Effects/CionDrop
-      _VFX:
-        FollowPath: 1
-        isAnimating: 0
-        PathSpeed: 1
-        trigger_VFX: {fileID: 0}
-        hit_VFX: {fileID: 0}
-    - actionEnum: 8
-      actionStrength: 1
-      PlayOnPlacedOrTriggered_SFX: 0
-      action_SFX:
-        Guid:
-          Data1: 0
-          Data2: 0
-          Data3: 0
-          Data4: 0
-        Path: 
-      _VFX:
-        FollowPath: 1
-        isAnimating: 0
-        PathSpeed: 1
-        trigger_VFX: {fileID: 0}
-        hit_VFX: {fileID: 0}
-  onGodBuff: []
-  correspondingGod: 0
+  cardStats:
+    strength: 2
+    numberOfTargets: 1
+    actionGroup:
+      actionStats:
+      - actionEnum: 2
+        action_SFX:
+          Guid:
+            Data1: 0
+            Data2: 0
+            Data3: 0
+            Data4: 0
+          Path: 
+        _VFX:
+          FollowPath: 0
+          isAnimating: 0
+          PathSpeed: 0
+          trigger_VFX: {fileID: 0}
+          hit_VFX: {fileID: 0}
+      - actionEnum: 10
+        action_SFX:
+          Guid:
+            Data1: 0
+            Data2: 0
+            Data3: 0
+            Data4: 0
+          Path: 
+        _VFX:
+          FollowPath: 0
+          isAnimating: 0
+          PathSpeed: 0
+          trigger_VFX: {fileID: 0}
+          hit_VFX: {fileID: 0}
+    correspondingGod: 0
+    godBuffActions:
+      actionStats: []
+    Targets: []

@@ -12,7 +12,7 @@ public class ChainCardAction : CardAction
         //yield return new WaitUntil(() => true);
         yield return new WaitForSeconds(0.1f);
 
-        foreach (IMonster monster in cardStats.Targets)
+        foreach (IMonster monster in source.stats.Targets)
         {
             if (monster)
             {
@@ -24,14 +24,14 @@ public class ChainCardAction : CardAction
                 if(monster.gameObject.TryGetComponent<ChainedDebuff>(out _chained))
                 {
 
-                    _chained.Stacks += cardStats.strength;
+                    _chained.Stacks += source.stats.strength;
 
                 }
                 else
                 {
 
                     _chained = monster.gameObject.AddComponent<ChainedDebuff>();
-                    _chained.Stacks = cardStats.strength;
+                    _chained.Stacks = source.stats.strength;
                     _chained.thisMonster = monster;
 
                 }
@@ -39,17 +39,8 @@ public class ChainCardAction : CardAction
             }
         }
 
-        cardStats.Targets.Clear();
+        source.stats.Targets.Clear();
 
         isReady = true;
-    }
-
-    public override void ResetCamera()
-    {
-        camAnim.SetBool("EnemyCloseUp", false);
-    }
-    public override void SetCamera()
-    {
-        camAnim.SetBool("EnemyCloseUp", true);
     }
 }

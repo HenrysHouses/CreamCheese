@@ -8,9 +8,9 @@ public class InstakillCardAction : CardAction
     {
         isReady = false;
 
-        foreach (var enemy in cardStats.Targets)
+        foreach (var enemy in source.stats.Targets)
         {
-            if (Random.Range(1, 10) <= cardStats.strength)
+            if (Random.Range(1, 10) <= source.stats.strength)
             {
                 // Playing VFX
                 board.StartCoroutine(playTriggerVFX(enemy.gameObject, null, new Vector3(0, 1 ,0)));
@@ -19,14 +19,5 @@ public class InstakillCardAction : CardAction
             }
         }
         isReady = true;
-    }
-
-    public override void ResetCamera()
-    {
-        camAnim.SetBool("EnemyCloseUp", false);
-    }
-    public override void SetCamera()
-    {
-        camAnim.SetBool("EnemyCloseUp", true);
     }
 }
