@@ -10,15 +10,15 @@ public class LeachCardAction : CardAction
 
         isReady = false;
 
-        foreach(IMonster _target in cardStats.Targets)
+        foreach(IMonster _target in _source.stats.Targets)
         {
 
-            int _damageDealt = _target.DealDamage(cardStats.strength);
+            int _damageDealt = _target.DealDamage( _source.stats.strength);
             _board.Player.Heal(_damageDealt);
 
         }
 
-        cardStats.Targets.Clear();
+         _source.stats.Targets.Clear();
 
         // Playing VFX for each action
         _board.StartCoroutine(playTriggerVFX(_source.gameObject, _board.Player.transform, new Vector3(0, 1, 0)));
@@ -29,13 +29,5 @@ public class LeachCardAction : CardAction
         isReady = true;
 
     }
-
-    public override void ResetCamera()
-    {}
-
-    public override void SetCamera()
-    {}
-
-
 
 }
