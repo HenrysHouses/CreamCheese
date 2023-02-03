@@ -9,79 +9,7 @@ using UnityEngine;
 using FMODUnity;
 using System.IO;
 using System.Runtime.Serialization.Formatters.Binary;
-/// <summary>
-/// Data that each card action will need
-/// </summary>
-[System.Serializable]
-public struct CardActionData
-{
-    public CardActionEnum actionEnum;
-    public EventReference action_SFX;
-    public ActionVFX _VFX;
-}
 
-
-/// <summary>
-/// Contains an array of actions for a number of targets,
-/// and methods so that it can be treated as an array
-/// </summary>
-// [System.Serializable]
-// public struct ActionsForTarget
-// {
-
-//     public CardActionData this[int key]
-//     {
-//         get => targetActions[key];
-//         set => targetActions[key] = value;
-//     }
-//     public int Count => targetActions.Count;
-// }
-
-[System.Serializable]
-public class ActionGroup
-{
-    public ActionGroup()
-    {
-        actionStats = new List<CardActionData>();
-        actions = new List<CardAction>();
-    }
-    public List<CardActionData> actionStats;
-    public List<CardAction> actions;
-
-    internal void Add(CardAction act)
-    {
-        actions.Add(act);
-        Debug.Log("added " + act + " to a new card: " + actions.Count);
-    }
-
-    public ActionGroup Clone()
-    {
-        ActionGroup clone = new ActionGroup();
-        clone.actionStats = this.actionStats;
-        return clone;
-    }
-}
-
-[System.Serializable]
-public class CardStats
-{
-    public CameraView TargetingView;
-    public int strength;
-    public int numberOfTargets;
-    public ActionGroup actionGroup;
-    public GodActionEnum correspondingGod;
-    public ActionGroup godBuffActions;
-
-    public CardStats Clone()
-    {
-        CardStats clone = new CardStats();
-        clone.strength = this.strength;
-        clone.numberOfTargets = this.numberOfTargets;
-        clone.actionGroup = this.actionGroup.Clone();
-        clone.godBuffActions = this.godBuffActions.Clone();
-        return clone;
-    }
-}
 
 /// <summary>
 /// ScriptableObject containing data only necessary for non-god cards
@@ -149,3 +77,63 @@ public class ActionCard_ScriptableObject : Card_SO
         return allGlyphs.ToArray();
     }
 }
+
+/// <summary>
+/// Data that each card action will need
+/// </summary>
+[System.Serializable]
+public struct CardActionData
+{
+    /// <summary>This is the index of BoardElement in BoardElementClassNames, Check the scriptable object in _ScriptableObjects</summary>
+    public CardSelectionType SelectionTypeIndex;
+    public CardActionEnum actionEnum;
+    public EventReference action_SFX;
+    public ActionVFX _VFX;
+}
+
+[System.Serializable]
+public class ActionGroup
+{
+    public ActionGroup()
+    {
+        actionStats = new List<CardActionData>();
+        actions = new List<CardAction>();
+    }
+    public List<CardActionData> actionStats;
+    public List<CardAction> actions;
+
+    internal void Add(CardAction act)
+    {
+        actions.Add(act);
+        Debug.Log("added " + act + " to a new card: " + actions.Count);
+    }
+
+    public ActionGroup Clone()
+    {
+        ActionGroup clone = new ActionGroup();
+        clone.actionStats = this.actionStats;
+        return clone;
+    }
+}
+
+[System.Serializable]
+public class CardStats
+{
+    public CameraView TargetingView;
+    public int strength;
+    public int numberOfTargets;
+    public ActionGroup actionGroup;
+    public GodActionEnum correspondingGod;
+    public ActionGroup godBuffActions;
+
+    public CardStats Clone()
+    {
+        CardStats clone = new CardStats();
+        clone.strength = this.strength;
+        clone.numberOfTargets = this.numberOfTargets;
+        clone.actionGroup = this.actionGroup.Clone();
+        clone.godBuffActions = this.godBuffActions.Clone();
+        return clone;
+    }
+}
+
