@@ -27,7 +27,8 @@ public enum CardActionEnum
     Frostbite,
     Leach,
     Exhaust,
-    BuffAll
+    BuffAll,
+    Barrier
 
 }
 

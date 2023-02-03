@@ -78,6 +78,12 @@ public abstract class Card_Behaviour : BoardElement
                 return new HealPreventionCardAction();
             case CardActionEnum.Frostbite:
                 return new FrostbiteCardAction();
+            case CardActionEnum.Leach:
+                return new LeachCardAction();
+            case CardActionEnum.BuffAll:
+                return new BuffAllCardAction();
+            case CardActionEnum.Exhaust:
+                return new ExhaustCardAction();
             default:
                 return null;
         }
