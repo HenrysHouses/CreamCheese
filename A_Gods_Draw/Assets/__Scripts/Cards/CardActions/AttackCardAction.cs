@@ -4,6 +4,9 @@ using UnityEngine;
 
 public class AttackCardAction : CardAction
 {
+
+    //Onlane placed check for buff and buff cards when force of will placed
+
     public override IEnumerator OnAction(BoardStateController board, NonGod_Behaviour source)
     {
         isReady = false;
@@ -25,4 +28,12 @@ public class AttackCardAction : CardAction
 
         isReady = true;
     }
+
+    public override void OnLanePlaced(BoardStateController board, NonGod_Behaviour source)
+    {
+        
+        
+
+    }
+
 }
