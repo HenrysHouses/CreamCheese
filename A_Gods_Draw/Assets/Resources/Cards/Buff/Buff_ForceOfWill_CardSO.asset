@@ -12,34 +12,18 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5a3a49401d7d7994699d21f4777abe3d, type: 3}
   m_Name: Buff_ForceOfWill_CardSO
   m_EditorClassIdentifier: 
-  type: 2
+  type: 5
   Art: {fileID: 2800000, guid: 419552a3f736f9c4ab6b69b30bb33bbb, type: 3}
   Background: {fileID: 2800000, guid: 4405501223a59ea48923553bb9318ecc, type: 3}
-  cardName: Bifrost
-  description: The bridge between the Realm of Men and Asgard; Men call it the rainbow.
-    The red color in it is said to be literal fire, and it keeps the Jotnar from
-    crossing it.
-  effect: Buff target card for X
+  cardName: Force Of Will
+  description: Buffies
+  effect: Buff all targets
   cardStats:
     TargetingView: 0
     strength: 3
     numberOfTargets: 1
     actionGroup:
-      actionStats:
-      - actionEnum: 2
-        action_SFX:
-          Guid:
-            Data1: 0
-            Data2: 0
-            Data3: 0
-            Data4: 0
-          Path: 
-        _VFX:
-          FollowPath: 0
-          isAnimating: 0
-          PathSpeed: 0
-          trigger_VFX: {fileID: 0}
-          hit_VFX: {fileID: 0}
+      actionStats: []
     correspondingGod: 0
     godBuffActions:
       actionStats: []
