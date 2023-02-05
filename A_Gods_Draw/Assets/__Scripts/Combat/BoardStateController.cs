@@ -25,6 +25,7 @@ public class BoardStateController : MonoBehaviour
     public Transform getGodLane() => _GodLane;
     [HideInInspector] public List<ActionCard_Behaviour> placedCards;
     [HideInInspector] public List<ActionCard_Behaviour> allPlayedCards;
+    [HideInInspector] public List<Card_SO> ExhaustedCards;
     public bool isGodPlayed => playedGodCard;
     [HideInInspector] public GodCard_Behaviour playedGodCard;
     [HideInInspector] public List<BoardElement> thingsInLane;

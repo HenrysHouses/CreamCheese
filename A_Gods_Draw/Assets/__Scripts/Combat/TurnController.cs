@@ -254,7 +254,7 @@ public class TurnController : CombatFSM
             for (int i = _Hand.CardSelectionAnimators.Count - 1; i >= 0; i--)
             {
                 
-                lastAnim = deckManager.discardCard(_Hand.CardSelectionAnimators[i].cardSO);
+                lastAnim = deckManager.discardCard(_Hand.CardSelectionAnimators[i].cardSO, BoardStateController.ExhaustedCards);
                 
                 lastAnim.OnAnimStartSound.AddListener(CardSound);
 
@@ -306,7 +306,7 @@ public class TurnController : CombatFSM
 
         if (card_b != null)
         {
-            CardPathAnim anim = deckManager.discardCard(card_b.GetComponent<Card_Loader>().GetCardSO);
+            CardPathAnim anim = deckManager.discardCard(card_b.GetComponent<Card_Loader>().GetCardSO, BoardStateController.ExhaustedCards);
 
             // Dialogue discard trigger
             if(BoardStateController.playedGodCard is not null && anim is not null)

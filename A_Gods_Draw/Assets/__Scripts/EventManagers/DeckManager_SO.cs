@@ -216,7 +216,7 @@ public class DeckManager_SO : ScriptableObject
     }
 
     /// <summary>Moves a card currently in player hand to player discard. Trigger discard animation</summary>
-    public CardPathAnim discardCard(Card_SO card)
+    public CardPathAnim discardCard(Card_SO card, List<Card_SO> exhausted)
     {
         if (pHand.Contains(card))
         {
@@ -228,7 +228,9 @@ public class DeckManager_SO : ScriptableObject
             CardPathAnim anim = new CardPathAnim(card, Discard_SFX, _card, GodDialogueTrigger.Discard);
             AnimationEventManager.getInstance.requestAnimation("Hand-Discard", _card, 0, anim);
 
-            pDiscard.Add(card);
+            if(!exhausted.Contains(card))
+                pDiscard.Add(card);
+            
             pHand.Remove(card);
 
             anim.OnAnimCompletionTrigger.AddListener(OnDiscardChange.Invoke);
