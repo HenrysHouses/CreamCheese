@@ -8,6 +8,8 @@ public class CardSelectionType
     public int Index = 0;
 }
 
+#if UNITY_EDITOR
+
 // drawer
 [CustomPropertyDrawer(typeof(CardSelectionType))]
 public class IngredientDrawer : PropertyDrawer
@@ -22,3 +24,4 @@ public class IngredientDrawer : PropertyDrawer
         index.intValue = EditorGUI.Popup(rect, "Selection Type", index.intValue, BoardElementClassNames.instance.Names);
     }
 }
+#endif

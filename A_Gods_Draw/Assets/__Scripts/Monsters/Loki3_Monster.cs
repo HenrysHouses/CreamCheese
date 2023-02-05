@@ -6,5 +6,8 @@ public class Loki3_Monster : Monster
     {
         enemyIntent = new LokiMonster3Intent();
     }
-
+    // public override string setClassName()
+    // {
+    //     return GetType().Name;
+    // }
 }

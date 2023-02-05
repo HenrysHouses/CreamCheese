@@ -61,4 +61,9 @@ public class PlayerController : BoardElement
     {
         arrowImage.enabled = false;
     }
+
+    // public override string setClassName()
+    // {
+    //     return GetType().Name;
+    // }
 }

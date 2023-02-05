@@ -190,7 +190,8 @@ public class TurnController : CombatFSM
             yield break; // stops Coroutine here
         }
         
-        ShuffleDiscard(amount); // Does not let the player draw the remaining cards and then shuffle
+        if(!ShuffleAnimator.isAnimating)
+            ShuffleDiscard(amount); // Does not let the player draw the remaining cards and then shuffle
     }
 
     void SetCards()
@@ -211,8 +212,8 @@ public class TurnController : CombatFSM
     {
         yield return new WaitUntil(() => !DrawAnimator.isAnimating);
 
-
         CardPathAnim[] animData = deckManager.shuffleDiscard(drawDelay);
+        Debug.Log(animData.Length);
 
         foreach (CardPathAnim trigger in animData)
         {
@@ -226,8 +227,9 @@ public class TurnController : CombatFSM
         else
         {
             waitForLibraryShuffle = true;
-            if(animData.Length-1 > -1)
-                animData[animData.Length-1].OnAnimCompletionTrigger.AddListener(waitForShuffleAnims);
+            // if(animData.Length-1 > -1)
+
+            animData[animData.Length-1].OnAnimCompletionTrigger.AddListener(waitForShuffleAnims);
 
             yield return new WaitUntil(() => !waitForLibraryShuffle);
             Draw(drawAfterShuffle);

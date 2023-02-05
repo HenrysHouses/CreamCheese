@@ -193,4 +193,9 @@ public class GodCard_Behaviour : Card_Behaviour
     {
         nonGod_Behaviour.DeBuff(card_so.strength, true);
     }
+
+    // public override string setClassName()
+    // {
+    //     return GetType().Name;
+    // }
 }

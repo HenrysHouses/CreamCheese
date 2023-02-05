@@ -7,4 +7,8 @@ public class Boss : Monster
         enemyIntent = new BossIntent();
     }
 
+    // public override string setClassName()
+    // {
+    //     return typeof(Boss).Name;
+    // }
 }

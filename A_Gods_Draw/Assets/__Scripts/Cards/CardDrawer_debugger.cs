@@ -38,7 +38,7 @@ public class CardDrawer_debugger : MonoBehaviour
 
     public void DiscardACard()
     {
-        deckManager.discardCard(selectedCard, new List<Card_SO>());
+        // deckManager.discardCard(selectedCard, new List<Card_SO>());
     }
 
     public void Shuffle()

@@ -76,6 +76,7 @@ public class ActionCard_Behaviour : Card_Behaviour
 
     public void Initialize(ActionCard_ScriptableObject card, CardElements elements)
     {
+        ClassName = "ActionCard_Behaviour";
         RootTransform = transform.parent;
         this.card_so = card;
         stats = card.cardStats.Clone();
@@ -285,4 +286,9 @@ public class ActionCard_Behaviour : Card_Behaviour
             }
         }
     }
+
+    // public override string setClassName()
+    // {
+    //     return GetType().Name;
+    // }
 }

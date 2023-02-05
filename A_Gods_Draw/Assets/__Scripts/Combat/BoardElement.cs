@@ -4,17 +4,27 @@ using UnityEngine;
 /// <summary>
 /// Class for any element on the board that could be interacted with
 /// </summary>
-[System.Serializable]
-public class BoardElement : InfoElement
+public abstract class BoardElement : InfoElement
 {
+    public string ClassName;
     protected static bool isInCombat;
     public bool clickable;
-
+    
     public static void EnterCombat() { isInCombat = true; }
     public static void ExitCombat() { isInCombat = false; }
 
     public virtual bool OnClick()
     {
         return clickable && !isInCombat; 
+    }
+
+    private string setClassName(){return GetType().Name;}
+
+    private void OnGUI() {
+        
+    }
+
+    private void OnValidate() {
+        ClassName = setClassName();
     }
 }

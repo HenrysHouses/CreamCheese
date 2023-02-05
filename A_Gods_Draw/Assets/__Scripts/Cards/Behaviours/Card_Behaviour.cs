@@ -128,8 +128,7 @@ public abstract class Card_Behaviour : BoardElement
     {
         if (onPlayerHand)
         {
-            if(elements.OnClickSFX.Path != "")
-                SoundPlayer.PlaySound(elements.OnClickSFX, gameObject);
+            SoundPlayer.PlaySound(elements.OnClickSFX, gameObject);
             controller.SetSelectedCard(this);
             OnBeingSelected();
         }

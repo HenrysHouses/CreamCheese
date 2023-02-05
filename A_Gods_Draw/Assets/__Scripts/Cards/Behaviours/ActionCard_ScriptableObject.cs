@@ -91,7 +91,7 @@ public class CardActionData
     public ActionVFX _VFX;
     public bool IsValidSelection(BoardElement target)
     {
-        string targetClassName = target.GetType().Name;
+        string targetClassName = target.ClassName;
 
         Debug.Log(targetClassName);
 
