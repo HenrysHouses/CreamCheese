@@ -62,8 +62,6 @@ public class DeckListData
     {
         CardQuantityContainer container = new CardQuantityContainer();
 
-
-
         container.Cards = new CardQuantity[GetNumbOfUniqueCards()];
         Card_SO[] UniqueCards = GetUniqueCards();
 

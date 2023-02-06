@@ -24,8 +24,6 @@ public abstract class CardAction : Action
     public virtual void OnLanePlaced(BoardStateController board, ActionCard_Behaviour source) { }
     public abstract IEnumerator OnAction(BoardStateController board, ActionCard_Behaviour source);
     public virtual void OnPlay(BoardStateController board) { }
-    public virtual void OnActionReady(BoardStateController board, ActionCard_Behaviour source) { }
-
     public virtual void Reset(BoardStateController board, Card_Behaviour source)
     {
         isReady = false;
@@ -52,20 +50,20 @@ public abstract class CardAction : Action
                 _path.startPoint.position = source.transform.position - (source.transform.forward * 0.1f);
                 _path.endPoint.position = target.transform.position + (target.transform.forward * 0.1f);
                 _path.recalculatePath();
-            }
-
-            while (time < 1)
-            {
-                time = Mathf.Clamp01(time + Time.deltaTime * _VFX.PathSpeed);
-                if (_VFX.FollowPath && _thisVFX)
+                
+                while (time < 1)
                 {
-                    _thisVFX.transform.position = _path.GetEvenPathOP(time).pos;
-                    _thisVFX.transform.rotation = _path.GetEvenPathOP(time).rot;
+                    time = Mathf.Clamp01(time + Time.deltaTime * _VFX.PathSpeed);
+                    if (_VFX.FollowPath && _thisVFX)
+                    {
+                        _thisVFX.transform.position = _path.GetEvenPathOP(time).pos;
+                        _thisVFX.transform.rotation = _path.GetEvenPathOP(time).rot;
+                    }
+                    yield return new WaitForEndOfFrame();
                 }
-                yield return new WaitForEndOfFrame();
+    
+                GameObject.Destroy(_thisVFX);
             }
-
-            GameObject.Destroy(_thisVFX);
 
             if (_VFX.hit_VFX)
             {

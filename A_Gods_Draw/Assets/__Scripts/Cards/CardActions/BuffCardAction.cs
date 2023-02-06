@@ -16,7 +16,7 @@ public class BuffCardAction : CardAction
     {
         for (int i = 0; i < amount; i++)
         {
-            Debug.Log("spawning coin");
+            // Debug.Log("spawning coin");
             GameObject spawn  = GameObject.Instantiate(Resources.Load<GameObject>("Prop_Coin_PRE_v1"));
             SpawnedCoins.Add(spawn);
             spawn.transform.SetParent(card.RootTransform, false);
@@ -50,16 +50,14 @@ public class BuffCardAction : CardAction
 
         isReady = true;
     }
-    public override void OnActionReady(BoardStateController board, ActionCard_Behaviour source)
+    
+    public override void OnLanePlaced(BoardStateController board, ActionCard_Behaviour source)
     {
         foreach (ActionCard_Behaviour card in source.AllTargets)
         {
             card.Buff(source.stats.strength, multiplies);
             SpawnCoins(source.stats.strength, card);
         }
-    }
-    public override void OnLanePlaced(BoardStateController board, ActionCard_Behaviour source)
-    {
         board.RemoveFromLane(currentCard);
         currentCard.transform.parent.parent.position += Vector3.down * 10;
         currentCard.RemoveFromHand();

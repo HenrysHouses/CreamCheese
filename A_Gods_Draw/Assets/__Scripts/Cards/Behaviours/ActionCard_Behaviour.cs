@@ -22,9 +22,8 @@ public class ActionCard_Behaviour : Card_Behaviour
     public BoardElement[] AllTargets => SelectedTargets.ToArray();
     Coroutine onSelectedRoutine;
     Coroutine actionRoutine;
-    bool hasClickedTarget = false;
-    bool cardIsReady = false;
-    bool missedClick = false;
+    bool hasClickedTarget, cardIsReady, missedClick, IsOnBoard;
+    public bool CardIsPlaced => IsOnBoard;
     public int neededLanes = 1;
     public CardStats stats;
     ActionGroup _actionGroup {get => stats.actionGroup; set{stats.actionGroup = value;}}
@@ -38,6 +37,7 @@ public class ActionCard_Behaviour : Card_Behaviour
         CheckForGod();
 
         CameraMovement.instance.SetCameraView(stats.TargetingView);
+        // int[] UniqueTargets = hasUniqueTargets(stats.actionGroup.actionStats.ToArray());
         
         for (int i = 0; i < stats.numberOfTargets; i++)
         {
@@ -46,17 +46,17 @@ public class ActionCard_Behaviour : Card_Behaviour
             yield return new WaitUntil(() => hasClickedTarget);
             
             Debug.LogWarning("This needs to be changed, depending on card stats this may be out of range");
-            if(!stats.actionGroup.actionStats[i].IsValidSelection(target))
+
+
+            if(!IsValidSelection(target, stats.SelectionType))
             {
                 MissClick();
                 yield break;    
             }
                 
             SelectedTargets.Add(target);
-            target = null;
 
-            Debug.Log("OnActionReady needs a new implementation");
-            stats.actionGroup.actions[i].OnActionReady(controller.GetBoard(), this);
+            target = null;
         }
         
         CameraMovement.instance.ResetView();
@@ -64,6 +64,64 @@ public class ActionCard_Behaviour : Card_Behaviour
         controller.GetBoard().PlayCard(this);
         TurnController.shouldWaitForAnims = false;
     }
+
+    /// <summary>Finds actions with required unique targets</summary>
+    /// <param name="Actions">All the actions to check for unique targets</param>
+    /// <returns>Indices of the actions that requires unique targets</returns>
+    // private int[] hasUniqueTargets(CardActionData[] Actions)
+    // {
+    //     List<int> indices = new List<int>();
+
+    //     for (int i = 0; i < Actions.Length; i++)
+    //     {
+    //         if(Actions[i].SelectionOverride.Index != 0)
+    //             indices.Add(i);
+    //     }
+    //     return indices.ToArray();
+    // }
+
+    private bool IsValidSelection(BoardElement target, CardSelectionType selectionType)
+    {
+        string targetClassName = target.ClassName;
+
+        // Debug.Log(targetClassName);
+
+        if(targetClassName.Equals("None"))
+            return false;
+
+        if(targetClassName.Equals("BoardElement"))
+            return true;
+
+        int monsterIndex = BoardElementClassNames.instance.getIndexOf("Monster"); 
+        int targetIndex = BoardElementClassNames.instance.getIndexOf(targetClassName);
+
+        if(monsterIndex == selectionType.Index)
+        {
+            if(targetClassName.Contains("Monster"))
+                return true;
+        }
+
+        int ActionCardIndex =  BoardElementClassNames.instance.getIndexOf("ActionCard_Behaviour");
+
+        if(ActionCardIndex == selectionType.Index)
+        {
+            ActionCard_Behaviour card = target as ActionCard_Behaviour;
+
+            if(card)
+            {
+                if(card.CardIsPlaced)
+                {
+                    return true;
+                }
+                return false;
+            }
+        }
+
+        if(targetIndex == selectionType.Index)
+            return true;
+        return false;
+    }
+
     private bool AllActionsReady()
     {
         return cardIsReady && onPlayerHand;
@@ -84,22 +142,23 @@ public class ActionCard_Behaviour : Card_Behaviour
         for (int i = 0; i < _actionGroup.actionStats.Count; i++)
         {
             CardAction act = GetAction(_actionGroup.actionStats[i]);
-            act.SetBehaviour(this);
-            _actionGroup.Add(act);
 
-            act.action_SFX = _actionGroup.actions[i].action_SFX;
-            act.PlayOnPlacedOrTriggered_SFX = _actionGroup.actions[i].PlayOnPlacedOrTriggered_SFX;
-            act._VFX = _actionGroup.actions[i]._VFX;
+            act.action_SFX = _actionGroup.actionStats[i].action_SFX;
+            // act.PlayOnPlacedOrTriggered_SFX = _actionGroup.actionStats[i].PlayOnPlacedOrTriggered_SFX;
+            act._VFX = _actionGroup.actionStats[i]._VFX;
+
+            act.SetBehaviour(this);
+            _actionGroup.Add(act); 
         }
 
         for (int i = 0; i < _godBuffActions.actionStats.Count; i++)
         {
             var act = GetAction(_godBuffActions.actionStats[i]);
+            
+            act.action_SFX = _godBuffActions.actionStats[i].action_SFX;
+            // act.PlayOnPlacedOrTriggered_SFX = _godBuffActions.actionStats[i].PlayOnPlacedOrTriggered_SFX;
             act.SetBehaviour(this);
             _godBuffActions.Add(act);
-            
-            act.action_SFX = _godBuffActions.actions[i].action_SFX;
-            act.PlayOnPlacedOrTriggered_SFX = _godBuffActions.actions[i].PlayOnPlacedOrTriggered_SFX;
         }
 
         this.cardType = card.type;
@@ -107,6 +166,9 @@ public class ActionCard_Behaviour : Card_Behaviour
     }
     public void Buff(int value, bool isMult)
     {
+        if(!IsOnBoard)
+            return;
+
         if(isMult)
             stats.strength *= value;
         else
@@ -116,6 +178,9 @@ public class ActionCard_Behaviour : Card_Behaviour
 
     public void DeBuff(int value, bool isDivided)
     {
+        if(!IsOnBoard)
+            return;
+
         if(isDivided)
             stats.strength /= value;
         else
@@ -154,9 +219,23 @@ public class ActionCard_Behaviour : Card_Behaviour
 
     protected override IEnumerator Play(BoardStateController board)
     {
-        foreach (var target in SelectedTargets)
+        
+        for (int i = 0; i < _actionGroup.actions.Count; i++)
         {
-            foreach (var action in _actionGroup.actions)
+            CardAction action = _actionGroup.actions[i];
+            // BoardElement[] UniqueTargets = GetUniqueTargetsOf(i, SelectedTargets);
+
+            StartCoroutine(action.OnAction(board, this));
+            if (action.PlayOnPlacedOrTriggered_SFX)
+            {
+                SoundPlayer.PlaySound(action.action_SFX, gameObject);
+            }
+            yield return new WaitUntil(() => action.Ready);
+        }
+
+        if(CheckForGod())
+        {
+            foreach (var action in _godBuffActions.actions)
             {
                 StartCoroutine(action.OnAction(board, this));
                 if (action.PlayOnPlacedOrTriggered_SFX)
@@ -165,42 +244,20 @@ public class ActionCard_Behaviour : Card_Behaviour
                 }
                 yield return new WaitUntil(() => action.Ready);
             }
-
-            if(CheckForGod())
-            {
-                foreach (var action in _godBuffActions.actions)
-                {
-                    StartCoroutine(action.OnAction(board, this));
-                    if (action.PlayOnPlacedOrTriggered_SFX)
-                    {
-                        SoundPlayer.PlaySound(action.action_SFX, gameObject);
-                    }
-                    yield return new WaitUntil(() => action.Ready);
-                }
-            }
         }
 
         yield return new WaitForSeconds(0.2f);
 
-
-        // foreach (var action in _actionGroup.actions)
-        // {
-        //     action.Reset(board, this);
-        // }
-
-        // foreach (var action in _godBuffActions.actions)
-        // {
-        //     action.Reset(board, this);
-        // }
-        Reset();
+        SelectedTargets.Clear();
+        
+        foreach (var action in stats.actionGroup.actions)
+            action.Reset(board, this);
+        foreach (var action in stats.godBuffActions.actions)
+            action.Reset(board, this);
 
         controller.Discard(this);
         Destroy(transform.parent.gameObject);
         TurnController.shouldWaitForAnims = false;
-    }
-
-    private void Reset() {
-        SelectedTargets.Clear();
     }
 
     internal override void OnClickOnSelected()
@@ -250,7 +307,7 @@ public class ActionCard_Behaviour : Card_Behaviour
         }
 
         controller.PlacedCard();
-
+        IsOnBoard = true;
         missedClick = true;
     }
     public override void OnAction()
@@ -274,21 +331,21 @@ public class ActionCard_Behaviour : Card_Behaviour
 
         StopAllCoroutines();
 
-        foreach (var target in SelectedTargets)
-        {
-            foreach (var action in _actionGroup.actions)
-            {
-                action.Reset(controller.GetBoard(), this);
-            }
-            foreach (var action in _godBuffActions.actions)
-            {
-                action.Reset(controller.GetBoard(), this);
-            }
-        }
+        // foreach (var target in SelectedTargets.Targets)
+        // {
+        //     foreach (var action in _actionGroup.actions)
+        //     {
+        //         action.Reset(controller.GetBoard(), this);
+        //     }
+        //     foreach (var action in _godBuffActions.actions)
+        //     {
+        //         action.Reset(controller.GetBoard(), this);
+        //     }
+        // }
     }
 
-    // public override string setClassName()
-    // {
-    //     return GetType().Name;
-    // }
+    void ProgressUpgrade()
+    {
+        
+    }
 }

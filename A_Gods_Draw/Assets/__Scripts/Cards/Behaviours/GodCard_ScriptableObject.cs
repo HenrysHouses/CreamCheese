@@ -28,14 +28,14 @@ public class GodCard_ScriptableObject : Card_SO
     /// </summary>
     private void OnValidate() {
         type = CardType.God;
-        getGlyphs();
+        // getGlyphs();
     }
 
-    public override CardActionEnum[] getGlyphs()
-    {
-        Debug.LogError("God icons are not implemented");
-        return null;
-    }
+    // public override CardActionEnum[] getGlyphs()
+    // {
+    //     Debug.LogError("God icons are not implemented");
+    //     return null;
+    // }
 
     /// <summary>Instantiates a dialogue box with dialogue from the god</summary>
     /// <param name="trigger">Dialogue trigger type</param>

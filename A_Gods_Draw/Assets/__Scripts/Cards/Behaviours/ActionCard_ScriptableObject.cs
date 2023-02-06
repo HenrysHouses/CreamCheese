@@ -17,65 +17,7 @@ using System.Runtime.Serialization.Formatters.Binary;
 [CreateAssetMenu(menuName = "ScriptableObjects/Non-God card"), System.Serializable]
 public class ActionCard_ScriptableObject : Card_SO
 {
-    public CardStats cardStats;
-
-    /// <summary>
-    /// Used to calculate from where should the card loader get the number of the strengh
-    /// </summary>
-    private void OnValidate()
-    {
-        // cardStrenghIndex = 0;
-        // if (_glyphs.numberOfTargets == 0)
-        //     return;
-
-        // if (type == CardType.Attack)
-        // {
-        //     while (_glyphs.actions[cardStrenghIndex].actionEnum != CardActionEnum.Attack)
-        //     {
-        //         if (cardStrenghIndex == targetActions.Count - 1)
-        //             break;
-        //         cardStrenghIndex++;
-        //     }
-        // }
-        // else if (type == CardType.Defence)
-        // {
-        //     while (targetActions[0][cardStrenghIndex].actionEnum != CardActionEnum.Defence)
-        //     {
-        //         if (cardStrenghIndex == targetActions.Count - 1)
-        //             break;
-        //         cardStrenghIndex++;
-        //     }
-        // }
-        // else if (type == CardType.Buff)
-        // {
-        //     while (targetActions[0][cardStrenghIndex].actionEnum != CardActionEnum.Buff)
-        //     {
-        //         if (cardStrenghIndex == targetActions.Count - 1)
-        //             break;
-        //         cardStrenghIndex++;
-        //     }
-        // }
-        // else
-        // {
-        //     cardStrenghIndex = 0;
-        // }
-    }
-
-    public override CardActionEnum[] getGlyphs()
-    {
-        List<CardActionEnum> allGlyphs = new List<CardActionEnum>();
-        for (int i = 0; i < cardStats.actionGroup.actions.Count; i++)
-        {
-            foreach (var _action in cardStats.actionGroup.actionStats)
-            {
-                if(_action.actionEnum.ToString() == type.ToString())
-                    continue;
-
-                allGlyphs.Add(_action.actionEnum);
-            }
-        }
-        return allGlyphs.ToArray();
-    }
+    public CardStats cardStats;    
 }
 
 /// <summary>
@@ -85,36 +27,10 @@ public class ActionCard_ScriptableObject : Card_SO
 public class CardActionData
 {
     /// <summary>This is the index of BoardElement in BoardElementClassNames, Check the scriptable object in _ScriptableObjects</summary>
-    public CardSelectionType SelectionType;
+    // public CardSelectionType SelectionOverride;
     public CardActionEnum actionEnum;
     public EventReference action_SFX;
     public ActionVFX _VFX;
-    public bool IsValidSelection(BoardElement target)
-    {
-        string targetClassName = target.ClassName;
-
-        Debug.Log(targetClassName);
-
-        if(targetClassName.Equals("None"))
-            return false;
-
-        if(targetClassName.Equals("BoardElement"))
-            return true;
-
-        int monsterIndex = BoardElementClassNames.instance.getIndexOf("Monster"); 
-        int targetIndex = BoardElementClassNames.instance.getIndexOf(targetClassName);
-        
-
-        if(monsterIndex == SelectionType.Index)
-        {
-            if(targetClassName.Contains("Monster"))
-                return true;
-        }
-
-        if(targetIndex == SelectionType.Index)
-            return true;
-        return false;
-    }
 }
 
 [System.Serializable]
@@ -142,14 +58,30 @@ public class ActionGroup
 }
 
 [System.Serializable]
+public struct CardUpgradePath
+{
+    public CardUpgrade[] Upgrades;
+
+    public void SetGlyphs(CardActionEnum[] Glyphs)
+    {
+        for (int i = 0; i < Upgrades.Length; i++)
+        {
+            Upgrades[i].CurrentGlyphs = Glyphs;
+        }
+    }
+}
+
+[System.Serializable]
 public class CardStats
 {
     public CameraView TargetingView;
+    public CardSelectionType SelectionType;
     public int strength;
     public int numberOfTargets;
     public ActionGroup actionGroup;
     public GodActionEnum correspondingGod;
     public ActionGroup godBuffActions;
+    public CardUpgradePath UpgradePath;
 
     public CardStats Clone()
     {
@@ -158,7 +90,28 @@ public class CardStats
         clone.numberOfTargets = this.numberOfTargets;
         clone.actionGroup = this.actionGroup.Clone();
         clone.godBuffActions = this.godBuffActions.Clone();
+        clone.SelectionType = new CardSelectionType();
+        clone.SelectionType.Index = this.SelectionType.Index;
         return clone;
     }
-}
 
+    private void OnValidate() {
+        UpgradePath.SetGlyphs(getGlyphs(CardType.None));
+    }
+
+    public CardActionEnum[] getGlyphs(CardType type)
+    {
+        List<CardActionEnum> allGlyphs = new List<CardActionEnum>();
+        for (int i = 0; i < actionGroup.actions.Count; i++)
+        {
+            foreach (var _action in actionGroup.actionStats)
+            {
+                if(_action.actionEnum.ToString() == type.ToString())
+                    continue;
+
+                allGlyphs.Add(_action.actionEnum);
+            }
+        }
+        return allGlyphs.ToArray();
+    }
+}

@@ -159,7 +159,7 @@ public class Card_Loader : MonoBehaviour
             }
         }
 
-        instantiateIcons(card_so.getGlyphs());
+        // instantiateIcons(card_so.getGlyphs());
     }
 
     private void instantiateIcons(CardActionEnum[] glyphs)

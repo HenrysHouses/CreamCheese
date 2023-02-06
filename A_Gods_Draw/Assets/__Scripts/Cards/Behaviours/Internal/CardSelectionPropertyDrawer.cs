@@ -21,12 +21,13 @@ public class IngredientDrawer : PropertyDrawer
         SerializedProperty index = property.FindPropertyRelative("Index");
         SerializedProperty ScriptObj = property.FindPropertyRelative("Names"); 
         
-        ScriptObj.objectReferenceValue = Resources.Load<BoardElementClassNames>("BoardElementClassNamesContainer");
+        if(ScriptObj.objectReferenceValue == null)
+            ScriptObj.objectReferenceValue = Resources.Load<BoardElementClassNames>("BoardElementClassNamesContainer");
         BoardElementClassNames elementClassNames = ScriptObj.objectReferenceValue as BoardElementClassNames;
         // Calculate rects
         var rect = new Rect(position.x, position.y, position.width, position.height);
 
-        index.intValue = EditorGUI.Popup(rect, "Selection Type", index.intValue, elementClassNames.Names);
+        index.intValue = EditorGUI.Popup(rect, label.text, index.intValue, elementClassNames.Names);
     }
 }
 #endif

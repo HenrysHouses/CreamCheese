@@ -82,7 +82,7 @@ public class CardPlayer : MonoBehaviour
             if (_selectedCard is null) 
             {
                 _selectedCard = selectCard();
-                Debug.Log(_selectedCard);
+                // Debug.Log(_selectedCard);
 
                 if(_selectedCard is null) // checks if no card was selected
                     return;
@@ -118,7 +118,6 @@ public class CardPlayer : MonoBehaviour
                 if (_selectedCard.ShouldCancelSelection())
                 {
                     _selectedCard.CancelSelection();
-                    // _selectedCard = null;
                     shouldCancelSelection = true;
                     path.controlPoints[0].position = _currSelectedCard.targetHandPos;
                     Debug.Log("unselected");
@@ -275,7 +274,7 @@ public class CardPlayer : MonoBehaviour
 
             if (!playedSFX)
             {
-                //SoundPlayer.PlaySound(monster.hoverOver_SFX, gameObject);
+                SoundPlayer.PlaySound(monster.hoverOver_SFX, gameObject);
                 playedSFX = true;
 
             }

@@ -17,6 +17,7 @@ public class BoardStateController : MonoBehaviour
     [SerializeField] GameObject TargetingMesh;
     [SerializeField] Color AttackColor;
     [SerializeField] Color DefendColor;
+    [SerializeField] Color UtilityColor;
 
     public PlayerController Player => _Player;
     public Encounter_SO Encounter => _Encounter;
@@ -230,12 +231,14 @@ public class BoardStateController : MonoBehaviour
 
                         // Targeting color
                         MeshRenderer renderer = spawn.GetComponent<MeshRenderer>();
-                        Debug.Log("target mesh color");
+                        // Debug.Log("target mesh color");
                         if(behaviour.GetCardType == CardType.Attack)
                             renderer.material.SetColor("_MainColor", AttackColor);
-                        else
+                        else if(behaviour.GetCardType == CardType.Defence)
                             renderer.material.SetColor("_MainColor", DefendColor);
-                        
+                        else
+                            renderer.material.SetColor("_MainColor", UtilityColor);
+
                         // Targeting positions
                         ProceduralPathMesh Mesh = spawn.GetComponent<ProceduralPathMesh>();
                         Mesh.startPoint.position = cardTransform.position;                    

@@ -1930,8 +1930,10 @@ MonoBehaviour:
   TargetingMesh: {fileID: 7368309248694883949, guid: 172b63a08932a94488295dbb8b000a0a, type: 3}
   AttackColor: {r: 0.49019608, g: 0.08627451, b: 0.12328834, a: 0.8235294}
   DefendColor: {r: 0.08627451, g: 0.18039216, b: 0.49019608, a: 0.8235294}
+  UtilityColor: {r: 0.6792453, g: 0.64872307, b: 0.0993236, a: 0.8235294}
   placedCards: []
   allPlayedCards: []
+  ExhaustedCards: []
   playedGodCard: {fileID: 0}
   thingsInLane: []
   EnemyParent: {fileID: 578933899}
@@ -3189,6 +3191,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   BoardStateController: {fileID: 1141156025}
   <player>k__BackingField: {fileID: 11400000, guid: 101dced3cf57d584886aaa18b2a84f50, type: 2}
+  ClickDetectionLayer:
+    serializedVersion: 2
+    m_Bits: 0
   godPlace: {fileID: 899169205}
   deckManager: {fileID: 11400000, guid: a9ef532ce763b474e868648e2e3843ac, type: 2}
   DiscardAnimator: {fileID: 120732638}

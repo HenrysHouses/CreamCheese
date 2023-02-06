@@ -18,6 +18,6 @@ public abstract class Card_SO : ScriptableObject
     public string cardName;
     [TextArea(6, 20)] public string description;
     [TextArea(6, 20)] public string effect;
-    public abstract CardActionEnum[] getGlyphs();
+    // public abstract CardActionEnum[] getGlyphs();
 }
 

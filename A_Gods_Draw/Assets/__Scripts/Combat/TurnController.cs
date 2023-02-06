@@ -39,7 +39,7 @@ public class TurnController : CombatFSM
     public Player_Hand _Hand;
     public bool isDiscardAnimating => DiscardAnimator.isAnimating;
     public bool isDrawAnimating => DrawAnimator.isAnimating;
-    public bool isShuffleAnimating => ShuffleAnimator.isAnimating;
+    public bool isShuffling;
     public bool isCombatStarted = false;
     public bool shouldEndTurn = false;
     public static bool shouldWaitForAnims = false;
@@ -190,7 +190,7 @@ public class TurnController : CombatFSM
             yield break; // stops Coroutine here
         }
         
-        if(!ShuffleAnimator.isAnimating)
+        if(!isShuffling && !ShuffleAnimator.isAnimating)
             ShuffleDiscard(amount); // Does not let the player draw the remaining cards and then shuffle
     }
 
@@ -210,10 +210,14 @@ public class TurnController : CombatFSM
     /// <summary>Moves cards to library and shuffles, Requests animations for each card that was shuffled</summary>
     IEnumerator shuffleDiscardTrigger(int drawAfterShuffle)
     {
+        isShuffling = true;
         yield return new WaitUntil(() => !DrawAnimator.isAnimating);
 
         CardPathAnim[] animData = deckManager.shuffleDiscard(drawDelay);
         Debug.Log(animData.Length);
+
+        if(animData.Length == 0)
+            yield break;
 
         foreach (CardPathAnim trigger in animData)
         {
@@ -235,6 +239,7 @@ public class TurnController : CombatFSM
             Draw(drawAfterShuffle);
             // Debug.Log("DRAW after shuffle");
         }
+        isShuffling = false;
     }
 
     /// <summary>Discards cards then requests animations for each discarded card with a delay between each</summary>
@@ -292,7 +297,7 @@ public class TurnController : CombatFSM
         //yield return new WaitUntil(() => !DrawAnimator.isAnimating && !ShuffleAnimator.isAnimating);
 
         // CardPathAnim lastAnim = null;
-        Debug.Log(card_b);
+        // Debug.Log(card_b);
         Transform ClosestPos = DiscardPositions[0];
         foreach (var pos in DiscardPositions)
         {

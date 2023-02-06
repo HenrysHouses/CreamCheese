@@ -21,7 +21,7 @@ public class PlayerController : BoardElement
 
     public void DealDamage(int amount)
     {
-        Debug.Log("Damage taken:" + -amount);
+        // Debug.Log("Damage taken:" + -amount);
         playerTracker.UpdateHealth(-amount);
 
         if (playerTracker.Health < 0)

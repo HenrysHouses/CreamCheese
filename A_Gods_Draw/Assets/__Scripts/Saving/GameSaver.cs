@@ -58,7 +58,7 @@ public static class GameSaver
             deck = DeckManager_SO.getStarterDeck().deckData.GetDeckCardNames();
         }
 
-        // Debug.Log("Loading completed");
+        Debug.Log("Loading completed");
 
         DeckListData loadedDeck = new DeckListData(deck.Cards);
 
