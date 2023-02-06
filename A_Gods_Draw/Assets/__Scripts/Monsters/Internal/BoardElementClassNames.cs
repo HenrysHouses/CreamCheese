@@ -7,7 +7,7 @@
 using UnityEngine;
 using System.Linq;
 using System;
-
+using UnityEditor;
 
 [CreateAssetMenu(menuName = "A_Gods_Draw/BoardElementClassNames"), System.Serializable]
 public class BoardElementClassNames : ScriptableObject

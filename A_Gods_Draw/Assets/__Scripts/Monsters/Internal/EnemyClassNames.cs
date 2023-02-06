@@ -43,9 +43,9 @@ public class EnemyClassNames : ScriptableObject
             // alternative: && ! type.IsAbstract
             ).ToArray();
         
-        Names = new string[listOfBs.Length];
+        Names = new string[listOfBs.Length+1];
         for (int i = 0; i < listOfBs.Length; i++)
-            Names[i] = listOfBs[i].Name;
+            Names[i+1] = listOfBs[i].Name;
 
         Names[0] = "Any";
     } 
