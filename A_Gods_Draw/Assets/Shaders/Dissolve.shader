@@ -9,7 +9,7 @@ Shader "CharlieCustom/Dissolve"
         _Glossiness("Smoothness", Range(0,1)) = 0.5
         _Metallic("Metallic", Range(0,1)) = 0.0
         _EdgeColor("Edge Color", Color) = (1,1,1,1)
-        _EdgeWidth("Edge Thickness", Range(0.01,2.0)) = 0.01
+        _EdgeWidth("Edge Thickness", Range(0.01,0.2)) = 0.01
     }
     SubShader
     {
@@ -51,6 +51,7 @@ Shader "CharlieCustom/Dissolve"
             o.Metallic = _Metallic;
             float edge = step(dissolveMap, _Cutoff +  _EdgeWidth);
             o.Smoothness = _Glossiness;
+            o.Emission = _EdgeColor * edge;
             o.Alpha = c.a;
         }
         ENDCG
