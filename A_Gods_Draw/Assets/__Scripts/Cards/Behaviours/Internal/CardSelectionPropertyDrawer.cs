@@ -6,7 +6,7 @@ using UnityEngine;
 public class CardSelectionType
 {
     public int Index = 0;
-    public BoardElementClassNames Names;
+    public BoardElementClassNames NamesContainer;
 }
 
 #if UNITY_EDITOR
@@ -19,7 +19,7 @@ public class IngredientDrawer : PropertyDrawer
     public override void OnGUI(Rect position, SerializedProperty property, GUIContent label)
     {
         SerializedProperty index = property.FindPropertyRelative("Index");
-        SerializedProperty ScriptObj = property.FindPropertyRelative("Names"); 
+        SerializedProperty ScriptObj = property.FindPropertyRelative("NamesContainer"); 
         
         if(ScriptObj.objectReferenceValue == null)
             ScriptObj.objectReferenceValue = Resources.Load<BoardElementClassNames>("BoardElementClassNamesContainer");

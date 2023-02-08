@@ -26,14 +26,14 @@ MonoBehaviour:
     Adjacent enemies take x/2 DMG rounded down'
   cardStats:
     TargetingView: 6
+    SelectionType:
+      Index: 0
+      NamesContainer: {fileID: 11400000, guid: f8b018dd89042d4438fa88687c5c3c94, type: 2}
     strength: 2
     numberOfTargets: 1
     actionGroup:
       actionStats:
-      - SelectionType:
-          Index: 0
-          Names: {fileID: 0}
-        actionEnum: 0
+      - actionEnum: 0
         action_SFX:
           Guid:
             Data1: 0
@@ -47,10 +47,7 @@ MonoBehaviour:
           PathSpeed: 1
           trigger_VFX: {fileID: 3273590495200156951, guid: f2908f3673965cb4390dc705aca60e85, type: 3}
           hit_VFX: {fileID: 2604885081968657841, guid: 68774ee4712f84144802b43008224235, type: 3}
-      - SelectionType:
-          Index: 0
-          Names: {fileID: 0}
-        actionEnum: 6
+      - actionEnum: 6
         action_SFX:
           Guid:
             Data1: 0
@@ -66,6 +63,56 @@ MonoBehaviour:
           hit_VFX: {fileID: 0}
     correspondingGod: 0
     godBuffActions:
-      actionStats: []
+      actionStats:
+      - actionEnum: 0
+        action_SFX:
+          Guid:
+            Data1: 0
+            Data2: 0
+            Data3: 0
+            Data4: 0
+          Path: 
+        _VFX:
+          FollowPath: 0
+          isAnimating: 0
+          PathSpeed: 0
+          trigger_VFX: {fileID: 0}
+          hit_VFX: {fileID: 0}
     UpgradePath:
-      Upgrades: []
+      Upgrades:
+      - RequiredXP: 10
+        Type: 0
+        UpgradeTypeIndex: 0
+        RemovableGlyph: 0000000006000000
+        AddGlyph: 11
+        RemoveGlyphIndex: 1
+        ValueSelection: 0
+        CorrespondingGod: 0
+        SelectionType:
+          Index: 0
+          NamesContainer: {fileID: 0}
+        EditedValue: 0
+      - RequiredXP: 30
+        Type: 0
+        UpgradeTypeIndex: 2
+        RemovableGlyph: 0000000006000000
+        AddGlyph: 0
+        RemoveGlyphIndex: 0
+        ValueSelection: 0
+        CorrespondingGod: 0
+        SelectionType:
+          Index: 0
+          NamesContainer: {fileID: 0}
+        EditedValue: 3
+      - RequiredXP: 50
+        Type: 0
+        UpgradeTypeIndex: 2
+        RemovableGlyph: 0000000006000000
+        AddGlyph: 0
+        RemoveGlyphIndex: 0
+        ValueSelection: 3
+        CorrespondingGod: 1
+        SelectionType:
+          Index: 0
+          NamesContainer: {fileID: 0}
+        EditedValue: 0

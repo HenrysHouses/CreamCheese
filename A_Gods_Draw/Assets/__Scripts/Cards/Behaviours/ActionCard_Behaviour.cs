@@ -37,7 +37,6 @@ public class ActionCard_Behaviour : Card_Behaviour
         CheckForGod();
 
         CameraMovement.instance.SetCameraView(stats.TargetingView);
-        // int[] UniqueTargets = hasUniqueTargets(stats.actionGroup.actionStats.ToArray());
         
         for (int i = 0; i < stats.numberOfTargets; i++)
         {
@@ -64,21 +63,6 @@ public class ActionCard_Behaviour : Card_Behaviour
         controller.GetBoard().PlayCard(this);
         TurnController.shouldWaitForAnims = false;
     }
-
-    /// <summary>Finds actions with required unique targets</summary>
-    /// <param name="Actions">All the actions to check for unique targets</param>
-    /// <returns>Indices of the actions that requires unique targets</returns>
-    // private int[] hasUniqueTargets(CardActionData[] Actions)
-    // {
-    //     List<int> indices = new List<int>();
-
-    //     for (int i = 0; i < Actions.Length; i++)
-    //     {
-    //         if(Actions[i].SelectionOverride.Index != 0)
-    //             indices.Add(i);
-    //     }
-    //     return indices.ToArray();
-    // }
 
     private bool IsValidSelection(BoardElement target, CardSelectionType selectionType)
     {
@@ -223,7 +207,6 @@ public class ActionCard_Behaviour : Card_Behaviour
         for (int i = 0; i < _actionGroup.actions.Count; i++)
         {
             CardAction action = _actionGroup.actions[i];
-            // BoardElement[] UniqueTargets = GetUniqueTargetsOf(i, SelectedTargets);
 
             StartCoroutine(action.OnAction(board, this));
             if (action.PlayOnPlacedOrTriggered_SFX)
@@ -344,8 +327,10 @@ public class ActionCard_Behaviour : Card_Behaviour
         // }
     }
 
-    void ProgressUpgrade()
+    void GainXP()
     {
-        
+        stats.UpgradePath.Experience.XP++;
+
+
     }
 }

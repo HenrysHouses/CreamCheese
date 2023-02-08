@@ -18,6 +18,12 @@ using System.Runtime.Serialization.Formatters.Binary;
 public class ActionCard_ScriptableObject : Card_SO
 {
     public CardStats cardStats;    
+
+    private void OnValidate() {
+        cardStats.UpgradePath.SetGlyphs(cardStats.getGlyphs(CardType.None));
+    }
+
+
 }
 
 /// <summary>
@@ -60,15 +66,22 @@ public class ActionGroup
 [System.Serializable]
 public struct CardUpgradePath
 {
+    public CardExperience Experience;
     public CardUpgrade[] Upgrades;
 
     public void SetGlyphs(CardActionEnum[] Glyphs)
     {
         for (int i = 0; i < Upgrades.Length; i++)
         {
-            Upgrades[i].CurrentGlyphs = Glyphs;
+            Upgrades[i].RemovableGlyph = Glyphs;
         }
     }
+}
+
+public struct CardExperience
+{
+    public int XP;
+    public int Level;
 }
 
 [System.Serializable]
@@ -95,23 +108,17 @@ public class CardStats
         return clone;
     }
 
-    private void OnValidate() {
-        UpgradePath.SetGlyphs(getGlyphs(CardType.None));
-    }
-
     public CardActionEnum[] getGlyphs(CardType type)
     {
         List<CardActionEnum> allGlyphs = new List<CardActionEnum>();
-        for (int i = 0; i < actionGroup.actions.Count; i++)
+        foreach (var _action in actionGroup.actionStats)
         {
-            foreach (var _action in actionGroup.actionStats)
-            {
-                if(_action.actionEnum.ToString() == type.ToString())
-                    continue;
+            if(_action.actionEnum.ToString() == type.ToString())
+                continue;
 
-                allGlyphs.Add(_action.actionEnum);
-            }
+            allGlyphs.Add(_action.actionEnum);
         }
+
         return allGlyphs.ToArray();
     }
 }
