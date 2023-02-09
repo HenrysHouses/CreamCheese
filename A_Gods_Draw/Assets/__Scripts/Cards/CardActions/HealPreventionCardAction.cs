@@ -9,25 +9,25 @@ public class HealPreventionCardAction : CardAction
     // {
     // }
 
-    public override IEnumerator OnAction(BoardStateController board, ActionCard_Behaviour source)
+    public override IEnumerator OnAction(BoardStateController _board, ActionCard_Behaviour _source)
     {
         isReady = false;
 
-        foreach (Monster target in source.AllTargets)
+        foreach (Monster target in _source.AllTargets)
         {
             
             HealPreventionDebuff _healPrev;
             if(target.gameObject.TryGetComponent<HealPreventionDebuff>(out _healPrev))
             {
 
-                _healPrev.Stacks += source.stats.strength;
+                _healPrev.Stacks += _source.stats.strength;
 
             }
             else
             {
 
                 _healPrev = target.gameObject.AddComponent<HealPreventionDebuff>();
-                _healPrev.Stacks = source.stats.strength;
+                _healPrev.Stacks = _source.stats.strength;
                 _healPrev.thisMonster = target;
                 target.HealingDisabled = true;
 
@@ -38,7 +38,7 @@ public class HealPreventionCardAction : CardAction
         // source.stats.Targets.Clear();
 
         // Playing VFX for each action
-        board.StartCoroutine(playTriggerVFX(source.gameObject, board.Player.transform, new Vector3(0, 1, 0)));
+        _board.StartCoroutine(playTriggerVFX(_source.gameObject, _board.Player.transform, new Vector3(0, 1, 0)));
         yield return new WaitUntil(() => _VFX == null || !_VFX.isAnimating);
 
         yield return new WaitForSeconds(0.3f);

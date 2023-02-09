@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class EarthquakeCardAction : CardAction
+public class KastaCardAction : CardAction
 {
 
     public override IEnumerator OnAction(BoardStateController _board, ActionCard_Behaviour _source)
@@ -10,10 +10,14 @@ public class EarthquakeCardAction : CardAction
 
         isReady = false;
 
-        foreach(Monster _target in _board.getLivingEnemies())
+        foreach(BoardElement _element in _source.AllTargets)
         {
 
-            _target.DealDamage(_source.stats.strength);
+            _board.RemoveFromLane(_element);
+
+            Monster[] _enemies = _board.getLivingEnemies();
+
+            _enemies[0].DealDamage(_source.stats.strength);
 
         }
 

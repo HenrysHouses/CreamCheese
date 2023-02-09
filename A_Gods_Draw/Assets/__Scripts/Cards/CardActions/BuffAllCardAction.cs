@@ -23,7 +23,7 @@ public class BuffAllCardAction : CardAction
         {
 
             if(_card.GetCardType == CardType.Attack)
-                _card.Buff(currentCard.stats.strength, false);
+                _card.Buff(_source.stats.strength, false);
 
         }
         
