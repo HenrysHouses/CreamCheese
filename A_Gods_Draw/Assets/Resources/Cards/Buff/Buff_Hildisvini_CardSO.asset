@@ -13,8 +13,8 @@ MonoBehaviour:
   m_Name: Buff_Hildisvini_CardSO
   m_EditorClassIdentifier: 
   type: 2
-  Art: {fileID: 2800000, guid: 3c12c2dab8823374581a5428ad5343d1, type: 3}
-  Background: {fileID: 2800000, guid: 4405501223a59ea48923553bb9318ecc, type: 3}
+  Art: {fileID: 2800000, guid: cae5fd9f6a2592948bb7cafd4d02d345, type: 3}
+  Background: {fileID: 0}
   cardName: Hildisvini
   description: "Freyja\u2018s servant, Ottar, could take the form of a boar, and
     was then named Hildisvini, meaning Battle-Pig. He was big and had golden bristles,
@@ -24,14 +24,14 @@ MonoBehaviour:
     Draw 1 next turn'
   cardStats:
     TargetingView: 7
+    SelectionType:
+      Index: 0
+      NamesContainer: {fileID: 11400000, guid: f8b018dd89042d4438fa88687c5c3c94, type: 2}
     strength: 2
     numberOfTargets: 1
     actionGroup:
       actionStats:
-      - SelectionType:
-          Index: 1
-          Names: {fileID: 11400000, guid: f8b018dd89042d4438fa88687c5c3c94, type: 2}
-        actionEnum: 2
+      - actionEnum: 2
         action_SFX:
           Guid:
             Data1: 0
@@ -45,10 +45,7 @@ MonoBehaviour:
           PathSpeed: 0
           trigger_VFX: {fileID: 0}
           hit_VFX: {fileID: 0}
-      - SelectionType:
-          Index: 0
-          Names: {fileID: 11400000, guid: f8b018dd89042d4438fa88687c5c3c94, type: 2}
-        actionEnum: 10
+      - actionEnum: 10
         action_SFX:
           Guid:
             Data1: 0
