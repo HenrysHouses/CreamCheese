@@ -63,7 +63,17 @@ public class Monster : BoardElement
 
         currentHealth = maxHealth;
 
+        healthBar.maxValue = maxHealth;
+        barrierBar.maxValue = maxHealth;
+
         BoardElementInfo = "Hello, I am an enemy";
+
+    }
+
+    private void Start()
+    {
+
+        enemyIntent = new LokiMonster2Intent();
 
     }
 
@@ -194,8 +204,8 @@ public class Monster : BoardElement
 
         healthText.text = "HP: " + currentHealth;
 
-        healthBar.value = (currentHealth / maxHealth) * healthBar.maxValue;
-        barrierBar.value = (barrier / maxHealth) * barrierBar.maxValue;
+        healthBar.value = currentHealth;
+        barrierBar.value = barrier;
             
     }
 
