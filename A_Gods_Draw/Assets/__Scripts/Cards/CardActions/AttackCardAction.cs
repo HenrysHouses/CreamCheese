@@ -27,26 +27,4 @@ public class AttackCardAction : CardAction
         isReady = true;
     }
 
-    public override void OnLanePlaced(BoardStateController _board, ActionCard_Behaviour _source)
-    {
-        
-        foreach(ActionCard_Behaviour _card in _board.placedCards)
-        {
-
-            foreach(CardActionData _action in _card.stats.actionGroup.actionStats)
-            {
-
-                if(_action.actionEnum == CardActionEnum.BuffAll)
-                {
-
-                    currentCard.Buff(_card.stats.strength, false);
-
-                }
-
-            }
-
-        }
-
-    }
-
 }

@@ -129,6 +129,13 @@ MonoBehaviour:
   - {fileID: 6347618652351847496}
   - {fileID: 7563238990882325037}
   outlineSize: 0.01
+  death_SFX:
+    Guid:
+      Data1: 55962543
+      Data2: 1104511573
+      Data3: 823004837
+      Data4: -1532201799
+    Path: event:/Combat/Enemy/EnemyKilled
   HoverOver_SFX:
     Guid:
       Data1: 2101580348
@@ -321,6 +328,14 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 5966793606316453687}
     m_Modifications:
+    - target: {fileID: 1620485996962103100, guid: 56d8a4a3985409c499f5cc485b33024d, type: 3}
+      propertyPath: m_text
+      value: 'HP: 200'
+      objectReference: {fileID: 0}
+    - target: {fileID: 1620485996962103101, guid: 56d8a4a3985409c499f5cc485b33024d, type: 3}
+      propertyPath: m_SizeDelta.x
+      value: 75
+      objectReference: {fileID: 0}
     - target: {fileID: 1620485997253499134, guid: 56d8a4a3985409c499f5cc485b33024d, type: 3}
       propertyPath: m_AnchorMax.x
       value: 0

@@ -22,6 +22,7 @@ public abstract class CardAction : Action
     protected virtual void UpdateNeededLanes(ActionCard_Behaviour source) { }
     public override void Execute(BoardStateController board, int strengh, UnityEngine.Object source) { }
     public virtual void OnLanePlaced(BoardStateController board, ActionCard_Behaviour source) { }
+
     public abstract IEnumerator OnAction(BoardStateController board, ActionCard_Behaviour source);
     public virtual void OnPlay(BoardStateController board) { }
     public virtual void Reset(BoardStateController board, Card_Behaviour source)

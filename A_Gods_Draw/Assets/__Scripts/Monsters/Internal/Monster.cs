@@ -20,7 +20,8 @@ public class Monster : BoardElement
     private float outlineRemainingTime;
 
     //SFX
-    private EventReference cardSelect_SFX, death_SFX;
+    [SerializeField]
+    private EventReference death_SFX;
     public EventReference HoverOver_SFX;
 
     //UI
@@ -65,6 +66,8 @@ public class Monster : BoardElement
 
         healthBar.maxValue = maxHealth;
         barrierBar.maxValue = maxHealth;
+
+        UpdateHealthUI();
 
         BoardElementInfo = "Hello, I am an enemy";
 
