@@ -50,7 +50,10 @@ public class ChooseCardReward : MonoBehaviour
 
             if (SelectIndex > -1)
             {
-                deckManager.addCardToDeck(CardOptions[SelectIndex]);
+                CardPlayData _SelectedCard = new CardPlayData();
+                _SelectedCard.CardType = CardOptions[SelectIndex];
+
+                deckManager.addCardToDeck(_SelectedCard);
                 MultiSceneLoader.loadCollection("Map", collectionLoadMode.Difference);
             }
         }
@@ -98,7 +101,10 @@ public class ChooseCardReward : MonoBehaviour
             Card_SO randomCard = searchResult[randomIndex];
             Card_Loader _Loader = spawn.GetComponentInChildren<Card_Loader>();
             _Loader.addComponentAutomatically = false;
-            _Loader.Set(randomCard);
+            
+            CardPlayData _randomData = new CardPlayData();
+            _randomData.CardType = randomCard;
+            _Loader.Set(_randomData);
 
             CardOptions[i] = searchResult[randomIndex];
             searchResult.RemoveAt(randomIndex);

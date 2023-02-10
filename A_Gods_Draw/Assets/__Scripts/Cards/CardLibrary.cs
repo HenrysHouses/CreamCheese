@@ -51,7 +51,7 @@ public class CardLibrary : MonoBehaviour
     /// <returns>If page was Instantiated</returns>
     private bool DisplayCardPage(int page)
     {
-        List<Card_SO> deck = deckList.deckData.deckListData;
+        DeckListData deck = deckList.deckData;
         int DisplayOffset = cardSlots.Length * page;
 
         if(DisplayOffset > deck.Count || page < 0)
@@ -70,7 +70,7 @@ public class CardLibrary : MonoBehaviour
 
             GameObject spawnCard = Instantiate(cardPrefab);
             Card_Loader _Loader = spawnCard.GetComponentInChildren<Card_Loader>();
-            _Loader.Set(deck[DisplayOffset+i]);
+            _Loader.Set(deck.deckListData[DisplayOffset+i]);
 
             spawnCard.transform.SetParent(cardSlots[i], false);
             currDisplayedCards[i] = spawnCard;
@@ -124,7 +124,7 @@ public class CardLibrary : MonoBehaviour
             return;
 
         // Destroy the card
-        Card_SO _selectedCard = hit.collider.GetComponentInChildren<Card_Loader>().GetCardSO;
+        CardPlayData _selectedCard = hit.collider.GetComponentInChildren<Card_Loader>()._card;
         deckManager.removeCardFromDeck(_selectedCard);
         shouldDestroyACard = false;
         CardInspector.CanSelect = false;

@@ -39,13 +39,7 @@ public class PlayerTracker : ScriptableObject
 
     public void setDeck(DeckListData deckData)
     {
-        List<Card_SO> newDeck = new List<Card_SO>();
-        for (int i = 0; i < deckData.deckListData.Count; i++)
-        {
-            newDeck.Add(deckData.deckListData[i]);
-        }
-
-        CurrentDeck.SetDeck(newDeck);
+        CurrentDeck.deckData = deckData;
     }
 
     public void addRune(rune rune)

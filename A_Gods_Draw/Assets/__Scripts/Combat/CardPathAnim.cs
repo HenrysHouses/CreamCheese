@@ -12,27 +12,27 @@ using UnityEngine.Events;
 /// </summary>
 public class CardPathAnim : PathAnimatorController.pathAnimation
 {
-    public UnityEvent<Card_SO> OnCardCompletionTrigger;
-    public UnityEvent<Card_SO> OnCardStartTrigger;
+    public UnityEvent<CardPlayData> OnCardCompletionTrigger;
+    public UnityEvent<CardPlayData> OnCardStartTrigger;
     public UnityEvent<GodDialogueTrigger, UnityEngine.Object> OnCardDrawDialogue;
     public UnityEvent<EventReference, GameObject> OnAnimStartSound;
     public UnityEvent<EventReference, GameObject> OnAnimEndSound;
-    public Card_SO cardSO;
+    public CardPlayData _card;
     EventReference sound;
     GameObject soundTarget;
     GodDialogueTrigger _dialogueTrigger;
 
-    public CardPathAnim(Card_SO card, EventReference soundEvent, GameObject SoundEmitterTarget, GodDialogueTrigger dialogueTrigger)
+    public CardPathAnim(CardPlayData card, EventReference soundEvent, GameObject SoundEmitterTarget, GodDialogueTrigger dialogueTrigger)
     {
-        OnCardCompletionTrigger = new UnityEvent<Card_SO>();
-        OnCardStartTrigger = new UnityEvent<Card_SO>();
+        OnCardCompletionTrigger = new UnityEvent<CardPlayData>();
+        OnCardStartTrigger = new UnityEvent<CardPlayData>();
         OnCardDrawDialogue = new UnityEvent<GodDialogueTrigger, Object>();
         OnAnimStartSound = new UnityEvent<EventReference, GameObject>();
         OnAnimEndSound = new UnityEvent<EventReference, GameObject>();
         OnAnimCompletionTrigger = new UnityEvent();
         OnAnimStartTrigger = new UnityEvent();
 
-        cardSO = card;
+        _card = card;
         sound = soundEvent;
         soundTarget = SoundEmitterTarget;
         _dialogueTrigger = dialogueTrigger;
@@ -40,9 +40,9 @@ public class CardPathAnim : PathAnimatorController.pathAnimation
 
     public override void completionTrigger(string animationName)
     {
-        OnCardDrawDialogue?.Invoke(_dialogueTrigger, cardSO);
+        OnCardDrawDialogue?.Invoke(_dialogueTrigger, _card.CardType);
         OnAnimEndSound?.Invoke(sound, soundTarget);
-        OnCardCompletionTrigger?.Invoke(cardSO);
+        OnCardCompletionTrigger?.Invoke(_card);
         OnAnimCompletionTrigger?.Invoke();
         _Complete = true;
         //Debug.Log("complete " + animationName);
@@ -51,7 +51,7 @@ public class CardPathAnim : PathAnimatorController.pathAnimation
     public override void startTrigger()
     {
         OnAnimStartSound?.Invoke(sound, soundTarget);
-        OnCardStartTrigger?.Invoke(cardSO);
+        OnCardStartTrigger?.Invoke(_card);
         OnAnimStartTrigger?.Invoke();
         _Started = true;
     }

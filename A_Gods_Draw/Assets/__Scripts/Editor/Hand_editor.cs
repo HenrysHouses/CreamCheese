@@ -27,7 +27,11 @@ public class Hand_editor : Editor
         if(GUILayout.Button("Add Card"))
         {
             Card_SO card = SO as Card_SO;
-            script.AddCard(card);
+
+            CardPlayData data = new CardPlayData();
+            data.CardType = card;
+
+            script.AddCard(data);
         }    
     }
 }

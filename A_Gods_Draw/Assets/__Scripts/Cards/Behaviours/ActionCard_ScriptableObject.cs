@@ -22,8 +22,6 @@ public class ActionCard_ScriptableObject : Card_SO
     private void OnValidate() {
         cardStats.UpgradePath.SetGlyphs(cardStats.getGlyphs(CardType.None));
     }
-
-
 }
 
 /// <summary>
@@ -71,13 +69,46 @@ public struct CardUpgradePath
 
     public void SetGlyphs(CardActionEnum[] Glyphs)
     {
+        if(Upgrades == null)
+            return;
+     
         for (int i = 0; i < Upgrades.Length; i++)
         {
             Upgrades[i].RemovableGlyph = Glyphs;
         }
     }
+
+    public void addExperience()
+    {
+        if(Upgrades == null)
+        {
+            Debug.Log("this card has no upgrades");
+            return;
+        }
+
+        if(Experience.Level == Upgrades.Length-1)
+        {
+            Debug.Log("this card is max level");
+            return;
+        }
+
+
+        Experience.XP++;
+
+        if(Experience.XP > Upgrades[Experience.Level].RequiredXP)
+        {
+            Experience.Level++;
+        }
+    }
+
+    public void logXP()
+    {
+        string s = "Current Xp: " + Experience.XP + "\n Current Level: " + Experience.Level;
+        Debug.Log(s);
+    }
 }
 
+[System.Serializable]
 public struct CardExperience
 {
     public int XP;

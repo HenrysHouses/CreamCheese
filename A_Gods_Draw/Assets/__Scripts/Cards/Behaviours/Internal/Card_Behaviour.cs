@@ -38,9 +38,9 @@ public abstract class Card_Behaviour : BoardElement
         yield break;
     }
 
-    protected CardAction GetAction(CardActionData card)
+    protected CardAction GetAction(CardActionEnum ActionType)
     {
-        switch (card.actionEnum)
+        switch (ActionType)
         {
             case CardActionEnum.Attack:
                 return new AttackCardAction();
@@ -111,10 +111,13 @@ public abstract class Card_Behaviour : BoardElement
         collider.size = size;
         collider.center = center; // centre -0.0007099053 // size 0.2012218
         // transform.GetComponent<BoxCollider>().enabled = false;
+        GainExperience();
         OnPlacedInLane();
         onPlayerHand = false;
     }
 
+
+    protected virtual void GainExperience(){}
     public virtual void CancelSelection() { controller.SetSelectedCard(); }
     public virtual bool ShouldCancelSelection() { return false; }
     public virtual bool CanBeSelected() {return onPlayerHand;  }

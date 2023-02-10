@@ -11,54 +11,44 @@ public class DeckList_SO : ScriptableObject
 {
     [SerializeField]
     public DeckListData deckData;
-
-    public List<Card_SO> GetDeck()
-    {
-        return deckData.deckListData;
-    }
-
-    public void SetDeck(List<Card_SO> deckList)
-    {
-        deckData.deckListData = deckList;
-    }
+    public List<CardPlayData> GetDeck() => deckData.deckListData;
 }
 
 /// <summary>Data container for the player's deck, Used for saving and loading</summary>
 [System.Serializable]
 public class DeckListData
 {
+    public List<CardPlayData> deckListData = new List<CardPlayData>();
+    public int Count => deckListData.Count;
+
+    // Constructor
     public DeckListData(CardQuantity[] cardQuantities)
     {
-        List<string> SearchNames = new List<string>();
+        // Adding all the instances of unique cards
         for (int i = 0; i < cardQuantities.Length; i++)
         {
-            SearchNames.Add(cardQuantities[i].CardName);
-        }
+            int n = 0;
 
-        deckListData = CardSearch.Search<Card_SO>(SearchNames.ToArray());
-
-        for (int i = 0; i < cardQuantities.Length; i++)
-        {
-            int n = 1;
-
+            // While there is still more copies of a single card to add
             while(n < cardQuantities[i].Quantity)
             {
                 string[] name = {cardQuantities[i].CardName};
+                // Find spesific card
                 List<Card_SO> card = CardSearch.Search<Card_SO>(name);
-                deckListData.Add(card[0]);
+                
+                // Add its scriptable Object, Experience and level
+                CardPlayData data = new CardPlayData();
+                data.CardType = card[0];
+                data.Experience.XP = cardQuantities[i].Levels[n].XP;
+                data.Experience.Level = cardQuantities[i].Levels[n].Level;
+                // Insert into deck data
+                deckListData.Add(data);
                 n++;
             }
         }
-
-        UniqueCards = cardQuantities;
     }
-
-    public DeckListData(){}
-
-    public List<Card_SO> deckListData;
-    public CardQuantity[] UniqueCards;
     
-    public CardQuantityContainer GetDeckCardNames()
+    public CardQuantityContainer GetDeckData()
     {
         CardQuantityContainer container = new CardQuantityContainer();
 
@@ -69,8 +59,14 @@ public class DeckListData
         {
             string card = UniqueCards[i].cardName;
             container.Cards[i].CardName = card;
-            container.Cards[i].Quantity = GetQuantityOfCard(card);
+            container.Cards[i].SetQuantity(GetQuantityOfCard(card));
         }
+
+        for (int i = 0; i < container.Cards.Length; i++)
+        {
+            container.Cards[i].SetCardLevels(deckListData.ToArray());
+        }
+
         return container;
     } 
 
@@ -80,9 +76,9 @@ public class DeckListData
 
         for (int i = 0; i < deckListData.Count; i++)
         {
-            if(!unique.Contains(deckListData[i]))
+            if(!unique.Contains(deckListData[i].CardType))
             {
-                unique.Add(deckListData[i]);
+                unique.Add(deckListData[i].CardType);
             }
         }
         return unique.ToArray();
@@ -94,9 +90,9 @@ public class DeckListData
 
         for (int i = 0; i < deckListData.Count; i++)
         {
-            if(!unique.Contains(deckListData[i]))
+            if(!unique.Contains(deckListData[i].CardType))
             {
-                unique.Add(deckListData[i]);
+                unique.Add(deckListData[i].CardType);
             }
         }
         return unique.Count;
@@ -108,7 +104,7 @@ public class DeckListData
 
         for (int i = 0; i < deckListData.Count; i++)
         {
-            if(deckListData[i].cardName == cardName)
+            if(deckListData[i].CardType.cardName == cardName)
                 n++;
         }
 
@@ -126,5 +122,42 @@ public struct CardQuantityContainer
 public struct CardQuantity
 {
     public string CardName;
-    public int Quantity;
+    int _quantity;
+    public int Quantity => _quantity;
+    public CardExperience[] Levels;
+
+    public void SetQuantity(int QuantityOfCard)
+    {
+        _quantity = QuantityOfCard;
+        Levels = new CardExperience[_quantity];
+    }
+
+    public void SetCardLevels(CardPlayData[] Cards)
+    {
+        int xpID = 0;
+        for (int i = 0; i < Cards.Length; i++)
+        {
+            if(Cards[i].CardType.cardName == CardName)
+            {
+                Levels[xpID].XP = Cards[i].Experience.XP;
+                Levels[xpID].Level = Cards[i].Experience.Level;
+                xpID++;
+            }
+        }
+    }
+}
+
+[System.Serializable]
+public struct CardPlayData
+{
+    public Card_SO CardType;
+    [SerializeField]
+    public CardExperience Experience;
+
+    public void Clear()
+    {
+        CardType = null;
+        Experience.XP = 0;
+        Experience.Level = 0;
+    }
 }

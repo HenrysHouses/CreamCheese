@@ -10,7 +10,9 @@ public class ExhaustCardAction : CardAction
 
         isReady = false;
 
-        _board.ExhaustedCards.Add(currentCard.CardSO);
+        Card_Loader _Loader = currentCard.GetComponent<Card_Loader>();
+
+        _board.ExhaustedCards.Add(_Loader._card);
 
         // Playing VFX for each action
         _board.StartCoroutine(playTriggerVFX(_source.gameObject, _board.Player.transform, new Vector3(0, 1, 0)));

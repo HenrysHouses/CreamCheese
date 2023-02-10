@@ -43,21 +43,21 @@ public class DeckManager_SO : ScriptableObject
         
         starterDeck = Resources.Load<DeckList_SO>("DeckLists/StarterDeck");
 
-        // Debug.Log("Loaded starter deck!");
+        Debug.Log("Loaded starter deck!");
 
         return starterDeck;
     }
 
     [SerializeField, Tooltip("Cards the player can draw")] 
-    List<Card_SO> pLibrary;
+    List<CardPlayData> pLibrary;
     public int GetLibraryCount() => pLibrary.Count;
     
     [SerializeField, Tooltip("Cards the player has discarded")] 
-    List<Card_SO> pDiscard;
+    List<CardPlayData> pDiscard;
     public int GetDiscardCount() => pDiscard.Count;
     
     [SerializeField, Tooltip("Cards in the player's current hand")] 
-    List<Card_SO> pHand;
+    List<CardPlayData> pHand;
 
     public int GetAllCurrentPlayingCards() => pDiscard.Count + pLibrary.Count + pHand.Count;
 
@@ -84,14 +84,14 @@ public class DeckManager_SO : ScriptableObject
     // Setup
     void OnEnable()
     {
-        pLibrary = new List<Card_SO>();
-        for (int i = 0; i < deckList.GetDeck().Count; i++)
+        pLibrary = new List<CardPlayData>();
+        for (int i = 0; i < deckList.deckData.Count; i++)
         {
-            pLibrary.Add(deckList.GetDeck()[i]);
+            pLibrary.Add(deckList.deckData.deckListData[i]);
         }
 
-        pDiscard = new List<Card_SO>();
-        pHand = new List<Card_SO>();
+        pDiscard = new List<CardPlayData>();
+        pHand = new List<CardPlayData>();
     }
 
     // Clears the lists used for game play
@@ -101,21 +101,21 @@ public class DeckManager_SO : ScriptableObject
     }
 
     /// <summary>Adds a card to the player deck list</summary>
-    /// <param name="card">The scriptable object for the desired card</param>
-    public void addCardToDeck(Card_SO card)
+    /// <param name="card">Data container for the scriptable object and the card's experience and current level</param>
+    public void addCardToDeck(CardPlayData card)
     {
         Debug.Log("add card: " + card);
         deckList.GetDeck().Add(card);
-        GameSaver.SaveData(deckList.deckData.GetDeckCardNames());
+        GameSaver.SaveData(deckList.deckData.GetDeckData());
         //SavingDeck();
     }
 
     /// <summary>Removes a card from the player deck list</summary>
-    /// <param name="card">The scriptable object for the desired card</param>
-    public void removeCardFromDeck(Card_SO card)
+    /// <param name="card">Data container for the scriptable object and the card's experience and current level</param>
+    public void removeCardFromDeck(CardPlayData card)
     {
         deckList.GetDeck().Remove(card);
-        GameSaver.SaveData(deckList.deckData.GetDeckCardNames());
+        GameSaver.SaveData(deckList.deckData.GetDeckData());
         //SavingDeck();
     }
 
@@ -140,43 +140,43 @@ public class DeckManager_SO : ScriptableObject
     }
 
     /// <summary>Adds a card to the player library</summary>
-    /// <param name="card">The scriptable object for the desired card</param>
-    public void addCardToLibrary(Card_SO card)
+    /// <param name="card">Data container for the scriptable object and the card's experience and current level</param>
+    public void addCardToLibrary(CardPlayData card)
     {
         pLibrary.Add(card);
     }
 
     /// <summary>Removes a card from the player library</summary>
-    /// <param name="card">The scriptable object for the desired card</param>
-    public void removeCardFromLibrary(Card_SO card)
+    /// <param name="card">Data container for the scriptable object and the card's experience and current level</param>
+    public void removeCardFromLibrary(CardPlayData card)
     {
         pLibrary.Remove(card);
     }
 
     /// <summary>Adds a card to the player discard</summary>
-    /// <param name="card">The scriptable object for the desired card</param>
-    public void addCardToDiscard(Card_SO card)
+    /// <param name="card">Data container for the scriptable object and the card's experience and current level</param>
+    public void addCardToDiscard(CardPlayData card)
     {
         pDiscard.Add(card);
     }
 
     /// <summary>Removes a card from the player discard</summary>
-    /// <param name="card">The scriptable object for the desired card</param>
-    public void removeCardFromDiscard(Card_SO card)
+    /// <param name="card">Data container for the scriptable object and the card's experience and current level</param>
+    public void removeCardFromDiscard(CardPlayData card)
     {
         pDiscard.Remove(card);
     }
     
     /// <summary>Adds a card to the player hand</summary>
-    /// <param name="card">The scriptable object for the desired card</param>
-    public void addCardToHand(Card_SO card)
+    /// <param name="card">Data container for the scriptable object and the card's experience and current level</param>
+    public void addCardToHand(CardPlayData card)
     {
         pHand.Add(card);
     }
 
     /// <summary>Removes a card from the player hand</summary>
-    /// <param name="card">The scriptable object for the desired card</param>
-    public void removeCardFromHand(Card_SO card)
+    /// <param name="card">Data container for the scriptable object and the card's experience and current level</param>
+    public void removeCardFromHand(CardPlayData card)
     {
         pHand.Remove(card);
     }
@@ -208,7 +208,7 @@ public class DeckManager_SO : ScriptableObject
             _Loader.addComponentAutomatically = false;
             _Loader.Set(pLibrary[0]);
             pLibrary.Remove(pLibrary[0]);
-            animations[i] = new CardPathAnim(_Loader.GetCardSO, Draw_SFX, cards[i], GodDialogueTrigger.Draw);
+            animations[i] = new CardPathAnim(_Loader._card, Draw_SFX, cards[i], GodDialogueTrigger.Draw);
         }
         OnLibraryChange?.Invoke();
         AnimationEventManager.getInstance.requestAnimation("Library-Hand", cards, delay, animations);
@@ -216,7 +216,7 @@ public class DeckManager_SO : ScriptableObject
     }
 
     /// <summary>Moves a card currently in player hand to player discard. Trigger discard animation</summary>
-    public CardPathAnim discardCard(Card_SO card, List<Card_SO> exhausted)
+    public CardPathAnim discardCard(CardPlayData card, List<CardPlayData> exhausted)
     {
         if (pHand.Contains(card))
         {
@@ -243,7 +243,7 @@ public class DeckManager_SO : ScriptableObject
     public void shuffleLibrary()
     {
         // prep for randomization
-        List<Card_SO> libraryCopy = new List<Card_SO>();
+        List<CardPlayData> libraryCopy = new List<CardPlayData>();
         for (int i = 0; i < pLibrary.Count; i++)
         {
             libraryCopy.Add(pLibrary[i]);
@@ -254,15 +254,15 @@ public class DeckManager_SO : ScriptableObject
         for (int i = 0; i < libraryCopy.Count; i++)
         {
             int rnd = Random.Range(0, libraryCopy.Count);
-            while(libraryCopy[rnd] == null)
+            while(libraryCopy[rnd].CardType == null)
             {
                 rnd = Random.Range(0, libraryCopy.Count);
             }
             pLibrary.Add(libraryCopy[rnd]);
-            libraryCopy[rnd] = null;
+            
+            libraryCopy[rnd].Clear();
+            // libraryCopy[rnd].CardType = null;
         }
-
-        
     }
     
     /// <summary>Moves all cards from discard to the library, Then shuffle the library</summary>
@@ -283,7 +283,7 @@ public class DeckManager_SO : ScriptableObject
             Card_Loader _Loader = cards[i].GetComponentInChildren<Card_Loader>();
             _Loader.addComponentAutomatically = false;
             _Loader.Set(pDiscard[i]);
-            animations[i] = new CardPathAnim(_Loader.GetCardSO, Shuffle_SFX, cards[i], GodDialogueTrigger.Shuffle);
+            animations[i] = new CardPathAnim(_Loader._card, Shuffle_SFX, cards[i], GodDialogueTrigger.Shuffle);
             animations[i].OnAnimCompletionTrigger.AddListener(OnDiscardChange.Invoke);
             animations[i].OnAnimCompletionTrigger.AddListener(OnLibraryChange.Invoke);
         }

@@ -176,7 +176,7 @@ public class TurnController : CombatFSM
 
 
                 // Dialogue draw trigger
-                if(trigger.cardSO is GodCard_ScriptableObject _God)
+                if(trigger._card.CardType is GodCard_ScriptableObject _God)
                 {
                     trigger.OnCardDrawDialogue.AddListener(_God.StartDialogue);
                 }
@@ -259,7 +259,7 @@ public class TurnController : CombatFSM
             for (int i = _Hand.CardSelectionAnimators.Count - 1; i >= 0; i--)
             {
                 
-                lastAnim = deckManager.discardCard(_Hand.CardSelectionAnimators[i].cardSO, BoardStateController.ExhaustedCards);
+                lastAnim = deckManager.discardCard(_Hand.CardSelectionAnimators[i]._card, BoardStateController.ExhaustedCards);
                 
                 lastAnim.OnAnimStartSound.AddListener(CardSound);
 
@@ -311,7 +311,7 @@ public class TurnController : CombatFSM
 
         if (card_b != null)
         {
-            CardPathAnim anim = deckManager.discardCard(card_b.GetComponent<Card_Loader>().GetCardSO, BoardStateController.ExhaustedCards);
+            CardPathAnim anim = deckManager.discardCard(card_b.GetComponent<Card_Loader>()._card, BoardStateController.ExhaustedCards);
 
             // Dialogue discard trigger
             if(BoardStateController.playedGodCard is not null && anim is not null)
