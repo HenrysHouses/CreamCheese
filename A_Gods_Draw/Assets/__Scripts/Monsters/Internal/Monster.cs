@@ -4,7 +4,7 @@ using UnityEngine.UI;
 using TMPro;
 using FMODUnity;
 
-public abstract class Monster : BoardElement
+public class Monster : BoardElement
 {
 
     public Intent GetIntent() => enemyIntent;
@@ -31,7 +31,7 @@ public abstract class Monster : BoardElement
     [SerializeField]
     private TMP_Text healthText, strengthText;
     [SerializeField]
-    private Image intentImage, arrow;
+    private Image intentImage;
     [SerializeField]
     private Icons uiIcons;
     [SerializeField]

@@ -20,10 +20,29 @@ MonoBehaviour:
   effect: Buff all targets
   cardStats:
     TargetingView: 7
+    SelectionType:
+      Index: 6
+      NamesContainer: {fileID: 11400000, guid: f8b018dd89042d4438fa88687c5c3c94, type: 2}
     strength: 3
     numberOfTargets: 1
     actionGroup:
-      actionStats: []
+      actionStats:
+      - actionEnum: 15
+        action_SFX:
+          Guid:
+            Data1: 0
+            Data2: 0
+            Data3: 0
+            Data4: 0
+          Path: 
+        _VFX:
+          FollowPath: 0
+          isAnimating: 0
+          PathSpeed: 0
+          trigger_VFX: {fileID: 0}
+          hit_VFX: {fileID: 0}
     correspondingGod: 0
     godBuffActions:
       actionStats: []
+    UpgradePath:
+      Upgrades: []
