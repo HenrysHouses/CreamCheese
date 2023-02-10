@@ -13,22 +13,22 @@ public abstract class Intent
         return _i;
     }
 
-    protected int strengh;
+    protected int strength;
 
     protected MonsterAction actionSelected;
 
     public void CancelIntent()
     {
         actionSelected = null;
-        strengh = 0;
+        strength = 0;
     }
 
     public abstract void DecideIntent(BoardStateController board);
 
     public virtual void LateDecideIntent(BoardStateController board) { }
 
-    public int GetCurrStrengh() => strengh;
-    public int SetCurrStrengh(int newS) => strengh = newS;
+    public int GetCurrStrengh() => strength;
+    public int SetCurrStrengh(int newS) => strength = newS;
     public Sprite GetCurrentIcon()
     {
         return actionSelected?.Icon;
@@ -45,7 +45,7 @@ public abstract class Intent
             if (actionSelected.ID == (int)EnemyIntent.None)
                 return;
 
-            actionSelected.Execute(board, strengh, source);
+            actionSelected.Execute(board, strength, source);
         }
 
         CancelIntent();

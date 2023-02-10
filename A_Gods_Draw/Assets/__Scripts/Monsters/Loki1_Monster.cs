@@ -1,5 +1,5 @@
 // Written by Javier
-
+/*
 public class Loki1_Monster : Monster
 {
     private void Start()
@@ -13,3 +13,4 @@ public class Loki1_Monster : Monster
     // }
 
 }
+*/

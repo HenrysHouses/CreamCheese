@@ -8,7 +8,7 @@ public class PoisonDebuff : DebuffBase
     public override void TickDebuff(int _ticks = 1)
     {
 
-        thisMonster.DealDamage(Stacks, true);
+        thisMonster.TakeDamage(Stacks, true);
         Stacks -= _ticks;
 
         if(Stacks <= 0)

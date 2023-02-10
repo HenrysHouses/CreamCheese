@@ -1,5 +1,5 @@
 // Written by Javier
-
+/*
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -47,6 +47,7 @@ public class LokiMonter1Intent : Intent
                 actionSelected = attackPlayer;
             }
         }
-        strengh = Random.Range(actionSelected.MinStrength, actionSelected.MaxStrength + 1);
+        strength = Random.Range(actionSelected.MinStrength, actionSelected.MaxStrength + 1);
     }
 }
+*/

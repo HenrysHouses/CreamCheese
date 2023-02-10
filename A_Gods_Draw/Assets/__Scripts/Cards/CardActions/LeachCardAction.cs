@@ -14,7 +14,7 @@ public class LeachCardAction : CardAction
         foreach(Monster _target in _source.AllTargets)
         {
 
-            int _damageDealt = _target.DealDamage(_source.stats.strength);
+            int _damageDealt = _target.TakeDamage(_source.stats.strength);
             _board.Player.Heal(_damageDealt);
 
         }

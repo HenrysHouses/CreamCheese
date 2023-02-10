@@ -69,6 +69,6 @@ public class LokiMonster2Intent : Intent
             actionSelected = GetAction<AttackPlayerAction>();
         }
         // Debug.Log( actionSelected);
-        strengh = Random.Range(actionSelected.MinStrength, actionSelected.MaxStrength + 1);
+        strength = Random.Range(actionSelected.MinStrength, actionSelected.MaxStrength + 1);
     }
 }

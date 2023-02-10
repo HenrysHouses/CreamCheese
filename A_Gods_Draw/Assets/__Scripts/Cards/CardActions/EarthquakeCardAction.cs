@@ -13,7 +13,7 @@ public class EarthquakeCardAction : CardAction
         foreach(Monster _target in _board.getLivingEnemies())
         {
 
-            _target.DealDamage(_source.stats.strength);
+            _target.TakeDamage(_source.stats.strength);
 
         }
 

@@ -1,6 +1,3 @@
-// Written by Javier Villegas
-// modified by charlie
-
 using System.Collections;
 using UnityEngine;
 using UnityEngine.UI;
@@ -9,92 +6,142 @@ using FMODUnity;
 
 public abstract class Monster : BoardElement
 {
+
     public Intent GetIntent() => enemyIntent;
     protected Intent enemyIntent;
+    private int defendedFor;
 
+    //VFX
     public GameObject deathParticleVFX;
     public GameObject slashParticleVFX;
-    public bool HealingDisabled;
     [SerializeField] Renderer[] MonsterRenderers;
     public float outlineSize = 0.01f;
-    bool outlineShouldTurnOff;
-    float outlineRemainingTime;
+    private bool outlineShouldTurnOff;
+    private float outlineRemainingTime;
 
+    //SFX
+    private EventReference cardSelect_SFX, death_SFX;
+    public EventReference HoverOver_SFX;
+
+    //UI
     [SerializeField]
-    int maxHealth;
-    int health;
-    int barrier;
-
-    int weakened = 0;
-
+    private Transform effectsPanel;
     [SerializeField]
-    private EventReference SoundSelectCard,death_SFX;
-    public EventReference hoverOver_SFX;
-
-    int defendedFor;
-
+    private Slider healthBar, poisonBar, barrierBar;
     [SerializeField]
-    Image image;
+    private TMP_Text healthText, strengthText;
     [SerializeField]
-    TMP_Text strengh;
+    private Image intentImage, arrow;
     [SerializeField]
-    TMP_Text healthTxt;
+    private Icons uiIcons;
     [SerializeField]
-    TMP_Text defendTxt;
-
-    [SerializeField]
-    Sprite attackIcon;
-
-    Image overlay;
-
-    [SerializeField]
-    Sprite abilityIcon;
-
-    [SerializeField]
-    Image arrowImage;
-
-    void Awake()
+    private GameObject effectIconPrefab;
+    public enum Effects
     {
-        //Quick formula for scaling difficulty
+
+        Poison,
+        Frostbite,
+        HealPrevention,
+        Chained
+
+    }
+
+    //Health
+    [SerializeField]
+    private int maxHealth;
+    private int currentHealth, barrier, totalHealthPool;
+    public int GetMaxHealth() { return maxHealth; }
+    public int GetHealth() { return currentHealth; }
+
+    //Effects
+    public bool HealingDisabled, Defending;
+
+    private void Awake()
+    {
+
         maxHealth += Mathf.RoundToInt((float)maxHealth / 10f) * (GameManager.timesDefeatedBoss * 2);
 
-        health = maxHealth;
-
-        weakened = 0;
-
-        healthTxt.text = "HP: " + health.ToString();
-
-        image.enabled = false;
-        strengh.enabled = false;
-
-        defendTxt.enabled = false;
-
-        overlay = transform.GetChild(1).GetComponent<Canvas>().gameObject.AddComponent<Image>();
-        overlay.enabled = false;
+        currentHealth = maxHealth;
 
         BoardElementInfo = "Hello, I am an enemy";
 
     }
 
-    private void Update() 
+    private void Update()
     {
+
         UpdateOutline();
+
     }
 
+    public void Defend(int amount)
+    {
+        if (gameObject)
+        {
+            
+            defendedFor += amount;
+            Defending = true;
 
-    public int GetMaxHealth() { return maxHealth; }
-    public int GetHealth() { return health; }
+        }
+    }
 
-    public void ReceiveHealth(int amount)
+    public int TakeDamage(int _amount, bool bypassDefence = false)
     {
 
-        if(!HealingDisabled)
-            return;
+        int _damageTaken = 0;
 
-        health += amount;
+        if (_amount > defendedFor && !bypassDefence)
+        {
+            _damageTaken = _amount - defendedFor;
+            defendedFor = 0;
+            
+        }
+        else if(bypassDefence)
+        {
+            
+            _damageTaken = _amount;
 
-        healthTxt.text = "HP: " + health.ToString();
+        }
+        else
+            defendedFor -= _amount;
+
+        if(barrier > 0)
+        {
+
+            _damageTaken -= barrier;
+
+            if(_damageTaken > 0)
+                barrier = 0;
+            else
+                barrier -= _damageTaken;
+
+        }
+
+        if(Defending)
+        {
+
+            strengthText.text = defendedFor.ToString();
+
+        }
+
+        currentHealth -= _damageTaken;
+
+        if (currentHealth <= 0)
+        {
+
+            currentHealth = 0;
+            SoundPlayer.PlaySound(death_SFX,gameObject);
+            if (deathParticleVFX != null)
+                Instantiate(deathParticleVFX, transform.position, Quaternion.identity);
+            
+            Destroy(this.gameObject);
+
+        }
+
+        UpdateHealthUI();
         setOutline(outlineSize, Color.red, 0.25f);
+
+        return _damageTaken;
 
     }
 
@@ -105,105 +152,19 @@ public abstract class Monster : BoardElement
 
     }
 
-    public int DealDamage(int amount, bool bypassDefence = false)
+    public void ReceiveHealth(int _amount)
     {
 
-        int damageTaken = 0;
+        if(!HealingDisabled)
+            return;
 
-        if (weakened > 0)
-            amount++;
+        currentHealth += _amount;
 
-        if (amount > defendedFor && !bypassDefence)
-        {
-            damageTaken = amount - defendedFor;
-            defendedFor = 0;
-            image.color = Color.white;
-            defendTxt.enabled = false;
-        }
-        else if(bypassDefence)
-        {
-            
-            damageTaken = amount;
-
-        }
-        else
-            defendedFor -= amount;
-
-        defendTxt.text = defendedFor.ToString();
-
-        if(barrier > 0)
-        {
-
-            damageTaken -= barrier;
-
-            if(damageTaken > 0)
-                barrier = 0;
-            else
-                barrier -= damageTaken;
-
-        }
-
-        health -= damageTaken;
-
-        if (health <= 0)
-        {
-            health = 0;
-            SoundPlayer.PlaySound(death_SFX,gameObject);
-            if (deathParticleVFX != null)
-                Instantiate(deathParticleVFX,image.transform.position, Quaternion.identity);
-            Destroy(this.gameObject);
-        }
-
-        healthTxt.text = "HP: " + health.ToString();
-        setOutline(outlineSize, Color.red, 0.25f);
-
-        return damageTaken;
+        UpdateHealthUI();
+        setOutline(outlineSize, Color.green, 0.25f);
 
     }
 
-    internal void DecideIntent(BoardStateController board)
-    {
-        enemyIntent.CancelIntent();
-
-        if (weakened > 0)
-            weakened--;
-
-        enemyIntent.DecideIntent(board);
-    }
-
-    //Just in case a monster needs to know what other enemies will do to decide for itself
-    internal void LateDecideIntent(BoardStateController board)
-    {
-        enemyIntent.LateDecideIntent(board);
-
-        UpdateUI();
-        overlay.enabled = false;
-    }
-
-    //Some overlay for any action that needs to be visualized (used for chains)
-    public void SetOverlay(Sprite sprite)
-    {
-        overlay.sprite = sprite;
-        overlay.enabled = true;
-    }
-
-    public void Weaken(int amount)
-    {
-        weakened += amount;
-    }
-
-    public void Defend(int amount)
-    {
-        if (gameObject)
-        {
-            defendedFor += amount;
-            image.color = Color.cyan;
-            defendTxt.text = defendedFor.ToString();
-            defendTxt.enabled = true;
-        }
-    }
-
-    //for defend cards to reduce the damage of attacks
     public void DeBuff(int amount)
     {
         if (enemyIntent.GetID() == EnemyIntent.AttackGod || enemyIntent.GetID() == EnemyIntent.AttackPlayer)
@@ -215,7 +176,7 @@ public abstract class Monster : BoardElement
             }
         }
 
-        UpdateUI();
+        UpdateIntentUI();
     }
 
     public void Buff(int amount)
@@ -225,22 +186,68 @@ public abstract class Monster : BoardElement
             enemyIntent.SetCurrStrengh(enemyIntent.GetCurrStrengh() + amount);
         }
 
-        UpdateUI();
+        UpdateIntentUI();
     }
 
-    public void UpdateUI()
+    private void UpdateHealthUI()
     {
-        if (strengh)
+
+        healthText.text = "HP: " + currentHealth;
+
+        healthBar.value = (currentHealth / maxHealth) * healthBar.maxValue;
+        barrierBar.value = (barrier / maxHealth) * barrierBar.maxValue;
+            
+    }
+
+    private void UpdateIntentUI()
+    {
+
+        strengthText.text = enemyIntent.GetCurrStrengh().ToString();
+        intentImage.sprite = enemyIntent.GetCurrentIcon();
+
+    }
+
+    internal void DecideIntent(BoardStateController board)
+    {
+        
+        Defending = false;
+
+        enemyIntent.CancelIntent();
+        enemyIntent.DecideIntent(board);
+
+        UpdateIntentUI();
+
+    }
+
+    //Just in case a monster needs to know what other enemies will do to decide for itself
+    internal void LateDecideIntent(BoardStateController board)
+    {
+
+        enemyIntent.LateDecideIntent(board);
+
+        UpdateIntentUI();
+
+    }
+
+    public void ShowEffect(Effects _effect)
+    {
+
+        switch(_effect)
         {
-            strengh.text = enemyIntent.GetCurrStrengh().ToString();
-            strengh.enabled = true;
+            
+            case Effects.Poison:
+            break;
+            
         }
-        if (image)
-        {
-            image.sprite = enemyIntent.GetCurrentIcon();
-            image.GetComponent<ShowDescription>().SetText(enemyIntent.GetCurrentDescription());
-            image.enabled = true;
-        }
+
+    }
+
+    public void ShowEffect(Sprite _icon)
+    {
+
+        GameObject _iconGO = Instantiate(effectIconPrefab, effectsPanel);
+        _iconGO.GetComponent<Image>().sprite = _icon;
+
     }
 
     public void setOutline(float size, Color color, float duration = 0)
@@ -286,22 +293,12 @@ public abstract class Monster : BoardElement
         TurnController.shouldWaitForAnims = false;
     }
 
-    private void OnMouseOver()
-    {
-        arrowImage.color = Color.red;
-    }
+}
 
-    private void OnMouseExit()
-    {
-        arrowImage.color = Color.white;
-    }
+struct Icons
+{
 
-    public void EnemyShowArrow()
-    {
-    }
+    //Effect icons
+    public Sprite PoisonIcon, FrostbiteIcon, HealPreventionIcon, ChainedIcon;
 
-    public void EnemyHideArrow()
-    {
-        arrowImage.enabled = false;
-    }
 }

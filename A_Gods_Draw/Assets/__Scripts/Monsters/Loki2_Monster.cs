@@ -1,5 +1,5 @@
 // Written by Javier
-
+/*
 public class Loki2_Monster : Monster
 {
     private void Start()
@@ -11,3 +11,4 @@ public class Loki2_Monster : Monster
     //     return GetType().Name;
     // }
 }
+*/

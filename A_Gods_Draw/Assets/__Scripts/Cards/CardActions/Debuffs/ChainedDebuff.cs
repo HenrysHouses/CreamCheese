@@ -9,7 +9,7 @@ public class ChainedDebuff : DebuffBase
     {
 
         thisMonster.GetIntent().CancelIntent();
-        thisMonster.SetOverlay(Resources.Load<Sprite>("ImageResources/Icon_Chain_v1"));
+        thisMonster.ShowEffect(Resources.Load<Sprite>("ImageResources/Icon_Chain_v1"));
         Stacks -= _ticks;
 
         if(Stacks <= 0)

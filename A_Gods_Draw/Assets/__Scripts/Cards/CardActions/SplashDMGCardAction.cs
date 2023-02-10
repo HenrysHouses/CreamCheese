@@ -26,7 +26,7 @@ public class SplashDMGCardAction : CardAction
                 {
                     // Playing VFX
                     board.StartCoroutine(playTriggerVFX(source.AllTargets[i].gameObject, null, new Vector3(0, 1 ,0)));
-                    monster.DealDamage((int)((source.stats.strength / 2f) + 0.6f));
+                    monster.TakeDamage((int)((source.stats.strength / 2f) + 0.6f));
                 }
             }
         }

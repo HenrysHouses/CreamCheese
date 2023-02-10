@@ -15,7 +15,7 @@ public class ChaosRune : rune
 
         foreach (var enemy in currEnemies)
         {
-            enemy.DealDamage(this.RuneData.Strength);
+            enemy.TakeDamage(this.RuneData.Strength);
         }
 
         triggerOnceEachGame();

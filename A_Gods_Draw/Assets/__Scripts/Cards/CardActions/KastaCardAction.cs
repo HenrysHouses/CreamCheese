@@ -17,7 +17,7 @@ public class KastaCardAction : CardAction
 
             Monster[] _enemies = _board.getLivingEnemies();
 
-            _enemies[0].DealDamage(_source.stats.strength);
+            _enemies[0].TakeDamage(_source.stats.strength);
 
         }
 
