@@ -78,29 +78,6 @@ public struct CardUpgradePath
         }
     }
 
-    public void addExperience()
-    {
-        if(Upgrades == null)
-        {
-            Debug.Log("this card has no upgrades");
-            return;
-        }
-
-        if(Experience.Level == Upgrades.Length-1)
-        {
-            Debug.Log("this card is max level");
-            return;
-        }
-
-
-        Experience.XP++;
-
-        if(Experience.XP > Upgrades[Experience.Level].RequiredXP)
-        {
-            Experience.Level++;
-        }
-    }
-
     public void logXP()
     {
         string s = "Current Xp: " + Experience.XP + "\n Current Level: " + Experience.Level;
@@ -109,10 +86,28 @@ public struct CardUpgradePath
 }
 
 [System.Serializable]
-public struct CardExperience
+public class CardExperience
 {
     public int XP;
     public int Level;
+    public int ID = -1;
+    static List<int> ExistingIDs = new List<int>();
+
+    public CardExperience()
+    {
+        createNewUniqueID();
+    }
+
+    public void createNewUniqueID()
+    {
+        ID++;
+
+        while(ExistingIDs.Contains(ID))
+        {
+            ID++;
+        }
+        ExistingIDs.Add(ID);
+    }
 }
 
 [System.Serializable]
@@ -136,6 +131,7 @@ public class CardStats
         clone.godBuffActions = this.godBuffActions.Clone();
         clone.SelectionType = new CardSelectionType();
         clone.SelectionType.Index = this.SelectionType.Index;
+        clone.UpgradePath = this.UpgradePath;
         return clone;
     }
 

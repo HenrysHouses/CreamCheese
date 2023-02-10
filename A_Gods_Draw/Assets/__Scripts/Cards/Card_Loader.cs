@@ -159,9 +159,8 @@ public class Card_Loader : MonoBehaviour
                 (CB as ActionCard_Behaviour).ApplyLevels(card.Experience);
                 
             }
+            instantiateIcons(Action_Card.cardStats.getGlyphs(Action_Card.type));
         }
-
-        // instantiateIcons(card_so.getGlyphs());
     }
 
     private void instantiateIcons(CardActionEnum[] glyphs)

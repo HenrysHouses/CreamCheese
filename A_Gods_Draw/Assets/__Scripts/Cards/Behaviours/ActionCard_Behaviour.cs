@@ -328,6 +328,7 @@ public class ActionCard_Behaviour : Card_Behaviour
 
     public void ApplyLevels(CardExperience CurrentLevel)
     {
+        stats.UpgradePath.Experience = CurrentLevel;
         for (int i = 0; i < CurrentLevel.Level; i++)
         {
             CardUpgradeType upgradeType = stats.UpgradePath.Upgrades[i].UpgradeType;
@@ -339,6 +340,8 @@ public class ActionCard_Behaviour : Card_Behaviour
                     AddNewGlyph(stats.UpgradePath.Upgrades[i].AddGlyph);
                     break;
                 case CardUpgradeType.RemoveGlyph:
+                    int n = stats.UpgradePath.Upgrades[i].RemoveGlyphIndex;
+                    RemoveGlyph(stats.UpgradePath.Upgrades[i].RemovableGlyph[n]);
                     break;
                 case CardUpgradeType.ModifyValue:
                     upgradeModifiableValue(modifiableCardValue, stats.UpgradePath.Upgrades[i].EditedValue);
@@ -353,7 +356,9 @@ public class ActionCard_Behaviour : Card_Behaviour
         {
             if(_actionGroup.actionStats[i].actionEnum == Glyph)
             {
+                Debug.Log("removing: " + _actionGroup.actions[i].GetType() + "from: " + card_so.cardName);
                 _actionGroup.actions.RemoveAt(i);
+                _actionGroup.actionStats.RemoveAt(i);
             }
         }
     }
@@ -361,6 +366,7 @@ public class ActionCard_Behaviour : Card_Behaviour
     void AddNewGlyph(CardActionEnum Glyph)
     {
         CardAction act = GetAction(Glyph);
+        Debug.Log("adding: " + act.GetType() + " to: " + card_so.cardName);
 
         // act.action_SFX = _actionGroup.actionStats[i].action_SFX; // this should be read from a scriptable object for the target action
         // act.PlayOnPlacedOrTriggered_SFX = _actionGroup.actionStats[i].PlayOnPlacedOrTriggered_SFX;
@@ -368,10 +374,15 @@ public class ActionCard_Behaviour : Card_Behaviour
 
         act.SetBehaviour(this);
         _actionGroup.Add(act); 
+        CardActionData _newAction = new CardActionData();
+        _newAction.actionEnum = Glyph;
+        _actionGroup.actionStats.Add(_newAction);
     }
 
     void upgradeModifiableValue(ModifiableCardValue Modify, int Value)
     {
+        Debug.Log("Modifying: " + Modify + " to value: " + Value + " of " + card_so.cardName);
+
         switch(Modify)
         {
             case ModifiableCardValue.Strength:
@@ -394,6 +405,6 @@ public class ActionCard_Behaviour : Card_Behaviour
 
     protected override void GainExperience()
     {
-        stats.UpgradePath.addExperience();
+        controller.addExperience(stats.UpgradePath.Experience);
     }
 }

@@ -39,7 +39,7 @@ public class DeckListData
                 // Add its scriptable Object, Experience and level
                 CardPlayData data = new CardPlayData();
                 data.CardType = card[0];
-                data.Experience.XP = cardQuantities[i].Levels[n].XP;
+                data.Experience = cardQuantities[i].Levels[n];
                 data.Experience.Level = cardQuantities[i].Levels[n].Level;
                 // Insert into deck data
                 deckListData.Add(data);
@@ -134,14 +134,14 @@ public struct CardQuantity
 
     public void SetCardLevels(CardPlayData[] Cards)
     {
-        int xpID = 0;
+        int index = 0;
         for (int i = 0; i < Cards.Length; i++)
         {
             if(Cards[i].CardType.cardName == CardName)
             {
-                Levels[xpID].XP = Cards[i].Experience.XP;
-                Levels[xpID].Level = Cards[i].Experience.Level;
-                xpID++;
+                Cards[i].Experience.createNewUniqueID();
+                Levels[index] = Cards[i].Experience;
+                index++;
             }
         }
     }
