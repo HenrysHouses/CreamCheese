@@ -13,22 +13,22 @@ MonoBehaviour:
   m_Name: Defence_BattlleWornShield_CardSO
   m_EditorClassIdentifier: 
   type: 1
-  Art: {fileID: 2800000, guid: 9c8e6ebeeaf58cf4086683076357c24f, type: 3}
-  Background: {fileID: 2800000, guid: 4405501223a59ea48923553bb9318ecc, type: 3}
+  Art: {fileID: 2800000, guid: 99222ddba0a528e4bb9f28010aa9e2bf, type: 3}
+  Background: {fileID: 0}
   cardName: Battle Worn Shield
   description: Vikings carried round-shaped shields, and it was their most indispensable
     tool in battle.
   effect: Blocks for X
   cardStats:
     TargetingView: 6
+    SelectionType:
+      Index: 0
+      NamesContainer: {fileID: 11400000, guid: f8b018dd89042d4438fa88687c5c3c94, type: 2}
     strength: 2
     numberOfTargets: 1
     actionGroup:
       actionStats:
-      - SelectionType:
-          Index: 0
-          Names: {fileID: 0}
-        actionEnum: 1
+      - actionEnum: 1
         action_SFX:
           Guid:
             Data1: 0
