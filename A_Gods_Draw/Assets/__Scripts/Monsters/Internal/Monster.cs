@@ -10,7 +10,7 @@ public class Monster : BoardElement
 
     public Intent GetIntent() => enemyIntent;
     protected Intent enemyIntent;
-    private int defendedFor;
+    private int defendFor, queuedDefence;
 
     //VFX
     public GameObject deathParticleVFX;
@@ -33,13 +33,13 @@ public class Monster : BoardElement
     [SerializeField]
     private Slider healthBar, poisonBar, barrierBar;
     [SerializeField]
-    private TMP_Text healthText, strengthText;
+    private TMP_Text healthText, strengthText, queuedDamageText, defendText;
     [SerializeField]
     private Image intentImage;
     [SerializeField]
     private Icons uiIcons;
     [SerializeField]
-    private GameObject effectIconPrefab;
+    private GameObject effectIconPrefab, defendUI;
     public enum Effects
     {
 
@@ -82,6 +82,7 @@ public class Monster : BoardElement
     {
 
         enemyIntent = new LokiMonster2Intent();
+        enemyIntent.Self = this;
 
     }
 
@@ -89,6 +90,7 @@ public class Monster : BoardElement
     {
 
         UpdateOutline();
+        queuedDamageText.text = "Q: " + Mathf.Clamp(queuedDamage - defendFor, 0, Mathf.Infinity);
 
     }
 
@@ -119,7 +121,7 @@ public class Monster : BoardElement
         if (gameObject)
         {
             
-            defendedFor += _amount;
+            queuedDefence += _amount;
             Defending = true;
 
         }
@@ -130,10 +132,10 @@ public class Monster : BoardElement
 
         int _damageTaken = 0;
 
-        if (_amount > defendedFor && !_bypassDefence)
+        if (_amount > defendFor && !_bypassDefence)
         {
-            _damageTaken = _amount - defendedFor;
-            defendedFor = 0;
+            _damageTaken = _amount - defendFor;
+            defendFor = 0;
             
         }
         else if(_bypassDefence)
@@ -143,7 +145,7 @@ public class Monster : BoardElement
 
         }
         else
-            defendedFor -= _amount;
+            defendFor -= _amount;
 
         if(barrier > 0)
         {
@@ -160,7 +162,7 @@ public class Monster : BoardElement
         if(Defending)
         {
 
-            strengthText.text = defendedFor.ToString();
+            strengthText.text = defendFor.ToString();
 
         }
 
@@ -179,6 +181,7 @@ public class Monster : BoardElement
         }
 
         UpdateHealthUI();
+        UpdateDefenceUI();
         setOutline(outlineSize, Color.red, 0.25f);
 
         return _damageTaken;
@@ -239,6 +242,22 @@ public class Monster : BoardElement
             
     }
 
+    private void UpdateDefenceUI()
+    {
+
+        if(defendFor < 1)
+        {
+
+            defendUI.SetActive(false);
+            return;
+
+        }
+
+        defendUI.SetActive(true);
+        defendText.text = defendFor.ToString();
+
+    }
+
     private void UpdateIntentUI()
     {
 
@@ -249,14 +268,25 @@ public class Monster : BoardElement
 
     internal void DecideIntent(BoardStateController board)
     {
-        
-        Defending = false;
+
+        if(Defending)
+        {
+
+            defendFor = queuedDefence;
+            queuedDefence = 0;
+            Defending = false;
+
+        }
+        else
+            defendFor = 0;
+
         damageSources.Clear();
         queuedDamage = 0;
 
         enemyIntent.CancelIntent();
         enemyIntent.DecideIntent(board);
 
+        UpdateDefenceUI();
         UpdateIntentUI();
 
     }

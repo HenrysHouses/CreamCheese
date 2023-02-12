@@ -10,7 +10,7 @@ public abstract class MonsterAction : Action
         _max = maximumStrength;
     }
 
-    protected int _min = 0, _max = 3;
+    protected int _min, _max;
     public int MinStrength => _min;
-    public int MaxStrength => _min;
+    public int MaxStrength => _max;
 }

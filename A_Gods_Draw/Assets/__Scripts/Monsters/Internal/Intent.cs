@@ -14,8 +14,10 @@ public abstract class Intent
     }
 
     protected int strength;
-
+    
+    public Monster Self;
     protected MonsterAction actionSelected;
+    public MonsterAction PreviousAction;
 
     public void CancelIntent()
     {
