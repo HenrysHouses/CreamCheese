@@ -16,7 +16,7 @@ public class BuffAllCardAction : CardAction
 
     }
 
-    public override void OnLanePlaced(BoardStateController _board, ActionCard_Behaviour _source)
+    public override void CardPlaced(BoardStateController _board, ActionCard_Behaviour _source)
     {
 
         foreach(ActionCard_Behaviour _card in _board.placedCards)

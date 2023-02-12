@@ -21,7 +21,27 @@ public abstract class CardAction : Action
 
     protected virtual void UpdateNeededLanes(ActionCard_Behaviour source) { }
     public override void Execute(BoardStateController board, int strengh, UnityEngine.Object source) { }
-    public virtual void OnLanePlaced(BoardStateController board, ActionCard_Behaviour source) { }
+    public virtual void CardPlaced(BoardStateController board, ActionCard_Behaviour source) { } //This used to be OnLandePlaced
+    public void OnLanePlaced(BoardStateController board, ActionCard_Behaviour source) //Modified so we can update the queued damage on enemies
+    {
+
+        UpdateQueuedDamage(board, source);
+
+        CardPlaced(board, source);
+
+    }
+
+    public void UpdateQueuedDamage(BoardStateController board, ActionCard_Behaviour source)
+    {
+
+        foreach (Monster _monster in source.AllTargets)
+        {
+
+            _monster.UpdateQueuedDamage(source, source.stats.strength);
+            
+        }
+
+    }
 
     public abstract IEnumerator OnAction(BoardStateController board, ActionCard_Behaviour source);
     public virtual void OnPlay(BoardStateController board) { }

@@ -1,3 +1,4 @@
+using System.Collections.Generic;
 using System.Collections;
 using UnityEngine;
 using UnityEngine.UI;
@@ -18,6 +19,8 @@ public class Monster : BoardElement
     public float outlineSize = 0.01f;
     private bool outlineShouldTurnOff;
     private float outlineRemainingTime;
+    private int queuedDamage;
+    private Dictionary<ActionCard_Behaviour, int> damageSources;
 
     //SFX
     [SerializeField]
@@ -71,6 +74,8 @@ public class Monster : BoardElement
 
         BoardElementInfo = "Hello, I am an enemy";
 
+        damageSources = new Dictionary<ActionCard_Behaviour, int>();
+
     }
 
     private void Start()
@@ -87,29 +92,51 @@ public class Monster : BoardElement
 
     }
 
-    public void Defend(int amount)
+    public void UpdateQueuedDamage(ActionCard_Behaviour _source, int _amount)
+    {
+
+        if(damageSources.TryGetValue(_source, out int _damage))
+        {
+
+            queuedDamage -= _damage;
+
+            damageSources[_source] = _amount;
+            queuedDamage += _amount;
+
+        }
+        else
+        {
+
+            damageSources.Add(_source, _amount);
+            queuedDamage += _amount;
+
+        }
+
+    }
+
+    public void Defend(int _amount)
     {
         if (gameObject)
         {
             
-            defendedFor += amount;
+            defendedFor += _amount;
             Defending = true;
 
         }
     }
 
-    public int TakeDamage(int _amount, bool bypassDefence = false)
+    public int TakeDamage(int _amount, bool _bypassDefence = false)
     {
 
         int _damageTaken = 0;
 
-        if (_amount > defendedFor && !bypassDefence)
+        if (_amount > defendedFor && !_bypassDefence)
         {
             _damageTaken = _amount - defendedFor;
             defendedFor = 0;
             
         }
-        else if(bypassDefence)
+        else if(_bypassDefence)
         {
             
             _damageTaken = _amount;
@@ -178,11 +205,11 @@ public class Monster : BoardElement
 
     }
 
-    public void DeBuff(int amount)
+    public void DeBuff(int _amount)
     {
         if (enemyIntent.GetID() == EnemyIntent.AttackGod || enemyIntent.GetID() == EnemyIntent.AttackPlayer)
         {
-            enemyIntent.SetCurrStrengh(enemyIntent.GetCurrStrengh() - amount);
+            enemyIntent.SetCurrStrengh(enemyIntent.GetCurrStrengh() - _amount);
             if (enemyIntent.GetCurrStrengh() < 0)
             {
                 enemyIntent.SetCurrStrengh(0);
@@ -192,11 +219,11 @@ public class Monster : BoardElement
         UpdateIntentUI();
     }
 
-    public void Buff(int amount)
+    public void Buff(int _amount)
     {
         if (enemyIntent.GetID() == EnemyIntent.AttackGod || enemyIntent.GetID() == EnemyIntent.AttackPlayer)
         {
-            enemyIntent.SetCurrStrengh(enemyIntent.GetCurrStrengh() + amount);
+            enemyIntent.SetCurrStrengh(enemyIntent.GetCurrStrengh() + _amount);
         }
 
         UpdateIntentUI();
@@ -224,6 +251,8 @@ public class Monster : BoardElement
     {
         
         Defending = false;
+        damageSources.Clear();
+        queuedDamage = 0;
 
         enemyIntent.CancelIntent();
         enemyIntent.DecideIntent(board);
@@ -233,10 +262,10 @@ public class Monster : BoardElement
     }
 
     //Just in case a monster needs to know what other enemies will do to decide for itself
-    internal void LateDecideIntent(BoardStateController board)
+    internal void LateDecideIntent(BoardStateController _board)
     {
 
-        enemyIntent.LateDecideIntent(board);
+        enemyIntent.LateDecideIntent(_board);
 
         UpdateIntentUI();
 
