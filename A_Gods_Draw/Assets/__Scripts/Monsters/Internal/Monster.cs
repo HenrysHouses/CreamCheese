@@ -22,11 +22,6 @@ public class Monster : BoardElement
     private int queuedDamage;
     private Dictionary<ActionCard_Behaviour, int> damageSources;
 
-    //SFX
-    [SerializeField]
-    private EventReference death_SFX;
-    public EventReference HoverOver_SFX;
-
     //UI
     [SerializeField]
     private Transform effectsPanel;
@@ -59,6 +54,11 @@ public class Monster : BoardElement
 
     //Effects
     public bool HealingDisabled, Defending;
+
+    //SFX
+    [SerializeField]
+    private EventReference death_SFX, block_SFX;
+    public EventReference HoverOver_SFX;
 
     private void Awake()
     {
@@ -118,13 +118,10 @@ public class Monster : BoardElement
 
     public void Defend(int _amount)
     {
-        if (gameObject)
-        {
-            
-            queuedDefence += _amount;
-            Defending = true;
 
-        }
+        queuedDefence += _amount;
+        Defending = true;
+        
     }
 
     public int TakeDamage(int _amount, bool _bypassDefence = false)
@@ -156,13 +153,6 @@ public class Monster : BoardElement
                 barrier = 0;
             else
                 barrier -= _damageTaken;
-
-        }
-
-        if(Defending)
-        {
-
-            strengthText.text = defendFor.ToString();
 
         }
 
@@ -210,16 +200,11 @@ public class Monster : BoardElement
 
     public void DeBuff(int _amount)
     {
-        if (enemyIntent.GetID() == EnemyIntent.AttackGod || enemyIntent.GetID() == EnemyIntent.AttackPlayer)
-        {
-            enemyIntent.SetCurrStrengh(enemyIntent.GetCurrStrengh() - _amount);
-            if (enemyIntent.GetCurrStrengh() < 0)
-            {
-                enemyIntent.SetCurrStrengh(0);
-            }
-        }
+
+        enemyIntent.SetCurrStrengh((int)Mathf.Clamp(enemyIntent.GetCurrStrengh() - _amount, 0, Mathf.Infinity));
 
         UpdateIntentUI();
+
     }
 
     public void Buff(int _amount)
