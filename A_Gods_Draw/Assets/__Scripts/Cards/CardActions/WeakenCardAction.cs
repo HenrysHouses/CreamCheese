@@ -11,7 +11,7 @@ public class WeakenCardAction : CardAction
 
         foreach (Monster target in source.AllTargets)
         {
-            if (target)
+            if (target && _VFX != null)
             {
                 // Playing VFX
                 board.StartCoroutine(playTriggerVFX(target.gameObject, null, new Vector3(0, 1 ,0)));

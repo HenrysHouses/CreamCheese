@@ -17,7 +17,7 @@ public class GodCard_Behaviour : Card_Behaviour
     GodCardAction action;
     GodPlacement godPlacement;
     protected new GodCard_ScriptableObject card_so;
-    public new GodCard_ScriptableObject CardSO => card_so;
+    public GodCard_ScriptableObject CardSO => card_so;
 
     public void Initialize(GodCard_ScriptableObject card, CardElements elements)
     {
@@ -34,6 +34,12 @@ public class GodCard_Behaviour : Card_Behaviour
     public void SetPlace(GodPlacement place)
     {
         godPlacement = place;
+    }
+
+    public void ApplyLevels(CardExperience experience)
+    {
+        stats = new CardStats();
+        stats.UpgradePath.Experience.ID = experience.ID;
     }
 
     protected override IEnumerator Play(BoardStateController board)
@@ -198,4 +204,12 @@ public class GodCard_Behaviour : Card_Behaviour
     // {
     //     return GetType().Name;
     // }
+
+    public override CardPlayData getCardPlayData()
+    {
+        CardPlayData data = new CardPlayData();
+        data.CardType = card_so;
+        data.Experience.ID = stats.UpgradePath.Experience.ID;
+        return data;
+    }
 }

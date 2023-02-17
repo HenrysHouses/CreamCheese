@@ -11,7 +11,6 @@ using HH.MultiSceneTools;
 public class CardLibrary : MonoBehaviour
 {
     [SerializeField] CardReaderController CardInspector;
-    [SerializeField] DeckManager_SO deckManager;
     [SerializeField] DeckList_SO deckList;
     [SerializeField] GameObject DestroyParticle;
     public GameObject cardPrefab;
@@ -125,7 +124,7 @@ public class CardLibrary : MonoBehaviour
 
         // Destroy the card
         CardPlayData _selectedCard = hit.collider.GetComponentInChildren<Card_Loader>()._card;
-        deckManager.removeCardFromDeck(_selectedCard);
+        DeckList_SO.playerDeleteCard(_selectedCard);
         shouldDestroyACard = false;
         CardInspector.CanSelect = false;
         CardInspector.returnInspection();

@@ -51,16 +51,17 @@ public static class GameSaver
         
         if(deck.Cards == null)
         {
-            deck = DeckManager_SO.getStarterDeck().deckData.GetDeckData();
+            deck = DeckList_SO.getStarterDeck().deckData.GetDeckData();
         }
         else if(deck.Cards.Length == 0)
         {
-            deck = DeckManager_SO.getStarterDeck().deckData.GetDeckData();
+            deck = DeckList_SO.getStarterDeck().deckData.GetDeckData();
         }
 
         Debug.Log("Loading completed");
 
         DeckListData loadedDeck = new DeckListData(deck.Cards);
+        CardExperience.ClearUnusedIDs(loadedDeck);
 
         return loadedDeck;
     }

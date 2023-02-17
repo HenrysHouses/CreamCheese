@@ -23,9 +23,6 @@ public class StorrCardAction : CardAction
 
     public override IEnumerator OnAction(BoardStateController board, ActionCard_Behaviour source)
     {
-        isReady = false;
-        //Object.Destroy(thing);
-        yield return new WaitUntil(() => true);
-        isReady = true;
+        yield break;
     }
 }

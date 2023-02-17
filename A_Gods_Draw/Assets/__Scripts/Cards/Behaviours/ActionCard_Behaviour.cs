@@ -25,12 +25,11 @@ public class ActionCard_Behaviour : Card_Behaviour
     bool hasClickedTarget, cardIsReady, missedClick, IsOnBoard;
     public bool CardIsPlaced => IsOnBoard;
     public int neededLanes = 1;
-    public CardStats stats;
     ActionGroup _actionGroup {get => stats.actionGroup; set{stats.actionGroup = value;}}
     ActionGroup _godBuffActions {get => stats.godBuffActions; set{stats.godBuffActions = value;}}
 
     public CardType GetCardType => cardType;
-    public new ActionCard_ScriptableObject CardSO => card_so;
+    public ActionCard_ScriptableObject CardSO => card_so;
 
     private IEnumerator SelectingTargets()
     {
@@ -44,9 +43,6 @@ public class ActionCard_Behaviour : Card_Behaviour
             missedClick = false;
             yield return new WaitUntil(() => hasClickedTarget);
             
-            Debug.LogWarning("This needs to be changed, depending on card stats this may be out of range");
-
-
             if(!IsValidSelection(target, stats.SelectionType))
             {
                 MissClick();
@@ -237,7 +233,7 @@ public class ActionCard_Behaviour : Card_Behaviour
         foreach (var action in stats.godBuffActions.actions)
             action.Reset(board, this);
 
-        controller.Discard(this);
+        controller.RemoveCardFromBoard(this);
         Destroy(transform.parent.gameObject);
         TurnController.shouldWaitForAnims = false;
     }
@@ -273,6 +269,7 @@ public class ActionCard_Behaviour : Card_Behaviour
     }
     protected override void OnPlacedInLane()
     {
+        base.OnPlacedInLane();
         foreach (var target in SelectedTargets)
         {
             foreach (var action in _actionGroup.actions)
@@ -288,7 +285,7 @@ public class ActionCard_Behaviour : Card_Behaviour
             }
         }
 
-        controller.PlacedCard();
+        controller.resetSelectedCard();
         IsOnBoard = true;
         missedClick = true;
     }
@@ -329,8 +326,12 @@ public class ActionCard_Behaviour : Card_Behaviour
     public void ApplyLevels(CardExperience CurrentLevel)
     {
         stats.UpgradePath.Experience = CurrentLevel;
+
         for (int i = 0; i < CurrentLevel.Level; i++)
         {
+            if(stats.UpgradePath.Upgrades.Length-1 < i)
+                return;
+
             CardUpgradeType upgradeType = stats.UpgradePath.Upgrades[i].UpgradeType;
             ModifiableCardValue modifiableCardValue = stats.UpgradePath.Upgrades[i].ValueSelection;
 
@@ -406,5 +407,15 @@ public class ActionCard_Behaviour : Card_Behaviour
     protected override void GainExperience()
     {
         controller.addExperience(stats.UpgradePath.Experience);
+    }
+
+    public override CardPlayData getCardPlayData()
+    {
+        CardPlayData data = new CardPlayData();
+        data.CardType = card_so;
+        data.Experience.XP = stats.UpgradePath.Experience.XP;
+        data.Experience.Level = stats.UpgradePath.Experience.Level;
+        data.Experience.ID = stats.UpgradePath.Experience.ID;
+        return data;
     }
 }

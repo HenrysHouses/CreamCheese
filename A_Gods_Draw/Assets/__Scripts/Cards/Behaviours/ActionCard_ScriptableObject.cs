@@ -56,7 +56,17 @@ public class ActionGroup
     public ActionGroup Clone()
     {
         ActionGroup clone = new ActionGroup();
-        clone.actionStats = this.actionStats;
+        clone.actionStats = new List<CardActionData>();
+
+        // clone.actionStats[i]
+        CardActionData[] _copy = new CardActionData[this.actionStats.Count];
+        this.actionStats.CopyTo(_copy);
+        
+        for (int j = 0; j < _copy.Length; j++)
+        {
+            clone.actionStats.Add(_copy[j]);
+        }
+
         return clone;
     }
 }
@@ -86,27 +96,61 @@ public struct CardUpgradePath
 }
 
 [System.Serializable]
-public class CardExperience
+public struct CardExperience
 {
     public int XP;
     public int Level;
-    public int ID = -1;
+    public int ID;
     static List<int> ExistingIDs = new List<int>();
 
-    public CardExperience()
+    public CardExperience(int _XP, int _Lvl, int _ID)
     {
-        createNewUniqueID();
+        XP = _XP;
+        Level = _Lvl;
+        
+        if(_ID < 0)
+        {
+            ID = 0;
+            this.createNewUniqueID();
+        }
+        else
+            ID = _ID;
     }
 
     public void createNewUniqueID()
     {
-        ID++;
+        if(ExistingIDs.Contains(ID))
+            return;
 
+        ID = 0;
         while(ExistingIDs.Contains(ID))
         {
             ID++;
         }
         ExistingIDs.Add(ID);
+    }
+
+    public static void ClearUnusedIDs(DeckListData deck)
+    {
+        List<int> _foundIDs = new List<int>();
+        for (int i = 0; i < deck.Count; i++)
+        {
+            _foundIDs.Add(deck.deckListData[i].Experience.ID);
+        }
+
+        List<int> _removeIds = new List<int>();
+        for (int i = 0; i < ExistingIDs.Count; i++)
+        {
+            if(_foundIDs.Contains(ExistingIDs[i]))
+                continue;
+
+            _removeIds.Add(ExistingIDs[i]);
+        }
+
+        for (int i = 0; i < _removeIds.Count; i++)
+        {
+            ExistingIDs.Remove(_removeIds[i]);
+        }
     }
 }
 

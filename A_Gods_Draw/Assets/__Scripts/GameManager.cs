@@ -11,8 +11,7 @@ using FMODUnity;
 
 public class GameManager : MonoBehaviour
 {
-    [SerializeField]
-    DeckManager_SO deckManager;
+    // [SerializeField] DeckManager_SO deckManager;
     [SerializeField] public PlayerTracker PlayerTracker;
 
     public bool shouldGenerateNewMap;

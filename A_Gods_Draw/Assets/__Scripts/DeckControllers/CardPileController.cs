@@ -11,22 +11,23 @@ using UnityEngine;
 /// </summary>
 public class CardPileController : MonoBehaviour
 {
-    [SerializeField] DeckManager_SO deckManager;
+    [SerializeField] DeckController deckController;
 
     [SerializeField] bool UseLibraryOrDiscard;
 
     [SerializeField] GameObject[] Cards;
+    [SerializeField] float speed = 1;
 
     bool isTransferring;
     
     void Start()
     {
         if(UseLibraryOrDiscard)
-            deckManager.OnLibraryChange.AddListener(UpdatePile);
+            deckController.OnLibraryChange.AddListener(UpdatePile);
         else
-            deckManager.OnDiscardChange.AddListener(UpdatePile);
+            deckController.OnDiscardChange.AddListener(UpdatePile);
 
-        deckManager.OnShuffleDiscard.AddListener(StartTransfer);
+        deckController.OnShuffleDiscard.AddListener(StartTransfer);
         UpdatePile();
     }
 
@@ -37,9 +38,9 @@ public class CardPileController : MonoBehaviour
 
         float percent;
         if(UseLibraryOrDiscard)
-            percent =  (float)deckManager.GetLibraryCount() / (float)deckManager.GetAllCurrentPlayingCards();
+            percent =  (float)deckController.libraryCount / (float)deckController.cardsCount;
         else
-            percent =  (float)deckManager.GetDiscardCount() / (float)deckManager.GetAllCurrentPlayingCards();
+            percent =  (float)deckController.discardCount / (float)deckController.cardsCount;
         float EnabledCardCount = (Cards.Length * percent);
 
         for (int i = 0; i < Cards.Length; i++)
@@ -67,7 +68,7 @@ public class CardPileController : MonoBehaviour
 
         while(time < duration)
         {
-            time += Time.deltaTime;
+            time += Time.deltaTime * speed;
 
             if(UseLibraryOrDiscard)
             {

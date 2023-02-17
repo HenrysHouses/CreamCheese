@@ -15,6 +15,7 @@ using UnityEngine;
 public class CardPlayer : MonoBehaviour
 {
     // * Mechanic References
+    [SerializeField] DeckController deckController;
     [SerializeField] Player_Hand _Hand;
     [SerializeField] BoardStateController _Board;
     [SerializeField] GameObject ProceduralMeshPrefab;
@@ -334,6 +335,7 @@ public class CardPlayer : MonoBehaviour
     {
         Card_Loader loader = behaviour.GetComponent<Card_Loader>();
         GodCard_Behaviour _God = behaviour as GodCard_Behaviour;
+        deckController.MoveCardToBoard(behaviour.getCardPlayData());
 
         if (_God is null)
         {
@@ -349,8 +351,8 @@ public class CardPlayer : MonoBehaviour
         {
             _God.CardSO.StartDialogue(GodDialogueTrigger.SeeEnemy, _Board.Enemies[0]);
             _God.CardSO.StartDialogue(GodDialogueTrigger.Played, loader.GetCardSO);
+            ActionCard_Behaviour actionCard = behaviour as ActionCard_Behaviour;
         }
-
         _Hand.RemoveCard(loader);
         _Board.placeCardOnLane(behaviour);
         clearTargetMeshes();

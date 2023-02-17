@@ -104,7 +104,7 @@ public class PathAnimatorController : MonoBehaviour
         {
             OnAnimCompletionTrigger?.Invoke();
             _Complete = true;
-            // Debug.Log("DUD: " + animationName);
+            Debug.Log("Completed: " + animationName+ ", Invokes: " + OnAnimCompletionTrigger.GetPersistentEventCount());
         }
 
         public virtual void startTrigger()

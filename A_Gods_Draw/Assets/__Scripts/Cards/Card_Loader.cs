@@ -107,7 +107,7 @@ public class Card_Loader : MonoBehaviour
     //------------------------------------------
 
     /// <summary> The method that modifies the card gameobject </summary>
-    /// <param name="card"> The Card_SO object to get the data from </param>
+    /// <param name="card">Data required to build the prefab and get its Levels and current Up</param>
     public void Set(CardPlayData card)
     {
         _card = card;
@@ -141,6 +141,7 @@ public class Card_Loader : MonoBehaviour
             {
                 CB = gameObject.AddComponent<GodCard_Behaviour>();
                 (CB as GodCard_Behaviour).Initialize(god_card, elements);
+                (CB as GodCard_Behaviour).ApplyLevels(card.Experience);
             }
         }
         else

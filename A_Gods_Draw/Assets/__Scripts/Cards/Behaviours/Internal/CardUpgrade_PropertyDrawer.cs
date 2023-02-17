@@ -4,7 +4,6 @@ using UnityEngine;
     using UnityEditor;
 #endif
 
-
 [System.Serializable]
 public struct CardUpgrade
 {
@@ -39,6 +38,7 @@ public enum ModifiableCardValue
 }
 
 #if UNITY_EDITOR
+
 
 [CustomPropertyDrawer(typeof(CardUpgrade))]
 public class CardUpgrade_PropertyDrawer: PropertyDrawer 

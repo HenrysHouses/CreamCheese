@@ -13,13 +13,14 @@ public abstract class Card_Behaviour : BoardElement
     protected TurnController controller;
     protected Card_SO card_so;
     protected CardElements elements;
+    public CardStats stats;
     protected bool onPlayerHand = false;
 
     public readonly bool isReady = false;
     [field:SerializeField] public Transform ParentTransform {get; private set;}
 
-    public Card_SO CardSO => card_so;
-    public string Name => card_so.cardName;
+    // public Card_SO CardSO => card_so;
+    // public string Name => card_so.cardName;
     public TurnController Controller => controller;
 
 
@@ -28,9 +29,9 @@ public abstract class Card_Behaviour : BoardElement
         ParentTransform = transform.parent.parent;    
     }
 
-
+    public abstract CardPlayData getCardPlayData();
     protected abstract void OnBeingSelected();
-    protected virtual void OnPlacedInLane() { }
+    protected virtual void OnPlacedInLane() {}
     protected virtual IEnumerator Play(BoardStateController board)
     {
         GetComponentInParent<Card_ClickGlowing>().RemoveBorder();
@@ -120,7 +121,7 @@ public abstract class Card_Behaviour : BoardElement
     protected virtual void GainExperience(){}
     public virtual void CancelSelection() { controller.SetSelectedCard(); }
     public virtual bool ShouldCancelSelection() { return false; }
-    public virtual bool CanBeSelected() {return onPlayerHand;  }
+    public virtual bool CanBeSelected() { return onPlayerHand; }
 
     public void SetController(TurnController cont)
     {
@@ -135,9 +136,5 @@ public abstract class Card_Behaviour : BoardElement
             controller.SetSelectedCard(this);
             OnBeingSelected();
         }
-    }
-    public void ChangeStrengh(int newValue)
-    {
-        elements.strength.text = newValue.ToString();
     }
 }

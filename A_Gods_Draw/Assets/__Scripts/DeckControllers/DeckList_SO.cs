@@ -12,6 +12,41 @@ public class DeckList_SO : ScriptableObject
     [SerializeField]
     public DeckListData deckData;
     public List<CardPlayData> GetDeck() => deckData.deckListData;
+    public static DeckList_SO playerDeck;
+    private void OnValidate() {
+        if(playerDeck == null)
+            playerDeck = Resources.Load<DeckList_SO>("DeckLists/DeckList");
+    }
+
+    public static void playerObtainCard(Card_SO card_SO)
+    {
+        CardPlayData newCard = new CardPlayData(card_SO);
+
+        playerDeck.deckData.deckListData.Add(newCard);
+    }
+
+    public static void playerDeleteCard(CardPlayData Card)
+    {
+        playerDeck.deckData.deckListData.Remove(Card);
+        GameSaver.SaveData(playerDeck.deckData.GetDeckData());
+        //SavingDeck();
+    }
+
+    public static DeckList_SO getStarterDeck()
+    {
+        DeckList_SO starterDeck = Resources.Load<DeckList_SO>("DeckLists/StarterDeck");
+
+        Debug.Log("Loaded starter deck!");
+
+        return starterDeck;
+    }
+
+    public DeckList_SO Clone()
+    {
+        DeckList_SO list = ScriptableObject.CreateInstance<DeckList_SO>();
+        list.deckData = deckData.Clone();
+        return list;
+    }
 }
 
 /// <summary>Data container for the player's deck, Used for saving and loading</summary>
@@ -110,6 +145,11 @@ public class DeckListData
 
         return n;
     }
+
+    public DeckListData Clone()
+    {
+        return (DeckListData)this.MemberwiseClone();
+    }
 }
 
 [System.Serializable]
@@ -139,7 +179,7 @@ public struct CardQuantity
         {
             if(Cards[i].CardType.cardName == CardName)
             {
-                Cards[i].Experience.createNewUniqueID();
+                // Cards[i].Experience.createNewUniqueID();
                 Levels[index] = Cards[i].Experience;
                 index++;
             }
@@ -153,6 +193,26 @@ public struct CardPlayData
     public Card_SO CardType;
     [SerializeField]
     public CardExperience Experience;
+
+    public CardPlayData(CardPlayData copy)
+    {
+        CardType = copy.CardType;
+        Experience.XP = copy.Experience.XP;
+        Experience.Level = copy.Experience.Level;
+        Experience.ID = copy.Experience.ID;
+    }
+
+    public CardPlayData(Card_SO Card)
+    {
+        Experience = new CardExperience();
+
+        if(Card == null)
+            Experience.createNewUniqueID();
+        else
+            Experience.ID = -1;
+
+        CardType = Card;
+    }
 
     public void Clear()
     {

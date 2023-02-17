@@ -940,7 +940,6 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 721600019}
-  - component: {fileID: 721600018}
   m_Layer: 0
   m_Name: DeckInteractor
   m_TagString: Untagged
@@ -948,26 +947,6 @@ GameObject:
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
---- !u!114 &721600018
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 721600017}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 31f3d918ec01eff46b997b4e2041ed38, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  deckManager: {fileID: 11400000, guid: a9ef532ce763b474e868648e2e3843ac, type: 2}
-  selectedCard:
-    CardType: {fileID: 0}
-    Experience:
-      XP: 0
-      Level: 0
-      ID: 31
-  editor_drawAmount: 0
 --- !u!4 &721600019
 Transform:
   m_ObjectHideFlags: 0
@@ -2365,6 +2344,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a0a542f6413b7c644beffb1efe058233, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  deckController: {fileID: 1832733388}
   _Hand: {fileID: 410426621}
   _Board: {fileID: 1141156025}
   ProceduralMeshPrefab: {fileID: 7368309248694883949, guid: 172b63a08932a94488295dbb8b000a0a, type: 3}
@@ -2921,17 +2901,46 @@ MonoBehaviour:
   m_GameObject: {fileID: 1832733386}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 31f3d918ec01eff46b997b4e2041ed38, type: 3}
+  m_Script: {fileID: 11500000, guid: 608cc72784ec20944b080f8cccfc4571, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  deckManager: {fileID: 11400000, guid: a9ef532ce763b474e868648e2e3843ac, type: 2}
-  selectedCard:
-    CardType: {fileID: 0}
-    Experience:
-      XP: 0
-      Level: 0
-      ID: 32
-  editor_drawAmount: 0
+  CardDrawAnimationPrefab: {fileID: 3535483922297235155, guid: c8433267c4b074c47ae678b5fcf9eed7, type: 3}
+  CardShuffleAnimationPrefab: {fileID: 3535483922297235155, guid: 52a67acc38df3904b861167958c9e731, type: 3}
+  Draw_SFX:
+    Guid:
+      Data1: -1855550642
+      Data2: 1183617777
+      Data3: -1438661999
+      Data4: 1883429168
+    Path: event:/Card Effects/DrawCards
+  Discard_SFX:
+    Guid:
+      Data1: -1855550642
+      Data2: 1183617777
+      Data3: -1438661999
+      Data4: 1883429168
+    Path: event:/Card Effects/DrawCards
+  Shuffle_SFX:
+    Guid:
+      Data1: -1855550642
+      Data2: 1183617777
+      Data3: -1438661999
+      Data4: 1883429168
+    Path: event:/Card Effects/DrawCards
+  OnLibraryChange:
+    m_PersistentCalls:
+      m_Calls: []
+  OnDiscardChange:
+    m_PersistentCalls:
+      m_Calls: []
+  OnShuffleDiscard:
+    m_PersistentCalls:
+      m_Calls: []
+  deckList: {fileID: 11400000, guid: 79f54d6a0268d644381e0b3bda208b5b, type: 2}
+  pLibrary: []
+  pDiscard: []
+  pHand: []
+  pBoard: []
 --- !u!1001 &1852531263
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -3205,7 +3214,7 @@ MonoBehaviour:
     serializedVersion: 2
     m_Bits: 0
   godPlace: {fileID: 899169205}
-  deckManager: {fileID: 11400000, guid: a9ef532ce763b474e868648e2e3843ac, type: 2}
+  deckController: {fileID: 1832733388}
   DiscardAnimator: {fileID: 120732638}
   DrawAnimator: {fileID: 1598012057}
   ShuffleAnimator: {fileID: 706838724}
@@ -3225,6 +3234,8 @@ MonoBehaviour:
   DrawCardExtra: 0
   _Hand: {fileID: 410426621}
   isShuffling: 0
+  isDrawing: 0
+  isDiscarding: 0
   isCombatStarted: 0
   shouldEndTurn: 0
   waitForLibraryShuffle: 0

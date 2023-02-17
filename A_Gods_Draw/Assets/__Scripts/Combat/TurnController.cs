@@ -17,7 +17,7 @@ public class TurnController : CombatFSM
     [field:SerializeField] public PlayerTracker player {get; private set;}
     [SerializeField] LayerMask ClickDetectionLayer;
     [SerializeField] GodPlacement godPlace;
-    [SerializeField] DeckManager_SO deckManager;
+    [SerializeField] DeckController deckController;
     [SerializeField] PathAnimatorController DiscardAnimator;
     [SerializeField] PathAnimatorController DrawAnimator;
     [SerializeField] PathAnimatorController ShuffleAnimator;
@@ -36,14 +36,16 @@ public class TurnController : CombatFSM
     private float drawDelay;
     [HideInInspector]
     public int DrawCardExtra = 0;
+    // public DeckManager_SO _DeckManager => deckManager;
     public Player_Hand _Hand;
     public bool isDiscardAnimating => DiscardAnimator.isAnimating;
     public bool isDrawAnimating => DrawAnimator.isAnimating;
-    public bool isShuffling;
+    public bool isShuffling = false, isDrawing = false, isDiscarding = false;
     public bool isCombatStarted = false;
     public bool shouldEndTurn = false;
     public static bool shouldWaitForAnims = false;
     [SerializeField] bool waitForLibraryShuffle = false;
+    CardPathAnim[] CardAnimations;
 
     public CombatState state;
 
@@ -51,8 +53,7 @@ public class TurnController : CombatFSM
 
     protected override void Initialize()
     {
-        deckManager.SetCurrentDeck(player.CurrentDeck);
-        deckManager.reset();
+        deckController.setCurrentDeck(player.CurrentDeck);
 
         AwakeCombatState _combatSetup = new AwakeCombatState(this);
         _combatSetup.AddTransition(Transition.EnterDraw, CombatState.DrawStep);
@@ -148,25 +149,30 @@ public class TurnController : CombatFSM
 
     /// <summary>Draw cards for the player</summary>
     /// <param name="amount">The amount of cards the player should draw</param>
-    public void Draw(int amount) => StartCoroutine(cardDrawTrigger(amount));
+    public void Draw(int amount) 
+    {
+        if(!isDrawing) StartCoroutine(cardDrawTrigger(amount));
+    } 
     IEnumerator cardDrawTrigger(int amount)
     {
+        isDrawing = true;
         // wait until the discard has been shuffled into the library before drawing cards
         yield return new WaitUntil(() => !ShuffleAnimator.isAnimating);
+        Debug.Log("waiting");
+        yield return new WaitUntil(() => CardAnimations == null);
 
-        CardPathAnim[] animData = deckManager.drawCard(amount, drawDelay);
 
+        CardAnimations = deckController.drawCard(amount, drawDelay);
         // if(animData != null)
         //     Debug.Log("draw: " + animData.Length + " - " + amount);
 
         // # if trigger data == null, then there was not enough cards in library to draw
-        if(animData != null) 
+        if(CardAnimations != null) 
         {
-            animData[animData.Length - 1].OnAnimCompletionTrigger.AddListener(animsAreDone);
-            animData[animData.Length - 1].OnAnimCompletionTrigger.AddListener(SetCards);
+            CardAnimations[CardAnimations.Length - 1].OnAnimCompletionTrigger.AddListener(animsAreDone);
+            CardAnimations[CardAnimations.Length - 1].OnAnimCompletionTrigger.AddListener(SetCards);
             
-
-            foreach (var trigger in animData)
+            foreach (var trigger in CardAnimations)
             {
                 if(trigger is null)
                     continue;
@@ -186,12 +192,15 @@ public class TurnController : CombatFSM
                     trigger.OnCardDrawDialogue.AddListener(_God_SO.StartDialogue);
                 }   
             }
-
+            isDrawing = false;
             yield break; // stops Coroutine here
         }
         
+        isDrawing = false;
         if(!isShuffling && !ShuffleAnimator.isAnimating)
+        {
             ShuffleDiscard(amount); // Does not let the player draw the remaining cards and then shuffle
+        }
     }
 
     void SetCards()
@@ -202,38 +211,41 @@ public class TurnController : CombatFSM
         }
     }
 
-    public void ShuffleLibrary() => deckManager.shuffleLibrary();
+    public void ShuffleLibrary() => deckController.shuffleLibrary();
 
     /// <summary>Shuffles the discard into the library for the player</summary>
     /// <param name="drawAmount">Amount of cards that should be drawn after shuffling the discard</param>
-    public void ShuffleDiscard(int drawAmount = 0) => StartCoroutine(shuffleDiscardTrigger(drawAmount));
+    public void ShuffleDiscard(int drawAmount = 0) 
+    {
+        if(!isShuffling) StartCoroutine(shuffleDiscardTrigger(drawAmount));
+    } 
     /// <summary>Moves cards to library and shuffles, Requests animations for each card that was shuffled</summary>
     IEnumerator shuffleDiscardTrigger(int drawAfterShuffle)
     {
         isShuffling = true;
         yield return new WaitUntil(() => !DrawAnimator.isAnimating);
+        yield return new WaitUntil(() => CardAnimations == null);
 
-        CardPathAnim[] animData = deckManager.shuffleDiscard(drawDelay);
-        Debug.Log(animData.Length);
+        CardAnimations = deckController.shuffleDiscard(drawDelay);
 
-        if(animData.Length == 0)
+        if(CardAnimations.Length == 0)
             yield break;
 
-        foreach (CardPathAnim trigger in animData)
+        foreach (CardPathAnim trigger in CardAnimations)
         {
             trigger.OnAnimStartSound.AddListener(CardSound);
         }
 
         if(drawAfterShuffle <= 0) // stops animations here
         {
-            animData[animData.Length-1].OnAnimCompletionTrigger.AddListener(animsAreDone);
+            CardAnimations[CardAnimations.Length-1].OnAnimCompletionTrigger.AddListener(animsAreDone);
         }
         else
         {
             waitForLibraryShuffle = true;
             // if(animData.Length-1 > -1)
 
-            animData[animData.Length-1].OnAnimCompletionTrigger.AddListener(waitForShuffleAnims);
+            CardAnimations[CardAnimations.Length-1].OnAnimCompletionTrigger.AddListener(waitForShuffleAnims);
 
             yield return new WaitUntil(() => !waitForLibraryShuffle);
             Draw(drawAfterShuffle);
@@ -243,58 +255,68 @@ public class TurnController : CombatFSM
     }
 
     /// <summary>Discards cards then requests animations for each discarded card with a delay between each</summary>
-    public void DiscardAll() => StartCoroutine(discardAllTrigger(drawDelay));
+    public void DiscardAll() 
+    {
+        if(!isDiscarding) StartCoroutine(discardAllTrigger(drawDelay));
+    }
     IEnumerator discardAllTrigger(float delayBetweenCards)
     {
+        isDiscarding = true;
         yield return new WaitUntil(() => !DrawAnimator.isAnimating && !ShuffleAnimator.isAnimating);
+        yield return new WaitUntil(() => CardAnimations == null);
 
-        CardPathAnim lastAnim = null;
+        CardPlayData[] _data = deckController.GetHand();
 
-
-        if (_Hand.CardSelectionAnimators.Count > 0)
+        if (_data.Length > 0)
         {
             Vector3 position = _Hand.CardSelectionAnimators[_Hand.CardSelectionAnimators.Count-1].loader.transform.position;
             setDiscardPathToHandPosition(position);
-
-            for (int i = _Hand.CardSelectionAnimators.Count - 1; i >= 0; i--)
+            CardAnimations = deckController.discardCard(_data, delayBetweenCards, BoardStateController.ExhaustedCards);
+            
+            for (int i = _data.Length - 1; i >= 0; i--)
             {
-                
-                lastAnim = deckManager.discardCard(_Hand.CardSelectionAnimators[i]._card, BoardStateController.ExhaustedCards);
-                
-                lastAnim.OnAnimStartSound.AddListener(CardSound);
+                CardAnimations[i].OnAnimStartSound.AddListener(CardSound);
 
+            
                 var selectorParentToDestroy = _Hand.CardSelectionAnimators[i].Selector.transform.parent.gameObject;
 
                 Card_Loader _Loader = _Hand.CardSelectionAnimators[i].loader; 
 
                 _Hand.RemoveCard(_Loader);
-                Destroy(selectorParentToDestroy);
-                yield return new WaitForSeconds(delayBetweenCards);
+                Destroy(selectorParentToDestroy, delayBetweenCards*i);
+                // yield return new WaitForSeconds(delayBetweenCards);
 
                 // Dialogue discard trigger
                 if(BoardStateController.playedGodCard is not null)
-                    lastAnim.OnCardDrawDialogue.AddListener(BoardStateController.playedGodCard.CardSO.StartDialogue);
+                    CardAnimations[i].OnCardDrawDialogue.AddListener(BoardStateController.playedGodCard.CardSO.StartDialogue);
                 else if(_Loader.GetCardSO.type == CardType.God)
                 {
                     GodCard_ScriptableObject _God = _Loader.GetCardSO as GodCard_ScriptableObject;
-                    lastAnim.OnCardDrawDialogue.AddListener(_God.StartDialogue);
+                    CardAnimations[i].OnCardDrawDialogue.AddListener(_God.StartDialogue);
                 }
 
             }
 
-            lastAnim.OnAnimCompletionTrigger.AddListener(animsAreDone);
+            CardAnimations[CardAnimations.Length-1].OnAnimCompletionTrigger.AddListener(animsAreDone);
         }
         else
         {
             animsAreDone();
         }
+        isDiscarding = false;
     }
 
     /// <summary>Discards cards then requests animations for each discarded card with a delay between each</summary>
-    public void Discard(Card_Behaviour card, float delay = 0f) => discardTrigger(card, delay);
-    void discardTrigger(Card_Behaviour card_b, float delayBetweenCards)
+    public void Discard(Card_Behaviour card, float delay = 0f)
     {
-        //yield return new WaitUntil(() => !DrawAnimator.isAnimating && !ShuffleAnimator.isAnimating);
+        if(!isDiscarding) discardTrigger(card, delay);
+    }
+    IEnumerator discardTrigger(Card_Behaviour card_b, float delayBetweenCards)
+    {
+        isDiscarding = true;
+        yield return new WaitUntil(() => !DrawAnimator.isAnimating && !ShuffleAnimator.isAnimating);
+        yield return new WaitUntil(() => CardAnimations == null);
+
 
         // CardPathAnim lastAnim = null;
         // Debug.Log(card_b);
@@ -308,21 +330,53 @@ public class TurnController : CombatFSM
         DiscardStartPoint.rotation = ClosestPos.rotation;
         DiscardStartPoint.localScale = ClosestPos.localScale;
         DiscardAnimController.recalculatePath();
+        Debug.Log(DiscardStartPoint.name);
 
         if (card_b != null)
         {
-            CardPathAnim anim = deckManager.discardCard(card_b.GetComponent<Card_Loader>()._card, BoardStateController.ExhaustedCards);
+            CardPlayData[] data = new CardPlayData[]{card_b.GetComponent<Card_Loader>()._card};
+            CardAnimations = deckController.discardCard(data, delayBetweenCards, BoardStateController.ExhaustedCards);
+
+            // Dialogue discard trigger
+            if(BoardStateController.playedGodCard is not null && CardAnimations[0] is not null)
+                CardAnimations[0].OnCardDrawDialogue.AddListener(BoardStateController.playedGodCard.CardSO.StartDialogue);
+
+            CardAnimations[0].OnAnimCompletionTrigger.AddListener(animsAreDone);
+            _Hand.RemoveCard(card_b.GetComponent<Card_Loader>());
+            isDiscarding = false;
+        }
+        else
+        {
+            animsAreDone();
+        }
+        isDiscarding = false;
+    }
+
+    public void RemoveCardFromBoard(Card_Behaviour card_b)
+    {
+        Transform ClosestPos = DiscardPositions[0];
+        foreach (var pos in DiscardPositions)
+        {
+            if(Vector3.Distance(ClosestPos.position, card_b.transform.position) > Vector3.Distance(pos.position, card_b.transform.position))
+                ClosestPos = pos;
+        }
+        DiscardStartPoint.position = ClosestPos.position;
+        DiscardStartPoint.rotation = ClosestPos.rotation;
+        DiscardStartPoint.localScale = ClosestPos.localScale;
+        DiscardAnimController.recalculatePath();
+        Debug.Log(DiscardStartPoint.name);
+
+        if (card_b != null)
+        {
+            // CardPlayData[] data = new CardPlayData[]{card_b.GetComponent<Card_Loader>()._card};
+            // CardAnimations = deckController.discardCard(data, delayBetweenCards, BoardStateController.ExhaustedCards);
+            CardPathAnim anim = deckController.DiscardCardOnBoard(card_b.getCardPlayData(), 0);
 
             // Dialogue discard trigger
             if(BoardStateController.playedGodCard is not null && anim is not null)
                 anim.OnCardDrawDialogue.AddListener(BoardStateController.playedGodCard.CardSO.StartDialogue);
 
-            //lastAnim.OnAnimCompletionTrigger.AddListener(animsAreDone);
             _Hand.RemoveCard(card_b.GetComponent<Card_Loader>());
-        }
-        else
-        {
-            animsAreDone();
         }
     }
 
@@ -337,28 +391,29 @@ public class TurnController : CombatFSM
     void animsAreDone()
     {
         shouldWaitForAnims = false;
+        CardAnimations = null;
     }
 
     void waitForShuffleAnims()
     {
         waitForLibraryShuffle = false;
-        // Debug.Log("ShuffleDone");
+        CardAnimations = null;
     }
 
     public void addExperience(CardExperience cardExperience)
     {
-        for (int i = 0; i < deckManager.getDeck.deckData.Count; i++)
+        for (int i = 0; i < deckController.deckData.Count; i++)
         {
-            ActionCard_ScriptableObject _Card = deckManager.getDeck.deckData.deckListData[i].CardType as ActionCard_ScriptableObject;
+            ActionCard_ScriptableObject _Card = deckController.deckData.deckListData[i].CardType as ActionCard_ScriptableObject;
 
             if(_Card == null)
-                return;
+                continue;
 
-            if(deckManager.getDeck.deckData.deckListData[i].Experience.ID != cardExperience.ID)
-                return;
+            if(deckController.deckData.deckListData[i].Experience.ID != cardExperience.ID)
+                continue;
             
             CardUpgradePath unlocks = _Card.cardStats.UpgradePath;
-            CardPlayData _CardState = deckManager.getDeck.deckData.deckListData[i];
+            CardPlayData _CardState = deckController.deckData.deckListData[i];
             if(unlocks.Upgrades == null)
             {
                 Debug.Log("this card has no upgrades");
@@ -371,16 +426,20 @@ public class TurnController : CombatFSM
                 return;
             }
 
-            Debug.Log(_Card.cardName + ", ID: " + _CardState.Experience.ID + " just got more experience!");
+            Debug.Log(_Card.cardName + ", ID: " + _CardState.Experience.ID + " just got more experience! at index " + i + " in the deckmanager deck. Previous XP: " + _CardState.Experience.XP);
             _CardState.Experience.XP++;
-            cardExperience.XP++; // redundant (debug only)
 
-            if(_CardState.Experience.XP > unlocks.Upgrades[_CardState.Experience.Level].RequiredXP)
+
+            deckController.deckData.deckListData[i] = new CardPlayData(_CardState);
+            // Debug.Log(deckManager.getDeck.deckData.deckListData[i].Experience.XP);
+
+            if(_CardState.Experience.XP >= unlocks.Upgrades[_CardState.Experience.Level].RequiredXP)
             {
                 Debug.Log("level up");
-                cardExperience.Level++; // redundant (debug only)
                 _CardState.Experience.Level++;
+                deckController.deckData.deckListData[i] = new CardPlayData(_CardState);
             }
+            deckController.TransferExperienceToHand(_CardState);
         }
     }
 
@@ -401,7 +460,7 @@ public class TurnController : CombatFSM
         selectedCard = sel;
     }
 
-    public void PlacedCard()
+    public void resetSelectedCard()
     {
         selectedCard = null;
     }

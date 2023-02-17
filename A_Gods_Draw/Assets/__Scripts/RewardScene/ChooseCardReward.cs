@@ -16,7 +16,6 @@ public enum CardType
 public class ChooseCardReward : MonoBehaviour
 {
     [SerializeField] CardReaderController CardInspector;
-    [SerializeField] DeckManager_SO deckManager;
     
     List<Card_SO> searchResult = new();
 
@@ -50,10 +49,7 @@ public class ChooseCardReward : MonoBehaviour
 
             if (SelectIndex > -1)
             {
-                CardPlayData _SelectedCard = new CardPlayData();
-                _SelectedCard.CardType = CardOptions[SelectIndex];
-
-                deckManager.addCardToDeck(_SelectedCard);
+                DeckList_SO.playerObtainCard(CardOptions[SelectIndex]);
                 MultiSceneLoader.loadCollection("Map", collectionLoadMode.Difference);
             }
         }

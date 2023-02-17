@@ -17,7 +17,7 @@ public class Card_Selector : MonoBehaviour
     public ParamRef pp;
     public Vector3 targetHandPos;
     public Vector3 targetHandLocalPos;
-    private BoxCollider collider;
+    private BoxCollider _collider;
     
     public bool holdingOver;
     
@@ -26,7 +26,7 @@ public class Card_Selector : MonoBehaviour
      {
         CB = gameObject.GetComponentInChildren<Card_Behaviour>();
         anim = GetComponent<Animator>();
-        collider = GetComponent<BoxCollider>();
+        _collider = GetComponent<BoxCollider>();
         
      }
 
@@ -61,8 +61,9 @@ public class Card_Selector : MonoBehaviour
             
             SoundPlayer.PlaySound(cardflip, gameObject);
             anim.SetBool("SelectedCard", true);
+            Debug.Log("Animation SelectedCard Do not exist");
             // Debug.Log("Called");
-            collider.size = new Vector3(0.129058808f,0.849429905f,0.012907018f);
+            _collider.size = new Vector3(0.129058808f,0.849429905f,0.012907018f);
     }
 
     public void OnMouseExit()
@@ -73,7 +74,7 @@ public class Card_Selector : MonoBehaviour
         holdingOver = false;
         //SoundManager.Instance.StopSound(cardflip,gameObject);
         //anim.SetBool("SelectedCard", false);
-        collider.size = new Vector3(0.122779235f,0.842809618f,0.012907018f);
+        _collider.size = new Vector3(0.122779235f,0.842809618f,0.012907018f);
         
     }
 

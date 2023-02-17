@@ -32,7 +32,7 @@ public class Player_Hand : MonoBehaviour
     }
 
     /// <summary>Instantiates a card into the player's hand</summary>
-    /// <param name="card">ScriptableObject for the card</param>
+    /// <param name="card">Data to build the card prefab</param>
     public void AddCard(CardPlayData card)
     {
         GameObject spawn = Instantiate(CardHandPrefab, handPlace.position, Quaternion.identity);
