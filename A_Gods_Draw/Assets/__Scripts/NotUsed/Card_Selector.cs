@@ -60,8 +60,7 @@ public class Card_Selector : MonoBehaviour
             holdingOver = true;
             
             SoundPlayer.PlaySound(cardflip, gameObject);
-            anim.SetBool("SelectedCard", true);
-            Debug.Log("Animation SelectedCard Do not exist");
+            // anim.SetBool("SelectedCard", true);
             // Debug.Log("Called");
             _collider.size = new Vector3(0.129058808f,0.849429905f,0.012907018f);
     }

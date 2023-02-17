@@ -388,6 +388,7 @@ public class ActionCard_Behaviour : Card_Behaviour
         {
             case ModifiableCardValue.Strength:
                 stats.strength = Value;
+                elements.strength.text = stats.strength.ToString();
                 break;
             
             case ModifiableCardValue.NumberOfTargets:
