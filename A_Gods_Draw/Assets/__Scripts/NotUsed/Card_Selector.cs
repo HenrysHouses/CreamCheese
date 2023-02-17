@@ -73,7 +73,7 @@ public class Card_Selector : MonoBehaviour
         holdingOver = false;
         //SoundManager.Instance.StopSound(cardflip,gameObject);
         //anim.SetBool("SelectedCard", false);
-        collider.size = new Vector3(0.095245257f,0.849429905f,0.012907018f);
+        collider.size = new Vector3(0.122779235f,0.842809618f,0.012907018f);
         
     }
 

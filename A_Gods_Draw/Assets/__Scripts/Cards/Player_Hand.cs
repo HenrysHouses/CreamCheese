@@ -10,7 +10,7 @@ public class Player_Hand : MonoBehaviour
 {
     [SerializeField]
     Transform handPlace;
-    private float cardRotation = 10; 
+    private float cardRotation = 5; 
     public List<CardHandAnim> CardSelectionAnimators = new List<CardHandAnim>();
     public GameObject CardHandPrefab;
 
@@ -109,13 +109,19 @@ public class Player_Hand : MonoBehaviour
     public void UpdateCards()
     {
         float count = (float)CardSelectionAnimators.Count;
+        int cardoffset = 1;
+        if(CardSelectionAnimators.Count % 2 == 0)
+        {
+            cardoffset = 0;
+        }
         for (int i = 0; i < CardSelectionAnimators.Count; i++)
         {
             var firstCardPos = ((CardSelectionAnimators.Count) * -0.05f);
-            CardSelectionAnimators[i].Selector.setHandPos(new Vector3(firstCardPos + (0.1f * i), 0, i * 0.005f));
+            CardSelectionAnimators[i].Selector.setHandPos(new Vector3(firstCardPos + (0.15f * i), 0f,Mathf.PingPong(((float)(i) * 2)  / (CardSelectionAnimators.Count - cardoffset) ,1f) * -0.05f));
+           // Debug.Log(Mathf.PingPong((i * 2)  / CardSelectionAnimators.Count,1) + "I is : " + i);
             // CardSelectionAnimators[i].Selector.transform.localPosition = (new Vector3(firstCardPos + (0.1f * i), 0, i * 0.005f));
             
-            CardSelectionAnimators[i].Selector.transform.rotation = Quaternion.Euler(0, 0, (cardRotation * ((count - 1) / 2f)) - cardRotation * i);
+            CardSelectionAnimators[i].Selector.transform.rotation = Quaternion.Euler(0, 0, (cardRotation * ((count - 1) / 2f)) - cardRotation * (float)i);
         }
     }
     
