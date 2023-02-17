@@ -68,7 +68,7 @@ public class CardReaderController : MonoBehaviour
 
         cardBaseRot = found.transform.rotation;
         inspectorTarget = found.transform;
-        inspectorTarget.transform.rotation = MainCam.transform.rotation;
+        // inspectorTarget.transform.rotation = MainCam.transform.rotation;
         inspectorTarget.transform.Rotate(RotationOffset, Space.Self);
         
         HighlightDisabler = inspectorTarget.GetComponents<DisableHighlight>();
