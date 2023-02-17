@@ -19,36 +19,32 @@ public class Monster : BoardElement
     public float outlineSize = 0.01f;
     private bool outlineShouldTurnOff;
     private float outlineRemainingTime;
-    private int queuedDamage;
+    private int queuedDamage, queuedPoison, queuedPierce;
     private Dictionary<ActionCard_Behaviour, int> damageSources;
 
     //UI
     [SerializeField]
     private Transform effectsPanel;
     [SerializeField]
-    private Slider healthBar, poisonBar, barrierBar;
+    private Slider healthBar, poisonBar, barrierBar, afterDamageBar;
     [SerializeField]
-    private TMP_Text healthText, strengthText, queuedDamageText, defendText;
+    private Image healthBarFill, barrierBarFill;
+    [SerializeField]
+    private TMP_Text healthText, strengthText, defendText;
     [SerializeField]
     private Image intentImage;
     [SerializeField]
     private Icons uiIcons;
     [SerializeField]
     private GameObject effectIconPrefab, defendUI;
-    public enum Effects
-    {
-
-        Poison,
-        Frostbite,
-        HealPrevention,
-        Chained
-
-    }
+    private Dictionary<Sprite, GameObject> debuffDisplays;
+    private Color healthBarColor, barrierBarColor;
+    private bool flashHealthBar, flashBarrierBar;
 
     //Health
     [SerializeField]
     private int maxHealth;
-    private int currentHealth, barrier, totalHealthPool;
+    private int currentHealth, barrier;
     public int GetMaxHealth() { return maxHealth; }
     public int GetHealth() { return currentHealth; }
 
@@ -75,6 +71,7 @@ public class Monster : BoardElement
         BoardElementInfo = "Hello, I am an enemy";
 
         damageSources = new Dictionary<ActionCard_Behaviour, int>();
+        debuffDisplays = new Dictionary<Sprite, GameObject>();
 
     }
 
@@ -83,6 +80,7 @@ public class Monster : BoardElement
 
         enemyIntent = new LokiMonster2Intent();
         enemyIntent.Self = this;
+        healthBarColor = healthBarFill.color;
 
     }
 
@@ -90,29 +88,50 @@ public class Monster : BoardElement
     {
 
         UpdateOutline();
-        queuedDamageText.text = "Q: " + Mathf.Clamp(queuedDamage - defendFor, 0, Mathf.Infinity);
+
+        if(flashBarrierBar)
+
+        if(flashHealthBar)
+            healthBarFill.color = healthBarColor * ((Mathf.PingPong(Time.time, 1) / 2) + 0.5f);
 
     }
 
-    public void UpdateQueuedDamage(ActionCard_Behaviour _source, int _amount)
+    public void UpdateQueuedDamage(ActionCard_Behaviour _source, int _amount, bool _ignoreShield = false)
     {
 
         if(damageSources.TryGetValue(_source, out int _damage))
         {
 
-            queuedDamage -= _damage;
+            if(_ignoreShield)
+                queuedPierce -= _damage;
+            else
+                queuedDamage -= _damage;
 
             damageSources[_source] = _amount;
-            queuedDamage += _amount;
+            if(_ignoreShield)
+                queuedPierce += _amount;
+            else
+                queuedDamage += _amount;
 
         }
         else
         {
 
             damageSources.Add(_source, _amount);
-            queuedDamage += _amount;
+
+            if(_ignoreShield)
+                queuedPierce += _amount;
+            else
+                queuedDamage += _amount;
 
         }
+
+    }
+
+    public void UpdateQueuedPoison(int _amount)
+    {
+
+        queuedPoison = _amount;
 
     }
 
@@ -183,6 +202,9 @@ public class Monster : BoardElement
 
         barrier = _amount;
 
+        UpdateHealthUI();
+        setOutline(outlineSize, Color.yellow, 0.25f);
+
     }
 
     public void ReceiveHealth(int _amount)
@@ -243,6 +265,29 @@ public class Monster : BoardElement
 
     }
 
+    private void UpdateHealthDamageUI()
+    {
+
+        flashBarrierBar = false;
+        flashHealthBar = false;
+
+        float _damage = (Mathf.Clamp(queuedDamage - defendFor, 0, Mathf.Infinity) + queuedPierce + queuedPoison);
+        _damage -= barrier;
+
+        if(_damage <= 0)
+        {
+
+            afterDamageBar.value = barrier - _damage;
+            flashBarrierBar = true;
+            return;
+
+        }
+
+        flashHealthBar = true;
+        afterDamageBar.value = currentHealth - _damage;
+        
+    }
+
     private void UpdateIntentUI()
     {
 
@@ -286,24 +331,41 @@ public class Monster : BoardElement
 
     }
 
-    public void ShowEffect(Effects _effect)
+    
+    public void UpdateEffect(Sprite _icon, int _stacks)
     {
 
-        switch(_effect)
+        GameObject _iconGO;
+
+        if(debuffDisplays.TryGetValue(_icon, out _iconGO))
+        {
+
+            if(_stacks <= 0)
+            {
+
+                _iconGO.SetActive(false);
+
+            }
+            else
+            {
+
+                _iconGO.SetActive(true);
+
+            }
+
+            _iconGO.GetComponentInChildren<TMP_Text>().text = _stacks.ToString();
+
+        }
+        else
         {
             
-            case Effects.Poison:
-            break;
-            
+            _iconGO = Instantiate(effectIconPrefab, effectsPanel);
+            _iconGO.GetComponent<Image>().sprite = _icon;
+            _iconGO.GetComponentInChildren<TMP_Text>().text = _stacks.ToString();
+
+            debuffDisplays.Add(_icon, _iconGO);
+
         }
-
-    }
-
-    public void ShowEffect(Sprite _icon)
-    {
-
-        GameObject _iconGO = Instantiate(effectIconPrefab, effectsPanel);
-        _iconGO.GetComponent<Image>().sprite = _icon;
 
     }
 
@@ -351,8 +413,8 @@ public class Monster : BoardElement
     }
 
 }
-
-struct Icons
+[SerializeField]
+public struct Icons
 {
 
     //Effect icons

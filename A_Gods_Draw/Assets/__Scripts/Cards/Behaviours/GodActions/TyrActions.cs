@@ -10,8 +10,7 @@ public class TyrActions : GodCardAction
     {
         foreach (Monster monster in board.getLivingEnemies())
         {
-            monster.GetIntent().CancelIntent();
-            monster.ShowEffect(Resources.Load<Sprite>("ImageResources/Icon_Chain_v1"));
+            monster.gameObject.AddComponent<ChainedDebuff>().Stacks = 1;
         }
     }
 }

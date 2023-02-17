@@ -9,6 +9,8 @@ public class FrostbiteDebuff : DebuffBase
     {
         
         Stacks -= _ticks;
+        thisMonster.UpdateEffect(Resources.Load<Sprite>("ImageResources/Icon_Chain_v1"), Stacks);
+
         if(Stacks <= 0)
             Destroy(this);
 
@@ -18,6 +20,13 @@ public class FrostbiteDebuff : DebuffBase
     {
         
         thisMonster.DeBuff(Stacks);
+
+    }
+
+    private void Awake()
+    {
+
+        PreActDebuff();
 
     }
 

@@ -29,8 +29,6 @@ public class FrostbiteCardAction : CardAction
 
             }
 
-            target.DeBuff(_source.stats.strength);
-
         }
         
         // source.stats.Targets.Clear();
