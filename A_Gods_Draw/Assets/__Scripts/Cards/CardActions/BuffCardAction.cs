@@ -51,7 +51,7 @@ public class BuffCardAction : CardAction
         isReady = true;
     }
     
-    public override void OnLanePlaced(BoardStateController board, ActionCard_Behaviour source)
+    public override void CardPlaced(BoardStateController board, ActionCard_Behaviour source)
     {
         foreach (ActionCard_Behaviour card in source.AllTargets)
         {

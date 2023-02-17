@@ -10,8 +10,7 @@ public struct CardUpgrade
 {
     public int RequiredXP;
     // # Toolbar
-    public CardUpgradeType Type;
-    public int UpgradeTypeIndex;
+    public CardUpgradeType UpgradeType;
     // # Remove
     /// <summary>Current Glyphs of a card, Use to select removal of glyphs</summary>
     public CardActionEnum[] RemovableGlyph;
@@ -21,7 +20,6 @@ public struct CardUpgrade
     // # Modify
     public ModifiableCardValue ValueSelection;
     public GodActionEnum CorrespondingGod;
-    public CardSelectionType SelectionType;
     public int EditedValue;
 }
 
@@ -46,6 +44,8 @@ public enum ModifiableCardValue
 public class CardUpgrade_PropertyDrawer: PropertyDrawer 
 {
     float lineCount;
+    static float MaxLines;
+    static int ListIndex;
     float XPOffset = 40;
     public override void OnGUI(Rect position, SerializedProperty property, GUIContent label) 
     {
@@ -54,7 +54,7 @@ public class CardUpgrade_PropertyDrawer: PropertyDrawer
         Rect XpRect = new Rect(position);
         position.xMin += XPOffset;
 
-        SerializedProperty Index = property.FindPropertyRelative("UpgradeTypeIndex");
+        SerializedProperty Index = property.FindPropertyRelative("UpgradeType");
         DrawUpgradeTypeToolbar(position, property, label, Index);
         
         switch((CardUpgradeType)Index.intValue)
@@ -74,9 +74,9 @@ public class CardUpgrade_PropertyDrawer: PropertyDrawer
 
         XpRect.xMax = 115;
         Rect LevelRect = new Rect(XpRect);
-        LevelRect.y -= 30;
-        Rect XpTextRect = new Rect(XpRect);
-        XpTextRect.y -= 11;
+        LevelRect.height = EditorGUIUtility.singleLineHeight;
+        Rect XpTextRect = new Rect(LevelRect);
+        XpTextRect.y += EditorGUIUtility.singleLineHeight;
 
         char[] lvlIndex = property.propertyPath.ToCharArray();
         int n = int.Parse(lvlIndex[lvlIndex.Length-2].ToString());
@@ -107,7 +107,7 @@ public class CardUpgrade_PropertyDrawer: PropertyDrawer
 
     void DrawUpgradeTypeToolbar(Rect position, SerializedProperty property, GUIContent label, SerializedProperty pageIndex)
     {
-        SerializedProperty Types = property.FindPropertyRelative("Type");
+        SerializedProperty Types = property.FindPropertyRelative("UpgradeType");
 
         Rect rect = new Rect(position.x, position.y, position.width, EditorGUIUtility.singleLineHeight);
 
@@ -125,7 +125,7 @@ public class CardUpgrade_PropertyDrawer: PropertyDrawer
         rect.height = EditorGUIUtility.singleLineHeight;
 
         Glyph.intValue = EditorGUI.Popup(rect, "Glyph", Glyph.intValue, Glyph.enumDisplayNames);
-        // lineCount++;
+        lineCount++;
     }
 
     void DrawGlyphRemoval(Rect position, SerializedProperty property, GUIContent label)
@@ -163,22 +163,22 @@ public class CardUpgrade_PropertyDrawer: PropertyDrawer
         Modify.intValue = EditorGUI.Popup(rect, "Select Value", Modify.intValue, Modify.enumDisplayNames);
         lineCount++;
 
+        SerializedProperty EditorValue = property.FindPropertyRelative("EditedValue");
+        
         switch((ModifiableCardValue)Modify.intValue)
         {
             case ModifiableCardValue.Strength:
             case ModifiableCardValue.NumberOfTargets:
-                SerializedProperty intVariable = property.FindPropertyRelative("EditedValue");
-                DrawIntValue(position, null, intVariable);
+                DrawIntValue(position, null, EditorValue);
                 break;
             
             case ModifiableCardValue.SelectionType:
                 SerializedProperty _Selection = property.FindPropertyRelative("SelectionType");
-                DrawSelectableTargets(position, label, _Selection);
+                DrawSelectableTargets(position, label, EditorValue);
                 break;
             
             case ModifiableCardValue.CorrespondingGod:
-                SerializedProperty _God = property.FindPropertyRelative("CorrespondingGod");
-                DrawEnum(position, label, _God);
+                DrawEnum(position, label, EditorValue);
                 break;
         }
     }
@@ -206,7 +206,7 @@ public class CardUpgrade_PropertyDrawer: PropertyDrawer
         rect.y += EditorGUIUtility.standardVerticalSpacing * 2;
         rect.height = EditorGUIUtility.singleLineHeight;
 
-        Variable.intValue = EditorGUI.Popup(rect, Variable.intValue, Variable.enumDisplayNames);
+        Variable.intValue = EditorGUI.Popup(rect, Variable.intValue, GodActionEnum.GetNames(typeof(GodActionEnum)));
         lineCount++;
     }
 
@@ -217,13 +217,7 @@ public class CardUpgrade_PropertyDrawer: PropertyDrawer
         rect.y += EditorGUIUtility.standardVerticalSpacing * 2;
         rect.height = EditorGUIUtility.singleLineHeight;
 
-        SerializedProperty Index = Variable.FindPropertyRelative("Index");
-        SerializedProperty ClassNameContainer = Variable.FindPropertyRelative("NamesContainer");
-        // BoardElementClassNames elementClassNames = ClassNameContainer.objectReferenceValue as BoardElementClassNames;
-
-        
-
-        Index.intValue = EditorGUI.Popup(rect, Index.intValue, BoardElementClassNames.instance.Names);
+        Variable.intValue = EditorGUI.Popup(rect, Variable.intValue, BoardElementClassNames.instance.Names);
         lineCount++;
     }
 
@@ -231,7 +225,23 @@ public class CardUpgrade_PropertyDrawer: PropertyDrawer
 
     public override float GetPropertyHeight(SerializedProperty property, GUIContent label)
     {
-        return EditorGUIUtility.singleLineHeight * lineCount + EditorGUIUtility.standardVerticalSpacing * (lineCount-1);
+        char[] lvlIndex = property.propertyPath.ToCharArray();
+        char[] _Number = new char[1];
+        _Number[0] = lvlIndex[lvlIndex.Length-2];
+
+        int n;
+        bool Parsed = int.TryParse(_Number, System.Globalization.NumberStyles.Integer, null, out n);
+
+        if(Parsed)
+        {
+            // ! This could be improved so the height changes back to shorter again
+            if(lineCount > MaxLines)
+            {
+                MaxLines = lineCount;
+            }
+        }
+
+        return EditorGUIUtility.singleLineHeight * MaxLines + EditorGUIUtility.standardVerticalSpacing * (MaxLines-1);
     }
 
     int[] getEnumsInArray(SerializedProperty property)

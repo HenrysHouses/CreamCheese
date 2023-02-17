@@ -15,7 +15,7 @@ MonoBehaviour:
   type: 2
   Art: {fileID: 2800000, guid: cae5fd9f6a2592948bb7cafd4d02d345, type: 3}
   Background: {fileID: 0}
-  cardName: Hildisvini
+  cardName: Freya's Servant Hildisvini
   description: "Freyja\u2018s servant, Ottar, could take the form of a boar, and
     was then named Hildisvini, meaning Battle-Pig. He was big and had golden bristles,
     and Freyja sometimes rode him like a steed."
@@ -25,7 +25,7 @@ MonoBehaviour:
   cardStats:
     TargetingView: 7
     SelectionType:
-      Index: 0
+      Index: 1
       NamesContainer: {fileID: 11400000, guid: f8b018dd89042d4438fa88687c5c3c94, type: 2}
     strength: 2
     numberOfTargets: 1
@@ -63,4 +63,16 @@ MonoBehaviour:
     godBuffActions:
       actionStats: []
     UpgradePath:
-      Upgrades: []
+      Experience:
+        XP: 0
+        Level: 0
+        ID: 348
+      Upgrades:
+      - RequiredXP: 5
+        UpgradeType: 2
+        RemovableGlyph: 020000000a000000
+        AddGlyph: 10
+        RemoveGlyphIndex: 0
+        ValueSelection: 0
+        CorrespondingGod: 0
+        EditedValue: 0

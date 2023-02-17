@@ -125,7 +125,7 @@ public class ActionCard_Behaviour : Card_Behaviour
 
         for (int i = 0; i < _actionGroup.actionStats.Count; i++)
         {
-            CardAction act = GetAction(_actionGroup.actionStats[i]);
+            CardAction act = GetAction(_actionGroup.actionStats[i].actionEnum);
 
             act.action_SFX = _actionGroup.actionStats[i].action_SFX;
             // act.PlayOnPlacedOrTriggered_SFX = _actionGroup.actionStats[i].PlayOnPlacedOrTriggered_SFX;
@@ -137,7 +137,7 @@ public class ActionCard_Behaviour : Card_Behaviour
 
         for (int i = 0; i < _godBuffActions.actionStats.Count; i++)
         {
-            var act = GetAction(_godBuffActions.actionStats[i]);
+            var act = GetAction(_godBuffActions.actionStats[i].actionEnum);
             
             act.action_SFX = _godBuffActions.actionStats[i].action_SFX;
             // act.PlayOnPlacedOrTriggered_SFX = _godBuffActions.actionStats[i].PlayOnPlacedOrTriggered_SFX;
@@ -203,7 +203,6 @@ public class ActionCard_Behaviour : Card_Behaviour
 
     protected override IEnumerator Play(BoardStateController board)
     {
-        
         for (int i = 0; i < _actionGroup.actions.Count; i++)
         {
             CardAction action = _actionGroup.actions[i];
@@ -327,10 +326,85 @@ public class ActionCard_Behaviour : Card_Behaviour
         // }
     }
 
-    void GainXP()
+    public void ApplyLevels(CardExperience CurrentLevel)
     {
-        stats.UpgradePath.Experience.XP++;
+        stats.UpgradePath.Experience = CurrentLevel;
+        for (int i = 0; i < CurrentLevel.Level; i++)
+        {
+            CardUpgradeType upgradeType = stats.UpgradePath.Upgrades[i].UpgradeType;
+            ModifiableCardValue modifiableCardValue = stats.UpgradePath.Upgrades[i].ValueSelection;
 
+            switch(upgradeType)
+            {
+                case CardUpgradeType.AddGlyph:
+                    AddNewGlyph(stats.UpgradePath.Upgrades[i].AddGlyph);
+                    break;
+                case CardUpgradeType.RemoveGlyph:
+                    int n = stats.UpgradePath.Upgrades[i].RemoveGlyphIndex;
+                    RemoveGlyph(stats.UpgradePath.Upgrades[i].RemovableGlyph[n]);
+                    break;
+                case CardUpgradeType.ModifyValue:
+                    upgradeModifiableValue(modifiableCardValue, stats.UpgradePath.Upgrades[i].EditedValue);
+                    break;
+            }
+        }
+    }
 
+    void RemoveGlyph(CardActionEnum Glyph)
+    {
+        for (int i = 0; i < _actionGroup.actionStats.Count; i++)
+        {
+            if(_actionGroup.actionStats[i].actionEnum == Glyph)
+            {
+                Debug.Log("removing: " + _actionGroup.actions[i].GetType() + "from: " + card_so.cardName);
+                _actionGroup.actions.RemoveAt(i);
+                _actionGroup.actionStats.RemoveAt(i);
+            }
+        }
+    }
+
+    void AddNewGlyph(CardActionEnum Glyph)
+    {
+        CardAction act = GetAction(Glyph);
+        Debug.Log("adding: " + act.GetType() + " to: " + card_so.cardName);
+
+        // act.action_SFX = _actionGroup.actionStats[i].action_SFX; // this should be read from a scriptable object for the target action
+        // act.PlayOnPlacedOrTriggered_SFX = _actionGroup.actionStats[i].PlayOnPlacedOrTriggered_SFX;
+        // act._VFX = _actionGroup.actionStats[i]._VFX;
+
+        act.SetBehaviour(this);
+        _actionGroup.Add(act); 
+        CardActionData _newAction = new CardActionData();
+        _newAction.actionEnum = Glyph;
+        _actionGroup.actionStats.Add(_newAction);
+    }
+
+    void upgradeModifiableValue(ModifiableCardValue Modify, int Value)
+    {
+        Debug.Log("Modifying: " + Modify + " to value: " + Value + " of " + card_so.cardName);
+
+        switch(Modify)
+        {
+            case ModifiableCardValue.Strength:
+                stats.strength = Value;
+                break;
+            
+            case ModifiableCardValue.NumberOfTargets:
+                stats.numberOfTargets = Value;
+                break;
+
+            case ModifiableCardValue.SelectionType:
+                stats.SelectionType.Index = Value; 
+                break;
+
+            case ModifiableCardValue.CorrespondingGod:
+                stats.correspondingGod = (GodActionEnum)Value;
+                break;
+        }
+    }
+
+    protected override void GainExperience()
+    {
+        controller.addExperience(stats.UpgradePath.Experience);
     }
 }

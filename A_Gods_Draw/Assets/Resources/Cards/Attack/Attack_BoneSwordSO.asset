@@ -15,7 +15,7 @@ MonoBehaviour:
   type: 0
   Art: {fileID: 2800000, guid: 9b9a23263fad8de468d8965e084d4184, type: 3}
   Background: {fileID: 0}
-  cardName: Bone Sword
+  cardName: A Short Bone Sword
   description: 
   effect: 
   cardStats:
@@ -23,12 +23,66 @@ MonoBehaviour:
     SelectionType:
       Index: 6
       NamesContainer: {fileID: 11400000, guid: f8b018dd89042d4438fa88687c5c3c94, type: 2}
-    strength: 0
-    numberOfTargets: 0
+    strength: 1
+    numberOfTargets: 1
     actionGroup:
-      actionStats: []
-    correspondingGod: 0
+      actionStats:
+      - actionEnum: 0
+        action_SFX:
+          Guid:
+            Data1: 0
+            Data2: 0
+            Data3: 0
+            Data4: 0
+          Path: 
+        _VFX:
+          FollowPath: 1
+          isAnimating: 0
+          PathSpeed: 1
+          trigger_VFX: {fileID: 3273590495200156951, guid: f2908f3673965cb4390dc705aca60e85, type: 3}
+          hit_VFX: {fileID: 2604885081968657841, guid: 68774ee4712f84144802b43008224235, type: 3}
+      - actionEnum: 14
+        action_SFX:
+          Guid:
+            Data1: 0
+            Data2: 0
+            Data3: 0
+            Data4: 0
+          Path: 
+        _VFX:
+          FollowPath: 0
+          isAnimating: 0
+          PathSpeed: 0
+          trigger_VFX: {fileID: 0}
+          hit_VFX: {fileID: 0}
+      - actionEnum: 9
+        action_SFX:
+          Guid:
+            Data1: 0
+            Data2: 0
+            Data3: 0
+            Data4: 0
+          Path: 
+        _VFX:
+          FollowPath: 0
+          isAnimating: 0
+          PathSpeed: 0
+          trigger_VFX: {fileID: 0}
+          hit_VFX: {fileID: 0}
+    correspondingGod: 2
     godBuffActions:
       actionStats: []
     UpgradePath:
-      Upgrades: []
+      Experience:
+        XP: 0
+        Level: 0
+        ID: 83
+      Upgrades:
+      - RequiredXP: 5
+        UpgradeType: 1
+        RemovableGlyph: 000000000e00000009000000
+        AddGlyph: 0
+        RemoveGlyphIndex: 1
+        ValueSelection: 0
+        CorrespondingGod: 0
+        EditedValue: 0

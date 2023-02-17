@@ -15,7 +15,7 @@ MonoBehaviour:
   type: 2
   Art: {fileID: 2800000, guid: 191e685f86b459349a96998521c63dfa, type: 3}
   Background: {fileID: 0}
-  cardName: Bifrost
+  cardName: Bifrost The Bridge
   description: The bridge between the Realm of Men and Asgard; Men call it the rainbow.
     The red color in it is said to be literal fire, and it keeps the Jotnar from
     crossing it.
@@ -23,7 +23,7 @@ MonoBehaviour:
   cardStats:
     TargetingView: 7
     SelectionType:
-      Index: 0
+      Index: 1
       NamesContainer: {fileID: 11400000, guid: f8b018dd89042d4438fa88687c5c3c94, type: 2}
     strength: 3
     numberOfTargets: 1
@@ -47,4 +47,16 @@ MonoBehaviour:
     godBuffActions:
       actionStats: []
     UpgradePath:
-      Upgrades: []
+      Experience:
+        XP: 0
+        Level: 0
+        ID: 313
+      Upgrades:
+      - RequiredXP: 5
+        UpgradeType: 2
+        RemovableGlyph: 02000000
+        AddGlyph: 0
+        RemoveGlyphIndex: 0
+        ValueSelection: 0
+        CorrespondingGod: 0
+        EditedValue: 4

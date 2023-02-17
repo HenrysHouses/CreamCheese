@@ -176,7 +176,7 @@ public class TurnController : CombatFSM
 
 
                 // Dialogue draw trigger
-                if(trigger.cardSO is GodCard_ScriptableObject _God)
+                if(trigger._card.CardType is GodCard_ScriptableObject _God)
                 {
                     trigger.OnCardDrawDialogue.AddListener(_God.StartDialogue);
                 }
@@ -259,7 +259,7 @@ public class TurnController : CombatFSM
             for (int i = _Hand.CardSelectionAnimators.Count - 1; i >= 0; i--)
             {
                 
-                lastAnim = deckManager.discardCard(_Hand.CardSelectionAnimators[i].cardSO, BoardStateController.ExhaustedCards);
+                lastAnim = deckManager.discardCard(_Hand.CardSelectionAnimators[i]._card, BoardStateController.ExhaustedCards);
                 
                 lastAnim.OnAnimStartSound.AddListener(CardSound);
 
@@ -311,7 +311,7 @@ public class TurnController : CombatFSM
 
         if (card_b != null)
         {
-            CardPathAnim anim = deckManager.discardCard(card_b.GetComponent<Card_Loader>().GetCardSO, BoardStateController.ExhaustedCards);
+            CardPathAnim anim = deckManager.discardCard(card_b.GetComponent<Card_Loader>()._card, BoardStateController.ExhaustedCards);
 
             // Dialogue discard trigger
             if(BoardStateController.playedGodCard is not null && anim is not null)
@@ -345,6 +345,44 @@ public class TurnController : CombatFSM
         // Debug.Log("ShuffleDone");
     }
 
+    public void addExperience(CardExperience cardExperience)
+    {
+        for (int i = 0; i < deckManager.getDeck.deckData.Count; i++)
+        {
+            ActionCard_ScriptableObject _Card = deckManager.getDeck.deckData.deckListData[i].CardType as ActionCard_ScriptableObject;
+
+            if(_Card == null)
+                return;
+
+            if(deckManager.getDeck.deckData.deckListData[i].Experience.ID != cardExperience.ID)
+                return;
+            
+            CardUpgradePath unlocks = _Card.cardStats.UpgradePath;
+            CardPlayData _CardState = deckManager.getDeck.deckData.deckListData[i];
+            if(unlocks.Upgrades == null)
+            {
+                Debug.Log("this card has no upgrades");
+                return;
+            }
+
+            if(unlocks.Experience.Level == unlocks.Upgrades.Length-1)
+            {
+                Debug.Log("this card is max level");
+                return;
+            }
+
+            Debug.Log(_Card.cardName + ", ID: " + _CardState.Experience.ID + " just got more experience!");
+            _CardState.Experience.XP++;
+            cardExperience.XP++; // redundant (debug only)
+
+            if(_CardState.Experience.XP > unlocks.Upgrades[_CardState.Experience.Level].RequiredXP)
+            {
+                Debug.Log("level up");
+                cardExperience.Level++; // redundant (debug only)
+                _CardState.Experience.Level++;
+            }
+        }
+    }
 
     // * --- Getters ---
     public BoardStateController GetBoard() { return BoardStateController; }

@@ -69,13 +69,13 @@ public class Card_Loader : MonoBehaviour
     [SerializeField] PathController IconPath;
     [SerializeField] GameObject IconPrefab;
     [SerializeField] CardElements elements;
-    [SerializeField] Card_SO card_so;
+    public CardPlayData _card;
     Card_Behaviour CB;
 
     // [HideInInspector]
     public bool addComponentAutomatically = true;
 
-    public Card_SO GetCardSO => card_so;
+    public Card_SO GetCardSO => _card.CardType;
     public Card_Behaviour Behaviour => CB;
 
 //------------------------------------------
@@ -108,25 +108,25 @@ public class Card_Loader : MonoBehaviour
 
     /// <summary> The method that modifies the card gameobject </summary>
     /// <param name="card"> The Card_SO object to get the data from </param>
-    public void Set(Card_SO card)
+    public void Set(CardPlayData card)
     {
-        card_so = card;
+        _card = card;
 
-        elements.cardName.text = card_so.cardName;
+        elements.cardName.text = _card.CardType.cardName;
         elements.cardName.ForceMeshUpdate();
 
-        if(card_so.Background)
-            elements.ArtRenderer.material.SetTexture("_MainTex", card_so.Background);
-        if(card_so.Art)
-            elements.ArtRenderer.material.SetTexture("_ArtTex", card_so.Art);
+        if(_card.CardType.Background)
+            elements.ArtRenderer.material.SetTexture("_MainTex", _card.CardType.Background);
+        if(_card.CardType.Art)
+            elements.ArtRenderer.material.SetTexture("_ArtTex", _card.CardType.Art);
         
         // Might remove
         // elements.desc.text = card_so.effect;
         // elements.desc.ForceMeshUpdate();
 
-        if (card_so is GodCard_ScriptableObject)
+        if (_card.CardType is GodCard_ScriptableObject)
         {
-            GodCard_ScriptableObject god_card = card_so as GodCard_ScriptableObject;
+            GodCard_ScriptableObject god_card = _card.CardType as GodCard_ScriptableObject;
             elements.strength.text = god_card.health.ToString();
 
             //  Gold color
@@ -145,21 +145,22 @@ public class Card_Loader : MonoBehaviour
         }
         else
         {
-            ActionCard_ScriptableObject nonGod = card_so as ActionCard_ScriptableObject;
+            ActionCard_ScriptableObject Action_Card = _card.CardType as ActionCard_ScriptableObject;
 
-            elements.strength.text = nonGod.cardStats.strength.ToString();
+            elements.strength.text = Action_Card.cardStats.strength.ToString();
 
             // border color
-            ChangeOrm(nonGod.type);
+            ChangeOrm(Action_Card.type);
 
             if(addComponentAutomatically)
             {
                 CB = gameObject.AddComponent<ActionCard_Behaviour>();
-                (CB as ActionCard_Behaviour).Initialize(nonGod, elements);
+                (CB as ActionCard_Behaviour).Initialize(Action_Card, elements);
+                (CB as ActionCard_Behaviour).ApplyLevels(card.Experience);
+                
             }
+            instantiateIcons(Action_Card.cardStats.getGlyphs(Action_Card.type));
         }
-
-        // instantiateIcons(card_so.getGlyphs());
     }
 
     private void instantiateIcons(CardActionEnum[] glyphs)

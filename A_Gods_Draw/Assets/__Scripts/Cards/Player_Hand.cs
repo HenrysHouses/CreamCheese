@@ -19,21 +19,21 @@ public class Player_Hand : MonoBehaviour
     {
         public Card_Selector Selector;
         public Animator cardAnimation;
-        public Card_SO cardSO;
+        public CardPlayData _card;
         public Card_Loader loader;
 
-        public  CardHandAnim(Card_Selector selector, Card_Loader ldr)
+        public  CardHandAnim(Card_Selector selector, Card_Loader loader)
         {
             this.cardAnimation = selector.GetComponentInChildren<Animator>();
             this.Selector = selector;
-            this.cardSO = ldr.GetCardSO;
-            loader = ldr;
+            this._card = loader._card;
+            this.loader = loader;
         }
     }
 
     /// <summary>Instantiates a card into the player's hand</summary>
     /// <param name="card">ScriptableObject for the card</param>
-    public void AddCard(Card_SO card)
+    public void AddCard(CardPlayData card)
     {
         GameObject spawn = Instantiate(CardHandPrefab, handPlace.position, Quaternion.identity);
         spawn.transform.SetParent(handPlace);

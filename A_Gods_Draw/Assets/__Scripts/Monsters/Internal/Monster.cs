@@ -1,3 +1,4 @@
+using System.Collections.Generic;
 using System.Collections;
 using UnityEngine;
 using UnityEngine.UI;
@@ -9,7 +10,7 @@ public class Monster : BoardElement
 
     public Intent GetIntent() => enemyIntent;
     protected Intent enemyIntent;
-    private int defendedFor;
+    private int defendFor, queuedDefence;
 
     //VFX
     public GameObject deathParticleVFX;
@@ -18,11 +19,8 @@ public class Monster : BoardElement
     public float outlineSize = 0.01f;
     private bool outlineShouldTurnOff;
     private float outlineRemainingTime;
-
-    //SFX
-    [SerializeField]
-    private EventReference death_SFX;
-    public EventReference HoverOver_SFX;
+    private int queuedDamage;
+    private Dictionary<ActionCard_Behaviour, int> damageSources;
 
     //UI
     [SerializeField]
@@ -30,13 +28,13 @@ public class Monster : BoardElement
     [SerializeField]
     private Slider healthBar, poisonBar, barrierBar;
     [SerializeField]
-    private TMP_Text healthText, strengthText;
+    private TMP_Text healthText, strengthText, queuedDamageText, defendText;
     [SerializeField]
     private Image intentImage;
     [SerializeField]
     private Icons uiIcons;
     [SerializeField]
-    private GameObject effectIconPrefab;
+    private GameObject effectIconPrefab, defendUI;
     public enum Effects
     {
 
@@ -57,6 +55,11 @@ public class Monster : BoardElement
     //Effects
     public bool HealingDisabled, Defending;
 
+    //SFX
+    [SerializeField]
+    private EventReference death_SFX, block_SFX;
+    public EventReference HoverOver_SFX;
+
     private void Awake()
     {
 
@@ -71,12 +74,15 @@ public class Monster : BoardElement
 
         BoardElementInfo = "Hello, I am an enemy";
 
+        damageSources = new Dictionary<ActionCard_Behaviour, int>();
+
     }
 
     private void Start()
     {
 
         enemyIntent = new LokiMonster2Intent();
+        enemyIntent.Self = this;
 
     }
 
@@ -84,39 +90,59 @@ public class Monster : BoardElement
     {
 
         UpdateOutline();
+        queuedDamageText.text = "Q: " + Mathf.Clamp(queuedDamage - defendFor, 0, Mathf.Infinity);
 
     }
 
-    public void Defend(int amount)
+    public void UpdateQueuedDamage(ActionCard_Behaviour _source, int _amount)
     {
-        if (gameObject)
+
+        if(damageSources.TryGetValue(_source, out int _damage))
         {
-            
-            defendedFor += amount;
-            Defending = true;
+
+            queuedDamage -= _damage;
+
+            damageSources[_source] = _amount;
+            queuedDamage += _amount;
 
         }
+        else
+        {
+
+            damageSources.Add(_source, _amount);
+            queuedDamage += _amount;
+
+        }
+
     }
 
-    public int TakeDamage(int _amount, bool bypassDefence = false)
+    public void Defend(int _amount)
+    {
+
+        queuedDefence += _amount;
+        Defending = true;
+        
+    }
+
+    public int TakeDamage(int _amount, bool _bypassDefence = false)
     {
 
         int _damageTaken = 0;
 
-        if (_amount > defendedFor && !bypassDefence)
+        if (_amount > defendFor && !_bypassDefence)
         {
-            _damageTaken = _amount - defendedFor;
-            defendedFor = 0;
+            _damageTaken = _amount - defendFor;
+            defendFor = 0;
             
         }
-        else if(bypassDefence)
+        else if(_bypassDefence)
         {
             
             _damageTaken = _amount;
 
         }
         else
-            defendedFor -= _amount;
+            defendFor -= _amount;
 
         if(barrier > 0)
         {
@@ -127,13 +153,6 @@ public class Monster : BoardElement
                 barrier = 0;
             else
                 barrier -= _damageTaken;
-
-        }
-
-        if(Defending)
-        {
-
-            strengthText.text = defendedFor.ToString();
 
         }
 
@@ -152,6 +171,7 @@ public class Monster : BoardElement
         }
 
         UpdateHealthUI();
+        UpdateDefenceUI();
         setOutline(outlineSize, Color.red, 0.25f);
 
         return _damageTaken;
@@ -178,25 +198,20 @@ public class Monster : BoardElement
 
     }
 
-    public void DeBuff(int amount)
+    public void DeBuff(int _amount)
     {
-        if (enemyIntent.GetID() == EnemyIntent.AttackGod || enemyIntent.GetID() == EnemyIntent.AttackPlayer)
-        {
-            enemyIntent.SetCurrStrengh(enemyIntent.GetCurrStrengh() - amount);
-            if (enemyIntent.GetCurrStrengh() < 0)
-            {
-                enemyIntent.SetCurrStrengh(0);
-            }
-        }
+
+        enemyIntent.SetCurrStrengh((int)Mathf.Clamp(enemyIntent.GetCurrStrengh() - _amount, 0, Mathf.Infinity));
 
         UpdateIntentUI();
+
     }
 
-    public void Buff(int amount)
+    public void Buff(int _amount)
     {
         if (enemyIntent.GetID() == EnemyIntent.AttackGod || enemyIntent.GetID() == EnemyIntent.AttackPlayer)
         {
-            enemyIntent.SetCurrStrengh(enemyIntent.GetCurrStrengh() + amount);
+            enemyIntent.SetCurrStrengh(enemyIntent.GetCurrStrengh() + _amount);
         }
 
         UpdateIntentUI();
@@ -212,6 +227,22 @@ public class Monster : BoardElement
             
     }
 
+    private void UpdateDefenceUI()
+    {
+
+        if(defendFor < 1)
+        {
+
+            defendUI.SetActive(false);
+            return;
+
+        }
+
+        defendUI.SetActive(true);
+        defendText.text = defendFor.ToString();
+
+    }
+
     private void UpdateIntentUI()
     {
 
@@ -222,21 +253,34 @@ public class Monster : BoardElement
 
     internal void DecideIntent(BoardStateController board)
     {
-        
-        Defending = false;
+
+        if(Defending)
+        {
+
+            defendFor = queuedDefence;
+            queuedDefence = 0;
+            Defending = false;
+
+        }
+        else
+            defendFor = 0;
+
+        damageSources.Clear();
+        queuedDamage = 0;
 
         enemyIntent.CancelIntent();
         enemyIntent.DecideIntent(board);
 
+        UpdateDefenceUI();
         UpdateIntentUI();
 
     }
 
     //Just in case a monster needs to know what other enemies will do to decide for itself
-    internal void LateDecideIntent(BoardStateController board)
+    internal void LateDecideIntent(BoardStateController _board)
     {
 
-        enemyIntent.LateDecideIntent(board);
+        enemyIntent.LateDecideIntent(_board);
 
         UpdateIntentUI();
 

@@ -48,6 +48,30 @@ public class LokiMonter1Intent : Intent
             }
         }
         strength = Random.Range(actionSelected.MinStrength, actionSelected.MaxStrength + 1);
+
+        Just for safekeeping
+        if (actionSelected == null)
+        {
+            foreach (Monster a in board.getLivingEnemies())
+            {
+                if (a == null)
+                    continue;
+
+                Intent _intent = a.GetIntent();
+                if (_intent == null)
+                    continue;
+
+                if (_intent.GetID() != EnemyIntent.AttackPlayer || _intent.GetID() != EnemyIntent.AttackGod)
+                    continue;
+
+                if (UnityEngine.Random.Range(0, 4) < 3)
+                {
+                    actionSelected = GetAction<BuffAttackersAction>();
+                }
+                break;
+            }
+        }
+
     }
 }
 */

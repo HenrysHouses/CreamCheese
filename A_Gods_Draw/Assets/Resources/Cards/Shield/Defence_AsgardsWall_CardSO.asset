@@ -15,16 +15,16 @@ MonoBehaviour:
   type: 1
   Art: {fileID: 2800000, guid: 09cabb40dbbabb946a72214e13f7d358, type: 3}
   Background: {fileID: 0}
-  cardName: "Asgard\u2018s Wall"
+  cardName: Walls of Asgards
   description: "Built by a Jotun in disguise, Asgard\u2018s wall was built in only
     one winter, and was so mighty that it would stand strong till the day of Ragnarok"
   effect: Block two targets for x
   cardStats:
     TargetingView: 6
     SelectionType:
-      Index: 0
+      Index: 6
       NamesContainer: {fileID: 11400000, guid: f8b018dd89042d4438fa88687c5c3c94, type: 2}
-    strength: 3
+    strength: 2
     numberOfTargets: 2
     actionGroup:
       actionStats:
@@ -60,4 +60,16 @@ MonoBehaviour:
     godBuffActions:
       actionStats: []
     UpgradePath:
-      Upgrades: []
+      Experience:
+        XP: 0
+        Level: 0
+        ID: 560
+      Upgrades:
+      - RequiredXP: 9
+        UpgradeType: 0
+        RemovableGlyph: 0100000005000000
+        AddGlyph: 0
+        RemoveGlyphIndex: 0
+        ValueSelection: 1
+        CorrespondingGod: 0
+        EditedValue: 3

@@ -13,7 +13,7 @@ public class CardDrawer_debugger : MonoBehaviour
     [SerializeField]
     private DeckManager_SO deckManager;
     [SerializeField]
-    private Card_SO selectedCard;
+    private CardPlayData selectedCard;
     
 #if UNITY_EDITOR
     [SerializeField]

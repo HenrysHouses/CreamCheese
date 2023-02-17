@@ -15,7 +15,7 @@ MonoBehaviour:
   type: 2
   Art: {fileID: 2800000, guid: 31b030cfee46d31469b4b75bc2c95858, type: 3}
   Background: {fileID: 2800000, guid: 4405501223a59ea48923553bb9318ecc, type: 3}
-  cardName: Urdarbrunnr
+  cardName: Urdarbrunnr The Well
   description: "In the realm of the Aesir, under Yggdrasill\u2019s roots, was a well
     named Urdarbrunnr. Everyday the Aesir rode there for it was their place for judgment.
     By the well dwelled three Norn\u2019s of Fates, that decided the fates of humans
@@ -23,14 +23,14 @@ MonoBehaviour:
   effect: Buff target card for X
   cardStats:
     TargetingView: 7
+    SelectionType:
+      Index: 1
+      NamesContainer: {fileID: 11400000, guid: f8b018dd89042d4438fa88687c5c3c94, type: 2}
     strength: 2
     numberOfTargets: 1
     actionGroup:
       actionStats:
-      - SelectionType:
-          Index: 1
-          Names: {fileID: 11400000, guid: f8b018dd89042d4438fa88687c5c3c94, type: 2}
-        actionEnum: 2
+      - actionEnum: 2
         action_SFX:
           Guid:
             Data1: 0
@@ -48,4 +48,16 @@ MonoBehaviour:
     godBuffActions:
       actionStats: []
     UpgradePath:
-      Upgrades: []
+      Experience:
+        XP: 0
+        Level: 0
+        ID: 333
+      Upgrades:
+      - RequiredXP: 5
+        UpgradeType: 2
+        RemovableGlyph: 02000000
+        AddGlyph: 0
+        RemoveGlyphIndex: 0
+        ValueSelection: 0
+        CorrespondingGod: 0
+        EditedValue: 4

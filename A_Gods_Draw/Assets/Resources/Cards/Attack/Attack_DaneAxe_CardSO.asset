@@ -15,7 +15,7 @@ MonoBehaviour:
   type: 0
   Art: {fileID: 2800000, guid: c92366a4995a7654b8fe160d059a77df, type: 3}
   Background: {fileID: 0}
-  cardName: Dane Axe
+  cardName: Great Dane Axe
   description: After the Battle of Stiklestad, the axe also became the symbol of
     St. Olaf and can still be seen on the Coat of Arms of Norway. However, this is
     because the axe is the implementation of his martyrdom, rather than signifying
@@ -43,7 +43,7 @@ MonoBehaviour:
           Path: 
         _VFX:
           FollowPath: 1
-          isAnimating: 0
+          isAnimating: 1
           PathSpeed: 1
           trigger_VFX: {fileID: 3273590495200156951, guid: f2908f3673965cb4390dc705aca60e85, type: 3}
           hit_VFX: {fileID: 2604885081968657841, guid: 68774ee4712f84144802b43008224235, type: 3}
@@ -60,7 +60,7 @@ MonoBehaviour:
           isAnimating: 0
           PathSpeed: 0
           trigger_VFX: {fileID: 0}
-          hit_VFX: {fileID: 0}
+          hit_VFX: {fileID: 8275379005427366288, guid: 81c8d97df17859c448bad9e0084f2dc4, type: 3}
     correspondingGod: 0
     godBuffActions:
       actionStats:
@@ -79,40 +79,32 @@ MonoBehaviour:
           trigger_VFX: {fileID: 0}
           hit_VFX: {fileID: 0}
     UpgradePath:
+      Experience:
+        XP: 0
+        Level: 0
+        ID: 68
       Upgrades:
-      - RequiredXP: 10
-        Type: 0
-        UpgradeTypeIndex: 0
+      - RequiredXP: 5
+        UpgradeType: 2
         RemovableGlyph: 0000000006000000
         AddGlyph: 11
         RemoveGlyphIndex: 1
         ValueSelection: 0
         CorrespondingGod: 0
-        SelectionType:
-          Index: 0
-          NamesContainer: {fileID: 0}
-        EditedValue: 0
-      - RequiredXP: 30
-        Type: 0
-        UpgradeTypeIndex: 2
+        EditedValue: 5
+      - RequiredXP: 10
+        UpgradeType: 0
         RemovableGlyph: 0000000006000000
-        AddGlyph: 0
+        AddGlyph: 16
         RemoveGlyphIndex: 0
         ValueSelection: 0
         CorrespondingGod: 0
-        SelectionType:
-          Index: 0
-          NamesContainer: {fileID: 0}
         EditedValue: 3
-      - RequiredXP: 50
-        Type: 0
-        UpgradeTypeIndex: 2
+      - RequiredXP: 25
+        UpgradeType: 2
         RemovableGlyph: 0000000006000000
         AddGlyph: 0
         RemoveGlyphIndex: 0
         ValueSelection: 3
         CorrespondingGod: 1
-        SelectionType:
-          Index: 0
-          NamesContainer: {fileID: 0}
-        EditedValue: 0
+        EditedValue: 1

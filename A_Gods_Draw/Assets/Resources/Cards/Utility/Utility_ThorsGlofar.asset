@@ -19,16 +19,56 @@ MonoBehaviour:
   description: 
   effect: 
   cardStats:
-    TargetingView: 0
+    TargetingView: 6
     SelectionType:
       Index: 0
       NamesContainer: {fileID: 11400000, guid: f8b018dd89042d4438fa88687c5c3c94, type: 2}
-    strength: 0
-    numberOfTargets: 0
+    strength: 2
+    numberOfTargets: 1
     actionGroup:
-      actionStats: []
-    correspondingGod: 0
+      actionStats:
+      - actionEnum: 14
+        action_SFX:
+          Guid:
+            Data1: 0
+            Data2: 0
+            Data3: 0
+            Data4: 0
+          Path: 
+        _VFX:
+          FollowPath: 0
+          isAnimating: 0
+          PathSpeed: 0
+          trigger_VFX: {fileID: 0}
+          hit_VFX: {fileID: 0}
+    correspondingGod: 2
     godBuffActions:
-      actionStats: []
+      actionStats:
+      - actionEnum: 13
+        action_SFX:
+          Guid:
+            Data1: 0
+            Data2: 0
+            Data3: 0
+            Data4: 0
+          Path: 
+        _VFX:
+          FollowPath: 0
+          isAnimating: 0
+          PathSpeed: 0
+          trigger_VFX: {fileID: 0}
+          hit_VFX: {fileID: 0}
     UpgradePath:
-      Upgrades: []
+      Experience:
+        XP: 0
+        Level: 0
+        ID: 339
+      Upgrades:
+      - RequiredXP: 0
+        UpgradeType: 2
+        RemovableGlyph: 0e000000
+        AddGlyph: 0
+        RemoveGlyphIndex: 0
+        ValueSelection: 0
+        CorrespondingGod: 0
+        EditedValue: 4

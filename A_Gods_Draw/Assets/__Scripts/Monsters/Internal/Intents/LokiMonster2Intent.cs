@@ -11,9 +11,10 @@ public class LokiMonster2Intent : Intent
     {
         int scale = GameManager.timesDefeatedBoss;
 
-        Actions.Add(new AttackGodAction(3 + scale, 5 + scale));
-        Actions.Add(new AttackPlayerAction(3 + scale, 5 + scale));
+        Actions.Add(new AttackGodAction(1 + scale, 4 + scale));
+        Actions.Add(new AttackPlayerAction(1 + scale, 4 + scale));
         Actions.Add(new BuffAttackersAction(2 + scale, 2 + scale));
+        Actions.Add(new DefendAction(1, 4 + scale));
     }
 
     public T GetAction<T>() where T : Action
@@ -38,37 +39,38 @@ public class LokiMonster2Intent : Intent
         }
         if (board.getLivingEnemies().Length == 1)
         {
+
             actionSelected = GetAction<AttackPlayerAction>();
+
+        }
+        else
+        {
+
+            if(Random.Range(0, 3) == 0 && PreviousAction != GetAction<DefendAction>())
+            {
+
+                GetAction<DefendAction>().toDefend = Self;
+                actionSelected = GetAction<DefendAction>();
+
+            }
+            else
+                actionSelected = GetAction<AttackPlayerAction>();
+
         }
     }
-    public override void LateDecideIntent(BoardStateController board)
+    public override void LateDecideIntent(BoardStateController _board)
     {
+
         if (actionSelected == null)
         {
-            foreach (Monster a in board.getLivingEnemies())
-            {
-                if (a == null)
-                    continue;
-
-                Intent _intent = a.GetIntent();
-                if (_intent == null)
-                    continue;
-
-                if (_intent.GetID() != EnemyIntent.AttackPlayer || _intent.GetID() != EnemyIntent.AttackGod)
-                    continue;
-
-                if (UnityEngine.Random.Range(0, 4) < 3)
-                {
-                    actionSelected = GetAction<BuffAttackersAction>();
-                }
-                break;
-            }
-        }
-        if (actionSelected == null)
-        {
+            
             actionSelected = GetAction<AttackPlayerAction>();
+
         }
-        // Debug.Log( actionSelected);
+        
         strength = Random.Range(actionSelected.MinStrength, actionSelected.MaxStrength + 1);
+        Debug.Log("strength is: " + strength + " | Minimum: " + actionSelected.MinStrength + " | Maximum: " + actionSelected.MaxStrength + " | Selected Action: " + actionSelected.Explanation);
+        PreviousAction = actionSelected;
+
     }
 }

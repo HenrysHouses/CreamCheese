@@ -7,7 +7,7 @@ public class StorrCardAction : CardAction
 {
     GameObject thing = null;
 
-    public override void OnLanePlaced(BoardStateController board, ActionCard_Behaviour source)
+    public override void CardPlaced(BoardStateController board, ActionCard_Behaviour source)
     {
         for (int i = 0; i < source.stats.strength; i++)
         {

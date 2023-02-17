@@ -22,8 +22,6 @@ public class ActionCard_ScriptableObject : Card_SO
     private void OnValidate() {
         cardStats.UpgradePath.SetGlyphs(cardStats.getGlyphs(CardType.None));
     }
-
-
 }
 
 /// <summary>
@@ -71,17 +69,45 @@ public struct CardUpgradePath
 
     public void SetGlyphs(CardActionEnum[] Glyphs)
     {
+        if(Upgrades == null)
+            return;
+     
         for (int i = 0; i < Upgrades.Length; i++)
         {
             Upgrades[i].RemovableGlyph = Glyphs;
         }
     }
+
+    public void logXP()
+    {
+        string s = "Current Xp: " + Experience.XP + "\n Current Level: " + Experience.Level;
+        Debug.Log(s);
+    }
 }
 
-public struct CardExperience
+[System.Serializable]
+public class CardExperience
 {
     public int XP;
     public int Level;
+    public int ID = -1;
+    static List<int> ExistingIDs = new List<int>();
+
+    public CardExperience()
+    {
+        createNewUniqueID();
+    }
+
+    public void createNewUniqueID()
+    {
+        ID++;
+
+        while(ExistingIDs.Contains(ID))
+        {
+            ID++;
+        }
+        ExistingIDs.Add(ID);
+    }
 }
 
 [System.Serializable]
@@ -105,6 +131,7 @@ public class CardStats
         clone.godBuffActions = this.godBuffActions.Clone();
         clone.SelectionType = new CardSelectionType();
         clone.SelectionType.Index = this.SelectionType.Index;
+        clone.UpgradePath = this.UpgradePath;
         return clone;
     }
 
