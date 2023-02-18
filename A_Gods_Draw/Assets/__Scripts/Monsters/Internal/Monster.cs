@@ -28,7 +28,7 @@ public class Monster : BoardElement
     [SerializeField]
     private Slider healthBar, poisonBar, barrierBar, afterDamageBar;
     [SerializeField]
-    private Image healthBarFill, barrierBarFill;
+    private Image healthBarFill, barrierBarFill, afterDamageBarFill;
     [SerializeField]
     private TMP_Text healthText, strengthText, defendText;
     [SerializeField]
@@ -39,6 +39,8 @@ public class Monster : BoardElement
     private GameObject effectIconPrefab, defendUI;
     private Dictionary<Sprite, GameObject> debuffDisplays;
     private Color healthBarColor, barrierBarColor;
+    [SerializeField]
+    private Color damageIndicatorColor;
     private bool flashHealthBar, flashBarrierBar;
 
     //Health
@@ -65,6 +67,7 @@ public class Monster : BoardElement
 
         healthBar.maxValue = maxHealth;
         barrierBar.maxValue = maxHealth;
+        afterDamageBar.maxValue = maxHealth;
 
         UpdateHealthUI();
 
@@ -81,6 +84,7 @@ public class Monster : BoardElement
         enemyIntent = new LokiMonster2Intent();
         enemyIntent.Self = this;
         healthBarColor = healthBarFill.color;
+        barrierBarColor = barrierBarFill.color;
 
     }
 
@@ -90,9 +94,25 @@ public class Monster : BoardElement
         UpdateOutline();
 
         if(flashBarrierBar)
+        {
+
+            afterDamageBarFill.color = barrierBarColor;
+            barrierBarFill.color = Color.Lerp(barrierBarColor, damageIndicatorColor, Mathf.PingPong(Time.time, 1));
+        
+        }
+        else
+            barrierBarFill.color = barrierBarColor;
+        
 
         if(flashHealthBar)
-            healthBarFill.color = healthBarColor * ((Mathf.PingPong(Time.time, 1) / 2) + 0.5f);
+        {
+
+            afterDamageBarFill.color = healthBarColor;
+            healthBarFill.color = Color.Lerp(healthBarColor, damageIndicatorColor, Mathf.PingPong(Time.time, 1));
+
+        }
+        else
+            healthBarFill.color = healthBarColor;
 
     }
 
@@ -126,12 +146,16 @@ public class Monster : BoardElement
 
         }
 
+        UpdateHealthDamageUI();
+
     }
 
     public void UpdateQueuedPoison(int _amount)
     {
 
         queuedPoison = _amount;
+
+        UpdateHealthDamageUI();
 
     }
 
@@ -150,28 +174,25 @@ public class Monster : BoardElement
 
         if (_amount > defendFor && !_bypassDefence)
         {
+
             _damageTaken = _amount - defendFor;
             defendFor = 0;
             
         }
         else if(_bypassDefence)
-        {
-            
             _damageTaken = _amount;
+        else
+        {
+
+            defendFor -= _amount;
+            return 0;
 
         }
-        else
-            defendFor -= _amount;
 
         if(barrier > 0)
         {
 
-            _damageTaken -= barrier;
-
-            if(_damageTaken > 0)
-                barrier = 0;
-            else
-                barrier -= _damageTaken;
+            barrier -= _damageTaken;
 
         }
 
@@ -312,6 +333,8 @@ public class Monster : BoardElement
 
         damageSources.Clear();
         queuedDamage = 0;
+        queuedPierce = 0;
+        queuedPoison = 0;
 
         enemyIntent.CancelIntent();
         enemyIntent.DecideIntent(board);
