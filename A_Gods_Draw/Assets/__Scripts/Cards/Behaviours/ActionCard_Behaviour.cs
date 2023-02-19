@@ -151,6 +151,9 @@ public class ActionCard_Behaviour : Card_Behaviour
         else
             stats.strength += value;
         elements.strength.text = stats.strength.ToString();
+
+        if(cardType == CardType.Attack)
+            UpdateCardActionDamage();
     }
 
     public void DeBuff(int value, bool isDivided)
@@ -162,7 +165,26 @@ public class ActionCard_Behaviour : Card_Behaviour
             stats.strength /= value;
         else
             stats.strength -= value;
+
+        if(cardType == CardType.Attack)
+            UpdateCardActionDamage();
     }
+
+    private void UpdateCardActionDamage()
+    {
+
+        for (int i = 0; i < _actionGroup.actionStats.Count; i++)
+        {
+            GetAction(_actionGroup.actionStats[i].actionEnum).UpdateQueuedDamage(this);
+        }
+
+        for (int i = 0; i < _godBuffActions.actionStats.Count; i++)
+        {
+            GetAction(_godBuffActions.actionStats[i].actionEnum).UpdateQueuedDamage(this);
+        }
+        
+    }
+
     public bool CheckForGod()
     {
         if (!controller.GetBoard().playedGodCard)
