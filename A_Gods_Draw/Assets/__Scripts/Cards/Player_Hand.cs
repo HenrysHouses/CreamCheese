@@ -117,7 +117,17 @@ public class Player_Hand : MonoBehaviour
         for (int i = 0; i < CardSelectionAnimators.Count; i++)
         {
             var firstCardPos = ((CardSelectionAnimators.Count) * -0.05f);
-            CardSelectionAnimators[i].Selector.setHandPos(new Vector3(firstCardPos + (0.15f * i), 0f,Mathf.PingPong(((float)(i) * 2)  / (CardSelectionAnimators.Count - cardoffset) ,1f) * -0.05f));
+
+            float x = firstCardPos + (0.15f * i);
+            float y = 0;
+            float z = Mathf.PingPong(((float)i * 2f)  / (CardSelectionAnimators.Count - cardoffset) ,1f) * -0.05f; // ! This returns float.NaN
+            if(z.Equals(float.NaN))
+            {
+                Debug.LogError("z position can not be NaN, Setting it to 0");
+                z = 0;
+            }
+            
+            CardSelectionAnimators[i].Selector.setHandPos(new Vector3(x, y, z));
            // Debug.Log(Mathf.PingPong((i * 2)  / CardSelectionAnimators.Count,1) + "I is : " + i);
             // CardSelectionAnimators[i].Selector.transform.localPosition = (new Vector3(firstCardPos + (0.1f * i), 0, i * 0.005f));
             

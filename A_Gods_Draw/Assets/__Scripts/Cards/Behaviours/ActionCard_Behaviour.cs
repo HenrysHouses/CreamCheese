@@ -87,14 +87,11 @@ public class ActionCard_Behaviour : Card_Behaviour
         {
             ActionCard_Behaviour card = target as ActionCard_Behaviour;
 
-            if(card)
-            {
-                if(card.CardIsPlaced)
-                {
-                    return true;
-                }
+            if(card == null)
                 return false;
-            }
+
+            if(card.CardIsPlaced)
+                return true;
         }
 
         if(targetIndex == selectionType.Index)

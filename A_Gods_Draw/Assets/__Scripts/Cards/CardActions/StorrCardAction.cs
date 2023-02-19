@@ -23,6 +23,7 @@ public class StorrCardAction : CardAction
 
     public override IEnumerator OnAction(BoardStateController board, ActionCard_Behaviour source)
     {
+        isReady = true;
         yield break;
     }
 }

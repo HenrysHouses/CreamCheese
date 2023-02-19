@@ -10,11 +10,11 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 71c1514a6bd24e1e882cebbe1904ce04, type: 3}
-  m_Name: Norse SDF
+  m_Name: TextBoxNorseMAT
   m_EditorClassIdentifier: 
-  hashCode: -364538188
+  hashCode: 1522562869
   material: {fileID: 8251495377888384954}
-  materialHashCode: -443220204
+  materialHashCode: 373044469
   m_Version: 1.1.0
   m_SourceFontFileGUID: 5980317f702ab5647b532dfa18a27fc3
   m_SourceFontFile_EditorRef: {fileID: 12800000, guid: 5980317f702ab5647b532dfa18a27fc3, type: 3}
@@ -2573,6 +2573,7 @@ Material:
   m_Shader: {fileID: 4800000, guid: 68e6db2ebdc24f95958faec2be5558d6, type: 3}
   m_ValidKeywords:
   - BEVEL_ON
+  - GLOW_ON
   - UNDERLAY_ON
   m_InvalidKeywords: []
   m_LightmapFlags: 4
@@ -2609,9 +2610,9 @@ Material:
     - _Ambient: 0.5
     - _Bevel: 1
     - _BevelClamp: 0
-    - _BevelOffset: -0.5
+    - _BevelOffset: -0.185
     - _BevelRoundness: 0
-    - _BevelWidth: 0.5
+    - _BevelWidth: 0.332
     - _BumpFace: 0
     - _BumpOutline: 0
     - _ColorMask: 15
@@ -2620,27 +2621,27 @@ Material:
     - _FaceDilate: 1
     - _FaceUVSpeedX: 0
     - _FaceUVSpeedY: 0
-    - _GlowInner: 0.05
-    - _GlowOffset: 0
-    - _GlowOuter: 0.05
-    - _GlowPower: 0.75
+    - _GlowInner: 0.111
+    - _GlowOffset: 0.16
+    - _GlowOuter: 0.156
+    - _GlowPower: 0.066
     - _GradientScale: 6
     - _LightAngle: 0
     - _MaskSoftnessX: 0
     - _MaskSoftnessY: 0
-    - _OutlineSoftness: 0
+    - _OutlineSoftness: 1
     - _OutlineUVSpeedX: 0
     - _OutlineUVSpeedY: 0
-    - _OutlineWidth: 0.51
+    - _OutlineWidth: 0
     - _PerspectiveFilter: 0.875
     - _Reflectivity: 10
-    - _ScaleRatioA: 0.490918
+    - _ScaleRatioA: 0.3809524
     - _ScaleRatioB: 0
     - _ScaleRatioC: 0
     - _ScaleX: 1
     - _ScaleY: 1
     - _ShaderFlags: 0
-    - _Sharpness: 0
+    - _Sharpness: 1
     - _SpecularPower: 4
     - _Stencil: 0
     - _StencilComp: 8
@@ -2649,10 +2650,10 @@ Material:
     - _StencilWriteMask: 255
     - _TextureHeight: 512
     - _TextureWidth: 512
-    - _UnderlayDilate: 0
+    - _UnderlayDilate: 0.02
     - _UnderlayOffsetX: 0
     - _UnderlayOffsetY: 0
-    - _UnderlaySoftness: 0
+    - _UnderlaySoftness: 0.237
     - _VertexOffsetX: 0
     - _VertexOffsetY: 0
     - _WeightBold: 0.75
@@ -2660,12 +2661,12 @@ Material:
     m_Colors:
     - _ClipRect: {r: -32767, g: -32767, b: 32767, a: 32767}
     - _EnvMatrixRotation: {r: 0, g: 0, b: 0, a: 0}
-    - _FaceColor: {r: 1.319508, g: 1.319508, b: 1.319508, a: 1}
-    - _GlowColor: {r: 0, g: 1, b: 0, a: 0.5}
+    - _FaceColor: {r: 3.6886053, g: 1.8153346, b: 0, a: 1}
+    - _GlowColor: {r: 1.4980392, g: 0.30588236, b: 0, a: 0.5}
     - _MaskCoord: {r: 0, g: 0, b: 32767, a: 32767}
-    - _OutlineColor: {r: 0, g: 0, b: 0, a: 1}
+    - _OutlineColor: {r: 0.023985395, g: 0.024560047, b: 0.066037714, a: 1}
     - _ReflectFaceColor: {r: 0, g: 0, b: 0, a: 1}
     - _ReflectOutlineColor: {r: 0, g: 0, b: 0, a: 1}
     - _SpecularColor: {r: 1, g: 1, b: 1, a: 1}
-    - _UnderlayColor: {r: 0, g: 0, b: 0, a: 0.5}
+    - _UnderlayColor: {r: 1, g: 0.2671499, b: 0, a: 0.5}
   m_BuildTextureStacks: []

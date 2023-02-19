@@ -2,7 +2,7 @@
 // Edited by Henrik
 
 using UnityEngine;
-using UnityEngine.UI;
+using System.Collections;
 using TMPro;
 using FMODUnity;
 
@@ -71,8 +71,9 @@ public class Card_Loader : MonoBehaviour
     [SerializeField] CardElements elements;
     public CardPlayData _card;
     Card_Behaviour CB;
+    public bool isDissolving {private set; get;}
 
-    // [HideInInspector]
+    [HideInInspector]
     public bool addComponentAutomatically = true;
 
     public Card_SO GetCardSO => _card.CardType;
@@ -82,8 +83,7 @@ public class Card_Loader : MonoBehaviour
 
     private void Start()
     {
-        // if(card_so)
-        //     Set(card_so);
+        SetDissolve(0);
     }
     void ChangeOrm(CardType card)
     {
@@ -101,6 +101,42 @@ public class Card_Loader : MonoBehaviour
             case CardType.Utility:
                 elements.OrmRenderer.material.color = Color.yellow;
                 break;
+        }
+    }
+
+    public IEnumerator DissolveCard(float speed = 1, Transform Parent = null)
+    {
+        if(isDissolving)
+            yield break;
+
+        float t = 0;
+        isDissolving = true;
+
+        while(t <= 1)
+        {
+           t += Time.deltaTime * speed;
+            SetDissolve(t);
+            yield return new WaitForEndOfFrame();
+        }
+
+        if(Parent)
+            Parent.position  += Vector3.down * 10;
+        else
+            transform.position += Vector3.down * 10;
+        isDissolving = false;
+    }
+
+    public void SetDissolve(float amount)
+    {
+        elements.ArtRenderer.material.SetFloat("_Cutoff",amount);
+        elements.OrmRenderer.material.SetFloat("_Cutoff",amount);
+        elements.CardRenderer.material.SetFloat("_Cutoff",amount);
+
+        if(amount == 1)
+        {
+            elements.ArtRenderer.material.SetFloat("_UseShadows",0);
+            elements.OrmRenderer.material.SetFloat("_UseShadows",0);
+            elements.CardRenderer.material.SetFloat("_UseShadows",0);
         }
     }
 

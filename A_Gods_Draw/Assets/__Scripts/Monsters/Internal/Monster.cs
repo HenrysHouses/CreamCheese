@@ -263,7 +263,7 @@ public class Monster : BoardElement
     private void UpdateHealthUI()
     {
 
-        healthText.text = "HP: " + currentHealth;
+        healthText.text = currentHealth + "/" + maxHealth;
 
         healthBar.value = currentHealth;
         barrierBar.value = barrier;
