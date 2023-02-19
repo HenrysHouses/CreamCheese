@@ -317,6 +317,14 @@ public class Monster : BoardElement
 
     }
 
+    public void CancelIntent()
+    {
+
+        enemyIntent.CancelIntent();
+        UpdateIntentUI();
+
+    }
+
     internal void DecideIntent(BoardStateController board)
     {
 
@@ -349,17 +357,15 @@ public class Monster : BoardElement
     {
 
         enemyIntent.LateDecideIntent(_board);
-
         UpdateIntentUI();
 
     }
 
     
-    public void UpdateEffect(Sprite _icon, int _stacks)
+    public void UpdateEffectDisplay(Sprite _icon, int _stacks)
     {
 
         GameObject _iconGO;
-
         if(debuffDisplays.TryGetValue(_icon, out _iconGO))
         {
 

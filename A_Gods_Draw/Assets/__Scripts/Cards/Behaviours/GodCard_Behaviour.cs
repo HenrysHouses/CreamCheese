@@ -44,7 +44,7 @@ public class GodCard_Behaviour : Card_Behaviour
 
     protected override IEnumerator Play(BoardStateController board)
     {
-        action.OnPlay(board, card_so.strength);
+        //action.OnPlay(board, card_so.strength);
 
         //Wait for animations, etc
 
@@ -74,7 +74,9 @@ public class GodCard_Behaviour : Card_Behaviour
     protected override void OnBeingSelected()
     {
         controller.GodPlacement.SetGod(this);
-        Play(controller.GetBoard());
+        Debug.LogWarning("Temporary fix");
+        action.OnPlay(controller.GetBoard(), card_so.strength);
+        //Play(controller.GetBoard());
     }
 
     public override void OnAction()

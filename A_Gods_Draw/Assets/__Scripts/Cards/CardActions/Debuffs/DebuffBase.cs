@@ -12,6 +12,6 @@ public class DebuffBase : MonoBehaviour
     public virtual void TickDebuff(int _ticks = 1){}
 
     ///<Summary> Use this to apply debuffs that should happen before end of turn (Happens before playing cards) </Summary>
-    public virtual void PreActDebuff(){}
+    public virtual void PreActTickDebuff(int _ticks = 1){}
 
 }

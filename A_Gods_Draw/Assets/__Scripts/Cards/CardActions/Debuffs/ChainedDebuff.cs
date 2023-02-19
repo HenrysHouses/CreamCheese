@@ -5,30 +5,29 @@ using UnityEngine;
 public class ChainedDebuff : DebuffBase
 {
 
-    private void Awake()
+    private void Start()
     {
 
-        thisMonster.GetIntent().CancelIntent();
-        thisMonster.UpdateEffect(Resources.Load<Sprite>("ImageResources/Icon_Chain_v1"), Stacks);
+        thisMonster.UpdateEffectDisplay(Resources.Load<Sprite>("ImageResources/Icon_Chain_v1"), Stacks);
+        thisMonster.CancelIntent();
 
     }
 
-    public override void TickDebuff(int _ticks = 1)
-    {
-
-        Stacks -= _ticks;
-        thisMonster.UpdateEffect(Resources.Load<Sprite>("ImageResources/Icon_Chain_v1"), Stacks);
-
-        if(Stacks <= 0)
-            Destroy(this);
-
-    }
-
-    public override void PreActDebuff()
+    public override void PreActTickDebuff(int _ticks = 1)
     {
         
-        thisMonster.GetIntent().CancelIntent();
-        thisMonster.UpdateEffect(Resources.Load<Sprite>("ImageResources/Icon_Chain_v1"), Stacks);
+        Stacks -= _ticks;
+        thisMonster.UpdateEffectDisplay(Resources.Load<Sprite>("ImageResources/Icon_Chain_v1"), Stacks);
+
+        if(Stacks <= 0)
+        {
+
+            Destroy(this);
+            return;
+    
+        }
+
+        thisMonster.CancelIntent();
         
     }
 
