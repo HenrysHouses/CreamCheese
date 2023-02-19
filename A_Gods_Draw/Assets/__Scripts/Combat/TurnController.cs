@@ -92,8 +92,9 @@ public class TurnController : CombatFSM
     internal void GodDied(GodCard_Behaviour god)
     {
         //Animation of god dying????
+        StartCoroutine(god.GetComponent<Card_Loader>().DissolveCard(0.5f));
 
-        Destroy(god.transform.parent.parent.gameObject, 1);
+        Destroy(god.transform.parent.parent.gameObject, 2f);
 
         _Hand.RemoveCard(god.GetComponent<Card_Loader>());
 
@@ -158,7 +159,6 @@ public class TurnController : CombatFSM
         isDrawing = true;
         // wait until the discard has been shuffled into the library before drawing cards
         yield return new WaitUntil(() => !ShuffleAnimator.isAnimating);
-        Debug.Log("waiting");
         yield return new WaitUntil(() => CardAnimations == null);
 
 

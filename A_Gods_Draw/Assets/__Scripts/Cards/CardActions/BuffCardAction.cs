@@ -44,11 +44,8 @@ public class BuffCardAction : CardAction
 
     public override IEnumerator OnAction(BoardStateController board, ActionCard_Behaviour source)
     {
-        isReady = false;
-
-        yield return new WaitUntil(() => true);
-
         isReady = true;
+        yield break;
     }
     
     public override void CardPlaced(BoardStateController board, ActionCard_Behaviour source)
@@ -59,7 +56,8 @@ public class BuffCardAction : CardAction
             SpawnCoins(source.stats.strength, card);
         }
         board.RemoveFromLane(currentCard);
-        currentCard.transform.parent.parent.position += Vector3.down * 10;
+        currentCard.StartCoroutine(currentCard.GetComponent<Card_Loader>().DissolveCard(2, currentCard.transform.parent));
+        // currentCard.transform.parent.parent.position += Vector3.down * 10;
         currentCard.RemoveFromHand();
     }
 

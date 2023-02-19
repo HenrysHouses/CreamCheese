@@ -44,32 +44,12 @@ public class GodCard_Behaviour : Card_Behaviour
 
     protected override IEnumerator Play(BoardStateController board)
     {
-        // ????????????
-        // foreach (NonGod_Behaviour card in board.placedCards)
-        // {
-        //     if (card.CardSO.correspondingGod == card_so.godAction)
-        //     {
-        //         card.Buff(card_so.strength, true);
-        //     }
-        // }
-
         action.OnPlay(board, card_so.strength);
 
         //Wait for animations, etc
 
         TurnController.shouldWaitForAnims = false;
         yield break;
-    }
-    public void OnRetire(BoardStateController board)
-    {
-        // ???????????
-        // foreach (NonGod_Behaviour card in board.placedCards)
-        // {
-        //     if (card.CardSO.correspondingGod == card_so.godAction)
-        //     {
-        //         card.DeBuff(card_so.strength, true);
-        //     }
-        // }
     }
 
     public void DealDamage(int amount, UnityEngine.Object source)
@@ -199,11 +179,6 @@ public class GodCard_Behaviour : Card_Behaviour
     {
         nonGod_Behaviour.DeBuff(card_so.strength, true);
     }
-
-    // public override string setClassName()
-    // {
-    //     return GetType().Name;
-    // }
 
     public override CardPlayData getCardPlayData()
     {

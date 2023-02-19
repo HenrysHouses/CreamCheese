@@ -12,7 +12,7 @@ using TMPro;
 public class DialogueBox : MonoBehaviour
 {
     public TextMeshPro TextMesh;
-    public float TimeBetweenPages = 1;
+    public float TimeBetweenPages = 10;
 
     [TextArea(5,20), Tooltip("Each dimension is one page of the dialogue")]
     public sentence[] DialogueText;

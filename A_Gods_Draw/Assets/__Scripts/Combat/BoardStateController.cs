@@ -180,12 +180,13 @@ public class BoardStateController : MonoBehaviour
             Transform cardTransform = playedGodCard.transform;
 
             cardTransform.parent.SetParent(_GodLane);
+            cardTransform.GetComponent<Card_Selector>().enabled = false;
+            
             cardTransform.parent.localPosition = new Vector3();
             cardTransform.localPosition = new Vector3();
             cardTransform.localPosition = new Vector3();
             cardTransform.parent.localRotation = new Quaternion();
             cardTransform.rotation = new Quaternion();
-            cardTransform.GetComponent<Card_Selector>().enabled = false;
             cardTransform.parent.localScale = new Vector3(1.09843659f,1.09843659f,1.09843659f); // !!REMOVE THIS AFTER FINDING A PREFERABLE SIZE FOR THE CARDS
 
             GameObject spawn = Instantiate(playedGodCard.CardSO.God_Model, targetlane.position, transform.localRotation = new Quaternion(0, -0.577358961f, 0, 0.816490531f));
@@ -209,14 +210,17 @@ public class BoardStateController : MonoBehaviour
                 Transform cardTransform = thingsInLane[i].transform;
 
                 cardTransform.parent.SetParent(_Lane[i]);
-                cardTransform.parent.localPosition = new Vector3();
-                cardTransform.localPosition = new Vector3();
-                cardTransform.localPosition = new Vector3();
-                cardTransform.parent.localRotation = new Quaternion();
-                cardTransform.rotation = new Quaternion();
                 cardTransform.GetComponent<Card_Selector>().enabled = false;
-                cardTransform.parent.localScale = new Vector3(1.09843659f,1.09843659f,1.09843659f);  // !!REMOVE THIS AFTER FINDING A PREFERABLE SIZE FOR THE CARDS
 
+                if(behaviour.CardSO.type != CardType.Buff)
+                {
+                    cardTransform.parent.localPosition = new Vector3();
+                    cardTransform.localPosition = new Vector3();
+                    cardTransform.localPosition = new Vector3();
+                    cardTransform.parent.localRotation = new Quaternion();
+                    cardTransform.rotation = new Quaternion();
+                    cardTransform.parent.localScale = new Vector3(1.09843659f,1.09843659f,1.09843659f);  // !!REMOVE THIS AFTER FINDING A PREFERABLE SIZE FOR THE CARDS
+                }
 
                 for (int j = 0; j < behaviour.stats.numberOfTargets; j++) // should run this for each targetable action
                 {

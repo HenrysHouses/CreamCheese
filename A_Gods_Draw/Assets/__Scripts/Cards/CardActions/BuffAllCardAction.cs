@@ -7,13 +7,8 @@ public class BuffAllCardAction : CardAction
 
     public override IEnumerator OnAction(BoardStateController _board, ActionCard_Behaviour _source)
     {
-        
-        isReady = false;
-
-        yield return new WaitUntil(() => true);
-
         isReady = true;
-
+        yield break;
     }
 
     public override void CardPlaced(BoardStateController _board, ActionCard_Behaviour _source)

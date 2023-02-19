@@ -1,3 +1,5 @@
+// Written by Henrik
+
 Shader "Custom/CardArt"
 {
     Properties
@@ -12,6 +14,12 @@ Shader "Custom/CardArt"
         [HDR] _EmissionColor ("Emission Color", color) = (1,1,1,1)
         _Glossiness ("Smoothness", Range(0,1)) = 0.5
         _Metallic ("Metallic", Range(0,1)) = 0.0
+        
+
+        _DissolveMap ("Dissolve Map", 2D) = "white" {}
+        _Cutoff("Dissolve Amount", Range(0,1)) = 1.0
+        _EdgeColor("Edge Color", Color) = (1,1,1,1)
+        _EdgeWidth("Edge Thickness", Range(0.01,0.2)) = 0.01
     }
     SubShader
     {
@@ -25,11 +33,19 @@ Shader "Custom/CardArt"
 
         // Use shader model 3.0 target, to get nicer looking lighting
         #pragma target 3.0
+        #pragma instancing_options assumeuniformscaling
 
+        
         sampler2D _MainTex;
         sampler2D _ArtTex;
         sampler2D _NormalMap;
         sampler2D _EmissionTex;
+
+        // Dissolve
+        sampler2D _DissolveMap;
+        float _Cutoff;
+        float4 _EdgeColor;
+        float _EdgeWidth;
 
         struct Input
         {
@@ -67,6 +83,12 @@ Shader "Custom/CardArt"
             o.Metallic = _Metallic;
             o.Smoothness = _Glossiness;
             o.Alpha = FinalTexture.a;
+
+            fixed4 dissolveMap = tex2D(_DissolveMap, IN.uv_MainTex);
+
+            clip(dissolveMap.a - _Cutoff);
+            float edge = step(dissolveMap, _Cutoff +  _EdgeWidth);
+            o.Emission = _EdgeColor * edge;
         }
         ENDCG
     }
