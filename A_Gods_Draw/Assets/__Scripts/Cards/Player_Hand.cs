@@ -10,7 +10,7 @@ public class Player_Hand : MonoBehaviour
 {
     [SerializeField]
     Transform handPlace;
-    private float cardRotation = 5; 
+    private float cardRotation = 5;
     public List<CardHandAnim> CardSelectionAnimators = new List<CardHandAnim>();
     public GameObject CardHandPrefab;
 
@@ -22,7 +22,7 @@ public class Player_Hand : MonoBehaviour
         public CardPlayData _card;
         public Card_Loader loader;
 
-        public  CardHandAnim(Card_Selector selector, Card_Loader loader)
+        public CardHandAnim(Card_Selector selector, Card_Loader loader)
         {
             this.cardAnimation = selector.GetComponentInChildren<Animator>();
             this.Selector = selector;
@@ -46,10 +46,10 @@ public class Player_Hand : MonoBehaviour
         CardSelectionAnimators.Add(_card);
 
         spawn.transform.GetComponentInChildren<BoxCollider>().enabled = true;
-        
+
         UpdateCards();
     }
-    
+
     /// <summary>Removes a card from the player's hand at index</summary>
     /// <param name="index">Index of card to remove</param>
     public void RemoveCard(int index)
@@ -94,7 +94,7 @@ public class Player_Hand : MonoBehaviour
     {
         for (int i = 0; i < CardSelectionAnimators.Count; i++)
         {
-            if (CardSelectionAnimators[i].Selector.holdingOver)   
+            if (CardSelectionAnimators[i].Selector.holdingOver)
             {
                 HoverOverCard(i);
             }
@@ -110,28 +110,41 @@ public class Player_Hand : MonoBehaviour
     {
         float count = (float)CardSelectionAnimators.Count;
         int cardoffset = 1;
-        if(CardSelectionAnimators.Count % 2 == 0)
+        if (CardSelectionAnimators.Count % 2 == 0)
         {
             cardoffset = 0;
         }
         for (int i = 0; i < CardSelectionAnimators.Count; i++)
         {
-            var firstCardPos = ((CardSelectionAnimators.Count) * -0.05f);
-            CardSelectionAnimators[i].Selector.setHandPos(new Vector3(firstCardPos + (0.15f * i), 0f,Mathf.PingPong(((float)(i) * 2)  / (CardSelectionAnimators.Count - cardoffset) ,1f) * -0.05f));
-           // Debug.Log(Mathf.PingPong((i * 2)  / CardSelectionAnimators.Count,1) + "I is : " + i);
+            float firstCardPos = ((CardSelectionAnimators.Count) * (float)-0.05f);
+            float zPos;
+            if (i == 0)
+            {
+                zPos = Mathf.PingPong(((float)(i) * 2), 1f) * (float)-0.05f;
+
+            }
+            else
+            {
+                zPos = Mathf.PingPong(((float)(i) * 2) / (CardSelectionAnimators.Count - cardoffset), 1f) * (float)-0.05f;
+            }
+
+            CardSelectionAnimators[i].Selector.setHandPos(new Vector3(firstCardPos + (0.15f * i), 0f, zPos));
+            Debug.Log("z positions for the card is " + zPos);
+
+            // Debug.Log(Mathf.PingPong((i * 2)  / CardSelectionAnimators.Count,1) + "I is : " + i);
             // CardSelectionAnimators[i].Selector.transform.localPosition = (new Vector3(firstCardPos + (0.1f * i), 0, i * 0.005f));
-            
-            CardSelectionAnimators[i].Selector.transform.rotation = Quaternion.Euler(0, 0, (cardRotation * ((count - 1) / 2f)) - cardRotation * (float)i);
+
+            // CardSelectionAnimators[i].Selector.transform.rotation = Quaternion.Euler(0, 0, (cardRotation * ((count - 1) / 2f)) - cardRotation * (float)i);
         }
     }
-    
+
     /// <summary>Starts on hover animation on a card at index</summary>
     /// <param name="index">Index of a card in hand</param>
     void HoverOverCard(int index)
     {
         //Debug.Log("HoveringOver");
-        CardSelectionAnimators[index].Selector.transform.rotation = Quaternion.Euler(0,0,0);
-        CardSelectionAnimators[index].cardAnimation.SetBool("ShowCard",true);
+        CardSelectionAnimators[index].Selector.transform.rotation = Quaternion.Euler(0, 0, 0);
+        CardSelectionAnimators[index].cardAnimation.SetBool("ShowCard", true);
     }
 
     /// <summary>Stops on hover animation on a card at index</summary>
