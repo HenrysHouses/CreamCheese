@@ -318,6 +318,7 @@ public class Monster : BoardElement
         }
 
         strengthText.text = enemyIntent.GetCurrStrengh().ToString();
+        intentImage.gameObject.SetActive(true);
         intentImage.sprite = enemyIntent.GetCurrentIcon();
 
     }
