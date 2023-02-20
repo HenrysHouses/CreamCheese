@@ -62,14 +62,9 @@ public class MinionIntent : Intent
     {
 
         if (actionSelected == null)
-        {
-            
             actionSelected = GetAction<AttackPlayerAction>();
-
-        }
         
         strength = Random.Range(actionSelected.MinStrength, actionSelected.MaxStrength + 1);
-        // Debug.Log("strength is: " + strength + " | Minimum: " + actionSelected.MinStrength + " | Maximum: " + actionSelected.MaxStrength + " | Selected Action: " + actionSelected.Explanation);
         PreviousAction = actionSelected;
 
     }
