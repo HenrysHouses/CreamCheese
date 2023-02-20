@@ -81,7 +81,7 @@ public class Monster : BoardElement
     private void Start()
     {
 
-        enemyIntent = new LokiMonster2Intent();
+        enemyIntent = new MinionIntent();
         enemyIntent.Self = this;
         healthBarColor = healthBarFill.color;
         barrierBarColor = barrierBarFill.color;
@@ -245,26 +245,22 @@ public class Monster : BoardElement
     {
 
         enemyIntent.SetCurrStrengh((int)Mathf.Clamp(enemyIntent.GetCurrStrengh() - _amount, 0, Mathf.Infinity));
-
         UpdateIntentUI();
 
     }
 
     public void Buff(int _amount)
     {
-        if (enemyIntent.GetID() == EnemyIntent.AttackGod || enemyIntent.GetID() == EnemyIntent.AttackPlayer)
-        {
-            enemyIntent.SetCurrStrengh(enemyIntent.GetCurrStrengh() + _amount);
-        }
 
+        enemyIntent.SetCurrStrengh(enemyIntent.GetCurrStrengh() + _amount);
         UpdateIntentUI();
+
     }
 
     private void UpdateHealthUI()
     {
 
         healthText.text = currentHealth + "/" + maxHealth;
-
         healthBar.value = currentHealth;
         barrierBar.value = barrier;
             
@@ -311,6 +307,15 @@ public class Monster : BoardElement
 
     private void UpdateIntentUI()
     {
+
+        if(enemyIntent.GetCurrentIcon() == null)
+        {
+
+            intentImage.gameObject.SetActive(false);
+            strengthText.text = "";
+            return;
+
+        }
 
         strengthText.text = enemyIntent.GetCurrStrengh().ToString();
         intentImage.sprite = enemyIntent.GetCurrentIcon();

@@ -3,11 +3,11 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class LokiMonster2Intent : Intent
+public class MinionIntent : Intent
 {
     List<Action> Actions = new List<Action>();
 
-    public LokiMonster2Intent()
+    public MinionIntent()
     {
         int scale = GameManager.timesDefeatedBoss;
 
