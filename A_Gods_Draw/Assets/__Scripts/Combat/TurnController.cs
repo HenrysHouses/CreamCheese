@@ -152,7 +152,7 @@ public class TurnController : CombatFSM
     /// <param name="amount">The amount of cards the player should draw</param>
     public void Draw(int amount) 
     {
-        if(!isDrawing) StartCoroutine(cardDrawTrigger(amount));
+        StartCoroutine(cardDrawTrigger(amount));
     } 
     IEnumerator cardDrawTrigger(int amount)
     {
@@ -229,7 +229,10 @@ public class TurnController : CombatFSM
         CardAnimations = deckController.shuffleDiscard(drawDelay);
 
         if(CardAnimations.Length == 0)
+        {
+            isShuffling = false;
             yield break;
+        }
 
         foreach (CardPathAnim trigger in CardAnimations)
         {

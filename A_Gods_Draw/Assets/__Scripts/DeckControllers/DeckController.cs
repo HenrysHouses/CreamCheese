@@ -148,9 +148,14 @@ public class DeckController : MonoBehaviour
     /// <returns>List of all animation OnCompletionEvents</returns>
     public CardPathAnim[] drawCard(int amount, float delay)
     {
-        if (pLibrary.Count < amount) // if there is no cards in library to draw, shuffle the discard into the library and return
+        if (pLibrary.Count < amount && pDiscard.Count > 0) // if there is no cards in library to draw, shuffle the discard into the library and return
         {
             return null;
+        }
+
+        if(pLibrary.Count < amount)
+        {
+            amount = pLibrary.Count;
         }
 
         // Instantiate the object that will be animated.

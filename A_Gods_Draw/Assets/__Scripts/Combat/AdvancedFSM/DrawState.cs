@@ -23,7 +23,9 @@ public class DrawState : CombatFSMState
     {
         bool shouldTrigger = hasDrawn 
                         && !Controller.isDrawAnimating 
-                        && !TurnController.shouldWaitForAnims;
+                        && !TurnController.shouldWaitForAnims
+                        && !Controller.isDrawing
+                        && !Controller.isShuffling;
 
         if (!shouldTrigger)
             return;
@@ -35,7 +37,7 @@ public class DrawState : CombatFSMState
 
     public override void Act()
     {
-        if(hasDrawn)
+        if(hasDrawn )
         {
             return;
         }
@@ -62,7 +64,6 @@ public class DrawState : CombatFSMState
                 _debuff.PreActTickDebuff();
                 
             }
-
         }
 
         hasDrawn = true;

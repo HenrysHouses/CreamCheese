@@ -15,8 +15,6 @@ public abstract class Card_Behaviour : BoardElement
     protected CardElements elements;
     public CardStats stats;
     protected bool onPlayerHand = false;
-
-    public readonly bool isReady = false;
     [field:SerializeField] public Transform ParentTransform {get; private set;}
 
     // public Card_SO CardSO => card_so;
