@@ -12,6 +12,9 @@ public class PoisonCardAction : CardAction
 
         foreach (Monster target in _source.AllTargets)
         {
+
+            if(!target)
+                continue;
             
             PoisonDebuff _poison;
             if(target.gameObject.TryGetComponent<PoisonDebuff>(out _poison))
