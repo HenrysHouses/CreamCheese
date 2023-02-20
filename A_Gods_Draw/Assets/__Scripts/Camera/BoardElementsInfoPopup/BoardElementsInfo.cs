@@ -11,7 +11,6 @@ public class BoardElementsInfo : MonoBehaviour
     [SerializeField]
     private GameObject informationPopupWindow;
     private TMP_Text informationText;
-    private Canvas canvas;
     [SerializeField, Tooltip("Delay before information shows up in SECONDS")]
     private float infoDelay;
     private int delayCounter;
@@ -30,7 +29,7 @@ public class BoardElementsInfo : MonoBehaviour
     private void FixedUpdate()
     {
 
-        if(Input.GetKey(KeyCode.P) && Physics.Raycast(mainCamera.ScreenPointToRay(Input.mousePosition), out RaycastHit _hit, 50))
+        if(Input.GetKey(KeyCode.Mouse1) && Physics.Raycast(mainCamera.ScreenPointToRay(Input.mousePosition), out RaycastHit _hit, 50))
         {
 
             if(_hit.transform != previousInfoElement.transform)
@@ -67,8 +66,6 @@ public class BoardElementsInfo : MonoBehaviour
                 informationText.text = "";
             
             }
-
-                Debug.Log(_hit.transform.name);
 
         }
         else
