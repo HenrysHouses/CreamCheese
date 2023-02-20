@@ -27,6 +27,7 @@ public class GameManager : MonoBehaviour
 
     private void Awake()
     {
+        DeckList_SO.setPlayerDeck();
 
         GameSaver.InitializeSaving();
         if (!instance)

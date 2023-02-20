@@ -18,6 +18,12 @@ public class DeckList_SO : ScriptableObject
             playerDeck = Resources.Load<DeckList_SO>("DeckLists/DeckList");
     }
 
+    public static void setPlayerDeck()
+    {
+        if(playerDeck == null)
+            playerDeck = Resources.Load<DeckList_SO>("DeckLists/DeckList");
+    }
+
     public static void playerObtainCard(Card_SO card_SO)
     {
         CardPlayData newCard = new CardPlayData(card_SO);
