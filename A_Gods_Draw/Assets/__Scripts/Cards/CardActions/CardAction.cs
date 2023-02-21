@@ -92,6 +92,7 @@ public abstract class CardAction : Action
             {
                 GameObject _hitVFX = GameObject.Instantiate(_VFX.hit_VFX);
                 _hitVFX.transform.position = target.transform.position + (target.transform.up * 0.1f);
+                GameObject.Destroy(_hitVFX, _VFX.HitVFXLifeSpan);
             }
             _VFX.isAnimating = false;
         }
@@ -151,5 +152,5 @@ public class ActionVFX
     public float PathSpeed = 1;    
     public GameObject trigger_VFX;
     public GameObject hit_VFX;
-
+    public float HitVFXLifeSpan = 2f;
 }

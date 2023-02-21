@@ -43,6 +43,12 @@ public class ActionCard_Behaviour : Card_Behaviour
             missedClick = false;
             yield return new WaitUntil(() => hasClickedTarget);
             
+            if(target as ActionCard_Behaviour == this)
+            {
+                MissClick();
+                yield break;
+            }
+
             if(!IsValidSelection(target, stats.SelectionType))
             {
                 MissClick();

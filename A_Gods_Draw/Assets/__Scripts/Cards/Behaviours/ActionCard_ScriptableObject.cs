@@ -160,7 +160,7 @@ public class CardStats
     public CameraView TargetingView;
     public CardSelectionType SelectionType;
     public int strength;
-    public int numberOfTargets;
+    public int numberOfTargets = 1;
     public ActionGroup actionGroup;
     public GodActionEnum correspondingGod;
     public ActionGroup godBuffActions;

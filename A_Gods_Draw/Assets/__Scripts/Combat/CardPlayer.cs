@@ -349,7 +349,11 @@ public class CardPlayer : MonoBehaviour
         }
         else
         {
-            _God.CardSO.StartDialogue(GodDialogueTrigger.SeeEnemy, _Board.Enemies[0]);
+            for (int i = 0; i < _Board.Enemies.Length; i++)
+            {
+                _God.CardSO.StartDialogue(GodDialogueTrigger.SeeEnemy, _Board.Enemies[i]);
+            }
+
             _God.CardSO.StartDialogue(GodDialogueTrigger.Played, loader.GetCardSO);
             ActionCard_Behaviour actionCard = behaviour as ActionCard_Behaviour;
         }
