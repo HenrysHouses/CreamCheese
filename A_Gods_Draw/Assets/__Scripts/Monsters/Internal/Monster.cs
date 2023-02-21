@@ -214,9 +214,8 @@ public class Monster : BoardElement
             if (deathParticleVFX != null)
                 Instantiate(deathParticleVFX, transform.position, Quaternion.identity);
             
-
             animator.SetTrigger("Dying");
-            Destroy(this.gameObject, 2);
+            Destroy(this.gameObject, 4.4f);
 
         }
 
@@ -350,11 +349,14 @@ public class Monster : BoardElement
             queuedDefence = 0;
             Defending = false;
             animator.SetBool("isBlocking", true);
+
         }
         else
         {
+
             defendFor = 0;
             animator.SetBool("isBlocking", false);
+
         }
 
         damageSources.Clear();
