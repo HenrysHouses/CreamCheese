@@ -191,6 +191,7 @@ public class Monster : BoardElement
             _damageTaken = _amount;
         else
         {
+            
             animator.SetTrigger("TakingDMGDefended");
             defendFor -= _amount;
             return 0;
@@ -252,10 +253,12 @@ public class Monster : BoardElement
 
     }
 
-    public void DeBuff(int _amount)
+    public void DeBuff(int _amount, bool _onlyOnAttack = false)
     {
 
-        enemyIntent.SetCurrStrengh((int)Mathf.Clamp(enemyIntent.GetCurrStrengh() - _amount, 0, Mathf.Infinity));
+        if(_onlyOnAttack && enemyIntent.GetID() != EnemyIntent.AttackGod && enemyIntent.GetID() != EnemyIntent.AttackPlayer)
+            enemyIntent.SetCurrStrengh((int)Mathf.Clamp(enemyIntent.GetCurrStrengh() - _amount, 0, Mathf.Infinity));
+
         UpdateIntentUI();
 
     }
