@@ -190,6 +190,7 @@ public class BoardStateController : MonoBehaviour
             cardTransform.parent.localScale = new Vector3(1.09843659f,1.09843659f,1.09843659f); // !!REMOVE THIS AFTER FINDING A PREFERABLE SIZE FOR THE CARDS
 
             GameObject spawn = Instantiate(playedGodCard.CardSO.God_Model, targetlane.position, transform.localRotation = new Quaternion(0, -0.577358961f, 0, 0.816490531f));
+            playedGodCard.animator = spawn.GetComponentInChildren<Animator>();
             spawn.transform.SetParent(cardTransform, true);
 
             // Debug.LogWarning("REMOVE SIZE HERE");

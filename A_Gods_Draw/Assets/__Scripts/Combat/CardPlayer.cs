@@ -336,12 +336,18 @@ public class CardPlayer : MonoBehaviour
         Card_Loader loader = behaviour.GetComponent<Card_Loader>();
         GodCard_Behaviour _God = behaviour as GodCard_Behaviour;
         deckController.MoveCardToBoard(behaviour.getCardPlayData());
+        
+        if(_God)
+            _God.animator = _God.GetComponentInChildren<Animator>();
 
         if (_God is null)
         {
             if (_Board.isGodPlayed)
             {
                 _Board.playedGodCard.CardSO.StartDialogue(GodDialogueTrigger.Played, loader.GetCardSO);
+                GodCard_Behaviour godCard = _Board.getGodLane().GetComponentInChildren<GodCard_Behaviour>();
+                godCard.animator.SetTrigger("isSpeaking"); // ! this is triggering every card that is played
+                Debug.Log("GOD IS SPEAKING");
             }
             CardHighlight highlight = behaviour.GetComponentInChildren<CardHighlight>();
             highlight.enabled = true;
@@ -353,7 +359,6 @@ public class CardPlayer : MonoBehaviour
             {
                 _God.CardSO.StartDialogue(GodDialogueTrigger.SeeEnemy, _Board.Enemies[i]);
             }
-
             _God.CardSO.StartDialogue(GodDialogueTrigger.Played, loader.GetCardSO);
             ActionCard_Behaviour actionCard = behaviour as ActionCard_Behaviour;
         }

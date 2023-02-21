@@ -81,7 +81,7 @@ public class GodCard_ScriptableObject : Card_SO
                     break;
                 }
                 DialogueController.instance.SpawnDialogue(data.dialogue, Vector2.zero);
-                Debug.Log("Dialogue source: " + damageSourceName + "(IMonster), type: " + trigger);                
+                Debug.Log("Dialogue source: " + damageSourceName + "(Monster), type: " + trigger);                
                 break;
             case GodDialogueTrigger.EnemyKill:
                 throw new NotImplementedException();

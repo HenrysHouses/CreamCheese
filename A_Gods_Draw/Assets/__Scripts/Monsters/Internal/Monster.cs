@@ -66,9 +66,11 @@ public class Monster : BoardElement
     private EventReference death_SFX, block_SFX;
     public EventReference HoverOver_SFX;
 
+    // Animation
+    public Animator animator;
+
     private void Awake()
     {
-
         maxHealth += Mathf.RoundToInt((float)maxHealth / 10f) * (GameManager.timesDefeatedBoss * 2);
 
         currentHealth = maxHealth;
@@ -169,10 +171,8 @@ public class Monster : BoardElement
 
     public void Defend(int _amount)
     {
-
         queuedDefence += _amount;
         Defending = true;
-        
     }
 
     public int TakeDamage(int _amount, bool _bypassDefence = false)
@@ -191,7 +191,7 @@ public class Monster : BoardElement
             _damageTaken = _amount;
         else
         {
-
+            animator.SetTrigger("TakingDMG");
             defendFor -= _amount;
             return 0;
 
@@ -214,7 +214,9 @@ public class Monster : BoardElement
             if (deathParticleVFX != null)
                 Instantiate(deathParticleVFX, transform.position, Quaternion.identity);
             
-            Destroy(this.gameObject);
+
+            animator.SetTrigger("Dying");
+            Destroy(this.gameObject, 2);
 
         }
 
@@ -222,8 +224,8 @@ public class Monster : BoardElement
         UpdateDefenceUI();
         setOutline(outlineSize, Color.red, 0.25f);
 
-        return _damageTaken;
 
+        return _damageTaken;
     }
 
     public void ApplyBarrier(int _amount)
@@ -233,7 +235,6 @@ public class Monster : BoardElement
 
         UpdateHealthUI();
         setOutline(outlineSize, Color.yellow, 0.25f);
-
     }
 
     public void ReceiveHealth(int _amount)
@@ -348,10 +349,13 @@ public class Monster : BoardElement
             defendFor = queuedDefence;
             queuedDefence = 0;
             Defending = false;
-
+            animator.SetBool("isBlocking", true);
         }
         else
+        {
             defendFor = 0;
+            animator.SetBool("isBlocking", false);
+        }
 
         damageSources.Clear();
         queuedDamage = 0;

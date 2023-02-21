@@ -100,6 +100,7 @@ public class TurnController : CombatFSM
 
         GodCard_ScriptableObject _Card_SO = BoardStateController.playedGodCard.CardSO;
         _Card_SO.StartDialogue(GodDialogueTrigger.Dying, _Card_SO);
+        god.animator.SetTrigger("isSpeaking");
         BoardStateController.playedGodCard = null;
     }
 
@@ -291,7 +292,10 @@ public class TurnController : CombatFSM
 
                 // Dialogue discard trigger
                 if(BoardStateController.playedGodCard is not null)
+                {
                     CardAnimations[i].OnCardDrawDialogue.AddListener(BoardStateController.playedGodCard.CardSO.StartDialogue);
+                    
+                }
                 else if(_Loader.GetCardSO.type == CardType.God)
                 {
                     GodCard_ScriptableObject _God = _Loader.GetCardSO as GodCard_ScriptableObject;

@@ -14,5 +14,9 @@ public class AttackPlayerAction : MonsterAction
     public override void Execute(BoardStateController BoardStateController, int strengh, UnityEngine.Object source)
     {
         BoardStateController.Player.DealDamage(strengh);
+
+        Monster enemy = source as Monster;
+        if(enemy)
+            enemy.animator.SetTrigger("Attack");
     }
 }

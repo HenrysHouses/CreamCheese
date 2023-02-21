@@ -129,7 +129,7 @@ public class Player_Hand : MonoBehaviour
             }
 
             CardSelectionAnimators[i].Selector.setHandPos(new Vector3(firstCardPos + (0.15f * i), 0f, zPos));
-            Debug.Log("z positions for the card is " + zPos);
+            // Debug.Log("z positions for the card is " + zPos);
 
             // Debug.Log(Mathf.PingPong((i * 2)  / CardSelectionAnimators.Count,1) + "I is : " + i);
             // CardSelectionAnimators[i].Selector.transform.localPosition = (new Vector3(firstCardPos + (0.1f * i), 0, i * 0.005f));

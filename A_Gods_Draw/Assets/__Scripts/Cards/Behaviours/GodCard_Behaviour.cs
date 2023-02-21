@@ -18,6 +18,7 @@ public class GodCard_Behaviour : Card_Behaviour
     GodPlacement godPlacement;
     protected new GodCard_ScriptableObject card_so;
     public GodCard_ScriptableObject CardSO => card_so;
+    public Animator animator;
 
     public void Initialize(GodCard_ScriptableObject card, CardElements elements)
     {
@@ -57,7 +58,10 @@ public class GodCard_Behaviour : Card_Behaviour
         health -= amount;
 
         if(health > 0)
+        {
             card_so.StartDialogue(GodDialogueTrigger.Hurt, source);
+            animator.SetTrigger("isSpeaking");
+        }
 
         godPlacement.UpdateUI();
 
@@ -104,6 +108,7 @@ public class GodCard_Behaviour : Card_Behaviour
                 }
                 Debug.Log("Dialogue source: " + source);
                 DialogueController.instance.SpawnDialogue(data.dialogue, Vector2.zero);
+                animator.SetTrigger("isSpeaking");
                 break;
             default:
                 throw new NotImplementedException();
