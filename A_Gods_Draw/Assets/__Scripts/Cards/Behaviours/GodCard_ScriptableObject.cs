@@ -5,6 +5,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using FMODUnity;
 using System;
+using UnityEngine.Events;
 
 /// <summary>
 /// ScriptableObject containing data only necessary for god cards
@@ -17,7 +18,7 @@ public class GodCard_ScriptableObject : Card_SO
     public GodActionEnum godAction;
     public EventReference enterBattlefield_SFX;
     public GameObject God_Model;
-
+    [HideInInspector] public UnityEvent<string> OnDialogue;
 
     [SerializeField] EnemyClassNames enemyClassNames;
 
@@ -29,6 +30,14 @@ public class GodCard_ScriptableObject : Card_SO
     private void OnValidate() {
         type = CardType.God;
         // getGlyphs();
+    }
+
+    private void OnEnable() {
+        OnDialogue = new UnityEvent<string>();
+    }
+
+    private void OnDisable() {
+        OnDialogue = new UnityEvent<string>();
     }
 
     // public override CardActionEnum[] getGlyphs()
@@ -63,6 +72,7 @@ public class GodCard_ScriptableObject : Card_SO
                 }
                 // Debug.Log("Dialogue source: " + source + ", type: " + trigger);
 
+                OnDialogue?.Invoke("isSpeaking");
                 DialogueController.instance.SpawnDialogue(data.dialogue, Vector2.zero);
                 break;
             case GodDialogueTrigger.Hurt:
@@ -82,6 +92,7 @@ public class GodCard_ScriptableObject : Card_SO
                 }
                 DialogueController.instance.SpawnDialogue(data.dialogue, Vector2.zero);
                 Debug.Log("Dialogue source: " + damageSourceName + "(Monster), type: " + trigger);                
+                OnDialogue?.Invoke("isSpeaking");
                 break;
             case GodDialogueTrigger.EnemyKill:
                 throw new NotImplementedException();

@@ -60,7 +60,6 @@ public class GodCard_Behaviour : Card_Behaviour
         if(health > 0)
         {
             card_so.StartDialogue(GodDialogueTrigger.Hurt, source);
-            animator.SetTrigger("isSpeaking");
         }
 
         godPlacement.UpdateUI();
@@ -72,7 +71,10 @@ public class GodCard_Behaviour : Card_Behaviour
             godPlacement.UpdateUI();
             godPlacement.RemoveGod();
             controller.GodDied(this);
+            animator.SetTrigger("Die");
+            return;
         }
+        animator.SetTrigger("TakingDamage");
     }
 
     protected override void OnBeingSelected()
@@ -108,7 +110,6 @@ public class GodCard_Behaviour : Card_Behaviour
                 }
                 Debug.Log("Dialogue source: " + source);
                 DialogueController.instance.SpawnDialogue(data.dialogue, Vector2.zero);
-                animator.SetTrigger("isSpeaking");
                 break;
             default:
                 throw new NotImplementedException();

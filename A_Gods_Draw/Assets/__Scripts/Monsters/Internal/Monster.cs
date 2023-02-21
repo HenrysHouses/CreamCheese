@@ -191,7 +191,7 @@ public class Monster : BoardElement
             _damageTaken = _amount;
         else
         {
-            animator.SetTrigger("TakingDMG");
+            animator.SetTrigger("TakingDMGDefended");
             defendFor -= _amount;
             return 0;
 
@@ -203,6 +203,9 @@ public class Monster : BoardElement
             barrier -= _damageTaken;
 
         }
+
+        if(_damageTaken > 0)
+            animator.SetTrigger("TakingDMG");
 
         currentHealth -= _damageTaken;
 

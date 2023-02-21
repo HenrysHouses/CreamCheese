@@ -191,6 +191,8 @@ public class BoardStateController : MonoBehaviour
 
             GameObject spawn = Instantiate(playedGodCard.CardSO.God_Model, targetlane.position, transform.localRotation = new Quaternion(0, -0.577358961f, 0, 0.816490531f));
             playedGodCard.animator = spawn.GetComponentInChildren<Animator>();
+            playedGodCard.CardSO.OnDialogue.AddListener(playedGodCard.animator.SetTrigger);
+            Debug.Log("added listener" + playedGodCard.CardSO.OnDialogue.GetPersistentEventCount());
             spawn.transform.SetParent(cardTransform, true);
 
             // Debug.LogWarning("REMOVE SIZE HERE");

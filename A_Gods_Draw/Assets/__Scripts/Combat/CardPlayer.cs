@@ -346,8 +346,6 @@ public class CardPlayer : MonoBehaviour
             {
                 _Board.playedGodCard.CardSO.StartDialogue(GodDialogueTrigger.Played, loader.GetCardSO);
                 GodCard_Behaviour godCard = _Board.getGodLane().GetComponentInChildren<GodCard_Behaviour>();
-                godCard.animator.SetTrigger("isSpeaking"); // ! this is triggering every card that is played
-                Debug.Log("GOD IS SPEAKING");
             }
             CardHighlight highlight = behaviour.GetComponentInChildren<CardHighlight>();
             highlight.enabled = true;

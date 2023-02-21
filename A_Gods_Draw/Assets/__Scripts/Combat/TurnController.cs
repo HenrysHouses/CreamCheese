@@ -94,13 +94,12 @@ public class TurnController : CombatFSM
         //Animation of god dying????
         StartCoroutine(god.GetComponent<Card_Loader>().DissolveCard(0.5f));
 
-        Destroy(god.transform.parent.parent.gameObject, 2f);
+        Destroy(god.transform.parent.parent.gameObject, 4.4f);
 
         _Hand.RemoveCard(god.GetComponent<Card_Loader>());
 
         GodCard_ScriptableObject _Card_SO = BoardStateController.playedGodCard.CardSO;
         _Card_SO.StartDialogue(GodDialogueTrigger.Dying, _Card_SO);
-        god.animator.SetTrigger("isSpeaking");
         BoardStateController.playedGodCard = null;
     }
 
@@ -294,7 +293,7 @@ public class TurnController : CombatFSM
                 if(BoardStateController.playedGodCard is not null)
                 {
                     CardAnimations[i].OnCardDrawDialogue.AddListener(BoardStateController.playedGodCard.CardSO.StartDialogue);
-                    
+
                 }
                 else if(_Loader.GetCardSO.type == CardType.God)
                 {
