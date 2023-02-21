@@ -367,14 +367,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 31f3d918ec01eff46b997b4e2041ed38, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  deckManager: {fileID: 11400000, guid: a9ef532ce763b474e868648e2e3843ac, type: 2}
-  selectedCard:
-    CardType: {fileID: 0}
-    Experience:
-      XP: 0
-      Level: 0
-      ID: 91
-  editor_drawAmount: 0
 --- !u!1 &160788496
 GameObject:
   m_ObjectHideFlags: 9
@@ -2211,6 +2203,88 @@ MeshFilter:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1443087074}
   m_Mesh: {fileID: 10202, guid: 0000000000000000e000000000000000, type: 0}
+--- !u!1001 &1460479771
+PrefabInstance:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    m_TransformParent: {fileID: 0}
+    m_Modifications:
+    - target: {fileID: -8679921383154817045, guid: 176aa5aa18072e644a7a228bb0364f76, type: 3}
+      propertyPath: m_RootOrder
+      value: 16
+      objectReference: {fileID: 0}
+    - target: {fileID: -8679921383154817045, guid: 176aa5aa18072e644a7a228bb0364f76, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: -8679921383154817045, guid: 176aa5aa18072e644a7a228bb0364f76, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: -8679921383154817045, guid: 176aa5aa18072e644a7a228bb0364f76, type: 3}
+      propertyPath: m_LocalPosition.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: -8679921383154817045, guid: 176aa5aa18072e644a7a228bb0364f76, type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: -8679921383154817045, guid: 176aa5aa18072e644a7a228bb0364f76, type: 3}
+      propertyPath: m_LocalRotation.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: -8679921383154817045, guid: 176aa5aa18072e644a7a228bb0364f76, type: 3}
+      propertyPath: m_LocalRotation.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: -8679921383154817045, guid: 176aa5aa18072e644a7a228bb0364f76, type: 3}
+      propertyPath: m_LocalRotation.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: -8679921383154817045, guid: 176aa5aa18072e644a7a228bb0364f76, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: -8679921383154817045, guid: 176aa5aa18072e644a7a228bb0364f76, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: -8679921383154817045, guid: 176aa5aa18072e644a7a228bb0364f76, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 919132149155446097, guid: 176aa5aa18072e644a7a228bb0364f76, type: 3}
+      propertyPath: m_Name
+      value: Tyr Pointing Forward
+      objectReference: {fileID: 0}
+    m_RemovedComponents: []
+  m_SourcePrefab: {fileID: 100100000, guid: 176aa5aa18072e644a7a228bb0364f76, type: 3}
+--- !u!1 &1460479772 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 919132149155446097, guid: 176aa5aa18072e644a7a228bb0364f76, type: 3}
+  m_PrefabInstance: {fileID: 1460479771}
+  m_PrefabAsset: {fileID: 0}
+--- !u!95 &1460479773
+Animator:
+  serializedVersion: 4
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1460479772}
+  m_Enabled: 1
+  m_Avatar: {fileID: 0}
+  m_Controller: {fileID: 9100000, guid: d222582184c25ae4fa0db2db4a32530e, type: 2}
+  m_CullingMode: 0
+  m_UpdateMode: 0
+  m_ApplyRootMotion: 0
+  m_LinearVelocityBlending: 0
+  m_StabilizeFeet: 0
+  m_WarningMessage: 
+  m_HasTransformHierarchy: 1
+  m_AllowConstantClipSamplingOptimization: 1
+  m_KeepAnimatorControllerStateOnDisable: 0
 --- !u!1 &1495312243
 GameObject:
   m_ObjectHideFlags: 0
@@ -2500,14 +2574,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 31f3d918ec01eff46b997b4e2041ed38, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  deckManager: {fileID: 11400000, guid: a9ef532ce763b474e868648e2e3843ac, type: 2}
-  selectedCard:
-    CardType: {fileID: 0}
-    Experience:
-      XP: 0
-      Level: 0
-      ID: 92
-  editor_drawAmount: 0
 --- !u!4 &1566279784
 Transform:
   m_ObjectHideFlags: 0
@@ -7451,6 +7517,10 @@ PrefabInstance:
     - target: {fileID: 919132149155446097, guid: bb20cc6fb6503ab42a5f2aafd1b4ab58, type: 3}
       propertyPath: m_Name
       value: Monster_Draugr_MDL_v1@Dying
+      objectReference: {fileID: 0}
+    - target: {fileID: 919132149155446097, guid: bb20cc6fb6503ab42a5f2aafd1b4ab58, type: 3}
+      propertyPath: m_IsActive
+      value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: bb20cc6fb6503ab42a5f2aafd1b4ab58, type: 3}
