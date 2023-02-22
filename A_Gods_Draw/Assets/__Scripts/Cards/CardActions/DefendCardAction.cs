@@ -38,6 +38,7 @@ public class DefendCardAction : CardAction
                 if(_VFX != null)
                     yield return new WaitUntil(() => !_VFX.isAnimating);
                 Enemy.DeBuff(source.stats.strength);
+                Debug.Log("defence");
             }
         }
         // source.stats.Targets.Clear();

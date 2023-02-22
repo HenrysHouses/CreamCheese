@@ -74,18 +74,23 @@ public abstract class CardAction : Action
                 _path.endPoint.position = target.transform.position + (target.transform.forward * 0.1f);
                 _path.recalculatePath();
                 
-                while (time < 1)
+                DestroyOrder order = _thisVFX.GetComponent<DestroyOrder>();
+                order.destroyVFX();
+                order.StopAllParticles();
+                order.StopAllAnimations();
+
+                if(_VFX.FollowPath && _thisVFX)
                 {
-                    time = Mathf.Clamp01(time + Time.deltaTime * _VFX.PathSpeed);
-                    if (_VFX.FollowPath && _thisVFX)
+                    while (time < 1)
                     {
+                        time = Mathf.Clamp01(time + Time.deltaTime * _VFX.PathSpeed);
                         _thisVFX.transform.position = _path.GetEvenPathOP(time).pos;
                         _thisVFX.transform.rotation = _path.GetEvenPathOP(time).rot;
+                        yield return new WaitForEndOfFrame();
                     }
-                    yield return new WaitForEndOfFrame();
                 }
-    
-                GameObject.Destroy(_thisVFX);
+                else
+                    yield return new WaitUntil(() => _thisVFX == null);
             }
 
             if (_VFX.hit_VFX)
@@ -102,7 +107,7 @@ public abstract class CardAction : Action
     {
         if(_VFX != null)
         {
-            _VFX.isAnimating= true;
+            _VFX.isAnimating = true;
             float time = 0;
             
             ProceduralPathMesh[] meshes = source.GetComponentsInChildren<ProceduralPathMesh>();
@@ -119,20 +124,25 @@ public abstract class CardAction : Action
                 _thisVFX.transform.position = source.transform.position + offset;
                 Animator animator = _thisVFX.GetComponentInChildren<Animator>();
                 animTime = animator.GetCurrentAnimatorStateInfo(0).length;
+
+                DestroyOrder order = _thisVFX.GetComponent<DestroyOrder>();
+                order.destroyVFX();
+                order.StopAllParticles();
+                order.StopAllAnimations();
             }
 
-            while(time < animTime)
+            if(_VFX.FollowPath && _thisVFX)
             {
-                time = Mathf.Clamp01(time + Time.deltaTime * _VFX.PathSpeed);
-                if(_VFX.FollowPath && _thisVFX)
+                while(time < animTime)
                 {
+                    time = Mathf.Clamp01(time + Time.deltaTime * _VFX.PathSpeed);
                     _thisVFX.transform.position = _path.GetEvenPathOP(time).pos;
                     _thisVFX.transform.rotation = _path.GetEvenPathOP(time).rot;
+                    yield return new WaitForEndOfFrame();
                 }
-                yield return new WaitForEndOfFrame();
             }
-
-            GameObject.Destroy(_thisVFX);
+            else
+                yield return new WaitUntil(() => _thisVFX == null); 
             
             if(_VFX.hit_VFX && target != null)
             {
