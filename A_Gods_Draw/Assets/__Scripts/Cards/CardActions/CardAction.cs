@@ -27,8 +27,8 @@ public abstract class CardAction : Action
         CardPlaced(_board, _source);
 
 
-
-        if(_source == null || _source.GetCardType != CardType.Attack)
+        //Check for attack actions instead of cardtype for updating queued damage
+        if(_source == null || _source.GetCardType != CardType.Attack) 
             return;
         
         UpdateQueuedDamage(_source);
