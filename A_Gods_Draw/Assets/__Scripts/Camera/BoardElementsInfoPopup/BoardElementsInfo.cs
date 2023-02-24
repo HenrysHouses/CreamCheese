@@ -6,79 +6,77 @@ using TMPro;
 public class BoardElementsInfo : MonoBehaviour
 {
 
-    [SerializeField, Tooltip("If left unassigned, will use the tagged main camera")]
-    private Camera mainCamera;
-    [SerializeField]
-    private GameObject informationPopupWindow;
-    private TMP_Text informationText;
-    [SerializeField, Tooltip("Delay before information shows up in SECONDS")]
-    private float infoDelay;
-    private int delayCounter;
-    private RaycastHit previousInfoElement;
+    [field:SerializeField] public Popup_ScriptableObject PopupInfo {private set; get;}
+    
+    // [SerializeField, Tooltip("If left unassigned, will use the tagged main camera")]
+    // private Camera mainCamera;
+    // [SerializeField]
+    // private GameObject informationPopupWindow;
+    // [SerializeField, Tooltip("Delay before information shows up in SECONDS")]
+    // private float infoDelay;
+    // private int delayCounter;
+    // private RaycastHit previousInfoElement;
 
-    private void Start()
-    {
+    // private void Start()
+    // {
 
-        if(!mainCamera)
-            mainCamera = Camera.main;
-        
-        informationText = informationPopupWindow.GetComponent<TMP_Text>();
+    //     if(!mainCamera)
+    //         mainCamera = Camera.main;
+    // }
 
-    }
+    // private void FixedUpdate()
+    // {
 
-    private void FixedUpdate()
-    {
+    //     if(Input.GetKey(KeyCode.Mouse1) && Physics.Raycast(mainCamera.ScreenPointToRay(Input.mousePosition), out RaycastHit _hit, 50))
+    //     {
 
-        if(Input.GetKey(KeyCode.Mouse1) && Physics.Raycast(mainCamera.ScreenPointToRay(Input.mousePosition), out RaycastHit _hit, 50))
-        {
+    //         if(_hit.transform != previousInfoElement.transform)
+    //         {
 
-            if(_hit.transform != previousInfoElement.transform)
-            {
+    //             previousInfoElement = _hit;
+    //             // Reset();
+    //             return;
 
-                previousInfoElement = _hit;
-                Reset();
-                return;
+    //         }
 
-            }
+    //         InfoElement _info;
 
-            InfoElement _info;
+    //         if(!_hit.transform.TryGetComponent<InfoElement>(out _info))
+    //         {
 
-            if(!_hit.transform.TryGetComponent<InfoElement>(out _info))
-            {
+    //             // Reset();
+    //             return;
 
-                Reset();
-                return;
+    //         }
 
-            }
+    //         // delayCounter++;
 
-            delayCounter++;
+    //         // if(delayCounter >= infoDelay * 60)
+    //         // {
 
-            if(delayCounter >= infoDelay * 60)
-            {
+    //         //     informationText.text = _info.BoardElementInfo;
 
-                informationText.text = _info.BoardElementInfo;
+    //         // }
+    //         // else
+    //         // {
 
-            }
-            else
-            {
-
-                informationPopupWindow.GetComponent<RectTransform>().anchoredPosition = Input.mousePosition;
-                informationText.text = "";
+    //         //     informationPopupWindow.GetComponent<RectTransform>().anchoredPosition = Input.mousePosition;
+    //         //     informationText.text = "";
             
-            }
+    //         // }
 
-        }
-        else
-            Reset();
+    //     }
+    //     else
+    //         Reset();
 
-    }
+    // }
 
-    private void Reset()
-    {
+    // private void Reset()
+    // {
 
-        informationText.text = "";
-        delayCounter = 0;
+    //     informationText.text = "";
+    //     delayCounter = 0;
 
-    }
+    // }
 
 }

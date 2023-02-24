@@ -4,6 +4,13 @@ public class UIPopup : MonoBehaviour
 {
     public Popup_ScriptableObject PopupInfo;
     
+    void Start()
+    {
+        BoardElementsInfo info = GetComponent<BoardElementsInfo>();
+        
+        if(info)
+            PopupInfo = info.PopupInfo;
+    }
 
     void OnMouseEnter()
     {
