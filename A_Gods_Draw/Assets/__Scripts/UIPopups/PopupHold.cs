@@ -97,34 +97,10 @@ public class PopupHold : MonoBehaviour
         _Text.material = Panel.TextMaterial;
         _Text.transform.rotation = canvas.transform.rotation;
 
-        switch(Panel.SpawnLocation)
-        {
-            case PopupLocation.LeftBottom:
-                size.anchorMin = new Vector2(1,1);
-                size.anchorMax = new Vector2(1,1);
-                size.pivot = new Vector2(1,1);
-                PopupSpawn.transform.localPosition = new Vector3(-950,-950,0);
-                break;
-            case PopupLocation.LeftTop:
-                size.anchorMin = new Vector2(1,0);
-                size.anchorMax = new Vector2(1,0);
-                size.pivot = new Vector2(1,0);
-                PopupSpawn.transform.localPosition = new Vector3(-950,50,0);
-                break;
-            case PopupLocation.RightBottom:
-                size.anchorMin = new Vector2(0,1);
-                size.anchorMax = new Vector2(0,1);
-                size.pivot = new Vector2(0,1);
-                PopupSpawn.transform.localPosition = new Vector3(50,-950,0);
-                break;
-            case PopupLocation.RightTop:
-                size.anchorMin = new Vector2(0,0);
-                size.anchorMax = new Vector2(0,0);
-                size.pivot = new Vector2(0,0);
-                PopupSpawn.transform.localPosition = new Vector3(50,50,0);
-                break;
-        }
+        PopupController controller = PopupSpawn.GetComponent<PopupController>();
+        controller.SetAnchor(Panel.SpawnLocation);
     }
+    
 
     IEnumerable<string> EnumerateLines(TMP_Text text)
     {

@@ -83,10 +83,15 @@ public abstract class CardAction : Action
                 {
                     while (time < 1)
                     {
-                        time = Mathf.Clamp01(time + Time.deltaTime * _VFX.PathSpeed);
-                        _thisVFX.transform.position = _path.GetEvenPathOP(time).pos;
-                        _thisVFX.transform.rotation = _path.GetEvenPathOP(time).rot;
-                        yield return new WaitForEndOfFrame();
+                        if(_thisVFX == null)
+                            time = 1;
+                        else
+                        {
+                            time = Mathf.Clamp01(time + Time.deltaTime * _VFX.PathSpeed);
+                            _thisVFX.transform.position = _path.GetEvenPathOP(time).pos;
+                            _thisVFX.transform.rotation = _path.GetEvenPathOP(time).rot;
+                            yield return new WaitForEndOfFrame();
+                        }
                     }
                 }
                 else
