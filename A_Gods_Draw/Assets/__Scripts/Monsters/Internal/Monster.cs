@@ -63,8 +63,7 @@ public class Monster : BoardElement
 
     //SFX
     [SerializeField]
-    private EventReference death_SFX, block_SFX;
-    public EventReference HoverOver_SFX;
+    private EventReference death_SFX, block_SFX, ability_SFX, hurt_SFX, attacking_SFX;
 
     // Animation
     public Animator animator;
