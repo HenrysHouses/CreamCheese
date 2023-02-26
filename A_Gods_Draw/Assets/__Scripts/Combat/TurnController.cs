@@ -475,16 +475,25 @@ public class TurnController : CombatFSM
     {
         Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
         BoardElement element = null;
-        if (Physics.Raycast(ray, out RaycastHit hit, 10000))
+        
+        RaycastHit[] hits = Physics.RaycastAll(ray, 10000);
+
+        if (hits.Length > 0)
         {
-            GameObject clicked = hit.collider.gameObject;
+            for (int i = 0; i < hits.Length; i++)
+            {
+                if(!hits[i].collider.GetComponent<BoardElement>())
+                    continue;
 
-            element = clicked.GetComponent<BoardElement>();
+                GameObject clicked = hits[i].collider.gameObject;
 
-            if(!element)
-                return null;
+                element = clicked.GetComponent<BoardElement>();
 
-            return element;
+                if(!element)
+                    return null;
+
+                return element;
+            }
         }
         return null;
     }
