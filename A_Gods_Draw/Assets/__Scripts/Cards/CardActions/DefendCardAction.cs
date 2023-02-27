@@ -42,9 +42,6 @@ public class DefendCardAction : CardAction
             }
         }
         // source.stats.Targets.Clear();
-
-        yield return new WaitForSeconds(0.4f);
-
         isReady = true;
     }
 }

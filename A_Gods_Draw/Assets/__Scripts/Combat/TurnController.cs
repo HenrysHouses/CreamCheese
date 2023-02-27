@@ -15,7 +15,6 @@ public class TurnController : CombatFSM
     // * Combat Mechanic references
     [SerializeField] BoardStateController BoardStateController;
     [field:SerializeField] public PlayerTracker player {get; private set;}
-    [SerializeField] LayerMask ClickDetectionLayer;
     [SerializeField] GodPlacement godPlace;
     [SerializeField] DeckController deckController;
     [SerializeField] PathAnimatorController DiscardAnimator;
