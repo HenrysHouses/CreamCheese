@@ -96,8 +96,11 @@ public class ActionCard_Behaviour : Card_Behaviour
             if(card == null)
                 return false;
 
+            Debug.Log("this is a card: " + card.CardIsPlaced);
+
             if(card.CardIsPlaced)
                 return true;
+            return false;
         }
 
         if(targetIndex == selectionType.Index)

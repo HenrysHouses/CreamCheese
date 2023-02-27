@@ -67,7 +67,7 @@ public class HealthCounterController : MonoBehaviour
         Damage = Health - player.Health;
     }
 
-    void checkPlayerStatus()
+    public void checkPlayerStatus()
     {
         if(!healthIsAnimating && !gearIsAnimating)
         {

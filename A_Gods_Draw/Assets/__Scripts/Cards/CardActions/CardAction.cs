@@ -65,6 +65,7 @@ public abstract class CardAction : Action
 
             GameObject _thisVFX = null;
             PathController _path = null;
+            DestroyOrder order = null;
             if (_VFX.trigger_VFX)
             {
                 _thisVFX = GameObject.Instantiate(_VFX.trigger_VFX);
@@ -74,10 +75,8 @@ public abstract class CardAction : Action
                 _path.endPoint.position = target.transform.position + (target.transform.forward * 0.1f);
                 _path.recalculatePath();
                 
-                DestroyOrder order = _thisVFX.GetComponent<DestroyOrder>();
+                order = _thisVFX.GetComponent<DestroyOrder>();
                 order.destroyVFX();
-                order.StopAllParticles();
-                order.StopAllAnimations();
 
                 if(_VFX.FollowPath && _thisVFX)
                 {
@@ -98,6 +97,8 @@ public abstract class CardAction : Action
                     yield return new WaitUntil(() => _thisVFX == null);
             }
 
+            order.StopAllParticles();
+            order.StopAllAnimations();
             if (_VFX.hit_VFX)
             {
                 GameObject _hitVFX = GameObject.Instantiate(_VFX.hit_VFX);
@@ -148,7 +149,8 @@ public abstract class CardAction : Action
             }
             else
                 yield return new WaitUntil(() => _thisVFX == null); 
-            
+        
+
             if(_VFX.hit_VFX && target != null)
             {
                 GameObject _hitVFX = GameObject.Instantiate(_VFX.hit_VFX);
