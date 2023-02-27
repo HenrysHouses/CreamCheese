@@ -335,17 +335,7 @@ public class ActionCard_Behaviour : Card_Behaviour
 
         StopAllCoroutines();
 
-        // foreach (var target in SelectedTargets.Targets)
-        // {
-        //     foreach (var action in _actionGroup.actions)
-        //     {
-        //         action.Reset(controller.GetBoard(), this);
-        //     }
-        //     foreach (var action in _godBuffActions.actions)
-        //     {
-        //         action.Reset(controller.GetBoard(), this);
-        //     }
-        // }
+        SelectedTargets.Clear();
     }
 
     public void ApplyLevels(CardExperience CurrentLevel)

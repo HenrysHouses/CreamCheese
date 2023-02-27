@@ -275,7 +275,7 @@ public class CardPlayer : MonoBehaviour
 
             if (!playedSFX)
             {
-                SoundPlayer.PlaySound(monster.HoverOver_SFX, gameObject);
+               // SoundPlayer.PlaySound(monster.HoverOver_SFX, gameObject);
                 playedSFX = true;
 
             }
