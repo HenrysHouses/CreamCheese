@@ -6,18 +6,11 @@ using UnityEngine;
 public class ActionSelection
 {
     
-    
+    public EnemyIntent Action;
     public int MinStrength, MaxStrength;
-    //public IntentCondition
-
-    public enum monsterActions
-    {
-
-        AttackPlayer,
-        AttackGod,
-        BuffAttackers,
-        Defend
-
-    }
+    [Tooltip("Determines the chance of this action happening when 2 or more actions of same priority is possible")]
+    public int Weigth;
+    [Tooltip("Determines what actions take presedence when several actions are possible, use weight for randomized selection within set priority level")]
+    public int Priority;
 
 }

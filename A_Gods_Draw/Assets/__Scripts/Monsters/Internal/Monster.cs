@@ -62,7 +62,6 @@ public class Monster : BoardElement
 
     //Health
     [SerializeField]
-    public int MaxHealth;
     private int maxHealth;
     private int currentHealth, barrier;
     public int GetMaxHealth() { return maxHealth; }
@@ -81,7 +80,7 @@ public class Monster : BoardElement
     private void Awake()
     {
 
-        maxHealth += Mathf.RoundToInt((float)MaxHealth / 10f) * (GameManager.timesDefeatedBoss * 2);
+        maxHealth += Mathf.RoundToInt((float)maxHealth / 10f) * (GameManager.timesDefeatedBoss * 2);
 
         currentHealth = maxHealth;
 
