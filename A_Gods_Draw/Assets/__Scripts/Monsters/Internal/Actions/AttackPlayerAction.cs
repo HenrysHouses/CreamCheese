@@ -2,6 +2,7 @@
 
 using UnityEngine;
 
+[System.Serializable]
 public class AttackPlayerAction : MonsterAction
 {
     public AttackPlayerAction(int minimumStrength, int maximumStrength) : base(minimumStrength, maximumStrength)

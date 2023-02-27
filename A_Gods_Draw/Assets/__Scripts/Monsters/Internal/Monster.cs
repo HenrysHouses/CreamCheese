@@ -12,10 +12,20 @@ public class Monster : BoardElement
         for creating monster have a class with action types the enemy can do then when adding an action type should be able to set min and max strength value for the action
         then an array of conditions that has to be met for action to be done, toggle for either all or any condition has to be true
         conditions can be things like playerhealth value, gods in play, etc...
-        setting Max health and Damage/strenght, adjustable scaling multiplier. 
+        setting Max health and Damage/strenght, adjustable scaling multiplier.
         might make a custom editor thing for this as I've never made one before :)))
+
+        Editable values
+        Health
+        list of actions
+         - min and max strenght
+         - conditions
+        
+        
     */
 
+    [SerializeField]
+    private ActionSelection[] EnemyActions;
     public Intent GetIntent() => enemyIntent;
     protected Intent enemyIntent;
     private int defendFor, queuedDefence;
@@ -42,8 +52,6 @@ public class Monster : BoardElement
     [SerializeField]
     private Image intentImage;
     [SerializeField]
-    private Icons uiIcons;
-    [SerializeField]
     private GameObject effectIconPrefab, defendUI;
     private Dictionary<Sprite, GameObject> debuffDisplays;
     private Color healthBarColor, barrierBarColor;
@@ -53,6 +61,7 @@ public class Monster : BoardElement
 
     //Health
     [SerializeField]
+    public int MaxHealth;
     private int maxHealth;
     private int currentHealth, barrier;
     public int GetMaxHealth() { return maxHealth; }
@@ -71,7 +80,8 @@ public class Monster : BoardElement
 
     private void Awake()
     {
-        maxHealth += Mathf.RoundToInt((float)maxHealth / 10f) * (GameManager.timesDefeatedBoss * 2);
+
+        maxHealth += Mathf.RoundToInt((float)MaxHealth / 10f) * (GameManager.timesDefeatedBoss * 2);
 
         currentHealth = maxHealth;
 
@@ -466,13 +476,5 @@ public class Monster : BoardElement
 
         TurnController.shouldWaitForAnims = false;
     }
-
-}
-[SerializeField]
-public struct Icons
-{
-
-    //Effect icons
-    public Sprite PoisonIcon, FrostbiteIcon, HealPreventionIcon, ChainedIcon;
 
 }
