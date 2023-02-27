@@ -7,7 +7,7 @@ public class MinionIntent : Intent
 {
     List<Action> Actions = new List<Action>();
 
-    public MinionIntent(ActionSelection[] _actions)
+    public MinionIntent()
     {
         int scale = GameManager.timesDefeatedBoss;
 

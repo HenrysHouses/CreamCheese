@@ -21,11 +21,12 @@ public class Monster : BoardElement
          - min and max strenght
          - conditions
         
+        for all actions give them a prio number then check all actions to see which are valid then check prio. Actions with same prio will use a weigth to determine which action will run
         
     */
 
     [SerializeField]
-    private ActionSelection[] EnemyActions;
+    //private ActionSelection[] EnemyActions;
     public Intent GetIntent() => enemyIntent;
     protected Intent enemyIntent;
     private int defendFor, queuedDefence;

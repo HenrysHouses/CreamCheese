@@ -6,7 +6,7 @@ using UnityEngine;
 public class ActionSelection
 {
     
-    public monsterActions Action;
+    
     public int MinStrength, MaxStrength;
     //public IntentCondition
 
