@@ -7,6 +7,7 @@
 
 using HH.MultiSceneTools;
 
+
 /// <summary>
 /// A State to handle when the player dies or wins
 /// </summary>
@@ -14,6 +15,7 @@ public class EndState : CombatFSMState
 {
     TurnController Controller;
     PlayerTracker _player;
+    
 
     public EndState(TurnController controller, PlayerTracker player)
     {
@@ -60,7 +62,9 @@ public class EndState : CombatFSMState
 
         if (_player.Health <= 0)
         {
-            MultiSceneLoader.loadCollection("Death", collectionLoadMode.Difference);
+            
+           // MultiSceneLoader.loadCollection("Death", collectionLoadMode.Difference);
+             Controller.PlayerDying();
             _player.Health = 10;
             return;
         }
