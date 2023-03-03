@@ -54,6 +54,15 @@ public abstract class Intent
     }
 }
 
+public enum Conditions
+{
+
+    LastAlive,
+    GodPlayed,
+    None = 0
+
+}
+
 public enum EnemyIntent
 {
     Buff,
