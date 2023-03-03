@@ -5,7 +5,7 @@ using UnityEngine;
 public static class ConditionChecker
 {
 
-    public static MonsterAction CheckConditions(ActionSelection[] _actions, BoardStateController _board)
+    public static MonsterAction CheckConditions(ActionSelection[] _actions, BoardStateController _board, Intent _monster)
     {
 
         List<int> _possibleActions = new List<int>();
@@ -26,6 +26,11 @@ public static class ConditionChecker
                 switch(_action.ActionConditions[j])
                 {
 
+                    case Conditions.None:
+                    AddAction(ref _possibleActions, i);
+                    _passed = true;
+                    break;
+
                     case Conditions.LastAlive:
                     if(_board.getLivingEnemies().Length == 1)
                     {
@@ -42,9 +47,12 @@ public static class ConditionChecker
                     }
                     break;
 
-                    case Conditions.None:
-                    AddAction(ref _possibleActions, i);
-                    _passed = true;
+                    case Conditions.HasNotDefended:
+                    if(_monster.DefendedLastTurn())
+                    {
+                        AddAction(ref _possibleActions, i);
+                        _passed = true;
+                    }
                     break;
 
                 }

@@ -57,10 +57,20 @@ public class MinionIntent : Intent
         return null;
     }
 
+    public override bool DefendedLastTurn()
+    {
+
+        if(PreviousAction == GetAction<DefendAction>())
+            return true;
+        
+        return false;
+
+    }
+
     public override void DecideIntent(BoardStateController _board)
     {
 
-        actionSelected = ConditionChecker.CheckConditions(actions, _board);
+        actionSelected = ConditionChecker.CheckConditions(actions, _board, this);
 
     }
     public override void LateDecideIntent(BoardStateController _board)
