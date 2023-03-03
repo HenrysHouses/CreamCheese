@@ -6,51 +6,35 @@ using UnityEngine;
 [System.Serializable]
 public class SplashDMGCardAction : CardAction
 {
-    List<Vector3> splashCenter = new();
-
     public override IEnumerator OnAction(BoardStateController board, ActionCard_Behaviour source)
     {
         isReady = false;
         //StartAnimations...
 
-        //yield return new WaitUntil(() => true);
-        yield return new WaitForSeconds(0.2f);
-
-        for (int i = 0; i < splashCenter.Count; i++)
+        for (int i = 0; i < source.AllTargets.Length; i++)
         {
-            var enemies = Physics.SphereCastAll(splashCenter[i], 0.3f, Vector3.one);
-            foreach (RaycastHit allinside in enemies)
+            for (int j = 0; j < board.Enemies.Length; j++)
             {
-                Monster monster = allinside.collider.GetComponent<Monster>();
-                if (monster && monster != source.AllTargets[i])
+                int SplashIndex;
+                if(board.Enemies[j] == source.AllTargets[i]) 
                 {
-                    // Playing VFX
-                    board.StartCoroutine(playTriggerVFX(source.AllTargets[i].gameObject, null, new Vector3(0, 1 ,0)));
-                    monster.TakeDamage((int)((source.stats.strength / 2f) + 0.6f));
+                    SplashIndex = j;
                 }
+                
+                if(j-1 >= 0)
+                    board.Enemies[j-1].TakeDamage((int)((source.stats.strength / 2f) + 0.6f));
+
+                if(j+1 < board.Enemies.Length)
+                    board.Enemies[j+1].TakeDamage((int)((source.stats.strength / 2f) + 0.6f));
+
+                board.StartCoroutine(playTriggerVFX(
+                    source.AllTargets[i].gameObject, 
+                    board.Enemies[i].transform, 
+                    new Vector3(0, 0 ,-0.2f)));
             }
         }
 
         yield return new WaitUntil(() => !_VFX.isAnimating);
-
-        // source.stats.Targets.Clear();
-        splashCenter.Clear();
-
         isReady = true;
     }
-
-   public override void Reset(BoardStateController board, Card_Behaviour Source)
-    {
-        ActionCard_Behaviour card = Source as ActionCard_Behaviour;
-        // card.stats.Targets.Clear();
-        splashCenter.Clear();
-        isReady = false;
-        // board.SetClickable(3, false);
-    }
-
-    // internal override void AddTarget(BoardElement target)
-    // {
-    //     base.AddTarget(target);
-    //     splashCenter.Add(target.transform.position);
-    // }
 }

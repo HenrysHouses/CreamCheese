@@ -224,12 +224,14 @@ public class Monster : BoardElement
             currentHealth = 0;
             SoundPlayer.PlaySound(death_SFX,gameObject);
             if (deathParticleVFX != null)
-                Instantiate(deathParticleVFX, transform.position, Quaternion.identity);
+            {
+                GameObject spawn = Instantiate(deathParticleVFX, transform.position, Quaternion.identity);
+                spawn.GetComponent<DestroyOrder>().destroyVFX();
+            }
             
             animator.SetTrigger("Dying");
             animator.SetInteger("Dying", Random.Range(0,2));
             Destroy(this.gameObject, animator.GetCurrentAnimatorStateInfo(0).length);
-
         }
 
         UpdateHealthUI();
@@ -399,38 +401,28 @@ public class Monster : BoardElement
     
     public void UpdateEffectDisplay(Sprite _icon, int _stacks)
     {
-
         GameObject _iconGO;
         if(debuffDisplays.TryGetValue(_icon, out _iconGO))
         {
-
             if(_stacks <= 0)
             {
-
                 _iconGO.SetActive(false);
-
             }
             else
             {
-
                 _iconGO.SetActive(true);
-
             }
 
             _iconGO.GetComponentInChildren<TMP_Text>().text = _stacks.ToString();
-
         }
         else
         {
-            
             _iconGO = Instantiate(effectIconPrefab, effectsPanel);
             _iconGO.GetComponent<Image>().sprite = _icon;
             _iconGO.GetComponentInChildren<TMP_Text>().text = _stacks.ToString();
 
             debuffDisplays.Add(_icon, _iconGO);
-
         }
-
     }
 
     public void setOutline(float size, Color color, float duration = 0)

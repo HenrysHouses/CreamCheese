@@ -4,24 +4,27 @@ using UnityEngine;
 
 public class PoisonDebuff : DebuffBase
 {
+    bool wasAppliedThisTurn = true;
+
 
     public override void TickDebuff(int _ticks = 1)
     {
+        thisMonster.UpdateEffectDisplay(Resources.Load<Sprite>("ImageResources/poisonDrop"), Stacks);
+        
+        if(!wasAppliedThisTurn)
+        {
+            thisMonster.TakeDamage(Stacks, true);
+            Stacks -= _ticks;
 
-        thisMonster.TakeDamage(Stacks, true);
-        Stacks -= _ticks;
-        thisMonster.UpdateEffectDisplay(Resources.Load<Sprite>("ImageResources/Icon_Chain_v1"), Stacks);
-
-        if(Stacks <= 0)
-            Destroy(this);
-
+            if(Stacks <= 0)
+                Destroy(this);
+        }
+        else
+            wasAppliedThisTurn = false;        
     }
 
     public override void PreActTickDebuff(int _ticks = 1)
     {
-        
         thisMonster.UpdateQueuedPoison(Stacks);
-
     }
-
 }

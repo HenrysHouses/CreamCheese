@@ -16,13 +16,13 @@ public class LeachCardAction : CardAction
 
             int _damageDealt = _target.TakeDamage(_source.stats.strength);
             _board.Player.Heal(_damageDealt);
+            _board.StartCoroutine(playTriggerVFX(_source.gameObject, _target.transform, new Vector3(0, 1, 0)));
 
         }
 
         // _source.stats.Targets.Clear();
 
         // Playing VFX for each action
-        _board.StartCoroutine(playTriggerVFX(_source.gameObject, _board.Player.transform, new Vector3(0, 1, 0)));
         yield return new WaitUntil(() => _VFX == null || !_VFX.isAnimating);
 
         yield return new WaitForSeconds(0.3f);
