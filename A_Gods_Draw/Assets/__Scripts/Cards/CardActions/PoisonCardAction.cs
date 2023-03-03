@@ -32,9 +32,9 @@ public class PoisonCardAction : CardAction
 
             }
 
+            _board.StartCoroutine(playTriggerVFX(_source.gameObject, target.transform, new Vector3(0, 0, 0)));
         }
         
-        _board.StartCoroutine(playTriggerVFX(_source.gameObject, _board.Player.transform, new Vector3(0, 1, 0)));
         yield return new WaitUntil(() => _VFX == null || !_VFX.isAnimating);
 
         yield return new WaitForSeconds(0.3f);

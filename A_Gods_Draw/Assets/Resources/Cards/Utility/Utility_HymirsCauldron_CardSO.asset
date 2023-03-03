@@ -16,12 +16,21 @@ MonoBehaviour:
   Art: {fileID: 2800000, guid: 06fe6be18f772a048b3418833b3ee448, type: 3}
   Background: {fileID: 0}
   cardName: "Hymir\u2018s Cauldron"
-  description: "The Aesir wanted to host a feast, and needed a lot of mead for it.
-    Tyr and Thor traveled to Hymir\u2019s kingdom, and won his challenge, and as
-    a reward took a cauldron that's a mile deep home to the Aesir."
-  effect: 'Buff target for x, heals for 4
+  description: 'Buff
 
-    If Tyr is in play'
+    Buff A played card
+
+
+    If Tyr is in play
+
+    Heal
+
+    Heal
+    the player for x'
+  effect: "Buff target for x, heals for 4\nIf Tyr is in play\n\nThe Aesir wanted
+    to host a feast, and needed a lot of mead for it. Tyr and Thor traveled to Hymir\u2019s
+    kingdom, and won his challenge, and as a reward took a cauldron that's a mile
+    deep home to the Aesir."
   cardStats:
     TargetingView: 6
     SelectionType:
@@ -45,6 +54,7 @@ MonoBehaviour:
           PathSpeed: 0
           trigger_VFX: {fileID: 0}
           hit_VFX: {fileID: 0}
+          HitVFXLifeSpan: 2
     correspondingGod: 0
     godBuffActions:
       actionStats:
@@ -62,6 +72,7 @@ MonoBehaviour:
           PathSpeed: 0
           trigger_VFX: {fileID: 0}
           hit_VFX: {fileID: 0}
+          HitVFXLifeSpan: 2
     UpgradePath:
       Experience:
         XP: 0

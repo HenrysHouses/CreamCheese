@@ -134,9 +134,13 @@ public abstract class CardAction : Action
                     animTime = animator.GetCurrentAnimatorStateInfo(0).length;
 
                 DestroyOrder order = _thisVFX.GetComponent<DestroyOrder>();
-                order.destroyVFX();
-                order.StopAllParticles();
-                order.StopAllAnimations();
+                
+                if(order)
+                {
+                    order.destroyVFX();
+                    order.StopAllParticles();
+                    order.StopAllAnimations();
+                }
             }
 
             if(_VFX.FollowPath && _thisVFX)
@@ -157,6 +161,8 @@ public abstract class CardAction : Action
             {
                 GameObject _hitVFX = GameObject.Instantiate(_VFX.hit_VFX);
                 _hitVFX.transform.position = target.transform.position + (target.transform.up * 0.1f);
+                Debug.Log(target.name);
+                GameObject.Destroy(_hitVFX, _VFX.HitVFXLifeSpan);
             }
             _VFX.isAnimating = false;
         }

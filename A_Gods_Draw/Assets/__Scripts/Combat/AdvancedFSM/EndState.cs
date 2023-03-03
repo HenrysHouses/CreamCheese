@@ -16,6 +16,7 @@ public class EndState : CombatFSMState
     TurnController Controller;
     PlayerTracker _player;
     
+    
 
     public EndState(TurnController controller, PlayerTracker player)
     {
@@ -64,6 +65,8 @@ public class EndState : CombatFSMState
         {
             
            // MultiSceneLoader.loadCollection("Death", collectionLoadMode.Difference);
+           DeathCrumbling death;
+           
              Controller.PlayerDying();
             _player.Health = 10;
             return;

@@ -9,6 +9,7 @@ using System;
 using System.Collections.Generic;
 using UnityEngine;
 using FMODUnity;
+using DitzeGames.Effects;
 
 public class BoardStateController : MonoBehaviour
 {
@@ -175,6 +176,7 @@ public class BoardStateController : MonoBehaviour
 
             playedGodCard = card as GodCard_Behaviour;
             SoundPlayer.PlaySound(playedGodCard.CardSO.enterBattlefield_SFX, gameObject);
+            CameraEffects.ShakeOnce(0.5f,10);
 
 
             Transform cardTransform = playedGodCard.transform;

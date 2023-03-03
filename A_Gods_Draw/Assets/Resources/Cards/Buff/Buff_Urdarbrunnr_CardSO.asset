@@ -16,11 +16,13 @@ MonoBehaviour:
   Art: {fileID: 2800000, guid: 31b030cfee46d31469b4b75bc2c95858, type: 3}
   Background: {fileID: 2800000, guid: 4405501223a59ea48923553bb9318ecc, type: 3}
   cardName: Urdarbrunnr The Well
-  description: "In the realm of the Aesir, under Yggdrasill\u2019s roots, was a well
-    named Urdarbrunnr. Everyday the Aesir rode there for it was their place for judgment.
+  description: 'Buff
+
+    Buff a played card for x'
+  effect: "In the realm of the Aesir, under Yggdrasill\u2019s roots, was a well named
+    Urdarbrunnr. Everyday the Aesir rode there for it was their place for judgment.
     By the well dwelled three Norn\u2019s of Fates, that decided the fates of humans
     everyday."
-  effect: Buff target card for X
   cardStats:
     TargetingView: 7
     SelectionType:
@@ -44,6 +46,7 @@ MonoBehaviour:
           PathSpeed: 0
           trigger_VFX: {fileID: 0}
           hit_VFX: {fileID: 0}
+          HitVFXLifeSpan: 2
     correspondingGod: 0
     godBuffActions:
       actionStats: []

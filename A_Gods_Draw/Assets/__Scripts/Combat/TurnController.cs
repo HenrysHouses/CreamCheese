@@ -435,13 +435,13 @@ public class TurnController : CombatFSM
             CardPlayData _CardState = deckController.deckData.deckListData[i];
             if(unlocks.Upgrades == null)
             {
-                Debug.Log("this card has no upgrades");
+                // Debug.Log("this card has no upgrades");
                 return;
             }
 
             if(unlocks.Experience.Level == unlocks.Upgrades.Length-1)
             {
-                Debug.Log("this card is max level");
+                // Debug.Log("this card is max level");
                 return;
             }
 

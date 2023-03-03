@@ -11,7 +11,7 @@ public class TyrActions : GodCardAction
         foreach (Monster monster in board.getLivingEnemies())
         {
             DebuffBase _debuff = monster.gameObject.AddComponent<ChainedDebuff>();
-            _debuff.Stacks = 2;
+            _debuff.Stacks = 1;
             _debuff.thisMonster = monster;
         }
     }

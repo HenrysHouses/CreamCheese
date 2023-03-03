@@ -13,14 +13,16 @@ MonoBehaviour:
   m_Name: Utility_TyrsRightHand_CardSO
   m_EditorClassIdentifier: 
   type: 2
-  Art: {fileID: 2800000, guid: 79ebe1bdde07b75498872b325a810c3e, type: 3}
+  Art: {fileID: 2800000, guid: 8d7330bf6911de24cad4c72192db3ff8, type: 3}
   Background: {fileID: 0}
   cardName: Tyrs Right Hand
-  description: "When binding the wolf, Fenrir got suspicious, and asked the Aesir
-    that one of them put their hand in his mouth as a pledge of honor. Only Tyr was
-    brave enough to do so. When Fenrir couldn't break free, he bit Tyr\u2019s hand
-    off at what now is called the wolf joint."
-  effect: Buff two targets, then draw x
+  description: 'Draw
+
+    Draw x amounts of cards next turn'
+  effect: "Buff two targets, then draw x\n\nWhen binding the wolf, Fenrir got suspicious,
+    and asked the Aesir that one of them put their hand in his mouth as a pledge
+    of honor. Only Tyr was brave enough to do so. When Fenrir couldn't break free,
+    he bit Tyr\u2019s hand off at what now is called the wolf joint."
   cardStats:
     TargetingView: 6
     SelectionType:
@@ -44,6 +46,7 @@ MonoBehaviour:
           PathSpeed: 0
           trigger_VFX: {fileID: 0}
           hit_VFX: {fileID: 0}
+          HitVFXLifeSpan: 2
     correspondingGod: 1
     godBuffActions:
       actionStats:
@@ -61,6 +64,7 @@ MonoBehaviour:
           PathSpeed: 0
           trigger_VFX: {fileID: 0}
           hit_VFX: {fileID: 0}
+          HitVFXLifeSpan: 2
     UpgradePath:
       Experience:
         XP: 0
