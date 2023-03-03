@@ -565,6 +565,10 @@ PrefabInstance:
     m_TransformParent: {fileID: 0}
     m_Modifications:
     - target: {fileID: 538809319, guid: ddc4bad2b0ee6e244bdf61158c2c88ef, type: 3}
+      propertyPath: dying
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 538809319, guid: ddc4bad2b0ee6e244bdf61158c2c88ef, type: 3}
       propertyPath: music
       value: 
       objectReference: {fileID: 1430546627}
@@ -574,27 +578,27 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 538809319, guid: ddc4bad2b0ee6e244bdf61158c2c88ef, type: 3}
       propertyPath: stonerumble.Path
-      value: event:/Combat/God/Tyr/TyrDies
+      value: event:/Player/Dying
       objectReference: {fileID: 0}
     - target: {fileID: 538809319, guid: ddc4bad2b0ee6e244bdf61158c2c88ef, type: 3}
       propertyPath: stonerumble.Guid.Data1
-      value: 1689406183
+      value: 641739063
       objectReference: {fileID: 0}
     - target: {fileID: 538809319, guid: ddc4bad2b0ee6e244bdf61158c2c88ef, type: 3}
       propertyPath: stonerumble.Guid.Data2
-      value: 1255456034
+      value: 1223561901
       objectReference: {fileID: 0}
     - target: {fileID: 538809319, guid: ddc4bad2b0ee6e244bdf61158c2c88ef, type: 3}
       propertyPath: stonerumble.Guid.Data3
-      value: -1683625557
+      value: 1066311347
       objectReference: {fileID: 0}
     - target: {fileID: 538809319, guid: ddc4bad2b0ee6e244bdf61158c2c88ef, type: 3}
       propertyPath: stonerumble.Guid.Data4
-      value: 841660919
+      value: -1364927806
       objectReference: {fileID: 0}
     - target: {fileID: 3764061939425114106, guid: ddc4bad2b0ee6e244bdf61158c2c88ef, type: 3}
       propertyPath: m_fontSize
-      value: 196.3
+      value: 164.05
       objectReference: {fileID: 0}
     - target: {fileID: 3764061939425114106, guid: ddc4bad2b0ee6e244bdf61158c2c88ef, type: 3}
       propertyPath: m_sharedMaterial
@@ -2941,6 +2945,17 @@ Transform:
   m_CorrespondingSourceObject: {fileID: 291649976627357482, guid: dca578950366b0e48875be5b27e35e30, type: 3}
   m_PrefabInstance: {fileID: 375477465}
   m_PrefabAsset: {fileID: 0}
+--- !u!114 &1666148223 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 538809319, guid: ddc4bad2b0ee6e244bdf61158c2c88ef, type: 3}
+  m_PrefabInstance: {fileID: 538809317}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 454554013721c3c4e807412e830eb914, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &1787626096
 GameObject:
   m_ObjectHideFlags: 0
@@ -3444,7 +3459,7 @@ MonoBehaviour:
   - {fileID: 564026626}
   - {fileID: 758469679}
   - {fileID: 1283784853}
-  stoneCollapseAnimation: {fileID: 0}
+  death: {fileID: 1666148223}
   DrawStepCardAmount: 7
   drawDelay: 0.07
   DrawCardExtra: 0

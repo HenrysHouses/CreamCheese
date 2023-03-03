@@ -26,7 +26,7 @@ public class TurnController : CombatFSM
     [SerializeField] Transform DiscardStartPoint;
     [SerializeField] Transform[] DiscardPositions;
 
-    [SerializeField] public GameObject stoneCollapseAnimation;
+    [SerializeField] public DeathCrumbling death;
 
     // * Combat Variables
 
@@ -151,7 +151,8 @@ public class TurnController : CombatFSM
     public void PlayerDying()
     {
        
-        stoneCollapseAnimation.SetActive(true);
+        
+        death.dying = true;
         
 
 
