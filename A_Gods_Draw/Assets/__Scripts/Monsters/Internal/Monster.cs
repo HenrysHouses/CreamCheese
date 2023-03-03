@@ -227,6 +227,7 @@ public class Monster : BoardElement
                 Instantiate(deathParticleVFX, transform.position, Quaternion.identity);
             
             animator.SetTrigger("Dying");
+            animator.SetInteger("Dying", Random.Range(0,2));
             Destroy(this.gameObject, animator.GetCurrentAnimatorStateInfo(0).length);
 
         }
