@@ -28,7 +28,10 @@ public static class ConditionChecker
 
                     case Conditions.LastAlive:
                     if(_board.getLivingEnemies().Length == 1)
+                    {
                         AddAction(ref _possibleActions, i);
+                        _passed = true;
+                    }
                     break;
 
                     case Conditions.GodPlayed:
@@ -41,12 +44,18 @@ public static class ConditionChecker
 
                     case Conditions.None:
                     AddAction(ref _possibleActions, i);
+                    _passed = true;
                     break;
 
                 }
 
                 if(!_passed && _allNeeded)
+                {
+
+                    _possibleActions.Remove(i);
                     break;
+                    
+                }
 
                 if(!_passed)
                     continue;
@@ -66,8 +75,25 @@ public static class ConditionChecker
         if(_possibleActions.Count > 1)
         {
 
-            //Check weights;
-            return _actions[_possibleActions[0]].Action;
+            int _maxRange = 0;
+            for(int i = 0; i < _possibleActions.Count; i++)
+            {
+
+                _maxRange += _actions[_possibleActions[i]].Weigth;
+
+            }
+
+            int _rnd = Random.Range(0, _maxRange);
+            int _checkVal = 0;
+            for(int i = 0; i < _possibleActions.Count; i++)
+            {
+
+                _checkVal += _actions[_possibleActions[i]].Weigth;
+
+                if(_rnd < _checkVal)
+                    return _actions[_possibleActions[i]].Action;
+
+            }
 
         }
         else if(_possibleActions.Count == 1)
