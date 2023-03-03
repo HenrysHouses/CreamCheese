@@ -132,6 +132,10 @@ PrefabInstance:
       value: 6
       objectReference: {fileID: 0}
     - target: {fileID: 1744794354158232398, guid: 2b9c09d2241bf534da856d40436506a0, type: 3}
+      propertyPath: elements.Description
+      value: 
+      objectReference: {fileID: 3037007687921625026}
+    - target: {fileID: 1744794354158232398, guid: 2b9c09d2241bf534da856d40436506a0, type: 3}
       propertyPath: elements.OnClickSFX.Path
       value: event:/Card Effects/Click Card
       objectReference: {fileID: 0}
@@ -555,6 +559,19 @@ MonoBehaviour:
       Data3: -92037745
       Data4: -1129825697
     Path: event:/UI/HoverOverAnything
+--- !u!114 &3037007687921625026
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7921564987587432617}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9ae55e8846b6b584fbef4fe66cd9cd7c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  PopupInfo: {fileID: 11400000, guid: 3a41e2f8c9dee684cb796d01ab2b3afe, type: 2}
 --- !u!4 &7921564987587432619 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 1744794354158232399, guid: 2b9c09d2241bf534da856d40436506a0, type: 3}
