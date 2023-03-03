@@ -3,6 +3,7 @@
 using UnityEngine;
 using TMPro;
 using UnityEngine.UI;
+using DitzeGames.Effects;
 
 public class PlayerController : BoardElement
 {
@@ -28,6 +29,7 @@ public class PlayerController : BoardElement
             playerTracker.Health = 0;
 
         healthTxt.text = "HP: " + playerTracker.Health.ToString();
+        CameraEffects.ShakeOnce(0.2f,5);
 
     }
 
