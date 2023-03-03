@@ -129,7 +129,9 @@ public abstract class CardAction : Action
                 _thisVFX = GameObject.Instantiate(_VFX.trigger_VFX);
                 _thisVFX.transform.position = source.transform.position + offset;
                 Animator animator = _thisVFX.GetComponentInChildren<Animator>();
-                animTime = animator.GetCurrentAnimatorStateInfo(0).length;
+                
+                if(animator)
+                    animTime = animator.GetCurrentAnimatorStateInfo(0).length;
 
                 DestroyOrder order = _thisVFX.GetComponent<DestroyOrder>();
                 order.destroyVFX();
