@@ -100,8 +100,8 @@ public class Monster : BoardElement
     private void Start()
     {
 
-        Debug.Log("this was commented out so i can continue working, - Henrik");
-        // enemyIntent = new MinionIntent();
+        // Debug.Log("this was commented out so i can continue working, - Henrik");
+        enemyIntent = new MinionIntent();
         enemyIntent.Self = this;
         healthBarColor = healthBarFill.color;
         barrierBarColor = barrierBarFill.color;
@@ -229,7 +229,7 @@ public class Monster : BoardElement
                 Instantiate(deathParticleVFX, transform.position, Quaternion.identity);
             
             animator.SetTrigger("Dying");
-            Destroy(this.gameObject, 4.4f);
+            Destroy(this.gameObject, animator.GetCurrentAnimatorStateInfo(0).length);
 
         }
 
