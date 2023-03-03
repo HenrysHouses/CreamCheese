@@ -5,7 +5,7 @@ using UnityEngine;
 public static class ConditionChecker
 {
 
-    public static MonsterAction CheckConditions(ActionSelection[] _actions)
+    public static MonsterAction CheckConditions(ActionSelection[] _actions, BoardStateController _board)
     {
 
         List<int> _possibleActions = new List<int>();
@@ -13,21 +13,76 @@ public static class ConditionChecker
         if(_actions.Length == 0)
             return null;
 
-        foreach (ActionSelection _action in _actions)
+        int _highestPrio = 0;
+        for(int i = 0; i < _actions.Length; i++)
         {
 
-            switch (_action.ActionCondition[0])
+            ActionSelection _action = _actions[i];
+            bool _allNeeded = _action.AllRequired, _passed;
+            for(int j = 0; j < _action.ActionConditions.Length; j++)
             {
-            
-                case Conditions.GodPlayed:
 
-                break;
-                
+                _passed = false;
+                switch(_action.ActionConditions[j])
+                {
+
+                    case Conditions.LastAlive:
+                    if(_board.getLivingEnemies().Length == 1)
+                        AddAction(ref _possibleActions, i);
+                    break;
+
+                    case Conditions.GodPlayed:
+                    if(_board.isGodPlayed)
+                    {
+                        AddAction(ref _possibleActions, i);
+                        _passed = true;
+                    }
+                    break;
+
+                    case Conditions.None:
+                    AddAction(ref _possibleActions, i);
+                    break;
+
+                }
+
+                if(!_passed && _allNeeded)
+                    break;
+
+                if(!_passed)
+                    continue;
+
+                if(_action.Priority > _highestPrio)
+                    _highestPrio = _action.Priority;
+
             }
-            
+
         }
 
+        if(_possibleActions.Count > 1)
+            for(int i = 0; i < _possibleActions.Count; i++)
+                if(_actions[_possibleActions[i]].Priority < _highestPrio)
+                    _possibleActions.RemoveAt(i);
+        
+        if(_possibleActions.Count > 1)
+        {
+
+            //Check weights;
+            return _actions[_possibleActions[0]].Action;
+
+        }
+        else if(_possibleActions.Count == 1)
+            return _actions[_possibleActions[0]].Action;
+
+        Debug.Log(@"Failed to find a valid action, make sure you have a |None| condition action set");
         return null;
+
+    }
+
+    private static void AddAction(ref List<int> _actions, int _i)
+    {
+
+        if(!_actions.Contains(_i))
+            _actions.Add(_i);
 
     }
 

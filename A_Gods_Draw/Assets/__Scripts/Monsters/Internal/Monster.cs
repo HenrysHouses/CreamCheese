@@ -99,7 +99,7 @@ public class Monster : BoardElement
     {
 
         // Debug.Log("this was commented out so i can continue working, - Henrik");
-        enemyIntent = new MinionIntent();
+        enemyIntent = new MinionIntent(ref EnemyActions);
         enemyIntent.Self = this;
         healthBarColor = healthBarFill.color;
         barrierBarColor = barrierBarFill.color;
@@ -265,7 +265,9 @@ public class Monster : BoardElement
     public void DeBuff(int _amount, bool _onlyOnAttack = false)
     {
 
-        if(_onlyOnAttack && enemyIntent.GetID() != EnemyIntent.AttackGod && enemyIntent.GetID() != EnemyIntent.AttackPlayer)
+        if(_onlyOnAttack && (enemyIntent.GetID() == EnemyIntent.AttackGod || enemyIntent.GetID() == EnemyIntent.AttackPlayer))
+            enemyIntent.SetCurrStrengh((int)Mathf.Clamp(enemyIntent.GetCurrStrengh() - _amount, 0, Mathf.Infinity));
+        else if(!_onlyOnAttack)
             enemyIntent.SetCurrStrengh((int)Mathf.Clamp(enemyIntent.GetCurrStrengh() - _amount, 0, Mathf.Infinity));
 
         UpdateIntentUI();

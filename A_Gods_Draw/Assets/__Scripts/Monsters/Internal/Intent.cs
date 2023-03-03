@@ -57,9 +57,9 @@ public abstract class Intent
 public enum Conditions
 {
 
+    None = 0,
     LastAlive,
-    GodPlayed,
-    None = 0
+    GodPlayed
 
 }
 

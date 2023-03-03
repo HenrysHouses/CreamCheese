@@ -5,58 +5,63 @@ using UnityEngine;
 
 public class MinionIntent : Intent
 {
-    List<Action> Actions = new List<Action>();
 
-    public MinionIntent()
+    //List<Action> Actions = new List<Action>();
+    private ActionSelection[] actions;
+
+    public MinionIntent(ref ActionSelection[] _actions)
     {
-        int scale = GameManager.timesDefeatedBoss;
 
-        Actions.Add(new AttackGodAction(1 + scale, 4 + scale));
-        Actions.Add(new AttackPlayerAction(1 + scale, 4 + scale));
-        Actions.Add(new BuffAttackersAction(2 + scale, 2 + scale));
-        Actions.Add(new DefendAction(1, 4 + scale));
+        actions = _actions;
+        int _scale = GameManager.timesDefeatedBoss;
+
+        for(int i = 0; i < actions.Length; i++)
+        {
+
+            MonsterAction _newAction = null;
+
+            switch(actions[i].ActionType)
+            {
+
+                case EnemyIntent.BuffAttackers:
+                _newAction = new BuffAttackersAction(actions[i].MinStrength + _scale, actions[i].MaxStrength + _scale);
+                break;
+
+                case EnemyIntent.AttackGod:
+                _newAction = new AttackGodAction(actions[i].MinStrength + _scale, actions[i].MaxStrength + _scale);
+                break;
+
+                case EnemyIntent.AttackPlayer:
+                _newAction = new AttackPlayerAction(actions[i].MinStrength + _scale, actions[i].MaxStrength + _scale);
+                break;
+
+                case EnemyIntent.Defend:
+                _newAction = new DefendAction(actions[i].MinStrength + _scale, actions[i].MaxStrength + _scale);
+                break;
+
+            }
+
+            actions[i].Action = _newAction;
+
+        }
+
     }
 
     public T GetAction<T>() where T : Action
     {
-        for (int i = 0; i < Actions.Count; i++)
+        for (int i = 0; i < actions.Length; i++)
         {
-            if(Actions[i] is T)
-                return Actions[i] as T;
+            if(actions[i].Action is T)
+                return actions[i].Action as T;
         }
         return null;
     }
 
-    public override void DecideIntent(BoardStateController board)
+    public override void DecideIntent(BoardStateController _board)
     {
-        if (board.playedGodCard)
-        {
-            if (Random.Range(0, 100) < 33) //If God card is in play 33% chance to attack that instead of player
-            {
-                actionSelected = GetAction<AttackGodAction>();
-                return;
-            }
-        }
-        if (board.getLivingEnemies().Length == 1)
-        {
 
-            actionSelected = GetAction<AttackPlayerAction>();
+        actionSelected = ConditionChecker.CheckConditions(actions, _board);
 
-        }
-        else
-        {
-
-            if(Random.Range(0, 3) == 0 && PreviousAction != GetAction<DefendAction>())
-            {
-
-                GetAction<DefendAction>().toDefend = Self;
-                actionSelected = GetAction<DefendAction>();
-
-            }
-            else
-                actionSelected = GetAction<AttackPlayerAction>();
-
-        }
     }
     public override void LateDecideIntent(BoardStateController _board)
     {

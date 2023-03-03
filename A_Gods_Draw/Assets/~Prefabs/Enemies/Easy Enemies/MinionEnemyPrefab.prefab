@@ -209,9 +209,24 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f61a1f31c2950d4488d6021d1c6af7c0, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  BoardElementInfo: Smol monster mans
+  BoardElementInfo: {fileID: 0}
   ClassName: Monster
   clickable: 1
+  EnemyActions:
+  - ActionType: 4
+    ActionConditions: 00000000
+    MinStrength: 1
+    MaxStrength: 2
+    Weigth: 0
+    Priority: 1
+    AllRequired: 0
+  - ActionType: 2
+    ActionConditions: 02000000
+    MinStrength: 1
+    MaxStrength: 4
+    Weigth: 0
+    Priority: 2
+    AllRequired: 0
   deathParticleVFX: {fileID: 2505349679200391838, guid: 05a4cc1903228714997c82ae6e193f32, type: 3}
   slashParticleVFX: {fileID: 2505349679200391838, guid: 05a4cc1903228714997c82ae6e193f32, type: 3}
   MonsterRenderers:
