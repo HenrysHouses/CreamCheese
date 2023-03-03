@@ -15,6 +15,20 @@ public class Popup_ScriptableObject : ScriptableObject
     public TMP_FontAsset TextFont;
     public Color TextColor = new Color(0,0,0,1);
     public Material TextMaterial;
+
+    public void Clone(ref Popup_ScriptableObject CloneTo)
+    {
+        CloneTo.SpawnLocation = SpawnLocation;
+        CloneTo.Scale = Scale;
+        CloneTo.ShadowOffset = ShadowOffset;
+        CloneTo.Background = Background;
+        CloneTo.BackgroundColor = BackgroundColor;
+        CloneTo.BackgroundMaterial = BackgroundMaterial;
+        CloneTo.Info = Info;
+        CloneTo.TextFont = TextFont;
+        CloneTo.TextColor = TextColor;
+        CloneTo.TextMaterial = TextMaterial;
+    }
 }
 
 [System.Serializable]
