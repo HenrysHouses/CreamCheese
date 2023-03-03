@@ -152,10 +152,14 @@ public class Card_Loader : MonoBehaviour
         elements.cardName.text = _card.CardType.cardName;
         elements.cardName.ForceMeshUpdate();
 
-        Popup_ScriptableObject copy = ScriptableObject.CreateInstance<Popup_ScriptableObject>();
-        elements.Description.PopupInfo.Clone(ref copy);
-        copy.Info = card.CardType.description;
-        elements.Description.PopupInfo = copy;
+        if(elements.Description != null)
+        {
+            Popup_ScriptableObject copy = ScriptableObject.CreateInstance<Popup_ScriptableObject>();
+            elements.Description.PopupInfo.Clone(ref copy);
+            copy.Info = card.CardType.description;
+            elements.Description.PopupInfo = copy;
+        }
+
 
         if(_card.CardType.Background)
             elements.ArtRenderer.material.SetTexture("_MainTex", _card.CardType.Background);
