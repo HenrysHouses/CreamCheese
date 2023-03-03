@@ -6,6 +6,6 @@ using UnityEngine;
 public class InfoElement : MonoBehaviour
 {
 
-    public string BoardElementInfo; //this was very necessary :)
+    public Popup_ScriptableObject BoardElementInfo; //this was very necessary :)
 
 }

@@ -51,8 +51,8 @@ public abstract class Card_Behaviour : BoardElement
                 return new InstakillCardAction();
             case CardActionEnum.Chained:
                 return new ChainCardAction();
-            case CardActionEnum.Storr:
-                return new StorrCardAction();
+            case CardActionEnum.Offering:
+                return new OfferingCardAction();
             case CardActionEnum.SplashDMG:
                 return new SplashDMGCardAction();
             case CardActionEnum.Heal:

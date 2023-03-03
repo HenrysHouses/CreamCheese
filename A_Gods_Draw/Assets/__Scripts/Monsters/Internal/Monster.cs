@@ -90,8 +90,6 @@ public class Monster : BoardElement
 
         UpdateHealthUI();
 
-        BoardElementInfo = "Hello, I am an enemy";
-
         damageSources = new Dictionary<ActionCard_Behaviour, int>();
         debuffDisplays = new Dictionary<Sprite, GameObject>();
 

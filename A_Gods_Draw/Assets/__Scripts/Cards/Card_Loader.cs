@@ -17,7 +17,7 @@ public enum CardActionEnum
     Buff,
     Instakill,
     Chained,
-    Storr,
+    Offering,
     SplashDMG,
     Heal,
     HealPrevention,
@@ -56,6 +56,7 @@ public struct CardElements
     public TextMeshPro desc;
     public TextMeshPro strength;
     public EventReference OnClickSFX;
+    public UIPopup Description;
 }
 
 
@@ -150,6 +151,8 @@ public class Card_Loader : MonoBehaviour
 
         elements.cardName.text = _card.CardType.cardName;
         elements.cardName.ForceMeshUpdate();
+
+        elements.Description.PopupInfo.Info = card.CardType.description;
 
         if(_card.CardType.Background)
             elements.ArtRenderer.material.SetTexture("_MainTex", _card.CardType.Background);

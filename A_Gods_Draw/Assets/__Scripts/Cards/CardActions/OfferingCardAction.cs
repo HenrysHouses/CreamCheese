@@ -3,17 +3,14 @@ using System.Collections;
 using UnityEngine;
 
 [System.Serializable]
-public class StorrCardAction : CardAction
+public class OfferingCardAction : CardAction
 {
     GameObject thing = null;
 
     public override void CardPlaced(BoardStateController board, ActionCard_Behaviour source)
     {
-        for (int i = 0; i < source.stats.strength; i++)
-        {
-            thing = Object.Instantiate(Resources.Load<GameObject>("StorrThing"));
-            board.placeThingOnLane(thing.GetComponent<BoardElement>());
-        }
+        thing = Object.Instantiate(Resources.Load<GameObject>("Offering_PRE"));
+        board.placeThingOnLane(thing.GetComponent<BoardElement>());
     }
 
     protected override void UpdateNeededLanes(ActionCard_Behaviour source)
