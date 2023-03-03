@@ -57,6 +57,7 @@ public struct CardElements
     public TextMeshPro strength;
     public EventReference OnClickSFX;
     public UIPopup Description;
+    public UIPopup Effect;
 }
 
 
@@ -152,13 +153,22 @@ public class Card_Loader : MonoBehaviour
         elements.cardName.text = _card.CardType.cardName;
         elements.cardName.ForceMeshUpdate();
 
-        if(elements.Description != null)
-        {
-            Popup_ScriptableObject copy = ScriptableObject.CreateInstance<Popup_ScriptableObject>();
-            elements.Description.PopupInfo.Clone(ref copy);
-            copy.Info = card.CardType.description;
-            elements.Description.PopupInfo = copy;
-        }
+         if(elements.Description != null)
+         {
+             Popup_ScriptableObject copy = ScriptableObject.CreateInstance<Popup_ScriptableObject>();
+             elements.Description.PopupInfo.Clone(ref copy);
+             copy.Info = card.CardType.description;
+             elements.Description.PopupInfo = copy;
+
+         }
+
+       // if(elements.Description != null)
+       // {
+       //     Popup_ScriptableObject copy = ScriptableObject.CreateInstance<Popup_ScriptableObject>();
+       //     elements.Effect.PopupInfo.Clone(ref copy);
+       //     copy.Info = card.CardType.effect;
+       //     elements.Effect.PopupInfo = copy;
+       // }
 
 
         if(_card.CardType.Background)

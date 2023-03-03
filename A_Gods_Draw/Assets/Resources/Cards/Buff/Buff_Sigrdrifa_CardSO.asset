@@ -16,12 +16,12 @@ MonoBehaviour:
   Art: {fileID: 2800000, guid: 27d165f622a4d1649b1c1bc2c55b2883, type: 3}
   Background: {fileID: 0}
   cardName: 'Sigrdrifa '
-  description: "Sigurd Fafnir\u2019s Bane found atop the mountain Hindafjall a woman,
+  description: 'Buff
+
+'
+  effect: "\n\nSigurd Fafnir\u2019s Bane found atop the mountain Hindafjall a woman,
     sleeping, in full armor. He awoke her, and as a reward she gave him a mead of
     memory, mystic wisdom and prophecies of the future."
-  effect: 'Buff target card for X.
-
-    Heals for X'
   cardStats:
     TargetingView: 7
     SelectionType:
@@ -45,6 +45,7 @@ MonoBehaviour:
           PathSpeed: 0
           trigger_VFX: {fileID: 0}
           hit_VFX: {fileID: 0}
+          HitVFXLifeSpan: 2
       - actionEnum: 7
         action_SFX:
           Guid:
@@ -59,6 +60,7 @@ MonoBehaviour:
           PathSpeed: 0
           trigger_VFX: {fileID: 0}
           hit_VFX: {fileID: 309732925295709495, guid: c50cc9dbd69b27a40920ebf4da31da2e, type: 3}
+          HitVFXLifeSpan: 2
     correspondingGod: 0
     godBuffActions:
       actionStats: []
