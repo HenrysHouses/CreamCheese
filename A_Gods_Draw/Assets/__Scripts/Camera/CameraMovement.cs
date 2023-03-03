@@ -18,10 +18,12 @@ public class CameraMovement : MonoBehaviour
     private GameObject battlemusicCheck;
     public GameObject menuMusicCheck, battleMusicG;
     [SerializeField] EventReference cameraSound;
+    public DeathCrumbling dyingCam;
     // Start is called before the first frame update
     void Start()
     {
         anim = GetComponent<Animator>();
+        
 
         if(instance)
             Destroy(gameObject);
@@ -37,6 +39,12 @@ public class CameraMovement : MonoBehaviour
     {
 
         battlemusicCheck = GameObject.Find("BattleMusic");
+
+       // if(dyingCam.dying)
+       // {
+       //     Destroy(this,1);
+       //     
+       // }
 
 
         if (battlemusicCheck == null)

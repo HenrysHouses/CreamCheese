@@ -100,7 +100,8 @@ public class Monster : BoardElement
     private void Start()
     {
 
-        enemyIntent = new MinionIntent();
+        Debug.Log("this was commented out so i can continue working, - Henrik");
+        // enemyIntent = new MinionIntent();
         enemyIntent.Self = this;
         healthBarColor = healthBarFill.color;
         barrierBarColor = barrierBarFill.color;

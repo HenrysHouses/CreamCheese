@@ -26,6 +26,8 @@ public class TurnController : CombatFSM
     [SerializeField] Transform DiscardStartPoint;
     [SerializeField] Transform[] DiscardPositions;
 
+    [SerializeField] public GameObject stoneCollapseAnimation;
+
     // * Combat Variables
 
     /// <summary>How many cards the player draws at their draw step</summary>
@@ -130,6 +132,8 @@ public class TurnController : CombatFSM
         SoundPlayer.PlaySound(event_, target);
     }
 
+    
+
     // * --- Turn Management ---
 
     public void EndTurn()
@@ -142,6 +146,15 @@ public class TurnController : CombatFSM
                 selectedCard.CancelSelection();
             }
         }
+    }
+
+    public void PlayerDying()
+    {
+       
+        stoneCollapseAnimation.SetActive(true);
+        
+
+
     }
 
 
