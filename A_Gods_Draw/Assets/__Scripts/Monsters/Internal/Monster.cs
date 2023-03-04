@@ -226,7 +226,12 @@ public class Monster : BoardElement
             if (deathParticleVFX != null)
             {
                 GameObject spawn = Instantiate(deathParticleVFX, transform.position, Quaternion.identity);
-                spawn.GetComponent<DestroyOrder>().destroyVFX();
+                DestroyOrder test = spawn.GetComponent<DestroyOrder>();
+                if (test != null)
+                {
+
+                    spawn.GetComponent<DestroyOrder>().destroyVFX();
+                }
             }
             
             animator.SetTrigger("Dying");
