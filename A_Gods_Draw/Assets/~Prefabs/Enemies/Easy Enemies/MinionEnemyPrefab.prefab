@@ -215,16 +215,23 @@ MonoBehaviour:
   EnemyActions:
   - ActionType: 4
     ActionConditions: 00000000
-    MinStrength: 0
-    MaxStrength: 0
-    Weigth: 2
+    MinStrength: 1
+    MaxStrength: 1
+    Weigth: 6
     Priority: 0
     AllRequired: 0
   - ActionType: 2
-    ActionConditions: 00000000
-    MinStrength: 0
-    MaxStrength: 0
+    ActionConditions: 03000000
+    MinStrength: 2
+    MaxStrength: 2
     Weigth: 2
+    Priority: 0
+    AllRequired: 0
+  - ActionType: 3
+    ActionConditions: 02000000
+    MinStrength: 3
+    MaxStrength: 3
+    Weigth: 1
     Priority: 0
     AllRequired: 0
   deathParticleVFX: {fileID: 2505349679200391838, guid: 05a4cc1903228714997c82ae6e193f32, type: 3}

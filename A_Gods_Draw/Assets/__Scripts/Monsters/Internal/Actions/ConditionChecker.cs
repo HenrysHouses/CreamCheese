@@ -48,7 +48,7 @@ public static class ConditionChecker
                     break;
 
                     case Conditions.HasNotDefended:
-                    if(_monster.DefendedLastTurn())
+                    if(!_monster.DefendedLastTurn())
                     {
                         AddAction(ref _possibleActions, i);
                         _passed = true;
