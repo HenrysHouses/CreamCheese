@@ -5,7 +5,7 @@ using UnityEngine;
 public static class ConditionChecker
 {
 
-    public static MonsterAction CheckConditions(ActionSelection[] _actions, BoardStateController _board, Intent _monster)
+    public static MonsterAction CheckConditions(ActionSelection[] _actions, BoardStateController _board, Intent _intent)
     {
 
         List<int> _possibleActions = new List<int>();
@@ -27,14 +27,12 @@ public static class ConditionChecker
                 {
 
                     case Conditions.None:
-                    AddAction(ref _possibleActions, i);
                     _passed = true;
                     break;
 
                     case Conditions.LastAlive:
                     if(_board.getLivingEnemies().Length == 1)
                     {
-                        AddAction(ref _possibleActions, i);
                         _passed = true;
                     }
                     break;
@@ -42,15 +40,34 @@ public static class ConditionChecker
                     case Conditions.GodPlayed:
                     if(_board.isGodPlayed)
                     {
-                        AddAction(ref _possibleActions, i);
                         _passed = true;
                     }
                     break;
 
                     case Conditions.HasNotDefended:
-                    if(!_monster.DefendedLastTurn())
+                    if(!_intent.DefendedLastTurn())
                     {
-                        AddAction(ref _possibleActions, i);
+                        _passed = true;
+                    }
+                    break;
+
+                    case Conditions.HasNotAttacked:
+                    if(!_intent.AttackedLastTurn())
+                    {
+                        _passed = true;
+                    }
+                    break;
+
+                    case Conditions.HasNotActed:
+                    if(!_intent.DidActionLastTurn())
+                    {
+                        _passed = true;
+                    }
+                    break;
+
+                    case Conditions.PlayerLowHealth:
+                    if(_board.Player.Playerhealth < Mathf.RoundToInt(_board.Player.MaxPlayerHealth / 2))
+                    {
                         _passed = true;
                     }
                     break;
@@ -67,6 +84,8 @@ public static class ConditionChecker
 
                 if(!_passed)
                     continue;
+
+                AddAction(ref _possibleActions, i);
 
                 if(_action.Priority > _highestPrio)
                     _highestPrio = _action.Priority;
@@ -107,7 +126,6 @@ public static class ConditionChecker
         else if(_possibleActions.Count == 1)
             return _actions[_possibleActions[0]].Action;
 
-        Debug.Log(@"Failed to find a valid action, make sure you have a |None| condition action set");
         return null;
 
     }

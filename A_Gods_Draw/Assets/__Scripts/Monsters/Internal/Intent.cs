@@ -29,6 +29,8 @@ public abstract class Intent
 
     public virtual void LateDecideIntent(BoardStateController board) { }
     public virtual bool DefendedLastTurn(){return false;}
+    public virtual bool AttackedLastTurn(){return false;}
+    public virtual bool DidActionLastTurn(){return false;}
 
     public int GetCurrStrengh() => strength;
     public int SetCurrStrengh(int newS) => strength = newS;
@@ -61,7 +63,10 @@ public enum Conditions
     None = 0,
     LastAlive,
     GodPlayed,
-    HasNotDefended
+    HasNotDefended,
+    HasNotAttacked,
+    HasNotActed,
+    PlayerLowHealth
 
 }
 

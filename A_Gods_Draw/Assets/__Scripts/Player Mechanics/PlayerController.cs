@@ -7,6 +7,9 @@ using DitzeGames.Effects;
 
 public class PlayerController : BoardElement
 {
+
+    public int Playerhealth {get{return playerTracker.Health;}}
+    public int MaxPlayerHealth {get{return playerTracker.MaxHealth;}}
     [SerializeField] 
     PlayerTracker playerTracker;
     [SerializeField]

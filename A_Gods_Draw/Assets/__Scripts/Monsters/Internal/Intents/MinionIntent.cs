@@ -67,6 +67,22 @@ public class MinionIntent : Intent
 
     }
 
+    public override bool AttackedLastTurn()
+    {
+        if(PreviousAction == GetAction<AttackPlayerAction>() || PreviousAction == GetAction<AttackGodAction>())
+            return true;
+
+        return false;
+    }
+
+    public override bool DidActionLastTurn()
+    {
+        if(PreviousAction != null)
+            return true;
+
+        return false;
+    }
+
     public override void DecideIntent(BoardStateController _board)
     {
 
