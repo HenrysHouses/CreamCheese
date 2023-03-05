@@ -321,12 +321,18 @@ public class CardPlayer : MonoBehaviour
     {
         Ray ray = mainCam.ScreenPointToRay(Input.mousePosition);
 
-        if (Physics.Raycast(ray, out RaycastHit hit, 1000000, cardLayer))
+        RaycastHit[] hits = Physics.RaycastAll(ray, 1000000, cardLayer);
+
+        if (hits.Length > 0)
         {
-            Card_Behaviour _Loader = hit.collider.GetComponent<Card_Behaviour>();
-            if (_Loader)
-                if (_Loader.CanBeSelected())
-                    return _Loader;
+            for (int i = 0; i < hits.Length; i++)
+            {
+                Card_Behaviour _Loader = hits[i].collider.GetComponent<Card_Behaviour>();
+                if (_Loader)
+                    if (_Loader.CanBeSelected())
+                        return _Loader;
+            }
+
         }
         return null;
     }

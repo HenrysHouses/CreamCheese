@@ -49,6 +49,9 @@ public class PopupHold : MonoBehaviour
 
     public void StartPopup(Popup_ScriptableObject Source)
     {
+        if(routine != null)
+            StopCoroutine(routine);
+
         routine = StartCoroutine(Popup(Source));
     }
 

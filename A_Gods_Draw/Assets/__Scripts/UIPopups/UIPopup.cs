@@ -23,4 +23,12 @@ public class UIPopup : MonoBehaviour
         if(PopupInfo)
             PopupHold.instance.StopPopup();
     }
+
+    public void setDescription(string description)
+    {
+        Popup_ScriptableObject tempInfo = PopupInfo;
+        PopupInfo = ScriptableObject.CreateInstance<Popup_ScriptableObject>();
+        tempInfo.Clone(ref PopupInfo);
+        PopupInfo.Info = description;
+    }
 }

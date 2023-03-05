@@ -233,11 +233,14 @@ public class Card_Loader : MonoBehaviour
         for (int i = 0; i < glyphs.Length; i++)
         {
             GameObject icon = Instantiate(IconPrefab);
-            icon.transform.SetParent(IconPath.transform.parent);
-
             OrientedPoint OP = IconPath.GetEvenPathOP(pos * (i+1));
             icon.transform.position = OP.pos;
-            icon.GetComponent<GlyphController>().setGlyph(glyphs[i]);
+            icon.transform.SetParent(IconPath.transform.parent, false);
+            Vector3 eulers = Vector3.zero;
+            icon.transform.localEulerAngles = eulers;
+
+            Card_Selector selector = GetComponent<Card_Selector>();
+            icon.GetComponent<GlyphController>().setGlyph(glyphs[i], selector);
         }
     }
 }

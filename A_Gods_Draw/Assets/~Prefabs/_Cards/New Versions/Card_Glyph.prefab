@@ -10,6 +10,8 @@ GameObject:
   m_Component:
   - component: {fileID: 1724755005977302207}
   - component: {fileID: 1463847087691833208}
+  - component: {fileID: -5285957334975476948}
+  - component: {fileID: 4827559881836118017}
   m_Layer: 0
   m_Name: Card_Glyph
   m_TagString: Untagged
@@ -45,39 +47,44 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ea086afa8adbb414d91f589f8b80a129, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  CardGlyphs: []
-  GodGlyphs:
-  - GlyphType: 0
-    IconTexture: {fileID: 2800000, guid: fbd4220ef92107848bfdfd324b66312a, type: 3}
-    DefaultState: 1
-  - GlyphType: 0
+  CardGlyphs:
+  - GlyphType: 6
     IconTexture: {fileID: 2800000, guid: b1401f21b231ae5438181ebf5eed43d4, type: 3}
+    Description: Deals Damage to enemies adjacent to the target
     DefaultState: 1
-  - GlyphType: 0
-    IconTexture: {fileID: 0}
-    DefaultState: 0
-  - GlyphType: 0
-    IconTexture: {fileID: 0}
-    DefaultState: 0
-  - GlyphType: 0
-    IconTexture: {fileID: 0}
-    DefaultState: 0
-  - GlyphType: 0
-    IconTexture: {fileID: 0}
-    DefaultState: 0
-  - GlyphType: 0
-    IconTexture: {fileID: 0}
-    DefaultState: 0
-  - GlyphType: 0
-    IconTexture: {fileID: 0}
-    DefaultState: 0
-  - GlyphType: 0
-    IconTexture: {fileID: 0}
-    DefaultState: 0
-  - GlyphType: 0
-    IconTexture: {fileID: 0}
-    DefaultState: 0
+  - GlyphType: 7
+    IconTexture: {fileID: 2800000, guid: fbd4220ef92107848bfdfd324b66312a, type: 3}
+    Description: Heals you when this card is triggered
+    DefaultState: 1
+  GodGlyphs: []
   meshRenderer: {fileID: 2364184021287717627}
+  Popup: {fileID: -5285957334975476948}
+--- !u!114 &-5285957334975476948
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1724755005977302204}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9ae55e8846b6b584fbef4fe66cd9cd7c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  PopupInfo: {fileID: 11400000, guid: 3a41e2f8c9dee684cb796d01ab2b3afe, type: 2}
+--- !u!65 &4827559881836118017
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1724755005977302204}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Size: {x: 0.021, y: 0.021, z: 0.007}
+  m_Center: {x: 0, y: 0, z: 0}
 --- !u!1 &6795992612672401427
 GameObject:
   m_ObjectHideFlags: 0
@@ -151,19 +158,19 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 8589173922217360377, guid: 2bb7c841b5e317e41a965e4722780fb7, type: 3}
       propertyPath: m_LocalRotation.w
-      value: 0.70710677
+      value: -0.00000003090862
       objectReference: {fileID: 0}
     - target: {fileID: 8589173922217360377, guid: 2bb7c841b5e317e41a965e4722780fb7, type: 3}
       propertyPath: m_LocalRotation.x
-      value: 0.7071068
+      value: -0.00000003090862
       objectReference: {fileID: 0}
     - target: {fileID: 8589173922217360377, guid: 2bb7c841b5e317e41a965e4722780fb7, type: 3}
       propertyPath: m_LocalRotation.y
-      value: -0.00000010577288
+      value: 0.70710677
       objectReference: {fileID: 0}
     - target: {fileID: 8589173922217360377, guid: 2bb7c841b5e317e41a965e4722780fb7, type: 3}
       propertyPath: m_LocalRotation.z
-      value: -0.0000000854705
+      value: -0.70710677
       objectReference: {fileID: 0}
     - target: {fileID: 8589173922217360377, guid: 2bb7c841b5e317e41a965e4722780fb7, type: 3}
       propertyPath: m_LocalEulerAnglesHint.x
