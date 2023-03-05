@@ -89,6 +89,8 @@ public class TurnController : CombatFSM
         AddFSMState(_combatCard);
         AddFSMState(_combatEnemy);
         AddFSMState(_endStep);
+
+        CameraMovement.instance.SetCameraView(CameraView.Reset);
     }
 
     internal void GodDied(GodCard_Behaviour god)

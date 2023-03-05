@@ -143,7 +143,15 @@ public class Player_Hand : MonoBehaviour
     void HoverOverCard(int index)
     {
         //Debug.Log("HoveringOver");
-        CardSelectionAnimators[index].Selector.transform.rotation = Quaternion.Euler(0, 0, 0);
+        if(CardSelectionAnimators[index].cardAnimation.enabled)
+            CardSelectionAnimators[index].Selector.transform.rotation = Quaternion.Euler(0, 0, 0);
+        else
+        {
+            Vector3 eulers = CardSelectionAnimators[index].Selector.transform.localEulerAngles;
+            eulers.y = 0;
+            eulers.z = 0;
+            CardSelectionAnimators[index].Selector.transform.localEulerAngles = eulers;
+        }
         CardSelectionAnimators[index].cardAnimation.SetBool("ShowCard", true);
     }
 

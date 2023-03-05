@@ -65,6 +65,7 @@ namespace Map
         {
             instance = this;
             cam = Camera.main;
+            CameraMovement.instance.SetCameraView(CameraView.Map);
         }
 
         private void ClearMap()

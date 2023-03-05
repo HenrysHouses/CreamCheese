@@ -75,6 +75,14 @@ public class CardPlayer : MonoBehaviour
         {
             hasClickedLastFrame = true;
         }
+
+        if (Input.GetKeyUp(KeyCode.Mouse1) && _selectedCard != null)
+        {
+            hasClickedLastFrame = true;
+            ActionCard_Behaviour actionCard_ = _selectedCard as ActionCard_Behaviour;
+            actionCard_.MissClick(); 
+        }
+
         // Selects a card
         if (hasClickedLastFrame)
         {
@@ -121,7 +129,6 @@ public class CardPlayer : MonoBehaviour
                     _selectedCard.CancelSelection();
                     shouldCancelSelection = true;
                     path.controlPoints[0].position = _currSelectedCard.targetHandPos;
-                    Debug.Log("unselected");
                     clearTargetMeshes();
                 }
             }
@@ -151,6 +158,7 @@ public class CardPlayer : MonoBehaviour
             _selectedCard.transform.eulerAngles = rot;
             return;
         }
+        
 
         // Moves selected card to hover position
         if(_selectedCard)

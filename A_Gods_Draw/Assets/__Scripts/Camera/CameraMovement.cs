@@ -1,6 +1,6 @@
 // *
 // * Modified by Henrik
-// *
+// * Modified By Snackolay, sorry
 // *
 // *
 
@@ -10,276 +10,113 @@ using HH.MultiSceneTools;
 
 public class CameraMovement : MonoBehaviour
 {
+
+    [SerializeField] CamPos[] _CamPossies;
+    [SerializeField] CamPos TemporaryPosition;
     public static CameraMovement instance;
     //  [SerializeField] EventReference MainCave_AMBX;
-    private Animator anim;
     // private TurnManager TM;
-    private bool attack, buff, godcard, shield;
+    private bool looking,hasSetCamera;
     private GameObject battlemusicCheck;
     public GameObject menuMusicCheck, battleMusicG;
     [SerializeField] EventReference cameraSound;
-    public DeathCrumbling dyingCam;
-    // Start is called before the first frame update
-    void Start()
-    {
-        anim = GetComponent<Animator>();
-        
+    private CamPos endPosition, startPosition;
+    float lerptime;
+    bool isAtLocation;
 
-        if(instance)
+    void Awake()
+    {
+        if (instance)
             Destroy(gameObject);
         else
             instance = this;
+
+        endPosition = GetCamPos(CameraView.Reset);
+        startPosition = GetCamPos(CameraView.Reset);
     }
 
-
-
-
-    // Update is called once per frame
     void Update()
     {
-
         battlemusicCheck = GameObject.Find("BattleMusic");
-
-       // if(dyingCam.dying)
-       // {
-       //     Destroy(this,1);
-       //     
-       // }
-
 
         if (battlemusicCheck == null)
         {
             menuMusicCheck.SetActive(true);
             battleMusicG.SetActive(false);
-
-
         }
         else
         {
             menuMusicCheck.SetActive(false);
             battleMusicG.SetActive(true);
-
         }
 
-
-        // if(TM == null && MultiSceneLoader.getLoadedCollectionTitle.Equals("Combat"))
-        // {
-        //      GameObject G = GameObject.Find("TurnManager");
-        //    if(G)
-        //    {
-        //         TM = G.GetComponent<TurnManager>();
-        //         TM.OnSelectedAttackCard.AddListener(SelectCardCamera);
-        //         TM.OnDeSelectedAttackCard.AddListener(ResetView);
-        //    } 
-        // }
-
-
-        bool _W = Input.GetKeyDown(KeyCode.W);
-        bool _A = Input.GetKeyDown(KeyCode.A);
-        bool _S = Input.GetKeyDown(KeyCode.S);
-        bool _D = Input.GetKeyDown(KeyCode.D);
-
-        bool goDown = _S && !anim.GetBool("Down");
-        bool goRight = _A && !anim.GetBool("Right");
-        bool goUp = _W && !anim.GetBool("Up");
-        bool goLeft = _D && !anim.GetBool("Left");
-
-        bool resetView = _W && anim.GetBool("Down")
-                      || _A && anim.GetBool("Right")
-                      || _S && anim.GetBool("Up")
-                      || _D && anim.GetBool("Left");
-
-
-        if (resetView) // Go to middle
-        {
-            ResetView();
-
-            return;
-        }
+        bool goDown = Input.GetKeyDown(KeyCode.S);
+        bool goRight = Input.GetKeyDown(KeyCode.D);
+        bool goUp = Input.GetKeyDown(KeyCode.W);
+        bool goLeft = Input.GetKeyDown(KeyCode.A);
+        // bool goMap = MultiSceneLoader.getLoadedCollectionTitle.Equals("Map");
+        // bool GoCardReward = MultiSceneLoader.getLoadedCollectionTitle.Equals("CardReward");
+        // bool GoRuneReward = MultiSceneLoader.getLoadedCollectionTitle.Equals("RuneReward");
+        // bool GoLibrary = MultiSceneLoader.getLoadedCollectionTitle.Equals("DeckLibrary");
+        // bool GoTutorial = MultiSceneLoader.getLoadedCollectionTitle.Equals("HowToPlay");
+        // bool resetView = goLeft && Input.GetKeyDown(KeyCode.D) || goRight && Input.GetKeyDown(KeyCode.A);
+       
         if (goDown)
-        {
-            LookDown();
-        }
-        if (goLeft) // go left
-        {
-            LookRight();
-        }
-        if (goRight) // go right
-        {
-            LookLeft();
-        }
-        if (goUp) // go up
-        {
-            LookUp();
-        }
+            SetCameraView(CameraView.Down);
 
-        // Map Scene View
-        if (MultiSceneLoader.getLoadedCollectionTitle.Equals("Map"))
-        {
-            anim.SetBool("Up", false);
-            anim.SetBool("MapCamera", true);
-            //SoundPlayer.PlaySound(cameraSound, gameObject);
-        }
+        if (goLeft)
+            SetCameraView(CameraView.Left);
 
-        else if (MultiSceneLoader.getLoadedCollectionTitle.Equals("CardReward"))
-        {
-            anim.SetBool("MapCamera", false);
-            anim.SetBool("Up", true);
-            //SoundPlayer.PlaySound(cameraSound, gameObject);
-        }
+        if (goRight)
+            SetCameraView(CameraView.Right);
 
-        else if (MultiSceneLoader.getLoadedCollectionTitle.Equals("RuneReward"))
-        {
-            anim.SetBool("MapCamera", false);
-            anim.SetBool("Up", true);
-            //SoundPlayer.PlaySound(cameraSound, gameObject);
-        }
+        if (goUp)
+            SetCameraView(CameraView.Reset);
 
-        else if (MultiSceneLoader.getLoadedCollectionTitle.Equals("DeckLibrary"))
+        if(endPosition.transform.position != transform.position)
         {
-            anim.SetBool("MapCamera", false);
-            anim.SetBool("Up", true);
-            //SoundPlayer.PlaySound(cameraSound, gameObject);
-        }
+            lerptime += Time.deltaTime * 2.5f;
 
-        else if (MultiSceneLoader.getLoadedCollectionTitle.Equals("HowToPlay"))
-        {
-            anim.SetBool("Up", false);
-            anim.SetBool("HowToPlay", true);
-            //SoundPlayer.PlaySound(cameraSound, gameObject);
-        }
-        else
-        {
-            anim.SetBool("HowToPlay", false);
-            anim.SetBool("MapCamera", false);
-
+            transform.position = Vector3.Lerp(startPosition.transform.position, endPosition.transform.position, lerptime);
+            transform.rotation = Quaternion.Lerp(startPosition.transform.rotation, endPosition.transform.rotation, lerptime);
         }
     }
 
-    public void ResetView()
+    private void SetStartPosition()
     {
-        anim.SetBool("EnemyCloseUp", false);
-        anim.SetBool("CardCloseUp", false);
-        anim.SetBool("MapCamera", false);
-        anim.SetBool("Down", false);
-        anim.SetBool("Right", false);
-        anim.SetBool("Up", false);
-        anim.SetBool("Left", false);
-        SoundPlayer.PlaySound(cameraSound, gameObject);
-    }
-
-    public void LookRight()
-    {
-        anim.SetBool("EnemyCloseUp", false);
-        anim.SetBool("CardCloseUp", false);
-        anim.SetBool("MapCamera", false);
-        anim.SetBool("Down", false);
-        anim.SetBool("Right", true);
-        anim.SetBool("Up", false);
-        anim.SetBool("Left", false);
-        SoundPlayer.PlaySound(cameraSound, gameObject);
-    }
-
-    public void LookLeft()
-    {
-        anim.SetBool("EnemyCloseUp", false);
-        anim.SetBool("CardCloseUp", false);
-        anim.SetBool("MapCamera", false);
-        anim.SetBool("Down", false);
-        anim.SetBool("Right", false);
-        anim.SetBool("Up", false);
-        anim.SetBool("Left", true);
-        SoundPlayer.PlaySound(cameraSound, gameObject);
-    }
-
-    public void LookDown()
-    {
-        anim.SetBool("EnemyCloseUp", false);
-        anim.SetBool("CardCloseUp", false);
-        anim.SetBool("MapCamera", false);
-        anim.SetBool("Down", true);
-        anim.SetBool("Right", false);
-        anim.SetBool("Up", false);
-        anim.SetBool("Left", false);
-        SoundPlayer.PlaySound(cameraSound, gameObject);
-    }
-
-    public void LookUp()
-    {
-        anim.SetBool("EnemyCloseUp", false);
-        anim.SetBool("CardCloseUp", false);
-        anim.SetBool("MapCamera", false);
-        anim.SetBool("Down", false);
-        anim.SetBool("Right", false);
-        anim.SetBool("Up", true);
-        anim.SetBool("Left", false);
-        SoundPlayer.PlaySound(cameraSound, gameObject);
-    }
-
-    void LookAtEnemies()
-    {
-        anim.SetBool("EnemyCloseUp", true);
-        anim.SetBool("CardCloseUp", false);
-        anim.SetBool("MapCamera", false);
-        anim.SetBool("Down", false);
-        anim.SetBool("Right", false);
-        anim.SetBool("Up", false);
-        anim.SetBool("Left", false);
-    }
-
-    void LookAtCards()
-    {
-        anim.SetBool("EnemyCloseUp", false);
-        anim.SetBool("CardCloseUp", true);
-        anim.SetBool("MapCamera", false);
-        anim.SetBool("Down", false);
-        anim.SetBool("Right", false);
-        anim.SetBool("Up", false);
-        anim.SetBool("Left", false);
-    }
-
-    void LookAtMap()
-    {
-        anim.SetBool("EnemyCloseUp", false);
-        anim.SetBool("CardCloseUp", false);
-        anim.SetBool("MapCamera", true);
-        anim.SetBool("Down", false);
-        anim.SetBool("Right", false);
-        anim.SetBool("Up", false);
-        anim.SetBool("Left", false);
+        startPosition = TemporaryPosition;
+        TemporaryPosition.transform.position = transform.position;
+        TemporaryPosition.transform.rotation = transform.rotation;
     }
 
     public void SetCameraView(CameraView view)
     {
-        switch(view)
+        SetStartPosition();
+        lerptime = 0;
+
+        for (int i = 0; i < _CamPossies.Length; i++)
         {
-            case CameraView.Reset:
-                ResetView();
-                break;
-            case CameraView.Right:
-                LookRight();
-                break;
-            case CameraView.Left:
-                LookLeft();
-                break;
-            case CameraView.Down:
-                LookDown();
-                break;
-            case CameraView.Up:
-                LookUp();
-                break;
-            case CameraView.EnemyCloseUp:
-                LookAtEnemies();
-                break;
-            case CameraView.CardCloseUp:
-                LookAtCards();
-                break;
-            case CameraView.Map:
-                LookAtMap();
-                break;
+            if(_CamPossies[i].cv == view)
+            {
+                endPosition = _CamPossies[i];
+                Debug.Log("Camera is " + endPosition.cv);
+            }
         }
     }
+
+    public CamPos GetCamPos(CameraView view)
+    {
+        for (int i = 0; i < _CamPossies.Length; i++)
+        {
+            if(_CamPossies[i].cv == view)
+            {
+                return _CamPossies[i];
+            }
+        }
+        throw new UnityException("Camera position was not defined: " + view);
+    }
 }
+
 
 public enum CameraView
 {
@@ -291,5 +128,23 @@ public enum CameraView
     Up,
     EnemyCloseUp,
     CardCloseUp,
-    Map
+    Map,
+    RuneBeforePick,
+    RuneAfterPick,
+    RestPlace,
+    CardReward,
+    Library
+}
+
+[System.Serializable]
+public struct CamPos
+{
+    public Transform transform;
+    public CameraView cv;
+
+    public CamPos(Transform transform)
+    {
+        this.transform = transform;
+        cv = CameraView.None;
+    }
 }

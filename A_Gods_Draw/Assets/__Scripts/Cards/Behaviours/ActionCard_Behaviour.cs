@@ -60,7 +60,7 @@ public class ActionCard_Behaviour : Card_Behaviour
             target = null;
         }
         
-        CameraMovement.instance.ResetView();
+        CameraMovement.instance.SetCameraView(CameraView.Reset);
         cardIsReady = true;
         controller.GetBoard().PlayCard(this);
         TurnController.shouldWaitForAnims = false;
@@ -222,6 +222,15 @@ public class ActionCard_Behaviour : Card_Behaviour
             }
             TurnController.shouldWaitForAnims = true;
             onSelectedRoutine = StartCoroutine(SelectingTargets());
+
+            if(cardType == CardType.Attack || cardType == CardType.Defence)
+            {
+                CameraMovement.instance.SetCameraView(CameraView.EnemyCloseUp);
+            }
+            else if(cardType == CardType.Buff)
+            {
+                CameraMovement.instance.SetCameraView(CameraView.CardCloseUp);
+            }
         }
     }
 

@@ -11,8 +11,7 @@ public class ShouldDestroyCardFromDeck : MonoBehaviour
     [SerializeField] CameraMovement cameraMovement;
 
     private void Start() {
-        cameraMovement = GameObject.FindObjectOfType<CameraMovement>();
-        cameraMovement.LookUp();
+        CameraMovement.instance.SetCameraView(CameraView.Library);
     }
 
     public void DestroyCardNextTimeInLibrary()

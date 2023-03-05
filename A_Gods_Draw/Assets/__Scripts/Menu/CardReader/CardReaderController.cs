@@ -53,7 +53,6 @@ public class CardReaderController : MonoBehaviour
         if(inspectorTarget != null)
         {
             shouldReturn = true;
-            Debug.Log("deselect");
             return;
         }
 
@@ -61,7 +60,6 @@ public class CardReaderController : MonoBehaviour
             return;
         
         ReaderTarget found = hit.collider.GetComponentInChildren<ReaderTarget>();
-        Debug.Log(hit.collider.name);
 
         if(found == null)
             return;

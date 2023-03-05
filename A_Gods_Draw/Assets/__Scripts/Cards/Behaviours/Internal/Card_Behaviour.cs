@@ -117,7 +117,11 @@ public abstract class Card_Behaviour : BoardElement
 
 
     protected virtual void GainExperience(){}
-    public virtual void CancelSelection() { controller.SetSelectedCard(); }
+    public virtual void CancelSelection() 
+    { 
+        controller.SetSelectedCard(); 
+        CameraMovement.instance.SetCameraView(CameraView.Reset);
+    }
     public virtual bool ShouldCancelSelection() { return false; }
     public virtual bool CanBeSelected() { return onPlayerHand; }
 

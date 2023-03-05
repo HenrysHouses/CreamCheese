@@ -31,6 +31,7 @@ public class ChooseCardReward : MonoBehaviour
     private void Start()
     {
         CardOptions = new Card_SO[spots.Length];
+        CameraMovement.instance.SetCameraView(CameraView.CardReward);
         
         GettingType(GameManager.instance.nextRewardType);
     }

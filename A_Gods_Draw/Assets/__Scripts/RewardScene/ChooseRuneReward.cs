@@ -34,6 +34,11 @@ public class ChooseRuneReward : MonoBehaviour
         RuneController = GameObject.FindObjectOfType<RuneStoneController>();
     }
 
+    void Start()
+    {
+        CameraMovement.instance.SetCameraView(CameraView.RuneBeforePick);
+    }
+
     private void Update()
     {
         if(RuneAnimationT <= 0)
@@ -66,9 +71,8 @@ public class ChooseRuneReward : MonoBehaviour
             Path.recalculatePath();
 
 
-            CameraMovement cameraMovement = GameObject.FindObjectOfType<CameraMovement>();
-            cameraMovement.LookLeft();
-
+            CameraMovement.instance.SetCameraView(CameraView.RuneAfterPick);
+            
             RuneAnimationT = 0;
 
             while(RuneAnimationT < 1)
@@ -82,7 +86,7 @@ public class ChooseRuneReward : MonoBehaviour
             _player.addRune(SelectedRune);
             Destroy(obj);
             yield return new WaitForSeconds(1);
-            cameraMovement.LookUp();
+            CameraMovement.instance.SetCameraView(CameraView.Up);
             MultiSceneLoader.loadCollection("Map", collectionLoadMode.Difference);
         }
     }
