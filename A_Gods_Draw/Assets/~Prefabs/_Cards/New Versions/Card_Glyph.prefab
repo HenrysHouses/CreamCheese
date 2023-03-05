@@ -50,15 +50,95 @@ MonoBehaviour:
   CardGlyphs:
   - GlyphType: 6
     IconTexture: {fileID: 2800000, guid: b1401f21b231ae5438181ebf5eed43d4, type: 3}
-    Description: Deals Damage to enemies adjacent to the target
+    Description: '<b>Splash Damage</b>
+
+      Deals Damage to enemies adjacent to
+      the target'
     DefaultState: 1
   - GlyphType: 7
     IconTexture: {fileID: 2800000, guid: fbd4220ef92107848bfdfd324b66312a, type: 3}
-    Description: Heals you when this card is triggered
+    Description: '<b>Heal</b>
+
+      Heals you when this card is triggered'
+    DefaultState: 1
+  - GlyphType: 16
+    IconTexture: {fileID: 0}
+    Description: '<b>Earthquake</b>
+
+      Deals dmg to all enemies (Non flying enemies)'
+    DefaultState: 1
+  - GlyphType: 3
+    IconTexture: {fileID: 0}
+    Description: '<b>Instakill</b>
+
+      Has a chance to instantly kill the target'
+    DefaultState: 1
+  - GlyphType: 4
+    IconTexture: {fileID: 0}
+    Description: '<b>Chains</b>
+
+      Binds the target. Binded enemies can not act'
+    DefaultState: 1
+  - GlyphType: 5
+    IconTexture: {fileID: 0}
+    Description: '<b>Offering</b>
+
+      Requires a card slot to sacrifice as an
+      offering'
+    DefaultState: 1
+  - GlyphType: 8
+    IconTexture: {fileID: 0}
+    Description: '<b>Heal Prevention</b>
+
+      Prevents target to heal'
+    DefaultState: 1
+  - GlyphType: 9
+    IconTexture: {fileID: 0}
+    Description: '<b>Poison</b>
+
+      Deals damage each turn for each stack'
+    DefaultState: 1
+  - GlyphType: 10
+    IconTexture: {fileID: 0}
+    Description: '<b>Draw</b>
+
+      Draw an extra card next turn'
+    DefaultState: 1
+  - GlyphType: 12
+    IconTexture: {fileID: 0}
+    Description: '<b>Frostbite</b>
+
+      Lessens an enemy''s action power'
+    DefaultState: 1
+  - GlyphType: 13
+    IconTexture: {fileID: 0}
+    Description: '<b>Leech</b>
+
+      Heals from damage dealt'
+    DefaultState: 1
+  - GlyphType: 14
+    IconTexture: {fileID: 0}
+    Description: '<b>Exhaust</b>
+
+      This card will be removed from the library
+      for this combat'
+    DefaultState: 1
+  - GlyphType: 15
+    IconTexture: {fileID: 0}
+    Description: '<b>Buff All</b>
+
+      Buffs all cards on the board'
+    DefaultState: 1
+  - GlyphType: 16
+    IconTexture: {fileID: 0}
+    Description: '<b>Earthquake</b>
+
+      Buffs all cards on the board'
     DefaultState: 1
   GodGlyphs: []
   meshRenderer: {fileID: 2364184021287717627}
   Popup: {fileID: -5285957334975476948}
+  Card_Selector: {fileID: 0}
 --- !u!114 &-5285957334975476948
 MonoBehaviour:
   m_ObjectHideFlags: 0

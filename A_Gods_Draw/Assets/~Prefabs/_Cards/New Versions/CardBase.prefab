@@ -10,6 +10,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1744794354158232399}
   - component: {fileID: 1744794354158232398}
+  - component: {fileID: 6384242787358724093}
   m_Layer: 0
   m_Name: CardBase
   m_TagString: Untagged
@@ -64,7 +65,7 @@ MonoBehaviour:
         Data3: -1252100417
         Data4: 1216301398
       Path: event:/Card Effects/Click Card
-    Description: {fileID: 0}
+    Description: {fileID: 6384242787358724093}
     Effect: {fileID: 0}
   _card:
     CardType: {fileID: 0}
@@ -73,6 +74,19 @@ MonoBehaviour:
       Level: 0
       ID: 40
   addComponentAutomatically: 1
+--- !u!114 &6384242787358724093
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1744794354158232397}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9ae55e8846b6b584fbef4fe66cd9cd7c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  PopupInfo: {fileID: 11400000, guid: 3a41e2f8c9dee684cb796d01ab2b3afe, type: 2}
 --- !u!1 &1744794354278003778
 GameObject:
   m_ObjectHideFlags: 0

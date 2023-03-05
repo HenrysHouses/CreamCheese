@@ -137,7 +137,6 @@ public class ChooseRuneReward : MonoBehaviour
                 Transform target = hit.collider.transform.parent;
                 if (target.Equals(spots[i]))
                 {
-                    hit.collider.GetComponent<DisableHighlight>().StayEnabled();
                     hit.transform.GetChild(0).gameObject.SetActive(true);
                     obj = hit.collider.gameObject;
                     return hit.collider.GetComponent<RuneSelector>().Rune;

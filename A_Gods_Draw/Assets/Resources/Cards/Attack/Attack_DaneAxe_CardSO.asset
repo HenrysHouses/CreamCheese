@@ -18,15 +18,7 @@ MonoBehaviour:
   cardName: Great Dane Axe
   description: 'Attack
 
-    Attack an Enemy for X
-
-
-    <b>Earthquake</b>
-
-    Deals
-    dmg to all enemies (Non flying enemies)
-
-'
+    Attack an Enemy for X'
   effect: 'Deals 2 ATK
 
 
@@ -61,7 +53,7 @@ MonoBehaviour:
           trigger_VFX: {fileID: 3273590495200156951, guid: f2908f3673965cb4390dc705aca60e85, type: 3}
           hit_VFX: {fileID: 2604885081968657841, guid: 68774ee4712f84144802b43008224235, type: 3}
           HitVFXLifeSpan: 2
-      - actionEnum: 16
+      - actionEnum: 6
         action_SFX:
           Guid:
             Data1: 0
@@ -73,7 +65,7 @@ MonoBehaviour:
           FollowPath: 0
           isAnimating: 0
           PathSpeed: 0
-          trigger_VFX: {fileID: 9054512271824262774, guid: 000f400dd8ec605468a20a7273023c23, type: 3}
+          trigger_VFX: {fileID: 0}
           hit_VFX: {fileID: 8275379005427366288, guid: 81c8d97df17859c448bad9e0084f2dc4, type: 3}
           HitVFXLifeSpan: 2
     correspondingGod: 0
@@ -102,7 +94,7 @@ MonoBehaviour:
       Upgrades:
       - RequiredXP: 5
         UpgradeType: 2
-        RemovableGlyph: 0000000010000000
+        RemovableGlyph: 0000000006000000
         AddGlyph: 11
         RemoveGlyphIndex: 1
         ValueSelection: 0
@@ -110,7 +102,7 @@ MonoBehaviour:
         EditedValue: 5
       - RequiredXP: 10
         UpgradeType: 0
-        RemovableGlyph: 0000000010000000
+        RemovableGlyph: 0000000006000000
         AddGlyph: 16
         RemoveGlyphIndex: 0
         ValueSelection: 0
@@ -118,7 +110,7 @@ MonoBehaviour:
         EditedValue: 3
       - RequiredXP: 25
         UpgradeType: 2
-        RemovableGlyph: 0000000010000000
+        RemovableGlyph: 0000000006000000
         AddGlyph: 0
         RemoveGlyphIndex: 0
         ValueSelection: 3

@@ -10,7 +10,7 @@ using TMPro;
 public class RuneSelector : MonoBehaviour
 {
     public TextMeshPro RuneName;
-    public TextMeshPro RuneDescription;
+    public UIPopup RuneDescription;
     public rune Rune;
     public void set(RuneType type)
     {
@@ -35,7 +35,7 @@ public class RuneSelector : MonoBehaviour
         if(Rune != null)
         {
             RuneName.text = Rune.RuneData.Name.ToString();
-            RuneDescription.text = Rune.RuneData.Description;
+            RuneDescription.setDescription(Rune.RuneData.Description);
         }
         else
             Destroy(gameObject);

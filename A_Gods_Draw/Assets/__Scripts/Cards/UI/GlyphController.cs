@@ -38,8 +38,12 @@ public class GlyphController : MonoBehaviour
             if(CardGlyphs[i].GlyphType != type)
                 continue;
             
-            meshRenderer.material.SetTexture("_EmissionTex", CardGlyphs[i].IconTexture);
-            meshRenderer.material.SetTexture("_ArtTex", CardGlyphs[i].IconTexture);
+            if(CardGlyphs[i].IconTexture != null)
+            {
+                meshRenderer.material.SetTexture("_EmissionTex", CardGlyphs[i].IconTexture);
+                meshRenderer.material.SetTexture("_ArtTex", CardGlyphs[i].IconTexture);
+            }
+            
             if(CardGlyphs[i].DefaultState)
                 meshRenderer.material.SetFloat("_UseEmission", 1);
             else
@@ -52,11 +56,13 @@ public class GlyphController : MonoBehaviour
 
     void OnMouseEnter()
     {
-        Card_Selector.OnMouseEnter();
+        if(Card_Selector)
+            Card_Selector.OnMouseEnter();
     }
 
     void OnMouseExit()
     {
-        Card_Selector.OnMouseExit();
+        if(Card_Selector)
+            Card_Selector.OnMouseExit();
     }
 }
