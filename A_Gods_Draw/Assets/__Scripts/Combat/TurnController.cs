@@ -45,7 +45,7 @@ public class TurnController : CombatFSM
     public bool isCombatStarted = false;
     public bool shouldEndTurn = false;
     public static bool shouldWaitForAnims;
-    private float failSafeTimer, failSafeThreshold = 10;
+    private float failSafeTimer, failSafeThreshold = 20;
     [SerializeField] bool waitForLibraryShuffle = false;
     CardPathAnim[] CardAnimations;
 
