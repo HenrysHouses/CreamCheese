@@ -44,7 +44,8 @@ public class TurnController : CombatFSM
     public bool isShuffling = false, isDrawing = false, isDiscarding = false;
     public bool isCombatStarted = false;
     public bool shouldEndTurn = false;
-    public static bool shouldWaitForAnims = false;
+    public static bool shouldWaitForAnims;
+    private float failSafeTimer, failSafeThreshold = 10;
     [SerializeField] bool waitForLibraryShuffle = false;
     CardPathAnim[] CardAnimations;
 
@@ -111,6 +112,8 @@ public class TurnController : CombatFSM
 
     protected override void FSMUpdate()
     {
+        CheckFailSafe();
+
         if(BoardStateController.isEncounterInstantiated)
         {
             CurrentState.Reason();
@@ -132,9 +135,32 @@ public class TurnController : CombatFSM
         SoundPlayer.PlaySound(event_, target);
     }
 
-    
-
     // * --- Turn Management ---
+
+    /// <summary>Checks if too much time passes between animations and skips them</summary>
+    private void CheckFailSafe()
+    {
+        if(!shouldWaitForAnims)
+        {
+            failSafeTimer = 0;
+            return;
+        }
+        
+        if(shouldWaitForAnims)
+            failSafeTimer += Time.deltaTime;
+
+        if(failSafeTimer <= 0)
+            return;
+
+        if(failSafeTimer < failSafeThreshold)
+            return;
+
+        failSafeTimer = 0;
+
+        StopAllCoroutines();
+        shouldWaitForAnims = false;
+        Debug.Log("fail safe trigger");
+    }
 
     public void EndTurn()
     {
@@ -373,6 +399,7 @@ public class TurnController : CombatFSM
 
     public void RemoveCardFromBoard(Card_Behaviour card_b)
     {
+        // Figures out the discard position
         Transform ClosestPos = DiscardPositions[0];
         foreach (var pos in DiscardPositions)
         {
@@ -383,8 +410,8 @@ public class TurnController : CombatFSM
         DiscardStartPoint.rotation = ClosestPos.rotation;
         DiscardStartPoint.localScale = ClosestPos.localScale;
         DiscardAnimController.recalculatePath();
-        Debug.Log(DiscardStartPoint.name);
 
+        // Removes card from hand
         if (card_b != null)
         {
             // CardPlayData[] data = new CardPlayData[]{card_b.GetComponent<Card_Loader>()._card};
