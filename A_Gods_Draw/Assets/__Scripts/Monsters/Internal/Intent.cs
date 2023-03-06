@@ -67,7 +67,8 @@ public enum Conditions
     HasNotAttacked,
     HasNotActed,
     PlayerLowHealth,
-    NotSameAction
+    NotSameAction,
+    ExtraTargetsOnBoard
 
 }
 
@@ -79,6 +80,5 @@ public enum EnemyIntent
     AttackGod,
     AttackPlayer,
     None = 5,
-    SummonEnemies,
-    FenrirBite
+    AttackExtraTarget
 }

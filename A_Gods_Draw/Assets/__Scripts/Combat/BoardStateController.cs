@@ -23,6 +23,7 @@ public class BoardStateController : MonoBehaviour
     public PlayerController Player => _Player;
     public Encounter_SO Encounter => _Encounter;
     public Monster[] Enemies => _Enemies;
+    public List<BoardTarget> ExtraEnemyTargets;
     public Transform getLane(int i) => _Lane[i];
     public Transform getGodLane() => _GodLane;
     [HideInInspector] public List<ActionCard_Behaviour> placedCards;

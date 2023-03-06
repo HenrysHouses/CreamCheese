@@ -79,6 +79,13 @@ public static class ConditionChecker
                     }
                     break;
 
+                    case Conditions.ExtraTargetsOnBoard:
+                    if(_board.ExtraEnemyTargets != null)
+                    {
+                        _passed = true;
+                    }
+                    break;
+
                 }
 
                 if(!_passed && _allNeeded)

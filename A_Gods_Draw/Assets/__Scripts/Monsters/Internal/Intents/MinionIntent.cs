@@ -39,12 +39,8 @@ public class MinionIntent : Intent
                 _newAction = new DefendAction(actions[i].MinStrength + _scale, actions[i].MaxStrength + _scale);
                 break;
 
-                case EnemyIntent.SummonEnemies:
-                _newAction = new SummonAction(actions[i].MinStrength, actions[i].MaxStrength);
-                break;
-
-                case EnemyIntent.FenrirBite:
-                _newAction = new FenrirBiteAction(actions[i].MinStrength, actions[i].MaxStrength);
+                case EnemyIntent.AttackExtraTarget:
+                _newAction = new AttackBoardTargetAction(actions[i].MinStrength + _scale, actions[i].MaxStrength + _scale);
                 break;
 
             }
