@@ -22,6 +22,61 @@ public class ActionCard_ScriptableObject : Card_SO
     private void OnValidate() {
         cardStats.UpgradePath.SetGlyphs(cardStats.getGlyphs(CardType.None));
     }
+
+    public string getEffectFormatted()
+    {
+        string output;
+        try
+        {
+            output = string.Format(effect, cardStats.strength);
+        }
+        catch
+        {
+            output = effect;
+        }
+
+        if(cardStats.numberOfTargets > 1)
+        {
+            output += string.Format(" to {0} targets", cardStats.numberOfTargets);
+        }
+        else
+        {
+            output += " to one target";
+        }
+
+        bool space = true;
+
+        for (int i = 0; i < cardStats.actionGroup.actionStats.Count; i++)
+        {
+            if(cardStats.actionGroup.actionStats[i].actionEnum == CardActionEnum.Attack)
+                continue;
+
+            if(cardStats.actionGroup.actionStats[i].actionEnum == CardActionEnum.Defence)
+                continue;
+
+            if(cardStats.actionGroup.actionStats[i].actionEnum == CardActionEnum.Buff)
+                continue;
+
+            if(space)
+            {
+                output += "\n\n";   
+                space = false;
+            }
+
+            output += cardStats.actionGroup.actionStats[i].actionEnum.ToString() + "\n";
+        }
+        return output;
+    }
+
+    public string getFormattedStrength()
+    {
+        string output = cardStats.strength.ToString();
+
+        if(cardStats.numberOfTargets > 1)
+            output += "x" + cardStats.numberOfTargets;
+
+        return output;
+    }
 }
 
 /// <summary>

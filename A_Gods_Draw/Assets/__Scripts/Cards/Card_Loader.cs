@@ -157,9 +157,15 @@ public class Card_Loader : MonoBehaviour
          {
              Popup_ScriptableObject copy = ScriptableObject.CreateInstance<Popup_ScriptableObject>();
              elements.Description.PopupInfo.Clone(ref copy);
-             copy.Info = card.CardType.description;
-             elements.Description.PopupInfo = copy;
-
+             
+             ActionCard_ScriptableObject info = card.CardType as ActionCard_ScriptableObject;
+             
+            if(info)
+                copy.Info = info.getEffectFormatted();
+            else
+                copy.Info = card.CardType.effect;
+            
+            elements.Description.PopupInfo = copy;
          }
 
        // if(elements.Description != null)
@@ -205,6 +211,11 @@ public class Card_Loader : MonoBehaviour
             ActionCard_ScriptableObject Action_Card = _card.CardType as ActionCard_ScriptableObject;
 
             elements.strength.text = Action_Card.cardStats.strength.ToString();
+            
+            if(Action_Card.cardStats.numberOfTargets > 1)
+                elements.strength.text += "x" + Action_Card.cardStats.numberOfTargets;
+
+
 
             // border color
             ChangeOrm(Action_Card.type);

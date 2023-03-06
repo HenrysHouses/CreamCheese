@@ -97,8 +97,11 @@ public abstract class CardAction : Action
                     yield return new WaitUntil(() => _thisVFX == null);
             }
 
-            order.StopAllParticles();
-            order.StopAllAnimations();
+            if(order)
+            {
+                order.StopAllParticles();
+                order.StopAllAnimations();
+            }
             if (_VFX.hit_VFX)
             {
                 GameObject _hitVFX = GameObject.Instantiate(_VFX.hit_VFX);
@@ -122,6 +125,7 @@ public abstract class CardAction : Action
 
             GameObject _thisVFX = null;
             PathController _path = null;
+            DestroyOrder order = null;
             float animTime = 0;
             
             if(_VFX.trigger_VFX)
@@ -129,24 +133,30 @@ public abstract class CardAction : Action
                 _thisVFX = GameObject.Instantiate(_VFX.trigger_VFX);
                 _thisVFX.transform.position = source.transform.position + offset;
                 Animator animator = _thisVFX.GetComponentInChildren<Animator>();
+                order = _thisVFX.GetComponent<DestroyOrder>();
                 
+                if(_VFX.FollowPath)
+                {
+                    _path = GameObject.FindGameObjectWithTag("VFXActionPath").GetComponent<PathController>();
+                    _thisVFX.transform.position = _path.GetEvenPathOP(time).pos;
+                    _path.startPoint.position = source.transform.position - (source.transform.forward * 0.1f);
+                    _path.endPoint.position = target.transform.position + (target.transform.forward * 0.1f);
+                    _path.recalculatePath();
+                }
+
                 if(animator)
                     animTime = animator.GetCurrentAnimatorStateInfo(0).length;
 
-                DestroyOrder order = _thisVFX.GetComponent<DestroyOrder>();
                 
                 if(order)
-                {
                     order.destroyVFX();
-                    order.StopAllParticles();
-                    order.StopAllAnimations();
-                }
             }
 
             if(_VFX.FollowPath && _thisVFX)
             {
                 while(time < animTime)
                 {
+                    Debug.Log(_path);
                     time = Mathf.Clamp01(time + Time.deltaTime * _VFX.PathSpeed);
                     _thisVFX.transform.position = _path.GetEvenPathOP(time).pos;
                     _thisVFX.transform.rotation = _path.GetEvenPathOP(time).rot;
@@ -156,7 +166,12 @@ public abstract class CardAction : Action
             else
                 yield return new WaitUntil(() => _thisVFX == null); 
         
-
+            if(order)
+            {
+                order.StopAllParticles();
+                order.StopAllAnimations();
+            }
+            
             if(_VFX.hit_VFX && target != null)
             {
                 GameObject _hitVFX = GameObject.Instantiate(_VFX.hit_VFX);

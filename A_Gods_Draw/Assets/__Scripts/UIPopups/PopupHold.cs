@@ -26,25 +26,19 @@ public class PopupHold : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        Vector3 mousePos = Input.mousePosition;
-        Vector3 position = Camera.main.ScreenToViewportPoint(mousePos);
-        position.x *=  Screen.width;
-        position.x -=  Screen.width/2;
-        position.y *= Screen.height;
-        position.y -= Screen.height/2;
-        position.z = 0;
+        Vector3 point = new Vector3();
+        Vector2 mousePos = new Vector2();
 
-        transform.localPosition = position;
+        mousePos.x = Input.mousePosition.x;
+        mousePos.y = Input.mousePosition.y;
+
+        point = Camera.main.ScreenToWorldPoint(new Vector3(mousePos.x, mousePos.y, 0.18f));
+        
+        transform.position = point;
+        Vector3 pos = transform.localPosition;
+        pos.z = 0;
+        transform.localPosition = pos;
         transform.rotation = canvas.transform.rotation;
-
-        // Vector3 point = new Vector3();
-        // Vector2 mousePos = new Vector2();
-
-        // mousePos.x = Input.mousePosition.x;
-        // mousePos.y = Camera.main.pixelHeight - Input.mousePosition.y;
-
-        // point = Camera.main.ScreenToWorldPoint(new Vector3(mousePos.x, -mousePos.y+Screen.height, canvas.transform.position.z));
-        // transform.position = point;
     }
 
     public void StartPopup(Popup_ScriptableObject Source)

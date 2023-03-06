@@ -464,8 +464,11 @@ public class Monster : BoardElement
 
     public void Act(BoardStateController board)
     {
-        enemyIntent.Act(board, this);
-        StartCoroutine(WaitForAnims());
+        if(enemyIntent != null)
+        {
+            enemyIntent.Act(board, this);
+            StartCoroutine(WaitForAnims());
+        }
     }
 
     IEnumerator WaitForAnims()

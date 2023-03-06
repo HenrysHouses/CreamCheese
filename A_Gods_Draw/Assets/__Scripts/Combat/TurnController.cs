@@ -161,6 +161,7 @@ public class TurnController : CombatFSM
 
         StopAllCoroutines();
         shouldWaitForAnims = false;
+        BoardStateController.removeNullEnemies(); // ! this may be bad idk yet
         Debug.Log("fail safe trigger");
     }
 

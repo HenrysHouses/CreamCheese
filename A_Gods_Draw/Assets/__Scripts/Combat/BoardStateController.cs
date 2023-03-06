@@ -109,6 +109,11 @@ public class BoardStateController : MonoBehaviour
         isEncounterInstantiated = true;
     }
 
+    public void removeNullEnemies()
+    {
+        _Enemies = getLivingEnemies();
+    }
+
     public Monster[] getLivingEnemies()
     {
         List<Monster> livingEnemies = new List<Monster>();
