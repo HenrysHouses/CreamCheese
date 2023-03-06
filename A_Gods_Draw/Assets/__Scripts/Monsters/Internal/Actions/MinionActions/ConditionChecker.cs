@@ -72,6 +72,13 @@ public static class ConditionChecker
                     }
                     break;
 
+                    case Conditions.NotSameAction:
+                    if(_action.Action != _intent.PreviousAction)
+                    {
+                        _passed = true;
+                    }
+                    break;
+
                 }
 
                 if(!_passed && _allNeeded)

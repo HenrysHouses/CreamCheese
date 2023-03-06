@@ -1,5 +1,5 @@
 // Written by Javier
-
+/*
 using UnityEngine;
 
 public class LokiMonster3Intent : Intent
@@ -28,3 +28,4 @@ public class LokiMonster3Intent : Intent
         strength = Random.Range(actionSelected.MinStrength, actionSelected.MaxStrength + 1);
     }
 }
+*/

@@ -108,7 +108,7 @@ GameObject:
   - component: {fileID: 5966793606316453576}
   - component: {fileID: 2630011422123998013}
   m_Layer: 9
-  m_Name: MinionEnemyPrefab
+  m_Name: TestingEnemy
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -214,11 +214,25 @@ MonoBehaviour:
   clickable: 1
   EnemyActions:
   - ActionType: 7
-    ActionConditions: 00000000
+    ActionConditions: 0400000007000000
     MinStrength: 1
     MaxStrength: 1
-    Weigth: 0
+    Weigth: 3
     Priority: 0
+    AllRequired: 0
+  - ActionType: 4
+    ActionConditions: 07000000
+    MinStrength: 5
+    MaxStrength: 10
+    Weigth: 2
+    Priority: 1
+    AllRequired: 0
+  - ActionType: 3
+    ActionConditions: 0200000007000000
+    MinStrength: 5
+    MaxStrength: 10
+    Weigth: 2
+    Priority: 1
     AllRequired: 0
   deathParticleVFX: {fileID: 2505349679200391838, guid: 05a4cc1903228714997c82ae6e193f32, type: 3}
   slashParticleVFX: {fileID: 2505349679200391838, guid: 05a4cc1903228714997c82ae6e193f32, type: 3}

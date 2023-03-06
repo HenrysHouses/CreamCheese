@@ -66,7 +66,8 @@ public enum Conditions
     HasNotDefended,
     HasNotAttacked,
     HasNotActed,
-    PlayerLowHealth
+    PlayerLowHealth,
+    NotSameAction
 
 }
 
@@ -77,5 +78,7 @@ public enum EnemyIntent
     Defend,
     AttackGod,
     AttackPlayer,
-    None = 5
+    None = 5,
+    SummonEnemies,
+    FenrirBite
 }
