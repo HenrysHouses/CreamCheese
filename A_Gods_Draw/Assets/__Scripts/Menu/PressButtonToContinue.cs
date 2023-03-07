@@ -8,13 +8,29 @@ public class PressButtonToContinue : MonoBehaviour
 {
     [SerializeField] string MainMenuCollectionTitle = "MainMenu";
 
-    [SerializeField] SceneTransition transition;
+    [SerializeField] GameObject NewGameButton, ContinueButton, PressToContinueText;
 
     bool shouldLoad = false;
+
+    void Awake()
+    {
+        Map.Map currentSave;
+
+        if(Map.Map_Manager.loadMap(out currentSave))
+        {
+            NewGameButton.SetActive(true);
+            ContinueButton.SetActive(true);
+            PressToContinueText.SetActive(false);
+            gameObject.SetActive(false);
+        }
+    }
 
     // Update is called once per frame
     void Update()
     {
+        if(!gameObject.activeSelf)
+            return;
+
         if(Input.anyKeyDown && !LoadingScreen.IsAnimating)
         {
             StartCoroutine(LoadingScreen.Instance.EnterLoadingScreen());

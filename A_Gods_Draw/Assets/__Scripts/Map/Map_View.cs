@@ -186,7 +186,7 @@ namespace Map
                 node.SetState(NodeStates.Locked);
             }
 
-            if (mapManager.CurrentMap.path.Count == 0)
+            if (Map_Manager.CurrentMap.path.Count == 0)
             {
                 foreach (Map_Nodes node in MapNodes.Where(n => n.Node.point.y == 0))
                 {
@@ -195,7 +195,7 @@ namespace Map
             }
             else
             {
-                foreach (MapPoint point in mapManager.CurrentMap.path)
+                foreach (MapPoint point in Map_Manager.CurrentMap.path)
                 {
                     Map_Nodes mapNodes = GetNodes(point);
                     if (mapNodes != null)
@@ -204,8 +204,8 @@ namespace Map
                     }
                 }
 
-                MapPoint currentPoint = mapManager.CurrentMap.path[mapManager.CurrentMap.path.Count - 1];
-                Node currentNode = mapManager.CurrentMap.GetNode(currentPoint);
+                MapPoint currentPoint = Map_Manager.CurrentMap.path[Map_Manager.CurrentMap.path.Count - 1];
+                Node currentNode = Map_Manager.CurrentMap.GetNode(currentPoint);
 
                 foreach(MapPoint point in currentNode.outgoing)
                 {
@@ -224,13 +224,13 @@ namespace Map
                 connection.SetColor(lineLockedColor);
             }
 
-            if(mapManager.CurrentMap.path.Count == 0)
+            if(Map_Manager.CurrentMap.path.Count == 0)
             {
                 return;
             }
 
-            MapPoint currentPoint = mapManager.CurrentMap.path[mapManager.CurrentMap.path.Count - 1];
-            Node currentNode = mapManager.CurrentMap.GetNode(currentPoint);
+            MapPoint currentPoint = Map_Manager.CurrentMap.path[Map_Manager.CurrentMap.path.Count - 1];
+            Node currentNode = Map_Manager.CurrentMap.GetNode(currentPoint);
 
             foreach(MapPoint point in currentNode.outgoing)
             {
@@ -238,15 +238,15 @@ namespace Map
                 pathConnection?.SetColor(lineVisitedColor);
             }
 
-            if(mapManager.CurrentMap.path.Count <= 1)
+            if(Map_Manager.CurrentMap.path.Count <= 1)
             {
                 return;
             }
 
-            for(int i = 0; i < mapManager.CurrentMap.path.Count - 1; i++)
+            for(int i = 0; i < Map_Manager.CurrentMap.path.Count - 1; i++)
             {
-                MapPoint current = mapManager.CurrentMap.path[i];
-                MapPoint next = mapManager.CurrentMap.path[i + 1];
+                MapPoint current = Map_Manager.CurrentMap.path[i];
+                MapPoint next = Map_Manager.CurrentMap.path[i + 1];
                 Path pathConnection = path.FirstOrDefault(conn => conn.from.Node.point.Equals(current) && conn.to.Node.point.Equals(next));
                 pathConnection?.SetColor(lineVisitedColor);
             }
@@ -255,7 +255,7 @@ namespace Map
         private void Orientation()
         {
             ScrollNonUI scrollNonUI = mapParent.GetComponent<ScrollNonUI>();
-            float span = mapManager.CurrentMap.DistLayers();
+            float span = Map_Manager.CurrentMap.DistLayers();
             Map_Nodes bossNode = MapNodes.FirstOrDefault(node => node.Node.nodeType == NodeType.Boss);
             scrollNonUI.ScrollMinMaxBounds = ScrollBounds;
 
@@ -420,13 +420,13 @@ namespace Map
 
         public NodeBlueprint GetNodeBlueprint(NodeType type)
         {
-            Map_Configuration config = GetConfiguration(mapManager.CurrentMap.configName);
+            Map_Configuration config = GetConfiguration(Map_Manager.CurrentMap.configName);
             return config.nodeBlueprints.FirstOrDefault(n => n.nodeType == type);
         }
 
         public NodeBlueprint GetNodeBlueprint(string blueprintName)
         {
-            Map_Configuration config = GetConfiguration(mapManager.CurrentMap.configName);
+            Map_Configuration config = GetConfiguration(Map_Manager.CurrentMap.configName);
             return config.nodeBlueprints.FirstOrDefault(n => n.name == blueprintName);
         }
     }

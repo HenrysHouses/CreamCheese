@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
+using HH.MultiSceneTools;
 
 public class LoadingScreen : MonoBehaviour
 {
@@ -33,6 +34,23 @@ public class LoadingScreen : MonoBehaviour
         canvas.worldCamera = Camera.main;
         yield return new WaitForSeconds(Animator.GetCurrentAnimatorStateInfo(0).length);
         IsAnimating = false;
+    }
+
+    public IEnumerator EnterLoadingScreen(string loadSceneCollection, collectionLoadMode mode)
+    {
+        IsAnimating = true;
+        
+        SceneManager.sceneLoaded += FinishLoadingScreen;
+
+        Animator.Play("EnterLoading");
+        canvas.worldCamera = Camera.main;
+        yield return new WaitForSeconds(Animator.GetCurrentAnimatorStateInfo(0).length);
+        IsAnimating = false;
+
+        if(loadSceneCollection == "")
+            yield break;
+
+        MultiSceneLoader.loadCollection(loadSceneCollection, mode);
     }
 
     private void FinishLoadingScreen(Scene scene, LoadSceneMode mode)
