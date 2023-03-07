@@ -21,7 +21,12 @@ public class ChainCardAction : CardAction
             {
 
                 if(!_boardTargets[i].IsActive)
+                {
+
                     _boardTargets[i].ReActivate();
+                    break;
+                
+                }
 
             }
 

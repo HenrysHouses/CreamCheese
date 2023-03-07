@@ -113,6 +113,14 @@ public class BoardStateController : MonoBehaviour
         isEncounterInstantiated = true;
     }
 
+    public void AddBoardTarget(BoardTarget _target)
+    {
+
+        ActiveExtraEnemyTargets.Add(_target);
+        AllExtraEnemyTargets.Add(_target);
+
+    }
+
     public void removeNullEnemies()
     {
         _Enemies = getLivingEnemies();

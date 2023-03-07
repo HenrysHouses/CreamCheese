@@ -7,7 +7,9 @@ public class ChainTower : BoardTarget
 
 
     [SerializeField]
-    private GameObject gfx;
+    private GameObject gfx, damageEffect;
+    [SerializeField]
+    private Vector3 effectOffset;
     [SerializeField]
     private CardPlayData specialGleipnirCard;
 
@@ -16,7 +18,7 @@ public class ChainTower : BoardTarget
 
         currentHealth = maxHealth;
         Board = Component.FindObjectOfType<BoardStateController>();
-        Board.ActiveExtraEnemyTargets.Add(this);
+        Board.AddBoardTarget(this);
 
     }
 
@@ -24,6 +26,8 @@ public class ChainTower : BoardTarget
     {
 
         currentHealth -= _amount;
+
+        Destroy(GameObject.Instantiate(damageEffect, transform.position, Quaternion.identity), 0.4f);
 
         if(currentHealth <= 0)
         {
