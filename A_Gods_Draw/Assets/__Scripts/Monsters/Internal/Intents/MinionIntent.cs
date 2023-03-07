@@ -43,6 +43,10 @@ public class MinionIntent : Intent
                 _newAction = new AttackBoardTargetAction(actions[i].MinStrength + _scale, actions[i].MaxStrength + _scale);
                 break;
 
+                case EnemyIntent.DoubleAttack:
+                _newAction = new DoubleAttackAction(actions[i].MinStrength + _scale, actions[i].MaxStrength + _scale);
+                break;
+
             }
 
             actions[i].Action = _newAction;
@@ -98,8 +102,10 @@ public class MinionIntent : Intent
 
         if (actionSelected == null)
             actionSelected = GetAction<AttackPlayerAction>();
-        
-        strength = Random.Range(actionSelected.MinStrength, actionSelected.MaxStrength + 1);
+
+        if (actionSelected != null)
+            strength = Random.Range(actionSelected.MinStrength, actionSelected.MaxStrength + 1);
+            
         PreviousAction = actionSelected;
 
     }

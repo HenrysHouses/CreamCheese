@@ -74,11 +74,11 @@ public enum Conditions
 
 public enum EnemyIntent
 {
-    Buff,
     BuffAttackers,
     Defend,
     AttackGod,
     AttackPlayer,
     None = 5,
-    AttackExtraTarget
+    AttackExtraTarget,
+    DoubleAttack
 }
