@@ -68,7 +68,7 @@ public class MinionIntent : Intent
     public override bool DefendedLastTurn()
     {
 
-        if(PreviousAction == GetAction<DefendAction>())
+        if(GetAction<DefendAction>() != null && PreviousAction == GetAction<DefendAction>())
             return true;
         
         return false;
@@ -77,7 +77,7 @@ public class MinionIntent : Intent
 
     public override bool AttackedLastTurn()
     {
-        if(PreviousAction == GetAction<AttackPlayerAction>() || PreviousAction == GetAction<AttackGodAction>())
+        if((GetAction<AttackPlayerAction>() != null && PreviousAction == GetAction<AttackPlayerAction>()) || (GetAction<AttackGodAction>() != null && PreviousAction == GetAction<AttackGodAction>()))
             return true;
 
         return false;
