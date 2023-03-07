@@ -387,6 +387,7 @@ public class Monster : BoardElement
         queuedDamage = 0;
         queuedPierce = 0;
         queuedPoison = 0;
+        UpdateHealthDamageUI();
 
         enemyIntent.CancelIntent();
         enemyIntent.DecideIntent(board);

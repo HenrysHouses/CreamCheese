@@ -28,10 +28,24 @@ public abstract class CardAction : Action
 
 
         //Check for attack actions instead of cardtype for updating queued damage
-        if(_source == null || _source.GetCardType != CardType.Attack) 
+        if(_source == null || _source.GetCardType != CardType.Attack /*|| !CardHasAttackAction(_source)*/) 
             return;
         
         UpdateQueuedDamage(_source);
+    }
+
+    public bool CardHasAttackAction(ActionCard_Behaviour _source)
+    {
+
+        foreach (CardAction _action in _source.CardSO.cardStats.actionGroup.actions)
+        {
+
+            
+            
+        }
+
+        return false;
+
     }
 
     public void UpdateQueuedDamage(ActionCard_Behaviour _source) //Needs to update when a card is buffed :)))
