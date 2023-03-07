@@ -100,12 +100,9 @@ public class MinionIntent : Intent
     public override void LateDecideIntent(BoardStateController _board)
     {
 
-        if (actionSelected == null)
-            actionSelected = GetAction<AttackPlayerAction>();
-
         if (actionSelected != null)
             strength = Random.Range(actionSelected.MinStrength, actionSelected.MaxStrength + 1);
-            
+
         PreviousAction = actionSelected;
 
     }

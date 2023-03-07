@@ -44,7 +44,8 @@ public class ChainTower : BoardTarget
     public void ReActivate()
     {
 
-
+        gfx.SetActive(true);
+        Board.ExtraEnemyTargets.Add(this);
 
     }
 

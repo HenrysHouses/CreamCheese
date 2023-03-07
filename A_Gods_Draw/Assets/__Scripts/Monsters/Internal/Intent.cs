@@ -59,7 +59,6 @@ public abstract class Intent
 
 public enum Conditions
 {
-
     None = 0,
     LastAlive,
     GodPlayed,
@@ -68,8 +67,8 @@ public enum Conditions
     HasNotActed,
     PlayerLowHealth,
     NotSameAction,
-    ExtraTargetsOnBoard
-
+    ExtraTargetsOnBoard,
+    SelfIsHurt
 }
 
 public enum EnemyIntent

@@ -86,6 +86,13 @@ public static class ConditionChecker
                     }
                     break;
 
+                    case Conditions.SelfIsHurt:
+                    if(_intent.Self.GetHealth() < Mathf.RoundToInt(_intent.Self.GetMaxHealth() / 2))
+                    {
+                        _passed = true;
+                    }
+                    break;
+
                 }
 
                 if(!_passed && _allNeeded)
