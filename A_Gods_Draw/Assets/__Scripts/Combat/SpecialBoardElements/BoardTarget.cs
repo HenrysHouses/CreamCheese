@@ -2,10 +2,11 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class BoardTarget : MonoBehaviour
+public abstract class BoardTarget : MonoBehaviour
 {
 
     public BoardStateController Board;
+    public bool IsActive = true;
     public int MaxHealth
     {
         get{return maxHealth;}
@@ -15,6 +16,8 @@ public class BoardTarget : MonoBehaviour
     [SerializeField]
     protected int currentHealth;
 
-    public virtual void TakeDamage(int _amount){}
+    public abstract void TakeDamage(int _amount);
+    protected abstract void DeActivate();
+    public abstract void ReActivate();
 
 }

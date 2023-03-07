@@ -118,6 +118,12 @@ public class DeckController : MonoBehaviour
         pBoard.Clear();
     }
 
+    ///<summary>Adds a card to the Library for this encounter</summary>
+    public void AddCardToLib(CardPlayData card)
+    {
+        pLibrary.Add(card);
+    }
+
     public void setCurrentDeck(DeckList_SO playerDeck)
     {
         deckList = playerDeck.Clone();

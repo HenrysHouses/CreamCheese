@@ -9,13 +9,14 @@ public class ChainTower : BoardTarget
     [SerializeField]
     private GameObject gfx;
     [SerializeField]
+    private CardPlayData specialGleipnirCard;
 
     private void Start()
     {
 
         currentHealth = maxHealth;
         Board = Component.FindObjectOfType<BoardStateController>();
-        Board.ExtraEnemyTargets.Add(this);
+        Board.ActiveExtraEnemyTargets.Add(this);
 
     }
 
@@ -33,19 +34,23 @@ public class ChainTower : BoardTarget
 
     }
 
-    private void DeActivate()
+    protected override void DeActivate()
     {
 
         gfx.SetActive(false);
-        Board.ExtraEnemyTargets.Remove(this);
+        IsActive = false;
+        Board.ActiveExtraEnemyTargets.Remove(this);
+        GameObject.FindObjectOfType<DeckController>().AddCardToLib(specialGleipnirCard);
 
     }
 
-    public void ReActivate()
+    public override void ReActivate()
     {
 
+        currentHealth = maxHealth;
         gfx.SetActive(true);
-        Board.ExtraEnemyTargets.Add(this);
+        IsActive = true;
+        Board.ActiveExtraEnemyTargets.Add(this);
 
     }
 

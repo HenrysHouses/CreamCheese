@@ -17,10 +17,10 @@ public class AttackBoardTargetAction : MonsterAction
     public override void Execute(BoardStateController _board, int _strength, Object _source = null)
     {
         
-        if(_board.ExtraEnemyTargets.Count <= 0)
+        if(_board.ActiveExtraEnemyTargets.Count <= 0)
             return;
 
-        _board.ExtraEnemyTargets[Random.Range(0, _board.ExtraEnemyTargets.Count)].TakeDamage(_strength);
+        _board.ActiveExtraEnemyTargets[Random.Range(0, _board.ActiveExtraEnemyTargets.Count)].TakeDamage(_strength);
 
         Monster _enemy = _source as Monster;
         if(_enemy)

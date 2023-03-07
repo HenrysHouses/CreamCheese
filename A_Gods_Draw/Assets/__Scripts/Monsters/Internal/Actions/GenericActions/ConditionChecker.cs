@@ -80,7 +80,7 @@ public static class ConditionChecker
                     break;
 
                     case Conditions.ExtraTargetsOnBoard:
-                    if(_board.ExtraEnemyTargets != null)
+                    if(_board.ActiveExtraEnemyTargets != null)
                     {
                         _passed = true;
                     }

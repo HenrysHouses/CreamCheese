@@ -18,7 +18,7 @@ public class DoubleAttackAction : MonsterAction
     {
 
         int _attacks = 0;
-        BoardTarget[] _targets = _board.ExtraEnemyTargets.ToArray();
+        BoardTarget[] _targets = _board.ActiveExtraEnemyTargets.ToArray();
 
         if(_board.ActiveBattleFieldType == BattlefieldID.Fenrir)
         {
@@ -39,9 +39,9 @@ public class DoubleAttackAction : MonsterAction
             else
             {
 
-                _board.ExtraEnemyTargets[Random.Range(0, _board.ExtraEnemyTargets.Count)].TakeDamage(_strength);
-                if(_board.ExtraEnemyTargets.Count > 0)
-                    _board.ExtraEnemyTargets[Random.Range(0, _board.ExtraEnemyTargets.Count)].TakeDamage(_strength);
+                _board.ActiveExtraEnemyTargets[Random.Range(0, _board.ActiveExtraEnemyTargets.Count)].TakeDamage(_strength);
+                if(_board.ActiveExtraEnemyTargets.Count > 0)
+                    _board.ActiveExtraEnemyTargets[Random.Range(0, _board.ActiveExtraEnemyTargets.Count)].TakeDamage(_strength);
                 else if(Random.Range(0, 2) == 0)
                     _board.Player.DealDamage(_strength);
                 else
@@ -71,9 +71,9 @@ public class DoubleAttackAction : MonsterAction
                     break;
 
                     case 2:
-                    if(_board.ExtraEnemyTargets != null)
+                    if(_board.ActiveExtraEnemyTargets != null)
                     {
-                        _board.ExtraEnemyTargets[Random.Range(0, _board.ExtraEnemyTargets.Count)].TakeDamage(_strength);
+                        _board.ActiveExtraEnemyTargets[Random.Range(0, _board.ActiveExtraEnemyTargets.Count)].TakeDamage(_strength);
                         _attacks += 1;
                     }
                     break;
