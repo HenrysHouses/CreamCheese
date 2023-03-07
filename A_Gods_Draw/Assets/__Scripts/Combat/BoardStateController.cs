@@ -49,6 +49,7 @@ public class BoardStateController : MonoBehaviour
     [SerializeField] Transform EnemyParent;
     Encounter_SO _Encounter;
     [SerializeField] Battlefield[] Battlefields;
+    public BattlefieldID ActiveBattleFieldType;
     Monster[] _Enemies;
     [SerializeField] Transform[] _Lane;
     [SerializeField] Transform _GodLane;
@@ -106,6 +107,7 @@ public class BoardStateController : MonoBehaviour
             if(field.type.Equals(_Encounter.battlefieldID))
                 field.Mesh.SetActive(true);
         }
+        ActiveBattleFieldType = _Encounter.battlefieldID;
 
         isEncounterInstantiated = true;
     }

@@ -20,7 +20,7 @@ public class DoubleAttackAction : MonsterAction
         int _attacks = 0;
         BoardTarget[] _targets = _board.ExtraEnemyTargets.ToArray();
 
-        if(_source as FenrirBoss != null)
+        if(_board.ActiveBattleFieldType == BattlefieldID.Fenrir)
         {
 
             int _chance = Random.Range(0, 4);

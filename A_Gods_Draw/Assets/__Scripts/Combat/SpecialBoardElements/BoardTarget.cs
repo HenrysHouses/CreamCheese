@@ -12,6 +12,7 @@ public class BoardTarget : MonoBehaviour
     }
     [SerializeField]
     protected int maxHealth;
+    [SerializeField]
     protected int currentHealth;
 
     public virtual void TakeDamage(int _amount){}

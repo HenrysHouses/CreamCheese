@@ -9,7 +9,7 @@ public class AttackBoardTargetAction : MonsterAction
     {
 
         ActionID = (int)EnemyIntent.AttackPlayer;
-        actionIcon = Resources.Load<Sprite>("EnemyData/Icons/Icon_Sword_IMG_v1");
+        actionIcon = Resources.Load<Sprite>("EnemyData/Icons/Icon_Buff_IMG_v7");
         desc = "This enemy will attack the player";
 
     }
@@ -17,9 +17,10 @@ public class AttackBoardTargetAction : MonsterAction
     public override void Execute(BoardStateController _board, int _strength, Object _source = null)
     {
         
-        BoardTarget[] _targets = _board.ExtraEnemyTargets.ToArray();
+        if(_board.ExtraEnemyTargets.Count <= 0)
+            return;
 
-        _targets[Random.Range(0, _targets.Length)].TakeDamage(_strength);
+        _board.ExtraEnemyTargets[Random.Range(0, _board.ExtraEnemyTargets.Count)].TakeDamage(_strength);
 
         Monster _enemy = _source as Monster;
         if(_enemy)
