@@ -11,23 +11,19 @@ namespace Map
         public Map_Configuration configuration;
         public Map_View view;
 
-        public Map CurrentMap { get; private set; }
+        public static Map CurrentMap { get; private set; }
 
         // Start is called before the first frame update
         private void Start()
         {
-            if (PlayerPrefs.HasKey("Map"))
-            {
-                string mapJson = PlayerPrefs.GetString("Map");
-                Map map = JsonConvert.DeserializeObject<Map>(mapJson);
+            Map map;
 
+            if (loadMap(out map))
+            {
                 // if (map.path.Contains(map.GetBossNode().point))
                 // {
                 //     GenerateNewMap();
                 // }
-
-
-
                 // Debug.Log(map.GetBossNode());
 
                 if (map.path.Any(p => p.Equals(map.GetBossNode().point)) || GameManager.instance.shouldGenerateNewMap)
@@ -57,7 +53,18 @@ namespace Map
             GameManager.instance.shouldGenerateNewMap = false;
         }
 
-        public void SavingMap()
+        public static bool loadMap(out Map map)
+        {
+            map = null;
+            if (!PlayerPrefs.HasKey("Map"))
+                return false;
+
+            string mapJson = PlayerPrefs.GetString("Map");
+            map = JsonConvert.DeserializeObject<Map>(mapJson);
+            return true;
+        }
+
+        public static void SavingMap()
         {
             if(CurrentMap == null)
             {

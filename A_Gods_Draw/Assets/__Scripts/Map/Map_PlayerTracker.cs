@@ -36,7 +36,7 @@ namespace Map
                 return;
             }
 
-            if (mapManager.CurrentMap.path.Count == 0)
+            if (Map_Manager.CurrentMap.path.Count == 0)
             {
                 //the player has not selected the node yet, they can select any of the nodes with y = 0
                 if (mapNode.Node.point.y == 0)
@@ -50,8 +50,8 @@ namespace Map
             }
             else
             {
-                MapPoint currentPoint = mapManager.CurrentMap.path[mapManager.CurrentMap.path.Count - 1];
-                Node currentNode = mapManager.CurrentMap.GetNode(currentPoint);
+                MapPoint currentPoint = Map_Manager.CurrentMap.path[Map_Manager.CurrentMap.path.Count - 1];
+                Node currentNode = Map_Manager.CurrentMap.GetNode(currentPoint);
 
                 if (currentNode != null && currentNode.outgoing.Any(point => point.Equals(mapNode.Node.point)))
                 {
@@ -67,8 +67,9 @@ namespace Map
         private void SendPlayerToNode(Map_Nodes map_Nodes)
         {
             Locked = lockAfterSelect;
-            mapManager.CurrentMap.path.Add(map_Nodes.Node.point);
-            mapManager.SavingMap(); //
+            Map_Manager.CurrentMap.path.Add(map_Nodes.Node.point);
+            Map_Manager.SavingMap(); // ! this should happen later
+            Debug.LogError("Saving the map should not happen here");
 
             view.SetPickableNodes();
             view.SetPathColor();
