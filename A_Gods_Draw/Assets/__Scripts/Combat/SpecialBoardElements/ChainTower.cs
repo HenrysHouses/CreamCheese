@@ -8,7 +8,7 @@ public class ChainTower : BoardTarget
 
 
     [SerializeField]
-    private GameObject gfx, damageEffect;
+    private GameObject gfx, damageEffect, chainbreak;
     [SerializeField]
     private Vector3 effectOffset;
     [SerializeField]
@@ -32,9 +32,12 @@ public class ChainTower : BoardTarget
 
         Destroy(GameObject.Instantiate(damageEffect, transform.position, Quaternion.identity), 0.4f);
 
-        if(currentHealth <= 0)
+        if (currentHealth <= 0)
         {
-            SoundPlayer.PlaySound(chainsnap,gameObject);
+            SoundPlayer.PlaySound(chainsnap, gameObject);
+            Destroy(GameObject.Instantiate(damageEffect, transform.position, Quaternion.identity), 0.4f);
+
+
             DeActivate();
 
         }
