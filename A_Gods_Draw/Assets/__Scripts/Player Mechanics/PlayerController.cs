@@ -37,7 +37,7 @@ public class PlayerController : BoardElement
         healthTxt.text = "HP: " + playerTracker.Health.ToString();
         CameraEffects.ShakeOnce(0.2f,5);
         SceneManager.SetActiveScene(gameObject.scene);
-        Instantiate(lightPrefabs, new Vector3(0,0,0), Quaternion.identity);
+        // Instantiate(lightPrefabs, new Vector3(0,0,0), Quaternion.identity);
     }
 
     public void Heal(int amount)
