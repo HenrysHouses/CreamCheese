@@ -51,6 +51,7 @@ public class ChooseCardReward : MonoBehaviour
             if (SelectIndex > -1)
             {
                 DeckList_SO.playerObtainCard(CardOptions[SelectIndex]);
+                Map.Map_Manager.SavingMap();
                 MultiSceneLoader.loadCollection("Map", collectionLoadMode.Difference);
             }
         }

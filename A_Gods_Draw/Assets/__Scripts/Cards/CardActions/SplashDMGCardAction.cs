@@ -15,11 +15,12 @@ public class SplashDMGCardAction : CardAction
         {
             for (int j = 0; j < board.Enemies.Length; j++)
             {
-                int SplashIndex;
-                if(board.Enemies[j] == source.AllTargets[i]) 
-                {
-                    SplashIndex = j;
-                }
+                if(board.Enemies[i].transform != null)
+                    board.StartCoroutine(playTriggerVFX(
+                        source.AllTargets[i].gameObject, 
+                        board.Enemies[i].transform, 
+                        new Vector3(0, 0 ,-0.2f)));
+
                 
                 if(j-1 >= 0)
                     board.Enemies[j-1].TakeDamage((int)((source.stats.strength / 2f) + 0.6f));
@@ -27,10 +28,6 @@ public class SplashDMGCardAction : CardAction
                 if(j+1 < board.Enemies.Length)
                     board.Enemies[j+1].TakeDamage((int)((source.stats.strength / 2f) + 0.6f));
 
-                board.StartCoroutine(playTriggerVFX(
-                    source.AllTargets[i].gameObject, 
-                    board.Enemies[i].transform, 
-                    new Vector3(0, 0 ,-0.2f)));
             }
         }
 

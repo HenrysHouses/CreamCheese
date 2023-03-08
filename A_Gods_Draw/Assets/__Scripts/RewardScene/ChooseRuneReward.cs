@@ -85,6 +85,7 @@ public class ChooseRuneReward : MonoBehaviour
 
             _player.addRune(SelectedRune);
             Destroy(obj);
+            Map.Map_Manager.SavingMap();
             yield return new WaitForSeconds(1);
             CameraMovement.instance.SetCameraView(CameraView.Up);
             MultiSceneLoader.loadCollection("Map", collectionLoadMode.Difference);

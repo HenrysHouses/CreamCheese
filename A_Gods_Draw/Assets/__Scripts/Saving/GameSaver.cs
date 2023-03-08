@@ -49,19 +49,28 @@ public static class GameSaver
 
         CardQuantityContainer deck = JsonUtility.FromJson<CardQuantityContainer>(json);
         
+        bool loadedStarterDeck = false;
+
         if(deck.Cards == null)
         {
             deck = DeckList_SO.getStarterDeck().deckData.GetDeckData();
+            loadedStarterDeck = true;
         }
         else if(deck.Cards.Length == 0)
         {
             deck = DeckList_SO.getStarterDeck().deckData.GetDeckData();
+            loadedStarterDeck = true;
         }
 
         Debug.Log("Loading completed");
 
         DeckListData loadedDeck = new DeckListData(deck.Cards);
         CardExperience.ClearUnusedIDs(loadedDeck);
+
+        streamReader.Close();
+
+        if(loadedStarterDeck)
+            SaveData(loadedDeck.GetDeckData());
 
         return loadedDeck;
     }

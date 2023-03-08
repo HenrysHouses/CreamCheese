@@ -8,9 +8,12 @@ using UnityEngine;
 
 public class ShouldDestroyCardFromDeck : MonoBehaviour
 {
-    [SerializeField] CameraMovement cameraMovement;
+    [SerializeField] GameObject healButton;
 
     private void Start() {
+        if(GameManager.instance.shouldDestroyCardInDeck)
+            healButton.SetActive(false);
+
         CameraMovement.instance.SetCameraView(CameraView.Library);
     }
 

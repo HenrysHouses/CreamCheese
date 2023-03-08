@@ -27,8 +27,10 @@ public class DeckList_SO : ScriptableObject
     public static void playerObtainCard(Card_SO card_SO)
     {
         CardPlayData newCard = new CardPlayData(card_SO);
+        newCard.Experience.createNewUniqueID();
 
         playerDeck.deckData.deckListData.Add(newCard);
+        GameSaver.SaveData(playerDeck.deckData.GetDeckData());
     }
 
     public static void playerDeleteCard(CardPlayData Card)
@@ -71,7 +73,7 @@ public class DeckListData
             int n = 0;
 
             // While there is still more copies of a single card to add
-            while(n < cardQuantities[i].Quantity)
+            while(n < cardQuantities[i].Levels.Length)
             {
                 string[] name = {cardQuantities[i].CardName};
                 // Find spesific card
@@ -168,8 +170,7 @@ public struct CardQuantityContainer
 public struct CardQuantity
 {
     public string CardName;
-    int _quantity;
-    public int Quantity => _quantity;
+    public int _quantity {private set; get;}
     public CardExperience[] Levels;
 
     public void SetQuantity(int QuantityOfCard)
