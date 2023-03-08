@@ -46,6 +46,7 @@ public class DialogueController : MonoBehaviour
                 GameObject spawn = Instantiate(dialoguePrefab);
                 spawn.GetComponent<DialogueBox>().SetDialogue(dialogue);
                 spawn.transform.SetParent(holder.transform);
+                spawn.transform.localScale = Vector3.one;
                 spawn.transform.localPosition = Vector3.zero;
                 spawn.transform.localRotation = Quaternion.identity;
                 return;
@@ -66,6 +67,7 @@ public class DialogueController : MonoBehaviour
                 GameObject spawn = Instantiate(dialoguePrefabUI);
                 spawn.GetComponent<DialogueBox>().SetDialogue(dialogue);
                 spawn.transform.SetParent(holder.transform);
+                spawn.transform.localScale = Vector3.one;
 
                 if(rectAnchor != Vector2.negativeInfinity)
                 {

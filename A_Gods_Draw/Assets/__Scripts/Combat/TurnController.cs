@@ -316,7 +316,7 @@ public class TurnController : CombatFSM
         {
             Vector3 position = _Hand.CardSelectionAnimators[_Hand.CardSelectionAnimators.Count-1].loader.transform.position;
             setDiscardPathToHandPosition(position);
-            CardAnimations = deckController.discardCard(_data, delayBetweenCards, BoardStateController.ExhaustedCards);
+            CardAnimations = deckController.discardCard(_data, delayBetweenCards);
             
             for (int i = _data.Length - 1; i >= 0; i--)
             {
@@ -367,7 +367,7 @@ public class TurnController : CombatFSM
 
 
         // CardPathAnim lastAnim = null;
-        // Debug.Log(card_b);
+        Debug.Log(card_b);
         Transform ClosestPos = DiscardPositions[0];
         foreach (var pos in DiscardPositions)
         {
@@ -383,7 +383,7 @@ public class TurnController : CombatFSM
         if (card_b != null)
         {
             CardPlayData[] data = new CardPlayData[]{card_b.GetComponent<Card_Loader>()._card};
-            CardAnimations = deckController.discardCard(data, delayBetweenCards, BoardStateController.ExhaustedCards);
+            CardAnimations = deckController.discardCard(data, delayBetweenCards);
 
             // Dialogue discard trigger
             if(BoardStateController.playedGodCard is not null && CardAnimations[0] is not null)
@@ -419,7 +419,17 @@ public class TurnController : CombatFSM
         {
             // CardPlayData[] data = new CardPlayData[]{card_b.GetComponent<Card_Loader>()._card};
             // CardAnimations = deckController.discardCard(data, delayBetweenCards, BoardStateController.ExhaustedCards);
-            CardPathAnim anim = deckController.DiscardCardOnBoard(card_b.getCardPlayData(), 0);
+
+            bool isExhausted = false;
+            for (int i = 0; i < card_b.stats.actionGroup.actions.Count; i++)
+            {
+                if(card_b.stats.actionGroup.actions[i] is ExhaustCardAction)
+                {
+                    isExhausted = true;
+                }
+            }
+
+            CardPathAnim anim = deckController.DiscardCardOnBoard(card_b.getCardPlayData(), 0, isExhausted);
 
             // Dialogue discard trigger
             if(BoardStateController.playedGodCard is not null && anim is not null)

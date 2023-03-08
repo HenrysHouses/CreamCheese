@@ -19,6 +19,10 @@ public class EirActions : GodCardAction
 
         board.Player.Heal(strength);
 
+        GameObject vfx = Resources.Load<GameObject>("FloralBarrier_Ground_VFX_Temp");
+        Debug.Log( vfx);
+        vfx = GameObject.Instantiate(vfx);
+        Debug.Log( vfx);
+        GameObject.Destroy(vfx, 3);
     }
-
 }

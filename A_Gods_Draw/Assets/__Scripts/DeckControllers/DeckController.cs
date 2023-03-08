@@ -38,11 +38,9 @@ public class DeckController : MonoBehaviour
         {
             return starterDeck;
         }
-        
+
         starterDeck = Resources.Load<DeckList_SO>("DeckLists/StarterDeck");
-
         Debug.Log("Loaded starter deck!");
-
         return starterDeck;
     }
 
@@ -53,7 +51,6 @@ public class DeckController : MonoBehaviour
         {
             deckList = Resources.Load<DeckList_SO>("DeckLists/DeckList");
         }
-            
     }
 #endregion
 #region ------ Card Handling at runtime ------
@@ -187,7 +184,7 @@ public class DeckController : MonoBehaviour
     }
 
     /// <summary>Moves a card currently in player hand to player discard. Trigger discard animation</summary>
-    public CardPathAnim[] discardCard(CardPlayData[] cardData, float delay, List<CardPlayData> exhausted)
+    public CardPathAnim[] discardCard(CardPlayData[] cardData, float delay)
     {
         CardPathAnim[] animations = new CardPathAnim[cardData.Length];
 
@@ -203,19 +200,16 @@ public class DeckController : MonoBehaviour
                 animations[i] = new CardPathAnim(cardData[i], Discard_SFX, _card, GodDialogueTrigger.Discard);
                 AnimationEventManager.getInstance.requestAnimation("Hand-Discard", _card, delay*i, animations[i]);
                 
-                if(!exhausted.Contains(cardData[i]))
-                    pDiscard.Add(cardData[i]);
-                
+                pDiscard.Add(cardData[i]);
                 pHand.Remove(cardData[i]);
 
                 animations[i].OnAnimCompletionTrigger.AddListener(OnDiscardChange.Invoke);
             }
-            
         }
         return animations;
     }
 
-    public CardPathAnim DiscardCardOnBoard(CardPlayData cardData, float delay)
+    public CardPathAnim DiscardCardOnBoard(CardPlayData cardData, float delay, bool exhausted)
     {
         CardPathAnim animation = null;
 
@@ -229,11 +223,10 @@ public class DeckController : MonoBehaviour
             animation = new CardPathAnim(cardData, Discard_SFX, _card, GodDialogueTrigger.Discard);
             AnimationEventManager.getInstance.requestAnimation("Hand-Discard", _card, delay, animation);
             
-            // if(!exhausted.Contains(cardData[i]))
-            //     pDiscard.Add(cardData[i]);
-            
             pBoard.Remove(cardData);
-            pDiscard.Add(cardData);
+
+            if(!exhausted)
+                pDiscard.Add(cardData); // dont add exhausted cards here
             animation.OnAnimCompletionTrigger.AddListener(OnDiscardChange.Invoke);
         }
         return animation;
@@ -272,9 +265,6 @@ public class DeckController : MonoBehaviour
         GameObject[] cards = new GameObject[pDiscard.Count];
         CardPathAnim[] animations = new CardPathAnim[pDiscard.Count];
         
-        if(pDiscard.Count == 0)
-            Debug.LogWarning("There was no cards in discard to shuffle into the library");
-        
         for (int i = 0; i < pDiscard.Count; i++)
         {
             pLibrary.Add(pDiscard[i]);
@@ -295,6 +285,5 @@ public class DeckController : MonoBehaviour
     }
     
     #endregion
-
 #endregion
 }
