@@ -39,11 +39,32 @@ public abstract class CardAction : Action
 
             Debug.Log(_action.GetType().Name);
 
-            if(_action is AttackCardAction || _action is EarthquakeCardAction || _action is LeachCardAction || _action is SplashDMGCardAction)
+            if(_action is AttackCardAction)
             {
 
                 _dealsDamage = true;
                 _damageTotal += _source.stats.strength;
+
+            }
+            else if(_action is EarthquakeCardAction)
+            {
+
+                _dealsDamage = true;
+                _damageTotal += _source.stats.strength;
+
+            }
+            else if(_action is LeachCardAction)
+            {
+
+                _dealsDamage = true;
+                _damageTotal += _source.stats.strength;
+
+            }
+            else if(_action is SplashDMGCardAction)
+            {
+
+                _dealsDamage = true;
+                _damageTotal += (_source.stats.strength / 2); //This has to be updated if the cardAction changes the math for damage
 
             }
             
