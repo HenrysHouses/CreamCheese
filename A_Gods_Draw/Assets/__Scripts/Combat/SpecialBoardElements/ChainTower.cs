@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using FMODUnity;
 
 public class ChainTower : BoardTarget
 {
@@ -12,6 +13,8 @@ public class ChainTower : BoardTarget
     private Vector3 effectOffset;
     [SerializeField]
     private CardPlayData specialGleipnirCard;
+    [SerializeField]
+    private EventReference chainsnap;
 
     private void Start()
     {
@@ -31,7 +34,7 @@ public class ChainTower : BoardTarget
 
         if(currentHealth <= 0)
         {
-
+            SoundPlayer.PlaySound(chainsnap,gameObject);
             DeActivate();
 
         }
