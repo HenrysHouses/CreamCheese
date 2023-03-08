@@ -103,6 +103,9 @@ public class MinionIntent : Intent
         if (actionSelected != null)
             strength = Random.Range(actionSelected.MinStrength, actionSelected.MaxStrength + 1);
 
+        if(actionSelected == GetAction<DefendAction>())
+            GetAction<DefendAction>().toDefend = Self;
+
         PreviousAction = actionSelected;
 
     }

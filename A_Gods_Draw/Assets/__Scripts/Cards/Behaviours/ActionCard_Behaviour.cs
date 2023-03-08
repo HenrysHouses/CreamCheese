@@ -161,8 +161,8 @@ public class ActionCard_Behaviour : Card_Behaviour
             stats.strength += value;
         elements.strength.text = stats.strength.ToString();
 
-        if(cardType == CardType.Attack)
-            UpdateCardActionDamage();
+        if(CardAttackTotal(true).Item1)
+            UpdateQueuedDamage(true);
     }
 
     public void DeBuff(int value, bool isDivided)
@@ -175,23 +175,8 @@ public class ActionCard_Behaviour : Card_Behaviour
         else
             stats.strength -= value;
 
-        if(cardType == CardType.Attack)
-            UpdateCardActionDamage();
-    }
-
-    private void UpdateCardActionDamage()
-    {
-
-        for (int i = 0; i < _actionGroup.actionStats.Count; i++)
-        {
-            GetAction(_actionGroup.actionStats[i].actionEnum).UpdateQueuedDamage(this, true);
-        }
-
-        for (int i = 0; i < _godBuffActions.actionStats.Count; i++)
-        {
-            GetAction(_godBuffActions.actionStats[i].actionEnum).UpdateQueuedDamage(this, true);
-        }
-        
+        if(CardAttackTotal(true).Item1)
+            UpdateQueuedDamage(true);
     }
 
     public bool CheckForGod()
@@ -304,18 +289,86 @@ public class ActionCard_Behaviour : Card_Behaviour
     {
         return AllActionsReady();
     }
+    public (bool, int) CardAttackTotal(bool _buffUpdate)
+    {
+
+        int damageTotal = 0;
+        bool dealsDamage = false;
+        foreach (CardAction action in stats.actionGroup.actions)
+        {
+
+            if(action is AttackCardAction)
+            {
+
+                dealsDamage = true;
+                damageTotal += stats.strength;
+
+            }
+            else if(action is EarthquakeCardAction)
+            {
+
+                dealsDamage = true;
+                damageTotal += stats.strength;
+
+            }
+            else if(action is LeachCardAction)
+            {
+
+                dealsDamage = true;
+                damageTotal += stats.strength;
+
+            }
+            else if(action is SplashDMGCardAction)
+            {
+
+                dealsDamage = true;
+                int _tempDmg = (int)((stats.strength / 2f) + 1f);
+                damageTotal += _tempDmg; //This has to be updated if the cardAction changes the math for damage
+                foreach(Monster _target in controller.GetBoard().getLivingEnemies())
+                {
+
+                    _target.UpdateQueuedDamage(this, _tempDmg, _buffUpdate);
+
+                }
+
+            }
+            
+        }
+
+        return (dealsDamage, damageTotal);
+
+    }
+
+    public void UpdateQueuedDamage(bool _buffUpdate = false)
+    {
+
+        (bool, int) _damageInfo = CardAttackTotal(_buffUpdate);
+        if(_damageInfo.Item1)
+        {
+
+            foreach (Monster _monster in AllTargets)
+            {
+
+                _monster.UpdateQueuedDamage(this, _damageInfo.Item2, _buffUpdate);
+                
+            }
+
+        }
+
+    }
     protected override void OnPlacedInLane()
     {
         base.OnPlacedInLane();
+        UpdateQueuedDamage();
         foreach (var target in SelectedTargets)
         {
-            foreach (var action in _actionGroup.actions)
+            foreach (CardAction action in _actionGroup.actions)
             {
                 action.OnLanePlaced(controller.GetBoard(), this);
             }
             if (CheckForGod())
             {
-                foreach (var action in _godBuffActions.actions)
+                foreach (CardAction action in _godBuffActions.actions)
                 {
                     action.OnLanePlaced(controller.GetBoard(), this);
                 }

@@ -231,8 +231,8 @@ public class Monster : BoardElement
         UpdateDefenceUI();
         setOutline(outlineSize, Color.red, 0.25f);
 
-
         return _damageTaken;
+
     }
 
     public void ApplyBarrier(int _amount)
@@ -282,7 +282,6 @@ public class Monster : BoardElement
 
         healthText.text = currentHealth + "/" + maxHealth;
         healthBar.value = currentHealth;
-        afterDamageBar.value = currentHealth;
         barrierBar.value = barrier;
             
     }
