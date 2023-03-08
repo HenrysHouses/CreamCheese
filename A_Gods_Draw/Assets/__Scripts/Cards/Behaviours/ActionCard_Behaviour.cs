@@ -184,12 +184,12 @@ public class ActionCard_Behaviour : Card_Behaviour
 
         for (int i = 0; i < _actionGroup.actionStats.Count; i++)
         {
-            GetAction(_actionGroup.actionStats[i].actionEnum).UpdateQueuedDamage(this);
+            GetAction(_actionGroup.actionStats[i].actionEnum).UpdateQueuedDamage(this, true);
         }
 
         for (int i = 0; i < _godBuffActions.actionStats.Count; i++)
         {
-            GetAction(_godBuffActions.actionStats[i].actionEnum).UpdateQueuedDamage(this);
+            GetAction(_godBuffActions.actionStats[i].actionEnum).UpdateQueuedDamage(this, true);
         }
         
     }

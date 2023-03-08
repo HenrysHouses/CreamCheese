@@ -25,38 +25,54 @@ public abstract class CardAction : Action
     public void OnLanePlaced(BoardStateController _board, ActionCard_Behaviour _source) //Modified so we can update the queued damage on enemies
     {
         CardPlaced(_board, _source);
-
-
-        //Check for attack actions instead of cardtype for updating queued damage
-        if(_source == null || _source.GetCardType != CardType.Attack /*|| !CardHasAttackAction(_source)*/) 
-            return;
-        
+        Debug.Log("Is this why?");
         UpdateQueuedDamage(_source);
     }
 
-    public bool CardHasAttackAction(ActionCard_Behaviour _source)
+    public (bool, int) CardAttackTotal(ActionCard_Behaviour _source)
     {
 
-        foreach (CardAction _action in _source.CardSO.cardStats.actionGroup.actions)
+        int _damageTotal = 0;
+        bool _dealsDamage = false;
+        foreach (CardAction _action in _source.stats.actionGroup.actions)
         {
 
-            
+            Debug.Log(_action.GetType().Name);
+
+            if(_action is AttackCardAction || _action is EarthquakeCardAction || _action is LeachCardAction || _action is SplashDMGCardAction)
+            {
+
+                _dealsDamage = true;
+                _damageTotal += _source.stats.strength;
+
+            }
             
         }
 
-        return false;
+        Debug.Log("Total Damage is: " + _damageTotal);
+
+        return (_dealsDamage, _damageTotal);
 
     }
 
-    public void UpdateQueuedDamage(ActionCard_Behaviour _source) //Needs to update when a card is buffed :)))
+    public void UpdateQueuedDamage(ActionCard_Behaviour _source, bool _buffUpdate = false)
     {
 
-        foreach (Monster _monster in _source.AllTargets)
+        Debug.Log("Updating queued damage");
+
+        (bool, int) _damageInfo = CardAttackTotal(_source);
+        if(_damageInfo.Item1)
         {
 
-            _monster.UpdateQueuedDamage(_source, _source.stats.strength);
-            
+            foreach (Monster _monster in _source.AllTargets)
+            {
+
+                _monster.UpdateQueuedDamage(_source, _damageInfo.Item2, _buffUpdate);
+                
+            }
+
         }
+
     }
 
     public abstract IEnumerator OnAction(BoardStateController board, ActionCard_Behaviour source);

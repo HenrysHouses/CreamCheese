@@ -117,18 +117,23 @@ public class Monster : BoardElement
 
     }
 
-    public void UpdateQueuedDamage(ActionCard_Behaviour _source, int _amount, bool _ignoreShield = false)
+    public void UpdateQueuedDamage(ActionCard_Behaviour _source, int _amount, bool _buffUpdate, bool _ignoreShield = false)
     {
 
         if(damageSources.TryGetValue(_source, out int _damage))
         {
 
-            if(_ignoreShield)
-                queuedPierce -= _damage;
-            else
-                queuedDamage -= _damage;
+            if(_buffUpdate)
+            {
+                if(_ignoreShield)
+                    queuedPierce -= _damage;
+                else
+                    queuedDamage -= _damage;
+                
+                damageSources[_source] = 0;
+            }
 
-            damageSources[_source] = _amount;
+            damageSources[_source] += _amount;
             if(_ignoreShield)
                 queuedPierce += _amount;
             else
