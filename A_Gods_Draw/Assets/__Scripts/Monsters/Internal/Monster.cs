@@ -277,6 +277,7 @@ public class Monster : BoardElement
 
         healthText.text = currentHealth + "/" + maxHealth;
         healthBar.value = currentHealth;
+        afterDamageBar.value = currentHealth;
         barrierBar.value = barrier;
             
     }
