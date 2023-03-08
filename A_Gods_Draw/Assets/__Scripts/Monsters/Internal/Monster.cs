@@ -8,23 +8,6 @@ using FMODUnity;
 public class Monster : BoardElement
 {
 
-    /*
-        for creating monster have a class with action types the enemy can do then when adding an action type should be able to set min and max strength value for the action
-        then an array of conditions that has to be met for action to be done, toggle for either all or any condition has to be true
-        conditions can be things like playerhealth value, gods in play, etc...
-        setting Max health and Damage/strenght, adjustable scaling multiplier.
-        might make a custom editor thing for this as I've never made one before :)))
-
-        Editable values
-        Health
-        list of actions
-         - min and max strenght
-         - conditions
-        
-        for all actions give them a prio number then check all actions to see which are valid then check prio. Actions with same prio will use a weigth to determine which action will run
-        
-    */
-
     [SerializeField]
     private ActionSelection[] EnemyActions;
     public Intent GetIntent() => enemyIntent;
