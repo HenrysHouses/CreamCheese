@@ -68,8 +68,6 @@ namespace Map
         {
             Locked = lockAfterSelect;
             Map_Manager.CurrentMap.path.Add(map_Nodes.Node.point);
-            Map_Manager.SavingMap(); // ! this should happen later
-            Debug.LogError("Saving the map should not happen here");
 
             view.SetPickableNodes();
             view.SetPathColor();

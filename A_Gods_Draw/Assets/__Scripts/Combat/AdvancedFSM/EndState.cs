@@ -56,14 +56,13 @@ public class EndState : CombatFSMState
 
     public override void Act()
     {
-        BoardElement.ExitCombat();
-        // end of combat triggers here
+        BoardElement.ExitCombat(); // ????
 
         ActivateRune(Controller);
 
         if (_player.Health <= 0)
         {
-            
+           // ??? 
            // MultiSceneLoader.loadCollection("Death", collectionLoadMode.Difference);
            DeathCrumbling death;
            
@@ -73,9 +72,11 @@ public class EndState : CombatFSMState
         }
         if (Controller.GetBoard().isEnemyDefeated)
         {
+            UnityEngine.Debug.Log("saved");
             if (Controller.GetBoard().Encounter.name.Equals("Boss"))
                 GameManager.timesDefeatedBoss++;
             MultiSceneLoader.loadCollection("Map", collectionLoadMode.Difference);
+            Map.Map_Manager.SavingMap();
         }
     }
 }

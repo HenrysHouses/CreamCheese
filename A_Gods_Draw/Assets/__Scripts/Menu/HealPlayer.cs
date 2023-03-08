@@ -12,6 +12,7 @@ public class HealPlayer : MonoBehaviour
 
     public void healPlayer(int HealAmount)
     {
+        Map.Map_Manager.SavingMap();
         if (player.Health < player.MaxHealth)
             player.UpdateHealth(HealAmount);
     }

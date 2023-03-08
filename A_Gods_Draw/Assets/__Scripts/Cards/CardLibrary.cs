@@ -19,7 +19,7 @@ public class CardLibrary : MonoBehaviour
     GameObject[] currDisplayedCards;
 
     public bool shouldDestroyACard;
-    [SerializeField] Button backButton;
+    [SerializeField] GameObject backButton;
     [SerializeField] TextMeshPro PickCardText; 
     // bool isAnimating;
 
@@ -32,7 +32,7 @@ public class CardLibrary : MonoBehaviour
         shouldDestroyACard = GameManager.instance.shouldDestroyCardInDeck;
         if(shouldDestroyACard)
         {
-            backButton.gameObject.SetActive(false);
+            backButton.SetActive(false);
             PickCardText.gameObject.SetActive(true);
         }
     }
@@ -125,6 +125,7 @@ public class CardLibrary : MonoBehaviour
         // Destroy the card
         CardPlayData _selectedCard = hit.collider.GetComponentInChildren<Card_Loader>()._card;
         DeckList_SO.playerDeleteCard(_selectedCard);
+        Map.Map_Manager.SavingMap();
         shouldDestroyACard = false;
         CardInspector.CanSelect = false;
         CardInspector.returnInspection();

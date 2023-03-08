@@ -51,6 +51,7 @@ namespace Map
             CurrentMap = map;
             view.MapShow(map);
             GameManager.instance.shouldGenerateNewMap = false;
+            SavingMap();
         }
 
         public static bool loadMap(out Map map)
@@ -66,6 +67,7 @@ namespace Map
 
         public static void SavingMap()
         {
+            Debug.Log("saving map");
             if(CurrentMap == null)
             {
                 return;
@@ -85,7 +87,7 @@ namespace Map
 
         private void OnApplicationQuit()
         {
-            SavingMap();
+            // SavingMap();
 
             Debug.Log("map has been saved on quit");
         }
