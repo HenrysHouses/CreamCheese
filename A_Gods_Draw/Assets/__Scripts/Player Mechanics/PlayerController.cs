@@ -19,7 +19,7 @@ public class PlayerController : BoardElement
     [SerializeField]
     Image arrowImage;
     [SerializeField]
-    GameObject lightPrefabs;
+    GameObject[] lights;
 
     void Start()
     {
@@ -37,6 +37,13 @@ public class PlayerController : BoardElement
         healthTxt.text = "HP: " + playerTracker.Health.ToString();
         CameraEffects.ShakeOnce(0.2f,5);
         SceneManager.SetActiveScene(gameObject.scene);
+        int _count = (playerTracker.Health / playerTracker.MaxHealth) * lights.Length;
+        for(int i = 0; i < lights.Length; i++)
+        {
+
+            lights[i].SetActive(_count <= i ? true : false);
+
+        }
         // Instantiate(lightPrefabs, new Vector3(0,0,0), Quaternion.identity);
     }
 
