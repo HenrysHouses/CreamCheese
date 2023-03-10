@@ -578,8 +578,9 @@ GameObject:
   - component: {fileID: 422403178}
   - component: {fileID: 422403180}
   - component: {fileID: 422403179}
+  - component: {fileID: 422403181}
   m_Layer: 0
-  m_Name: Point Light
+  m_Name: Point Light_4
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -627,7 +628,7 @@ Light:
   serializedVersion: 10
   m_Type: 2
   m_Shape: 0
-  m_Color: {r: 1, g: 0.53494525, b: 0, a: 1}
+  m_Color: {r: 0, g: 0, b: 0, a: 1}
   m_Intensity: 10
   m_Range: 2
   m_SpotAngle: 30
@@ -678,6 +679,23 @@ Light:
   m_UseViewFrustumForShadowCasterCull: 1
   m_ShadowRadius: 0
   m_ShadowAngle: 0
+--- !u!114 &422403181
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 422403177}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 0c302a2b95973d24989f37a61269e86b, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  lightSettings:
+    light: {fileID: 422403180}
+    intensity: 0
+    speed: 0
+    color: {r: 0, g: 0, b: 0, a: 0}
 --- !u!1 &445468662
 GameObject:
   m_ObjectHideFlags: 0
@@ -975,8 +993,9 @@ GameObject:
   - component: {fileID: 602293017}
   - component: {fileID: 602293019}
   - component: {fileID: 602293018}
+  - component: {fileID: 602293020}
   m_Layer: 0
-  m_Name: Point Light
+  m_Name: Point Light_3
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -1024,7 +1043,7 @@ Light:
   serializedVersion: 10
   m_Type: 2
   m_Shape: 0
-  m_Color: {r: 1, g: 0.53494525, b: 0, a: 1}
+  m_Color: {r: 0, g: 0, b: 0, a: 1}
   m_Intensity: 10
   m_Range: 2
   m_SpotAngle: 30
@@ -1075,6 +1094,23 @@ Light:
   m_UseViewFrustumForShadowCasterCull: 1
   m_ShadowRadius: 0
   m_ShadowAngle: 0
+--- !u!114 &602293020
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 602293016}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 0c302a2b95973d24989f37a61269e86b, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  lightSettings:
+    light: {fileID: 602293019}
+    intensity: 0
+    speed: 0
+    color: {r: 0, g: 0, b: 0, a: 0}
 --- !u!212 &643874781 stripped
 SpriteRenderer:
   m_CorrespondingSourceObject: {fileID: 1980549404880534855, guid: 6bdad53e291ee1f4ebd577ae68613f39, type: 3}
@@ -1329,8 +1365,9 @@ GameObject:
   - component: {fileID: 934044934}
   - component: {fileID: 934044936}
   - component: {fileID: 934044935}
+  - component: {fileID: 934044937}
   m_Layer: 0
-  m_Name: Point Light
+  m_Name: Point Light_2
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -1378,7 +1415,7 @@ Light:
   serializedVersion: 10
   m_Type: 2
   m_Shape: 0
-  m_Color: {r: 1, g: 0.53494525, b: 0, a: 1}
+  m_Color: {r: 0, g: 0, b: 0, a: 1}
   m_Intensity: 10
   m_Range: 2
   m_SpotAngle: 30
@@ -1429,6 +1466,23 @@ Light:
   m_UseViewFrustumForShadowCasterCull: 1
   m_ShadowRadius: 0
   m_ShadowAngle: 0
+--- !u!114 &934044937
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 934044933}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 0c302a2b95973d24989f37a61269e86b, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  lightSettings:
+    light: {fileID: 934044936}
+    intensity: 0
+    speed: 0
+    color: {r: 0, g: 0, b: 0, a: 0}
 --- !u!1 &954976062
 GameObject:
   m_ObjectHideFlags: 0
@@ -1663,8 +1717,9 @@ GameObject:
   - component: {fileID: 1077008402}
   - component: {fileID: 1077008403}
   - component: {fileID: 1077008404}
+  - component: {fileID: 1077008405}
   m_Layer: 0
-  m_Name: Point Light
+  m_Name: Point Light_1
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -1696,7 +1751,7 @@ Light:
   serializedVersion: 10
   m_Type: 2
   m_Shape: 0
-  m_Color: {r: 1, g: 0.53494525, b: 0, a: 1}
+  m_Color: {r: 0, g: 0, b: 0, a: 1}
   m_Intensity: 10
   m_Range: 2
   m_SpotAngle: 30
@@ -1763,6 +1818,23 @@ MonoBehaviour:
   speed: 0.05
   MakeSourceStationary: 1
   positionOffset: 0
+--- !u!114 &1077008405
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1077008401}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 0c302a2b95973d24989f37a61269e86b, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  lightSettings:
+    light: {fileID: 1077008403}
+    intensity: 0
+    speed: 0
+    color: {r: 0, g: 0, b: 0, a: 0}
 --- !u!212 &1087051664 stripped
 SpriteRenderer:
   m_CorrespondingSourceObject: {fileID: 1980549405461730570, guid: 6bdad53e291ee1f4ebd577ae68613f39, type: 3}
@@ -1873,6 +1945,205 @@ Transform:
   m_Father: {fileID: 731095042}
   m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &1262250508
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1262250510}
+  - component: {fileID: 1262250511}
+  m_Layer: 0
+  m_Name: LightManager
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &1262250510
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1262250508}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: -0.34199995, y: 1.316, z: 0.10400003}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_RootOrder: 12
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1262250511
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1262250508}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d14861d101b545f41ba5e528126b7b7c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  collectionLights:
+  - lightSetting:
+    - light: {fileID: 1077008403}
+      intensity: 10
+      speed: 0.5
+      color: {r: 1, g: 0.53333336, b: 0, a: 0}
+    - light: {fileID: 934044936}
+      intensity: 10
+      speed: 0.5
+      color: {r: 1, g: 0.53333336, b: 0, a: 0}
+    - light: {fileID: 602293019}
+      intensity: 10
+      speed: 0.5
+      color: {r: 1, g: 0.53333336, b: 0, a: 0}
+    - light: {fileID: 422403180}
+      intensity: 10
+      speed: 0.5
+      color: {r: 1, g: 0.53333336, b: 0, a: 0}
+    - light: {fileID: 1955311915}
+      intensity: 0
+      speed: 0
+      color: {r: 0, g: 0, b: 0, a: 0}
+    name: Combat
+  - lightSetting:
+    - light: {fileID: 1077008403}
+      intensity: 10
+      speed: 0.5
+      color: {r: 1, g: 0.53333336, b: 0, a: 0}
+    - light: {fileID: 934044936}
+      intensity: 10
+      speed: 0.5
+      color: {r: 1, g: 0.53333336, b: 0, a: 0}
+    - light: {fileID: 602293019}
+      intensity: 10
+      speed: 0.5
+      color: {r: 1, g: 0.53333336, b: 0, a: 0}
+    - light: {fileID: 422403180}
+      intensity: 10
+      speed: 0.5
+      color: {r: 1, g: 0.53333336, b: 0, a: 0}
+    - light: {fileID: 1955311915}
+      intensity: 5
+      speed: 0.5
+      color: {r: 1, g: 0.53333336, b: 0, a: 0}
+    name: RuneReward
+  - lightSetting:
+    - light: {fileID: 1077008403}
+      intensity: 0
+      speed: 0
+      color: {r: 0, g: 0, b: 0, a: 0}
+    - light: {fileID: 934044936}
+      intensity: 0
+      speed: 0
+      color: {r: 0, g: 0, b: 0, a: 0}
+    - light: {fileID: 602293019}
+      intensity: 0
+      speed: 0
+      color: {r: 0, g: 0, b: 0, a: 0}
+    - light: {fileID: 422403180}
+      intensity: 0
+      speed: 0
+      color: {r: 0, g: 0, b: 0, a: 0}
+    - light: {fileID: 1955311915}
+      intensity: 0
+      speed: 0
+      color: {r: 0, g: 0, b: 0, a: 0}
+    name: Map
+  - lightSetting:
+    - light: {fileID: 1077008403}
+      intensity: 0
+      speed: 0
+      color: {r: 0, g: 0, b: 0, a: 0}
+    - light: {fileID: 934044936}
+      intensity: 0
+      speed: 0
+      color: {r: 0, g: 0, b: 0, a: 0}
+    - light: {fileID: 602293019}
+      intensity: 0
+      speed: 0
+      color: {r: 0, g: 0, b: 0, a: 0}
+    - light: {fileID: 422403180}
+      intensity: 0
+      speed: 0
+      color: {r: 0, g: 0, b: 0, a: 0}
+    - light: {fileID: 1955311915}
+      intensity: 0
+      speed: 0
+      color: {r: 0, g: 0, b: 0, a: 0}
+    name: CardReward
+  - lightSetting:
+    - light: {fileID: 1077008403}
+      intensity: 0
+      speed: 0
+      color: {r: 0, g: 0, b: 0, a: 0}
+    - light: {fileID: 934044936}
+      intensity: 0
+      speed: 0
+      color: {r: 0, g: 0, b: 0, a: 0}
+    - light: {fileID: 602293019}
+      intensity: 0
+      speed: 0
+      color: {r: 0, g: 0, b: 0, a: 0}
+    - light: {fileID: 422403180}
+      intensity: 0
+      speed: 0
+      color: {r: 0, g: 0, b: 0, a: 0}
+    - light: {fileID: 1955311915}
+      intensity: 0
+      speed: 0
+      color: {r: 0, g: 0, b: 0, a: 0}
+    name: RestPlace
+  - lightSetting:
+    - light: {fileID: 1077008403}
+      intensity: 0
+      speed: 0
+      color: {r: 0, g: 0, b: 0, a: 0}
+    - light: {fileID: 934044936}
+      intensity: 0
+      speed: 0
+      color: {r: 0, g: 0, b: 0, a: 0}
+    - light: {fileID: 602293019}
+      intensity: 0
+      speed: 0
+      color: {r: 0, g: 0, b: 0, a: 0}
+    - light: {fileID: 422403180}
+      intensity: 0
+      speed: 0
+      color: {r: 0, g: 0, b: 0, a: 0}
+    - light: {fileID: 1955311915}
+      intensity: 0
+      speed: 0
+      color: {r: 0, g: 0, b: 0, a: 0}
+    name: MainMenu
+  - lightSetting:
+    - light: {fileID: 1077008403}
+      intensity: 10
+      speed: 0.5
+      color: {r: 1, g: 0.53333336, b: 0, a: 0}
+    - light: {fileID: 934044936}
+      intensity: 10
+      speed: 0.5
+      color: {r: 1, g: 0.53333336, b: 0, a: 0}
+    - light: {fileID: 602293019}
+      intensity: 10
+      speed: 0.5
+      color: {r: 1, g: 0.53333336, b: 0, a: 0}
+    - light: {fileID: 422403180}
+      intensity: 10
+      speed: 0.5
+      color: {r: 1, g: 0.53333336, b: 0, a: 0}
+    - light: {fileID: 1955311915}
+      intensity: 0
+      speed: 0
+      color: {r: 0, g: 0, b: 0, a: 0}
+    name: DeckLibrary
 --- !u!1 &1387193066
 GameObject:
   m_ObjectHideFlags: 0
@@ -2530,6 +2801,135 @@ GameObject:
   m_CorrespondingSourceObject: {fileID: 1130418198, guid: 4cddc2822745ccf43a871a36e771c8ae, type: 3}
   m_PrefabInstance: {fileID: 6049076613206053191}
   m_PrefabAsset: {fileID: 0}
+--- !u!1 &1955311912
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1955311913}
+  - component: {fileID: 1955311915}
+  - component: {fileID: 1955311914}
+  - component: {fileID: 1955311916}
+  m_Layer: 0
+  m_Name: RuneStone_Light
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &1955311913
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1955311912}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: -2.028243, y: -1.132061, z: -1.4200892}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 2081418887}
+  m_RootOrder: 12
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1955311914
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1955311912}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1b536e216bbd27d458fd574b3bcccea4, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  scale: 100
+  speed: 0.05
+  MakeSourceStationary: 1
+  positionOffset: 0
+--- !u!108 &1955311915
+Light:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1955311912}
+  m_Enabled: 1
+  serializedVersion: 10
+  m_Type: 2
+  m_Shape: 0
+  m_Color: {r: 0, g: 0, b: 0, a: 1}
+  m_Intensity: 5
+  m_Range: 2
+  m_SpotAngle: 30
+  m_InnerSpotAngle: 21.80208
+  m_CookieSize: 10
+  m_Shadows:
+    m_Type: 0
+    m_Resolution: -1
+    m_CustomResolution: -1
+    m_Strength: 1
+    m_Bias: 0.05
+    m_NormalBias: 0.4
+    m_NearPlane: 0.2
+    m_CullingMatrixOverride:
+      e00: 1
+      e01: 0
+      e02: 0
+      e03: 0
+      e10: 0
+      e11: 1
+      e12: 0
+      e13: 0
+      e20: 0
+      e21: 0
+      e22: 1
+      e23: 0
+      e30: 0
+      e31: 0
+      e32: 0
+      e33: 1
+    m_UseCullingMatrixOverride: 0
+  m_Cookie: {fileID: 0}
+  m_DrawHalo: 0
+  m_Flare: {fileID: 0}
+  m_RenderMode: 0
+  m_CullingMask:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  m_RenderingLayerMask: 1
+  m_Lightmapping: 4
+  m_LightShadowCasterMode: 0
+  m_AreaSize: {x: 1, y: 1}
+  m_BounceIntensity: 1
+  m_ColorTemperature: 6570
+  m_UseColorTemperature: 0
+  m_BoundingSphereOverride: {x: 0, y: 0, z: 0, w: 0}
+  m_UseBoundingSphereOverride: 0
+  m_UseViewFrustumForShadowCasterCull: 1
+  m_ShadowRadius: 0
+  m_ShadowAngle: 0
+--- !u!114 &1955311916
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1955311912}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 0c302a2b95973d24989f37a61269e86b, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  lightSettings:
+    light: {fileID: 1955311915}
+    intensity: 0
+    speed: 0
+    color: {r: 0, g: 0, b: 0, a: 0}
 --- !u!1 &1957245930
 GameObject:
   m_ObjectHideFlags: 0
@@ -2865,6 +3265,7 @@ Transform:
   - {fileID: 497140234}
   - {fileID: 493536006}
   - {fileID: 1065348098}
+  - {fileID: 1955311913}
   m_Father: {fileID: 0}
   m_RootOrder: 8
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}

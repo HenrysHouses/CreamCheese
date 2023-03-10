@@ -17,7 +17,7 @@ public class DialogueController : MonoBehaviour
 
     void Start()
     {
-        UpdateTransforms();
+        UpdateTransforms(null, collectionLoadMode.Replace);
         MultiSceneLoader.OnSceneCollectionLoaded.AddListener(UpdateTransforms);
 
         if(instance == null)
@@ -29,7 +29,7 @@ public class DialogueController : MonoBehaviour
         }
     }
 
-    void UpdateTransforms()
+    void UpdateTransforms(SceneCollection collection, collectionLoadMode mode)
     {
         dialogueTransform = GameObject.FindObjectsOfType<DialogueTransform>();
     }
