@@ -37,11 +37,14 @@ public class PlayerController : BoardElement
         healthTxt.text = "HP: " + playerTracker.Health.ToString();
         CameraEffects.ShakeOnce(0.2f,5);
         SceneManager.SetActiveScene(gameObject.scene);
-        int _count = (playerTracker.Health / playerTracker.MaxHealth) * lights.Length;
+        Debug.LogError("PissAss Health " + playerTracker.Health + " max healthus " + playerTracker.MaxHealth);
+        int _count = (int)((float)playerTracker.Health / (float)playerTracker.MaxHealth) * lights.Length;
+        Debug.LogError("Pissed " + _count);
         for(int i = 0; i < lights.Length; i++)
         {
 
-            lights[i].SetActive(_count <= i ? true : false);
+            lights[i].SetActive(_count >= i ? true : false);
+            Debug.LogError(_count >= i ? true : false);
 
         }
         // Instantiate(lightPrefabs, new Vector3(0,0,0), Quaternion.identity);
