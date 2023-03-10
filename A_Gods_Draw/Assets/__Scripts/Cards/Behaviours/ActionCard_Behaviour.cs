@@ -309,7 +309,6 @@ public class ActionCard_Behaviour : Card_Behaviour
 
                 dealsDamage = true;
                 int _tempDmg = stats.strength;
-                damageTotal += _tempDmg;
                 foreach(Monster _target in controller.GetBoard().getLivingEnemies())
                 {
 
@@ -330,7 +329,6 @@ public class ActionCard_Behaviour : Card_Behaviour
 
                 dealsDamage = true;
                 int _tempDmg = (int)((stats.strength / 2f) + 1f);
-                damageTotal += _tempDmg; //This has to be updated if the cardAction changes the math for damage
                 foreach(Monster _target in controller.GetBoard().getLivingEnemies())
                 {
 

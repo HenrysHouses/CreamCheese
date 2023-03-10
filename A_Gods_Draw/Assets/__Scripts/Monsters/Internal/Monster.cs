@@ -41,7 +41,7 @@ public class Monster : BoardElement
     private Color healthBarColor, barrierBarColor;
     [SerializeField]
     private Color damageIndicatorColor;
-    private bool flashHealthBar, flashBarrierBar;
+    private bool flashHealthBar = false, flashBarrierBar = false;
 
     //Health
     [SerializeField]
@@ -108,6 +108,7 @@ public class Monster : BoardElement
         if(flashHealthBar)
         {
 
+            barrierBar.value = 0;
             afterDamageBarFill.color = healthBarColor;
             healthBarFill.color = Color.Lerp(healthBarColor, damageIndicatorColor, Mathf.PingPong(Time.time, 1));
 
@@ -194,12 +195,19 @@ public class Monster : BoardElement
 
         }
 
-        if(barrier > 0)
+        if(barrier - _damageTaken <= 0)
         {
 
             int _barrierTemp = barrier;
-            barrier -= _damageTaken;
+            barrier = 0;
             _damageTaken -= _barrierTemp;
+
+        }
+        else
+        {
+
+            barrier -= _damageTaken;
+            _damageTaken = 0;
 
         }
 
@@ -242,8 +250,10 @@ public class Monster : BoardElement
 
         barrier = _amount;
 
+        UpdateHealthDamageUI();
         UpdateHealthUI();
         setOutline(outlineSize, Color.yellow, 0.25f);
+        
     }
 
     public void ReceiveHealth(int _amount)
@@ -252,7 +262,7 @@ public class Monster : BoardElement
         if(!HealingDisabled)
             return;
 
-        currentHealth += _amount;
+        Mathf.Clamp(currentHealth += _amount, 0, maxHealth);
 
         UpdateHealthUI();
         setOutline(outlineSize, Color.green, 0.25f);
@@ -282,7 +292,7 @@ public class Monster : BoardElement
     private void UpdateHealthUI()
     {
 
-        healthText.text = currentHealth + "/" + maxHealth;
+        healthText.text = (currentHealth + barrier) + "/" + maxHealth;
         healthBar.value = currentHealth;
         barrierBar.value = barrier;
             
@@ -311,9 +321,8 @@ public class Monster : BoardElement
         flashHealthBar = false;
 
         float _damage = (Mathf.Clamp(queuedDamage - defendFor, 0, Mathf.Infinity) + queuedPierce + queuedPoison);
-        _damage -= barrier;
-
-        if(_damage <= 0)
+        
+        if(_damage - barrier <= 0)
         {
 
             afterDamageBar.value = barrier - _damage;
@@ -321,6 +330,8 @@ public class Monster : BoardElement
             return;
 
         }
+        else
+            _damage -= barrier;
 
         flashHealthBar = true;
         afterDamageBar.value = currentHealth - _damage;
