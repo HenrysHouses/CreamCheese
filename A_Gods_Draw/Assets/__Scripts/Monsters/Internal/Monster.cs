@@ -197,7 +197,9 @@ public class Monster : BoardElement
         if(barrier > 0)
         {
 
+            int _barrierTemp = barrier;
             barrier -= _damageTaken;
+            _damageTaken -= _barrierTemp;
 
         }
 

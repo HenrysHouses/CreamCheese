@@ -308,7 +308,14 @@ public class ActionCard_Behaviour : Card_Behaviour
             {
 
                 dealsDamage = true;
-                damageTotal += stats.strength;
+                int _tempDmg = stats.strength;
+                damageTotal += _tempDmg;
+                foreach(Monster _target in controller.GetBoard().getLivingEnemies())
+                {
+
+                    _target.UpdateQueuedDamage(this, _tempDmg, _buffUpdate);
+
+                }
 
             }
             else if(action is LeachCardAction)
