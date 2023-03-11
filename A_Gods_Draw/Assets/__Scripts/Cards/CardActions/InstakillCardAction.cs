@@ -21,4 +21,10 @@ public class InstakillCardAction : CardAction
         }
         isReady = true;
     }
+
+    public override void SetActionVFX()
+    {
+        _VFX = new ActionVFX(false, 0, "", "", 0);
+        Debug.LogError("Instant Kill has no VFX");
+    }
 }

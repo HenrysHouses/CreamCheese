@@ -34,4 +34,9 @@ public class SplashDMGCardAction : CardAction
         yield return new WaitUntil(() => !_VFX.isAnimating);
         isReady = true;
     }
+
+    public override void SetActionVFX()
+    {
+        _VFX = new ActionVFX(false, 0, "", "Action VFX/Splash_VFX", 2);
+    }
 }

@@ -45,4 +45,10 @@ public class HealPreventionCardAction : CardAction
 
         isReady = true;
     }
+
+    public override void SetActionVFX()
+    {
+        _VFX = new ActionVFX(false, 0, "", "", 0);
+        Debug.LogError("Heal Prevention has no VFX");
+    }
 }

@@ -10,4 +10,9 @@ public class ExhaustCardAction : CardAction
         isReady = true;
         yield break;
     }
+
+    public override void SetActionVFX()
+    {
+        _VFX = new ActionVFX(false, 0, "", "", 0);
+    }
 }

@@ -30,4 +30,9 @@ public class LeachCardAction : CardAction
         isReady = true;
 
     }
+
+    public override void SetActionVFX()
+    {
+        _VFX = new ActionVFX(true, 1, "Action VFX/Splash_VFX", "Action VFX/LeechEffect_VFX", 2);
+    }
 }

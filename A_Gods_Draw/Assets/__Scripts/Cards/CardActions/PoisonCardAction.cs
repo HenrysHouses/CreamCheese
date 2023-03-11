@@ -42,4 +42,9 @@ public class PoisonCardAction : CardAction
         isReady = true;
         
     }
+
+    public override void SetActionVFX()
+    {
+        _VFX = new ActionVFX(false, 0, "", "Action VFX/PoisonSplat_VFX", 2);
+    }
 }

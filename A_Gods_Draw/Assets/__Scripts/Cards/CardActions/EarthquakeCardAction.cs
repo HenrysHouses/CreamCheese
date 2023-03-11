@@ -24,7 +24,11 @@ public class EarthquakeCardAction : CardAction
         yield return new WaitForSeconds(0.3f);
 
         isReady = true;
+    }
 
+    public override void SetActionVFX()
+    {
+        _VFX = new ActionVFX(false, 0, "", "Action VFX/Splash_VFX", 2);
     }
 
 }

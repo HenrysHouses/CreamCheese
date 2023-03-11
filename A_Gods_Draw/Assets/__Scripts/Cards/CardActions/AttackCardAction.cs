@@ -27,4 +27,8 @@ public class AttackCardAction : CardAction
         isReady = true;
     }
 
+    public override void SetActionVFX()
+    {
+        _VFX = new ActionVFX(true, 1, "Action VFX/sword_VFX", "Action VFX/Effect_SlashEffect_VFX", 2);
+    }
 }
