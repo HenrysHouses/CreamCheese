@@ -24,6 +24,7 @@ public class PlayerController : BoardElement
     void Start()
     {
         healthTxt.text = "HP: " + playerTracker.Health.ToString();
+        UpdateLights();
     }
 
     public void DealDamage(int amount)
@@ -37,17 +38,7 @@ public class PlayerController : BoardElement
         healthTxt.text = "HP: " + playerTracker.Health.ToString();
         CameraEffects.ShakeOnce(0.2f,5);
         SceneManager.SetActiveScene(gameObject.scene);
-        Debug.LogError("PissAss Health " + playerTracker.Health + " max healthus " + playerTracker.MaxHealth);
-        int _count = (int)((float)playerTracker.Health / (float)playerTracker.MaxHealth) * lights.Length;
-        Debug.LogError("Pissed " + _count);
-        for(int i = 0; i < lights.Length; i++)
-        {
-
-            lights[i].SetActive(_count >= i ? true : false);
-            Debug.LogError(_count >= i ? true : false);
-
-        }
-        // Instantiate(lightPrefabs, new Vector3(0,0,0), Quaternion.identity);
+        UpdateLights();
     }
 
     public void Heal(int amount)
@@ -58,6 +49,20 @@ public class PlayerController : BoardElement
             playerTracker.Health = playerTracker.MaxHealth;
 
         healthTxt.text = "HP: " + playerTracker.Health.ToString();
+
+    }
+
+    private void UpdateLights()
+    {
+
+        int _count = Mathf.RoundToInt(((float)playerTracker.Health / (float)playerTracker.MaxHealth) * ((float)lights.Length + 1f));
+        for(int i = 0; i < lights.Length; i++)
+        {
+
+            lights[i].SetActive(_count < i + 1 ? true : false);
+            //torches[i].SetActive(_count < i + 1 ? false : true);
+
+        }
 
     }
 

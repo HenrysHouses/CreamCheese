@@ -8,7 +8,7 @@ public class DamageLightController : MonoBehaviour
     public bool UpDown;
     private Vector3 origin, velocity;
     [SerializeField]
-    private float originPullForce, speedMult;
+    private float originPullForce, speedMult, maxDistance;
 
     private void Start()
     {
@@ -20,8 +20,10 @@ public class DamageLightController : MonoBehaviour
     private void Update()
     {
 
-        
-        velocity += (((origin - transform.position).normalized * (Vector3.Distance(origin, transform.position) * originPullForce)) + (new Vector3(Random.Range(-1f, 1f), Random.Range(-1f, 1f), Random.Range(-1f, 1f)))).normalized * (speedMult / (velocity.magnitude + 1f)) * Time.deltaTime;
+        if(Vector3.Distance(transform.position, origin) < maxDistance)
+            velocity += new Vector3(Random.Range(-1f, 1f), Random.Range(-1f, 1f), Random.Range(-1f, 1f)).normalized * speedMult * Time.deltaTime;
+        else
+            velocity = (origin - transform.position).normalized * originPullForce;
         transform.position += velocity;
 
     }
