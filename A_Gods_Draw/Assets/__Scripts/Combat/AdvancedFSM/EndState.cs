@@ -16,7 +16,7 @@ public class EndState : CombatFSMState
     TurnController Controller;
     PlayerTracker _player;
     
-    
+    bool WonCombat;
 
     public EndState(TurnController controller, PlayerTracker player)
     {
@@ -29,6 +29,9 @@ public class EndState : CombatFSMState
 
     public override void Reason(bool override_ = false)
     {
+        if(WonCombat)
+            return;
+
         if (Controller.shouldEndTurn)
             return;
 
@@ -56,6 +59,9 @@ public class EndState : CombatFSMState
 
     public override void Act()
     {
+        if(WonCombat)
+            return;
+
         BoardElement.ExitCombat(); // ????
 
         ActivateRune(Controller);
@@ -75,8 +81,9 @@ public class EndState : CombatFSMState
             UnityEngine.Debug.Log("saved");
             if (Controller.GetBoard().Encounter.name.Equals("Boss"))
                 GameManager.timesDefeatedBoss++;
-            MultiSceneLoader.loadCollection("Map", collectionLoadMode.Difference);
-            Map.Map_Manager.SavingMap();
+
+            Controller.StartCoroutine(Controller.ExitCombat());
+            WonCombat = true;
         }
     }
 }

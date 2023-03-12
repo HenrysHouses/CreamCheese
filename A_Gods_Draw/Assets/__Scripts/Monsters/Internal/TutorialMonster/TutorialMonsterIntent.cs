@@ -7,21 +7,19 @@ public class TutorialMonsterIntent : Intent
 
     private AttackPlayerAction attackPlayerAction;
     private AttackGodAction attackGodAction;
-    private DefendAction defendAction;
+    public DefendAction defendAction;
     public TutorialMonsterIntent(ref ActionSelection[] _actions)
     {
 
-        attackPlayerAction = new AttackPlayerAction(2, 4);
-        attackGodAction = new AttackGodAction(2, 4);
-        defendAction = new DefendAction(1, 2);
-
+        attackPlayerAction = new AttackPlayerAction(4, 4);
+        attackGodAction = new AttackGodAction(2, 2);
+        defendAction = new DefendAction(1, 1);
     }
 
     public override void DecideIntent(BoardStateController _board){}
 
     public override void TutorialIntentOverride(BoardStateController _board, TutorialActions _actionToPerform)
     {
-
         switch (_actionToPerform)
         {
             

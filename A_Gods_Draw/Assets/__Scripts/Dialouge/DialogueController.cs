@@ -15,7 +15,7 @@ public class DialogueController : MonoBehaviour
 
     [SerializeField] DialogueTransform[] dialogueTransform;
 
-    void Start()
+    void Awake()
     {
         UpdateTransforms(null, collectionLoadMode.Replace);
         MultiSceneLoader.OnSceneCollectionLoaded.AddListener(UpdateTransforms);
@@ -28,31 +28,33 @@ public class DialogueController : MonoBehaviour
             Destroy(gameObject);
         }
     }
-
+   
     void UpdateTransforms(SceneCollection collection, collectionLoadMode mode)
     {
         dialogueTransform = GameObject.FindObjectsOfType<DialogueTransform>();
     }
 
-    public void SpawnDialogue(Dialogue dialogue)
+    public DialogueBox SpawnDialogue(IDialogue dialogue)
     {
         foreach (var holder in dialogueTransform)
         {
             if(holder.TransformName == dialogue.TransformName)
             {
                 if(holder.hasDialogue())
-                    return;
+                    return null;
 
                 GameObject spawn = Instantiate(dialoguePrefab);
-                spawn.GetComponent<DialogueBox>().SetDialogue(dialogue);
+                DialogueBox box = spawn.GetComponent<DialogueBox>(); 
+                box.SetDialogue(dialogue);
                 spawn.transform.SetParent(holder.transform);
                 spawn.transform.localScale = Vector3.one;
                 spawn.transform.localPosition = Vector3.zero;
                 spawn.transform.localRotation = Quaternion.identity;
-                return;
+                return box;
             }
         }
         Debug.LogWarning(dialogue.TransformName + " Dialogue Transform was not found");
+        return null;
     }
 
     public void SpawnDialogue(Dialogue dialogue, Vector2 rectAnchor)

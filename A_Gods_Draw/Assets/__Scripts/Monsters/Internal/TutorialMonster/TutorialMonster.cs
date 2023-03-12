@@ -12,7 +12,10 @@ public class TutorialMonster : Monster
         enemyIntent.Self = this;
         healthBarColor = healthBarFill.color;
         barrierBarColor = barrierBarFill.color;
+        
 
+        TutorialMonsterIntent temp = enemyIntent as TutorialMonsterIntent;
+        temp.defendAction.toDefend = this;
     }
 
     internal override void DecideIntent(BoardStateController board)
@@ -52,7 +55,8 @@ public class TutorialMonster : Monster
     {
 
         enemyIntent.TutorialIntentOverride(_board, _actionToPerform);
-
+        UpdateDefenceUI();
+        UpdateIntentUI();
     }
 
 }

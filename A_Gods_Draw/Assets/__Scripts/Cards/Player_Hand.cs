@@ -14,6 +14,7 @@ public class Player_Hand : MonoBehaviour
     public List<CardHandAnim> CardSelectionAnimators = new List<CardHandAnim>();
     public GameObject CardHandPrefab;
 
+    [System.Serializable]
     /// <summary>Data container for on hover animations</summary>
     public class CardHandAnim
     {
@@ -88,6 +89,11 @@ public class Player_Hand : MonoBehaviour
     {
         CardSelectionAnimators.Clear();
         UpdateCards();
+    }
+
+    public bool isEmpty()
+    {
+        return CardSelectionAnimators.Count == 0;
     }
 
     private void Update()
