@@ -9,10 +9,10 @@ public class Monster : BoardElement
 {
 
     [SerializeField]
-    private ActionSelection[] EnemyActions;
+    protected ActionSelection[] EnemyActions;
     public Intent GetIntent() => enemyIntent;
     protected Intent enemyIntent;
-    private int defendFor, queuedDefence;
+    protected int defendFor, queuedDefence;
 
     //VFX
     public GameObject deathParticleVFX;
@@ -21,8 +21,8 @@ public class Monster : BoardElement
     public float outlineSize = 0.01f;
     private bool outlineShouldTurnOff;
     private float outlineRemainingTime;
-    private int queuedDamage, queuedPoison, queuedPierce;
-    private Dictionary<ActionCard_Behaviour, int> damageSources;
+    protected int queuedDamage, queuedPoison, queuedPierce;
+    protected Dictionary<ActionCard_Behaviour, int> damageSources;
 
     //UI
     [SerializeField]
@@ -30,7 +30,7 @@ public class Monster : BoardElement
     [SerializeField]
     private Slider healthBar, poisonBar, barrierBar, afterDamageBar;
     [SerializeField]
-    private Image healthBarFill, barrierBarFill, afterDamageBarFill;
+    protected Image healthBarFill, barrierBarFill, afterDamageBarFill;
     [SerializeField]
     private TMP_Text healthText, strengthText, defendText;
     [SerializeField]
@@ -38,7 +38,7 @@ public class Monster : BoardElement
     [SerializeField]
     private GameObject effectIconPrefab, defendUI;
     private Dictionary<Sprite, GameObject> debuffDisplays;
-    private Color healthBarColor, barrierBarColor;
+    protected Color healthBarColor, barrierBarColor;
     [SerializeField]
     private Color damageIndicatorColor;
     private bool flashHealthBar = false, flashBarrierBar = false;
@@ -78,10 +78,9 @@ public class Monster : BoardElement
 
     }
 
-    private void Start()
+    protected virtual void Start()
     {
 
-        // Debug.Log("this was commented out so i can continue working, - Henrik");
         enemyIntent = new MinionIntent(ref EnemyActions);
         enemyIntent.Self = this;
         healthBarColor = healthBarFill.color;
@@ -289,7 +288,7 @@ public class Monster : BoardElement
 
     }
 
-    private void UpdateHealthUI()
+    protected void UpdateHealthUI()
     {
 
         healthText.text = (currentHealth + barrier) + "/" + maxHealth;
@@ -298,7 +297,7 @@ public class Monster : BoardElement
             
     }
 
-    private void UpdateDefenceUI()
+    protected void UpdateDefenceUI()
     {
 
         if(defendFor < 1)
@@ -314,7 +313,7 @@ public class Monster : BoardElement
 
     }
 
-    private void UpdateHealthDamageUI()
+    protected void UpdateHealthDamageUI()
     {
 
         flashBarrierBar = false;
@@ -338,7 +337,7 @@ public class Monster : BoardElement
         
     }
 
-    private void UpdateIntentUI()
+    protected void UpdateIntentUI()
     {
 
         if(enemyIntent.GetCurrentIcon() == null)
@@ -364,7 +363,7 @@ public class Monster : BoardElement
 
     }
 
-    internal void DecideIntent(BoardStateController board)
+    internal virtual void DecideIntent(BoardStateController board)
     {
 
         if(Defending)

@@ -25,9 +25,10 @@ public abstract class Intent
         strength = 0;
     }
 
-    public abstract void DecideIntent(BoardStateController board);
+    public abstract void DecideIntent(BoardStateController _board);
 
-    public virtual void LateDecideIntent(BoardStateController board) { }
+    public virtual void TutorialIntentOverride(BoardStateController _board, TutorialActions _actionToPerform){}
+    public virtual void LateDecideIntent(BoardStateController _board){}
     public virtual bool DefendedLastTurn(){return false;}
     public virtual bool AttackedLastTurn(){return false;}
     public virtual bool DidActionLastTurn(){return false;}
@@ -43,14 +44,14 @@ public abstract class Intent
         return actionSelected?.Explanation;
     }
 
-    public void Act(BoardStateController board, UnityEngine.Object source)
+    public void Act(BoardStateController _board, UnityEngine.Object _source)
     {
         if (actionSelected != null)
         {
             if (actionSelected.ID == (int)EnemyIntent.None)
                 return;
 
-            actionSelected.Execute(board, strength, source);
+            actionSelected.Execute(_board, strength, _source);
         }
 
         CancelIntent();
