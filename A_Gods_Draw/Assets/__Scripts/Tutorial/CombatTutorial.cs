@@ -17,34 +17,19 @@ public class CombatTutorial : TutorialController
     public override void CheckTutorialConditions()
     {
         if(isTutorialStep(0))
-        {
-            Debug.LogError("Press");
             startTutorialRoutine(PressAnyButtonToContinue(Step1_Trigger));
-        }
         
         if(isTutorialStep(1))
-        {
-            Debug.LogError("Attakck");
             startTutorialRoutine(PlayAttackCardOnEnemy());
-        }
     
         if(isTutorialStep(2))
-        {
-            Debug.LogError("end");
             startTutorialRoutine(EndTurn());
-        }
 
         if(isTutorialStep(3))
-        {
-            Debug.LogError("attack again");
             startTutorialRoutine(AttackAgain());
-        }
 
         if(isTutorialStep(4))
-        {
-            Debug.LogError("defend");
             startTutorialRoutine(DefendYourself());
-        }
     }
 
     public GameObject[] EnableBoard;
@@ -82,6 +67,7 @@ public class CombatTutorial : TutorialController
     {
         monster = turnController.GetBoard().getLivingEnemies()[0] as TutorialMonster;
         monster.TutorialIntentOverride(turnController.GetBoard(), TutorialActions.Defend);
+        yield return new WaitUntil(() => turnController.state == CombatState.MainPhase);
         yield return new WaitUntil(() => turnController._Hand.isEmpty());
         Horn.turnEnd.AddListener(HasEndedTurn);
         Horn.CanEndTurn = true;
@@ -136,7 +122,6 @@ public class CombatTutorial : TutorialController
         CardPlayData buffCard = new CardPlayData(Resources.Load<Card_SO>("Cards/Buff/Buff_Urdarbrunnr_CardSO"));
         deckController.AddCardToLib(buffCard);
         yield return new WaitUntil(() => turnController.state == CombatState.EndStep);
-        Destroy(CurrentDialogue.gameObject);
         completeTutorialRoutine(defend_Trigger, 4);
     }
 }

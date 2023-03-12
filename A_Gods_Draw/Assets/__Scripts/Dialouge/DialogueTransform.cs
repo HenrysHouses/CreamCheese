@@ -16,4 +16,9 @@ public class DialogueTransform : MonoBehaviour
             return true;
         return false;
     }
+
+    public void destroyDialogue()
+    {
+        Destroy(transform.GetChild(0));
+    }
 }

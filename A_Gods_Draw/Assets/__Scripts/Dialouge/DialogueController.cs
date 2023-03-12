@@ -4,6 +4,7 @@
 */
 
 using UnityEngine;
+using UnityEngine.SceneManagement;
 using HH.MultiSceneTools;
 
 /// <summary>MonoBehaviour which spawns in requested dialogue at specified locations</summary>
@@ -19,6 +20,7 @@ public class DialogueController : MonoBehaviour
     {
         UpdateTransforms(null, collectionLoadMode.Replace);
         MultiSceneLoader.OnSceneCollectionLoaded.AddListener(UpdateTransforms);
+        SceneManager.sceneLoaded += UpdateTransforms;
 
         if(instance == null)
             instance = this;
@@ -31,17 +33,29 @@ public class DialogueController : MonoBehaviour
    
     void UpdateTransforms(SceneCollection collection, collectionLoadMode mode)
     {
+        Debug.Log("dasjkldashjkadhj");
         dialogueTransform = GameObject.FindObjectsOfType<DialogueTransform>();
     }
 
-    public DialogueBox SpawnDialogue(IDialogue dialogue)
+    void UpdateTransforms(Scene collection, LoadSceneMode mode)
+    {
+        Debug.Log("sdadsdsssssssssss");
+        dialogueTransform = GameObject.FindObjectsOfType<DialogueTransform>();
+    }
+
+    public DialogueBox SpawnDialogue(IDialogue dialogue, bool replace = false)
     {
         foreach (var holder in dialogueTransform)
         {
             if(holder.TransformName == dialogue.TransformName)
             {
                 if(holder.hasDialogue())
-                    return null;
+                {
+                    if(replace)
+                        holder.destroyDialogue();
+                    else
+                        return null;
+                }
 
                 GameObject spawn = Instantiate(dialoguePrefab);
                 DialogueBox box = spawn.GetComponent<DialogueBox>(); 

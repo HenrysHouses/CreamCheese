@@ -27,7 +27,7 @@ public abstract class TutorialController : MonoBehaviour
 
     void spawnTutorial()
     {
-        CurrentDialogue = DialogueController.instance.SpawnDialogue(TutorialSteps);
+        CurrentDialogue = DialogueController.instance.SpawnDialogue(TutorialSteps, true);
         currentStep = CurrentDialogue.getCurrentPage() as TutorialSentence;
         currentStep.WaitForTrigger();
     } 
@@ -97,5 +97,11 @@ public abstract class TutorialController : MonoBehaviour
         yield return new WaitUntil(() => Input.anyKeyDown); 
 
         completeTutorialRoutine(trigger, pageSkip);
+    }
+
+    void OnDestroy()
+    {
+        if(CurrentDialogue)
+            Destroy(CurrentDialogue.gameObject);
     }
 }
