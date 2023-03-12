@@ -31,4 +31,10 @@ public class KastaCardAction : CardAction
 
     }
 
+    public override void SetActionVFX()
+    {
+        _VFX = new ActionVFX(false, 0, "", "", 0);
+        Debug.LogError("Kasta has no VFX");
+    }
+
 }

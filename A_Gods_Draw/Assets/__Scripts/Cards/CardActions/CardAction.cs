@@ -17,8 +17,11 @@ public abstract class CardAction : Action
     {
         currentCard = beh;
         UpdateNeededLanes(beh);
+        SetActionVFX();
     }
 
+    /// <summary>Should set the settings for the action's _VFX</summary>
+    public abstract void SetActionVFX();
     protected virtual void UpdateNeededLanes(ActionCard_Behaviour source) { }
     public override void Execute(BoardStateController board, int strengh, UnityEngine.Object source) { }
     public virtual void CardPlaced(BoardStateController board, ActionCard_Behaviour source) { } //This used to be OnLandePlaced
@@ -175,4 +178,19 @@ public class ActionVFX
     public GameObject trigger_VFX;
     public GameObject hit_VFX;
     public float HitVFXLifeSpan = 2f;
+
+    public ActionVFX(bool TriggerVFXFollowPath, float PathAnimSpeed, string TriggerVFX_Path, string HitVFX_Path, float LifeSpan)
+    {
+        FollowPath = TriggerVFXFollowPath;
+        isAnimating = false;
+        PathSpeed = PathAnimSpeed;
+        
+        if(TriggerVFX_Path != "")
+            trigger_VFX = Resources.Load<GameObject>(TriggerVFX_Path);
+        
+        if(HitVFX_Path != "")
+            hit_VFX = Resources.Load<GameObject>(HitVFX_Path);
+        
+        HitVFXLifeSpan = LifeSpan;
+    }
 }

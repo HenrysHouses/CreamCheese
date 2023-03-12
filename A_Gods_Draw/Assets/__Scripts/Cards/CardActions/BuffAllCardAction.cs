@@ -19,9 +19,12 @@ public class BuffAllCardAction : CardAction
 
             if(_card.GetCardType == CardType.Attack)
                 _card.Buff(_source.stats.strength, false);
-
         }
-        
     }
 
+    public override void SetActionVFX()
+    {
+        _VFX = new ActionVFX(false, 0, "", "", 0);
+        Debug.LogError("Buff All has no VFX");
+    }
 }

@@ -63,4 +63,9 @@ public class ChainCardAction : CardAction
 
         isReady = true;
     }
+
+    public override void SetActionVFX()
+    {
+        _VFX = new ActionVFX(false, 0, "", "Action VFX/Chained_VFX", 2);
+    }
 }

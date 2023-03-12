@@ -41,4 +41,9 @@ public class FrostbiteCardAction : CardAction
 
         isReady = true;
     }
+
+    public override void SetActionVFX()
+    {
+        _VFX = new ActionVFX(false, 0, "", "Action VFX/Frostbite_VFX", 2);
+    }
 }

@@ -29,4 +29,10 @@ public class HealCardAction : CardAction
         // card.stats.Targets.Clear();
         isReady = false;
     }
+
+    public override void SetActionVFX()
+    {
+        _VFX = new ActionVFX(false, 0, "", "", 0);
+        Debug.LogError("Heal has no VFX");
+    }
 }

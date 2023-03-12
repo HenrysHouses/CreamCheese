@@ -5,23 +5,6 @@ using UnityEngine;
 [System.Serializable]
 public class DefendCardAction : CardAction
 {
-    //bool HasClickedMonster()
-    //{
-    //    if (Input.GetMouseButtonDown(0))
-    //    {
-    //        BoardElement element = TurnController.PlayerClick();
-    //        IMonster clickedMonster = element as IMonster;
-    //        if (clickedMonster)
-    //        {
-    //            Debug.Log(clickedMonster);
-    //            target = clickedMonster;
-    //            return true;
-    //        }
-    //        current.MissClick();
-    //    }
-    //    return false;
-    //}
-
     public override IEnumerator OnAction(BoardStateController board, ActionCard_Behaviour source)
     {
         isReady = false;
@@ -42,5 +25,10 @@ public class DefendCardAction : CardAction
         }
         // source.stats.Targets.Clear();
         isReady = true;
+    }
+
+    public override void SetActionVFX()
+    {
+        _VFX = new ActionVFX(false, 2, "Action VFX/Shield_VFX", "", 0);
     }
 }

@@ -26,4 +26,10 @@ public class WeakenCardAction : CardAction
 
         isReady = true;
     }
+
+    public override void SetActionVFX()
+    {
+        _VFX = new ActionVFX(false, 0, "", "", 0);
+        Debug.LogError("Weaken All has no VFX");
+    }
 }

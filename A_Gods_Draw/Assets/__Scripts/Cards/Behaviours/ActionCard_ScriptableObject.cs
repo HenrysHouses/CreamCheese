@@ -89,7 +89,7 @@ public class CardActionData
     // public CardSelectionType SelectionOverride;
     public CardActionEnum actionEnum;
     public EventReference action_SFX;
-    public ActionVFX _VFX;
+    [HideInInspector] public ActionVFX _VFX;
 }
 
 [System.Serializable]
