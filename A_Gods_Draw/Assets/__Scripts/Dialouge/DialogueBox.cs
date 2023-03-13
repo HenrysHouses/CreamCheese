@@ -21,15 +21,23 @@ public class DialogueBox : MonoBehaviour
 
     // state
     bool isDisplayingPage;
+    public bool fullPageIsDisplaying => !isDisplayingPage;
     bool isWaitingForNextPage;
     bool nextPageIsReady = true;
     bool isDialogueInProgress = true;
     EventReference character_SFX;
 
+    Coroutine displayPageRoutine;
+
     void Update()
     {
         if(!isDialogueInProgress)
             return;
+
+        if(Input.GetKeyDown(KeyCode.Space))
+        {
+            skipPage(pageIndex);
+        }
 
         if(pageIndex < DialogueText.Length)
         {
@@ -37,7 +45,7 @@ public class DialogueBox : MonoBehaviour
             {
                 pageIndex++;
                 goToDialoguePage(pageIndex);
-                StartCoroutine(DisplayPage());
+                displayPageRoutine = StartCoroutine(DisplayPage());
                 return;
             }
             
@@ -58,6 +66,14 @@ public class DialogueBox : MonoBehaviour
     {
         isWaitingForNextPage = true;
         yield return new WaitForSeconds(TimeBetweenPages);
+    
+        // ! This is not ideal but its ok, no worries :)
+        if(DialogueText[pageIndex] is TutorialSentence _sentence)
+        {
+            yield return new WaitUntil(()=>_sentence.IsComplete);
+        }
+
+
         nextPageIsReady = true;
         isWaitingForNextPage = false;
     }
@@ -77,10 +93,21 @@ public class DialogueBox : MonoBehaviour
         isDisplayingPage = false;
     }
 
+    public void skipPage(int page)
+    {   
+        if(pageIndex != page)
+            return;
+
+        StopCoroutine(displayPageRoutine);
+        TextMesh.text = currDialogue.ArrayToString();
+        isDisplayingPage =  false;
+    }
+
     void displayChar(int i)
     {
         TextMesh.text += currDialogue[i];
-        SoundPlayer.PlaySound(character_SFX, gameObject);
+        if(character_SFX.Path != "")
+            SoundPlayer.PlaySound(character_SFX, gameObject);
        // Debug.Log("Remove comment here to add sound");
     }
 
@@ -93,10 +120,26 @@ public class DialogueBox : MonoBehaviour
         TextMesh.text = "";
     }
 
-    public void SetDialogue(Dialogue dialogue)
+    public void SetDialogue(IDialogue dialogue)
     {
         DialogueText = dialogue.pages;
         character_SFX = dialogue.SFX;
+    }
+
+    public sentence getCurrentPage()
+    {
+        if(DialogueText.Length <= pageIndex)
+            return null;
+
+        if(pageIndex > -1)
+            return DialogueText[pageIndex];
+        else
+            return DialogueText[0];
+    }
+
+    public int getCurrentPageIndex()
+    {
+        return pageIndex;
     }
 }
 

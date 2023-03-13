@@ -9,6 +9,7 @@ using System.Collections;
 using UnityEngine;
 using FMODUnity;
 using HH.MultiSceneTools.Examples;
+using HH.MultiSceneTools;
 
 public class TurnController : CombatFSM
 {
@@ -20,7 +21,7 @@ public class TurnController : CombatFSM
     [SerializeField] PathAnimatorController DiscardAnimator;
     [SerializeField] PathAnimatorController DrawAnimator;
     [SerializeField] PathAnimatorController ShuffleAnimator;
-    [SerializeField] SceneTransition SceneTransition;
+    [SerializeField] SceneTransition _SceneTransition;
     [SerializeField] PathController DrawAnimController, DiscardAnimController;
     [SerializeField] Transform DrawEndPoint;
     [SerializeField] Transform DiscardStartPoint;
@@ -124,7 +125,7 @@ public class TurnController : CombatFSM
 
         state = CurrentStateID;
 
-        if(!SceneTransition.isTransitioning && !BoardStateController.isEncounterInstantiated)
+        if(!_SceneTransition.isTransitioning && !BoardStateController.isEncounterInstantiated)
         {
             BoardStateController.spawnEncounter();
         }
@@ -179,12 +180,16 @@ public class TurnController : CombatFSM
 
     public void PlayerDying()
     {
-       
-        
         death.dying = true;
-        
+    }
 
-
+    public IEnumerator ExitCombat()
+    {
+        deckController.clear();
+        yield return new WaitForSeconds(6);
+        _SceneTransition.TransitionScene(false, "Map");
+        // MultiSceneLoader.loadCollection("Map", collectionLoadMode.Difference);
+        Map.Map_Manager.SavingMap();
     }
 
 

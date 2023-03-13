@@ -99,7 +99,7 @@ public class CameraMovement : MonoBehaviour
             if(_CamPossies[i].cv == view)
             {
                 endPosition = _CamPossies[i];
-                Debug.Log("Camera is " + endPosition.cv);
+                // Debug.Log("Camera is " + endPosition.cv);
             }
         }
     }

@@ -6,7 +6,8 @@ using FMODUnity;
 public class EndTurnButton : MonoBehaviour
 {
     [SerializeField]
-    UnityEvent turnEnd;
+    public UnityEvent turnEnd;
+    public bool CanEndTurn = true;
 
     [SerializeField] MeshRenderer Horn;
     Material Outline;
@@ -22,9 +23,12 @@ public class EndTurnButton : MonoBehaviour
 
     private void OnMouseDown()
     {
-        SoundPlayer.PlaySound(endTurn_SFX,gameObject);
-        hornEffect.Play();
-        turnEnd.Invoke();
+        if(CanEndTurn)
+        {
+            SoundPlayer.PlaySound(endTurn_SFX,gameObject);
+            hornEffect.Play();
+            turnEnd.Invoke();
+        }
     }
 
     void OnMouseOver()

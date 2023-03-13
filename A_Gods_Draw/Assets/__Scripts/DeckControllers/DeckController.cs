@@ -82,7 +82,7 @@ public class DeckController : MonoBehaviour
         pHand.Clear();
         pBoard.Clear();
     }
-    
+
     // Setup
     void OnEnable()
     {

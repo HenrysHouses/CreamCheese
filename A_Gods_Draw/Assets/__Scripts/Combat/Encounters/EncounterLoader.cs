@@ -13,7 +13,8 @@ public enum EncounterDifficulty
     Hard,
     elites,
     Boss,
-    Any
+    Any,
+    Tutorial
 }
 
 /// <summary>
