@@ -191,6 +191,9 @@ public class ActionCard_Behaviour : Card_Behaviour
         Debug.LogWarning("something funky might be here");
         return true;
     }
+
+    public void EnemyDied(Monster enemy) => SelectedTargets.Remove(enemy);
+
     public void RemoveFromHand()
     {
         controller.Discard(this);

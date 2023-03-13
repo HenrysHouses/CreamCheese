@@ -13,6 +13,7 @@ public class Monster : BoardElement
     public Intent GetIntent() => enemyIntent;
     protected Intent enemyIntent;
     protected int defendFor, queuedDefence;
+    private List<ActionCard_Behaviour> targetedByCards;
 
     //VFX
     public GameObject deathParticleVFX;
@@ -144,6 +145,7 @@ public class Monster : BoardElement
         {
 
             damageSources.Add(_source, _amount);
+            targetedByCards.Add(_source);
 
             if(_ignoreShield)
                 queuedPierce += _amount;
@@ -230,6 +232,9 @@ public class Monster : BoardElement
                     spawn.GetComponent<DestroyOrder>().destroyVFX();
                 }
             }
+
+            for(int i = 0; i < targetedByCards.Count; i++)
+                targetedByCards[i].EnemyDied(this);
             
             animator.SetTrigger("Dying");
             animator.SetInteger("Dying", Random.Range(0,2));
