@@ -25,7 +25,7 @@ namespace Map
         //for ui and sprites for nodes of the map
         public SpriteRenderer spriteRenderer;
         MeshRenderer meshRenderer;
-        [SerializeField] GameObject highlight; //for showing border around the map nodes
+        [SerializeField] GameObject highlight, lockedGameObject, crackedGameObject, particleGameObject; //for showing border around the map nodes
         public SpriteRenderer visitedSprite;
         public Image visitedImage; //image showing that you have visited that node
         bool isHighlightOn;
@@ -80,6 +80,7 @@ namespace Map
                 visitedSprite.color = Map_View.instance.visitedColor;
                 visitedSprite.gameObject.SetActive(false);
             }
+            highlight.SetActive(false);
 
             SetState(NodeStates.Locked);
         }
@@ -97,6 +98,7 @@ namespace Map
                         spriteRenderer.color = Map_View.instance.lockedColor;
                     if(meshRenderer)
                         meshRenderer.material.color = Map_View.instance.lockedColor;
+                    lockedGameObject.SetActive(true);
                     break;
 
                 case NodeStates.Visited:
@@ -108,6 +110,12 @@ namespace Map
                     }
                     if(meshRenderer)
                         meshRenderer.material.color = Map_View.instance.visitedColor;
+                    lockedGameObject.SetActive(false);
+                    crackedGameObject.SetActive(true);
+                    foreach (MeshRenderer _renderer in crackedGameObject.GetComponentsInChildren<MeshRenderer>())
+                    {
+                        _renderer.material.color = Map_View.instance.visitedColor;
+                    }
                     break;
 
                 case NodeStates.Taken:
@@ -116,6 +124,8 @@ namespace Map
                         spriteRenderer.color = Map_View.instance.AvailableColor;
                     if(meshRenderer)
                         meshRenderer.material.color = Map_View.instance.AvailableColor;
+                    lockedGameObject.SetActive(false);
+                    particleGameObject.SetActive(true);
                     break;
 
                 default:
