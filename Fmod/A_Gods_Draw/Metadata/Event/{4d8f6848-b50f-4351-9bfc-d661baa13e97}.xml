@@ -5,7 +5,7 @@
 			<value>EnemyDamaged 5</value>
 		</property>
 		<property name="outputFormat">
-			<value>1</value>
+			<value>0</value>
 		</property>
 		<relationship name="folder">
 			<destination>{3ac946ff-b7b9-4993-8e94-56477a393032}</destination>
@@ -54,7 +54,7 @@
 	<object class="MarkerTrack" id="{d9eb4d2d-003f-428a-bf84-0c2483420b81}" />
 	<object class="GroupTrack" id="{00eaad30-d655-4c7c-8d09-7578592e3ca8}">
 		<relationship name="modules">
-			<destination>{1479ca87-0c6e-4e3b-beb3-ef5e4d63284f}</destination>
+			<destination>{d226da62-71dd-4b2d-b9ef-8e7ca83808e2}</destination>
 		</relationship>
 		<relationship name="mixerGroup">
 			<destination>{615827ac-736e-4282-87d1-234dd026238c}</destination>
@@ -62,7 +62,7 @@
 	</object>
 	<object class="Timeline" id="{4c794630-2562-483d-9fb8-febf68598f06}">
 		<relationship name="modules">
-			<destination>{1479ca87-0c6e-4e3b-beb3-ef5e4d63284f}</destination>
+			<destination>{d226da62-71dd-4b2d-b9ef-8e7ca83808e2}</destination>
 		</relationship>
 	</object>
 	<object class="EventMixerMaster" id="{8bdcb976-d507-4fdb-b233-27dfd66185a1}">
@@ -82,9 +82,15 @@
 		</relationship>
 	</object>
 	<object class="MixerBusPanner" id="{e47ebafb-aea5-440c-b451-2ad43e8164ba}" />
-	<object class="SingleSound" id="{1479ca87-0c6e-4e3b-beb3-ef5e4d63284f}">
+	<object class="SingleSound" id="{d226da62-71dd-4b2d-b9ef-8e7ca83808e2}">
+		<property name="length">
+			<value>0.55999999999999961</value>
+		</property>
+		<property name="timelockedOffset">
+			<value>0.94000000000000039</value>
+		</property>
 		<relationship name="audioFile">
-			<destination>{e78315af-22bc-4a51-ac53-bad38abb01cc}</destination>
+			<destination>{7b9fce08-fc6c-4fc3-b8c9-40809941837e}</destination>
 		</relationship>
 	</object>
 	<object class="EventMixerGroup" id="{615827ac-736e-4282-87d1-234dd026238c}">
@@ -104,8 +110,6 @@
 	<object class="MixerBusEffectChain" id="{bba853ff-2a05-48aa-a339-90a05f854afd}">
 		<relationship name="effects">
 			<destination>{f43213ed-9c95-4874-af22-76889f77fd49}</destination>
-			<destination>{aa5eaaf1-52f9-4540-83b8-aa4a0cb383ed}</destination>
-			<destination>{f3d798d0-b894-4710-bc1f-d01db30ab612}</destination>
 		</relationship>
 	</object>
 	<object class="MixerBusPanner" id="{2677f52d-2ceb-4a9b-99d0-a00665156147}" />
@@ -117,45 +121,5 @@
 	</object>
 	<object class="MixerBusPanner" id="{8a9eb751-fb92-4357-a54d-0cdf8bcfef2b}" />
 	<object class="MixerBusFader" id="{f43213ed-9c95-4874-af22-76889f77fd49}" />
-	<object class="PitchShifterEffect" id="{aa5eaaf1-52f9-4540-83b8-aa4a0cb383ed}">
-		<property name="pitch">
-			<value>0.819999993</value>
-		</property>
-		<property name="fftSize">
-			<value>1220</value>
-		</property>
-		<property name="overlap">
-			<value>2</value>
-		</property>
-	</object>
-	<object class="SFXReverbEffect" id="{f3d798d0-b894-4710-bc1f-d01db30ab612}">
-		<property name="decayTime">
-			<value>250</value>
-		</property>
-		<property name="earlyDelay">
-			<value>15</value>
-		</property>
-		<property name="lateDelay">
-			<value>22</value>
-		</property>
-		<property name="HFReference">
-			<value>1150</value>
-		</property>
-		<property name="HFDecayRatio">
-			<value>100</value>
-		</property>
-		<property name="density">
-			<value>50.5</value>
-		</property>
-		<property name="highCut">
-			<value>1700</value>
-		</property>
-		<property name="earlyLateMix">
-			<value>59</value>
-		</property>
-		<property name="wetLevel">
-			<value>-11.3000002</value>
-		</property>
-	</object>
 	<object class="MixerBusFader" id="{4369fa0d-6d5c-426c-bb12-11a26fa28b97}" />
 </objects>
