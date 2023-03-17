@@ -346,6 +346,9 @@ public class Monster : BoardElement
     protected void UpdateIntentUI()
     {
 
+        if(currentHealth <= 0)
+            return;
+
         if(enemyIntent.GetCurrentIcon() == null)
         {
 
