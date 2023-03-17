@@ -18,7 +18,8 @@ public class EarthquakeCardAction : CardAction
         }
 
         // Playing VFX for each action
-        _board.StartCoroutine(playTriggerVFX(_source.gameObject, _source.AllTargets[0] as Monster));
+        if(_source.AllTargets.Length > 0)
+            _board.StartCoroutine(playTriggerVFX(_source.gameObject, _source.AllTargets[0] as Monster));
         yield return new WaitUntil(() => _VFX == null || !_VFX.isAnimating);
 
         yield return new WaitForSeconds(0.3f);

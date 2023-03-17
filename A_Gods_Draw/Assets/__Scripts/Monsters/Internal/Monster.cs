@@ -75,6 +75,7 @@ public class Monster : BoardElement
         UpdateHealthUI();
 
         damageSources = new Dictionary<ActionCard_Behaviour, int>();
+        targetedByCards = new List<ActionCard_Behaviour>();
         debuffDisplays = new Dictionary<Sprite, GameObject>();
 
     }
