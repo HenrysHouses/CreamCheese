@@ -1,4 +1,4 @@
-Shader "Unlit/ScreenSpaceOutline"
+Shader "Unlit/ScreenSpaceOutlineStenciled"
 {
     Properties
     {
@@ -22,49 +22,6 @@ Shader "Unlit/ScreenSpaceOutline"
 
         // #pragma multi_compile __ _USE_OUTLINEFRESNEL
     
-
-
-        Pass
-        {
-
-            Stencil {
-                Ref [_Layer]
-                Pass Replace
-            }
-
-            CGPROGRAM
-            #pragma vertex vert
-            #pragma fragment frag
-            // make fog work
-
-            #include "UnityCG.cginc"
-            #include "Assets/Shaders/HHMacros.cginc"
-
-            struct MeshData
-            {
-                float4 vertex : POSITION;
-                float2 uv : TEXCOORD0;
-            };
-
-            struct Interpolators
-            {
-                float4 vertex : SV_POSITION;
-            };
-
-            Interpolators vert (MeshData v)
-            {
-                Interpolators o;
-                o.vertex = UnityObjectToClipPos(v.vertex);
-                return o;
-            }
-
-            fixed4 frag (Interpolators i) : SV_Target
-            {
-                return float4(0,0,0,0);
-            }
-            ENDCG
-        }
-
         Pass
         {
             Stencil {
