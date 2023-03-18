@@ -121,6 +121,8 @@ public class CombatTutorial : TutorialController
         deckController.AddCardToLib(defenceCard);
         CardPlayData buffCard = new CardPlayData(Resources.Load<Card_SO>("Cards/Buff/Buff_Urdarbrunnr_CardSO"));
         deckController.AddCardToLib(buffCard);
+        CardPlayData GodCard = new CardPlayData(Resources.Load<Card_SO>("Cards/Gods/God_Tyr"));
+        deckController.AddCardToLib(GodCard);
         yield return new WaitUntil(() => turnController.state == CombatState.EndStep);
         completeTutorialRoutine(defend_Trigger, 4);
     }
