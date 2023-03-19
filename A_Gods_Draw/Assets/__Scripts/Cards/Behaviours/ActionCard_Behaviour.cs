@@ -383,6 +383,8 @@ public class ActionCard_Behaviour : Card_Behaviour
             }
         }
 
+        
+
         controller.resetSelectedCard();
         IsOnBoard = true;
         missedClick = true;
@@ -493,9 +495,20 @@ public class ActionCard_Behaviour : Card_Behaviour
         }
     }
 
-    protected override void GainExperience()
+    public override void GainExperience()
     {
-        controller.addExperience(stats.UpgradePath.Experience);
+        Debug.Log(stats.UpgradePath.Experience.XP);
+
+        controller.addExperience(stats);
+
+        Debug.Log(stats.UpgradePath.Experience.XP);
+
+        // stats.UpgradePath.Experience.XP++;
+
+        // if(stats.UpgradePath.Upgrades[stats.UpgradePath.Experience.Level].RequiredXP < stats.UpgradePath.Experience.XP)
+        // {
+        //     stats.UpgradePath.Experience.Level++;
+        // }
     }
 
     public override CardPlayData getCardPlayData()

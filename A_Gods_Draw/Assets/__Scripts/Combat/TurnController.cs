@@ -466,8 +466,10 @@ public class TurnController : CombatFSM
         CardAnimations = null;
     }
 
-    public void addExperience(CardExperience cardExperience)
+    public void addExperience(CardStats card)
     {
+        int ID = card.UpgradePath.Experience.ID;
+
         for (int i = 0; i < deckController.deckData.Count; i++)
         {
             ActionCard_ScriptableObject _Card = deckController.deckData.deckListData[i].CardType as ActionCard_ScriptableObject;
@@ -475,7 +477,7 @@ public class TurnController : CombatFSM
             if(_Card == null)
                 continue;
 
-            if(deckController.deckData.deckListData[i].Experience.ID != cardExperience.ID)
+            if(deckController.deckData.deckListData[i].Experience.ID != ID)
                 continue;
             
             CardUpgradePath unlocks = _Card.cardStats.UpgradePath;
@@ -500,7 +502,7 @@ public class TurnController : CombatFSM
 
             Debug.Log(_Card.cardName + ", ID: " + _CardState.Experience.ID + " just got more experience! at index " + i + " in the deckmanager deck. Previous XP: " + _CardState.Experience.XP);
             _CardState.Experience.XP++;
-
+            card.UpgradePath.Experience.XP++;
 
             deckController.deckData.deckListData[i] = new CardPlayData(_CardState);
             // Debug.Log(deckManager.getDeck.deckData.deckListData[i].Experience.XP);
@@ -509,6 +511,7 @@ public class TurnController : CombatFSM
             {
                 Debug.Log("level up");
                 _CardState.Experience.Level++;
+                card.UpgradePath.Experience.Level++;
                 deckController.deckData.deckListData[i] = new CardPlayData(_CardState);
             }
             deckController.TransferExperienceToHand(_CardState);
