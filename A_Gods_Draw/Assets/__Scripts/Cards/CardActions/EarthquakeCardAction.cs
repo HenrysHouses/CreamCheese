@@ -9,6 +9,7 @@ public class EarthquakeCardAction : CardAction
     {
 
         isReady = false;
+        playSFX(_source.gameObject);
 
         foreach(Monster _target in _board.getLivingEnemies())
         {

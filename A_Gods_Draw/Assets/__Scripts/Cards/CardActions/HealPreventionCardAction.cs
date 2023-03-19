@@ -12,6 +12,7 @@ public class HealPreventionCardAction : CardAction
     public override IEnumerator OnAction(BoardStateController _board, ActionCard_Behaviour _source)
     {
         isReady = false;
+        playSFX(_source.gameObject);
 
         foreach (Monster target in _source.AllTargets)
         {

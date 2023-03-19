@@ -11,6 +11,7 @@ public class OfferingCardAction : CardAction
     {
         thing = Object.Instantiate(Resources.Load<GameObject>("Offering_PRE"));
         board.placeThingOnLane(thing.GetComponent<BoardElement>());
+        playSFX(source.gameObject);
     }
 
     protected override void UpdateNeededLanes(ActionCard_Behaviour source)

@@ -14,8 +14,12 @@ public class AttackCardAction : CardAction
         {
             if (target)
             {
+                if(target.GetHealth() <= 0)
+                    continue;
+
                 // Playing VFX for each action
                 board.StartCoroutine(playTriggerVFX(source.gameObject, target));
+                playSFX(source.gameObject);
                 yield return new WaitUntil(() => !_VFX.isAnimating);
                 target.TakeDamage(source.stats.strength);
                 yield return new WaitForSeconds(0.1f);

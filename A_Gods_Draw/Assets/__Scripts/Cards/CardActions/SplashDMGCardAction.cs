@@ -10,6 +10,7 @@ public class SplashDMGCardAction : CardAction
     {
         isReady = false;
         //StartAnimations...
+        playSFX(source.gameObject);
 
         for (int i = 0; i < source.AllTargets.Length; i++)
         {

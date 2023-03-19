@@ -37,6 +37,12 @@ public abstract class CardAction : Action
         isReady = false;
     }
 
+    public void playSFX(GameObject Source)
+    {
+        if(!action_SFX.IsNull)
+            SoundPlayer.PlaySound(action_SFX, Source);
+    }
+
     public IEnumerator playTriggerVFX(GameObject source, Monster target)
     {
         if (_VFX is not null)

@@ -38,22 +38,26 @@ public class ChooseCardReward : MonoBehaviour
 
     private void Update()
     {
-        if (Input.GetMouseButtonDown(0))
+        if(CardInspector.isInspecting)
         {
-            if(CardInspector.isInspecting)
+            if (Input.GetMouseButtonDown(0))
             {
-                CardInspector.returnInspection();
-                return;
+                if(!CardInspector.isInspecting)
+                {
+                    CardInspector.returnInspection();
+                    return;
+                }
+
+                int SelectIndex = SelectReward();
+
+                if (SelectIndex > -1)
+                {
+                    DeckList_SO.playerObtainCard(CardOptions[SelectIndex]);
+                    Map.Map_Manager.SavingMap();
+                    MultiSceneLoader.loadCollection("Map", collectionLoadMode.Difference);
+                }
             }
 
-            int SelectIndex = SelectReward();
-
-            if (SelectIndex > -1)
-            {
-                DeckList_SO.playerObtainCard(CardOptions[SelectIndex]);
-                Map.Map_Manager.SavingMap();
-                MultiSceneLoader.loadCollection("Map", collectionLoadMode.Difference);
-            }
         }
     }
 

@@ -13,8 +13,6 @@ public class ShouldDestroyCardFromDeck : MonoBehaviour
     private void Start() {
         if(GameManager.instance.shouldDestroyCardInDeck)
             healButton.SetActive(false);
-
-        CameraMovement.instance.SetCameraView(CameraView.Library);
     }
 
     public void DestroyCardNextTimeInLibrary()

@@ -4,6 +4,7 @@ Shader "Unlit/ScreenSpaceOutline"
     {
         _MainTex ("Texture", 2D) = "white" {}
         _Color ("Color", Color) = (1,1,1,1)
+        _Layer ("Read Stencil Layer", int) = 1
         _ScreenResolution ("Screen Resolution", float) = 1000
         _Size ("Outline Size", Range(0, 3)) = 1.5
         _Alpha ("Alpha", float) = 1
@@ -27,7 +28,7 @@ Shader "Unlit/ScreenSpaceOutline"
         {
 
             Stencil {
-                Ref 1
+                Ref [_Layer]
                 Pass Replace
             }
 
@@ -67,7 +68,7 @@ Shader "Unlit/ScreenSpaceOutline"
         Pass
         {
             Stencil {
-                Ref 1
+                Ref [_Layer]
                 Comp NotEqual
                 Pass Keep
             }

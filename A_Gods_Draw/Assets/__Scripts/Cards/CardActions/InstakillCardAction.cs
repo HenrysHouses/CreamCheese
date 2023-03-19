@@ -14,6 +14,7 @@ public class InstakillCardAction : CardAction
             if (Random.Range(1, 10) <= source.stats.strength)
             {
                 // Playing VFX
+                playSFX(source.gameObject);
                 board.StartCoroutine(playTriggerVFX(enemy.gameObject, null, new Vector3(0, 1 ,0)));
                 yield return new WaitUntil(() => !_VFX.isAnimating);
                 enemy.GetComponent<Monster>().TakeDamage(10000);

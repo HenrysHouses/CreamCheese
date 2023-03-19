@@ -36,8 +36,10 @@ public class DeathCrumbling : MonoBehaviour
       //  music.SetActive(false);
 
 
-        if (trulyDead && Input.anyKeyDown)
+        // if (trulyDead && Input.anyKeyDown)
+        if (trulyDead)
         {
+            // LoadingScreen.Instance.EnterLoadingScreen("CutScene", collectionLoadMode.Difference);
             MultiSceneLoader.loadCollection("MainMenu", collectionLoadMode.Difference);
             GameManager.instance.PlayerTracker.resetHealth();
             GameManager.instance.PlayerTracker.CurrentRunes.Clear();
@@ -51,10 +53,5 @@ public class DeathCrumbling : MonoBehaviour
 
         dead = true;
         SoundPlayer.PlaySound(stonerumble, gameObject);
-
-
-
-
-
     }
 }

@@ -68,6 +68,10 @@ namespace Map
         {
             instance = this;
             cam = Camera.main;
+        }
+
+        void Start()
+        {
             CameraMovement.instance.SetCameraView(CameraView.Map);
         }
 

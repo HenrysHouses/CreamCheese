@@ -8,6 +8,7 @@ public class WeakenCardAction : CardAction
     public override IEnumerator OnAction(BoardStateController board, ActionCard_Behaviour source)
     {
         isReady = false;
+        playSFX(source.gameObject);
 
         foreach (Monster target in source.AllTargets)
         {
