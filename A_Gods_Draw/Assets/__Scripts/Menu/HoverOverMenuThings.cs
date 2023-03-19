@@ -12,6 +12,11 @@ public class HoverOverMenuThings : MonoBehaviour
     void Start()
     {
         anim = GetComponentInChildren<Animator>();
+        if(GetComponentInChildren<Animator>() == null)
+        {
+            anim = GetComponent<Animator>();
+
+        }
     }
 
     // Update is called once per frame
