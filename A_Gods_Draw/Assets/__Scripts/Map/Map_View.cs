@@ -44,12 +44,15 @@ namespace Map
         public int linePointCount = 10;
         public float offsetFromNodes = 0.5f;
 
-        [Header("colors")]
+        [Header("colors and materials")]
         public Color32 visitedColor = Color.white;
+        public Material visitedMat;
         public Color32 lockedColor = Color.gray;
+        public Material lockedMat;
         public Color32 lineVisitedColor = Color.white;
         public Color32 lineLockedColor = Color.gray;
         public Color32 AvailableColor = Color.blue;
+        public Material AvailableMat;
 
         private GameObject firstParent;
         private GameObject mapParent;

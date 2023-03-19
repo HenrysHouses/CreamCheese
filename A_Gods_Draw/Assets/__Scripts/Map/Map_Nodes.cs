@@ -41,6 +41,7 @@ namespace Map
         private float mouseDownTime;
         private const float maxClickDuration = 0.5f;
         public EventReference click_SFX;
+        public NodeStates NodeState {get; private set;}
 
         private void Start()
         {
@@ -89,6 +90,7 @@ namespace Map
         {
             if(spriteRenderer)
                 visitedSprite.gameObject.SetActive(false);
+            NodeState = states;
 
             switch (states)
             {
@@ -97,8 +99,9 @@ namespace Map
                     if(spriteRenderer)
                         spriteRenderer.color = Map_View.instance.lockedColor;
                     if(meshRenderer)
-                        meshRenderer.material.color = Map_View.instance.lockedColor;
-                    lockedGameObject.SetActive(true);
+                    {
+                        meshRenderer.material = Map_View.instance.lockedMat;
+                    }
                     break;
 
                 case NodeStates.Visited:
@@ -109,8 +112,9 @@ namespace Map
                         visitedSprite.gameObject.SetActive(true);
                     }
                     if(meshRenderer)
-                        meshRenderer.material.color = Map_View.instance.visitedColor;
-                    lockedGameObject.SetActive(false);
+                    {
+                        meshRenderer.material = Map_View.instance.visitedMat;
+                    }
                     crackedGameObject.SetActive(true);
                     foreach (MeshRenderer _renderer in crackedGameObject.GetComponentsInChildren<MeshRenderer>())
                     {
@@ -123,8 +127,9 @@ namespace Map
                     if(spriteRenderer)
                         spriteRenderer.color = Map_View.instance.AvailableColor;
                     if(meshRenderer)
-                        meshRenderer.material.color = Map_View.instance.AvailableColor;
-                    lockedGameObject.SetActive(false);
+                    {
+                        meshRenderer.material = Map_View.instance.AvailableMat;
+                    }
                     particleGameObject.SetActive(true);
                     break;
 
