@@ -497,18 +497,7 @@ public class ActionCard_Behaviour : Card_Behaviour
 
     public override void GainExperience()
     {
-        Debug.Log(stats.UpgradePath.Experience.XP);
-
         controller.addExperience(stats);
-
-        Debug.Log(stats.UpgradePath.Experience.XP);
-
-        // stats.UpgradePath.Experience.XP++;
-
-        // if(stats.UpgradePath.Upgrades[stats.UpgradePath.Experience.Level].RequiredXP < stats.UpgradePath.Experience.XP)
-        // {
-        //     stats.UpgradePath.Experience.Level++;
-        // }
     }
 
     public override CardPlayData getCardPlayData()
