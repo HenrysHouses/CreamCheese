@@ -431,6 +431,8 @@ public class TurnController : CombatFSM
                 if(card_b.stats.actionGroup.actions[i] is ExhaustCardAction)
                 {
                     isExhausted = true;
+                    card_b.stats.actionGroup.actions[i].playSFX(gameObject);
+                    Debug.Log("Exhaust Animation here");
                 }
             }
 

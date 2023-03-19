@@ -91,7 +91,7 @@ Shader "HenryCustom/Fire"
                 float2 NoiseUv = i.uv;
                 NoiseUv.y -= _Time.w * 0.1;
                 fixed4 NoiseCol = tex2D(_NoiseTex, NoiseUv);
-                
+
                 // Apply noise and scrolling
                 // Main Tex
                 float2 MainUv = i.uv + NoiseCol.xy * _NoiseStrength;
@@ -101,7 +101,7 @@ Shader "HenryCustom/Fire"
 
                 // Secondary Tex
                 float2 SecondUv = i.uv + NoiseCol.xy * _NoiseStrength;
-                SecondUv.x -= _Time.y * 0.01;
+                SecondUv.x -= _Time.y * 0.1;
                 SecondUv.y -= _NoiseStrength;
                 fixed4 SecondCol = tex2D(_SecondTex, SecondUv);
                 
@@ -113,12 +113,13 @@ Shader "HenryCustom/Fire"
                 float2 ScrollUv = i.uv - float2(_Time.y * 0.1, _Time.y * 0.5);
                 fixed4 ScrollCol = tex2D(_ScrollTex, ScrollUv);
                 // apply fog
-                UNITY_APPLY_FOG(i.fogCoord, col);
 
+                // Combine
                 float4 FireCol = saturate((MainCol + SecondCol) * _MainSaturation );
                 float4 DistortionCol = saturate(WallCol + ScrollCol);
-                
                 float4 CombinedCol = FireCol * DistortionCol;
+                
+                // Add color
                 float4 col = lerp(_MainColor, _SecondColor, CombinedCol);
 
                 // float4 OutCol = lerp(_MainColor, _SecondColor, CombinedCol); 

@@ -26,6 +26,7 @@ public class BuffCardAction : CardAction
             offsetPos.z += -1.2137f + ((-1.2137f/amount) * i);
             spawn.transform.localPosition = offsetPos;
         }
+        playSFX(card.gameObject);
     }
 
     public override void Reset(BoardStateController board, Card_Behaviour source)

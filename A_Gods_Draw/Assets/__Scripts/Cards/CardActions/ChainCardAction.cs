@@ -12,6 +12,7 @@ public class ChainCardAction : CardAction
 
         //yield return new WaitUntil(() => true);
         yield return new WaitForSeconds(0.1f);
+        playSFX(source.gameObject);
 
         if(board.ActiveBattleFieldType == BattlefieldID.Fenrir)
         {
@@ -38,6 +39,7 @@ public class ChainCardAction : CardAction
                 {
                     // Playing VFX for each action
                     board.StartCoroutine(playTriggerVFX(source.gameObject, monster));
+                    
                     yield return new WaitUntil(() => _VFX == null || !_VFX.isAnimating);
 
                     ChainedDebuff _chained;

@@ -17,7 +17,7 @@ public class DefendCardAction : CardAction
             {
                 // Playing VFX for each action
                 board.StartCoroutine(playTriggerVFX(source.gameObject, Enemy.transform, new Vector3(0,0,0)));
-
+                playSFX(source.gameObject);
                 if(_VFX != null)
                     yield return new WaitUntil(() => !_VFX.isAnimating);
                 Enemy.DeBuff(source.stats.strength);

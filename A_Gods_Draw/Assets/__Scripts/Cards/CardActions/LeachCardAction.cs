@@ -13,7 +13,7 @@ public class LeachCardAction : CardAction
 
         foreach(Monster _target in _source.AllTargets)
         {
-
+            playSFX(_source.gameObject);
             _board.StartCoroutine(playTriggerVFX(_source.gameObject, _target));
             yield return new WaitUntil(() => !_VFX.isAnimating);
             int _damageDealt = _target.TakeDamage(_source.stats.strength);

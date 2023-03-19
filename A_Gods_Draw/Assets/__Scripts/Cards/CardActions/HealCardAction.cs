@@ -12,7 +12,7 @@ public class HealCardAction : CardAction
     public override IEnumerator OnAction(BoardStateController board, ActionCard_Behaviour source)
     {
         isReady = false;
-
+        playSFX(source.gameObject);
         board.Player.Heal(source.stats.strength);
         // Playing VFX for each action
         board.StartCoroutine(playTriggerVFX(source.gameObject, board.Player.transform, new Vector3(0, 1, 0)));

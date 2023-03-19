@@ -229,10 +229,10 @@ public class ActionCard_Behaviour : Card_Behaviour
             CardAction action = _actionGroup.actions[i];
 
             StartCoroutine(action.OnAction(board, this));
-            if (action.PlayOnPlacedOrTriggered_SFX)
-            {
-                SoundPlayer.PlaySound(action.action_SFX, gameObject);
-            }
+            // if (action.PlayOnPlacedOrTriggered_SFX)
+            // {
+            //     SoundPlayer.PlaySound(action.action_SFX, gameObject);
+            // }
             yield return new WaitUntil(() => action.Ready);
         }
 
@@ -241,10 +241,10 @@ public class ActionCard_Behaviour : Card_Behaviour
             foreach (var action in _godBuffActions.actions)
             {
                 StartCoroutine(action.OnAction(board, this));
-                if (action.PlayOnPlacedOrTriggered_SFX)
-                {
-                    SoundPlayer.PlaySound(action.action_SFX, gameObject);
-                }
+                // if (action.PlayOnPlacedOrTriggered_SFX)
+                // {
+                //     SoundPlayer.PlaySound(action.action_SFX, gameObject);
+                // }
                 yield return new WaitUntil(() => action.Ready);
             }
         }
