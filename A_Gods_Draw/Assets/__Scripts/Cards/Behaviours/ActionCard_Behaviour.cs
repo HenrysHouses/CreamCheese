@@ -31,6 +31,13 @@ public class ActionCard_Behaviour : Card_Behaviour
     public CardType GetCardType => cardType;
     public ActionCard_ScriptableObject CardSO => card_so;
 
+    private void Update() {
+        if(CheckForGod())
+            elements.Glow.SetActive(true);
+        else
+            elements.Glow.SetActive(false);
+    }
+
     private IEnumerator SelectingTargets()
     {
         CheckForGod();
@@ -181,6 +188,9 @@ public class ActionCard_Behaviour : Card_Behaviour
 
     public bool CheckForGod()
     {
+        if(!controller)
+            return false;
+
         if (!controller.GetBoard().playedGodCard)
             return false;
 

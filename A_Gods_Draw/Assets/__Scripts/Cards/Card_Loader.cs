@@ -53,6 +53,7 @@ public struct CardElements
     public Renderer OrmRenderer;
     public Renderer CardRenderer;
     public Renderer LevelRenderer;
+    public GameObject Glow;
     public TextMeshPro cardName;
     public TextMeshPro desc;
     public TextMeshPro strength;
