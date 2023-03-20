@@ -520,6 +520,10 @@ PrefabInstance:
       propertyPath: m_IsActive
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 7027646912597822694, guid: c84392a12aa847440bb80110c0568df6, type: 3}
+      propertyPath: m_Materials.Array.data[1]
+      value: 
+      objectReference: {fileID: 2100000, guid: 489a67cc667753a4196d276d7a4ac6dd, type: 2}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: c84392a12aa847440bb80110c0568df6, type: 3}
 --- !u!1001 &54201843
@@ -1916,6 +1920,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   PopupInfo: {fileID: 11400000, guid: 92c90af689d9f5244b6b5f452decd7c4, type: 2}
+  CreateInstance: 0
 --- !u!1 &788321570
 GameObject:
   m_ObjectHideFlags: 0
@@ -4312,6 +4317,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   PopupInfo: {fileID: 11400000, guid: b56dfb9ed2ec8cb458ebf493307313f2, type: 2}
+  CreateInstance: 0
 --- !u!136 &2089034140
 CapsuleCollider:
   m_ObjectHideFlags: 0

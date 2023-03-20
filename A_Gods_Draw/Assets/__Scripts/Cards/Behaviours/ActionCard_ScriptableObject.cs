@@ -180,7 +180,7 @@ public struct CardExperience
         if(levels.Upgrades == null)
             return false;
 
-        if(levels.Upgrades.Length < 0)
+        if(levels.Upgrades.Length <= 0)
             return false;
 
         Texture tex = null;
