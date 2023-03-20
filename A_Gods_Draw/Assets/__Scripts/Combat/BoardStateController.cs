@@ -21,6 +21,7 @@ public class BoardStateController : MonoBehaviour
     [SerializeField] Color UtilityColor;
 
     public PlayerController Player => _Player;
+    [SerializeField] PlayerController _Player;
     public Encounter_SO Encounter => _Encounter;
     public Monster[] Enemies => _Enemies;
     public List<BoardTarget> ActiveExtraEnemyTargets;
@@ -54,47 +55,12 @@ public class BoardStateController : MonoBehaviour
     Monster[] _Enemies;
     [SerializeField] Transform[] _Lane;
     [SerializeField] Transform _GodLane;
-    [SerializeField] PlayerController _Player;
 
     // * Sounds
     [SerializeField] EventReference placeCard_SFX;
 
     // * particle effect
     [SerializeField] SlashParticles slashParticles;
-
-    /// <param name="whatToSet">
-    /// 0: cards in lane
-    /// 1: godCard
-    /// 2: player
-    /// 3: enemies
-    /// </param>
-    // public void SetClickable(int whatToSet, bool clickable = true)
-    // {
-    //     switch (whatToSet)
-    //     {
-    //         case 0:
-    //             foreach (NonGod_Behaviour card in placedCards)
-    //             {
-    //                 card.clickable = clickable;
-    //             }
-    //             break;
-    //         case 1:
-    //             if (playedGodCard)
-    //                 playedGodCard.clickable = clickable;
-    //             break;
-    //         case 2:
-
-    //             break;
-    //         case 3:
-    //             foreach (IMonster ene in getLivingEnemies())
-    //             {
-    //                 ene.clickable = clickable;
-    //             }
-    //             break;
-    //         default:
-    //             break;
-    //     }
-    // }
 
     /// <summary>Spawns an encounter of difficulty set by the GameManager</summary>
     public void spawnEncounter()
@@ -115,10 +81,8 @@ public class BoardStateController : MonoBehaviour
 
     public void AddBoardTarget(BoardTarget _target)
     {
-
         ActiveExtraEnemyTargets.Add(_target);
         AllExtraEnemyTargets.Add(_target);
-
     }
 
     public void removeNullEnemies()
@@ -190,6 +154,11 @@ public class BoardStateController : MonoBehaviour
 
         if (_GodLane.Equals(targetlane)) // Move card to the godlane
         {
+            if(playedGodCard != null)
+            {
+                playedGodCard.DealDamage(1000000, gameObject);
+            }
+
 
             playedGodCard = card as GodCard_Behaviour;
             SoundPlayer.PlaySound(playedGodCard.CardSO.enterBattlefield_SFX, gameObject);
@@ -212,8 +181,6 @@ public class BoardStateController : MonoBehaviour
             playedGodCard.animator = spawn.GetComponentInChildren<Animator>();
             playedGodCard.CardSO.OnDialogue.AddListener(playedGodCard.animator.SetTrigger);
             spawn.transform.SetParent(cardTransform, true);
-
-            // Debug.LogWarning("REMOVE SIZE HERE");
             return;
         }
 

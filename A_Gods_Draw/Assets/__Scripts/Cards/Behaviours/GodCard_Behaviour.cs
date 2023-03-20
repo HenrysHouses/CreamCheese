@@ -68,8 +68,11 @@ public class GodCard_Behaviour : Card_Behaviour
         {
             health = 0;
 
-            godPlacement.UpdateUI();
-            godPlacement.RemoveGod();
+            if(godPlacement.GodIsEquals(this))
+            {
+                godPlacement.UpdateUI();
+                godPlacement.RemoveGod();
+            }
             controller.GodDied(this);
             animator.SetTrigger("Die");
             return;

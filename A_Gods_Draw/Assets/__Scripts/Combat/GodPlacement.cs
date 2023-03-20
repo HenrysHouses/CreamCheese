@@ -11,6 +11,11 @@ public class GodPlacement : MonoBehaviour
     [SerializeField]
     TMP_Text health;
 
+    public bool GodIsEquals(GodCard_Behaviour target)
+    {
+        return god.Equals(target);
+    }
+
     public void SetGod(GodCard_Behaviour god)
     {
         //CameraShake.Shake(0.25f, 2f);   // I tried.. 

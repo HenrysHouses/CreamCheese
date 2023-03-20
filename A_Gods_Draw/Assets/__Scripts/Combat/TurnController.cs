@@ -99,7 +99,7 @@ public class TurnController : CombatFSM
         //Animation of god dying????
         StartCoroutine(god.GetComponent<Card_Loader>().DissolveCard(0.5f));
 
-        Destroy(god.transform.parent.parent.gameObject, 4.4f);
+        Destroy(god.transform.parent.gameObject, 4.4f);
 
         _Hand.RemoveCard(god.GetComponent<Card_Loader>());
 

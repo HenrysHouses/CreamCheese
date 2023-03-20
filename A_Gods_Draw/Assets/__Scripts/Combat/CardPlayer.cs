@@ -372,7 +372,6 @@ public class CardPlayer : MonoBehaviour
                 _God.CardSO.StartDialogue(GodDialogueTrigger.SeeEnemy, _Board.Enemies[i]);
             }
             _God.CardSO.StartDialogue(GodDialogueTrigger.Played, loader.GetCardSO);
-            Debug.Log("card playted");
         }
         ActionCard_Behaviour actionCard = behaviour as ActionCard_Behaviour;
         if(actionCard)
