@@ -33,7 +33,6 @@ public class DialogueController : MonoBehaviour
    
     void UpdateTransforms(SceneCollection collection, collectionLoadMode mode)
     {
-        Debug.Log("dasjkldashjkadhj");
         dialogueTransform = GameObject.FindObjectsOfType<DialogueTransform>();
     }
 
