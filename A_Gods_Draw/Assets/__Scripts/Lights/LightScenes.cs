@@ -27,7 +27,7 @@ public class LightScenes : MonoBehaviour
                 {
                     collectionLights[i].lightSetting[j].light.GetComponent<ChangeColorLight>()
                         .SetLightSettings(collectionLights[i].lightSetting[j]);
-                    Debug.Log(collectionLights[i].lightSetting[j].color);
+                    //Debug.Log(collectionLights[i].lightSetting[j].color);
                 }
             }
         }
