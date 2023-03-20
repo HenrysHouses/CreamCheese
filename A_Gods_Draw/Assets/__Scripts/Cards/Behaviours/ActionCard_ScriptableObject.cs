@@ -209,7 +209,7 @@ public struct CardExperience
         float previousRequirement = 0; 
         float NeededForLevel = levels.Upgrades[0].RequiredXP; 
 
-        if(Level > 0)
+        if(Level > 1)
         {
             previousRequirement = levels.Upgrades[Level-1].RequiredXP;
             NeededForLevel = levels.Upgrades[Level].RequiredXP - previousRequirement;

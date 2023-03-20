@@ -1,7 +1,7 @@
 // Written by Henrik
 // Based on Dissolve by charlie & Henrik
 
-Shader "CharlieCustom/Dissolve"
+Shader "HenryCustom/LevelDisplay_Dissolve"
 {
     Properties
     {
@@ -66,6 +66,7 @@ Shader "CharlieCustom/Dissolve"
         sampler2D _LevelTexture;
         float4 _LevelTexture_ST;
         float _Rotation;
+        float TAU = 6.2831853071;
 
         struct Input
         {
@@ -123,11 +124,15 @@ Shader "CharlieCustom/Dissolve"
             float circle = outer * inner;
             // Generating Fill
             float angle = atan2(Pos.y, Pos.x); // compute angle in radians
-            // angle += angle <= 0.0 ? 6.28319 : 0; // wrap negative angles around
-            float gradient = (angle + 3.141592) / (2.0 * 3.141592); // convert angle to a value between 0 and 1
-            
-            // float mappedFill = Remap(_CircleFill, 0, 1, 0, 1.25);            
 
+            // Rotate angle
+            float rotateBy = 90;
+            angle += radians(rotateBy);
+            angle += angle < 0.0 ? 3.141592 * 2 : 0;
+            float correctionBias = 0.5/rotateBy;
+            float _Offset = rotateBy * correctionBias; // Corrects the gradient range when rotated
+            float gradient = (angle + 3.141592) / (2.0 * 3.141592) - _Offset; // convert angle to a value between 0 and 1 
+            
             float level = step(gradient, _CircleFill);
             // Apply circle fill
             o.Albedo += level * circle;
@@ -135,7 +140,7 @@ Shader "CharlieCustom/Dissolve"
             
             Pos += float2(0.5, 0.5) + _LevelTexture_ST.zw;
             Pos *= _LevelTexture_ST.xy;
-            Pos = RotateUV(Pos, radians(90));
+            // Pos = RotateUV(Pos, radians(90));
             fixed4 LevelCol = tex2D(_LevelTexture, Pos);
             o.Albedo += lerp(o.Albedo, LevelCol, LevelCol.a);
             o.Emission += LevelCol.x;
