@@ -11,6 +11,8 @@ GameObject:
   - component: {fileID: 3704067720943804110}
   - component: {fileID: 1137878756125576013}
   - component: {fileID: 4094968834164033359}
+  - component: {fileID: 3469123338844389907}
+  - component: {fileID: 5061797124796256204}
   m_Layer: 5
   m_Name: EffectIcon
   m_TagString: Untagged
@@ -77,6 +79,33 @@ MonoBehaviour:
   m_FillOrigin: 0
   m_UseSpriteMesh: 0
   m_PixelsPerUnitMultiplier: 1
+--- !u!65 &3469123338844389907
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2712877965524084146}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Size: {x: 15.26, y: 15.7, z: 1}
+  m_Center: {x: -0.1, y: -0.19, z: 0}
+--- !u!114 &5061797124796256204
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2712877965524084146}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9ae55e8846b6b584fbef4fe66cd9cd7c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  PopupInfo: {fileID: 11400000, guid: 4b2f111c91ec4964ba717620ea19e36c, type: 2}
+  CreateInstance: 1
 --- !u!1 &8152574939013180120
 GameObject:
   m_ObjectHideFlags: 0

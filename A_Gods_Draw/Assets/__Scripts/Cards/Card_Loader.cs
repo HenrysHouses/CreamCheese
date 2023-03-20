@@ -192,7 +192,7 @@ public class Card_Loader : MonoBehaviour
         {
             GodCard_ScriptableObject god_card = _card.CardType as GodCard_ScriptableObject;
             elements.strength.text = god_card.health.ToString();
-
+            elements.Glow.SetActive(true);
             //  Gold color
             elements.OrmRenderer.material.color = new Color(1, 0.6458119f, 0);
             elements.OrmRenderer.material.SetTexture("_MetallicGlossMap", transparentMetallic);
@@ -212,6 +212,7 @@ public class Card_Loader : MonoBehaviour
         }
         else
         {
+            elements.Glow.SetActive(false);
             ActionCard_ScriptableObject Action_Card = _card.CardType as ActionCard_ScriptableObject;
 
 

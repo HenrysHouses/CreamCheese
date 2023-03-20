@@ -3,13 +3,28 @@ using UnityEngine;
 public class UIPopup : MonoBehaviour
 {
     public Popup_ScriptableObject PopupInfo;
+    public bool CreateInstance;
     
     void Start()
     {
         BoardElementsInfo info = GetComponent<BoardElementsInfo>();
         
         if(info)
-            PopupInfo = info.PopupInfo;
+        {
+            if(CreateInstance)
+            {
+                info.PopupInfo.Clone(ref PopupInfo);
+            }
+            else
+                PopupInfo = info.PopupInfo;
+        }
+        else if(PopupInfo != null && CreateInstance)
+        {
+            Popup_ScriptableObject temp = ScriptableObject.CreateInstance<Popup_ScriptableObject>();
+            PopupInfo.Clone(ref temp);
+            PopupInfo = temp;
+            Debug.Log("instance created");
+        }
     }
 
     void OnMouseEnter()

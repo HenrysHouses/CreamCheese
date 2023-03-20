@@ -13,26 +13,20 @@ public class PoisonCardAction : CardAction
 
         foreach (Monster target in _source.AllTargets)
         {
-
             if(!target)
                 continue;
             
             PoisonDebuff _poison;
             if(target.gameObject.TryGetComponent<PoisonDebuff>(out _poison))
             {
-
                 _poison.Stacks += _source.stats.strength;
-
             }
             else
             {
-
                 _poison = target.gameObject.AddComponent<PoisonDebuff>();
                 _poison.Stacks = _source.stats.strength;
                 _poison.thisMonster = target;
-
             }
-
             _board.StartCoroutine(playTriggerVFX(_source.gameObject, target.transform, new Vector3(0, 0, 0)));
         }
         
@@ -41,7 +35,6 @@ public class PoisonCardAction : CardAction
         yield return new WaitForSeconds(0.3f);
 
         isReady = true;
-        
     }
 
     public override void SetActionVFX()

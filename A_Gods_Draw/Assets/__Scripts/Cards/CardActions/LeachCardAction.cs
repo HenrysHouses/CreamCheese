@@ -33,6 +33,6 @@ public class LeachCardAction : CardAction
 
     public override void SetActionVFX()
     {
-        _VFX = new ActionVFX(true, 1, "Action VFX/Splash_VFX", "Action VFX/LeechEffect_VFX", 2);
+        _VFX = new ActionVFX(true, 1, "Action VFX/sword_VFX", "Action VFX/LeechEffect_VFX", 2);
     }
 }

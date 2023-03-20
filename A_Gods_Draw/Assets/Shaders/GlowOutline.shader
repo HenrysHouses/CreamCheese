@@ -16,8 +16,6 @@ Shader "Unlit/GlowOutline"
         _Intensity ("Intensity", float) = 1
         _RadialSpeed ("Radial Speed", Range(-2,2)) = 1
         _ExpandSpeed ("Expand Speed", Range(-2,2)) = 1
-
-        [Header(Rounded Corners)]
         [NoScaleOffset] _MaskTex ("Mask", 2D) = "white" {}
     }
     SubShader
@@ -62,12 +60,15 @@ Shader "Unlit/GlowOutline"
             sampler2D _SecondTex;
             sampler2D _BlendTex;
             float4 _MainTex_ST;
+            float4 _SecondTex_ST;
+            float4 _BlendTex_ST;
             float2 _Origin;
             float _Size;
             float _Intensity;
             float _RadialSpeed;
             float _ExpandSpeed;
             sampler2D _MaskTex;
+            float4 _MaskTex_ST;
             float4 _MainColor;
             float4 _SecondColor;
 
@@ -75,7 +76,7 @@ Shader "Unlit/GlowOutline"
             {
                 Interpolators o;
                 o.vertex = UnityObjectToClipPos(v.vertex + v.normal * _Size);
-                o.uv = TRANSFORM_TEX(v.uv, _MainTex);
+                o.uv = TRANSFORM_TEX(v.uv, _MaskTex);
                 // o.wPos = mul( unity_ObjectToWorld, v.vertex); 
                 // o.worldNormal = UnityObjectToWorldNormal( v.normal ); // mesh normals
                 // TRANSFER_SCREENPOSITION(o)
@@ -111,15 +112,15 @@ Shader "Unlit/GlowOutline"
                 float secondOffset = float2(_Time.y * _RadialSpeed, _Time.y * _ExpandSpeed * 0.75);
                 float blendOffset = float2(_Time.y * _RadialSpeed, _Time.y * _ExpandSpeed) * -1;
 
-
-
-                fixed4 mainCol = tex2D(_MainTex, _radialUV + mainOffset);
-                fixed4 secondCol = tex2D(_SecondTex, _radialUV + secondOffset);
-                fixed4 blendCol = tex2D(_BlendTex, _radialUV + blendOffset);
+                fixed4 mainCol = tex2D(_MainTex, _radialUV * _MainTex_ST.xy + mainOffset);
+                fixed4 secondCol = tex2D(_SecondTex, _radialUV * _SecondTex_ST.xy + secondOffset);
+                fixed4 blendCol = tex2D(_BlendTex, _radialUV * _BlendTex_ST.xy + blendOffset);
                 fixed4 mask = tex2D(_MaskTex, i.uv);
                 float col = (mainCol + secondCol) * blendCol * mask.a * _Intensity; 
 
+
                 float4 outColor = float4(lerp(_MainColor.rgb, _SecondColor.rgb, col), col);
+                outColor.a *= mask;
 
                 return outColor; 
             }

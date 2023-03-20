@@ -361,7 +361,7 @@ public class Monster : BoardElement
         strengthText.text = enemyIntent.GetCurrStrengh().ToString();
         intentImage.gameObject.SetActive(true);
         intentImage.sprite = enemyIntent.GetCurrentIcon();
-
+        intentImage.GetComponent<UIPopup>().PopupInfo.Info = enemyIntent.GetCurrentDescription();
     }
 
     public void CancelIntent()
@@ -416,7 +416,7 @@ public class Monster : BoardElement
     }
 
     
-    public void UpdateEffectDisplay(Sprite _icon, int _stacks)
+    public void UpdateEffectDisplay(Sprite _icon, int _stacks, string description)
     {
         GameObject _iconGO;
         if(debuffDisplays.TryGetValue(_icon, out _iconGO))
@@ -437,7 +437,7 @@ public class Monster : BoardElement
             _iconGO = Instantiate(effectIconPrefab, effectsPanel);
             _iconGO.GetComponent<Image>().sprite = _icon;
             _iconGO.GetComponentInChildren<TMP_Text>().text = _stacks.ToString();
-
+            _iconGO.GetComponent<UIPopup>().PopupInfo.Info = description;
             debuffDisplays.Add(_icon, _iconGO);
         }
     }

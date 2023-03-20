@@ -9,7 +9,7 @@ public class PoisonDebuff : DebuffBase
 
     public override void TickDebuff(int _ticks = 1)
     {
-        thisMonster.UpdateEffectDisplay(Resources.Load<Sprite>("ImageResources/poisonDrop"), Stacks);
+        thisMonster.UpdateEffectDisplay(Resources.Load<Sprite>("ImageResources/poisonDrop"), Stacks, "Poison\nDeals damage equals to stacks\nper turn");
         
         if(!wasAppliedThisTurn)
         {

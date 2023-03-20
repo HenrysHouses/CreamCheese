@@ -9,7 +9,7 @@ public class FrostbiteDebuff : DebuffBase
     {
 
         Stacks -= _ticks;
-        thisMonster.UpdateEffectDisplay(Resources.Load<Sprite>("ImageResources/Icon_Chain_v1"), Stacks);
+        thisMonster.UpdateEffectDisplay(Resources.Load<Sprite>("ImageResources/Icon_Chain_v1"), Stacks, "Frostbite\nWeakens the enemy's actions ");
 
         if(Stacks <= 0)
         {
@@ -29,5 +29,4 @@ public class FrostbiteDebuff : DebuffBase
         PreActTickDebuff();
 
     }
-
 }

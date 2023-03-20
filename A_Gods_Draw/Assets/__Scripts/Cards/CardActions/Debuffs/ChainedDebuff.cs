@@ -8,7 +8,7 @@ public class ChainedDebuff : DebuffBase
     private void Start()
     {
 
-        thisMonster.UpdateEffectDisplay(Resources.Load<Sprite>("ImageResources/Icon_Chain_v1"), Stacks);
+        thisMonster.UpdateEffectDisplay(Resources.Load<Sprite>("ImageResources/Icon_Chain_v1"), Stacks, "Chains\nPrevents enemy to take action");
         thisMonster.CancelIntent();
 
     }
@@ -17,7 +17,7 @@ public class ChainedDebuff : DebuffBase
     {
         
         Stacks -= _ticks;
-        thisMonster.UpdateEffectDisplay(Resources.Load<Sprite>("ImageResources/Icon_Chain_v1"), Stacks);
+        thisMonster.UpdateEffectDisplay(Resources.Load<Sprite>("ImageResources/Icon_Chain_v1"), Stacks, "Chains\nPrevents enemy to take action");
 
         if(Stacks <= 0)
         {

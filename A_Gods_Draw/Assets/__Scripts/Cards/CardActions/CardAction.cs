@@ -67,7 +67,9 @@ public abstract class CardAction : Action
                 _path.recalculatePath();
                 
                 order = _thisVFX.GetComponent<DestroyOrder>();
-                order.destroyVFX();
+                
+                if(order)
+                    order.destroyVFX();
 
                 if(_VFX.FollowPath && _thisVFX)
                 {

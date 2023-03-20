@@ -89,7 +89,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 53f42a1edd264aa4491ee47ca8536797, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  BoardElementInfo: Enemy health
+  BoardElementInfo: {fileID: 0}
 --- !u!1 &1620485996132202804
 GameObject:
   m_ObjectHideFlags: 0
@@ -781,8 +781,9 @@ GameObject:
   m_Component:
   - component: {fileID: 1620485997700870523}
   - component: {fileID: 1620485997700870517}
-  - component: {fileID: 5480986888295523232}
   - component: {fileID: 8570808462391039333}
+  - component: {fileID: 8215495428246350774}
+  - component: {fileID: 7131602531811371359}
   m_Layer: 5
   m_Name: IntentImage
   m_TagString: Untagged
@@ -818,19 +819,6 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1620485997700870520}
   m_CullTransparentMesh: 1
---- !u!114 &5480986888295523232
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1620485997700870520}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 53f42a1edd264aa4491ee47ca8536797, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  BoardElementInfo: 
 --- !u!114 &8570808462391039333
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -861,6 +849,33 @@ MonoBehaviour:
   m_FillOrigin: 0
   m_UseSpriteMesh: 0
   m_PixelsPerUnitMultiplier: 1
+--- !u!114 &8215495428246350774
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1620485997700870520}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9ae55e8846b6b584fbef4fe66cd9cd7c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  PopupInfo: {fileID: 11400000, guid: 3979ade34a2720944acadbf7c90f1542, type: 2}
+  CreateInstance: 1
+--- !u!65 &7131602531811371359
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1620485997700870520}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Size: {x: 30.1, y: 30.1, z: 1}
+  m_Center: {x: -15, y: 0, z: 0}
 --- !u!1 &1620485997846261085
 GameObject:
   m_ObjectHideFlags: 0
@@ -1102,7 +1117,7 @@ MonoBehaviour:
   m_FallbackScreenDPI: 96
   m_DefaultSpriteDPI: 96
   m_DynamicPixelsPerUnit: 1
-  m_PresetInfoIsWorld: 1
+  m_PresetInfoIsWorld: 0
 --- !u!114 &6602476513939047567
 MonoBehaviour:
   m_ObjectHideFlags: 0
