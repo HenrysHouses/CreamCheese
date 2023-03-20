@@ -52,6 +52,7 @@ public struct CardElements
     public Renderer ArtRenderer;
     public Renderer OrmRenderer;
     public Renderer CardRenderer;
+    public Renderer LevelRenderer;
     public TextMeshPro cardName;
     public TextMeshPro desc;
     public TextMeshPro strength;
@@ -204,11 +205,14 @@ public class Card_Loader : MonoBehaviour
                 CB = gameObject.AddComponent<GodCard_Behaviour>();
                 (CB as GodCard_Behaviour).Initialize(god_card, elements);
                 (CB as GodCard_Behaviour).ApplyLevels(card.Experience);
+
+                elements.LevelRenderer.gameObject.SetActive(false);
             }
         }
         else
         {
             ActionCard_ScriptableObject Action_Card = _card.CardType as ActionCard_ScriptableObject;
+
 
             elements.strength.text = Action_Card.cardStats.strength.ToString();
             
@@ -226,10 +230,14 @@ public class Card_Loader : MonoBehaviour
                 (CB as ActionCard_Behaviour).Initialize(Action_Card, elements);
                 (CB as ActionCard_Behaviour).ApplyLevels(card.Experience);
                 
+                if(!card.Experience.SetLevelMaterial(elements.LevelRenderer.material, Action_Card.cardStats.UpgradePath))
+                    elements.LevelRenderer.gameObject.SetActive(false);
             }
             instantiateIcons(Action_Card.cardStats.getGlyphs(Action_Card.type));
         }
     }
+
+
 
     private void instantiateIcons(CardActionEnum[] glyphs)
     {

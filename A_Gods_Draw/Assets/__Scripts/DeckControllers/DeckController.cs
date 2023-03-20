@@ -212,8 +212,15 @@ public class DeckController : MonoBehaviour
     public CardPathAnim DiscardCardOnBoard(CardPlayData cardData, float delay, bool exhausted)
     {
         CardPathAnim animation = null;
+        int index = -1;
 
-        if (pBoard.Contains(cardData))
+        for (int i = 0; i < pBoard.Count; i++)
+        {
+            if(pBoard[i].Experience.ID == cardData.Experience.ID)
+                index = i;
+        }
+
+        if (index != -1)
         {
             // preps the discard animation
             GameObject _card = Instantiate(CardDrawAnimationPrefab);
@@ -223,10 +230,12 @@ public class DeckController : MonoBehaviour
             animation = new CardPathAnim(cardData, Discard_SFX, _card, GodDialogueTrigger.Discard);
             AnimationEventManager.getInstance.requestAnimation("Hand-Discard", _card, delay, animation);
             
-            pBoard.Remove(cardData);
+            pBoard.RemoveAt(index);
 
             if(!exhausted)
                 pDiscard.Add(cardData); // dont add exhausted cards here
+            else
+                Debug.Log("Exhausted: " + cardData.CardType.cardName);
             animation.OnAnimCompletionTrigger.AddListener(OnDiscardChange.Invoke);
         }
         return animation;

@@ -372,8 +372,10 @@ public class CardPlayer : MonoBehaviour
                 _God.CardSO.StartDialogue(GodDialogueTrigger.SeeEnemy, _Board.Enemies[i]);
             }
             _God.CardSO.StartDialogue(GodDialogueTrigger.Played, loader.GetCardSO);
-            ActionCard_Behaviour actionCard = behaviour as ActionCard_Behaviour;
         }
+        ActionCard_Behaviour actionCard = behaviour as ActionCard_Behaviour;
+        if(actionCard)
+            actionCard.GainExperience();
         _Hand.RemoveCard(loader);
         _Board.placeCardOnLane(behaviour);
         clearTargetMeshes();
