@@ -100,7 +100,8 @@ namespace Map
                         spriteRenderer.color = Map_View.instance.lockedColor;
                     if(meshRenderer)
                     {
-                        meshRenderer.material = Map_View.instance.lockedMat;
+                        //meshRenderer.material = Map_View.instance.lockedMat;
+                        meshRenderer.material.color = Map_View.instance.lockedColor;
                     }
                     break;
 
@@ -113,7 +114,8 @@ namespace Map
                     }
                     if(meshRenderer)
                     {
-                        meshRenderer.material = Map_View.instance.visitedMat;
+                        //meshRenderer.material = Map_View.instance.visitedMat;
+                        meshRenderer.material.color = Map_View.instance.visitedColor;
                     }
                     crackedGameObject.SetActive(true);
                     foreach (MeshRenderer _renderer in crackedGameObject.GetComponentsInChildren<MeshRenderer>())
@@ -128,7 +130,8 @@ namespace Map
                         spriteRenderer.color = Map_View.instance.AvailableColor;
                     if(meshRenderer)
                     {
-                        meshRenderer.material = Map_View.instance.AvailableMat;
+                        //meshRenderer.material = Map_View.instance.AvailableMat;
+                        meshRenderer.material.color = Map_View.instance.AvailableColor;
                     }
                     particleGameObject.SetActive(true);
                     break;
