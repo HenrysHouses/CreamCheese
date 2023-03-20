@@ -22,10 +22,12 @@ namespace Map
 
         public bool Locked { get; set; }
 
+        public bool alwaysEasy;
+
         private void Awake()
         {
             Instance = this;
-            if(sceneTransition == null)
+            if (sceneTransition == null)
                 sceneTransition = _SceneTransitioner;
         }
 
@@ -61,6 +63,7 @@ namespace Map
                 {
                     PlayerWarningNodeNotAccasable();
                 }
+
             }
         }
 
@@ -81,13 +84,25 @@ namespace Map
         {
             // Debug.Log("Node: " + mapNode.Node.blueprintName + " of type " + mapNode.Node.nodeType);
             GameManager.instance.nextRewardType = mapNode.Node.nodeType;
-            
+
 
             switch (mapNode.Node.nodeType)
             {
                 case NodeType.Enemy:
                     sceneTransition.TransitionScene(false, "Combat");
-                    GameManager.instance.nextCombatType = EncounterDifficulty.Easy;
+                    int randomNummer = UnityEngine.Random.Range(0, 2);
+                    if (randomNummer == 0)
+                    {
+                        GameManager.instance.nextCombatType = EncounterDifficulty.Easy;
+                        Debug.Log("Encounter is Easy");
+                    }
+                    else if (randomNummer == 1)
+                    {
+                        GameManager.instance.nextCombatType = EncounterDifficulty.Medium;
+                        Debug.Log("Encounter is Medium");
+                    }
+
+
                     break;
                 case NodeType.Elite:
                     sceneTransition.TransitionScene(false, "Combat");
