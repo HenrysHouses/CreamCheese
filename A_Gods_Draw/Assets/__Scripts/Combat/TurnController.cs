@@ -183,12 +183,20 @@ public class TurnController : CombatFSM
         death.dying = true;
     }
 
-    public IEnumerator ExitCombat()
+    public IEnumerator ExitCombat(bool LoadWinScreen)
     {
         deckController.clear();
         yield return new WaitForSeconds(6);
-        _SceneTransition.TransitionScene(false, "Map");
-        // MultiSceneLoader.loadCollection("Map", collectionLoadMode.Difference);
+        if(LoadWinScreen)
+        {
+            LoadingScreen.Instance.EnterLoadingScreen("WinScreen", collectionLoadMode.Difference);
+
+        }
+        else
+        {
+            _SceneTransition.TransitionScene(false, "Map");
+            // MultiSceneLoader.loadCollection("Map", collectionLoadMode.Difference);
+        }
         Map.Map_Manager.SavingMap();
     }
 
