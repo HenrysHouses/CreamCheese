@@ -23,7 +23,6 @@ public class UIPopup : MonoBehaviour
             Popup_ScriptableObject temp = ScriptableObject.CreateInstance<Popup_ScriptableObject>();
             PopupInfo.Clone(ref temp);
             PopupInfo = temp;
-            Debug.Log("instance created");
         }
     }
 

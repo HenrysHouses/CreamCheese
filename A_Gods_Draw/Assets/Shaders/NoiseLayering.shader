@@ -1,31 +1,40 @@
-Shader "Unlit/NoiseLayering"
+Shader "HenryCustom/NoiseLayering"
 {
     Properties
     {
-        [KeywordEnum(Opaque, Transparent, Cutout)] _RenderType ("Render Type", int) = 0
+        // [Header(Rendering Settings)]
+        // [KeywordEnum(Opaque, Cutout, Fade, Transparent)] _RenderType ("Render Type", int) = 0
         [KeywordEnum(Off, Back, Forward)] _Culling ("Culling", int) = 0
+        // [KeywordEnum(On, Off)] _ZWrite ("Z Write", int) = 0
+        // [KeywordEnum(Less, LEqual, Equal, GEqual, Greater, NotEqual, Always)] _ZTest ("Z Test", int) = 1
+        // [KeywordEnum(Off, BaseTransparency)] _Blend ("Blending Mode", int) = 0 // * To enable this kind of smart keyword a custom editor is needed
+        
+        [Header(Color)]
         [HDR] _MainColor ("Main Color", Color) = (1, 1, 1, 1)
         [HDR] _SecondColor ("Secondary Color", Color) = (1, 1, 1, 1)
         _MainTex ("Texture", 2D) = "white" {}
         _SecondTex ("Texture", 2D) = "white" {}
         _BlendTex ("Texture", 2D) = "white" {}
         _NoiseTex ("Texture", 2D) = "white" {}
+
+        [Header(Shared Tiling)]
+        _TilingX ("Mesh Width", Float) = 1
+        _TilingY ("Mesh Length", Float) = 1
     }
     SubShader
     {
-        Tags { "RenderType"="[_RenderType]" }
+        Tags { "RenderType"="Transparent" "Queue" = "Transparent"}
+        // Tags { "RenderType"="[_RenderType]" }
 
-        HLSLINCLUDE
-            #pragma multi_compile _RENDERTYPE_OPAQUE _RENDERTYPE_TRANSPARENT _RENDERTYPE_CUTOUT
-        ENDHLSL
+        // Cull [_Culling] // which sides of the object are not rendered.
+        // ZWrite [_ZWrite] // Off needed for transparency. this shader does not write to the debth buffer
+        // ZTest [_ZTest] // https://docs.unity3d.com/Manual/SL-ZTest.html
+        // Blend SrcAlpha OneMinusSrcAlpha
 
-        Cull [_Culling] // Front, Off // which sides of the object are not rendered.
-
-        #if defined(_RENDERTYPE_TRANSPARENT) || defined(_RENDERTYPE_CUTOUT)
-            ZWrite Off // Off needed for transparency. this shader does not write to the debth buffer
-            ZTest LEqual // LEqual - Default (under), GEqual - only behind something, Always - Always above
-            Blend SrcAlpha OneMinusSrcAlpha
-        #endif
+        Cull [_Culling] // which sides of the object are not rendered.
+        ZWrite Off // Off needed for transparency. this shader does not write to the debth buffer
+        ZTest LEqual // https://docs.unity3d.com/Manual/SL-ZTest.html
+        Blend SrcAlpha OneMinusSrcAlpha
 
         Pass
         {
@@ -60,6 +69,8 @@ Shader "Unlit/NoiseLayering"
             float4 _NoiseTex_ST;
             float4 _MainColor;
             float4 _SecondColor;
+            float _TilingX;
+            float _TilingY;
 
             v2f vert (appdata v)
             {
@@ -74,23 +85,24 @@ Shader "Unlit/NoiseLayering"
             {
                 // sample Textures
                 // Main
-                float2 MainUV = (i.uv * _MainTex_ST.xy) + (_MainTex_ST.zw * _Time.yy);
+                float2 MainUV = (i.uv * _MainTex_ST.xy * float2(_TilingX, _TilingY)) + (_MainTex_ST.zw * _Time.yy);
                 fixed4 MainCol = tex2D(_MainTex, MainUV);
                 // Secondary
-                float2 SecondUV = (i.uv * _SecondTex_ST.xy) + (_SecondTex_ST.zw * _Time.yy);
+                float2 SecondUV = (i.uv * _SecondTex_ST.xy * float2(_TilingX, _TilingY)) + (_SecondTex_ST.zw * _Time.yy);
                 fixed4 SecondCol = tex2D(_SecondTex, SecondUV);
                 // Blend
-                float2 BlendUV = (i.uv * _BlendTex_ST.xy) + (_BlendTex_ST.zw * _Time.yy);
+                float2 BlendUV = (i.uv * _BlendTex_ST.xy * float2(_TilingX, _TilingY)) + (_BlendTex_ST.zw * _Time.yy);
                 fixed4 BlendCol = tex2D(_BlendTex, BlendUV);
                 // Noise
-                float2 NoiseUV = (i.uv * _NoiseTex_ST.xy) + (_NoiseTex_ST.zw * _Time.yy);
+                float2 NoiseUV = (i.uv * _NoiseTex_ST.xy * float2(_TilingX, _TilingY)) + (_NoiseTex_ST.zw * _Time.yy);
                 fixed4 NoiseCol = tex2D(_NoiseTex, NoiseUV);
                 
                 // apply fog
                 UNITY_APPLY_FOG(i.fogCoord, col);
                 float4 appliedTex = (MainCol + SecondCol) * (BlendCol + NoiseCol);
                 float4 col = lerp(_MainColor, _SecondColor, appliedTex);
-                
+                col.a = appliedTex.x;
+
                 return col;
             }
             ENDHLSL
