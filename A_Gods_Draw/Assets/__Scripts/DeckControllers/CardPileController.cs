@@ -16,90 +16,63 @@ public class CardPileController : MonoBehaviour
     [SerializeField] bool UseLibraryOrDiscard;
 
     [SerializeField] GameObject[] Cards;
-    [SerializeField] float speed = 1;
+    [SerializeField] float Delay = 0.7f;
+    int currentEnabledCards;
+    bool updating;
 
-    bool isTransferring;
-    
     void Start()
     {
-        if(UseLibraryOrDiscard)
-            deckController.OnLibraryChange.AddListener(UpdatePile);
-        else
-            deckController.OnDiscardChange.AddListener(UpdatePile);
-
-        deckController.OnShuffleDiscard.AddListener(StartTransfer);
-        UpdatePile();
+        for (int i = 0; i < Cards.Length; i++)
+        {
+            if(Cards[i].activeSelf)
+                currentEnabledCards++;
+        }
     }
 
-    void UpdatePile()
+    void Update()
     {
-        if(isTransferring)
-            return;
+        float library = deckController.libraryCount;
+        float discard = deckController.discardCount;
 
+        float totalCards = deckController.cardsCount;
+        
         float percent;
         if(UseLibraryOrDiscard)
-            percent =  (float)deckController.libraryCount / (float)deckController.cardsCount;
+            percent =  library / totalCards;
         else
-            percent =  (float)deckController.discardCount / (float)deckController.cardsCount;
+            percent =  discard / totalCards;
         float EnabledCardCount = (Cards.Length * percent);
+
+        if(currentEnabledCards != EnabledCardCount)
+        {
+            StartCoroutine(updatePile(EnabledCardCount));
+        }
+    }
+
+    IEnumerator updatePile(float EnabledCardCount)
+    {
+        updating = true;
 
         for (int i = 0; i < Cards.Length; i++)
         {
             if(i < EnabledCardCount)
-                Cards[i].SetActive(true);
-            else
-                Cards[i].SetActive(false);
-        }
-    }
-
-    void StartTransfer()  => StartCoroutine(TransferDiscardToLibrary(2));
-    IEnumerator TransferDiscardToLibrary(float duration)
-    {
-        isTransferring = true;
-        float time = 0;
-        int NumOfCards = Cards.Length;
-        int n = 0;
-
-        if(!UseLibraryOrDiscard)
-        {
-            NumOfCards = GetNumOfEnabledCards();;
-            n = NumOfCards;
-        }
-
-        while(time < duration)
-        {
-            time += Time.deltaTime * speed;
-
-            if(UseLibraryOrDiscard)
             {
-                if(time > (duration/NumOfCards)*(1+n))
+                if(!Cards[i].activeSelf)
                 {
-                    Cards[n].SetActive(true);
-                    n++;
+                    Cards[i].SetActive(true);
+                    currentEnabledCards++;
                 }
             }
             else
             {
-                if(time > (duration/NumOfCards)*(6-n))
+                if(Cards[i].activeSelf)
                 {
-                    Cards[n-1].SetActive(false);
-                    n--;
+                    Cards[i].SetActive(false);
+                    currentEnabledCards--;
                 }
             }
-
-            yield return new WaitForEndOfFrame();
+            yield return new WaitForSeconds(Delay);
         }
-        isTransferring = false;
-    }
-
-    int GetNumOfEnabledCards()
-    {
-        int n = 0;
-        foreach (var obj in Cards)
-        {
-            if(obj.activeSelf)
-                n++;
-        }
-        return n;
+        updating = false;
     }
 }

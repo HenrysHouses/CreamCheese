@@ -45,16 +45,17 @@ public class ProceduralPathMesh : MonoBehaviour
 	
 	
 	Mesh mesh;
-	
+	MeshRenderer rend;
 	/// <summary>
 	/// Awake is called when the script instance is being loaded.
 	/// </summary>
 	void Awake()
 	{
 		mesh = new Mesh();
-		mesh.name = "roadSegment";
+		mesh.name = "GeneratedMeshSegment";
 		GetComponent<MeshFilter>().sharedMesh = mesh;
-		GetComponent<MeshRenderer>().material = Mat;
+		rend = GetComponent<MeshRenderer>();
+		rend.material = Mat;
 	}
 	
 	void Update() => GenerateMesh();
@@ -63,19 +64,20 @@ public class ProceduralPathMesh : MonoBehaviour
 	{
 		mesh.Clear();
 		
+		rend.material.SetFloat("_TilingY", GetApproxLength());
 		// vertices
 		float uSpan = shape2D.CalcUspan();
 		List<Vector3> verts = new List<Vector3>();
 		List<Vector3> normals = new List<Vector3>();
 		List<Vector2> uvs = new List<Vector2>();
-		for (int ring = 0; ring < edgeRingCount; ring++)
+		for (int ring = 0; ring < edgeRingCount; ring++) // edge rings on the mesh / modelling term
 		{
 			float t = ring / (edgeRingCount-1f);
 			OrientedPoint op = GetBezierOP(t);
 			for (int i = 0; i < shape2D.VertexCount; i++)
 			{
 				verts.Add(op.LocalToWorldPos(shape2D.vertices[i].point));
-				normals.Add(op.LocalToWorldVect(shape2D.vertices[i].normal));
+				normals.Add(op.LocalToWorldVec(shape2D.vertices[i].normal));
 				uvs.Add(new Vector2(shape2D.vertices[i].u, t * GetApproxLength() / uSpan));
 			}
 		}

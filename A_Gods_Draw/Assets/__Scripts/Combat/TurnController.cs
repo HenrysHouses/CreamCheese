@@ -218,7 +218,12 @@ public class TurnController : CombatFSM
 
 
         CardAnimations = deckController.drawCard(amount, drawDelay);
-        int remainingCardDraw = amount - CardAnimations.Length;
+
+        int remainingCardDraw;
+        if(CardAnimations == null)
+            remainingCardDraw = amount;
+        else
+            remainingCardDraw = amount - CardAnimations.Length;
         // if(animData != null)
         //     Debug.Log("draw: " + animData.Length + " - " + amount);
 
@@ -257,7 +262,7 @@ public class TurnController : CombatFSM
         isDrawing = false;
         if(!isShuffling && !ShuffleAnimator.isAnimating)
         {
-            ShuffleDiscard(amount); // Does not let the player draw the remaining cards and then shuffle
+            ShuffleDiscard(remainingCardDraw); // Does not let the player draw the remaining cards and then shuffle
         }
     }
 

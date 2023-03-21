@@ -16,9 +16,9 @@ public class BoardStateController : MonoBehaviour
     // * Serialized / Public
     public bool isEncounterInstantiated = false;
     [SerializeField] GameObject TargetingMesh;
-    [SerializeField] Color AttackColor;
-    [SerializeField] Color DefendColor;
-    [SerializeField] Color UtilityColor;
+    [SerializeField, ColorUsage(true, true)] Color AttackColor, AttackSecondaryColor;
+    [SerializeField, ColorUsage(true, true)] Color DefendColor, DefendSecondaryColor;
+    [SerializeField, ColorUsage(true, true)] Color UtilityColor, UtilitySecondaryColor;
 
     public PlayerController Player => _Player;
     [SerializeField] PlayerController _Player;
@@ -225,16 +225,26 @@ public class BoardStateController : MonoBehaviour
                         MeshRenderer renderer = spawn.GetComponent<MeshRenderer>();
                         // Debug.Log("target mesh color");
                         if(behaviour.GetCardType == CardType.Attack)
+                        {
                             renderer.material.SetColor("_MainColor", AttackColor);
+                            renderer.material.SetColor("_SecondColor", AttackSecondaryColor);
+
+                        }
                         else if(behaviour.GetCardType == CardType.Defence)
+                        {
                             renderer.material.SetColor("_MainColor", DefendColor);
+                            renderer.material.SetColor("_SecondColor", DefendSecondaryColor);
+                        }
                         else
+                        {
                             renderer.material.SetColor("_MainColor", UtilityColor);
+                            renderer.material.SetColor("_SecondColor", UtilitySecondaryColor);
+                        }
 
                         // Targeting positions
                         ProceduralPathMesh Mesh = spawn.GetComponent<ProceduralPathMesh>();
-                        Mesh.startPoint.position = cardTransform.position;                    
-                        Mesh.endPoint.position = behaviour.AllTargets[k].transform.position;
+                        Mesh.startPoint.position = behaviour.AllTargets[k].transform.position;
+                        Mesh.endPoint.position = cardTransform.position;   
                         Mesh.GenerateMesh();
                         Mesh.enabled = false;
                     }

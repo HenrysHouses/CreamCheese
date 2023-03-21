@@ -12,10 +12,13 @@ Shader "HenryCustom/NoiseLayering"
         [Header(Color)]
         [HDR] _MainColor ("Main Color", Color) = (1, 1, 1, 1)
         [HDR] _SecondColor ("Secondary Color", Color) = (1, 1, 1, 1)
-        _MainTex ("Texture", 2D) = "white" {}
-        _SecondTex ("Texture", 2D) = "white" {}
-        _BlendTex ("Texture", 2D) = "white" {}
-        _NoiseTex ("Texture", 2D) = "white" {}
+        [Header(Textures)]
+        _MainTex ("Main", 2D) = "white" {}
+        _SecondTex ("Secondary", 2D) = "white" {}
+        _BlendTex ("Blend", 2D) = "white" {}
+        _NoiseTex ("Noise", 2D) = "white" {}
+        [Toggle] _BlendMask ("Blend Mask", Float) = 1
+        _MaskTex ("Mask", 2D) = "white" {}
 
         [Header(Shared Tiling)]
         _TilingX ("Mesh Width", Float) = 1
@@ -63,14 +66,17 @@ Shader "HenryCustom/NoiseLayering"
             sampler2D _SecondTex;
             sampler2D _BlendTex;
             sampler2D _NoiseTex;
+            sampler2D _MaskTex;
             float4 _MainTex_ST;
             float4 _SecondTex_ST;
             float4 _BlendTex_ST;
             float4 _NoiseTex_ST;
+            float4 _MaskTex_ST;
             float4 _MainColor;
             float4 _SecondColor;
             float _TilingX;
             float _TilingY;
+            float _BlendMask;
 
             v2f vert (appdata v)
             {
@@ -96,12 +102,21 @@ Shader "HenryCustom/NoiseLayering"
                 // Noise
                 float2 NoiseUV = (i.uv * _NoiseTex_ST.xy * float2(_TilingX, _TilingY)) + (_NoiseTex_ST.zw * _Time.yy);
                 fixed4 NoiseCol = tex2D(_NoiseTex, NoiseUV);
+                // Noise
+                float2 MaskUV = i.uv * _MaskTex_ST.xy + (_MaskTex_ST.zw * _Time.yy);
+                fixed4 MaskCol = tex2D(_MaskTex, MaskUV);
                 
                 // apply fog
                 UNITY_APPLY_FOG(i.fogCoord, col);
                 float4 appliedTex = (MainCol + SecondCol) * (BlendCol + NoiseCol);
                 float4 col = lerp(_MainColor, _SecondColor, appliedTex);
-                col.a = appliedTex.x;
+                
+                
+                float4 appliedMask = MaskCol * (BlendCol + NoiseCol) * MaskCol.a;
+                
+                float4 blendMask = _BlendMask == 1 ? appliedMask : MaskCol;
+
+                col.a = appliedTex.x * blendMask;
 
                 return col;
             }

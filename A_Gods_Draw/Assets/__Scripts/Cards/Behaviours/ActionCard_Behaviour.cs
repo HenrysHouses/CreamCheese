@@ -30,12 +30,18 @@ public class ActionCard_Behaviour : Card_Behaviour
 
     public CardType GetCardType => cardType;
     public ActionCard_ScriptableObject CardSO => card_so;
+    Collider thisCollider;
 
     private void Update() {
         if(CheckForGod())
             elements.Glow.SetActive(true);
         else
             elements.Glow.SetActive(false);
+
+        if(!CanBeSelected() && !IsOnBoard)
+            thisCollider.enabled = false;
+        else 
+            thisCollider.enabled = true;
     }
 
     private IEnumerator SelectingTargets()
@@ -156,6 +162,13 @@ public class ActionCard_Behaviour : Card_Behaviour
 
         this.cardType = card.type;
         this.elements = elements;
+
+        Material GlowMat = elements.Glow.GetComponentInChildren<Renderer>().material;
+        GodColor color = GodColorGetter.find(card.cardStats.correspondingGod);
+        GlowMat.SetColor("_MainColor", color.MainColor);
+        GlowMat.SetColor("_SecondColor", color.SecondaryColor);
+
+        thisCollider = GetComponent<Collider>();
     }
     public void Buff(int value, bool isMult)
     {

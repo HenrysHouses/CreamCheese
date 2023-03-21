@@ -34,7 +34,7 @@ public class OrientedPoint
 		return pos + rot * localSpacePos;
 	}
 	
-	public Vector3 LocalToWorldVect(Vector3 localSpacePos)
+	public Vector3 LocalToWorldVec(Vector3 localSpacePos)
 	{
 		return rot * localSpacePos;
 	}

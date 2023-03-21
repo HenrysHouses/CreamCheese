@@ -29,6 +29,10 @@ public class GodCard_Behaviour : Card_Behaviour
         action = GetAction(card.godAction);
 
         this.elements = elements;
+        Material GlowMat = elements.Glow.GetComponentInChildren<Renderer>().material;
+        GodColor color = GodColorGetter.find(card.godAction);
+        GlowMat.SetColor("_MainColor", color.MainColor);
+        GlowMat.SetColor("_SecondColor", color.SecondaryColor);
     }
 
 

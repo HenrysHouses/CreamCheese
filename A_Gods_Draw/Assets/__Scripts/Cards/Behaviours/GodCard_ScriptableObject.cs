@@ -194,3 +194,36 @@ public class GodCard_ScriptableObject : Card_SO
     }
 }
 
+
+public static class GodColorGetter
+{
+    private static GodColor[] GodColors = new GodColor[]
+    {
+        new GodColor(GodActionEnum.Eir, new Color(0f,1.31950796f,1.15392268f,1f), new Color(1.082353f,1.49803925f,1.01176476f,1f)),
+        new GodColor(GodActionEnum.Tyr, new Color(0.936977565f,0f,3.44159079f,1f), new Color(1.62502766f,2.21222258f,2.51264787f,1f))
+    };
+
+    public static GodColor find(GodActionEnum God)
+    {
+        for (int i = 0; i < GodColorGetter.GodColors.Length; i++)
+        {
+            if(GodColorGetter.GodColors[i].God == God)
+                return GodColorGetter.GodColors[i];
+        }
+        return GodColorGetter.GodColors[0];
+    }
+}
+
+public struct GodColor
+{
+    public GodColor(GodActionEnum God, Color Main, Color Secondary)
+    {
+        this.God = God;
+        this.MainColor = Main;
+        this.SecondaryColor = Secondary;
+    }
+
+    public GodActionEnum God;
+    [ColorUsage(true, true)]
+    public Color MainColor, SecondaryColor;
+}

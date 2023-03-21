@@ -1022,6 +1022,26 @@ PrefabInstance:
       propertyPath: deckController
       value: 
       objectReference: {fileID: 1832733388}
+    - target: {fileID: 5519417265984073318, guid: 0e5b8bf2228977243b0257454f58699d, type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5519417266020640595, guid: 0e5b8bf2228977243b0257454f58699d, type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5519417266550390553, guid: 0e5b8bf2228977243b0257454f58699d, type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5519417266663073573, guid: 0e5b8bf2228977243b0257454f58699d, type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5519417267276560807, guid: 0e5b8bf2228977243b0257454f58699d, type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 7764299148010979034, guid: 0e5b8bf2228977243b0257454f58699d, type: 3}
       propertyPath: m_RootOrder
       value: 1
@@ -2572,9 +2592,12 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   isEncounterInstantiated: 0
   TargetingMesh: {fileID: 7368309248694883949, guid: 172b63a08932a94488295dbb8b000a0a, type: 3}
-  AttackColor: {r: 0.49019608, g: 0.08627451, b: 0.12328834, a: 0.8235294}
-  DefendColor: {r: 0.08627451, g: 0.18039216, b: 0.49019608, a: 0.8235294}
-  UtilityColor: {r: 0.6792453, g: 0.64872307, b: 0.0993236, a: 0.8235294}
+  AttackColor: {r: 3.0588846, g: 0.20490137, b: 0.14635812, a: 1}
+  AttackSecondaryColor: {r: 1.2482371, g: 0.88565403, b: 0.7727183, a: 1}
+  DefendColor: {r: 0.36399835, g: 0.4403746, b: 8.574187, a: 1}
+  DefendSecondaryColor: {r: 0.82621413, g: 0.8202702, b: 1.331453, a: 1}
+  UtilityColor: {r: 3.0588849, g: 2.403143, b: 0.16015099, a: 1}
+  UtilitySecondaryColor: {r: 3.2452831, g: 1.5497164, b: 1.0256319, a: 1}
   _Player: {fileID: 1852531265}
   ActiveExtraEnemyTargets: []
   AllExtraEnemyTargets: []
@@ -3283,6 +3306,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   PopupInfo: {fileID: 11400000, guid: 1ec74935f1b9b164f8752e08a3c08039, type: 2}
+  CreateInstance: 0
 --- !u!1 &1589542833
 GameObject:
   m_ObjectHideFlags: 8
