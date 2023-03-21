@@ -210,6 +210,7 @@ public class TurnController : CombatFSM
 
 
         CardAnimations = deckController.drawCard(amount, drawDelay);
+        int remainingCardDraw = amount - CardAnimations.Length;
         // if(animData != null)
         //     Debug.Log("draw: " + animData.Length + " - " + amount);
 
@@ -240,7 +241,9 @@ public class TurnController : CombatFSM
                 }   
             }
             isDrawing = false;
-            yield break; // stops Coroutine here
+
+            if(remainingCardDraw <= 0)
+                yield break; // End Coroutine here
         }
         
         isDrawing = false;
