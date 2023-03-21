@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 using UnityEngine.UI;
 using TMPro;
 
@@ -13,6 +14,7 @@ public class PopupHold : MonoBehaviour
     [SerializeField] Image Feedback;
     GameObject PopupSpawn;
     Coroutine routine;
+    bool disable;
 
     // Start is called before the first frame update
     void Start()
@@ -21,6 +23,8 @@ public class PopupHold : MonoBehaviour
             instance = this;
         else
             Destroy(gameObject);
+
+        SceneManager.sceneLoaded += OnSceneChange;
     }
 
     // Update is called once per frame
@@ -49,10 +53,27 @@ public class PopupHold : MonoBehaviour
         routine = StartCoroutine(Popup(Source));
     }
 
+    void OnSceneChange(Scene scene, LoadSceneMode mode)
+    {
+        StopPopup();
+    }
+
+    void OnDestroy()
+    {
+        disable = true;
+    }
+
     public void StopPopup()
     {
-        StopCoroutine(routine);
-        Feedback.fillAmount = 0;
+        if(disable)
+            return;
+
+        if(routine != null)
+            StopCoroutine(routine);
+
+        if(Feedback)
+            Feedback.fillAmount = 0;
+        
         if(PopupSpawn)
             Destroy(PopupSpawn);
     }
