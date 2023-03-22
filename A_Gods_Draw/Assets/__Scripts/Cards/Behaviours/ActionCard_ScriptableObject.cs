@@ -25,24 +25,53 @@ public class ActionCard_ScriptableObject : Card_SO
 
     public string getEffectFormatted()
     {
-        string output;
-        try
+        string output = "Not Assigned";
+
+        if(effect == "")
+            return output;
+
+        if(cardStats == null)
+            return effect;
+
+        output = string.Format(effect, cardStats.strength);
+
+        string targetName = cardStats.SelectionType.getName();
+    
+        if(cardStats.SelectionType.getName().Equals("ActionCard_Behaviour"))
+            targetName = "Card";
+        if(cardStats.SelectionType.getName().Equals("GodCard_Behaviour"))
+            targetName = "God Card";
+        if(cardStats.SelectionType.getName().Equals("Card_Behaviour"))
+            targetName = "Any type of card";
+        if(cardStats.SelectionType.getName().Equals("OfferingDebuff"))
+            targetName = "Offering";
+
+        string[] split = output.Split('|');
+        
+        if(split.Length > 0)
         {
-            output = string.Format(effect, cardStats.strength);
-        }
-        catch
-        {
-            output = effect;
+            output = split[0];
         }
 
-        if(cardStats.numberOfTargets > 1)
+        for (int i = 1; i < split.Length; i++)
         {
-            output += string.Format(" to {0} targets", cardStats.numberOfTargets);
+            if(cardStats.numberOfTargets > 1)
+            {   
+                if(cardStats.actionGroup.actionStats[0].actionEnum.Equals(CardActionEnum.Defence))
+                    output += string.Format("from up to {0} {1}s", cardStats.numberOfTargets, targetName);
+                else
+                    output += string.Format("to up to {0} {1}s", cardStats.numberOfTargets, targetName);
+            }
+            else
+            {
+                if(cardStats.actionGroup.actionStats[0].actionEnum.Equals(CardActionEnum.Defence))
+                    output += "from one " + targetName;
+                else
+                    output += "to one " + targetName;
+            }
+            output += split[i];
         }
-        else
-        {
-            output += " to one target";
-        }
+
 
         bool space = true;
 
@@ -62,9 +91,85 @@ public class ActionCard_ScriptableObject : Card_SO
                 output += "\n\n";   
                 space = false;
             }
-
             output += cardStats.actionGroup.actionStats[i].actionEnum.ToString() + "\n";
         }
+        return output;
+    }
+    public static string getEffectFormatted(Card_Behaviour targetCard)
+    {
+        string output = "Not Assigned";
+
+        if(targetCard is ActionCard_Behaviour actionCard)
+        {
+            CardStats stats = actionCard.stats;
+            ActionCard_ScriptableObject card_so = actionCard.CardSO;
+
+            output = string.Format(card_so.effect, stats.strength);
+
+            string targetName = stats.SelectionType.getName();
+        
+            if(stats.SelectionType.getName().Equals("ActionCard_Behaviour"))
+                targetName = "Card";
+            if(stats.SelectionType.getName().Equals("GodCard_Behaviour"))
+                targetName = "God Card";
+            if(stats.SelectionType.getName().Equals("Card_Behaviour"))
+                targetName = "Any type of card";
+            if(stats.SelectionType.getName().Equals("OfferingDebuff"))
+                targetName = "Offering";
+
+            string[] split = output.Split('|');
+        
+            if(split.Length > 0)
+            {
+                output = split[0];
+            }
+
+            for (int i = 1; i < split.Length; i++)
+            {
+                if(stats.numberOfTargets > 1)
+                {   
+                    if(stats.actionGroup.actionStats[0].actionEnum.Equals(CardActionEnum.Defence))
+                        output += string.Format("from up to {0} {1}s", stats.numberOfTargets, targetName);
+                    else
+                        output += string.Format("to up to {0} {1}s", stats.numberOfTargets, targetName);
+                }
+                else
+                {
+                    if(stats.actionGroup.actionStats[0].actionEnum.Equals(CardActionEnum.Defence))
+                        output += "from one " + targetName;
+                    else
+                        output += "to one " + targetName;
+                }
+                output += split[i];
+            }
+
+            bool space = true;
+
+            for (int i = 0; i < stats.actionGroup.actionStats.Count; i++)
+            {
+                if(stats.actionGroup.actionStats[i].actionEnum == CardActionEnum.Attack)
+                    continue;
+
+                if(stats.actionGroup.actionStats[i].actionEnum == CardActionEnum.Defence)
+                    continue;
+
+                if(stats.actionGroup.actionStats[i].actionEnum == CardActionEnum.Buff)
+                    continue;
+
+                if(space)
+                {
+                    output += "\n\n";   
+                    space = false;
+                }
+
+                output += stats.actionGroup.actionStats[i].actionEnum.ToString() + "\n";
+            }
+        }
+        else if(targetCard is GodCard_Behaviour godCard)
+        {
+            output = godCard.CardSO.effect;
+        }
+        
         return output;
     }
 
@@ -265,6 +370,7 @@ public class CardStats
     public CameraView TargetingView;
     public CardSelectionType SelectionType;
     public int strength;
+    public string formattedStrength => numberOfTargets > 1 ? strength + "x" + numberOfTargets : strength.ToString();
     public int numberOfTargets = 1;
     public ActionGroup actionGroup;
     public GodActionEnum correspondingGod;

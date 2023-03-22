@@ -7,6 +7,10 @@ public class CardSelectionType
 {
     public int Index = 0;
     public BoardElementClassNames NamesContainer;
+    public string getName()
+    {
+        return BoardElementClassNames.instance.Names[Index];
+    }
 }
 
 #if UNITY_EDITOR

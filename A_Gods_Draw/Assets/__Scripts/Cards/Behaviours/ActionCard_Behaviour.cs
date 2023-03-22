@@ -179,7 +179,8 @@ public class ActionCard_Behaviour : Card_Behaviour
             stats.strength *= value;
         else
             stats.strength += value;
-        elements.strength.text = stats.strength.ToString();
+        elements.strength.text = stats.formattedStrength;
+        elements.Description.PopupInfo.Info = ActionCard_ScriptableObject.getEffectFormatted(this);
 
         if(CardAttackTotal(true).Item1)
             UpdateQueuedDamage(true);
@@ -194,6 +195,7 @@ public class ActionCard_Behaviour : Card_Behaviour
             stats.strength /= value;
         else
             stats.strength -= value;
+        elements.strength.text = stats.formattedStrength;
 
         if(CardAttackTotal(true).Item1)
             UpdateQueuedDamage(true);
