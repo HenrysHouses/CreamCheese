@@ -43,6 +43,7 @@ public class PopupHold : MonoBehaviour
         pos.z = 0;
         transform.localPosition = pos;
         transform.rotation = canvas.transform.rotation;
+        Debug.Log(transform.localPosition);
     }
 
     public void StartPopup(Popup_ScriptableObject Source)

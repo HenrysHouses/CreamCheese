@@ -155,7 +155,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!23 &20363702
 MeshRenderer:
   m_ObjectHideFlags: 0
@@ -2446,7 +2446,7 @@ Camera:
     y: 0
     width: 1
     height: 1
-  near clip plane: 0.3
+  near clip plane: 0.1
   far clip plane: 1000
   field of view: 60
   orthographic: 0
@@ -3580,7 +3580,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &1647821455
 RectTransform:
   m_ObjectHideFlags: 0
@@ -4315,11 +4315,6 @@ PrefabInstance:
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 7e94d14bf41a3ce4296fc12a2eee1447, type: 3}
---- !u!20 &2028920038 stripped
-Camera:
-  m_CorrespondingSourceObject: {fileID: 6049076613374906661, guid: 4cddc2822745ccf43a871a36e771c8ae, type: 3}
-  m_PrefabInstance: {fileID: 6049076613206053191}
-  m_PrefabAsset: {fileID: 0}
 --- !u!1 &2033409279
 GameObject:
   m_ObjectHideFlags: 0
@@ -5045,7 +5040,7 @@ PrefabInstance:
     - target: {fileID: 534335848373882153, guid: 1f2a9c8d1707dc34682a31ad97588d51, type: 3}
       propertyPath: m_Camera
       value: 
-      objectReference: {fileID: 2028920038}
+      objectReference: {fileID: 963194227}
     - target: {fileID: 534335849327190955, guid: 1f2a9c8d1707dc34682a31ad97588d51, type: 3}
       propertyPath: m_RootOrder
       value: 2

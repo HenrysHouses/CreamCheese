@@ -45,27 +45,45 @@ public class ChooseRuneReward : MonoBehaviour
             findRune();
     }
 
+    bool hasClicked = false;
     void findRune()
     {
-        GameObject runeObj;
-        rune SelectedRune = SelectReward(out runeObj); // Hover
-
-        if (Input.GetMouseButtonDown(0)) // Confirm
+        if(Inspector.isInspecting)
         {
-            if(Inspector.isInspecting)
+            if(Input.GetMouseButtonDown(1))
             {
                 Inspector.returnInspection();
-                return;
+            }
+            
+            if (Input.GetMouseButtonDown(0) && hasClicked) // Confirm
+            {
+                Debug.Log("wat");
+                if(!Inspector.isInspecting)
+                {
+                    Inspector.returnInspection();
+                    return;
+                }
+            
+                GameObject runeObj;
+                rune SelectedRune = SelectReward(out runeObj);
+
+                StartCoroutine(PickRune(SelectedRune, runeObj));
             }
 
-            StartCoroutine(PickRune(SelectedRune, runeObj));
+            if(Input.GetMouseButtonDown(0))
+            {
+                hasClicked = true;
+            }
         }
+        else
+            hasClicked = false;
     }
 
     IEnumerator PickRune(rune SelectedRune, GameObject obj)
     {
         if(SelectedRune != null)
         {
+            Inspector.enabled = false;
             Path.startPoint.position = obj.transform.position;
             Path.endPoint.position = RuneController.renderers[(int)SelectedRune.RuneData.Name].renderers[0].transform.parent.position;
             Path.recalculatePath();

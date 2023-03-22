@@ -36,11 +36,17 @@ public class ChooseCardReward : MonoBehaviour
         GettingType(GameManager.instance.nextRewardType);
     }
 
+    bool hasClicked = false;
     private void Update()
     {
         if(CardInspector.isInspecting)
         {
-            if (Input.GetMouseButtonDown(0))
+            if(Input.GetMouseButtonDown(1))
+            {
+                CardInspector.returnInspection();
+            }
+
+            if (Input.GetMouseButtonDown(0) && hasClicked)
             {
                 if(!CardInspector.isInspecting)
                 {
@@ -58,7 +64,14 @@ public class ChooseCardReward : MonoBehaviour
                 }
             }
 
+            if(Input.GetMouseButtonDown(0))
+            {
+                hasClicked = true;
+            }
+
         }
+        else
+            hasClicked = false;
     }
 
     /// <summary>
