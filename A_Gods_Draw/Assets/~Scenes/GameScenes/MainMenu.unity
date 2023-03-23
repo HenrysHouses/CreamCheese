@@ -606,6 +606,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   PopupInfo: {fileID: 11400000, guid: 3266b937c5ee85d4ba3bf4d732e86e7f, type: 2}
+  CreateInstance: 0
 --- !u!1 &319074228
 GameObject:
   m_ObjectHideFlags: 0
@@ -1453,11 +1454,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   PopupInfo: {fileID: 11400000, guid: ff883d9de1900284aa2627d1d0c5e7fc, type: 2}
---- !u!1 &657676082 stripped
-GameObject:
-  m_CorrespondingSourceObject: {fileID: 7704485438504736816, guid: 698e3e9fbfb35e944b5ad681f38087c7, type: 3}
-  m_PrefabInstance: {fileID: 3852381485628775947}
-  m_PrefabAsset: {fileID: 0}
+  CreateInstance: 0
 --- !u!1001 &669697243
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -2004,6 +2001,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   PopupInfo: {fileID: 11400000, guid: 020b0439d51182a498aa1c806fa949c8, type: 2}
+  CreateInstance: 0
 --- !u!1001 &856962877
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -2361,7 +2359,6 @@ GameObject:
   - component: {fileID: 894214935}
   - component: {fileID: 894214930}
   - component: {fileID: 894214931}
-  - component: {fileID: 894214932}
   - component: {fileID: 894214933}
   - component: {fileID: 894214934}
   - component: {fileID: 894214936}
@@ -2428,19 +2425,6 @@ MonoBehaviour:
       Data3: 1868771480
       Data4: -1146125638
     Path: event:/UI/Button
---- !u!114 &894214932
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 894214924}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: d8ccd56f93dc0e249b31ffa3ab0704d4, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  <highlight>k__BackingField: {fileID: 657676082}
 --- !u!65 &894214933
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -2539,6 +2523,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   PopupInfo: {fileID: 11400000, guid: eddec9967e879794c9fb4800790f53dc, type: 2}
+  CreateInstance: 0
 --- !u!114 &894214937
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -3963,6 +3948,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   PopupInfo: {fileID: 11400000, guid: 3475b234a7d1c1048bb7e5aaf5c37ad8, type: 2}
+  CreateInstance: 0
 --- !u!95 &2121488418
 Animator:
   serializedVersion: 4
@@ -4332,6 +4318,10 @@ PrefabInstance:
     - target: {fileID: 7562930434113564078, guid: 698e3e9fbfb35e944b5ad681f38087c7, type: 3}
       propertyPath: m_LocalEulerAnglesHint.y
       value: -179.855
+      objectReference: {fileID: 0}
+    - target: {fileID: 7704485438504736816, guid: 698e3e9fbfb35e944b5ad681f38087c7, type: 3}
+      propertyPath: m_Name
+      value: DeckOutline
       objectReference: {fileID: 0}
     - target: {fileID: 7704485438504736816, guid: 698e3e9fbfb35e944b5ad681f38087c7, type: 3}
       propertyPath: m_IsActive

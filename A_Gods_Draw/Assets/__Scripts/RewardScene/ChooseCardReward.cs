@@ -46,7 +46,7 @@ public class ChooseCardReward : MonoBehaviour
                 CardInspector.returnInspection();
             }
 
-            if (Input.GetMouseButtonDown(0) && hasClicked)
+            if (Input.GetMouseButtonDown(0))
             {
                 if(!CardInspector.isInspecting)
                 {
