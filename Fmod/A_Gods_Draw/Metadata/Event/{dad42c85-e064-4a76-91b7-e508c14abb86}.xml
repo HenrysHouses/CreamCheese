@@ -53,11 +53,18 @@
 	<object class="EventAutomatableProperties" id="{708f7e4a-9167-454e-83db-7f8829413665}" />
 	<object class="MarkerTrack" id="{fb9295b4-6c55-4ec3-b20a-cff9c9b8d0a5}" />
 	<object class="GroupTrack" id="{f9cec435-813f-4fcf-b3e2-fe17a96e7940}">
+		<relationship name="modules">
+			<destination>{f6ad933c-99c7-4ebe-980a-8fb6eb5b03c8}</destination>
+		</relationship>
 		<relationship name="mixerGroup">
 			<destination>{e62fa9c1-7060-4258-804d-03b19125c20d}</destination>
 		</relationship>
 	</object>
-	<object class="Timeline" id="{cd6c7fe7-a89c-46a8-8e03-fe720341785d}" />
+	<object class="Timeline" id="{cd6c7fe7-a89c-46a8-8e03-fe720341785d}">
+		<relationship name="modules">
+			<destination>{f6ad933c-99c7-4ebe-980a-8fb6eb5b03c8}</destination>
+		</relationship>
+	</object>
 	<object class="EventMixerMaster" id="{9b2034ea-d98c-46c9-bb96-e3e98cab724e}">
 		<relationship name="effectChain">
 			<destination>{059b41f7-9388-4f6a-8467-041355e29862}</destination>
@@ -75,6 +82,14 @@
 		</relationship>
 	</object>
 	<object class="MixerBusPanner" id="{7570aedd-7499-4800-976c-b29b278b0b95}" />
+	<object class="SingleSound" id="{f6ad933c-99c7-4ebe-980a-8fb6eb5b03c8}">
+		<property name="length">
+			<value>0.93600000000000005</value>
+		</property>
+		<relationship name="audioFile">
+			<destination>{583fb0cf-318d-4d5d-8e0e-c66f589868b2}</destination>
+		</relationship>
+	</object>
 	<object class="EventMixerGroup" id="{e62fa9c1-7060-4258-804d-03b19125c20d}">
 		<property name="name">
 			<value>Audio 1</value>
@@ -107,13 +122,16 @@
 	<object class="MixerBusFader" id="{5ad8398b-5840-4462-b6a6-b3d939ae1424}" />
 	<object class="PitchShifterEffect" id="{37d47fa8-89dc-4d1c-b9fc-33d940dc0fc1}">
 		<property name="pitch">
-			<value>0.769999981</value>
+			<value>0.870000005</value>
 		</property>
 		<property name="fftSize">
-			<value>1220</value>
+			<value>2800</value>
 		</property>
 		<property name="overlap">
-			<value>2</value>
+			<value>32</value>
+		</property>
+		<property name="maxChannels">
+			<value>9.40000057</value>
 		</property>
 	</object>
 	<object class="SFXReverbEffect" id="{e626775a-6d73-425b-9346-4bfdaa59ab93}">
