@@ -43,6 +43,7 @@ public class TutorialMonsterIntent : Intent
     }
 
     public override void LateDecideIntent(BoardStateController _board){}
+    public override void CancelIntent(){}
 
 }
 

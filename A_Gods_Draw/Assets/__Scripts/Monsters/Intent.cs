@@ -23,12 +23,7 @@ public abstract class Intent
     }
     public MonsterAction PreviousAction;
 
-    public void CancelIntent()
-    {
-        actionSelected = null;
-        strength = 0;
-    }
-
+    public abstract void CancelIntent();
     public abstract void DecideIntent(BoardStateController _board);
 
     public virtual void TutorialIntentOverride(BoardStateController _board, TutorialActions _actionToPerform){}
@@ -82,6 +77,7 @@ public enum IntentType
     Defend,
     Buff,
     Special,
+    Idling
 }
 
 public enum EnemyIntent

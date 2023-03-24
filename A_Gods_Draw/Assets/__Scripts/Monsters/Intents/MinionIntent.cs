@@ -8,10 +8,12 @@ public class MinionIntent : Intent
 
     //List<Action> Actions = new List<Action>();
     private ActionSelection[] actions;
+    private IdlingAction idleAction;
 
     public MinionIntent(ref ActionSelection[] _actions)
     {
 
+        idleAction = new IdlingAction(0, 0);
         actions = _actions;
         int _scale = GameManager.timesDefeatedBoss;
 
@@ -68,7 +70,7 @@ public class MinionIntent : Intent
     public override bool DefendedLastTurn()
     {
 
-        if(GetAction<DefendAction>() != null && PreviousAction == GetAction<DefendAction>())
+        if(PreviousAction.ActionIntentType == IntentType.Defend)
             return true;
         
         return false;
@@ -77,7 +79,7 @@ public class MinionIntent : Intent
 
     public override bool AttackedLastTurn()
     {
-        if((GetAction<AttackPlayerAction>() != null && PreviousAction == GetAction<AttackPlayerAction>()) || (GetAction<AttackGodAction>() != null && PreviousAction == GetAction<AttackGodAction>()))
+        if(PreviousAction.ActionIntentType == IntentType.Attack)
             return true;
 
         return false;
@@ -85,10 +87,16 @@ public class MinionIntent : Intent
 
     public override bool DidActionLastTurn()
     {
-        if(PreviousAction != null)
+        if(PreviousAction.ActionIntentType != IntentType.Idling)
             return true;
 
         return false;
+    }
+
+    public override void CancelIntent()
+    {
+        actionSelected = idleAction;
+        strength = 0;
     }
 
     public override void DecideIntent(BoardStateController _board)
@@ -102,6 +110,8 @@ public class MinionIntent : Intent
 
         if (actionSelected != null)
             strength = Random.Range(actionSelected.MinStrength, actionSelected.MaxStrength + 1);
+        else
+            actionSelected = idleAction;
 
         if(GetAction<DefendAction>() != null && actionSelected == GetAction<DefendAction>())
             GetAction<DefendAction>().toDefend = Self;
