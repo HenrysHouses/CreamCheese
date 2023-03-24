@@ -17,6 +17,10 @@ public abstract class Intent
     
     public Monster Self;
     protected MonsterAction actionSelected;
+    public MonsterAction ActionSelected
+    {
+        get {return actionSelected;}
+    }
     public MonsterAction PreviousAction;
 
     public void CancelIntent()
@@ -70,6 +74,14 @@ public enum Conditions
     NotSameAction,
     ExtraTargetsOnBoard,
     SelfIsHurt
+}
+
+public enum IntentType
+{
+    Attack,
+    Defend,
+    Buff,
+    Special,
 }
 
 public enum EnemyIntent

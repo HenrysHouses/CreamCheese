@@ -12,6 +12,7 @@ public abstract class Action
 {
     protected int ActionID; // Ex: constructor -> ActionID = EnemyIntent.Attack;
     public int ID => this != null ? ActionID : (int)EnemyIntent.None;
+    public IntentType ActionIntentType;
 
     protected bool isReady = false;
     public bool Ready => isReady;

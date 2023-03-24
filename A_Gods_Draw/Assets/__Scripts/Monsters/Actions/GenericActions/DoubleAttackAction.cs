@@ -10,7 +10,8 @@ public class DoubleAttackAction : MonsterAction
 
         ActionID = (int)EnemyIntent.AttackPlayer;
         actionIcon = Resources.Load<Sprite>("EnemyData/Icons/Icon_Sword_IMG_v1");
-        desc = "This enemy will attack the player";
+        desc = "This enemy will attack 2 random targets";
+        ActionIntentType = IntentType.Attack;
 
     }
 

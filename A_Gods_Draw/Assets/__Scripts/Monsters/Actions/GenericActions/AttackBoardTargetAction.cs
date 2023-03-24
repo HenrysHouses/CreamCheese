@@ -10,7 +10,8 @@ public class AttackBoardTargetAction : MonsterAction
 
         ActionID = (int)EnemyIntent.AttackPlayer;
         actionIcon = Resources.Load<Sprite>("EnemyData/Icons/Icon_Buff_IMG_v7");
-        desc = "This enemy will attack the player";
+        desc = "This enemy will attack a target on the board";
+        ActionIntentType = IntentType.Attack;
 
     }
 

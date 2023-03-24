@@ -11,6 +11,7 @@ public class DefendAction : MonsterAction
         ActionID = (int)EnemyIntent.Defend;
         actionIcon = Resources.Load<Sprite>("EnemyData/Icons/Icon_Shield_IMG_v1");
         desc = "This enemy will defend an enemy for the next turn onward";
+        ActionIntentType = IntentType.Defend;
     }
 
     public override void Execute(BoardStateController BoardStateController, int strengh, UnityEngine.Object source)
