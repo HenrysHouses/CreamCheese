@@ -27,7 +27,7 @@ MonoBehaviour:
     SelectionType:
       Index: 7
       NamesContainer: {fileID: 11400000, guid: f8b018dd89042d4438fa88687c5c3c94, type: 2}
-    strength: 2
+    strength: 3
     numberOfTargets: 1
     actionGroup:
       actionStats:
@@ -64,11 +64,11 @@ MonoBehaviour:
       - actionEnum: 12
         action_SFX:
           Guid:
-            Data1: 0
-            Data2: 0
-            Data3: 0
-            Data4: 0
-          Path: 
+            Data1: -1975418337
+            Data2: 1217528756
+            Data3: 314162067
+            Data4: 877112103
+          Path: event:/GlyphsVFXs/SnowBlizzard
         _VFX:
           FollowPath: 0
           isAnimating: 0
@@ -84,4 +84,12 @@ MonoBehaviour:
         XP: 0
         Level: 0
         ID: 36
-      Upgrades: []
+      Upgrades:
+      - RequiredXP: 5
+        UpgradeType: 1
+        RemovableGlyph: 00000000050000000c000000
+        AddGlyph: 4
+        RemoveGlyphIndex: 1
+        ValueSelection: 0
+        CorrespondingGod: 0
+        EditedValue: 0
