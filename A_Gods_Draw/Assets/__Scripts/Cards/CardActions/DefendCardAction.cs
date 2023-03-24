@@ -20,7 +20,7 @@ public class DefendCardAction : CardAction
                 playSFX(source.gameObject);
                 if(_VFX != null)
                     yield return new WaitUntil(() => !_VFX.isAnimating);
-                Enemy.DeBuff(source.stats.strength);
+                Enemy.DeBuff(source.stats.strength, true);
             }
         }
         // source.stats.Targets.Clear();

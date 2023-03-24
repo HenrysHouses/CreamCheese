@@ -322,7 +322,9 @@ public class ActionCard_Behaviour : Card_Behaviour
 
         int damageTotal = 0;
         bool dealsDamage = false;
-        foreach (CardAction action in stats.actionGroup.actions)
+        List<CardAction> _allActions = stats.actionGroup.actions;
+        _allActions.AddRange(stats.godBuffActions.actions);
+        foreach (CardAction action in _allActions)
         {
 
             if(action is AttackCardAction)
