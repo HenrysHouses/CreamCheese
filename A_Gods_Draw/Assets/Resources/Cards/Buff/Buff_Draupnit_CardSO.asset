@@ -46,6 +46,21 @@ MonoBehaviour:
           trigger_VFX: {fileID: 0}
           hit_VFX: {fileID: 0}
           HitVFXLifeSpan: 2
+      - actionEnum: 14
+        action_SFX:
+          Guid:
+            Data1: 0
+            Data2: 0
+            Data3: 0
+            Data4: 0
+          Path: 
+        _VFX:
+          FollowPath: 0
+          isAnimating: 0
+          PathSpeed: 0
+          trigger_VFX: {fileID: 0}
+          hit_VFX: {fileID: 0}
+          HitVFXLifeSpan: 2
       - actionEnum: 5
         action_SFX:
           Guid:
@@ -72,9 +87,17 @@ MonoBehaviour:
       Upgrades:
       - RequiredXP: 9
         UpgradeType: 1
-        RemovableGlyph: 0200000005000000
+        RemovableGlyph: 020000000e00000005000000
         AddGlyph: 0
-        RemoveGlyphIndex: 1
+        RemoveGlyphIndex: 2
+        ValueSelection: 0
+        CorrespondingGod: 0
+        EditedValue: 0
+      - RequiredXP: 9
+        UpgradeType: 1
+        RemovableGlyph: 020000000e00000005000000
+        AddGlyph: 0
+        RemoveGlyphIndex: 2
         ValueSelection: 0
         CorrespondingGod: 0
         EditedValue: 0

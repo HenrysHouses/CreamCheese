@@ -11,7 +11,7 @@ namespace DitzeGames.Effects
         /// <summary>
         /// Amount of Shake
         /// </summary>
-        public Vector3 Amount = new Vector3(1f, 1f, 0);
+        public Vector3 Amount = new Vector3(0f, 1f, 0);
 
         /// <summary>
         /// Duration of Shake
@@ -59,6 +59,7 @@ namespace DitzeGames.Effects
             var instance = ((camera != null) ? camera : Camera.main).gameObject.AddComponent<CameraEffects>();
             instance.Duration = duration;
             instance.Speed = speed;
+            
             if (amount != null)
                 instance.Amount = (Vector3)amount;
             if (curve != null)

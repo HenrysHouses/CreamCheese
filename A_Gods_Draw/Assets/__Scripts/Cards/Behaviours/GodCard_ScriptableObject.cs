@@ -16,7 +16,7 @@ public class GodCard_ScriptableObject : Card_SO
     public int strength;
     public int health;
     public GodActionEnum godAction;
-    public EventReference enterBattlefield_SFX;
+    public EventReference enterBattlefield_SFX, otherSFX;
     public GameObject God_Model;
     [HideInInspector] public UnityEvent<string> OnDialogue;
 
