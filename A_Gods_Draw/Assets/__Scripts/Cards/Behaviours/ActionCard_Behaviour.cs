@@ -322,9 +322,57 @@ public class ActionCard_Behaviour : Card_Behaviour
 
         int damageTotal = 0;
         bool dealsDamage = false;
-        List<CardAction> _allActions = stats.actionGroup.actions;
-        _allActions.AddRange(stats.godBuffActions.actions);
-        foreach (CardAction action in _allActions)
+        CardAction[] _actions = stats.actionGroup.actions.ToArray(), _godBuffActions = stats.godBuffActions.actions.ToArray();
+        foreach (CardAction action in _actions)
+        {
+
+            if(action is AttackCardAction)
+            {
+
+                dealsDamage = true;
+                damageTotal += stats.strength;
+
+            }
+            else if(action is EarthquakeCardAction)
+            {
+
+                dealsDamage = true;
+                int _tempDmg = stats.strength;
+                foreach(Monster _target in controller.GetBoard().getLivingEnemies())
+                {
+
+                    _target.UpdateQueuedDamage(this, _tempDmg, _buffUpdate);
+
+                }
+
+            }
+            else if(action is LeachCardAction)
+            {
+
+                dealsDamage = true;
+                damageTotal += stats.strength;
+
+            }
+            else if(action is SplashDMGCardAction)
+            {
+
+                dealsDamage = true;
+                int _tempDmg = (int)((stats.strength / 2f) + 1f);
+                foreach(Monster _target in controller.GetBoard().getLivingEnemies())
+                {
+
+                    _target.UpdateQueuedDamage(this, _tempDmg, _buffUpdate);
+
+                }
+
+            }
+            
+        }
+
+        if(stats.correspondingGod == GodActionEnum.None)
+            return (dealsDamage, damageTotal);
+
+        foreach (CardAction action in _godBuffActions)
         {
 
             if(action is AttackCardAction)
