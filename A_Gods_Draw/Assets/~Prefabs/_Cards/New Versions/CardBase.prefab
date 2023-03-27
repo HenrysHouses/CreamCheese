@@ -70,6 +70,8 @@ MonoBehaviour:
       Path: event:/Card Effects/Click Card
     Description: {fileID: 6384242787358724093}
     Effect: {fileID: 0}
+    level: {fileID: 6681232531693983386}
+  LoadCardPlayData: 0
   _card:
     CardType: {fileID: 0}
     Experience:
@@ -646,7 +648,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1744794355460916693}
   m_LocalRotation: {x: -0, y: 1, z: -0, w: -0.0000004768371}
-  m_LocalPosition: {x: 0.017966948, y: -1.0086, z: -1.145674}
+  m_LocalPosition: {x: -0.028, y: -1.0086, z: -1.145674}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
@@ -908,6 +910,9 @@ GameObject:
   - component: {fileID: 3341980764646784162}
   - component: {fileID: 2059352902404755544}
   - component: {fileID: 6992012201476697634}
+  - component: {fileID: 6681232531693983386}
+  - component: {fileID: 2326933449310875352}
+  - component: {fileID: 4818707477816213101}
   m_Layer: 0
   m_Name: Level
   m_TagString: Untagged
@@ -980,6 +985,47 @@ MeshRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_AdditionalVertexStreams: {fileID: 0}
+--- !u!114 &6681232531693983386
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4338190646120994576}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 065d16df17d04e641a2f2d2fa4439209, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _renderer: {fileID: 6992012201476697634}
+  Description: {fileID: 2326933449310875352}
+--- !u!114 &2326933449310875352
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4338190646120994576}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9ae55e8846b6b584fbef4fe66cd9cd7c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  PopupInfo: {fileID: 11400000, guid: 43b9b33bfab21224eb44106786117827, type: 2}
+  CreateInstance: 1
+--- !u!65 &4818707477816213101
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4338190646120994576}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Size: {x: 0.25991336, y: 0.09084141, z: 0.19105709}
+  m_Center: {x: 0.00015167895, y: 0.000022284677, z: 0.00016008691}
 --- !u!1 &7012421240186367696
 GameObject:
   m_ObjectHideFlags: 0

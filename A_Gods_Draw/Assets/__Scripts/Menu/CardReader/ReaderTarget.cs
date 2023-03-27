@@ -4,5 +4,14 @@ using UnityEngine;
 
 public class ReaderTarget : MonoBehaviour
 {
+    public Quaternion UpRightRotation;
+    public Quaternion DefaultRotation => _defaultRotation;
+    Quaternion _defaultRotation;
+    public bool isBeingInspected;
+    public bool isWaitingToReturn;
 
+    void Start()
+    {
+        _defaultRotation = transform.localRotation;
+    }
 }

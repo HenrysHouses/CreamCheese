@@ -79,6 +79,9 @@ public class DeckListData
                 // Find spesific card
                 List<Card_SO> card = CardSearch.Search<Card_SO>(name);
                 
+                if(card.Count == 0)
+                    throw new UnityException("Deck list contains an illegal card, \"" + cardQuantities[i].CardName + "\"");
+
                 // Add its scriptable Object, Experience and level
                 CardPlayData data = new CardPlayData();
                 data.CardType = card[0];

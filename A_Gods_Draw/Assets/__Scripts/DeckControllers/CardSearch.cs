@@ -17,10 +17,9 @@ public static class CardSearch
         List<Card_SO> outputResults = new List<Card_SO>();
 
         Card_SO[] allResults = Resources.LoadAll<Card_SO>("Cards");
-
         if(SearchOptions != null)
         {
-            for (int j = 0; j < allResults.Length-1; j++)
+            for (int j = 0; j <= allResults.Length-1; j++)
             {
                 for (int i = 0; i < SearchOptions.Length; i++)
                 {
