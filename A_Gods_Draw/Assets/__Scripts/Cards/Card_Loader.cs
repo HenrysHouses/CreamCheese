@@ -77,7 +77,7 @@ public class Card_Loader : MonoBehaviour
     Card_Behaviour CB;
     public bool isDissolving {private set; get;}
 
-    [HideInInspector]
+    
     public bool addComponentAutomatically = true;
 
     public Card_SO GetCardSO => _card.CardType;
@@ -88,6 +88,14 @@ public class Card_Loader : MonoBehaviour
     private void Start()
     {
         SetDissolve(0);
+        
+        if(_card.CardType != null)
+        {
+            BoxCollider collider = gameObject.AddComponent<BoxCollider>();
+            collider.center = new Vector3(-0.00250761397f,0.000386005268f,0.000921862083f);
+            collider.size = new Vector3(0.140063912f,0.198602021f,0.00708327722f);
+            Set(_card);
+        }
     }
     void ChangeOrm(CardType card)
     {
