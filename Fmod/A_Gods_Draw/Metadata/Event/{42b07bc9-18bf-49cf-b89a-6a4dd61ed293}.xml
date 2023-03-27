@@ -5,7 +5,7 @@
 			<value>Enemy Attack</value>
 		</property>
 		<property name="outputFormat">
-			<value>0</value>
+			<value>1</value>
 		</property>
 		<relationship name="folder">
 			<destination>{949fb0af-b2e6-4a5f-96b9-a29a779a53f9}</destination>
@@ -61,7 +61,7 @@
 	<object class="MarkerTrack" id="{018ccff0-5c5a-4277-aaba-fce56fb5f92d}" />
 	<object class="GroupTrack" id="{5d324bb7-b626-4f67-a7ff-28c87fa11382}">
 		<relationship name="modules">
-			<destination>{2282e9ec-20c0-419d-92ab-37634add099f}</destination>
+			<destination>{7868afcd-ea03-44bd-838a-d6c0a7b554b3}</destination>
 		</relationship>
 		<relationship name="mixerGroup">
 			<destination>{a919498c-151c-4210-98e4-2809fddba30c}</destination>
@@ -69,7 +69,7 @@
 	</object>
 	<object class="Timeline" id="{ed8b73de-c9fc-425b-96d9-71669bc7d955}">
 		<relationship name="modules">
-			<destination>{2282e9ec-20c0-419d-92ab-37634add099f}</destination>
+			<destination>{7868afcd-ea03-44bd-838a-d6c0a7b554b3}</destination>
 		</relationship>
 	</object>
 	<object class="EventMixerMaster" id="{71573dc3-0833-4feb-b321-a457992547e5}">
@@ -89,19 +89,17 @@
 		</relationship>
 	</object>
 	<object class="MixerBusPanner" id="{0ce74630-bbd3-49f5-a1ce-de40e33c98e5}" />
-	<object class="MultiSound" id="{2282e9ec-20c0-419d-92ab-37634add099f}">
+	<object class="MultiSound" id="{7868afcd-ea03-44bd-838a-d6c0a7b554b3}">
 		<property name="length">
-			<value>0.5</value>
+			<value>0.54000000000000004</value>
 		</property>
 		<relationship name="sounds">
-			<destination>{3ac0450c-5fcb-470c-87ad-7fbf4e480377}</destination>
-			<destination>{9b64bd5b-d61e-435e-81f7-8f450ba0f155}</destination>
-			<destination>{93474909-9d85-4e09-ba8b-89c8e3491694}</destination>
+			<destination>{6b42a59d-fb89-4a3c-b0b5-b131a6092c57}</destination>
 		</relationship>
 	</object>
 	<object class="EventMixerGroup" id="{a919498c-151c-4210-98e4-2809fddba30c}">
 		<property name="volume">
-			<value>-10</value>
+			<value>-6</value>
 		</property>
 		<property name="name">
 			<value>Audio 1</value>
@@ -124,17 +122,7 @@
 	</object>
 	<object class="MixerBusPanner" id="{c789a21a-05a6-4b30-bffc-6411a2029f6f}" />
 	<object class="MixerBusFader" id="{2138f7ba-f6fb-43f2-8a84-de58190a1abb}" />
-	<object class="EventSound" id="{3ac0450c-5fcb-470c-87ad-7fbf4e480377}">
-		<relationship name="event">
-			<destination>{3b113c84-70de-4291-aeb7-1895fe2b94db}</destination>
-		</relationship>
-	</object>
-	<object class="EventSound" id="{9b64bd5b-d61e-435e-81f7-8f450ba0f155}">
-		<relationship name="event">
-			<destination>{cfe262f0-7d0d-4a69-ab32-524e896c5d94}</destination>
-		</relationship>
-	</object>
-	<object class="EventSound" id="{93474909-9d85-4e09-ba8b-89c8e3491694}">
+	<object class="EventSound" id="{6b42a59d-fb89-4a3c-b0b5-b131a6092c57}">
 		<relationship name="event">
 			<destination>{c1c280ca-45a3-4213-a9bb-28fb5759716b}</destination>
 		</relationship>
