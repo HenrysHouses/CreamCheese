@@ -4,6 +4,9 @@ using Map;
 using System.Collections.Generic;
 using UnityEngine;
 using HH.MultiSceneTools;
+using static UnityEditor.Progress;
+using System.Collections;
+
 public enum CardType
 {
     Attack,
@@ -16,17 +19,22 @@ public enum CardType
 public class ChooseCardReward : MonoBehaviour
 {
     [SerializeField] CardReaderController CardInspector;
-    
     List<Card_SO> searchResult = new();
 
     public Transform[] spots;
     Card_SO[] CardOptions;
     public GameObject prefab;
 
+
     [SerializeField]
     LayerMask laneLayer;
 
-    
+    //card confirmation
+    [SerializeField] CardRewardOption[] rewardOptions;
+    public bool shouldConfirmSelection;
+    bool confirmed;
+    [SerializeField] Transform EndOfPath, EndPosition;
+
 
     private void Start()
     {
@@ -34,46 +42,35 @@ public class ChooseCardReward : MonoBehaviour
         CameraMovement.instance.SetCameraView(CameraView.CardReward);
         
         GettingType(GameManager.instance.nextRewardType);
+
     }
 
     bool hasClicked = false;
     private void Update()
     {
-        if(CardInspector.isInspecting)
+        if (!confirmed)
+            checkSelected();
+
+        if (CardInspector.isInspecting)
         {
-            if(Input.GetMouseButtonDown(1))
+            if (Input.GetMouseButtonDown(1))
             {
                 CardInspector.returnInspection();
             }
 
             if (Input.GetMouseButtonDown(0))
             {
-                if(!CardInspector.isInspecting)
+                if (!CardInspector.isInspecting)
                 {
                     CardInspector.returnInspection();
                     return;
                 }
 
-                int SelectIndex = SelectReward();
-
-                if (SelectIndex > -1)
-                {
-                    DeckList_SO.playerObtainCard(CardOptions[SelectIndex]);
-                    Map.Map_Manager.SavingMap();
-                    MultiSceneLoader.loadCollection("Map", collectionLoadMode.Difference);
-                }
             }
-
-            if(Input.GetMouseButtonDown(0))
-            {
-                hasClicked = true;
-            }
-
+            else
+                hasClicked = false;
         }
-        else
-            hasClicked = false;
     }
-
     /// <summary>
     /// 
     /// </summary>
@@ -122,8 +119,41 @@ public class ChooseCardReward : MonoBehaviour
             _Loader.Set(_randomData);
 
             CardOptions[i] = searchResult[randomIndex];
+            rewardOptions[i].AddToDeck = searchResult[randomIndex];
             searchResult.RemoveAt(randomIndex);
         }
+    }
+
+    void checkSelected()
+    {
+        for (int i = 0; i < rewardOptions.Length; i++)
+        {
+            if (rewardOptions[i].isBeingInspected && shouldConfirmSelection)
+            {
+                confirmDeck(rewardOptions[i]);
+                break;
+            }
+        }
+        shouldConfirmSelection = false;
+    }
+
+    void confirmDeck(CardRewardOption Selected)
+    {
+        confirmed = true;
+        //GameManager.instance.PlayerTracker.setDeck(Selected.StarterDeck.deckData);
+        DeckList_SO.playerObtainCard(Selected.AddToDeck);
+        GameSaver.SaveData(GameManager.instance.PlayerTracker.CurrentDeck.deckData.GetDeckData());
+        Map.Map_Manager.SavingMap();
+        StartCoroutine(animateDeck(Selected));
+    }
+
+    IEnumerator animateDeck(CardRewardOption selected)
+    {
+        EndOfPath.position = EndPosition.position;
+        yield return new WaitUntil(() => !selected.isBeingInspected);
+        GameManager.instance.shouldGenerateNewMap = true;
+        yield return new WaitForSeconds(0.3f);
+        MultiSceneLoader.loadCollection("Map", collectionLoadMode.Difference);
     }
 
     int SelectReward()
