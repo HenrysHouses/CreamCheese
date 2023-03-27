@@ -22,7 +22,12 @@ MonoBehaviour:
     elves, giants, dwarves, and goblins
   effect: 'Shield
 
-    Prevents {0} damage |'
+    Prevents {0} damage |
+
+
+    If Eir Is In play
+
+    Frostbite'
   cardStats:
     TargetingView: 6
     SelectionType:
@@ -62,9 +67,24 @@ MonoBehaviour:
           trigger_VFX: {fileID: 4013603131659848437, guid: 543341fda49b8c840863159a2d5b8bb8, type: 3}
           hit_VFX: {fileID: 0}
           HitVFXLifeSpan: 2
-    correspondingGod: 0
+    correspondingGod: 2
     godBuffActions:
-      actionStats: []
+      actionStats:
+      - actionEnum: 12
+        action_SFX:
+          Guid:
+            Data1: 0
+            Data2: 0
+            Data3: 0
+            Data4: 0
+          Path: 
+        _VFX:
+          FollowPath: 0
+          isAnimating: 0
+          PathSpeed: 0
+          trigger_VFX: {fileID: 0}
+          hit_VFX: {fileID: 0}
+          HitVFXLifeSpan: 0
     UpgradePath:
       Experience:
         XP: 0
