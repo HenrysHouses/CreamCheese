@@ -369,7 +369,7 @@ public class ActionCard_Behaviour : Card_Behaviour
             
         }
 
-        if(stats.correspondingGod == GodActionEnum.None)
+        if(stats.correspondingGod == GodActionEnum.None || !CheckForGod())
             return (dealsDamage, damageTotal);
 
         foreach (CardAction action in _godBuffActions)

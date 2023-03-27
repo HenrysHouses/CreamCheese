@@ -70,7 +70,7 @@ public class MinionIntent : Intent
     public override bool DefendedLastTurn()
     {
 
-        if(PreviousAction.ActionIntentType == IntentType.Defend)
+        if(PreviousAction != null && PreviousAction.ActionIntentType == IntentType.Defend)
             return true;
         
         return false;
@@ -79,7 +79,7 @@ public class MinionIntent : Intent
 
     public override bool AttackedLastTurn()
     {
-        if(PreviousAction.ActionIntentType == IntentType.Attack)
+        if(PreviousAction != null && PreviousAction.ActionIntentType == IntentType.Attack)
             return true;
 
         return false;
@@ -87,7 +87,7 @@ public class MinionIntent : Intent
 
     public override bool DidActionLastTurn()
     {
-        if(PreviousAction.ActionIntentType != IntentType.Idling)
+        if(PreviousAction != null && PreviousAction.ActionIntentType != IntentType.Idling)
             return true;
 
         return false;
