@@ -88,5 +88,6 @@ public enum EnemyIntent
     AttackPlayer,
     None = 5,
     AttackExtraTarget,
-    DoubleAttack
+    DoubleAttack,
+    FenrirDoubleAttack
 }
