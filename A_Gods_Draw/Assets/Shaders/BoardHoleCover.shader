@@ -1,4 +1,4 @@
-Shader "Custom/StencilSurfaceRead"
+Shader "Custom/BoardHoleCover"
 {
     Properties
     {
@@ -7,33 +7,16 @@ Shader "Custom/StencilSurfaceRead"
         _Glossiness ("Smoothness", Range(0,1)) = 0.5
         _Metallic ("Metallic", Range(0,1)) = 0.0
 
-        [KeywordEnum(Back, Front, Off)] _Culling ("Culling", int) = 0
-        [Toggle] _InverseNormals ("Iverse Normals", int) = 0
-
-
-        [Header(Stencil settings)]
-        _StencilIndex ("Stencil Ref", int) = 1 
-        [KeywordEnum(None, Never, Less, Equal, LEqual, Greater, NotEqual, GEqual, Always)] _Comparison ("Stencil Comparison", int) = 6
-        [KeywordEnum(Keep, Zero, Replace, IncrSat, DecrSat, Invert, IncrWrap, DecrWrap)] _Operation ("Operation", int) = 0
+        _Cutoff ("Cutoff", Range(0,1)) = 0
     }
     SubShader
     {
-        Tags { "RenderType"="Transparent" "Queue"="Transparent" }
-        Tags { "DisableShadowCaster"="True" }
-
-        Cull [_Culling]
-
-        ZTest Off
-
-        Stencil {
-            Ref [_StencilIndex]
-            Comp Equal
-            Pass Keep
-        }
+        Tags { "RenderType"="Transparent" }
+        LOD 200
 
         CGPROGRAM
         // Physically based Standard lighting model, and enable shadows on all light types
-        #pragma surface surf Standard fullforwardshadows vertex:vert
+        #pragma surface surf Standard fullforwardshadows
 
         // Use shader model 3.0 target, to get nicer looking lighting
         #pragma target 3.0
@@ -48,14 +31,7 @@ Shader "Custom/StencilSurfaceRead"
         half _Glossiness;
         half _Metallic;
         fixed4 _Color;
-        int _InverseNormals;
-
-        void vert (inout appdata_full v) {
-			// the color comes from a texture tinted by color
-
-            v.normal = _InverseNormals > 0 ? v.normal * -1 : v.normal;
-			v.color = _Color;
-        }
+        float _Cutoff;
 
         // Add instancing support for this shader. You need to check 'Enable Instancing' on materials that use the shader.
         // See https://docs.unity3d.com/Manual/GPUInstancing.html for more information about instancing.
@@ -73,6 +49,11 @@ Shader "Custom/StencilSurfaceRead"
             o.Metallic = _Metallic;
             o.Smoothness = _Glossiness;
             o.Alpha = c.a;
+
+            float centre = length(IN.uv_MainTex - float2(0.5,0.5));
+            float mask = step(centre, _Cutoff) *-1;
+            clip(mask);
+            o.Albedo = mask;
         }
         ENDCG
     }

@@ -1,4 +1,4 @@
-Shader "Custom/StencilSurfaceRead"
+Shader "Custom/Hole"
 {
     Properties
     {
@@ -10,6 +10,9 @@ Shader "Custom/StencilSurfaceRead"
         [KeywordEnum(Back, Front, Off)] _Culling ("Culling", int) = 0
         [Toggle] _InverseNormals ("Iverse Normals", int) = 0
 
+        [Header(Darkness Settings)]
+        _UpperLimit ("Upper Limit", Float) = 1
+        _LowerLimit ("Lower Limit", Float) = 0
 
         [Header(Stencil settings)]
         _StencilIndex ("Stencil Ref", int) = 1 
@@ -18,8 +21,7 @@ Shader "Custom/StencilSurfaceRead"
     }
     SubShader
     {
-        Tags { "RenderType"="Transparent" "Queue"="Transparent" }
-        Tags { "DisableShadowCaster"="True" }
+        Tags { "RenderType"="Transparent" "Queue"="Transparent" "DisableShadowCaster"="True" }
 
         Cull [_Culling]
 
@@ -43,12 +45,15 @@ Shader "Custom/StencilSurfaceRead"
         struct Input
         {
             float2 uv_MainTex;
+            float3 WorldPos;
         };
 
         half _Glossiness;
         half _Metallic;
         fixed4 _Color;
         int _InverseNormals;
+        float _UpperLimit;
+        float _LowerLimit;
 
         void vert (inout appdata_full v) {
 			// the color comes from a texture tinted by color
@@ -73,6 +78,10 @@ Shader "Custom/StencilSurfaceRead"
             o.Metallic = _Metallic;
             o.Smoothness = _Glossiness;
             o.Alpha = c.a;
+
+            float Darkness = smoothstep(_LowerLimit, _UpperLimit, IN.WorldPos.y);
+            float blackCol = lerp(0, 1, Darkness);
+            o.Albedo.rgb *= blackCol.xxx;
         }
         ENDCG
     }

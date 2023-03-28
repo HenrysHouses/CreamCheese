@@ -7,8 +7,8 @@ Material:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: SurfaceStencil_Hole_Small
-  m_Shader: {fileID: 4800000, guid: b0972ad5f474eb243b8685c2ea7fb794, type: 3}
+  m_Name: SurfaceStencil_Hole_Big_Dark
+  m_Shader: {fileID: 4800000, guid: 748ef161b4a74574db02c7e9d1338486, type: 3}
   m_ValidKeywords: []
   m_InvalidKeywords:
   - _COMPARISON_GREATER
@@ -69,9 +69,10 @@ Material:
     - _DetailNormalMapScale: 1
     - _DstBlend: 0
     - _GlossMapScale: 1
-    - _Glossiness: 0.5
+    - _Glossiness: 1
     - _GlossyReflections: 1
     - _InverseNormals: 1
+    - _LowerLimit: -0.48
     - _Metallic: 0
     - _Mode: 0
     - _OcclusionStrength: 1
@@ -80,8 +81,9 @@ Material:
     - _SmoothnessTextureChannel: 0
     - _SpecularHighlights: 1
     - _SrcBlend: 1
-    - _StencilIndex: 5
+    - _StencilIndex: 4
     - _UVSec: 0
+    - _UpperLimit: 1.17
     - _ZWrite: 1
     m_Colors:
     - _Color: {r: 1, g: 1, b: 1, a: 1}

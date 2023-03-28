@@ -7,25 +7,23 @@ Material:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: SurfaceStencil_Hole 1
-  m_Shader: {fileID: 4800000, guid: b0972ad5f474eb243b8685c2ea7fb794, type: 3}
+  m_Name: Board_M_v2_Hole
+  m_Shader: {fileID: 4800000, guid: b9fb9d80dcbefd340b53f7bcd4830e99, type: 3}
   m_ValidKeywords: []
   m_InvalidKeywords:
-  - _COMPARISON_GREATER
-  - _CULLING_FRONT
-  - _INVERSENORMALS_ON
-  - _OPERATION_DECRSAT
+  - _METALLICGLOSSMAP
+  - _NORMALMAP
   m_LightmapFlags: 4
   m_EnableInstancingVariants: 0
   m_DoubleSidedGI: 0
-  m_CustomRenderQueue: 1999
+  m_CustomRenderQueue: -1
   stringTagMap: {}
   disabledShaderPasses: []
   m_SavedProperties:
     serializedVersion: 3
     m_TexEnvs:
     - _BumpMap:
-        m_Texture: {fileID: 0}
+        m_Texture: {fileID: 2800000, guid: 7eaf0e54a3af01746b60d4286aff4ff2, type: 3}
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     - _DetailAlbedoMap:
@@ -45,11 +43,19 @@ Material:
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     - _MainTex:
-        m_Texture: {fileID: 0}
+        m_Texture: {fileID: 2800000, guid: af9191c963683354e8cb3d8c46a0d031, type: 3}
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     - _MetallicGlossMap:
-        m_Texture: {fileID: 0}
+        m_Texture: {fileID: 2800000, guid: ff4689c149e859e4593c5aae2f32907c, type: 3}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - _MetallicMap:
+        m_Texture: {fileID: 2800000, guid: ff4689c149e859e4593c5aae2f32907c, type: 3}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - _NormalMap:
+        m_Texture: {fileID: 2800000, guid: 7eaf0e54a3af01746b60d4286aff4ff2, type: 3}
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     - _OcclusionMap:
@@ -63,27 +69,24 @@ Material:
     m_Ints: []
     m_Floats:
     - _BumpScale: 1
-    - _Comparison: 5
-    - _Culling: 1
     - _Cutoff: 0.5
     - _DetailNormalMapScale: 1
     - _DstBlend: 0
     - _GlossMapScale: 1
-    - _Glossiness: 0.5
+    - _Glossiness: 0.372
     - _GlossyReflections: 1
-    - _InverseNormals: 1
     - _Metallic: 0
     - _Mode: 0
     - _OcclusionStrength: 1
-    - _Operation: 4
     - _Parallax: 0.02
     - _SmoothnessTextureChannel: 0
     - _SpecularHighlights: 1
     - _SrcBlend: 1
-    - _StencilIndex: 4
     - _UVSec: 0
+    - _UseMetallic: 0
     - _ZWrite: 1
     m_Colors:
+    - _ArtColor: {r: 1, g: 1, b: 1, a: 1}
     - _Color: {r: 1, g: 1, b: 1, a: 1}
     - _EmissionColor: {r: 0, g: 0, b: 0, a: 1}
   m_BuildTextureStacks: []
