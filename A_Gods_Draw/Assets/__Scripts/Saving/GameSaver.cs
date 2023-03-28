@@ -48,7 +48,6 @@ public static class GameSaver
         string json = streamReader.ReadToEnd();
 
         CardQuantityContainer deck = JsonUtility.FromJson<CardQuantityContainer>(json);
-        
         bool loadedStarterDeck = false;
 
         if(deck.Cards == null)
@@ -63,7 +62,7 @@ public static class GameSaver
         }
 
         Debug.Log("Loading completed");
-
+        // Debug.Log(json);
         DeckListData loadedDeck = new DeckListData(deck.Cards);
         CardExperience.ClearUnusedIDs(loadedDeck);
 

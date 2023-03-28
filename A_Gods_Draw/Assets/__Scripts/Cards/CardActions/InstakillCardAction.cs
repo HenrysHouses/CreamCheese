@@ -11,7 +11,7 @@ public class InstakillCardAction : CardAction
 
         foreach (var enemy in source.AllTargets)
         {
-            if (Random.Range(1, 10) <= source.stats.strength)
+            if (Random.Range(1, 20) <= source.stats.strength)
             {
                 // Playing VFX
                 playSFX(source.gameObject);

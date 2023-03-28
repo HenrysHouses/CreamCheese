@@ -3,6 +3,8 @@ Shader "Unlit/UVs"
     Properties
     {
         [HideInInspector] _MainTex ("Texture", 2D) = "white" {}
+        _XOffset ("Offset X", Float) = 0
+        _YOffset ("Offset Y", Float) = 0
     }
     SubShader
     {
@@ -31,6 +33,8 @@ Shader "Unlit/UVs"
 
             sampler2D _MainTex;
             float4 _MainTex_ST;
+            float _XOffset;
+            float _YOffset;
 
             v2f vert (appdata v)
             {
@@ -42,7 +46,8 @@ Shader "Unlit/UVs"
 
             fixed4 frag (v2f i) : SV_Target
             {
-                return frac(float4(i.uv, 0, 1));
+                float2 offsetUV = i.uv + float2(_XOffset, _YOffset);
+                return frac(float4(offsetUV, 0, 1));
             }
             ENDCG
         }

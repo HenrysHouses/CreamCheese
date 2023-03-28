@@ -60,6 +60,7 @@ public struct CardElements
     public EventReference OnClickSFX;
     public UIPopup Description;
     public UIPopup Effect;
+    public LevelController level;
 }
 
 
@@ -73,6 +74,7 @@ public class Card_Loader : MonoBehaviour
     [SerializeField] PathController IconPath;
     [SerializeField] GameObject IconPrefab;
     [SerializeField] CardElements elements;
+    [SerializeField] bool LoadCardPlayData = false;
     public CardPlayData _card;
     Card_Behaviour CB;
     public bool isDissolving {private set; get;}
@@ -89,7 +91,7 @@ public class Card_Loader : MonoBehaviour
     {
         SetDissolve(0);
         
-        if(_card.CardType != null)
+        if(_card.CardType != null && LoadCardPlayData)
         {
             BoxCollider collider = gameObject.AddComponent<BoxCollider>();
             collider.center = new Vector3(-0.00250761397f,0.000386005268f,0.000921862083f);
@@ -221,11 +223,8 @@ public class Card_Loader : MonoBehaviour
                 CB = gameObject.AddComponent<ActionCard_Behaviour>();
                 (CB as ActionCard_Behaviour).Initialize(Action_Card, elements);
                 (CB as ActionCard_Behaviour).ApplyLevels(card.Experience);
-                
-                if(!card.Experience.SetLevelMaterial(elements.LevelRenderer.material, Action_Card.cardStats.UpgradePath))
-                    elements.LevelRenderer.gameObject.SetActive(false);
             }
-            instantiateIcons(Action_Card.cardStats.getGlyphs(Action_Card.type));
+            instantiateIcons(Action_Card.cardStats.getGlyphs(Action_Card.type), LoadCardPlayData);
         }
 
         if(elements.Description != null)
@@ -242,9 +241,31 @@ public class Card_Loader : MonoBehaviour
             
             elements.Description.PopupInfo = copy;
         }
+
+        if(elements.level != null && card.CardType is ActionCard_ScriptableObject _Action_Card)
+        {
+            elements.level.set(GetComponent<Card_Selector>(), card);
+            CardUpgrade[] upgrades = _Action_Card.cardStats.UpgradePath.Upgrades;
+
+
+            if(addComponentAutomatically)
+            {
+                if(!elements.level.UpdateLevelFill(upgrades, card.Experience))
+                        elements.LevelRenderer.gameObject.SetActive(false);
+
+                elements.level.setDescriptionToLevel(card.Experience.Level);
+            }
+            else
+            {
+                if(!elements.level.UpdateLevelFill(upgrades, card.Experience, true))
+                    elements.LevelRenderer.gameObject.SetActive(false);
+                
+                elements.level.setDescriptionShowAllLevels();
+            }
+        }
     }
 
-    private void instantiateIcons(CardActionEnum[] glyphs)
+    private void instantiateIcons(CardActionEnum[] glyphs, bool spawnAsDisplay)
     {
         if(glyphs == null)
             return;
@@ -259,9 +280,9 @@ public class Card_Loader : MonoBehaviour
             GameObject icon = Instantiate(IconPrefab);
             OrientedPoint OP = IconPath.GetEvenPathOP(pos * (i+1));
             icon.transform.position = OP.pos;
-            icon.transform.SetParent(IconPath.transform.parent, false);
-            Vector3 eulers = Vector3.zero;
-            icon.transform.localEulerAngles = eulers;
+            icon.transform.SetParent(IconPath.transform.parent, spawnAsDisplay);
+            icon.transform.localEulerAngles = Vector3.zero;
+            icon.transform.localScale = Vector3.one;
 
             Card_Selector selector = GetComponent<Card_Selector>();
             icon.GetComponent<GlyphController>().setGlyph(glyphs[i], selector);

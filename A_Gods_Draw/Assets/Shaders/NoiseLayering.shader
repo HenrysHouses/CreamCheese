@@ -1,4 +1,4 @@
-Shader "HenryCustom/NoiseLayering"
+Shader "HenryCustom/NoiseTrailLayering"
 {
     Properties
     {
@@ -104,7 +104,12 @@ Shader "HenryCustom/NoiseLayering"
                 fixed4 NoiseCol = tex2D(_NoiseTex, NoiseUV);
                 // Noise
                 float2 MaskUV = i.uv * _MaskTex_ST.xy + (_MaskTex_ST.zw * _Time.yy);
+                MaskUV.x += 0.5; // correcting for targeting mesh uvs
                 fixed4 MaskCol = tex2D(_MaskTex, MaskUV);
+
+                MaskCol.a = frac(MaskUV).y <= 0.05 ? 0 : MaskCol.a;
+                MaskCol.a = frac(MaskUV).x >= 0.998 ? 0 : MaskCol.a;
+                MaskCol.a = frac(MaskUV).x <= 0.002 ? 0 : MaskCol.a;
                 
                 // apply fog
                 UNITY_APPLY_FOG(i.fogCoord, col);
@@ -117,6 +122,7 @@ Shader "HenryCustom/NoiseLayering"
                 float4 blendMask = _BlendMask == 1 ? appliedMask : MaskCol;
 
                 col.a = appliedTex.x * blendMask;
+
 
                 return col;
             }

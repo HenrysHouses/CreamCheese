@@ -4,6 +4,7 @@ public class UIPopup : MonoBehaviour
 {
     public Popup_ScriptableObject PopupInfo;
     public bool CreateInstance;
+    bool hasPopup;
     
     void Start()
     {
@@ -22,6 +23,7 @@ public class UIPopup : MonoBehaviour
         {
             Popup_ScriptableObject temp = ScriptableObject.CreateInstance<Popup_ScriptableObject>();
             PopupInfo.Clone(ref temp);
+            temp.name = temp.name + " (instance)";
             PopupInfo = temp;
         }
     }
@@ -29,12 +31,27 @@ public class UIPopup : MonoBehaviour
     void OnMouseEnter()
     {
         if(PopupInfo)
+        {
             PopupHold.instance.StartPopup(PopupInfo);
+            hasPopup = true;
+        }
     }
 
     void OnMouseExit()
     {
-        if(PopupInfo)
+        if(PopupInfo && hasPopup)
+            PopupHold.instance.StopPopup();
+    }
+
+    void OnDestroy()
+    {
+        if(PopupInfo && hasPopup)
+            PopupHold.instance.StopPopup();
+    }
+
+    void OnDisable()
+    {
+        if(PopupInfo && hasPopup)
             PopupHold.instance.StopPopup();
     }
 

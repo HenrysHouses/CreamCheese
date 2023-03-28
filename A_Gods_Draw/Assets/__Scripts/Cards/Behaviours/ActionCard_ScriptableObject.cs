@@ -277,54 +277,25 @@ public struct CardExperience
             ID = _ID;
     }
 
-    public bool SetLevelMaterial(Material instance, CardUpgradePath levels)
+    public static int getLevelProgress(CardUpgrade[] upgrades, CardExperience currentExperience)
     {
-        if(instance == null)
-            return false;
-
-        if(levels.Upgrades == null)
-            return false;
-
-        if(levels.Upgrades.Length <= 0)
-            return false;
-
-        Texture tex = null;
-        switch(Level)
-        {
-            case 0:
-                tex = Resources.Load<Texture>("Textures/LineCount_0");
-                break;
-            case 1:
-                tex = Resources.Load<Texture>("Textures/LineCount_1");
-                break;
-            case 2:
-                tex = Resources.Load<Texture>("Textures/LineCount_2");
-                break;
-            case 3:
-                tex = Resources.Load<Texture>("Textures/LineCount_3");
-                break;
-            case 4:
-                tex = Resources.Load<Texture>("Textures/LineCount_4");
-                break;
-            case 5:
-                tex = Resources.Load<Texture>("Textures/LineCount_5");
-                break;
-        }
+        if(upgrades.Length == 0)
+            return 0;
 
         float previousRequirement = 0; 
-        float NeededForLevel = levels.Upgrades[0].RequiredXP; 
+        float NeededForLevel = upgrades[0].RequiredXP; 
 
-        if(Level > 1)
+
+        if(currentExperience.Level > 1)
         {
-            previousRequirement = levels.Upgrades[Level-1].RequiredXP;
-            NeededForLevel = levels.Upgrades[Level].RequiredXP - previousRequirement;
+            previousRequirement = upgrades[currentExperience.Level-2].RequiredXP;
+            NeededForLevel = upgrades[currentExperience.Level-1].RequiredXP - previousRequirement;
         }
 
-        float progress = (XP - previousRequirement) / NeededForLevel;
-
-        instance.SetTexture("_LevelTexture", tex);
-        instance.SetFloat("_CircleFill", progress);
-        return true;
+        float progress = (currentExperience.XP - previousRequirement) / NeededForLevel;
+        progress *= 100;
+        
+        return (int)progress;
     }
 
     public void createNewUniqueID()
@@ -401,7 +372,6 @@ public class CardStats
 
             allGlyphs.Add(_action.actionEnum);
         }
-
         return allGlyphs.ToArray();
     }
 }

@@ -20,6 +20,40 @@ public struct CardUpgrade
     public ModifiableCardValue ValueSelection;
     public GodActionEnum CorrespondingGod;
     public int EditedValue;
+
+    public string getDescription(bool isNextLevel)
+    {
+        string description = "";
+
+        switch (UpgradeType)
+        {
+            case CardUpgradeType.AddGlyph:
+                if(isNextLevel)
+                    description += "Gain Glyph: " + AddGlyph;
+                else
+                    description += "Gained: " + AddGlyph + "\n";
+                break;
+
+            case CardUpgradeType.ModifyValue:
+                if(isNextLevel)
+                    description += "Upgrade " + ValueSelection + " to " + EditedValue;
+                else
+                    description += "Set " + ValueSelection + " to " + EditedValue + "\n";
+                break;
+
+            case CardUpgradeType.RemoveGlyph:
+                if(isNextLevel)
+                    description += "Remove Glyph: " + RemovableGlyph[RemoveGlyphIndex];
+                else
+                    description += "Destroyed: " + AddGlyph + "\n";
+                break;
+
+            default:
+                break;
+        }
+
+        return description;
+    }
 }
 
 public enum CardUpgradeType

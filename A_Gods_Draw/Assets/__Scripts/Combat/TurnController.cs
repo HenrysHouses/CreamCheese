@@ -510,7 +510,7 @@ public class TurnController : CombatFSM
                 return;
             }
 
-            if(unlocks.Experience.Level == unlocks.Upgrades.Length-1)
+            if(_CardState.Experience.Level == unlocks.Upgrades.Length-1)
             {
                 Debug.Log("this card is max level");
                 return;
@@ -521,7 +521,6 @@ public class TurnController : CombatFSM
             card.UpgradePath.Experience.XP++;
 
             deckController.deckData.deckListData[i] = new CardPlayData(_CardState);
-            // Debug.Log(deckManager.getDeck.deckData.deckListData[i].Experience.XP);
 
             if(_CardState.Experience.XP >= unlocks.Upgrades[_CardState.Experience.Level].RequiredXP)
             {
