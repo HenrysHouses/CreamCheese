@@ -5,7 +5,6 @@ using HH.MultiSceneTools;
 
 public class ChooseStarterDeck : MonoBehaviour
 {
-    [SerializeField] StarterDeckOption[] Options;
     [SerializeField] Transform EndOfPath, EndPosition;
     public bool shouldConfirmSelection;
     bool confirmed;
@@ -19,15 +18,15 @@ public class ChooseStarterDeck : MonoBehaviour
 
     void checkSelected()
     {
-        for (int i = 0; i < Options.Length; i++)
-        {
-            if(Options[i].isBeingInspected && shouldConfirmSelection)
-            {
-                confirmDeck(Options[i]);       
-                break; 
-            }
-        }
-        shouldConfirmSelection = false;
+        // for (int i = 0; i < Options.Length; i++)
+        // {
+        //     if(Options[i].isBeingInspected && shouldConfirmSelection)
+        //     {
+        //         confirmDeck(Options[i]);       
+        //         break; 
+        //     }
+        // }
+        // shouldConfirmSelection = false;
     }
 
     void confirmDeck(StarterDeckOption Selected)

@@ -224,7 +224,7 @@ public class Card_Loader : MonoBehaviour
                 (CB as ActionCard_Behaviour).Initialize(Action_Card, elements);
                 (CB as ActionCard_Behaviour).ApplyLevels(card.Experience);
             }
-            instantiateIcons(Action_Card.cardStats.getGlyphs(Action_Card.type), LoadCardPlayData);
+            instantiateIcons(Action_Card.cardStats.getGlyphs(Action_Card.type));
         }
 
         if(elements.Description != null)
@@ -265,7 +265,7 @@ public class Card_Loader : MonoBehaviour
         }
     }
 
-    private void instantiateIcons(CardActionEnum[] glyphs, bool spawnAsDisplay)
+    private void instantiateIcons(CardActionEnum[] glyphs, bool spawnAsDisplay = false)
     {
         if(glyphs == null)
             return;
