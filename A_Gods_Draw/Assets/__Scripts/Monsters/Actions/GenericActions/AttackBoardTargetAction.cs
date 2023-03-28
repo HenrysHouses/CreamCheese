@@ -21,7 +21,7 @@ public class AttackBoardTargetAction : MonsterAction
         if(_board.ActiveExtraEnemyTargets.Count <= 0)
             return;
 
-        _board.ActiveExtraEnemyTargets[Random.Range(0, _board.ActiveExtraEnemyTargets.Count)].TakeDamage(_strength);
+        _board.ActiveExtraEnemyTargets[Random.Range(0, _board.ActiveExtraEnemyTargets.Count)].DealDamage(_strength);
 
         Monster _enemy = _source as Monster;
         if(_enemy)

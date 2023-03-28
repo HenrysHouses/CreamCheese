@@ -117,6 +117,7 @@ public class MinionIntent : Intent
             GetAction<DefendAction>().toDefend = Self;
 
         PreviousAction = actionSelected;
+        actionSelected.SelectTargets(_board);
 
     }
 }

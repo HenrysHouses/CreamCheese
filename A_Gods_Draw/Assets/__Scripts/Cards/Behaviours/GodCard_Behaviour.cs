@@ -9,7 +9,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class GodCard_Behaviour : Card_Behaviour
+public class GodCard_Behaviour : Card_Behaviour , IMonsterTarget
 {
     int health;
     int maxHealth;
@@ -201,5 +201,10 @@ public class GodCard_Behaviour : Card_Behaviour
         data.CardType = card_so;
         data.Experience.ID = stats.UpgradePath.Experience.ID;
         return data;
+    }
+
+    public void Targeted(GameObject _sourceGO = null)
+    {
+        throw new NotImplementedException();
     }
 }

@@ -9,7 +9,9 @@ public abstract class MonsterAction : Action
     {
         MinStrength = minimumStrength;
         MaxStrength = maximumStrength;
+        Targets = new List<IMonsterTarget>();
     }
 
     public int MinStrength, MaxStrength;
+    public List<IMonsterTarget> Targets;
 }
