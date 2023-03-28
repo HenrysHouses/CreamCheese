@@ -40,9 +40,9 @@ public class DoubleAttackAction : MonsterAction
             else
             {
 
-                _board.ActiveExtraEnemyTargets[Random.Range(0, _board.ActiveExtraEnemyTargets.Count)].TakeDamage(_strength);
+                _board.ActiveExtraEnemyTargets[Random.Range(0, _board.ActiveExtraEnemyTargets.Count)].DealDamage(_strength);
                 if(_board.ActiveExtraEnemyTargets.Count > 0)
-                    _board.ActiveExtraEnemyTargets[Random.Range(0, _board.ActiveExtraEnemyTargets.Count)].TakeDamage(_strength);
+                    _board.ActiveExtraEnemyTargets[Random.Range(0, _board.ActiveExtraEnemyTargets.Count)].DealDamage(_strength);
                 else if(Random.Range(0, 2) == 0)
                     _board.Player.DealDamage(_strength);
                 else
@@ -74,7 +74,7 @@ public class DoubleAttackAction : MonsterAction
                     case 2:
                     if(_board.ActiveExtraEnemyTargets != null)
                     {
-                        _board.ActiveExtraEnemyTargets[Random.Range(0, _board.ActiveExtraEnemyTargets.Count)].TakeDamage(_strength);
+                        _board.ActiveExtraEnemyTargets[Random.Range(0, _board.ActiveExtraEnemyTargets.Count)].DealDamage(_strength);
                         _attacks += 1;
                     }
                     break;

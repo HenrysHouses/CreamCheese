@@ -15,73 +15,51 @@ public class FenrirDoubleAttackAction : MonsterAction
 
     }
 
-    public override void Execute(BoardStateController _board, int _strength, Object _source = null)
+    public override void SelectTargets(BoardStateController _board)
     {
-
-        int _attacks = 0;
+        
         BoardTarget[] _targets = _board.ActiveExtraEnemyTargets.ToArray();
 
-        if(_board.ActiveBattleFieldType == BattlefieldID.Fenrir)
+        int _chance = Random.Range(0, 4);
+
+        if(_chance > _targets.Length - 1)
         {
 
-            int _chance = Random.Range(0, 4);
-
-            if(_chance > (_targets.Length-1))
-            {
-
-                _board.Player.DealDamage(_strength);
-                
-                if(_board.isGodPlayed)
-                    _board.playedGodCard.DealDamage(_strength, _source);
-                else
-                    _board.Player.DealDamage(_strength);
-
-            }
+            if(_board.isGodPlayed && Random.Range(0, 2) == 0)
+                Targets.Add(_board.playedGodCard);
             else
-            {
-
-                _board.ActiveExtraEnemyTargets[Random.Range(0, _board.ActiveExtraEnemyTargets.Count)].TakeDamage(_strength);
-                if(_board.ActiveExtraEnemyTargets.Count > 0)
-                    _board.ActiveExtraEnemyTargets[Random.Range(0, _board.ActiveExtraEnemyTargets.Count)].TakeDamage(_strength);
-                else if(Random.Range(0, 2) == 0)
-                    _board.Player.DealDamage(_strength);
-                else
-                    _board.playedGodCard.DealDamage(_strength, _source);
-
-            }
+                Targets.Add(_board.Player);
 
         }
         else
-            while(_attacks < 2)
-            {
+            Targets.Add(_targets[Random.Range(0, _targets.Length)]);
+        
+        _chance = Random.Range(0, 4);
 
-                switch (Random.Range(0, 3))
-                {
-                    
-                    case 0:
-                    _board.Player.DealDamage(_strength);
-                    _attacks += 1;
-                    break;
+        if(_chance > _targets.Length - 1)
+        {
 
-                    case 1:
-                    if(_board.isGodPlayed)
-                    {
-                        _board.playedGodCard.DealDamage(_strength, _source);
-                        _attacks += 1;
-                    }
-                    break;
+            if(_board.isGodPlayed && Random.Range(0, 2) == 0)
+                Targets.Add(_board.playedGodCard);
+            else
+                Targets.Add(_board.Player);
 
-                    case 2:
-                    if(_board.ActiveExtraEnemyTargets != null)
-                    {
-                        _board.ActiveExtraEnemyTargets[Random.Range(0, _board.ActiveExtraEnemyTargets.Count)].TakeDamage(_strength);
-                        _attacks += 1;
-                    }
-                    break;
-                    
-                }
+        }
+        else
+            Targets.Add(_targets[Random.Range(0, _targets.Length)]);
 
-            }
+    }
+
+    public override void Execute(BoardStateController _board, int _strength, Object _source = null)
+    {
+
+        for(int i = 0; i < Targets.Count; i++)
+        {
+
+            if(Targets[i] != null)
+                Targets[i].DealDamage(_strength);
+
+        }
 
         Monster _enemy = _source as Monster;
         if(_enemy)

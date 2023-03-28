@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public abstract class BoardTarget : MonoBehaviour
+public abstract class BoardTarget : MonoBehaviour , IMonsterTarget
 {
 
     public BoardStateController Board;
@@ -16,7 +16,8 @@ public abstract class BoardTarget : MonoBehaviour
     [SerializeField]
     protected int currentHealth;
 
-    public abstract void TakeDamage(int _amount);
+    public abstract void DealDamage(int _amount, UnityEngine.Object _source = null);
+    public virtual void Targeted(GameObject _sourceGO){}
     protected abstract void DeActivate();
     public abstract void ReActivate();
 

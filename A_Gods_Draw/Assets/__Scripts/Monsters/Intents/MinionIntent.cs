@@ -49,6 +49,10 @@ public class MinionIntent : Intent
                 _newAction = new DoubleAttackAction(actions[i].MinStrength + _scale, actions[i].MaxStrength + _scale);
                 break;
 
+                case EnemyIntent.FenrirDoubleAttack:
+                _newAction = new FenrirDoubleAttackAction(actions[i].MinStrength + _scale, actions[i].MaxStrength + _scale);
+                break;
+
             }
 
             actions[i].Action = _newAction;
@@ -117,6 +121,7 @@ public class MinionIntent : Intent
             GetAction<DefendAction>().toDefend = Self;
 
         PreviousAction = actionSelected;
+        actionSelected.SelectTargets(_board);
 
     }
 }

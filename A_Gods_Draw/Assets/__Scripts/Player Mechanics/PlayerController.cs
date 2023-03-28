@@ -6,7 +6,7 @@ using UnityEngine.UI;
 using DitzeGames.Effects;
 using UnityEngine.SceneManagement;
 
-public class PlayerController : BoardElement
+public class PlayerController : BoardElement , IMonsterTarget
 {
 
     public int Playerhealth {get{return playerTracker.Health;}}
@@ -27,7 +27,7 @@ public class PlayerController : BoardElement
         UpdateLights();
     }
 
-    public void DealDamage(int amount)
+    public void DealDamage(int amount, UnityEngine.Object _source = null)
     {
         // Debug.Log("Damage taken:" + -amount);
         playerTracker.UpdateHealth(-amount);
@@ -84,6 +84,11 @@ public class PlayerController : BoardElement
     public void PlayerHideArrow()
     {
         arrowImage.enabled = false;
+    }
+
+    public void Targeted(GameObject _sourceGO = null)
+    {
+        throw new System.NotImplementedException();
     }
 
     // public override string setClassName()

@@ -29,4 +29,6 @@ public abstract class Action
         Execute(BoardStateController, strengh, source);
     }
     public abstract void Execute(BoardStateController board, int strengh, UnityEngine.Object source = null);
+    public virtual void SelectTargets(BoardStateController _board)
+    {}
 }
