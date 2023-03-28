@@ -133,7 +133,8 @@ public enum CameraView
     RuneAfterPick,
     RestPlace,
     CardReward,
-    Library
+    Library,
+    BoardTopView
 }
 
 [System.Serializable]

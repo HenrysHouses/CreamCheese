@@ -90,6 +90,8 @@ Shader "Unlit/GlowOutline"
                 float angle = atan2(UV.y, UV.x); // compute angle in radians
 
                 // Rotate angle
+                rotation = rotation == 0 ? 0.0001 : rotation;
+
                 float correctionBias = rotation > 0 ? 0.5/rotation : 0;
 
 
