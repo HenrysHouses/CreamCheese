@@ -6,19 +6,20 @@ using UnityEngine.Events;
 public class ColliderButton : MonoBehaviour
 {
     private bool lastInteractableState;
-    public bool interactable = true;
+    public bool isInteractable = true;
+    public void interactable(bool state) => isInteractable = state; 
     public UnityEvent OnClick = new UnityEvent();
     public UnityEvent OnInteractableDisabled = new UnityEvent();
     public UnityEvent OnInteractableEnabled = new UnityEvent();
 
     void Awake()
     {
-        lastInteractableState = interactable;
+        lastInteractableState = isInteractable;
     }
 
     void OnMouseDown()
     {
-        if(!interactable)
+        if(!isInteractable)
             return;
         
         OnClick?.Invoke();
@@ -26,14 +27,15 @@ public class ColliderButton : MonoBehaviour
 
     void Update()
     {
-        if(lastInteractableState == interactable)
+        if(lastInteractableState == isInteractable)
             return;
 
-        if(interactable == false)
+        if(isInteractable == false)
             OnInteractableDisabled?.Invoke();
         else
             OnInteractableEnabled?.Invoke();
         
-        lastInteractableState = interactable;
+        lastInteractableState = isInteractable;
     }
+
 }
