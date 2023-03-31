@@ -151,7 +151,7 @@ public class ChooseCardReward : MonoBehaviour
     {
         EndOfPath.position = EndPosition.position;
         yield return new WaitUntil(() => !selected.isBeingInspected);
-        GameManager.instance.shouldGenerateNewMap = true;
+        //GameManager.instance.shouldGenerateNewMap = true;
         yield return new WaitForSeconds(0.3f);
         MultiSceneLoader.loadCollection("Map", collectionLoadMode.Difference);
     }
