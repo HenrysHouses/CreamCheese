@@ -48,6 +48,13 @@ public class FenrirDoubleAttackAction : MonsterAction
         else
             Targets.Add(_targets[Random.Range(0, _targets.Length)]);
 
+        foreach (IMonsterTarget _target in Targets)
+        {
+
+            _target.Targeted();
+            
+        }
+
     }
 
     public override void Execute(BoardStateController _board, int _strength, Object _source = null)
@@ -60,6 +67,8 @@ public class FenrirDoubleAttackAction : MonsterAction
                 Targets[i].DealDamage(_strength);
 
         }
+
+        Targets.Clear();
 
         Monster _enemy = _source as Monster;
         if(_enemy)

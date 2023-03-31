@@ -205,6 +205,6 @@ public class GodCard_Behaviour : Card_Behaviour , IMonsterTarget
 
     public void Targeted(GameObject _sourceGO = null)
     {
-        throw new NotImplementedException();
+        
     }
 }

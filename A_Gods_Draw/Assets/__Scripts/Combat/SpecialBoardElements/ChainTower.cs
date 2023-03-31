@@ -37,6 +37,7 @@ public class ChainTower : BoardTarget
 
         currentHealth -= _amount;
 
+        DeactivateOutline();
         Destroy(GameObject.Instantiate(damageEffect, transform.position, Quaternion.identity), 0.4f);
 
         if (currentHealth <= 0)
@@ -77,7 +78,7 @@ public class ChainTower : BoardTarget
                 continue;
                 
             _renderer.materials[1].SetFloat("_Size", 0);            
-            _renderer.materials[1].SetColor("_Color", outlineColor);
+            _renderer.materials[1].SetColor("_Color", Color.white);
 
         }
 

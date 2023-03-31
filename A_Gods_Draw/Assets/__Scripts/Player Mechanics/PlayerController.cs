@@ -88,7 +88,7 @@ public class PlayerController : BoardElement , IMonsterTarget
 
     public void Targeted(GameObject _sourceGO = null)
     {
-        throw new System.NotImplementedException();
+        
     }
 
     // public override string setClassName()
