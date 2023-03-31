@@ -497,7 +497,8 @@ public class Monster : BoardElement
     public void PlaySound(EventReference _sfx)
     {
 
-        SoundPlayer.PlaySound(_sfx, gameObject);
+        if(!_sfx.IsNull)
+            SoundPlayer.PlaySound(_sfx, gameObject);
 
     }
 
