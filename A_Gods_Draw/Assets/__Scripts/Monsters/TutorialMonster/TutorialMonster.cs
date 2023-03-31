@@ -1,14 +1,18 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using FMODUnity;
 
 public class TutorialMonster : Monster
 {
 
+    [SerializeField]
+    private EventReference attackSFX, attackGodSFX, defendSFX;
+
     protected override void Start()
     {
         
-        enemyIntent = new TutorialMonsterIntent(ref EnemyActions);
+        enemyIntent = new TutorialMonsterIntent(attackSFX, attackGodSFX, defendSFX);
         enemyIntent.Self = this;
         healthBarColor = healthBarFill.color;
         barrierBarColor = barrierBarFill.color;

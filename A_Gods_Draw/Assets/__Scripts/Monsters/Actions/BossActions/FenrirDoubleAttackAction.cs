@@ -1,11 +1,12 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using FMODUnity;
 
 public class FenrirDoubleAttackAction : MonsterAction
 {
 
-    public FenrirDoubleAttackAction(int minimumStrength, int maximumStrength) : base(minimumStrength, maximumStrength)
+    public FenrirDoubleAttackAction(int minimumStrength, int maximumStrength, EventReference sfx) : base(minimumStrength, maximumStrength, sfx)
     {
 
         ActionID = (int)EnemyIntent.AttackPlayer;
@@ -17,10 +18,23 @@ public class FenrirDoubleAttackAction : MonsterAction
 
     public override void SelectTargets(BoardStateController _board)
     {
-        
+
+        if(Targets.Count > 0)
+        {
+
+            foreach (IMonsterTarget _target in Targets)
+            {
+
+                _target.UnTargeted();
+                
+            }
+            Targets.Clear();
+
+        } 
         BoardTarget[] _targets = _board.ActiveExtraEnemyTargets.ToArray();
 
         int _chance = Random.Range(0, 4);
+        int _tempIndex = 0;
 
         if(_chance > _targets.Length - 1)
         {
@@ -32,7 +46,12 @@ public class FenrirDoubleAttackAction : MonsterAction
 
         }
         else
-            Targets.Add(_targets[Random.Range(0, _targets.Length)]);
+        {
+
+            _tempIndex = Random.Range(0, _targets.Length);
+            Targets.Add(_targets[_tempIndex]);
+
+        }
         
         _chance = Random.Range(0, 4);
 
@@ -46,7 +65,18 @@ public class FenrirDoubleAttackAction : MonsterAction
 
         }
         else
-            Targets.Add(_targets[Random.Range(0, _targets.Length)]);
+        {
+
+            int _tempIndex2 = 0;
+            if(_targets.Length > 1)
+                do
+                {
+                    _tempIndex2 = Random.Range(0, _targets.Length);
+                } while (_tempIndex == _tempIndex2);
+            
+            Targets.Add(_targets[_tempIndex2]);
+
+        }
 
         foreach (IMonsterTarget _target in Targets)
         {
@@ -72,7 +102,12 @@ public class FenrirDoubleAttackAction : MonsterAction
 
         Monster _enemy = _source as Monster;
         if(_enemy)
+        {
             _enemy.animator.SetTrigger("Attack");
+            SoundPlayer.PlaySound(ActionSFX, _enemy.gameObject);
+        }
+        else
+            SoundPlayer.PlaySound(ActionSFX, null);
 
     }
 

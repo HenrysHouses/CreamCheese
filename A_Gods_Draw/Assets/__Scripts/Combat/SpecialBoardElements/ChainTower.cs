@@ -21,6 +21,7 @@ public class ChainTower : BoardTarget
     private float outlineSize;
     [SerializeField]
     private Color outlineColor;
+    private bool targeted;
 
     private void Start()
     {
@@ -29,6 +30,24 @@ public class ChainTower : BoardTarget
         Board = Component.FindObjectOfType<BoardStateController>();
         Board.AddBoardTarget(this);
         DeactivateOutline();
+
+    }
+
+    private void Update()
+    {
+
+        if(!targeted)
+            return;
+        
+        foreach(Renderer _renderer in renderers)
+        {
+
+            if(_renderer.materials.Length < 2)
+                continue;
+            
+            _renderer.materials[1].SetFloat("_Size", outlineSize * Mathf.PingPong(Time.time, 1f));
+
+        }
 
     }
 
@@ -52,7 +71,7 @@ public class ChainTower : BoardTarget
 
     }
 
-    public override void Targeted(GameObject _sourceGO)
+    public override void Targeted(GameObject _sourceGO = null)
     {
 
         foreach(Renderer _renderer in renderers)
@@ -61,11 +80,18 @@ public class ChainTower : BoardTarget
             if(_renderer.materials.Length < 2)
                 continue;
 
-            _renderer.materials[1].SetFloat("_Size", outlineSize);            
+            targeted = true;
             _renderer.materials[1].SetColor("_Color", outlineColor);
 
         }
 
+    }
+
+    public override void UnTargeted(GameObject _sourceGO = null)
+    {
+
+        DeactivateOutline();
+        
     }
 
     public void DeactivateOutline()
@@ -77,7 +103,8 @@ public class ChainTower : BoardTarget
             if(_renderer.materials.Length < 2)
                 continue;
                 
-            _renderer.materials[1].SetFloat("_Size", 0);            
+            targeted = false;
+            _renderer.materials[1].SetFloat("_Size", 0);
             _renderer.materials[1].SetColor("_Color", Color.white);
 
         }

@@ -1,11 +1,12 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using FMODUnity;
 
 public class DoubleAttackAction : MonsterAction
 {
 
-    public DoubleAttackAction(int minimumStrength, int maximumStrength) : base(minimumStrength, maximumStrength)
+    public DoubleAttackAction(int minimumStrength, int maximumStrength, EventReference sfx) : base(minimumStrength, maximumStrength, sfx)
     {
 
         ActionID = (int)EnemyIntent.AttackPlayer;
@@ -15,77 +16,62 @@ public class DoubleAttackAction : MonsterAction
 
     }
 
-    public override void Execute(BoardStateController _board, int _strength, Object _source = null)
+    public override void SelectTargets(BoardStateController _board)
     {
-
-        int _attacks = 0;
-        BoardTarget[] _targets = _board.ActiveExtraEnemyTargets.ToArray();
-
-        if(_board.ActiveBattleFieldType == BattlefieldID.Fenrir)
+        
+        Targets.Clear();
+        if(_board.isGodPlayed)
         {
 
-            int _chance = Random.Range(0, 4);
-
-            if(_chance > (_targets.Length-1))
+            for(int i = 0; i < 2; i++)
             {
 
-                _board.Player.DealDamage(_strength);
+                if(Random.Range(0, 2) == 0)
+                    Targets.Add(_board.playedGodCard.GetComponent<IMonsterTarget>());
+                else
+                    Targets.Add(_board.Player.GetComponent<IMonsterTarget>());
                 
-                if(_board.isGodPlayed)
-                    _board.playedGodCard.DealDamage(_strength, _source);
-                else
-                    _board.Player.DealDamage(_strength);
-
-            }
-            else
-            {
-
-                _board.ActiveExtraEnemyTargets[Random.Range(0, _board.ActiveExtraEnemyTargets.Count)].DealDamage(_strength);
-                if(_board.ActiveExtraEnemyTargets.Count > 0)
-                    _board.ActiveExtraEnemyTargets[Random.Range(0, _board.ActiveExtraEnemyTargets.Count)].DealDamage(_strength);
-                else if(Random.Range(0, 2) == 0)
-                    _board.Player.DealDamage(_strength);
-                else
-                    _board.playedGodCard.DealDamage(_strength, _source);
-
             }
 
         }
         else
-            while(_attacks < 2)
-            {
+        {
 
-                switch (Random.Range(0, 3))
-                {
-                    
-                    case 0:
-                    _board.Player.DealDamage(_strength);
-                    _attacks += 1;
-                    break;
+            Targets.Add(_board.Player.GetComponent<IMonsterTarget>());
+            Targets.Add(_board.Player.GetComponent<IMonsterTarget>());
 
-                    case 1:
-                    if(_board.isGodPlayed)
-                    {
-                        _board.playedGodCard.DealDamage(_strength, _source);
-                        _attacks += 1;
-                    }
-                    break;
+        }
 
-                    case 2:
-                    if(_board.ActiveExtraEnemyTargets != null)
-                    {
-                        _board.ActiveExtraEnemyTargets[Random.Range(0, _board.ActiveExtraEnemyTargets.Count)].DealDamage(_strength);
-                        _attacks += 1;
-                    }
-                    break;
-                    
-                }
+        foreach (IMonsterTarget _target in Targets)
+        {
 
-            }
+            _target.Targeted();
+            
+        }
+
+    }
+
+    public override void Execute(BoardStateController _board, int _strength, Object _source = null)
+    {
+
+        for(int i = 0; i < Targets.Count; i++)
+        {
+
+            if(Targets[i] != null)
+                Targets[i].DealDamage(_strength);
+
+        }
+
+        Targets.Clear();
 
         Monster _enemy = _source as Monster;
         if(_enemy)
+        {
             _enemy.animator.SetTrigger("Attack");
+            SoundPlayer.PlaySound(ActionSFX, _enemy.gameObject);
+        }
+        else
+            SoundPlayer.PlaySound(ActionSFX, null);
 
     }
 

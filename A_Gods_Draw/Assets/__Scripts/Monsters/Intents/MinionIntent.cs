@@ -2,6 +2,7 @@
 
 using System.Collections.Generic;
 using UnityEngine;
+using FMODUnity;
 
 public class MinionIntent : Intent
 {
@@ -13,7 +14,7 @@ public class MinionIntent : Intent
     public MinionIntent(ref ActionSelection[] _actions)
     {
 
-        idleAction = new IdlingAction(0, 0);
+        idleAction = new IdlingAction(0, 0, new EventReference());
         actions = _actions;
         int _scale = GameManager.timesDefeatedBoss;
 
@@ -26,31 +27,31 @@ public class MinionIntent : Intent
             {
 
                 case EnemyIntent.BuffAttackers:
-                _newAction = new BuffAttackersAction(actions[i].MinStrength + _scale, actions[i].MaxStrength + _scale);
+                _newAction = new BuffAttackersAction(actions[i].MinStrength + _scale, actions[i].MaxStrength + _scale, actions[i].ActionSFX);
                 break;
 
                 case EnemyIntent.AttackGod:
-                _newAction = new AttackGodAction(actions[i].MinStrength + _scale, actions[i].MaxStrength + _scale);
+                _newAction = new AttackGodAction(actions[i].MinStrength + _scale, actions[i].MaxStrength + _scale, actions[i].ActionSFX);
                 break;
 
                 case EnemyIntent.AttackPlayer:
-                _newAction = new AttackPlayerAction(actions[i].MinStrength + _scale, actions[i].MaxStrength + _scale);
+                _newAction = new AttackPlayerAction(actions[i].MinStrength + _scale, actions[i].MaxStrength + _scale, actions[i].ActionSFX);
                 break;
 
                 case EnemyIntent.Defend:
-                _newAction = new DefendAction(actions[i].MinStrength + _scale, actions[i].MaxStrength + _scale);
+                _newAction = new DefendAction(actions[i].MinStrength + _scale, actions[i].MaxStrength + _scale, actions[i].ActionSFX);
                 break;
 
                 case EnemyIntent.AttackExtraTarget:
-                _newAction = new AttackBoardTargetAction(actions[i].MinStrength + _scale, actions[i].MaxStrength + _scale);
+                _newAction = new AttackBoardTargetAction(actions[i].MinStrength + _scale, actions[i].MaxStrength + _scale, actions[i].ActionSFX);
                 break;
 
                 case EnemyIntent.DoubleAttack:
-                _newAction = new DoubleAttackAction(actions[i].MinStrength + _scale, actions[i].MaxStrength + _scale);
+                _newAction = new DoubleAttackAction(actions[i].MinStrength + _scale, actions[i].MaxStrength + _scale, actions[i].ActionSFX);
                 break;
 
                 case EnemyIntent.FenrirDoubleAttack:
-                _newAction = new FenrirDoubleAttackAction(actions[i].MinStrength + _scale, actions[i].MaxStrength + _scale);
+                _newAction = new FenrirDoubleAttackAction(actions[i].MinStrength + _scale, actions[i].MaxStrength + _scale, actions[i].ActionSFX);
                 break;
 
             }

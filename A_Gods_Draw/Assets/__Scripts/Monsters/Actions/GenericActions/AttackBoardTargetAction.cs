@@ -1,11 +1,12 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using FMODUnity;
 
 public class AttackBoardTargetAction : MonsterAction
 {
 
-    public AttackBoardTargetAction(int minimumStrength, int maximumStrength) : base(minimumStrength, maximumStrength)
+    public AttackBoardTargetAction(int minimumStrength, int maximumStrength, EventReference sfx) : base(minimumStrength, maximumStrength, sfx)
     {
 
         ActionID = (int)EnemyIntent.AttackPlayer;
@@ -25,7 +26,12 @@ public class AttackBoardTargetAction : MonsterAction
 
         Monster _enemy = _source as Monster;
         if(_enemy)
+        {
             _enemy.animator.SetTrigger("Attack");
+            SoundPlayer.PlaySound(ActionSFX, _enemy.gameObject);
+        }
+        else
+            SoundPlayer.PlaySound(ActionSFX, null);
 
     }
 

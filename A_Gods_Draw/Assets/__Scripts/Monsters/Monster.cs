@@ -421,6 +421,12 @@ public class Monster : BoardElement
 
     }
 
+    public void ReSelectTargets(BoardStateController _board)
+    {
+
+        enemyIntent.ActionSelected.SelectTargets(_board);
+
+    }
     
     public void UpdateEffectDisplay(Sprite _icon, int _stacks, string description)
     {

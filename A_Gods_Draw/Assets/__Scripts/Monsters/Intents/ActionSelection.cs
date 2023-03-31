@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using FMODUnity;
 
 [System.Serializable]
 public class ActionSelection
@@ -16,5 +17,6 @@ public class ActionSelection
     [Tooltip("Set to true if all conditions has to be met for the action to be valid")]
     public bool AllRequired;
     public MonsterAction Action;
+    public EventReference ActionSFX;
 
 }

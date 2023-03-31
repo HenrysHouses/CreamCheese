@@ -18,6 +18,7 @@ public abstract class BoardTarget : MonoBehaviour , IMonsterTarget
 
     public abstract void DealDamage(int _amount, UnityEngine.Object _source = null);
     public virtual void Targeted(GameObject _sourceGO){}
+    public virtual void UnTargeted(GameObject _sourceGO){}
     protected abstract void DeActivate();
     public abstract void ReActivate();
 

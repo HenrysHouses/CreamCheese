@@ -91,6 +91,11 @@ public class PlayerController : BoardElement , IMonsterTarget
         
     }
 
+    public void UnTargeted(GameObject _sourceGO = null)
+    {
+        
+    }
+
     // public override string setClassName()
     // {
     //     return GetType().Name;

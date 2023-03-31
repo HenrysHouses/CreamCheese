@@ -30,6 +30,7 @@ public class ChainCardAction : CardAction
                 }
 
             }
+            board.getLivingEnemies()[0].ReSelectTargets(board);
 
         }
         else

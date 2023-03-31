@@ -207,4 +207,9 @@ public class GodCard_Behaviour : Card_Behaviour , IMonsterTarget
     {
         
     }
+
+    public void UnTargeted(GameObject _sourceGO = null)
+    {
+        
+    }
 }

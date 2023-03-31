@@ -1,12 +1,13 @@
 // Written by Javier
 
 using UnityEngine;
+using FMODUnity;
 
 public class DefendAction : MonsterAction
 {
     public Monster toDefend;
 
-    public DefendAction(int minimumStrength, int maximumStrength) : base(minimumStrength, maximumStrength)
+    public DefendAction(int minimumStrength, int maximumStrength, EventReference sfx) : base(minimumStrength, maximumStrength, sfx)
     {
         ActionID = (int)EnemyIntent.Defend;
         actionIcon = Resources.Load<Sprite>("EnemyData/Icons/Icon_Shield_IMG_v1");
