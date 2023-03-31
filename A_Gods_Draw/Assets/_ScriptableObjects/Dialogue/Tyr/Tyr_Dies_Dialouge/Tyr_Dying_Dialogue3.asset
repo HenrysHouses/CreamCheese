@@ -1,0 +1,36 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9a6afa83f6a9bc5458cb340187ecdfef, type: 3}
+  m_Name: Tyr_Dying_Dialogue3
+  m_EditorClassIdentifier: 
+  dialogue:
+    <pages>k__BackingField:
+    - text: 'My fall is but a temporary setback..
+
+'
+      speed: 0.05
+    - text: "The flames of justice will rise again!\r"
+      speed: 0.05
+    <TransformName>k__BackingField: MainCamera
+    <SFX>k__BackingField:
+      Guid:
+        Data1: -1023993072
+        Data2: 1313796185
+        Data3: -1845500527
+        Data4: 74687593
+      Path: event:/Combat/God/Tyr/TyrDialouge
+  trigger: 3
+  GenericTrigger: 0
+  cardTrigger: {fileID: 11400000, guid: aa8e30ae6f0221046bca3cf537fb0c5f, type: 2}
+  chanceToPlay: 0
+  enemyTrigger: 0
+  enemyClassNames: {fileID: 11400000, guid: 48c2a0f80d2a07c45a5e9dd51154fda2, type: 2}
