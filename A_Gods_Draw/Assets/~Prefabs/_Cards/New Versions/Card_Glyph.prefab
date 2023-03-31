@@ -49,7 +49,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   CardGlyphs:
   - GlyphType: 6
-    IconTexture: {fileID: 2800000, guid: b1401f21b231ae5438181ebf5eed43d4, type: 3}
+    IconTexture: {fileID: 2800000, guid: 7016f513ee3116044945f09ee8983f66, type: 3}
     Description: '<b>Splash Damage</b>
 
       Deals Damage to enemies adjacent to
@@ -93,7 +93,7 @@ MonoBehaviour:
       Prevents target to heal'
     DefaultState: 1
   - GlyphType: 9
-    IconTexture: {fileID: 2800000, guid: 7768be9b4b9448b4fb8dad17832ccba5, type: 3}
+    IconTexture: {fileID: 2800000, guid: 2af8d71a0d126824d8880b155be19cac, type: 3}
     Description: '<b>Poison</b>
 
       Deals damage each turn for each stack'
@@ -135,6 +135,10 @@ MonoBehaviour:
 
       Buffs all cards on the board'
     DefaultState: 1
+  - GlyphType: 2
+    IconTexture: {fileID: 2800000, guid: 98aa4b228f75b694eabe1f9fd5723f4f, type: 3}
+    Description: "<b>Buff</b>\nBuffs attack cards that are played by 1\r"
+    DefaultState: 1
   GodGlyphs: []
   meshRenderer: {fileID: 2364184021287717627}
   Popup: {fileID: -5285957334975476948}
@@ -152,6 +156,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   PopupInfo: {fileID: 11400000, guid: 3a41e2f8c9dee684cb796d01ab2b3afe, type: 2}
+  CreateInstance: 0
 --- !u!65 &4827559881836118017
 BoxCollider:
   m_ObjectHideFlags: 0
