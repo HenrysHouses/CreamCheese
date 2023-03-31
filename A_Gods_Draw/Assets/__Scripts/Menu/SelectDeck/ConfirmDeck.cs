@@ -15,6 +15,7 @@ public class ConfirmDeck : MonoBehaviour
             return;
 
         GameSaver.SaveData(targetDeck.deckData.GetDeckData());
+        GameManager.instance.PlayerTracker.setDeck(targetDeck.deckData);
         transition.TransitionScene(false, "Map");
     }
 
