@@ -220,6 +220,13 @@ MonoBehaviour:
     Weigth: 4
     Priority: 0
     AllRequired: 0
+    ActionSFX:
+      Guid:
+        Data1: 0
+        Data2: 0
+        Data3: 0
+        Data4: 0
+      Path: 
   deathParticleVFX: {fileID: 2505349679200391838, guid: 05a4cc1903228714997c82ae6e193f32, type: 3}
   slashParticleVFX: {fileID: 2505349679200391838, guid: 05a4cc1903228714997c82ae6e193f32, type: 3}
   MonsterRenderers:
@@ -247,7 +254,7 @@ MonoBehaviour:
   effectIconPrefab: {fileID: 2712877965524084146, guid: ac6310bb2a9b6d941aca7bfede021679, type: 3}
   defendUI: {fileID: 8499019722414731956}
   damageIndicatorColor: {r: 0.8396226, g: 0.32211933, b: 0.32211933, a: 1}
-  maxHealth: 35
+  maxHealth: 45
   HealingDisabled: 0
   Defending: 0
   death_SFX:
@@ -580,6 +587,10 @@ PrefabInstance:
     - target: {fileID: 2678239877870116954, guid: 56d8a4a3985409c499f5cc485b33024d, type: 3}
       propertyPath: m_Name
       value: EnemyUI
+      objectReference: {fileID: 0}
+    - target: {fileID: 2678239877870116954, guid: 56d8a4a3985409c499f5cc485b33024d, type: 3}
+      propertyPath: m_IsActive
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 4345473615743929308, guid: 56d8a4a3985409c499f5cc485b33024d, type: 3}
       propertyPath: m_AnchorMax.y
@@ -940,6 +951,14 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 5966793606316453687}
     m_Modifications:
+    - target: {fileID: -9144175755646900564, guid: bb20cc6fb6503ab42a5f2aafd1b4ab58, type: 3}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: -9112132207523347617, guid: bb20cc6fb6503ab42a5f2aafd1b4ab58, type: 3}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: -9065246057410147685, guid: bb20cc6fb6503ab42a5f2aafd1b4ab58, type: 3}
       propertyPath: m_Materials.Array.size
       value: 2
@@ -1051,7 +1070,7 @@ PrefabInstance:
     - target: {fileID: -2165757241471867308, guid: bb20cc6fb6503ab42a5f2aafd1b4ab58, type: 3}
       propertyPath: m_Materials.Array.data[0]
       value: 
-      objectReference: {fileID: 2100000, guid: 49d60739c792aa044a59811ef7f42d11, type: 2}
+      objectReference: {fileID: 2100000, guid: 0224193d19ff99140a98693abeeab826, type: 2}
     - target: {fileID: -2165757241471867308, guid: bb20cc6fb6503ab42a5f2aafd1b4ab58, type: 3}
       propertyPath: m_Materials.Array.data[1]
       value: 
@@ -1093,6 +1112,10 @@ PrefabInstance:
       value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 2687789258640415509, guid: bb20cc6fb6503ab42a5f2aafd1b4ab58, type: 3}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 3095517225759896229, guid: bb20cc6fb6503ab42a5f2aafd1b4ab58, type: 3}
       propertyPath: m_IsActive
       value: 1
       objectReference: {fileID: 0}
