@@ -5,7 +5,7 @@ using FMODUnity;
 
 public class AttackGodAction : MonsterAction
 {
-    public AttackGodAction(int minimumStrength, int maximumStrength, EventReference sfx) : base(minimumStrength, maximumStrength, sfx)
+    public AttackGodAction(int minimumStrength, int maximumStrength) : base(minimumStrength, maximumStrength)
     {
         ActionID = (int)EnemyIntent.AttackGod;
         actionIcon = Resources.Load<Sprite>("EnemyData/Icons/Icon_Sword_IMG_v1");

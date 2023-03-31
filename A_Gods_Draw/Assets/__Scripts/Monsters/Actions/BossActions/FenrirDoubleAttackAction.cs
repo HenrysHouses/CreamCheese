@@ -6,7 +6,7 @@ using FMODUnity;
 public class FenrirDoubleAttackAction : MonsterAction
 {
 
-    public FenrirDoubleAttackAction(int minimumStrength, int maximumStrength, EventReference sfx) : base(minimumStrength, maximumStrength, sfx)
+    public FenrirDoubleAttackAction(int minimumStrength, int maximumStrength) : base(minimumStrength, maximumStrength)
     {
 
         ActionID = (int)EnemyIntent.AttackPlayer;

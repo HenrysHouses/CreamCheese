@@ -5,7 +5,7 @@ using FMODUnity;
 
 public class BuffAttackersAction : MonsterAction
 {
-    public BuffAttackersAction(int minimumStrength, int maximumStrength, EventReference sfx) : base(minimumStrength, maximumStrength, sfx)
+    public BuffAttackersAction(int minimumStrength, int maximumStrength) : base(minimumStrength, maximumStrength)
     {
         ActionID = (int)EnemyIntent.BuffAttackers;
         actionIcon = Resources.Load<Sprite>("EnemyData/Icons/Icon_Buff_IMG_v7");

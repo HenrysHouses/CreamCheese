@@ -6,7 +6,7 @@ using FMODUnity;
 public class AttackBoardTargetAction : MonsterAction
 {
 
-    public AttackBoardTargetAction(int minimumStrength, int maximumStrength, EventReference sfx) : base(minimumStrength, maximumStrength, sfx)
+    public AttackBoardTargetAction(int minimumStrength, int maximumStrength) : base(minimumStrength, maximumStrength)
     {
 
         ActionID = (int)EnemyIntent.AttackPlayer;
@@ -16,7 +16,7 @@ public class AttackBoardTargetAction : MonsterAction
 
     }
 
-    public override void Execute(BoardStateController _board, int _strength, Object _source = null)
+    public override void PerformAction(BoardStateController _board, int _strength, object _source)
     {
         
         if(_board.ActiveExtraEnemyTargets.Count <= 0)
@@ -30,7 +30,7 @@ public class AttackBoardTargetAction : MonsterAction
             _enemy.animator.SetTrigger("Attack");
             _enemy.PlaySound(ActionSFX);
         }
-
+        
     }
 
 }

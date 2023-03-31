@@ -65,7 +65,7 @@ public static class ConditionChecker
                     }
                     break;
 
-                    case Conditions.PlayerLowHealth:
+                    case Conditions.PlayerHealthAt50:
                     if(_board.Player.Playerhealth < Mathf.RoundToInt(_board.Player.MaxPlayerHealth / 2))
                     {
                         _passed = true;
@@ -86,8 +86,15 @@ public static class ConditionChecker
                     }
                     break;
 
-                    case Conditions.SelfIsHurt:
+                    case Conditions.SelfHealthAt50:
                     if(_intent.Self.GetHealth() < Mathf.RoundToInt(_intent.Self.GetMaxHealth() / 2))
+                    {
+                        _passed = true;
+                    }
+                    break;
+
+                    case Conditions.SelfHealthAt25:
+                    if(_intent.Self.GetHealth() < Mathf.RoundToInt(_intent.Self.GetMaxHealth() / 4))
                     {
                         _passed = true;
                     }

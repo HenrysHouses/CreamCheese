@@ -7,14 +7,13 @@ using FMODUnity;
 public class MinionIntent : Intent
 {
 
-    //List<Action> Actions = new List<Action>();
     private ActionSelection[] actions;
     private IdlingAction idleAction;
 
     public MinionIntent(ref ActionSelection[] _actions)
     {
 
-        idleAction = new IdlingAction(0, 0, new EventReference());
+        idleAction = new IdlingAction(0, 0);
         actions = _actions;
         int _scale = GameManager.timesDefeatedBoss;
 
@@ -27,36 +26,39 @@ public class MinionIntent : Intent
             {
 
                 case EnemyIntent.BuffAttackers:
-                _newAction = new BuffAttackersAction(actions[i].MinStrength + _scale, actions[i].MaxStrength + _scale, actions[i].ActionSFX);
+                _newAction = new BuffAttackersAction(actions[i].MinStrength + _scale, actions[i].MaxStrength + _scale);
                 break;
 
                 case EnemyIntent.AttackGod:
-                _newAction = new AttackGodAction(actions[i].MinStrength + _scale, actions[i].MaxStrength + _scale, actions[i].ActionSFX);
+                _newAction = new AttackGodAction(actions[i].MinStrength + _scale, actions[i].MaxStrength + _scale);
                 break;
 
                 case EnemyIntent.AttackPlayer:
-                _newAction = new AttackPlayerAction(actions[i].MinStrength + _scale, actions[i].MaxStrength + _scale, actions[i].ActionSFX);
+                _newAction = new AttackPlayerAction(actions[i].MinStrength + _scale, actions[i].MaxStrength + _scale);
                 break;
 
                 case EnemyIntent.Defend:
-                _newAction = new DefendAction(actions[i].MinStrength + _scale, actions[i].MaxStrength + _scale, actions[i].ActionSFX);
+                _newAction = new DefendAction(actions[i].MinStrength + _scale, actions[i].MaxStrength + _scale);
                 break;
 
                 case EnemyIntent.AttackExtraTarget:
-                _newAction = new AttackBoardTargetAction(actions[i].MinStrength + _scale, actions[i].MaxStrength + _scale, actions[i].ActionSFX);
+                _newAction = new AttackBoardTargetAction(actions[i].MinStrength + _scale, actions[i].MaxStrength + _scale);
                 break;
 
                 case EnemyIntent.DoubleAttack:
-                _newAction = new DoubleAttackAction(actions[i].MinStrength + _scale, actions[i].MaxStrength + _scale, actions[i].ActionSFX);
+                _newAction = new DoubleAttackAction(actions[i].MinStrength + _scale, actions[i].MaxStrength + _scale);
                 break;
 
                 case EnemyIntent.FenrirDoubleAttack:
-                _newAction = new FenrirDoubleAttackAction(actions[i].MinStrength + _scale, actions[i].MaxStrength + _scale, actions[i].ActionSFX);
+                _newAction = new FenrirDoubleAttackAction(actions[i].MinStrength + _scale, actions[i].MaxStrength + _scale);
                 break;
 
             }
 
             actions[i].Action = _newAction;
+            _newAction.Self = Self;
+            _newAction.ActionSFX = actions[i].ActionSFX;
+            _newAction.TurnsToPerform = actions[i].TurnsToPerform;
 
         }
 
@@ -107,7 +109,8 @@ public class MinionIntent : Intent
     public override void DecideIntent(BoardStateController _board)
     {
 
-        actionSelected = ConditionChecker.CheckConditions(actions, _board, this);
+        if(actionSelected != null && actionSelected.TurnsLeft == 0)
+            actionSelected = ConditionChecker.CheckConditions(actions, _board, this);
 
     }
     public override void LateDecideIntent(BoardStateController _board)
@@ -117,9 +120,6 @@ public class MinionIntent : Intent
             strength = Random.Range(actionSelected.MinStrength, actionSelected.MaxStrength + 1);
         else
             actionSelected = idleAction;
-
-        if(GetAction<DefendAction>() != null && actionSelected == GetAction<DefendAction>())
-            GetAction<DefendAction>().toDefend = Self;
 
         PreviousAction = actionSelected;
         actionSelected.SelectTargets(_board);

@@ -12,9 +12,12 @@ public class TutorialMonsterIntent : Intent
     public TutorialMonsterIntent(EventReference _attackSFX, EventReference _attackGodSFX, EventReference _defendSFX)
     {
 
-        attackPlayerAction = new AttackPlayerAction(4, 4, _attackSFX);
-        attackGodAction = new AttackGodAction(2, 2, _attackGodSFX);
-        defendAction = new DefendAction(1, 1, _defendSFX);
+        attackPlayerAction = new AttackPlayerAction(4, 4);
+        attackPlayerAction.ActionSFX = _attackSFX;
+        attackGodAction = new AttackGodAction(2, 2);
+        attackGodAction.ActionSFX = _attackGodSFX;
+        defendAction = new DefendAction(1, 1);
+        defendAction.ActionSFX = _defendSFX;
 
     }
 

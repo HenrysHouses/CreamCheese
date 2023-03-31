@@ -6,7 +6,7 @@ using FMODUnity;
 public class DoubleAttackAction : MonsterAction
 {
 
-    public DoubleAttackAction(int minimumStrength, int maximumStrength, EventReference sfx) : base(minimumStrength, maximumStrength, sfx)
+    public DoubleAttackAction(int minimumStrength, int maximumStrength) : base(minimumStrength, maximumStrength)
     {
 
         ActionID = (int)EnemyIntent.AttackPlayer;

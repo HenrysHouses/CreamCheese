@@ -65,10 +65,11 @@ public enum Conditions
     HasNotDefended,
     HasNotAttacked,
     HasNotActed,
-    PlayerLowHealth,
+    PlayerHealthAt50,
     NotSameAction,
     ExtraTargetsOnBoard,
-    SelfIsHurt
+    SelfHealthAt50,
+    SelfHealthAt25
 }
 
 public enum IntentType

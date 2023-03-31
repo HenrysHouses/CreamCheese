@@ -7,7 +7,7 @@ public class DefendAction : MonsterAction
 {
     public Monster toDefend;
 
-    public DefendAction(int minimumStrength, int maximumStrength, EventReference sfx) : base(minimumStrength, maximumStrength, sfx)
+    public DefendAction(int minimumStrength, int maximumStrength) : base(minimumStrength, maximumStrength)
     {
         ActionID = (int)EnemyIntent.Defend;
         actionIcon = Resources.Load<Sprite>("EnemyData/Icons/Icon_Shield_IMG_v1");
@@ -15,9 +15,8 @@ public class DefendAction : MonsterAction
         ActionIntentType = IntentType.Defend;
     }
 
-    public override void Execute(BoardStateController BoardStateController, int strengh, UnityEngine.Object source)
+    public override void Execute(BoardStateController BoardStateController, int _strength, UnityEngine.Object source)
     {
-        if (toDefend)
-            toDefend.Defend(strengh);
+        Self.Defend(_strength);
     }
 }
