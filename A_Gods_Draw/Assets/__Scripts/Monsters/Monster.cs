@@ -198,6 +198,7 @@ public class Monster : BoardElement
         {
             
             animator.SetTrigger("TakingDMGDefended");
+            SoundPlayer.PlaySound(block_SFX, gameObject);
             defendFor -= _amount;
             return 0;
 
@@ -491,6 +492,13 @@ public class Monster : BoardElement
             enemyIntent.Act(board, this);
             StartCoroutine(WaitForAnims());
         }
+    }
+
+    public void PlaySound(EventReference _sfx)
+    {
+
+        SoundPlayer.PlaySound(_sfx, gameObject);
+
     }
 
     IEnumerator WaitForAnims()

@@ -22,9 +22,7 @@ public class AttackPlayerAction : MonsterAction
         if(_enemy)
         {
             _enemy.animator.SetTrigger("Attack");
-            SoundPlayer.PlaySound(ActionSFX, _enemy.gameObject);
+            _enemy.PlaySound(ActionSFX);
         }
-        else
-            SoundPlayer.PlaySound(ActionSFX, null);
     }
 }

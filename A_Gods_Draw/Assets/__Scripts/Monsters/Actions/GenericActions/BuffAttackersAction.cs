@@ -23,10 +23,8 @@ public class BuffAttackersAction : MonsterAction
                 Monster _enemy = source as Monster;
                 if(_enemy)
                 {
-                    SoundPlayer.PlaySound(ActionSFX, _enemy.gameObject);
+                    _enemy.PlaySound(ActionSFX);
                 }
-                else
-                    SoundPlayer.PlaySound(ActionSFX, null);
             }
         }
     }
