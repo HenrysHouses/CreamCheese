@@ -1,0 +1,38 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9a6afa83f6a9bc5458cb340187ecdfef, type: 3}
+  m_Name: Eir_FenrirDies_Dialouge2
+  m_EditorClassIdentifier: 
+  dialogue:
+    <pages>k__BackingField:
+    - text: You know what they say, Fenrir..
+      speed: 0.05
+    - text: Prise comes before the fall
+      speed: 0.05
+    - text: Or in your case..
+      speed: 0.05
+    - text: The Bite!
+      speed: 0.05
+    <TransformName>k__BackingField: MainCamera
+    <SFX>k__BackingField:
+      Guid:
+        Data1: -1023993072
+        Data2: 1313796185
+        Data3: -1845500527
+        Data4: 74687593
+      Path: event:/Combat/God/Tyr/TyrDialouge
+  trigger: 1
+  GenericTrigger: 1
+  cardTrigger: {fileID: 0}
+  chanceToPlay: 0
+  enemyTrigger: 0
+  enemyClassNames: {fileID: 11400000, guid: 48c2a0f80d2a07c45a5e9dd51154fda2, type: 2}
