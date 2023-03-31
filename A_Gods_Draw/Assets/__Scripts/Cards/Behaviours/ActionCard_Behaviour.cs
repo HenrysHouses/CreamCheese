@@ -317,6 +317,20 @@ public class ActionCard_Behaviour : Card_Behaviour
     {
         return AllActionsReady();
     }
+    private bool IsMonsterTargeted(Monster _targetToCheck)
+    {
+
+        foreach (Monster _monster in AllTargets)
+        {
+
+            if(_targetToCheck == _monster)
+                return true;
+            
+        }
+
+        return false;
+
+    }
     public (bool, int) CardAttackTotal(bool _buffUpdate)
     {
 
@@ -341,9 +355,11 @@ public class ActionCard_Behaviour : Card_Behaviour
                 foreach(Monster _target in controller.GetBoard().getLivingEnemies())
                 {
 
-                    _target.UpdateQueuedDamage(this, _tempDmg, _buffUpdate);
+                    if(!IsMonsterTargeted(_target))
+                        _target.UpdateQueuedDamage(this, _tempDmg, _buffUpdate);
 
                 }
+                damageTotal += _tempDmg;
 
             }
             else if(action is LeachCardAction)
@@ -361,9 +377,11 @@ public class ActionCard_Behaviour : Card_Behaviour
                 foreach(Monster _target in controller.GetBoard().getLivingEnemies())
                 {
 
-                    _target.UpdateQueuedDamage(this, _tempDmg, _buffUpdate);
+                    if(!IsMonsterTargeted(_target))
+                        _target.UpdateQueuedDamage(this, _tempDmg, _buffUpdate);
 
                 }
+                damageTotal += _tempDmg;
 
             }
             
@@ -389,10 +407,11 @@ public class ActionCard_Behaviour : Card_Behaviour
                 int _tempDmg = stats.strength;
                 foreach(Monster _target in controller.GetBoard().getLivingEnemies())
                 {
-
-                    _target.UpdateQueuedDamage(this, _tempDmg, _buffUpdate);
+                    if(!IsMonsterTargeted(_target))
+                        _target.UpdateQueuedDamage(this, _tempDmg, _buffUpdate);
 
                 }
+                damageTotal += _tempDmg;
 
             }
             else if(action is LeachCardAction)
@@ -410,9 +429,11 @@ public class ActionCard_Behaviour : Card_Behaviour
                 foreach(Monster _target in controller.GetBoard().getLivingEnemies())
                 {
 
-                    _target.UpdateQueuedDamage(this, _tempDmg, _buffUpdate);
+                    if(!IsMonsterTargeted(_target))
+                        _target.UpdateQueuedDamage(this, _tempDmg, _buffUpdate);
 
                 }
+                damageTotal += _tempDmg;
 
             }
             

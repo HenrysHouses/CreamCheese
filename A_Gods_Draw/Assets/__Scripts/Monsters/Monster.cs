@@ -54,11 +54,14 @@ public class Monster : BoardElement
 
     //Effects
     [Header("Effects")]
-    public bool HealingDisabled, Defending;
+    public bool HealingDisabled;
+    public bool Defending;
 
     //SFX
     [SerializeField, Header("Sounds")]
-    private EventReference death_SFX, block_SFX, ability_SFX, hurt_SFX, attacking_SFX;
+    private EventReference death_SFX;
+    [SerializeField]
+    private EventReference block_SFX, ability_SFX, hurt_SFX, attacking_SFX;
 
     // Animation
     [Header("Animation")]
