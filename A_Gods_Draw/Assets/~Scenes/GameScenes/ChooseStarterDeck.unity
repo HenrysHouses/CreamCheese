@@ -1322,6 +1322,7 @@ GameObject:
   - component: {fileID: 1047363628}
   - component: {fileID: 1047363627}
   - component: {fileID: 1047363631}
+  - component: {fileID: 1047363632}
   m_Layer: 0
   m_Name: BackIcon
   m_TagString: Untagged
@@ -1504,6 +1505,36 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   PopupInfo: {fileID: 11400000, guid: e351a9dbf978bc34c8b1261d26dc1dcb, type: 2}
   CreateInstance: 0
+--- !u!114 &1047363632
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1047363625}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9a6610d2e704f1648819acc8d7460285, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  CollisionTag: 
+  EventReference:
+    Guid:
+      Data1: 1404340883
+      Data2: 1110195440
+      Data3: 808349872
+      Data4: -255410493
+    Path: event:/UI/ChooseDeck
+  Event: 
+  PlayEvent: 15
+  StopEvent: 0
+  AllowFadeout: 1
+  TriggerOnce: 0
+  Preload: 0
+  Params: []
+  OverrideAttenuation: 0
+  OverrideMinDistance: 1
+  OverrideMaxDistance: 20
 --- !u!1 &1054362828
 GameObject:
   m_ObjectHideFlags: 0
@@ -1821,6 +1852,68 @@ PrefabInstance:
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 2b9c09d2241bf534da856d40436506a0, type: 3}
+--- !u!1 &1412602784
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1412602785}
+  - component: {fileID: 1412602786}
+  m_Layer: 0
+  m_Name: Sound
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 0
+--- !u!4 &1412602785
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1412602784}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 1133517818}
+  m_RootOrder: 5
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1412602786
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1412602784}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9a6610d2e704f1648819acc8d7460285, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  CollisionTag: 
+  EventReference:
+    Guid:
+      Data1: 2066910010
+      Data2: 1220419007
+      Data3: -992996713
+      Data4: 701430514
+    Path: event:/UI/ChooseDeckIntro
+  Event: 
+  PlayEvent: 11
+  StopEvent: 12
+  AllowFadeout: 1
+  TriggerOnce: 0
+  Preload: 0
+  Params: []
+  OverrideAttenuation: 0
+  OverrideMinDistance: 1
+  OverrideMaxDistance: 20
 --- !u!1 &1478480298 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 1744794354158232397, guid: 2b9c09d2241bf534da856d40436506a0, type: 3}
@@ -2641,6 +2734,7 @@ GameObject:
   - component: {fileID: 1761250548}
   - component: {fileID: 1761250549}
   - component: {fileID: 1761250550}
+  - component: {fileID: 1761250551}
   m_Layer: 7
   m_Name: Lane
   m_TagString: Untagged
@@ -2833,6 +2927,36 @@ MonoBehaviour:
   OnInteractableEnabled:
     m_PersistentCalls:
       m_Calls: []
+--- !u!114 &1761250551
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1761250547}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9a6610d2e704f1648819acc8d7460285, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  CollisionTag: 
+  EventReference:
+    Guid:
+      Data1: 1404340883
+      Data2: 1110195440
+      Data3: 808349872
+      Data4: -255410493
+    Path: event:/UI/ChooseDeck
+  Event: 
+  PlayEvent: 15
+  StopEvent: 0
+  AllowFadeout: 1
+  TriggerOnce: 0
+  Preload: 0
+  Params: []
+  OverrideAttenuation: 0
+  OverrideMinDistance: 1
+  OverrideMaxDistance: 20
 --- !u!1 &1804070610
 GameObject:
   m_ObjectHideFlags: 0
@@ -2844,6 +2968,7 @@ GameObject:
   - component: {fileID: 1804070611}
   - component: {fileID: 1804070612}
   - component: {fileID: 1804070613}
+  - component: {fileID: 1804070614}
   m_Layer: 7
   m_Name: Lane
   m_TagString: Untagged
@@ -3036,6 +3161,36 @@ MonoBehaviour:
   OnInteractableEnabled:
     m_PersistentCalls:
       m_Calls: []
+--- !u!114 &1804070614
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1804070610}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9a6610d2e704f1648819acc8d7460285, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  CollisionTag: 
+  EventReference:
+    Guid:
+      Data1: 1404340883
+      Data2: 1110195440
+      Data3: 808349872
+      Data4: -255410493
+    Path: event:/UI/ChooseDeck
+  Event: 
+  PlayEvent: 15
+  StopEvent: 0
+  AllowFadeout: 1
+  TriggerOnce: 0
+  Preload: 0
+  Params: []
+  OverrideAttenuation: 0
+  OverrideMinDistance: 1
+  OverrideMaxDistance: 20
 --- !u!1001 &1819979245
 PrefabInstance:
   m_ObjectHideFlags: 0
