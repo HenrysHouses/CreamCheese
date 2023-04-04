@@ -2,16 +2,17 @@ Shader "HenryCustom/Fire"
 {
     Properties
     {
-        [HDR] _MainColor ("Main Color", Color) = (1,1,1,1)
-        [HDR] _SecondColor ("Second Color", Color) = (1,1,1,1)
+        _LUTex ("Look up Texture", 2D) = "white" {}
         _MainTex ("Main Texture", 2D) = "white" {}
         _SecondTex ("Secondary Texture", 2D) = "white" {}
         _MainSaturation ("Main Texture Saturation", float) = 1
-        _ScrollTex ("Scrolling Texture", 2D) = "white" {}
-        _WallIntensity ("Fire Wall Distortion", float) = 1
+        _SmallFireIntensity ("Small Fire Intensity", float) = 1
+        _SmallFlamesTex ("Small Fires Texture", 2D) = "white" {}
         _FireWallTex ("Fire Wall Texture", 2D) = "white" {}
-        _NoiseTex ("Noise Texture", 2D) = "white" {}
+        [NoScaleOffset] _MaskTex ("Mask", 2D) = "white" {}
+        _NoiseTex ("Noise Texture", 2D) = "bump" {}
         _NoiseStrength ("Noise Strength", float) = 1
+        _Erosion ("Erosion", Range(0,1)) = 0
     }
     SubShader
     {
@@ -41,32 +42,34 @@ Shader "HenryCustom/Fire"
             struct v2f
             {
                 float2 uv : TEXCOORD0;
-                UNITY_FOG_COORDS(1)
                 float4 vertex : SV_POSITION;
             };
 
-            float4 _MainColor;
-            float4 _SecondColor;
+            sampler2D _LUTex;
             sampler2D _MainTex;
             sampler2D _SecondTex;
-            sampler2D _ScrollTex;
-            sampler2D _NoiseTex;
+            sampler2D _SmallFlamesTex;
             sampler2D _FireWallTex;
+            sampler2D _MaskTex;
+            sampler2D _NoiseTex;
+            float4 _LUTex_ST;
             float4 _MainTex_ST;
             float4 _SecondTex_ST;
-            float4 _ScrollTex_ST;
-            float4 _NoiseTex_ST;
+            float4 _SmallFlamesTex_ST;
+            float _SmallFireIntensity;
             float4 _FireWallTex_ST;
+            float4 _MaskTex_ST;
+            float4 _NoiseTex_ST;
             float _NoiseStrength;
             float _MainSaturation;
-            float _WallIntensity;
+
+            float _Erosion;
 
             v2f vert (appdata v)
             {
                 v2f o;
                 o.vertex = UnityObjectToClipPos(v.vertex);
-                o.uv = TRANSFORM_TEX(v.uv, _MainTex);
-                UNITY_TRANSFER_FOG(o,o.vertex);
+                o.uv = TRANSFORM_TEX(v.uv, _MaskTex);
                 return o;
             }
 
@@ -87,43 +90,48 @@ Shader "HenryCustom/Fire"
 
             fixed4 frag (v2f i) : SV_Target
             {
-                // Scroll the Noise
+                // Bottom mask
+                float LinearGradient = lerp(0, 1, i.uv.y);
+                float BottomMask = smoothstep(0, 0.1, LinearGradient);
+                // return float4(BottomMask.xxx,1);
+
+                // Distortion
                 float2 NoiseUv = i.uv;
-                NoiseUv.y -= _Time.w * 0.1;
-                fixed4 NoiseCol = tex2D(_NoiseTex, NoiseUv);
+                NoiseUv += _Time.yy * float2(0.1, -0.25);
+                fixed2 N = UnpackNormal(tex2D(_NoiseTex, NoiseUv * _NoiseTex_ST.xy)).rg * _NoiseStrength;
+                float2 UvDistortion = float2(N.r, abs(N.g)); // try with and without abs
+                UvDistortion *= float2(0.1, 0.5) * BottomMask; // Control vertical and horizontal distortion
 
                 // Apply noise and scrolling
+                // Flames small
+                float2 ScrollUv = i.uv + _Time.yy * float2(0.1, -0.6);
+                float ScrollCol = tex2D(_SmallFlamesTex, ScrollUv * _SmallFlamesTex_ST.xy).r;
+                float smallFlames = smoothstep(i.uv.y-0.25+_Erosion, i.uv.y+0.25+_Erosion, ScrollCol) * BottomMask;
+                // return float4(smallFlames.xxx, 1);
+
+                // Flame Layer
+                float2 WallUv = i.uv + UvDistortion.xy; // Distortion
+                WallUv += _Time.yy * float2(0.0, -0.25); // Tiling
+                float WallCol = tex2D(_FireWallTex, WallUv * _FireWallTex_ST.xy).r;
+
                 // Main Tex
-                float2 MainUv = i.uv + NoiseCol.xy * _NoiseStrength;
-                MainUv.x += _Time.y * 0.15;
-                MainUv.y -= _NoiseStrength;
-                fixed4 MainCol = tex2D(_MainTex, MainUv);
+                float2 MainUv = i.uv + UvDistortion.xy;  
+                MainUv += _Time.yy * float2(0.1, 0.0);
+                fixed MainCol = tex2D(_MainTex, MainUv * _MainTex_ST.xy).r;
 
                 // Secondary Tex
-                float2 SecondUv = i.uv + NoiseCol.xy * _NoiseStrength;
-                SecondUv.x -= _Time.y * 0.1;
-                SecondUv.y -= _NoiseStrength;
-                fixed4 SecondCol = tex2D(_SecondTex, SecondUv);
-                
-                // Wall Tex
-                float2 WallUv = i.uv + NoiseCol.xy * _WallIntensity;
-                WallUv.y -= _Time.w * 0.03;
-                fixed4 WallCol = tex2D(_FireWallTex, WallUv);
-
-                float2 ScrollUv = i.uv - float2(_Time.y * 0.1, _Time.y * 0.5);
-                fixed4 ScrollCol = tex2D(_ScrollTex, ScrollUv);
-                // apply fog
+                float2 SecondUv = i.uv + UvDistortion.xy;
+                SecondUv += _Time.yy * float2(-0.05, 0.0); 
+                fixed SecondCol = tex2D(_SecondTex, SecondUv * _SecondTex_ST.xy).r;
 
                 // Combine
-                float4 FireCol = saturate((MainCol + SecondCol) * _MainSaturation );
-                float4 DistortionCol = saturate(WallCol + ScrollCol);
-                float4 CombinedCol = FireCol * DistortionCol;
+                float4 MainFire = saturate((MainCol + SecondCol) * WallCol + smallFlames);
+                // Masking
+                fixed mask = saturate(MainFire.r * (tex2D(_MaskTex, i.uv).r));
                 
-                // Add color
-                float4 col = lerp(_MainColor, _SecondColor, CombinedCol);
+                float3 col = tex2D(_LUTex, mask.r);
 
-                // float4 OutCol = lerp(_MainColor, _SecondColor, CombinedCol); 
-                return CombinedCol * col;
+                return float4(col, mask);
             }
             ENDCG
         }

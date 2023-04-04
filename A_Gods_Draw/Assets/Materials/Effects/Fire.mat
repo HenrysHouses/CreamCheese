@@ -44,8 +44,16 @@ Material:
         m_Texture: {fileID: 2800000, guid: 855ec4ea108f42646be42087077c970b, type: 3}
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
+    - _LUTex:
+        m_Texture: {fileID: 2800000, guid: 5ff8753f6a8b46140b751a7370c6b81f, type: 3}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
     - _MainTex:
         m_Texture: {fileID: 2800000, guid: 656574503d4f09540acf428aec609be5, type: 3}
+        m_Scale: {x: 0.45, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - _MaskTex:
+        m_Texture: {fileID: 2800000, guid: b799c91faa5bdb5478853d4dbac8129b, type: 3}
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     - _MetallicGlossMap:
@@ -53,7 +61,7 @@ Material:
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     - _NoiseTex:
-        m_Texture: {fileID: 2800000, guid: cbd950812c5e7784b8c5f38f220de2e7, type: 3}
+        m_Texture: {fileID: 2800000, guid: dd53615c52c00f14099415dc89118e2b, type: 3}
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     - _OcclusionMap:
@@ -69,8 +77,12 @@ Material:
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     - _SecondTex:
-        m_Texture: {fileID: 2800000, guid: 799542e34330b394eb3a1e084f987a47, type: 3}
-        m_Scale: {x: 1, y: 1}
+        m_Texture: {fileID: 2800000, guid: 656574503d4f09540acf428aec609be5, type: 3}
+        m_Scale: {x: 1, y: 1.01}
+        m_Offset: {x: 0, y: 0}
+    - _SmallFlamesTex:
+        m_Texture: {fileID: 2800000, guid: a951619543be9744d9e0c6067d548228, type: 3}
+        m_Scale: {x: 0.5, y: 1}
         m_Offset: {x: 0, y: 0}
     m_Ints: []
     m_Floats:
@@ -78,20 +90,22 @@ Material:
     - _Cutoff: 0.5
     - _DetailNormalMapScale: 1
     - _DstBlend: 0
+    - _Erosion: 0.509
     - _GlossMapScale: 1
     - _Glossiness: 0.5
     - _GlossyReflections: 1
-    - _MainSaturation: 0.46
+    - _MainSaturation: 12.33
     - _Metallic: 0
     - _Mode: 0
-    - _NoiseStrength: 0.18
+    - _NoiseStrength: 0.32
     - _OcclusionStrength: 1
     - _Parallax: 0.02
+    - _SmallFireIntensity: 1.95
     - _SmoothnessTextureChannel: 0
     - _SpecularHighlights: 1
     - _SrcBlend: 1
     - _UVSec: 0
-    - _WallIntensity: -0.1
+    - _WallIntensity: 1
     - _ZWrite: 1
     m_Colors:
     - _Color: {r: 1, g: 1, b: 1, a: 1}
