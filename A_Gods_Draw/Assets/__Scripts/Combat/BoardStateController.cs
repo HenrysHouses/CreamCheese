@@ -10,6 +10,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using FMODUnity;
 using DitzeGames.Effects;
+using EnemyAIEnums;
 
 public class BoardStateController : MonoBehaviour
 {

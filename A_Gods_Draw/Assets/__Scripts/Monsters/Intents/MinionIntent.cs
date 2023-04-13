@@ -3,6 +3,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 using FMODUnity;
+using EnemyAIEnums;
 
 public class MinionIntent : Intent
 {

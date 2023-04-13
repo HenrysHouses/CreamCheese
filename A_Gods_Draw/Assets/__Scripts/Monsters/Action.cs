@@ -6,6 +6,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using EnemyAIEnums;
 
 [System.Serializable]
 public abstract class Action

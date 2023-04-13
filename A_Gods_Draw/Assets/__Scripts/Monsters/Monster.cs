@@ -4,6 +4,7 @@ using UnityEngine;
 using UnityEngine.UI;
 using TMPro;
 using FMODUnity;
+using EnemyAIEnums;
 
 public class Monster : BoardElement
 {

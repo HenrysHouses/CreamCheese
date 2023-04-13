@@ -2,6 +2,7 @@
 
 using UnityEngine;
 using FMODUnity;
+using EnemyAIEnums;
 
 [System.Serializable]
 public class AttackPlayerAction : MonsterAction

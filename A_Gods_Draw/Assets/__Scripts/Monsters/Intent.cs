@@ -1,6 +1,7 @@
 // Written by Javier
 
 using UnityEngine;
+using EnemyAIEnums;
 
 public abstract class Intent
 {
@@ -56,39 +57,44 @@ public abstract class Intent
     }
 }
 
-public enum Conditions
+namespace EnemyAIEnums
 {
-    None = 0,
-    LastAlive,
-    GodPlayed,
-    HasNotDefended,
-    HasNotAttacked,
-    HasNotActed,
-    PlayerHealthAt50,
-    NotSameAction,
-    ExtraTargetsOnBoard,
-    SelfHealthAt50,
-    SelfHealthAt25,
-    HasNotBuffed
-}
 
-public enum IntentType
-{
-    Attack,
-    Defend,
-    Buff,
-    Special,
-    Idling
-}
+    public enum Conditions
+    {
+        None = 0,
+        LastAlive,
+        GodPlayed,
+        HasNotDefended,
+        HasNotAttacked,
+        HasNotActed,
+        PlayerHealthAt50,
+        NotSameAction,
+        ExtraTargetsOnBoard,
+        SelfHealthAt50,
+        SelfHealthAt25,
+        HasNotBuffed
+    }
 
-public enum EnemyIntent
-{
-    BuffAttackers,
-    Defend,
-    AttackGod,
-    AttackPlayer,
-    None = 5,
-    AttackExtraTarget,
-    DoubleAttack,
-    FenrirDoubleAttack
+    public enum IntentType
+    {
+        Attack,
+        Defend,
+        Buff,
+        Special,
+        Idling
+    }
+
+    public enum EnemyIntent
+    {
+        BuffAttackers,
+        Defend,
+        AttackGod,
+        AttackPlayer,
+        None = 5,
+        AttackExtraTarget,
+        DoubleAttack,
+        FenrirDoubleAttack
+    }
+
 }

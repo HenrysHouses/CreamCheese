@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using FMODUnity;
+using EnemyAIEnums;
 
 public class ReinforceSelfAction : MonsterAction
 {
@@ -10,7 +11,7 @@ public class ReinforceSelfAction : MonsterAction
     {
         ActionID = (int)EnemyIntent.AttackPlayer;
         actionIcon = Resources.Load<Sprite>("EnemyData/Icons/Icon_Sword_IMG_v1");
-        desc = "This enemy will Reinforce itself giving it 50% more health (Action takes 2 turns)";
+        desc = "This enemy will Reinforce itself giving it 50% more health";
         ActionIntentType = IntentType.Special;
     }
 
