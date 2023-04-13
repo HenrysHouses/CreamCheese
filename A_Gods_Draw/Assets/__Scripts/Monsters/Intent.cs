@@ -31,6 +31,7 @@ public abstract class Intent
     public virtual bool DefendedLastTurn(){return false;}
     public virtual bool AttackedLastTurn(){return false;}
     public virtual bool DidActionLastTurn(){return false;}
+    public virtual bool BuffedLastTurn(){return false;}
 
     public int GetCurrStrengh() => strength;
     public int SetCurrStrengh(int newS) => strength = newS;
@@ -52,8 +53,6 @@ public abstract class Intent
 
             actionSelected.Execute(_board, strength, _source);
         }
-
-        CancelIntent();
     }
 }
 
@@ -69,7 +68,8 @@ public enum Conditions
     NotSameAction,
     ExtraTargetsOnBoard,
     SelfHealthAt50,
-    SelfHealthAt25
+    SelfHealthAt25,
+    HasNotBuffed
 }
 
 public enum IntentType

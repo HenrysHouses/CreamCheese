@@ -14,7 +14,7 @@ public class IdlingAction : MonsterAction
         ActionIntentType = IntentType.Idling;
     }
 
-    public override void Execute(BoardStateController BoardStateController, int strengh, UnityEngine.Object source)
+    public override void PerformAction(BoardStateController _board, int _strength, object _source)
     {
     }
 

@@ -17,30 +17,30 @@ public abstract class MonsterAction : Action
     public List<IMonsterTarget> Targets;
     public EventReference ActionSFX;
     public Monster Self;
-    /*public override void Execute(BoardStateController _board, int _strength, Object _source = null)
+    public bool IsLocked;
+    public override void Execute(BoardStateController _board, int _strength, Object _source = null)
     {
 
         if(TurnsToPerform == 0)
         {
+            Debug.Log("Triggered action on instant");
             PerformAction(_board, _strength, _source);
-            return;
-        }
-
-        if(TurnsLeft <= 0 && TurnsToPerform > 0)
-        {
-            TurnsLeft = TurnsToPerform - 1;
             return;
         }
 
         if(TurnsLeft <= 0)
         {
+            Debug.Log("Triggered action on 0 turns left");
             PerformAction(_board, _strength, _source);
+            IsLocked = false;
+            return;
         }
 
-        if(TurnsLeft > 0)
-            TurnsLeft -= 1;
+        Debug.Log("Action not ready");
+        TurnsLeft -= 1;
+        IsLocked = true;
 
-    }*/
+    }
 
     public virtual void PerformAction(BoardStateController _board, int _strength, object _source)
     {}

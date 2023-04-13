@@ -11,11 +11,11 @@ public class DefendAction : MonsterAction
     {
         ActionID = (int)EnemyIntent.Defend;
         actionIcon = Resources.Load<Sprite>("EnemyData/Icons/Icon_Shield_IMG_v1");
-        desc = "This enemy will defend an enemy for the next turn onward";
+        desc = "This enemy will defend itself next turn";
         ActionIntentType = IntentType.Defend;
     }
 
-    public override void Execute(BoardStateController BoardStateController, int _strength, UnityEngine.Object source)
+    public override void PerformAction(BoardStateController _board, int _strength, object _source)
     {
         Self.Defend(_strength);
     }

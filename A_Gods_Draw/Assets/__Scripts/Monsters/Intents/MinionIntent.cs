@@ -10,9 +10,10 @@ public class MinionIntent : Intent
     private ActionSelection[] actions;
     private IdlingAction idleAction;
 
-    public MinionIntent(ref ActionSelection[] _actions)
+    public MinionIntent(ref ActionSelection[] _actions, Monster _self)
     {
 
+        Self = _self;
         idleAction = new IdlingAction(0, 0);
         actions = _actions;
         int _scale = GameManager.timesDefeatedBoss;
@@ -56,7 +57,7 @@ public class MinionIntent : Intent
             }
 
             actions[i].Action = _newAction;
-            _newAction.Self = Self;
+            _newAction.Self = _self;
             _newAction.ActionSFX = actions[i].ActionSFX;
             _newAction.TurnsToPerform = actions[i].TurnsToPerform;
 
@@ -100,8 +101,18 @@ public class MinionIntent : Intent
         return false;
     }
 
+    public override bool BuffedLastTurn()
+    {
+        if(PreviousAction != null && PreviousAction.ActionIntentType == IntentType.Buff)
+            return true;
+
+        return false;
+    }
+
     public override void CancelIntent()
     {
+        if(actionSelected != null)
+            actionSelected.IsLocked = false;
         actionSelected = idleAction;
         strength = 0;
     }
@@ -109,15 +120,23 @@ public class MinionIntent : Intent
     public override void DecideIntent(BoardStateController _board)
     {
 
-        if(actionSelected != null && actionSelected.TurnsLeft == 0)
-            actionSelected = ConditionChecker.CheckConditions(actions, _board, this);
+        if(actionSelected != null && actionSelected.IsLocked)
+            return;
+        if(actionSelected != null)
+            Debug.Log("choosing new action, " + actionSelected.TurnsLeft + " turns left on action, previous action " + actionSelected.GetType());
+
+        actionSelected = ConditionChecker.CheckConditions(actions, _board, this);
+        actionSelected.TurnsLeft = actionSelected.TurnsToPerform;
 
     }
     public override void LateDecideIntent(BoardStateController _board)
     {
 
+        if(actionSelected.IsLocked)
+            return;
+
         if (actionSelected != null)
-            strength = Random.Range(actionSelected.MinStrength, actionSelected.MaxStrength + 1);
+            strength = Random.Range(actionSelected.MinStrength, actionSelected.MaxStrength + 1) + Self.BuffStrength;
         else
             actionSelected = idleAction;
 

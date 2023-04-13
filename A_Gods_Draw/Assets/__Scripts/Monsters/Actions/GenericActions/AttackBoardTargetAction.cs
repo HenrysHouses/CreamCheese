@@ -16,7 +16,7 @@ public class AttackBoardTargetAction : MonsterAction
 
     }
 
-    public override void Execute(BoardStateController _board, int _strength, UnityEngine.Object _source)
+    public override void PerformAction(BoardStateController _board, int _strength, object _source)
     {
         
         if(_board.ActiveExtraEnemyTargets.Count <= 0)

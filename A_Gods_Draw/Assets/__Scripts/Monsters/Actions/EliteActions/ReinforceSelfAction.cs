@@ -14,7 +14,7 @@ public class ReinforceSelfAction : MonsterAction
         ActionIntentType = IntentType.Special;
     }
 
-    public override void Execute(BoardStateController _boardStateController, int _strength, UnityEngine.Object _source)
+    public override void PerformAction(BoardStateController _board, int _strength, object _source)
     {
         Self.ApplyBarrier(Mathf.RoundToInt(Self.GetMaxHealth() / 2));
 

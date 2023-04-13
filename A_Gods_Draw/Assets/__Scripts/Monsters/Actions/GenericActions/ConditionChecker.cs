@@ -100,6 +100,13 @@ public static class ConditionChecker
                     }
                     break;
 
+                    case Conditions.HasNotBuffed:
+                    if(!_intent.BuffedLastTurn())
+                    {
+                        _passed = true;
+                    }
+                    break;
+
                 }
 
                 if(!_passed && _allNeeded)

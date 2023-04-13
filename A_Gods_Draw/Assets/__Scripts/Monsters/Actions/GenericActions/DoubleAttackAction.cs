@@ -51,7 +51,7 @@ public class DoubleAttackAction : MonsterAction
 
     }
 
-    public override void Execute(BoardStateController _board, int _strength, Object _source = null)
+    public override void PerformAction(BoardStateController _board, int _strength, object _source)
     {
 
         for(int i = 0; i < Targets.Count; i++)

@@ -13,12 +13,12 @@ public class AttackGodAction : MonsterAction
         ActionIntentType = IntentType.Attack;
     }
 
-    public override void Execute(BoardStateController BoardStateController, int strengh, UnityEngine.Object source)
+    public override void PerformAction(BoardStateController _board, int _strength, object _source)
     {
-        if (BoardStateController.playedGodCard != null)
+        if (_board.playedGodCard != null)
         {
-            BoardStateController.playedGodCard.DealDamage(strengh, source);
-            Monster _enemy = source as Monster;
+            _board.playedGodCard.DealDamage(_strength, _source as UnityEngine.Object);
+            Monster _enemy = _source as Monster;
             if(_enemy)
             {
                 _enemy.animator.SetTrigger("Attack");

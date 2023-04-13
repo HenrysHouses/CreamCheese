@@ -34,11 +34,11 @@ public class Monster : BoardElement
     [SerializeField]
     protected Image healthBarFill, barrierBarFill, afterDamageBarFill;
     [SerializeField]
-    private TMP_Text healthText, strengthText, defendText;
+    private TMP_Text healthText, strengthText, defendText, turnsLeftText;
     [SerializeField]
     private Image intentImage;
     [SerializeField]
-    private GameObject effectIconPrefab, defendUI;
+    private GameObject effectIconPrefab, defendUI, buffImageGameObject;
     private Dictionary<Sprite, GameObject> debuffDisplays;
     protected Color healthBarColor, barrierBarColor;
     [SerializeField]
@@ -56,6 +56,7 @@ public class Monster : BoardElement
     [Header("Effects")]
     public bool HealingDisabled;
     public bool Defending;
+    public int BuffStrength;
 
     //SFX
     [SerializeField, Header("Sounds")]
@@ -89,8 +90,7 @@ public class Monster : BoardElement
     protected virtual void Start()
     {
 
-        enemyIntent = new MinionIntent(ref EnemyActions);
-        enemyIntent.Self = this;
+        enemyIntent = new MinionIntent(ref EnemyActions, this);
         healthBarColor = healthBarFill.color;
         barrierBarColor = barrierBarFill.color;
 
@@ -296,8 +296,7 @@ public class Monster : BoardElement
     public void Buff(int _amount)
     {
 
-        enemyIntent.SetCurrStrengh(enemyIntent.GetCurrStrengh() + _amount);
-        UpdateIntentUI();
+        BuffStrength += _amount; //Fix this
 
     }
 
@@ -369,6 +368,17 @@ public class Monster : BoardElement
         intentImage.gameObject.SetActive(true);
         intentImage.sprite = enemyIntent.GetCurrentIcon();
         intentImage.GetComponent<UIPopup>().PopupInfo.Info = enemyIntent.GetCurrentDescription();
+
+        if(enemyIntent.ActionSelected.TurnsLeft > 0)
+            turnsLeftText.text = enemyIntent.ActionSelected.TurnsLeft.ToString();
+        else
+            turnsLeftText.text = "-";
+
+        if(BuffStrength <= 0)
+            buffImageGameObject.SetActive(false);
+        else
+            buffImageGameObject.SetActive(true);
+
     }
 
     public void CancelIntent()
@@ -405,7 +415,6 @@ public class Monster : BoardElement
         queuedPoison = 0;
         UpdateHealthDamageUI();
 
-        enemyIntent.CancelIntent();
         enemyIntent.DecideIntent(board);
 
         UpdateDefenceUI();
@@ -419,6 +428,7 @@ public class Monster : BoardElement
 
         enemyIntent.LateDecideIntent(_board);
         UpdateIntentUI();
+        BuffStrength = 0;
 
     }
 

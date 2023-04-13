@@ -9,23 +9,14 @@ public class BuffAttackersAction : MonsterAction
     {
         ActionID = (int)EnemyIntent.BuffAttackers;
         actionIcon = Resources.Load<Sprite>("EnemyData/Icons/Icon_Buff_IMG_v7");
-        desc = "This enemy will buff enemies that want to attack";
+        desc = "This enemy will buff a random enemy";
         ActionIntentType = IntentType.Buff;
     }
 
-    public override void Execute(BoardStateController BoardStateController, int strengh, UnityEngine.Object source)
+    public override void PerformAction(BoardStateController _board, int _strength, object _source)
     {
-        foreach (Monster enemy in BoardStateController.getLivingEnemies())
-        {
-            if (enemy.GetIntent().ActionSelected.ActionIntentType == IntentType.Attack)
-            {
-                enemy.Buff(strengh);
-                Monster _enemy = source as Monster;
-                if(_enemy)
-                {
-                    _enemy.PlaySound(ActionSFX);
-                }
-            }
-        }
+        Monster[] _monsters = _board.getLivingEnemies();
+
+        _monsters[Random.Range(0, _monsters.Length)].Buff(_strength);
     }
 }

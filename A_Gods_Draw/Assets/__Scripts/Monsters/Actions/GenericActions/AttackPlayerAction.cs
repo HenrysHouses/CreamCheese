@@ -14,11 +14,11 @@ public class AttackPlayerAction : MonsterAction
         ActionIntentType = IntentType.Attack;
     }
 
-    public override void Execute(BoardStateController BoardStateController, int strengh, UnityEngine.Object source)
+    public override void PerformAction(BoardStateController _board, int _strength, object _source)
     {
-        BoardStateController.Player.DealDamage(strengh);
+        _board.Player.DealDamage(_strength);
 
-        Monster _enemy = source as Monster;
+        Monster _enemy = _source as Monster;
         if(_enemy)
         {
             _enemy.animator.SetTrigger("Attack");
