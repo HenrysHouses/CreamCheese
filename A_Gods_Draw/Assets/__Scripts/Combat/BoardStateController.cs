@@ -280,5 +280,9 @@ public class Battlefield
 public enum BattlefieldID
 {
     Dragr,
+    DraugrV2,
+   // DraugrV3,
+    TrollCave,
+   // TrollTrees,
     Fenrir
 }

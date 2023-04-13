@@ -4,7 +4,7 @@ using Map;
 using System.Collections.Generic;
 using UnityEngine;
 using HH.MultiSceneTools;
-using static UnityEditor.Progress;
+// using static UnityEditor.Progress;
 using System.Collections;
 
 public enum CardType
