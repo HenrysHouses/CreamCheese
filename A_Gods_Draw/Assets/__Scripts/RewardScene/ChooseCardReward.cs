@@ -6,6 +6,8 @@ using UnityEngine;
 using HH.MultiSceneTools;
 // using static UnityEditor.Progress;
 using System.Collections;
+using HH.MultiSceneTools.Examples;
+using static UnityEngine.ParticleSystem;
 
 public enum CardType
 {
@@ -25,16 +27,20 @@ public class ChooseCardReward : MonoBehaviour
     Card_SO[] CardOptions;
     public GameObject prefab;
 
-
     [SerializeField]
     LayerMask laneLayer;
 
     //card confirmation
+    [Header("Card Confirmation")]
     [SerializeField] CardRewardOption[] rewardOptions;
     public bool shouldConfirmSelection;
     bool confirmed;
     [SerializeField] Transform EndOfPath, EndPosition;
+    [SerializeField] GameObject deckpileParticle;
+    bool isClicked;
 
+    //disable board text when selected
+    [SerializeField] GameObject[] boardText;
 
     private void Start()
     {
@@ -42,17 +48,29 @@ public class ChooseCardReward : MonoBehaviour
         CameraMovement.instance.SetCameraView(CameraView.CardReward);
         
         GettingType(GameManager.instance.nextRewardType);
-
     }
 
     bool hasClicked = false;
     private void Update()
     {
-        if (!confirmed)
+        if (!confirmed && !CardInspector.isInspecting)
             checkSelected();
 
         if (CardInspector.isInspecting)
         {
+            boardText[0].SetActive(false);
+            boardText[1].SetActive(false);
+            if(isClicked)
+            {
+                Debug.Log(deckpileParticle.activeSelf);
+                foreach (Transform objects in deckpileParticle.transform)
+                {
+                    EnableParticleSystems(objects);
+                }
+                isClicked = false;
+                //EnableParticleSystems(deckpileParticle);
+            }
+
             if (Input.GetMouseButtonDown(1))
             {
                 CardInspector.returnInspection();
@@ -65,7 +83,6 @@ public class ChooseCardReward : MonoBehaviour
                     CardInspector.returnInspection();
                     return;
                 }
-
             }
             else
                 hasClicked = false;
@@ -92,6 +109,7 @@ public class ChooseCardReward : MonoBehaviour
                 break;
             case NodeType.GodReward:
                 searchResult = CardSearch.Search<ActionCard_ScriptableObject>(new string[] { "Tyr" });
+                searchResult = CardSearch.Search<ActionCard_ScriptableObject>(new string[] { "Eir" });
                 break;
                 
         }
@@ -126,6 +144,19 @@ public class ChooseCardReward : MonoBehaviour
 
     void checkSelected()
     {
+        boardText[0].SetActive(true);
+        boardText[1].SetActive(true);
+        //deckpileParticle.SetActive(false);
+        if (!isClicked)
+        {
+            Debug.Log(deckpileParticle.activeSelf);
+            foreach (Transform objs in deckpileParticle.transform)
+            {
+                DisableParticleSystems(objs);
+                isClicked = true;
+            }
+        }
+
         for (int i = 0; i < rewardOptions.Length; i++)
         {
             if (rewardOptions[i].isBeingInspected && shouldConfirmSelection)
@@ -140,10 +171,9 @@ public class ChooseCardReward : MonoBehaviour
     void confirmDeck(CardRewardOption Selected)
     {
         confirmed = true;
-        //GameManager.instance.PlayerTracker.setDeck(Selected.StarterDeck.deckData);
         DeckList_SO.playerObtainCard(Selected.AddToDeck);
         GameSaver.SaveData(GameManager.instance.PlayerTracker.CurrentDeck.deckData.GetDeckData());
-        Map.Map_Manager.SavingMap();
+        Map_Manager.SavingMap();
         StartCoroutine(animateDeck(Selected));
     }
 
@@ -151,26 +181,25 @@ public class ChooseCardReward : MonoBehaviour
     {
         EndOfPath.position = EndPosition.position;
         yield return new WaitUntil(() => !selected.isBeingInspected);
-        //GameManager.instance.shouldGenerateNewMap = true;
         yield return new WaitForSeconds(0.3f);
         MultiSceneLoader.loadCollection("Map", collectionLoadMode.Difference);
     }
 
-    int SelectReward()
+    private void DisableParticleSystems(Transform target)
     {
-        Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
-
-        if (Physics.Raycast(ray, out RaycastHit hit, 100, laneLayer))
+        ParticleSystem[] particles = target.GetComponentsInChildren<ParticleSystem>();
+        for (int i = 0; i < particles.Length; i++)
         {
-            for (int i = 0; i < spots.Length; i++)
-            {
-                Transform target = hit.collider.transform.parent;
-                if (target.Equals(spots[i]))
-                {
-                    return i;
-                }
-            }
+            particles[i].Stop();
+            particles[i].Clear();
         }
-        return -1;
+    }
+    private void EnableParticleSystems(Transform target)
+    {
+        ParticleSystem[] particles = target.GetComponentsInChildren<ParticleSystem>();
+        for (int i = 0; i < particles.Length; i++)
+        {
+            particles[i].Play();
+        }
     }
 }

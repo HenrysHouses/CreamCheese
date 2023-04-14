@@ -14,10 +14,9 @@ GameObject:
   - component: {fileID: -8422494374462897592}
   - component: {fileID: 6846014619528425569}
   - component: {fileID: 5618248167256907893}
-  - component: {fileID: 7195599668491169017}
   m_Layer: 6
   m_Name: Card_MenuSelectable
-  m_TagString: Untagged
+  m_TagString: RewardCard
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -112,19 +111,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1e3fd2497cfc70742a5688ad4e33c69a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
---- !u!114 &7195599668491169017
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1302255215861667752}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 257546e9ae47dda4485c5fcf565b178b, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  particle: {fileID: 3831399485104871346}
 --- !u!1 &1302255216656320589
 GameObject:
   m_ObjectHideFlags: 0
@@ -1132,13 +1118,16 @@ PrefabInstance:
       propertyPath: m_Name
       value: CardMaterialize
       objectReference: {fileID: 0}
+    - target: {fileID: 6920771912808285663, guid: 03276090633d10c4792378a12187e391, type: 3}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 6920771912808285663, guid: 03276090633d10c4792378a12187e391, type: 3}
+      propertyPath: m_TagString
+      value: VFXRewardCard
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 03276090633d10c4792378a12187e391, type: 3}
---- !u!1 &3831399485104871346 stripped
-GameObject:
-  m_CorrespondingSourceObject: {fileID: 6920771912808285663, guid: 03276090633d10c4792378a12187e391, type: 3}
-  m_PrefabInstance: {fileID: 6134000459829613165}
-  m_PrefabAsset: {fileID: 0}
 --- !u!4 &3831399485104871347 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 6920771912808285662, guid: 03276090633d10c4792378a12187e391, type: 3}
