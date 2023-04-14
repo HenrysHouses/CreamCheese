@@ -69,6 +69,12 @@ public class LootPool_ScriptableObject : ScriptableObject
     public void updateTotalWeights() 
     {
         float total = 0;
+        if(Items == null)
+        {
+            _TotalWeights = 0;
+            return;
+        }
+
         for (int i = 0; i < Items.Length; i++)
         {
             total += Items[i].Weight;
