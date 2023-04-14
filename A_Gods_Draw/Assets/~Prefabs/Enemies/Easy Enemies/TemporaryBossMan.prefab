@@ -207,9 +207,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f61a1f31c2950d4488d6021d1c6af7c0, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  BoardElementInfo: Smol monster mans
+  BoardElementInfo: {fileID: 0}
   ClassName: Monster
   clickable: 1
+  EnemyActions: []
   deathParticleVFX: {fileID: 2505349679200391838, guid: 05a4cc1903228714997c82ae6e193f32, type: 3}
   slashParticleVFX: {fileID: 2505349679200391838, guid: 05a4cc1903228714997c82ae6e193f32, type: 3}
   MonsterRenderers:
@@ -233,13 +234,16 @@ MonoBehaviour:
   healthText: {fileID: 1859653297}
   strengthText: {fileID: 1207526356}
   defendText: {fileID: 5117020590282035690}
+  turnsLeftText: {fileID: 1664396364971723523}
   intentImage: {fileID: 6957146146154833128}
   effectIconPrefab: {fileID: 2712877965524084146, guid: ac6310bb2a9b6d941aca7bfede021679, type: 3}
   defendUI: {fileID: 8499019722414731956}
+  buffImageGameObject: {fileID: 3412733905544491465}
   damageIndicatorColor: {r: 0.8396226, g: 0.32211933, b: 0.32211933, a: 1}
   maxHealth: 40
   HealingDisabled: 0
   Defending: 0
+  BuffStrength: 0
   death_SFX:
     Guid:
       Data1: 55962543
@@ -254,13 +258,6 @@ MonoBehaviour:
       Data3: -43431291
       Data4: -1906492248
     Path: event:/Card Effects/CardShield
-  ability_SFX:
-    Guid:
-      Data1: -50251825
-      Data2: 1140817054
-      Data3: -1457995116
-      Data4: 1746539433
-    Path: event:/Combat/Enemy/Enemy Ability
   hurt_SFX:
     Guid:
       Data1: 55962543
@@ -268,13 +265,6 @@ MonoBehaviour:
       Data3: 823004837
       Data4: -1532201799
     Path: event:/Combat/Enemy/EnemyKilled
-  attacking_SFX:
-    Guid:
-      Data1: 1118862281
-      Data2: 1238309055
-      Data3: 1298832056
-      Data4: -1814946090
-    Path: event:/Combat/Enemy/Enemy Attack
   animator: {fileID: 9025400291495060516}
 --- !u!1 &6590141996164509203
 GameObject:
@@ -649,6 +639,17 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: fe87c0e1cc204ed48ad3b37840f39efc, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!114 &1664396364971723523 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 100205921327970958, guid: 56d8a4a3985409c499f5cc485b33024d, type: 3}
+  m_PrefabInstance: {fileID: 1620485997604352397}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f4688fdb7df04437aeb418b961361dc5, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!114 &2136466789895840041 stripped
 MonoBehaviour:
   m_CorrespondingSourceObject: {fileID: 854380269398560932, guid: 56d8a4a3985409c499f5cc485b33024d, type: 3}
@@ -663,6 +664,11 @@ MonoBehaviour:
 --- !u!224 &2283632382822048129 stripped
 RectTransform:
   m_CorrespondingSourceObject: {fileID: 705949001183940620, guid: 56d8a4a3985409c499f5cc485b33024d, type: 3}
+  m_PrefabInstance: {fileID: 1620485997604352397}
+  m_PrefabAsset: {fileID: 0}
+--- !u!1 &3412733905544491465 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 4116685926591791172, guid: 56d8a4a3985409c499f5cc485b33024d, type: 3}
   m_PrefabInstance: {fileID: 1620485997604352397}
   m_PrefabAsset: {fileID: 0}
 --- !u!224 &4935536229975468089 stripped
