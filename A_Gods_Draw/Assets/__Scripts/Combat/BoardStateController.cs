@@ -285,5 +285,7 @@ public enum BattlefieldID
    // DraugrV3,
     TrollCave,
    // TrollTrees,
-    Fenrir
+    Fenrir,
+    GrassBoard,
+    SandBoard
 }
