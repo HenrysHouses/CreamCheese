@@ -10,7 +10,7 @@ public class Monster : BoardElement
 {
 
     [SerializeField]
-    protected ActionSelection[] EnemyActions;
+    public ActionSelection[] EnemyActions;
     public Intent GetIntent() => enemyIntent;
     protected Intent enemyIntent;
     protected int defendFor, queuedDefence;
