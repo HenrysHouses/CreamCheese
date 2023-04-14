@@ -18,7 +18,7 @@ public class CardPileController : MonoBehaviour
     [SerializeField] GameObject[] Cards;
     [SerializeField] float Delay = 0.7f;
     int currentEnabledCards;
-    bool updating;
+    // bool updating;
 
     void Start()
     {
@@ -51,7 +51,7 @@ public class CardPileController : MonoBehaviour
 
     IEnumerator updatePile(float EnabledCardCount)
     {
-        updating = true;
+        // updating = true;
 
         for (int i = 0; i < Cards.Length; i++)
         {
@@ -73,6 +73,6 @@ public class CardPileController : MonoBehaviour
             }
             yield return new WaitForSeconds(Delay);
         }
-        updating = false;
+        // updating = false;
     }
 }

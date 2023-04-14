@@ -50,7 +50,7 @@ public class ChooseCardReward : MonoBehaviour
         GettingType(GameManager.instance.nextRewardType);
     }
 
-    bool hasClicked = false;
+    // bool hasClicked = false;
     private void Update()
     {
         if (!confirmed && !CardInspector.isInspecting)
@@ -84,8 +84,8 @@ public class ChooseCardReward : MonoBehaviour
                     return;
                 }
             }
-            else
-                hasClicked = false;
+            // else
+            //     hasClicked = false;
         }
     }
     /// <summary>

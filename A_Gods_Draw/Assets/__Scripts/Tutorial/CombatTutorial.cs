@@ -76,17 +76,17 @@ public class CombatTutorial : TutorialController
 
     public EndTurnButton Horn;
     public TutorialStepTrigger EndTurn1st_Trigger;
-    bool EndedTurn;
+    // bool EndedTurn;
     public void HasEndedTurn()
     {
-        EndedTurn = true;
+        // EndedTurn = true;
     }
 
     IEnumerator EndTurn()
     {
         yield return new WaitUntil(() => turnController.state == CombatState.EndStep);
         Horn.CanEndTurn = false;
-        EndedTurn = false;
+        // EndedTurn = false;
         completeTutorialRoutine(EndTurn1st_Trigger, 2);
     }
 
@@ -104,7 +104,7 @@ public class CombatTutorial : TutorialController
         CardPlayData buffCard = new CardPlayData(Resources.Load<Card_SO>("Cards/Buff/Buff_Urdarbrunnr_CardSO"));
         deckController.AddCardToLib(buffCard);
         yield return new WaitUntil(() => turnController.state == CombatState.EndStep);
-        EndedTurn = false;
+        // EndedTurn = false;
         Horn.CanEndTurn = false;
         completeTutorialRoutine(AttackAgain_Trigger, 3);
     }

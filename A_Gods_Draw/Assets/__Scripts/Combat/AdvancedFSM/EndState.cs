@@ -70,7 +70,7 @@ public class EndState : CombatFSMState
         {
            // ??? 
            // MultiSceneLoader.loadCollection("Death", collectionLoadMode.Difference);
-           DeathCrumbling death;
+        //    DeathCrumbling death;
            
              Controller.PlayerDying();
             _player.Health = 10;

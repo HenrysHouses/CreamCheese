@@ -37,18 +37,18 @@ public class CardRewardDisableParticles : MonoBehaviour
             }
             else if (Physics.Raycast(ray, out hit, _layerMask))
             {
-                GameObject obj = hit.collider.GetComponentInChildren<CardReward_PopupHold>().gameObject;
+                // GameObject obj = hit.collider.GetComponentInChildren<CardReward_PopupHold>().gameObject;
                 
-                foreach (Transform otherObj in cardObjects)
-                {
-                    if (otherObj.GetChild(0).gameObject != obj)
-                    {
-                        DisableParticleSystems(otherObj);
-                    }
-                }
+                // foreach (Transform otherObj in cardObjects)
+                // {
+                //     if (otherObj.GetChild(0).gameObject != obj)
+                //     {
+                //         DisableParticleSystems(otherObj);
+                //     }
+                // }
 
-                // Set isClicked to true for the clicked card
-                EnableParticleSystems(obj.transform);
+                // // Set isClicked to true for the clicked card
+                // EnableParticleSystems(obj.transform);
                 isClicked = true;
             }
         }

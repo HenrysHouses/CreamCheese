@@ -7,7 +7,7 @@ using HH.MultiSceneTools;
 
 public class DeathCrumbling : MonoBehaviour
 {
-    private Light light;
+    private Light _light;
     public bool dying, dead, trulyDead;
     private Animator anim;
     public CameraEffects camEffs;
@@ -18,7 +18,7 @@ public class DeathCrumbling : MonoBehaviour
     void Start()
     {
         anim = GetComponent<Animator>();
-        light = GetComponentInChildren<Light>();
+        _light = GetComponentInChildren<Light>();
         camEffs = Camera.main.GetComponent<CameraEffects>();
 
     }
@@ -30,7 +30,7 @@ public class DeathCrumbling : MonoBehaviour
         if (!dying)
             return;
 
-        light.intensity = Mathf.PingPong(Time.time * 100, 80);
+        _light.intensity = Mathf.PingPong(Time.time * 100, 80);
         CameraEffects.ShakeOnce(0.1f, 1.5f);
         anim.SetBool("Dying", true);
       //  music.SetActive(false);
