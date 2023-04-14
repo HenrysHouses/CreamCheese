@@ -4,7 +4,7 @@ using UnityEngine;
 using UnityEditor;
 using EnemyAIEnums;
 
-[CustomEditor(typeof(Monster))]
+/*[CustomEditor(typeof(Monster))]
 public class Monster_Editor : Editor
 {
 
@@ -23,32 +23,33 @@ public class Monster_Editor : Editor
 
     public override void OnInspectorGUI()
     {
-
-        base.OnInspectorGUI();
-        /*serializedObject.Update();
+        
+        serializedObject.Update();
         
         EditorGUILayout.LabelField("Enemy Actions Setup");
-        EditorGUILayout.EnumPopup(actionSelected);
         actionsDropdown = EditorGUILayout.Foldout(actionsDropdown, "Actions", true);
         if(actionsDropdown)
         {
 
-            for(int i = 0; i < EnemyActions.arraySize; i++)
+            EditorGUI.indentLevel++;
+
+            EditorGUILayout.LabelField(EnemyActions.displayName);
+
+            EnemyActions.Next(true);
+            do
             {
 
-                SerializedProperty _actionSelection = EnemyActions.FindPropertyRelative("");
+                EditorGUILayout.LabelField(EnemyActions.displayName);
 
-                foreach (string _s in EnemyActions.)
-                {
+            } while(EnemyActions.Next(false));
 
-                    EditorGUILayout.LabelField(_s);
-                    
-                }
+            EnemyActions.Reset();
 
-            }
+            EditorGUI.indentLevel--;
 
-        }*/
+        }
 
     }
 
 }
+*/
