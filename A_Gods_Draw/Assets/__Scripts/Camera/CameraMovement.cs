@@ -134,7 +134,8 @@ public enum CameraView
     RestPlace,
     CardReward,
     Library,
-    BoardTopView
+    BoardTopView,
+    TakingDamage
 }
 
 [System.Serializable]

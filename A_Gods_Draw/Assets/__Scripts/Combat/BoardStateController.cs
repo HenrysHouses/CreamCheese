@@ -287,5 +287,6 @@ public enum BattlefieldID
    // TrollTrees,
     Fenrir,
     GrassBoard,
-    SandBoard
+    SandBoard,
+    TrollV2
 }

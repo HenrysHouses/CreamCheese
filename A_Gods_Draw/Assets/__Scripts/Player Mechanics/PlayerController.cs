@@ -20,15 +20,20 @@ public class PlayerController : BoardElement , IMonsterTarget
     Image arrowImage;
     [SerializeField]
     GameObject[] lights;
+    private CameraMovement cam;
 
     void Start()
     {
         healthTxt.text = "HP: " + playerTracker.Health.ToString();
         UpdateLights();
+        cam = Camera.main.GetComponent<CameraMovement>();
     }
 
     public void DealDamage(int amount, UnityEngine.Object _source = null)
     {
+        TakeDamageCamera(); // Sets the camera to the healhtdial
+        
+        
         // Debug.Log("Damage taken:" + -amount);
         playerTracker.UpdateHealth(-amount);
 
@@ -39,6 +44,10 @@ public class PlayerController : BoardElement , IMonsterTarget
         CameraEffects.ShakeOnce(0.2f,5);
         SceneManager.SetActiveScene(gameObject.scene);
         UpdateLights();
+
+        cam.SetCameraView(CameraView.Reset); // Resets the camera view after taking damage
+
+
     }
 
     public void Heal(int amount)
@@ -49,6 +58,14 @@ public class PlayerController : BoardElement , IMonsterTarget
             playerTracker.Health = playerTracker.MaxHealth;
 
         healthTxt.text = "HP: " + playerTracker.Health.ToString();
+
+    }
+
+    private void TakeDamageCamera()
+    {
+
+        cam.SetCameraView(CameraView.TakingDamage);
+        
 
     }
 
