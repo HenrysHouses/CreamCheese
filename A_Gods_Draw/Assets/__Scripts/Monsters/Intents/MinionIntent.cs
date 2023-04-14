@@ -55,12 +55,17 @@ public class MinionIntent : Intent
                 _newAction = new FenrirDoubleAttackAction(actions[i].MinStrength + _scale, actions[i].MaxStrength + _scale);
                 break;
 
+                case EnemyIntent.ReinforceSelf:
+                _newAction = new ReinforceSelfAction(actions[i].MinStrength + _scale, actions[i].MaxStrength + _scale);
+                break;
+
             }
 
             actions[i].Action = _newAction;
             _newAction.Self = _self;
             _newAction.ActionSFX = actions[i].ActionSFX;
             _newAction.TurnsToPerform = actions[i].TurnsToPerform;
+            _newAction.ActionSettings = actions[i];
 
         }
 
@@ -124,24 +129,41 @@ public class MinionIntent : Intent
         if(actionSelected != null && actionSelected.IsLocked)
             return;
         if(actionSelected != null)
-            Debug.Log("choosing new action, " + actionSelected.TurnsLeft + " turns left on action, previous action " + actionSelected.GetType());
+            PreviousAction = actionSelected;
 
         actionSelected = ConditionChecker.CheckConditions(actions, _board, this);
-        actionSelected.TurnsLeft = actionSelected.TurnsToPerform;
+        if(actionSelected == null)
+            actionSelected = idleAction;
 
     }
     public override void LateDecideIntent(BoardStateController _board)
     {
 
         if(actionSelected.IsLocked)
+        {
+
+            strength += Self.BuffStrength;
             return;
 
-        if (actionSelected != null)
-            strength = Random.Range(actionSelected.MinStrength, actionSelected.MaxStrength + 1) + Self.BuffStrength;
-        else
-            actionSelected = idleAction;
+        }
 
-        PreviousAction = actionSelected;
+        if(actionSelected != idleAction)
+        {
+
+            if(actionSelected.ActionSettings.UseStrengthMod)
+            {
+
+                if(ConditionChecker.CheckConditions(actionSelected.ActionSettings.ActionConditions, actionSelected.ActionSettings.AllRequiredForMod, _board, this))
+                    strength = actionSelected.ActionSettings.ModifiedStrength + Self.BuffStrength;
+                else
+                    strength = Random.Range(actionSelected.MinStrength, actionSelected.MaxStrength + 1) + Self.BuffStrength;
+
+            }
+            else
+                strength = Random.Range(actionSelected.MinStrength, actionSelected.MaxStrength + 1) + Self.BuffStrength;
+
+        }
+
         actionSelected.SelectTargets(_board);
 
     }

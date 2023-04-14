@@ -166,6 +166,114 @@ public static class ConditionChecker
 
     }
 
+    public static bool CheckConditions(Conditions[] _conditions, bool _allConditionsNeeded, BoardStateController _board, Intent _intent)
+    {
+
+        List<int> _possibleActions = new List<int>();
+
+        if(_conditions.Length == 0)
+            return false;
+            
+        bool _passed = false;
+        for(int i = 0; i < _conditions.Length; i++)
+        {
+
+            _passed = false;
+            switch(_conditions[i])
+            {
+
+                case Conditions.None:
+                _passed = true;
+                break;
+
+                case Conditions.LastAlive:
+                if(_board.getLivingEnemies().Length == 1)
+                {
+                    _passed = true;
+                }
+                break;
+
+                case Conditions.GodPlayed:
+                if(_board.isGodPlayed)
+                {
+                    _passed = true;
+                }
+                break;
+
+                case Conditions.HasNotDefended:
+                if(!_intent.DefendedLastTurn())
+                {
+                    _passed = true;
+                }
+                break;
+
+                case Conditions.HasNotAttacked:
+                if(!_intent.AttackedLastTurn())
+                {
+                    _passed = true;
+                }
+                break;
+
+                case Conditions.HasNotActed:
+                if(!_intent.DidActionLastTurn())
+                {
+                    _passed = true;
+                }
+                break;
+
+                case Conditions.PlayerHealthAt50:
+                if(_board.Player.Playerhealth < Mathf.RoundToInt(_board.Player.MaxPlayerHealth / 2))
+                {
+                    _passed = true;
+                }
+                break;
+
+                case Conditions.NotSameAction:
+                    _passed = true;
+                break;
+
+                case Conditions.ExtraTargetsOnBoard:
+                if(_board.ActiveExtraEnemyTargets != null)
+                {
+                    _passed = true;
+                }
+                break;
+
+                case Conditions.SelfHealthAt50:
+                if(_intent.Self.GetHealth() < Mathf.RoundToInt(_intent.Self.GetMaxHealth() / 2))
+                {
+                    _passed = true;
+                }
+                break;
+
+                case Conditions.SelfHealthAt25:
+                if(_intent.Self.GetHealth() < Mathf.RoundToInt(_intent.Self.GetMaxHealth() / 4))
+                {
+                    _passed = true;
+                }
+                break;
+
+                case Conditions.HasNotBuffed:
+                if(!_intent.BuffedLastTurn())
+                {
+                    _passed = true;
+                }
+                break;
+
+            }
+
+            if(!_passed && _allConditionsNeeded)
+                return false;
+
+            if(!_passed)
+                continue;
+
+        }
+
+        return true;
+
+    }
+
     private static void AddAction(ref List<int> _actions, int _i)
     {
 

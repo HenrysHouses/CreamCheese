@@ -94,7 +94,8 @@ namespace EnemyAIEnums
         None = 5,
         AttackExtraTarget,
         DoubleAttack,
-        FenrirDoubleAttack
+        FenrirDoubleAttack,
+        ReinforceSelf
     }
 
 }

@@ -11,6 +11,10 @@ public class ActionSelection
     public EnemyIntent ActionType;
     public Conditions[] ActionConditions;
     public int MinStrength, MaxStrength;
+    public bool UseStrengthMod, AllRequiredForMod;
+    public Conditions[] StrengthModConditions;
+    [Tooltip("If the condition above is met, the strenght will be set to this value")]
+    public int ModifiedStrength;
     [Tooltip("Determines the chance of this action happening when 2 or more actions of same priority is possible")]
     public int Weigth;
     [Tooltip("Determines what actions take presedence when several actions are possible, use weight for randomized selection within set priority level")]

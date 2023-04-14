@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using FMODUnity;
+using EnemyAIEnums;
 
 [System.Serializable]
 public abstract class MonsterAction : Action
@@ -18,25 +19,23 @@ public abstract class MonsterAction : Action
     public EventReference ActionSFX;
     public Monster Self;
     public bool IsLocked;
+    public ActionSelection ActionSettings;
     public override void Execute(BoardStateController _board, int _strength, Object _source = null)
     {
 
         if(TurnsToPerform == 0)
         {
-            Debug.Log("Triggered action on instant");
             PerformAction(_board, _strength, _source);
             return;
         }
 
         if(TurnsLeft <= 0)
         {
-            Debug.Log("Triggered action on 0 turns left");
             PerformAction(_board, _strength, _source);
             IsLocked = false;
             return;
         }
 
-        Debug.Log("Action not ready");
         TurnsLeft -= 1;
         IsLocked = true;
 
