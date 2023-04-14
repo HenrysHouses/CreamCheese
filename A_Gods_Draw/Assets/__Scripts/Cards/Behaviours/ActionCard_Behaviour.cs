@@ -3,6 +3,7 @@
 // Modified by
 //  Henrik Hustoft,
 //  Nicolay Joahsen
+//  Charlie Eikås
 
 using System.Collections;
 using System.Collections.Generic;
@@ -236,6 +237,17 @@ public class ActionCard_Behaviour : Card_Behaviour
             TurnController.shouldWaitForAnims = true;
             onSelectedRoutine = StartCoroutine(SelectingTargets());
 
+            //change cursor type depending on card type
+            if(cardType == CardType.Attack)
+                ChangeCursor.instance.AttackCursor();
+            if(cardType == CardType.Defence)
+                ChangeCursor.instance.DefenceCursor();
+            if(cardType == CardType.Buff) 
+                ChangeCursor.instance.BuffCursor();
+            if(cardType == CardType.God)
+                ChangeCursor.instance.GodCursor();
+
+            //camera position by card type
             if(cardType == CardType.Attack || cardType == CardType.Defence)
             {
                 CameraMovement.instance.SetCameraView(CameraView.EnemyCloseUp);

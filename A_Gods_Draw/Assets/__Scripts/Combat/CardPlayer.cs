@@ -2,7 +2,9 @@
  * Written by 
  * Henrik
  * 
- * Modified by Javier
+ * Modified by 
+ * Javier
+ * Charlie
 */
 
 using System.Collections;
@@ -267,6 +269,7 @@ public class CardPlayer : MonoBehaviour
         if(_currSelectedCard)
             StartCoroutine(_currSelectedCard.enableHover(_Hand));
         _currSelectedCard = null;
+        ChangeCursor.instance.DefaultCursor();
     }
 
     /// <summary>RayCasts enemies and enables a outline highlight</summary>
