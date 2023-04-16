@@ -1,11 +1,12 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using HH.PropertyAttributes;
 
-[CreateAssetMenu(fileName = "Loot Pool", menuName = "A_Gods_Draw/Loot Pool", order = 0)]
-public class LootPool_ScriptableObject : ScriptableObject 
+[CreateAssetMenu(fileName = "Item Pool", menuName = "A_Gods_Draw/Item Pool", order = 2)]
+public class ItemPool_ScriptableObject : ScriptableObject 
 {
-    [SerializeField] float _TotalWeights;
+    [SerializeField, ReadOnly] float _TotalWeights;
     [field:SerializeField] public ItemDrop[] Items;
 
     public T getDroppedItem<T>() where T : Object
@@ -25,7 +26,7 @@ public class LootPool_ScriptableObject : ScriptableObject
     public T getDroppedItem<T>(Object[] Excluding = null) where T : Object
     {
         // Create loot pool with excluded items
-        LootPool_ScriptableObject excludedLootPool = Clone();
+        ItemPool_ScriptableObject excludedLootPool = Clone();
         List<ItemDrop> itemDrops = new List<ItemDrop>();
         
         for (int i = 0; i < excludedLootPool.Items.Length; i++)
@@ -65,7 +66,6 @@ public class LootPool_ScriptableObject : ScriptableObject
         // testDropChances();
     }
 
-
     public void updateTotalWeights() 
     {
         float total = 0;
@@ -90,6 +90,9 @@ public class LootPool_ScriptableObject : ScriptableObject
     {
         float CurrentWeight = 0;
 
+        if(Items == null)
+            return;
+
         for (int i = 0; i < Items.Length; i++)
         {
             float TopRange = CurrentWeight + Items[i].Weight;
@@ -103,9 +106,9 @@ public class LootPool_ScriptableObject : ScriptableObject
         }
     }
 
-    private LootPool_ScriptableObject Clone()
+    private ItemPool_ScriptableObject Clone()
     {
-        LootPool_ScriptableObject _Clone = ScriptableObject.CreateInstance<LootPool_ScriptableObject>();
+        ItemPool_ScriptableObject _Clone = ScriptableObject.CreateInstance<ItemPool_ScriptableObject>();
         _Clone.name = this.name + " (Clone)";
         _Clone._TotalWeights = _TotalWeights;
         

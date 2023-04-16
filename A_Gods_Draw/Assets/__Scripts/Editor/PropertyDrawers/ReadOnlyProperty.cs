@@ -1,15 +1,15 @@
 using UnityEngine;
 using UnityEditor;
 
-#if UNITY_EDITOR
-// namespace HH.PropertyDrawers
-// {
+namespace HH.PropertyAttributes
+{
     // # found at https://answers.unity.com/questions/489942/how-to-make-a-readonly-property-in-inspector.html
     public class ReadOnlyAttribute : PropertyAttribute
     {
 
     }
 
+#if UNITY_EDITOR
     [CustomPropertyDrawer(typeof(ReadOnlyAttribute))]
     public class ReadOnlyDrawer : PropertyDrawer
     {
@@ -28,5 +28,5 @@ using UnityEditor;
             GUI.enabled = true;
         }
     }
-// }
 #endif
+}

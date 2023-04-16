@@ -1,13 +1,14 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using HH.PropertyAttributes;
 
 
 [System.Serializable]
 public class ItemDrop
 {
     public float Weight;
-    public float DropChance;
+    [ReadOnly] public float DropChancePercent;
     [HideInInspector] public float UpperRange;
     public Object Item;
 
@@ -15,11 +16,11 @@ public class ItemDrop
     {
         if(Weight <= 0)
         {
-            DropChance = 0;
+            DropChancePercent = 0;
             return;
         }
 
-        DropChance = (Weight / lootPoolWeight * 100);
+        DropChancePercent = (Weight / lootPoolWeight * 100);
     }
 
     public ItemDrop Clone()
@@ -27,7 +28,7 @@ public class ItemDrop
         ItemDrop _Clone = new ItemDrop();
 
         _Clone.Weight = this.Weight;
-        _Clone.DropChance = this.DropChance;
+        _Clone.DropChancePercent = this.DropChancePercent;
         _Clone.UpperRange = this.UpperRange;
         _Clone.Item = this.Item;
 
@@ -35,41 +36,8 @@ public class ItemDrop
     }
 }
 
-public static class ItemRarity
-{
-    static readonly Dictionary<RarityType, float> RarityChances = 
-        new Dictionary<RarityType, float>()
-        {
-            {RarityType.Common, 70.0f}, 
-            {RarityType.Uncommon, 25.0f},
-            {RarityType.Rare, 5.0f} 
-        };
-
-    static public float ChanceOf(RarityType rarity) 
-    {
-        float chance = 0;
-        RarityChances.TryGetValue(rarity, out chance);
-        return chance;
-    }
-}
-
-public enum RarityType
-{
-    Common,
-    Uncommon,
-    Rare
-}
-
-public enum RewardType
-{
-    Card,
-    Rune,
-    Healing,
-    Upgrade
-}
-
 /* 
-# Item rarity documentation
+# Item Drops documentation
 
 All items are separated into common, uncommon, and rare rarities which has a constant base % chance to get.
 
