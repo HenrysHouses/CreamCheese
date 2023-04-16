@@ -12,7 +12,7 @@ public class DustParticlesOnOff : MonoBehaviour
     {
         particle = GetComponent<ParticleSystem>();
         var main = particle.main;
-        main.duration = Random.Range(2,30);
+        main.duration = Random.Range(2,5);
         
     }
 
@@ -22,7 +22,7 @@ public class DustParticlesOnOff : MonoBehaviour
         if(particle.isStopped)
         {
             var main = particle.main;
-            main.duration = Random.Range(2,30);
+            main.duration = Random.Range(2,5);
             
             particle.Play();
 
