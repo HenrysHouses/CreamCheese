@@ -3,15 +3,17 @@ using System.Collections.Generic;
 using UnityEngine;
 
 [System.Serializable]
-public struct LootPoolRarity
+public class LootPoolRarity
 {
-    [SerializeField] private RarityChance<RarityType.Common> Common;
-    [SerializeField] private RarityChance<RarityType.Uncommon> Uncommon;
-    [SerializeField] private RarityChance<RarityType.Rare> Rare;
-    [SerializeField] private RarityChance<RarityType.Legendary> Legendary;
-    [SerializeField] private RarityChance<RarityType.Unique> Unique;
+    [SerializeField] private RarityChance Common = new RarityChance(RarityType.Common);
+    [SerializeField] private RarityChance Uncommon = new RarityChance(RarityType.Uncommon);
+    [SerializeField] private RarityChance Rare = new RarityChance(RarityType.Rare);
+    [SerializeField] private RarityChance Legendary = new RarityChance(RarityType.Legendary);
+    [SerializeField] private RarityChance Unique = new RarityChance(RarityType.Unique);
 
-    public float ChanceOf(RarityType rarity) 
+    private RarityChance[] RarityIndex;
+
+    public float GetChanceOf(RarityType rarity) 
     {
         switch(rarity)
         {
@@ -37,14 +39,61 @@ public struct LootPoolRarity
 
     public ItemPool_ScriptableObject RollRarity()
     {
+        float _roll = Random.Range(0f,100f);
+        float chance = 0;
+        for (int i = 0; i < RarityIndex.Length; i++)
+        {
+            if(RarityIndex[i].Chance + chance > _roll)
+            {
+
+                Debug.Log(RarityIndex[i].Chance + chance + "/"+ _roll);
+                return RarityIndex[i].ItemPool;
+            }
+            chance += RarityIndex[i].Chance;
+        }
         return null;
     }
 
-    [System.Serializable]
-    private struct RarityChance<T> where T : RarityType
+    public void updateRarityIndex()
     {
+        RarityIndex = new RarityChance[]{Common, Uncommon, Rare, Legendary, Unique};
+        List<RarityChance> Order = new List<RarityChance>(5);
+        Order.Add(new RarityChance());
+        Order.Add(new RarityChance());
+        Order.Add(new RarityChance());
+        Order.Add(new RarityChance());
+        Order.Add(new RarityChance());
+
+        for (int i = 0; i < 5; i++)
+        {
+            int index = 0;
+            for (int j = 0; j < 5; j++)
+            {
+                if(RarityIndex[i].Rarity == RarityIndex[j].Rarity)
+                    continue;
+
+                if(RarityIndex[i].Chance > RarityIndex[j].Chance)
+                    index++;
+            }
+            Order[index] = RarityIndex[i];
+        }
+
+        Order.Reverse();
+        RarityIndex = Order.ToArray();
+    }
+
+    [System.Serializable]
+    private struct RarityChance
+    {
+        public RarityChance(RarityType type)
+        {
+            Rarity = type;
+            Chance = 0;
+            ItemPool = null;
+        }
+
         /// <summary>Rarity type</summary>
-        public T Rarity => new RarityType() as T;
+        public RarityType Rarity;
         
         /// <summary>Chance in %</summary>
         [Range(0,100)] 
@@ -56,11 +105,11 @@ public struct LootPoolRarity
 
 
 // Could not use enum as a generic type. This was the first solution i could think of ¯\_(ツ)_/¯
-public class RarityType
+public enum RarityType
 {
-    public class Common : RarityType {}
-    public class Uncommon : RarityType {}
-    public class Rare : RarityType {}
-    public class Legendary : RarityType {}
-    public class Unique : RarityType {}
+    Common,
+    Uncommon,
+    Rare,
+    Legendary,
+    Unique
 }

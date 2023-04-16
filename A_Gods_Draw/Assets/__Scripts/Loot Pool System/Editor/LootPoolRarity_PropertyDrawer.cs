@@ -52,7 +52,7 @@ public class LootPoolRarity_PropertyDrawer: PropertyDrawer
             RareStyle.normal.textColor = Color.yellow;
             LegendaryStyle.normal.textColor = Color.yellow;
             UniqueStyle.normal.textColor = Color.yellow;
-            EditorGUI.LabelField(newLineRect(position) ," WARNING: Total chance of all rarities do not sum up to 100%!", style);
+            EditorGUI.LabelField(newLineRect(position) ," WARNING: Total chance do not equal 100%. Rarities sum up to " + totalChance + "/100" , style);
         }
         else
         {
@@ -64,11 +64,11 @@ public class LootPoolRarity_PropertyDrawer: PropertyDrawer
         }
 
         // Warn about null loot pools
-        GUIRarityWarning(position, Chance_Common, LootPool_Common, CommonStyle, Common);
-        GUIRarityWarning(position, Chance_Uncommon, LootPool_Uncommon, UncommonStyle, Uncommon);
-        GUIRarityWarning(position, Chance_Rare, LootPool_Rare, RareStyle, Rare);
-        GUIRarityWarning(position, Chance_Legendary, LootPool_Legendary, LegendaryStyle, Legendary);
-        GUIRarityWarning(position, Chance_Unique, LootPool_Unique, UniqueStyle, Unique);
+        GUILootPoolWarning(position, Chance_Common, LootPool_Common, CommonStyle, Common);
+        GUILootPoolWarning(position, Chance_Uncommon, LootPool_Uncommon, UncommonStyle, Uncommon);
+        GUILootPoolWarning(position, Chance_Rare, LootPool_Rare, RareStyle, Rare);
+        GUILootPoolWarning(position, Chance_Legendary, LootPool_Legendary, LegendaryStyle, Legendary);
+        GUILootPoolWarning(position, Chance_Unique, LootPool_Unique, UniqueStyle, Unique);
 
     }
 
@@ -84,7 +84,7 @@ public class LootPoolRarity_PropertyDrawer: PropertyDrawer
         return  EditorGUIUtility.singleLineHeight * linesDrawn + space;
     }
 
-    private void GUIRarityWarning(Rect position, float chance, Object item, GUIStyle style, string Rarity)
+    private void GUILootPoolWarning(Rect position, float chance, Object item, GUIStyle style, string Rarity)
     {
         if(chance > 0)
         {
