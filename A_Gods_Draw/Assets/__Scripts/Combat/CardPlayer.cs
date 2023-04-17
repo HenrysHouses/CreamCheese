@@ -76,6 +76,8 @@ public class CardPlayer : MonoBehaviour
         if (Input.GetKeyUp(KeyCode.Mouse0))
         {
             hasClickedLastFrame = true;
+            ChangeCursor.instance.DefaultCursor();
+
         }
 
         if (Input.GetKeyUp(KeyCode.Mouse1) && _selectedCard != null)

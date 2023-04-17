@@ -20,7 +20,6 @@ public class LightScenes : MonoBehaviour
 
     private void SetLight(SceneCollection collection, collectionLoadMode mode)
     {
-        Debug.Log("lights");
         for (int i = 0; i < collectionLights.Length; i++)
         {
             if (collectionLights[i].name == collection.Title)
@@ -29,7 +28,6 @@ public class LightScenes : MonoBehaviour
                 {
                     collectionLights[i].lightSetting[j].light.GetComponent<ChangeColorLight>()
                         .SetLightSettings(collectionLights[i].lightSetting[j]);
-                    //Debug.Log(collectionLights[i].lightSetting[j].color);
                 }
             }
         }
