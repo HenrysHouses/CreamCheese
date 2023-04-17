@@ -14,11 +14,13 @@ public class LightScenes : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
+        SetLight(MultiSceneToolsConfig.instance.getCurrCollection(), collectionLoadMode.Difference);
         MultiSceneLoader.OnSceneCollectionLoaded.AddListener(SetLight);
     }
 
     private void SetLight(SceneCollection collection, collectionLoadMode mode)
     {
+        Debug.Log("lights");
         for (int i = 0; i < collectionLights.Length; i++)
         {
             if (collectionLights[i].name == collection.Title)
