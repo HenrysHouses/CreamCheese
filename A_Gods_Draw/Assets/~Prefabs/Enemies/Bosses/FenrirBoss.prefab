@@ -302,8 +302,13 @@ MonoBehaviour:
     ActionConditions: 08000000
     MinStrength: 5
     MaxStrength: 10
+    UseStrengthMod: 0
+    AllRequiredForMod: 0
+    StrengthModConditions: 
+    ModifiedStrength: 0
     Weigth: 0
     Priority: 0
+    TurnsToPerform: 0
     AllRequired: 0
     ActionSFX:
       Guid:
@@ -335,13 +340,16 @@ MonoBehaviour:
   healthText: {fileID: 1859653297}
   strengthText: {fileID: 1207526356}
   defendText: {fileID: 5117020590282035690}
+  turnsLeftText: {fileID: 0}
   intentImage: {fileID: 6957146146154833128}
   effectIconPrefab: {fileID: 2712877965524084146, guid: ac6310bb2a9b6d941aca7bfede021679, type: 3}
   defendUI: {fileID: 8499019722414731956}
+  buffImageGameObject: {fileID: 0}
   damageIndicatorColor: {r: 0.8396226, g: 0.32211933, b: 0.32211933, a: 1}
-  maxHealth: 200
+  maxHealth: 100
   HealingDisabled: 0
   Defending: 0
+  BuffStrength: 0
   death_SFX:
     Guid:
       Data1: 55962543
@@ -356,13 +364,6 @@ MonoBehaviour:
       Data3: -43431291
       Data4: -1906492248
     Path: event:/Card Effects/CardShield
-  ability_SFX:
-    Guid:
-      Data1: -50251825
-      Data2: 1140817054
-      Data3: -1457995116
-      Data4: 1746539433
-    Path: event:/Combat/Enemy/Enemy Ability
   hurt_SFX:
     Guid:
       Data1: 55962543
@@ -370,13 +371,6 @@ MonoBehaviour:
       Data3: 823004837
       Data4: -1532201799
     Path: event:/Combat/Enemy/EnemyKilled
-  attacking_SFX:
-    Guid:
-      Data1: 1118862281
-      Data2: 1238309055
-      Data3: 1298832056
-      Data4: -1814946090
-    Path: event:/Combat/Enemy/Enemy Attack
   animator: {fileID: 8458236436935724629}
 --- !u!1 &6909398467659061486
 GameObject:
