@@ -53,7 +53,7 @@ public class ChooseCardReward : MonoBehaviour
     // bool hasClicked = false;
     private void Update()
     {
-        if (!confirmed && !CardInspector.isInspecting)
+        if (!confirmed)
             checkSelected();
 
         if (CardInspector.isInspecting)

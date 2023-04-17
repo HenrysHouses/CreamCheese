@@ -84,6 +84,7 @@ public class EndState : CombatFSMState
             {
                 GameManager.timesDefeatedBoss++;
                 defeatedBoss = true;
+                UnityEngine.Debug.Log("boss defeaetedr");
             }
 
             Controller.StartCoroutine(Controller.ExitCombat(defeatedBoss));
