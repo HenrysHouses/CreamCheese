@@ -34,6 +34,6 @@ public class HealCardAction : CardAction
     {
         _VFX = new ActionVFX(false, 0, "", "Action VFX/Heal_VFX", 5);
         
-        Debug.LogError("Heal has no VFX");
+       // Debug.LogError("Heal has no VFX");
     }
 }
