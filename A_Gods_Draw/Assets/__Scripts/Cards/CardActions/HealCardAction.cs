@@ -32,7 +32,8 @@ public class HealCardAction : CardAction
 
     public override void SetActionVFX()
     {
-        _VFX = new ActionVFX(false, 0, "", "", 0);
+        _VFX = new ActionVFX(false, 0, "", "Action VFX/Heal_VFX", 5);
+        
         Debug.LogError("Heal has no VFX");
     }
 }
