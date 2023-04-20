@@ -13,6 +13,21 @@ public abstract class GodCardAction : Action
         SetActionVFX();
     }
 
+    public static GodCardAction GetAction(GodActionEnum card)
+    {
+        switch(card)
+        {
+            case GodActionEnum.Tyr:
+                return new TyrActions();
+
+            case GodActionEnum.Eir:
+                return new EirActions();
+            
+            default:
+                return null;
+        }
+    }
+
     /// <summary>Should set the settings for the action's _VFX</summary>
     public abstract void SetActionVFX();
     public virtual void OnPlay(BoardStateController board, int strength) 

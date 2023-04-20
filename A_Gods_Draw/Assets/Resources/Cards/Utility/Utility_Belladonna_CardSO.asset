@@ -1,0 +1,92 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5a3a49401d7d7994699d21f4777abe3d, type: 3}
+  m_Name: Utility_Belladonna_CardSO
+  m_EditorClassIdentifier: 
+  type: 3
+  Art: {fileID: 0}
+  Background: {fileID: 0}
+  cardName: Belladonna
+  description: 
+  effect: Utility
+  cardStats:
+    TargetingView: 6
+    SelectionType:
+      Index: 6
+      NamesContainer: {fileID: 11400000, guid: f8b018dd89042d4438fa88687c5c3c94, type: 2}
+    strength: 3
+    numberOfTargets: 1
+    actionGroup:
+      actionStats:
+      - actionEnum: 9
+        action_SFX:
+          Guid:
+            Data1: -1053887954
+            Data2: 1115564386
+            Data3: 500769191
+            Data4: -364955661
+          Path: event:/GlyphsVFXs/Poison
+        _VFX:
+          FollowPath: 0
+          isAnimating: 0
+          PathSpeed: 0
+          trigger_VFX: {fileID: 0}
+          hit_VFX: {fileID: 0}
+          HitVFXLifeSpan: 0
+    correspondingGod: 2
+    godBuffActions:
+      actionStats:
+      - actionEnum: 9
+        action_SFX:
+          Guid:
+            Data1: -1053887954
+            Data2: 1115564386
+            Data3: 500769191
+            Data4: -364955661
+          Path: event:/GlyphsVFXs/Poison
+        _VFX:
+          FollowPath: 0
+          isAnimating: 0
+          PathSpeed: 0
+          trigger_VFX: {fileID: 0}
+          hit_VFX: {fileID: 0}
+          HitVFXLifeSpan: 0
+    UpgradePath:
+      Experience:
+        XP: 0
+        Level: 0
+        ID: 0
+      Upgrades:
+      - RequiredXP: 7
+        UpgradeType: 2
+        RemovableGlyph: 09000000
+        AddGlyph: 0
+        RemoveGlyphIndex: 0
+        ValueSelection: 0
+        CorrespondingGod: 0
+        EditedValue: 4
+      - RequiredXP: 17
+        UpgradeType: 2
+        RemovableGlyph: 09000000
+        AddGlyph: 0
+        RemoveGlyphIndex: 0
+        ValueSelection: 0
+        CorrespondingGod: 0
+        EditedValue: 5
+      - RequiredXP: 29
+        UpgradeType: 2
+        RemovableGlyph: 09000000
+        AddGlyph: 0
+        RemoveGlyphIndex: 0
+        ValueSelection: 1
+        CorrespondingGod: 0
+        EditedValue: 2

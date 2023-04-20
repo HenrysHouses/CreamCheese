@@ -20,6 +20,49 @@ public abstract class CardAction : Action
         SetActionVFX();
     }
 
+    public static CardAction GetAction(CardActionEnum ActionType)
+    {
+        switch (ActionType)
+        {
+            case CardActionEnum.Attack:
+                return new AttackCardAction();
+            case CardActionEnum.Defence:
+                return new DefendCardAction();
+            case CardActionEnum.Buff:
+                return new BuffCardAction();
+            case CardActionEnum.Chaos:
+                return new InstakillCardAction();
+            case CardActionEnum.Chained:
+                return new ChainCardAction();
+            case CardActionEnum.Offering:
+                return new OfferingCardAction();
+            case CardActionEnum.SplashDMG:
+                return new SplashDMGCardAction();
+            case CardActionEnum.Heal:
+                return new HealCardAction();
+            case CardActionEnum.Draw:
+                return new DrawCardAction();
+            case CardActionEnum.Weaken:
+                return new WeakenCardAction();
+            case CardActionEnum.Poison:
+                return new PoisonCardAction();
+            case CardActionEnum.HealPrevention:
+                return new HealPreventionCardAction();
+            case CardActionEnum.Frostbite:
+                return new FrostbiteCardAction();
+            case CardActionEnum.Leach:
+                return new LeachCardAction();
+            case CardActionEnum.BuffAll:
+                return new BuffAllCardAction();
+            case CardActionEnum.Exhaust:
+                return new ExhaustCardAction();
+            case CardActionEnum.Earthquake:
+                return new EarthquakeCardAction();
+            default:
+                return null;
+        }
+    }
+
     /// <summary>Should set the settings for the action's _VFX</summary>
     public abstract void SetActionVFX();
     protected virtual void UpdateNeededLanes(ActionCard_Behaviour source) { }

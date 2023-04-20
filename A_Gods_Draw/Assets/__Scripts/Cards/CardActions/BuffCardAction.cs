@@ -11,6 +11,7 @@ public class BuffCardAction : CardAction
     public EventReference cionDrop_SFX;
     List<GameObject> SpawnedCoins = new List<GameObject>();
     public BuffCardAction(){ multiplies = false;}
+    public bool HasRelatedGod;
     
     void SpawnCoins(int amount, ActionCard_Behaviour card)
     {
@@ -55,11 +56,45 @@ public class BuffCardAction : CardAction
         {
             card.Buff(source.stats.strength, multiplies);
             SpawnCoins(source.stats.strength, card);
+            AddGlyphs(card, source.stats.actionGroup);
+
+            if(HasRelatedGod)
+                AddGlyphs(card, source.stats.godBuffActions);
         }
         board.RemoveFromLane(currentCard);
         currentCard.StartCoroutine(currentCard.GetComponent<Card_Loader>().DissolveCard(2, currentCard.transform.parent));
         // currentCard.transform.parent.parent.position += Vector3.down * 10;
         currentCard.RemoveFromHand();
+    }
+
+    private void AddGlyphs(ActionCard_Behaviour target, ActionGroup source)
+    {
+        for (int i = 0; i < source.actionStats.Count; i++)
+        {   
+            CardActionEnum Glyph = source.actionStats[i].actionEnum;
+
+            if(Glyph == CardActionEnum.Buff)
+                continue;
+
+            if(Glyph == CardActionEnum.Exhaust)
+                continue;
+
+            if(Glyph == CardActionEnum.Offering)
+                continue;
+
+            CardAction act = CardAction.GetAction(Glyph);
+            Debug.Log("adding: " + act.GetType() + " to: " + target.name);
+
+            // act.action_SFX = _actionGroup.actionStats[i].action_SFX; // this should be read from a scriptable object for the target action
+            // act.PlayOnPlacedOrTriggered_SFX = _actionGroup.actionStats[i].PlayOnPlacedOrTriggered_SFX;
+            // act._VFX = _actionGroup.actionStats[i]._VFX;
+
+            act.SetBehaviour(target); 
+            target.stats.actionGroup.Add(act); 
+            CardActionData _newAction = new CardActionData();
+            _newAction.actionEnum = Glyph;
+            target.stats.actionGroup.actionStats.Add(_newAction);
+        }
     }
 
     protected override void UpdateNeededLanes(ActionCard_Behaviour _Behaviour)

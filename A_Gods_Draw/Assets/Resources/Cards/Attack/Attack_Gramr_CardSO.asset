@@ -32,7 +32,7 @@ MonoBehaviour:
     SelectionType:
       Index: 6
       NamesContainer: {fileID: 11400000, guid: f8b018dd89042d4438fa88687c5c3c94, type: 2}
-    strength: 2
+    strength: 1
     numberOfTargets: 1
     actionGroup:
       actionStats:
@@ -44,6 +44,21 @@ MonoBehaviour:
             Data3: 1609589929
             Data4: -360794834
           Path: event:/Combat/Card Combat/SwordAttack
+        _VFX:
+          FollowPath: 1
+          isAnimating: 0
+          PathSpeed: 1
+          trigger_VFX: {fileID: 3273590495200156951, guid: f2908f3673965cb4390dc705aca60e85, type: 3}
+          hit_VFX: {fileID: 2604885081968657841, guid: 68774ee4712f84144802b43008224235, type: 3}
+          HitVFXLifeSpan: 2
+      - actionEnum: 5
+        action_SFX:
+          Guid:
+            Data1: 1389244902
+            Data2: 1245033592
+            Data3: 1454651062
+            Data4: 1348548460
+          Path: event:/GlyphsVFXs/Offering(Storr)
         _VFX:
           FollowPath: 1
           isAnimating: 0
@@ -75,19 +90,27 @@ MonoBehaviour:
         Level: 0
         ID: 69
       Upgrades:
-      - RequiredXP: 5
+      - RequiredXP: 10
         UpgradeType: 2
-        RemovableGlyph: 00000000
-        AddGlyph: 0
+        RemovableGlyph: 0000000005000000
+        AddGlyph: 16
+        RemoveGlyphIndex: 0
+        ValueSelection: 0
+        CorrespondingGod: 0
+        EditedValue: 6
+      - RequiredXP: 10
+        UpgradeType: 2
+        RemovableGlyph: 0000000005000000
+        AddGlyph: 16
         RemoveGlyphIndex: 0
         ValueSelection: 0
         CorrespondingGod: 0
         EditedValue: 3
-      - RequiredXP: 5
-        UpgradeType: 2
-        RemovableGlyph: 00000000
-        AddGlyph: 0
-        RemoveGlyphIndex: 0
+      - RequiredXP: 25
+        UpgradeType: 1
+        RemovableGlyph: 0000000005000000
+        AddGlyph: 5
+        RemoveGlyphIndex: 1
         ValueSelection: 0
         CorrespondingGod: 0
         EditedValue: 3

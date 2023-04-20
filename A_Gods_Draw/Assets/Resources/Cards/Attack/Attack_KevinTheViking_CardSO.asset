@@ -1,0 +1,129 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5a3a49401d7d7994699d21f4777abe3d, type: 3}
+  m_Name: Attack_KevinTheViking_CardSO
+  m_EditorClassIdentifier: 
+  type: 0
+  Art: {fileID: 0}
+  Background: {fileID: 0}
+  cardName: Kevin The Viking
+  description: Kevin is a regular man. Just like any other average viking.
+  effect: 'Attack
+
+    Deals {0} damage |
+
+
+    Doubles strength each time played.'
+  cardStats:
+    TargetingView: 6
+    SelectionType:
+      Index: 6
+      NamesContainer: {fileID: 11400000, guid: f8b018dd89042d4438fa88687c5c3c94, type: 2}
+    strength: 1
+    numberOfTargets: 1
+    actionGroup:
+      actionStats:
+      - actionEnum: 0
+        action_SFX:
+          Guid:
+            Data1: -59291840
+            Data2: 1217564090
+            Data3: 1609589929
+            Data4: -360794834
+          Path: event:/Combat/Card Combat/SwordAttack
+        _VFX:
+          FollowPath: 0
+          isAnimating: 0
+          PathSpeed: 0
+          trigger_VFX: {fileID: 0}
+          hit_VFX: {fileID: 0}
+          HitVFXLifeSpan: 0
+      - actionEnum: 14
+        action_SFX:
+          Guid:
+            Data1: -1548347263
+            Data2: 1274967729
+            Data3: -634438230
+            Data4: -241711831
+          Path: event:/Combat/Card Combat/Exhaust
+        _VFX:
+          FollowPath: 0
+          isAnimating: 0
+          PathSpeed: 0
+          trigger_VFX: {fileID: 0}
+          hit_VFX: {fileID: 0}
+          HitVFXLifeSpan: 0
+    correspondingGod: 0
+    godBuffActions:
+      actionStats: []
+    UpgradePath:
+      Experience:
+        XP: 0
+        Level: 0
+        ID: 0
+      Upgrades:
+      - RequiredXP: 1
+        UpgradeType: 2
+        RemovableGlyph: 000000000e000000
+        AddGlyph: 0
+        RemoveGlyphIndex: 0
+        ValueSelection: 0
+        CorrespondingGod: 0
+        EditedValue: 2
+      - RequiredXP: 2
+        UpgradeType: 2
+        RemovableGlyph: 000000000e000000
+        AddGlyph: 0
+        RemoveGlyphIndex: 0
+        ValueSelection: 0
+        CorrespondingGod: 0
+        EditedValue: 4
+      - RequiredXP: 3
+        UpgradeType: 2
+        RemovableGlyph: 000000000e000000
+        AddGlyph: 3
+        RemoveGlyphIndex: 0
+        ValueSelection: 0
+        CorrespondingGod: 0
+        EditedValue: 8
+      - RequiredXP: 4
+        UpgradeType: 2
+        RemovableGlyph: 000000000e000000
+        AddGlyph: 0
+        RemoveGlyphIndex: 0
+        ValueSelection: 0
+        CorrespondingGod: 0
+        EditedValue: 16
+      - RequiredXP: 5
+        UpgradeType: 2
+        RemovableGlyph: 000000000e000000
+        AddGlyph: 0
+        RemoveGlyphIndex: 0
+        ValueSelection: 0
+        CorrespondingGod: 0
+        EditedValue: 32
+      - RequiredXP: 6
+        UpgradeType: 2
+        RemovableGlyph: 000000000e000000
+        AddGlyph: 0
+        RemoveGlyphIndex: 0
+        ValueSelection: 0
+        CorrespondingGod: 0
+        EditedValue: 64
+      - RequiredXP: 7
+        UpgradeType: 2
+        RemovableGlyph: 000000000e000000
+        AddGlyph: 0
+        RemoveGlyphIndex: 0
+        ValueSelection: 0
+        CorrespondingGod: 0
+        EditedValue: 128

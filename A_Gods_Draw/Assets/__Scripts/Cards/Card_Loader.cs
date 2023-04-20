@@ -15,7 +15,7 @@ public enum CardActionEnum
     Attack,
     Defence,
     Buff,
-    Instakill,
+    Chaos,
     Chained,
     Offering,
     SplashDMG,

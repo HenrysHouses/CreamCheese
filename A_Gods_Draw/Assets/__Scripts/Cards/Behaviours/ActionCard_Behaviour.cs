@@ -3,7 +3,7 @@
 // Modified by
 //  Henrik Hustoft,
 //  Nicolay Joahsen
-//  Charlie Eikås
+//  Charlie Eikï¿½s
 
 using System.Collections;
 using System.Collections.Generic;
@@ -141,7 +141,7 @@ public class ActionCard_Behaviour : Card_Behaviour
 
         for (int i = 0; i < _actionGroup.actionStats.Count; i++)
         {
-            CardAction act = GetAction(_actionGroup.actionStats[i].actionEnum);
+            CardAction act = CardAction.GetAction(_actionGroup.actionStats[i].actionEnum);
 
             act.action_SFX = _actionGroup.actionStats[i].action_SFX;
             // act.PlayOnPlacedOrTriggered_SFX = _actionGroup.actionStats[i].PlayOnPlacedOrTriggered_SFX;
@@ -153,7 +153,7 @@ public class ActionCard_Behaviour : Card_Behaviour
 
         for (int i = 0; i < _godBuffActions.actionStats.Count; i++)
         {
-            var act = GetAction(_godBuffActions.actionStats[i].actionEnum);
+            var act = CardAction.GetAction(_godBuffActions.actionStats[i].actionEnum);
             
             act.action_SFX = _godBuffActions.actionStats[i].action_SFX;
             // act.PlayOnPlacedOrTriggered_SFX = _godBuffActions.actionStats[i].PlayOnPlacedOrTriggered_SFX;
@@ -261,22 +261,22 @@ public class ActionCard_Behaviour : Card_Behaviour
 
     protected override IEnumerator Play(BoardStateController board)
     {
-        for (int i = 0; i < _actionGroup.actions.Count; i++)
+        if(cardType == CardType.Buff)
         {
-            CardAction action = _actionGroup.actions[i];
+            BuffCardAction Buff = CardAction.GetAction(CardActionEnum.Buff) as BuffCardAction;
 
-            StartCoroutine(action.OnAction(board, this));
-            // if (action.PlayOnPlacedOrTriggered_SFX)
-            // {
-            //     SoundPlayer.PlaySound(action.action_SFX, gameObject);
-            // }
-            yield return new WaitUntil(() => action.Ready);
+            Buff.HasRelatedGod = CheckForGod();
+
+            StartCoroutine(Buff.OnAction(board, this));
         }
-
-        if(CheckForGod())
+        else
         {
-            foreach (var action in _godBuffActions.actions)
+            for (int i = 0; i < _actionGroup.actions.Count; i++)
             {
+                CardAction action = _actionGroup.actions[i];
+
+
+
                 StartCoroutine(action.OnAction(board, this));
                 // if (action.PlayOnPlacedOrTriggered_SFX)
                 // {
@@ -284,7 +284,21 @@ public class ActionCard_Behaviour : Card_Behaviour
                 // }
                 yield return new WaitUntil(() => action.Ready);
             }
+
+            if(CheckForGod())
+            {
+                foreach (var action in _godBuffActions.actions)
+                {
+                    StartCoroutine(action.OnAction(board, this));
+                    // if (action.PlayOnPlacedOrTriggered_SFX)
+                    // {
+                    //     SoundPlayer.PlaySound(action.action_SFX, gameObject);
+                    // }
+                    yield return new WaitUntil(() => action.Ready);
+                }
+            }
         }
+
 
         yield return new WaitForSeconds(0.2f);
 
@@ -475,7 +489,18 @@ public class ActionCard_Behaviour : Card_Behaviour
     protected override void OnPlacedInLane()
     {
         base.OnPlacedInLane();
-        UpdateQueuedDamage();
+
+        if(cardType != CardType.Buff)
+            UpdateQueuedDamage();
+        else
+        {
+            foreach (var _target in AllTargets)
+            {
+                if(_target is ActionCard_Behaviour _Behaviour)
+                    _Behaviour.UpdateQueuedDamage();
+            }
+        }
+
         foreach (var target in SelectedTargets)
         {
             foreach (CardAction action in _actionGroup.actions)
@@ -564,7 +589,7 @@ public class ActionCard_Behaviour : Card_Behaviour
 
     void AddNewGlyph(CardActionEnum Glyph)
     {
-        CardAction act = GetAction(Glyph);
+        CardAction act = CardAction.GetAction(Glyph);
         Debug.Log("adding: " + act.GetType() + " to: " + card_so.cardName);
 
         // act.action_SFX = _actionGroup.actionStats[i].action_SFX; // this should be read from a scriptable object for the target action

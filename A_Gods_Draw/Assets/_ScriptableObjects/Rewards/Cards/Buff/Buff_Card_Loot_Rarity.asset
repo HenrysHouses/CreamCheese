@@ -1,0 +1,35 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a5fa834284575d5459109409d403ab22, type: 3}
+  m_Name: Buff_Card_Loot_Rarity
+  m_EditorClassIdentifier: 
+  Rarities:
+    Common:
+      Rarity: 0
+      Chance: 35
+      ItemPool: {fileID: 11400000, guid: 36f7ecf78698008458359597b641f728, type: 2}
+    Uncommon:
+      Rarity: 1
+      Chance: 45
+      ItemPool: {fileID: 11400000, guid: 3f8445da4f51db74dbdb0b1da436851c, type: 2}
+    Rare:
+      Rarity: 2
+      Chance: 20
+      ItemPool: {fileID: 11400000, guid: 406237f88d5317540b84372917fadb63, type: 2}
+    Legendary:
+      Rarity: 3
+      Chance: 0
+      ItemPool: {fileID: 0}
+    Unique:
+      Rarity: 4
+      Chance: 0
+      ItemPool: {fileID: 0}

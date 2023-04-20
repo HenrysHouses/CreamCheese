@@ -26,7 +26,7 @@ public class GodCard_Behaviour : Card_Behaviour , IMonsterTarget
         maxHealth = card.health;
         health = maxHealth;
 
-        action = GetAction(card.godAction);
+        action = GodCardAction.GetAction(card.godAction);
 
         this.elements = elements;
         Material GlowMat = elements.Glow.GetComponentInChildren<Renderer>().material;

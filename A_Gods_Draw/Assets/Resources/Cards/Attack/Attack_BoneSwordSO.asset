@@ -1,0 +1,127 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5a3a49401d7d7994699d21f4777abe3d, type: 3}
+  m_Name: Attack_BoneSwordSO
+  m_EditorClassIdentifier: 
+  type: 0
+  Art: {fileID: 0}
+  Background: {fileID: 0}
+  cardName: A Bone Sword
+  description: 'Attack
+
+    Deals {0} damage |
+
+
+    If Eir Is In Play'
+  effect: 
+  cardStats:
+    TargetingView: 6
+    SelectionType:
+      Index: 6
+      NamesContainer: {fileID: 11400000, guid: f8b018dd89042d4438fa88687c5c3c94, type: 2}
+    strength: 1
+    numberOfTargets: 1
+    actionGroup:
+      actionStats:
+      - actionEnum: 0
+        action_SFX:
+          Guid:
+            Data1: -59291840
+            Data2: 1217564090
+            Data3: 1609589929
+            Data4: -360794834
+          Path: event:/Combat/Card Combat/SwordAttack
+        _VFX:
+          FollowPath: 1
+          isAnimating: 0
+          PathSpeed: 1
+          trigger_VFX: {fileID: 3273590495200156951, guid: f2908f3673965cb4390dc705aca60e85, type: 3}
+          hit_VFX: {fileID: 2604885081968657841, guid: 68774ee4712f84144802b43008224235, type: 3}
+          HitVFXLifeSpan: 2
+      - actionEnum: 14
+        action_SFX:
+          Guid:
+            Data1: -1589812252
+            Data2: 1227654983
+            Data3: -634004321
+            Data4: -1160486347
+          Path: event:/Card Effects/BuffDissepear
+        _VFX:
+          FollowPath: 0
+          isAnimating: 0
+          PathSpeed: 0
+          trigger_VFX: {fileID: 0}
+          hit_VFX: {fileID: 0}
+          HitVFXLifeSpan: 2
+      - actionEnum: 9
+        action_SFX:
+          Guid:
+            Data1: -1053887954
+            Data2: 1115564386
+            Data3: 500769191
+            Data4: -364955661
+          Path: event:/GlyphsVFXs/Poison
+        _VFX:
+          FollowPath: 0
+          isAnimating: 0
+          PathSpeed: 0
+          trigger_VFX: {fileID: 0}
+          hit_VFX: {fileID: 2303993469366667002, guid: 2f9b25dd1afa9ca438a61fea8dd95722, type: 3}
+          HitVFXLifeSpan: 2
+    correspondingGod: 2
+    godBuffActions:
+      actionStats:
+      - actionEnum: 9
+        action_SFX:
+          Guid:
+            Data1: -1053887954
+            Data2: 1115564386
+            Data3: 500769191
+            Data4: -364955661
+          Path: event:/GlyphsVFXs/Poison
+        _VFX:
+          FollowPath: 0
+          isAnimating: 0
+          PathSpeed: 0
+          trigger_VFX: {fileID: 0}
+          hit_VFX: {fileID: 0}
+          HitVFXLifeSpan: 0
+    UpgradePath:
+      Experience:
+        XP: 0
+        Level: 0
+        ID: 83
+      Upgrades:
+      - RequiredXP: 5
+        UpgradeType: 1
+        RemovableGlyph: 000000000e00000009000000
+        AddGlyph: 0
+        RemoveGlyphIndex: 1
+        ValueSelection: 0
+        CorrespondingGod: 0
+        EditedValue: 3
+      - RequiredXP: 10
+        UpgradeType: 2
+        RemovableGlyph: 000000000e00000009000000
+        AddGlyph: 0
+        RemoveGlyphIndex: 1
+        ValueSelection: 0
+        CorrespondingGod: 0
+        EditedValue: 3
+      - RequiredXP: 25
+        UpgradeType: 2
+        RemovableGlyph: 000000000e00000009000000
+        AddGlyph: 0
+        RemoveGlyphIndex: 1
+        ValueSelection: 0
+        CorrespondingGod: 0
+        EditedValue: 4

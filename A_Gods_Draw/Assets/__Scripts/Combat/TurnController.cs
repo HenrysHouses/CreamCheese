@@ -344,6 +344,10 @@ public class TurnController : CombatFSM
                 CardAnimations[i].OnAnimStartSound.AddListener(CardSound);
 
                 Debug.Log(_Hand.CardSelectionAnimators.Count + ": " + i);
+
+                if(i >= _Hand.CardSelectionAnimators.Count)
+                    break;
+
                 var selectorParentToDestroy = _Hand.CardSelectionAnimators[i].Selector.transform.parent.gameObject; // ! this sometimes causes unknown out of range exceptions
 
                 Card_Loader _Loader = _Hand.CardSelectionAnimators[i].loader; 

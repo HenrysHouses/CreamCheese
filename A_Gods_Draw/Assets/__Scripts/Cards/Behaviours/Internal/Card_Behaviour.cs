@@ -37,64 +37,6 @@ public abstract class Card_Behaviour : BoardElement
         yield break;
     }
 
-    protected CardAction GetAction(CardActionEnum ActionType)
-    {
-        switch (ActionType)
-        {
-            case CardActionEnum.Attack:
-                return new AttackCardAction();
-            case CardActionEnum.Defence:
-                return new DefendCardAction();
-            case CardActionEnum.Buff:
-                return new BuffCardAction();
-            case CardActionEnum.Instakill:
-                return new InstakillCardAction();
-            case CardActionEnum.Chained:
-                return new ChainCardAction();
-            case CardActionEnum.Offering:
-                return new OfferingCardAction();
-            case CardActionEnum.SplashDMG:
-                return new SplashDMGCardAction();
-            case CardActionEnum.Heal:
-                return new HealCardAction();
-            case CardActionEnum.Draw:
-                return new DrawCardAction();
-            case CardActionEnum.Weaken:
-                return new WeakenCardAction();
-            case CardActionEnum.Poison:
-                return new PoisonCardAction();
-            case CardActionEnum.HealPrevention:
-                return new HealPreventionCardAction();
-            case CardActionEnum.Frostbite:
-                return new FrostbiteCardAction();
-            case CardActionEnum.Leach:
-                return new LeachCardAction();
-            case CardActionEnum.BuffAll:
-                return new BuffAllCardAction();
-            case CardActionEnum.Exhaust:
-                return new ExhaustCardAction();
-            case CardActionEnum.Earthquake:
-                return new EarthquakeCardAction();
-            default:
-                return null;
-        }
-
-    }
-    protected GodCardAction GetAction(GodActionEnum card)
-    {
-        switch(card)
-        {
-            case GodActionEnum.Tyr:
-                return new TyrActions();
-
-            case GodActionEnum.Eir:
-                return new EirActions();
-            
-            default:
-                return null;
-        }
-    }
-
     internal virtual void OnClickOnSelected() { }
     public virtual bool CardIsReady() { return true; }
     public abstract void OnAction();
