@@ -19,13 +19,11 @@ public class PlayerController : BoardElement , IMonsterTarget
     [SerializeField]
     Image arrowImage;
     [SerializeField]
-    GameObject[] lights;
     private CameraMovement cam;
 
     void Start()
     {
         healthTxt.text = "HP: " + playerTracker.Health.ToString();
-        UpdateLights();
         cam = Camera.main.GetComponent<CameraMovement>();
     }
 
@@ -43,7 +41,7 @@ public class PlayerController : BoardElement , IMonsterTarget
         healthTxt.text = "HP: " + playerTracker.Health.ToString();
         CameraEffects.ShakeOnce(0.2f,5);
         SceneManager.SetActiveScene(gameObject.scene);
-        UpdateLights();
+        GameManager.instance.EffectIntensity = (float)playerTracker.Health / (float)playerTracker.MaxHealth;
 
         cam.SetCameraView(CameraView.Reset); // Resets the camera view after taking damage
 
@@ -66,20 +64,6 @@ public class PlayerController : BoardElement , IMonsterTarget
 
         cam.SetCameraView(CameraView.TakingDamage);
         
-
-    }
-
-    private void UpdateLights()
-    {
-
-        int _count = Mathf.RoundToInt(((float)playerTracker.Health / (float)playerTracker.MaxHealth) * ((float)lights.Length + 1f));
-        for(int i = 0; i < lights.Length; i++)
-        {
-
-            lights[i].SetActive(_count < i + 1 ? true : false);
-            //torches[i].SetActive(_count < i + 1 ? false : true);
-
-        }
 
     }
 

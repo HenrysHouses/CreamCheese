@@ -8,6 +8,7 @@ using UnityEngine;
 using Map;
 using FMOD.Studio;
 using FMODUnity;
+using System.Collections.Generic;
 
 public class GameManager : MonoBehaviour
 {
@@ -16,6 +17,21 @@ public class GameManager : MonoBehaviour
 
     public bool shouldGenerateNewMap;
     public bool shouldDestroyCardInDeck {get; private set;}
+    private List<SceneIntensityEffect> intensityEffects;
+    private float effectIntensity;
+    public float EffectIntensity
+    {
+        get
+        {
+            return effectIntensity;
+        }
+
+        set
+        {
+            effectIntensity = value;
+            UpdateSceneEffects();
+        }
+    }
     public static GameManager instance;
     EncounterDifficulty nextCombatDiff;
     [SerializeField]
@@ -24,6 +40,7 @@ public class GameManager : MonoBehaviour
     [SerializeField] EventDescription eventDescription;
 
     static public int timesDefeatedBoss = 0;
+
 
     private void Awake()
     {
@@ -42,11 +59,39 @@ public class GameManager : MonoBehaviour
         RuntimeManager.LoadBank("MonsterEffects", true);
         RuntimeManager.LoadBank("GodEffects", true);
         //RuntimeManager.LoadBank("Master", true);
+
+        intensityEffects = new List<SceneIntensityEffect>();
     }
 
     private void Start()
     {
         loadGameData();
+    }
+
+    private void UpdateSceneEffects()
+    {
+
+        foreach (SceneIntensityEffect _intensityEffect in intensityEffects)
+        {
+
+            _intensityEffect.UpdateIntensity(effectIntensity);
+            
+        }
+
+    }
+
+    public void AddSceneIntensityEffect(SceneIntensityEffect _intensityEffect)
+    {
+
+        intensityEffects.Add(_intensityEffect);
+
+    }
+
+    public void RemoveSceneIntensityEffect(SceneIntensityEffect _intensityEffect)
+    {
+
+        intensityEffects.Remove(_intensityEffect);
+
     }
 
     private void loadGameData()
