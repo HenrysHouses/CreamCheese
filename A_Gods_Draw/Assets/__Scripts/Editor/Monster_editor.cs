@@ -35,6 +35,19 @@ public class Monster_Editor : Editor
 
             EditorGUI.indentLevel++;
 
+            if(EnemyActions.arraySize == 0)
+            {
+
+                if(GUILayout.Button("+", EditorStyles.miniButtonMid))
+                {
+
+                    EnemyActions.InsertArrayElementAtIndex(EnemyActions.arraySize);
+                    actionDropdowns.Add(true);
+
+                }
+
+            }
+
             for(int i = 0; i < EnemyActions.arraySize; i++)
             {
 
