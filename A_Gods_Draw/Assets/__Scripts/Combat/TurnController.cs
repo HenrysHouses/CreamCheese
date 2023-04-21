@@ -189,8 +189,8 @@ public class TurnController : CombatFSM
         yield return new WaitForSeconds(6);
         if(LoadWinScreen)
         {
-            LoadingScreen.Instance.EnterLoadingScreen("WinScreen", collectionLoadMode.Difference);
 
+            StartCoroutine(LoadingScreen.Instance.EnterLoadingScreen("WinScreen", collectionLoadMode.Difference));
         }
         else
         {

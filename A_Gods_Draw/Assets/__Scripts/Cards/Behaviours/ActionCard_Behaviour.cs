@@ -246,6 +246,8 @@ public class ActionCard_Behaviour : Card_Behaviour
                 ChangeCursor.instance.BuffCursor();
             if(cardType == CardType.God)
                 ChangeCursor.instance.GodCursor();
+            if(cardType == CardType.Utility) 
+                ChangeCursor.instance.UtilityCursor();
 
             //camera position by card type
             if(cardType == CardType.Attack || cardType == CardType.Defence)
