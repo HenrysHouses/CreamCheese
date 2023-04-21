@@ -20,16 +20,17 @@ public class PlayerController : BoardElement , IMonsterTarget
     Image arrowImage;
     [SerializeField]
     private CameraMovement cam;
+    public lowhealthflash damageflash;
 
     void Start()
     {
         healthTxt.text = "HP: " + playerTracker.Health.ToString();
         cam = Camera.main.GetComponent<CameraMovement>();
+        damageflash = GameObject.Find("LowHealthFlash").GetComponent<lowhealthflash>();
     }
 
     public void DealDamage(int amount, UnityEngine.Object _source = null)
     {
-        TakeDamageCamera(); // Sets the camera to the healhtdial
         
         
         // Debug.Log("Damage taken:" + -amount);
@@ -38,7 +39,10 @@ public class PlayerController : BoardElement , IMonsterTarget
         if (playerTracker.Health < 0)
             playerTracker.Health = 0;
 
-        healthTxt.text = "HP: " + playerTracker.Health.ToString();
+        Debug.LogError("Camera shakes and take dmg shows even tho ur not taking dmg");
+        //TakeDamageCamera(); // Sets the camera to the healhtdial //TODO: setr this somewhere where the player takes dmg
+        //healthTxt.text = "HP: " + playerTracker.Health.ToString();
+        damageflash.flashRedWhenHit = true;
         CameraEffects.ShakeOnce(0.2f,5);
         SceneManager.SetActiveScene(gameObject.scene);
         GameManager.instance.EffectIntensity = (float)playerTracker.Health / (float)playerTracker.MaxHealth;
