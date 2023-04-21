@@ -301,6 +301,20 @@ public class Monster : BoardElement
 
     }
 
+    public void RemoveDebuffs()
+    {
+
+        DebuffBase[] _debuffs = GetComponents<DebuffBase>();
+
+        for(int i = 0; i < _debuffs.Length; i++)
+        {
+
+            _debuffs[i].RemoveDebuff();
+
+        }
+
+    }
+
     protected void UpdateHealthUI()
     {
 

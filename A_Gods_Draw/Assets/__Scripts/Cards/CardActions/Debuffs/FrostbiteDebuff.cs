@@ -5,6 +5,14 @@ using UnityEngine;
 public class FrostbiteDebuff : DebuffBase
 {
 
+    public override void RemoveDebuff()
+    {
+        
+        thisMonster.UpdateEffectDisplay(Resources.Load<Sprite>("ImageResources/Icon_Chain_v1"), 0, "Frostbite\nWeakens the enemy's actions ");
+        Destroy(this);
+
+    }
+
     public override void PreActTickDebuff(int _ticks = 1)
     {
 

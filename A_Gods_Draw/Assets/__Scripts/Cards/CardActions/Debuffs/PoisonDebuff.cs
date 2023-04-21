@@ -6,6 +6,20 @@ public class PoisonDebuff : DebuffBase
 {
     bool wasAppliedThisTurn = true;
 
+    public override void RemoveDebuff()
+    {
+
+        thisMonster.UpdateEffectDisplay(Resources.Load<Sprite>("ImageResources/poisonDrop"), 0, "Poison\nDeals damage equals to stacks\nper turn");
+        Destroy(this);
+
+    }
+
+    private void Start()
+    {
+
+        thisMonster.UpdateEffectDisplay(Resources.Load<Sprite>("ImageResources/poisonDrop"), Stacks, "Poison\nDeals damage equals to stacks\nper turn");
+
+    }
 
     public override void TickDebuff(int _ticks = 1)
     {
