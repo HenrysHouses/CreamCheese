@@ -41,8 +41,8 @@ public class PlayerController : BoardElement , IMonsterTarget
 
         Debug.LogError("Camera shakes and take dmg shows even tho ur not taking dmg");
         //TakeDamageCamera(); // Sets the camera to the healhtdial //TODO: setr this somewhere where the player takes dmg
-        //healthTxt.text = "HP: " + playerTracker.Health.ToString();
-        damageflash.flashRedWhenHit = true;
+        //damageflash.flashRedWhenHit = true;
+        healthTxt.text = "HP: " + playerTracker.Health.ToString();
         CameraEffects.ShakeOnce(0.2f,5);
         SceneManager.SetActiveScene(gameObject.scene);
         GameManager.instance.EffectIntensity = (float)playerTracker.Health / (float)playerTracker.MaxHealth;
