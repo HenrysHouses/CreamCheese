@@ -43,4 +43,9 @@ public class ChangeCursor : MonoBehaviour
     {
         Cursor.SetCursor(cursors[4], Vector2.zero, CursorMode.Auto);
     }
+
+    public void UtilityCursor()
+    {
+        Cursor.SetCursor(cursors[5], Vector2.zero, CursorMode.Auto);
+    }
 }

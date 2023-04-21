@@ -35,8 +35,8 @@ Transform:
   m_Children:
   - {fileID: 730791506440195415}
   - {fileID: 1302255216656320590}
-  - {fileID: 1523809880985106499}
   - {fileID: 7639155508355244640}
+  - {fileID: 1523809880985106499}
   - {fileID: 3688119305397362194}
   - {fileID: 7610040886138443589}
   - {fileID: 3059497489490339397}
@@ -111,6 +111,14 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1e3fd2497cfc70742a5688ad4e33c69a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  descriptions:
+  - {fileID: 5514250299139182140}
+  - {fileID: 6987723736568891147}
+  - {fileID: 184074709090476149}
+  descObjects:
+  - {fileID: 7197916769762099721}
+  - {fileID: 5737541471869720305}
+  - {fileID: 8539258556138793406}
 --- !u!1 &1302255216656320589
 GameObject:
   m_ObjectHideFlags: 0
@@ -387,7 +395,7 @@ GameObject:
   - component: {fileID: 6109845544906827280}
   - component: {fileID: 6987723736568891147}
   m_Layer: 0
-  m_Name: Description
+  m_Name: Lore
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -406,7 +414,7 @@ RectTransform:
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 1302255215861667755}
-  m_RootOrder: 2
+  m_RootOrder: 3
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
@@ -475,7 +483,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: Description
+  m_text: Lore
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: e0904d4b7abbe984aac46de62b5f217b, type: 2}
   m_sharedMaterial: {fileID: 6580897112388456987, guid: e0904d4b7abbe984aac46de62b5f217b, type: 2}
@@ -559,7 +567,7 @@ GameObject:
   - component: {fileID: 4126479606186856829}
   - component: {fileID: 5514250299139182140}
   m_Layer: 0
-  m_Name: Lore
+  m_Name: Description
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -578,7 +586,7 @@ RectTransform:
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 1302255215861667755}
-  m_RootOrder: 3
+  m_RootOrder: 2
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
@@ -647,7 +655,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: Lore
+  m_text: Description
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: e0904d4b7abbe984aac46de62b5f217b, type: 2}
   m_sharedMaterial: {fileID: 6580897112388456987, guid: e0904d4b7abbe984aac46de62b5f217b, type: 2}
