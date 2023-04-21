@@ -10,31 +10,30 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 5a3a49401d7d7994699d21f4777abe3d, type: 3}
-  m_Name: Defence_ProtectionFromTheGods_CardSO
+  m_Name: Defence_ThornsOfProtection_CardSO
   m_EditorClassIdentifier: 
   type: 1
-  Art: {fileID: 2800000, guid: 63591f5d0f1b76743b5fe5b5f9c7af3a, type: 3}
+  Art: {fileID: 0}
   Background: {fileID: 0}
-  cardName: Protection From The Gods
-  description: The Vikings believed that warriors who died bravely in battle were
-    transported to Valhalla by Valkyries, or warrior women, where they feasted every
-    night. Midgard or Middle Earth was another realm occupied by humans as well as
-    elves, giants, dwarves, and goblins
+  cardName: Thorns Of Protection
+  description: Thorns that protect the wearer
   effect: 'Shield
 
     Prevents {0} damage |
 
 
-    If Eir Is In play
+    If Tyr is in play
 
-    Frostbite'
+    Chaos
+
+'
   cardStats:
     TargetingView: 6
     SelectionType:
       Index: 6
       NamesContainer: {fileID: 11400000, guid: f8b018dd89042d4438fa88687c5c3c94, type: 2}
-    strength: 5
-    numberOfTargets: 2
+    strength: 2
+    numberOfTargets: 1
     actionGroup:
       actionStats:
       - actionEnum: 1
@@ -52,14 +51,14 @@ MonoBehaviour:
           trigger_VFX: {fileID: 4013603131659848437, guid: 543341fda49b8c840863159a2d5b8bb8, type: 3}
           hit_VFX: {fileID: 0}
           HitVFXLifeSpan: 2
-      - actionEnum: 14
+      - actionEnum: 9
         action_SFX:
           Guid:
-            Data1: -1548347263
-            Data2: 1274967729
-            Data3: -634438230
-            Data4: -241711831
-          Path: event:/Combat/Card Combat/Exhaust
+            Data1: -1053887954
+            Data2: 1115564386
+            Data3: 500769191
+            Data4: -364955661
+          Path: event:/GlyphsVFXs/Poison
         _VFX:
           FollowPath: 0
           isAnimating: 0
@@ -67,17 +66,17 @@ MonoBehaviour:
           trigger_VFX: {fileID: 4013603131659848437, guid: 543341fda49b8c840863159a2d5b8bb8, type: 3}
           hit_VFX: {fileID: 0}
           HitVFXLifeSpan: 2
-    correspondingGod: 2
+    correspondingGod: 1
     godBuffActions:
       actionStats:
-      - actionEnum: 12
+      - actionEnum: 3
         action_SFX:
           Guid:
-            Data1: -1975418337
-            Data2: 1217528756
-            Data3: 314162067
-            Data4: 877112103
-          Path: event:/GlyphsVFXs/SnowBlizzard
+            Data1: 0
+            Data2: 0
+            Data3: 0
+            Data4: 0
+          Path: 
         _VFX:
           FollowPath: 0
           isAnimating: 0
@@ -89,21 +88,29 @@ MonoBehaviour:
       Experience:
         XP: 0
         Level: 0
-        ID: 563
+        ID: 565
       Upgrades:
       - RequiredXP: 10
         UpgradeType: 2
-        RemovableGlyph: 010000000e000000
+        RemovableGlyph: 0100000009000000
+        AddGlyph: 0
+        RemoveGlyphIndex: 0
+        ValueSelection: 1
+        CorrespondingGod: 0
+        EditedValue: 2
+      - RequiredXP: 25
+        UpgradeType: 2
+        RemovableGlyph: 0100000009000000
         AddGlyph: 0
         RemoveGlyphIndex: 0
         ValueSelection: 0
         CorrespondingGod: 0
-        EditedValue: 6
-      - RequiredXP: 25
+        EditedValue: 3
+      - RequiredXP: 40
         UpgradeType: 2
-        RemovableGlyph: 010000000e000000
+        RemovableGlyph: 0100000009000000
         AddGlyph: 0
-        RemoveGlyphIndex: 1
+        RemoveGlyphIndex: 0
         ValueSelection: 0
         CorrespondingGod: 0
-        EditedValue: 7
+        EditedValue: 4
