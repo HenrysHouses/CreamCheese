@@ -38,6 +38,8 @@ public class ChooseCardReward : MonoBehaviour
     [SerializeField] Transform EndOfPath, EndPosition;
     [SerializeField] GameObject deckpileParticle;
     bool isClicked;
+    List<GameObject> descObjects = new List<GameObject>();
+
 
     //disable board text when selected
     [SerializeField] GameObject[] boardText;
@@ -48,6 +50,21 @@ public class ChooseCardReward : MonoBehaviour
         CameraMovement.instance.SetCameraView(CameraView.CardReward);
         
         GettingType(GameManager.instance.nextRewardType);
+
+
+        StartCoroutine(LoadAfterCards());
+    }
+
+    IEnumerator LoadAfterCards()
+    {
+        yield return new WaitForEndOfFrame();
+        for (int i = 0; i < rewardOptions.Length; i++)
+        {
+            Card_Loader loader = rewardOptions[i].GetComponentInChildren<Card_Loader>();
+            rewardOptions[i].GetComponentInChildren<Card_InspectingPopup>().SetDescriptions(loader.GetCardSO as ActionCard_ScriptableObject, rewardOptions[i].gameObject);
+            descObjects.Add(rewardOptions[i].transform.GetChild(0).GetChild(0).gameObject);
+            Debug.Log(descObjects[i]);
+        }
     }
 
     // bool hasClicked = false;
@@ -62,13 +79,16 @@ public class ChooseCardReward : MonoBehaviour
             boardText[1].SetActive(false);
             if(isClicked)
             {
-                Debug.Log(deckpileParticle.activeSelf);
                 foreach (Transform objects in deckpileParticle.transform)
                 {
                     EnableParticleSystems(objects);
+                    for (int i = 0; i < rewardOptions.Length; i++)
+                    {
+                        if(rewardOptions[i].transform == CardInspector.getTarget().transform)
+                            descObjects[i].SetActive(true);
+                    }
                 }
                 isClicked = false;
-                //EnableParticleSystems(deckpileParticle);
             }
 
             if (Input.GetMouseButtonDown(1))
@@ -86,6 +106,13 @@ public class ChooseCardReward : MonoBehaviour
             }
             // else
             //     hasClicked = false;
+        }
+        else
+        {
+            for (int i = 0; i < descObjects.Count; i++)
+            {
+                descObjects[i].SetActive(false);
+            }
         }
     }
     /// <summary>
@@ -149,14 +176,13 @@ public class ChooseCardReward : MonoBehaviour
         //deckpileParticle.SetActive(false);
         if (!isClicked)
         {
-            Debug.Log(deckpileParticle.activeSelf);
             foreach (Transform objs in deckpileParticle.transform)
             {
                 DisableParticleSystems(objs);
                 isClicked = true;
             }
         }
-
+        
         for (int i = 0; i < rewardOptions.Length; i++)
         {
             if (rewardOptions[i].isBeingInspected && shouldConfirmSelection)

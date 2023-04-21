@@ -182,7 +182,86 @@ public class ActionCard_ScriptableObject : Card_SO
 
         return output;
     }
+
+    public static string getEffectFormatted(Card_SO targetCard)
+    {
+        string output = "Not Assigned";
+
+        if (targetCard is ActionCard_ScriptableObject actionCard)
+        {
+            CardStats stats = actionCard.cardStats;
+            ActionCard_ScriptableObject card_so = actionCard;
+
+            output = string.Format(card_so.effect, stats.strength);
+
+            string targetName = stats.SelectionType.getName();
+
+            if (stats.SelectionType.getName().Equals("ActionCard_Behaviour"))
+                targetName = "Card";
+            if (stats.SelectionType.getName().Equals("GodCard_Behaviour"))
+                targetName = "God Card";
+            if (stats.SelectionType.getName().Equals("Card_Behaviour"))
+                targetName = "Any type of card";
+            if (stats.SelectionType.getName().Equals("OfferingDebuff"))
+                targetName = "Offering";
+
+            string[] split = output.Split('|');
+
+            if (split.Length > 0)
+            {
+                output = split[0];
+            }
+
+            for (int i = 1; i < split.Length; i++)
+            {
+                if (stats.numberOfTargets > 1)
+                {
+                    if (stats.actionGroup.actionStats[0].actionEnum.Equals(CardActionEnum.Defence))
+                        output += string.Format("from up to {0} {1}s", stats.numberOfTargets, targetName);
+                    else
+                        output += string.Format("to up to {0} {1}s", stats.numberOfTargets, targetName);
+                }
+                else
+                {
+                    if (stats.actionGroup.actionStats[0].actionEnum.Equals(CardActionEnum.Defence))
+                        output += "from one " + targetName;
+                    else
+                        output += "to one " + targetName;
+                }
+                output += split[i];
+            }
+
+            bool space = true;
+
+            for (int i = 0; i < stats.actionGroup.actionStats.Count; i++)
+            {
+                if (stats.actionGroup.actionStats[i].actionEnum == CardActionEnum.Attack)
+                    continue;
+
+                if (stats.actionGroup.actionStats[i].actionEnum == CardActionEnum.Defence)
+                    continue;
+
+                if (stats.actionGroup.actionStats[i].actionEnum == CardActionEnum.Buff)
+                    continue;
+
+                if (space)
+                {
+                    output += "\n\n";
+                    space = false;
+                }
+
+                output += stats.actionGroup.actionStats[i].actionEnum.ToString() + "\n";
+            }
+        }
+        else if (targetCard is GodCard_ScriptableObject godCard)
+        {
+            output = godCard.effect;
+        }
+
+        return output;
+    }
 }
+
 
 /// <summary>
 /// Data that each card action will need

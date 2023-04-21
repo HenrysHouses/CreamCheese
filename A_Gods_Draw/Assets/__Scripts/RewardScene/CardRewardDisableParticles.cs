@@ -37,7 +37,7 @@ public class CardRewardDisableParticles : MonoBehaviour
             }
             else if (Physics.Raycast(ray, out hit, _layerMask))
             {
-                GameObject obj = hit.collider.GetComponentInChildren<CardReward_PopupHold>().gameObject;
+                GameObject obj = hit.collider.GetComponentInChildren<Card_InspectingPopup>().gameObject;
 
                 foreach (Transform otherObj in cardObjects)
                 {

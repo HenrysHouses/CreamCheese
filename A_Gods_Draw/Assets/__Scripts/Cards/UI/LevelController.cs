@@ -54,10 +54,10 @@ public class LevelController : MonoBehaviour
         Description.setDescription(unlocks);
     }
 
-    public void setDescriptionShowAllLevels()
+    public string setDescriptionShowAllLevels()
     {
         if(upgradePath.Upgrades == null)
-            return;
+            return "-1";
 
         string unlocks = "";
         for (int i = 0; i < upgradePath.Upgrades.Length; i++)
@@ -72,6 +72,7 @@ public class LevelController : MonoBehaviour
         }
 
         Description.setDescription(unlocks);
+        return unlocks;
     }
 
     public bool UpdateLevelFill(CardUpgrade[] Upgrades, CardExperience Experience, bool MaxLevel = false)
