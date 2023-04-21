@@ -217,6 +217,10 @@ MonoBehaviour:
     ActionConditions: 00000000
     MinStrength: 1
     MaxStrength: 4
+    UseStrengthMod: 0
+    AllRequiredForMod: 0
+    StrengthModConditions: 
+    ModifiedStrength: 0
     Weigth: 10
     Priority: 0
     TurnsToPerform: 0
@@ -232,6 +236,10 @@ MonoBehaviour:
     ActionConditions: 03000000
     MinStrength: 1
     MaxStrength: 4
+    UseStrengthMod: 0
+    AllRequiredForMod: 0
+    StrengthModConditions: 
+    ModifiedStrength: 0
     Weigth: 4
     Priority: 0
     TurnsToPerform: 0
@@ -247,6 +255,10 @@ MonoBehaviour:
     ActionConditions: 02000000
     MinStrength: 1
     MaxStrength: 4
+    UseStrengthMod: 0
+    AllRequiredForMod: 0
+    StrengthModConditions: 
+    ModifiedStrength: 0
     Weigth: 1
     Priority: 0
     TurnsToPerform: 0
@@ -305,13 +317,6 @@ MonoBehaviour:
       Data3: -43431291
       Data4: -1906492248
     Path: event:/Card Effects/CardShield
-  ability_SFX:
-    Guid:
-      Data1: -50251825
-      Data2: 1140817054
-      Data3: -1457995116
-      Data4: 1746539433
-    Path: event:/Combat/Enemy/Enemy Ability
   hurt_SFX:
     Guid:
       Data1: 55962543
@@ -319,13 +324,6 @@ MonoBehaviour:
       Data3: 823004837
       Data4: -1532201799
     Path: event:/Combat/Enemy/EnemyKilled
-  attacking_SFX:
-    Guid:
-      Data1: 1118862281
-      Data2: 1238309055
-      Data3: 1298832056
-      Data4: -1814946090
-    Path: event:/Combat/Enemy/Enemy Attack
   animator: {fileID: 8458236436935724629}
 --- !u!1 &6909398467659061486
 GameObject:
