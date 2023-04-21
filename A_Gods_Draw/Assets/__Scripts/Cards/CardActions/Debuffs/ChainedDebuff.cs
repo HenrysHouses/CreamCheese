@@ -11,6 +11,14 @@ public class ChainedDebuff : DebuffBase
         thisMonster.CancelIntent();
     }
 
+    public override void RemoveDebuff()
+    {
+        
+        thisMonster.UpdateEffectDisplay(Resources.Load<Sprite>("ImageResources/Icon_Chain_v1"), 0, "Chains\nPrevents enemies to take action");
+        Destroy(this);
+
+    }
+
     public override void PreActTickDebuff(int _ticks = 1)
     {
         
