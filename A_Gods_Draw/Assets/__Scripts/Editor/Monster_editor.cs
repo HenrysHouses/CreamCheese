@@ -4,13 +4,13 @@ using UnityEngine;
 using UnityEditor;
 using EnemyAIEnums;
 
-/*[CustomEditor(typeof(Monster))]
+[CustomEditor(typeof(Monster))]
 public class Monster_Editor : Editor
 {
 
     SerializedProperty EnemyActions;
     private EnemyIntent actionSelected;
-    private bool actionsDropdown;
+    private bool actionsDropdown, useStrengthMod;
     private float sliderVal;
 
     private void OnEnable()
@@ -33,23 +33,87 @@ public class Monster_Editor : Editor
 
             EditorGUI.indentLevel++;
 
-            EditorGUILayout.LabelField(EnemyActions.displayName);
-
-            EnemyActions.Next(true);
-            do
+            for(int i = 0; i < EnemyActions.arraySize; i++)
             {
 
-                EditorGUILayout.LabelField(EnemyActions.displayName);
+                SerializedProperty _actionSelection = EnemyActions.GetArrayElementAtIndex(i);
 
-            } while(EnemyActions.Next(false));
+                _actionSelection.Next(true);//Action type
+                EditorGUILayout.PropertyField(_actionSelection);
+                _actionSelection.Next(false);//Action conditions
+                EditorGUILayout.PropertyField(_actionSelection);
+                if(_actionSelection.arraySize > 1)
+                {
 
-            EnemyActions.Reset();
+                    _actionSelection.Next(false);//AllRequired
+                    EditorGUILayout.PropertyField(_actionSelection);
+
+                }
+                else
+                    _actionSelection.Next(false);//AllRequired
+
+                //EditorGUILayout.BeginHorizontal();
+                _actionSelection.Next(false);//MinStrength
+                EditorGUILayout.PropertyField(_actionSelection);
+                _actionSelection.Next(false);//MaxStrength
+                EditorGUILayout.PropertyField(_actionSelection);
+                //EditorGUILayout.EndHorizontal();
+
+                useStrengthMod = EditorGUILayout.Toggle("Use Strength modifications", useStrengthMod);
+                _actionSelection.Next(false);//UseStrengthMod
+                _actionSelection.boolValue = useStrengthMod;
+                if(useStrengthMod)
+                {
+
+                    EditorGUI.indentLevel++;
+                    
+                    _actionSelection.Next(false);//StrengthModConditions
+                    EditorGUILayout.PropertyField(_actionSelection);
+
+                    if(_actionSelection.arraySize > 1)
+                    {
+
+                        _actionSelection.Next(false);//AllRequired
+                        EditorGUILayout.PropertyField(_actionSelection);
+
+                    }
+                    else
+                        _actionSelection.Next(false);//AllRequired
+
+                    _actionSelection.Next(false);//ModifiedStrength
+                    EditorGUILayout.PropertyField(_actionSelection);
+
+                    EditorGUI.indentLevel--;
+
+                }
+                else
+                {
+
+                    _actionSelection.Next(false);
+                    _actionSelection.Next(false);
+                    _actionSelection.Next(false);
+
+                }
+
+                _actionSelection.Next(false);//Weigth
+                EditorGUILayout.PropertyField(_actionSelection);
+                _actionSelection.Next(false);//Priority
+                EditorGUILayout.PropertyField(_actionSelection);
+                _actionSelection.Next(false);//TurnsToPerform
+                EditorGUILayout.PropertyField(_actionSelection);
+                _actionSelection.Next(false);//SFX
+                EditorGUILayout.PropertyField(_actionSelection);
+
+                serializedObject.ApplyModifiedProperties();
+
+            }
 
             EditorGUI.indentLevel--;
 
         }
 
+        base.OnInspectorGUI();
+
     }
 
 }
-*/

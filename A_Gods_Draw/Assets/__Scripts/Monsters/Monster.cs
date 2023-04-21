@@ -9,7 +9,7 @@ using EnemyAIEnums;
 public class Monster : BoardElement
 {
 
-    [SerializeField]
+    [SerializeField, HideInInspector]
     public ActionSelection[] EnemyActions;
     public Intent GetIntent() => enemyIntent;
     protected Intent enemyIntent;
@@ -54,9 +54,9 @@ public class Monster : BoardElement
     public int GetHealth() { return currentHealth; }
 
     //Effects
-    [Header("Effects")]
-    public bool HealingDisabled;
-    public bool Defending;
+    [HideInInspector]
+    public bool HealingDisabled, Defending;
+    [HideInInspector]
     public int BuffStrength;
 
     //SFX
