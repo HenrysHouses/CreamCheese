@@ -80,7 +80,7 @@ public class EndState : CombatFSMState
         {
             UnityEngine.Debug.Log("saved");
             bool defeatedBoss = false;
-            if (Controller.GetBoard().Encounter.name.Equals("Boss"))
+            if (Controller.GetBoard().Encounter.name.Contains("Boss"))
             {
                 GameManager.timesDefeatedBoss++;
                 defeatedBoss = true;
