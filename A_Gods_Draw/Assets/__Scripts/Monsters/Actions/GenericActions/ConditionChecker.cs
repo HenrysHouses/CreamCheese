@@ -153,7 +153,7 @@ public static class ConditionChecker
 
                 _checkVal += _actions[_possibleActions[i]].Weigth;
 
-                if(_rnd < _checkVal)
+                if(_rnd <= _checkVal)
                     return _actions[_possibleActions[i]].Action;
 
             }

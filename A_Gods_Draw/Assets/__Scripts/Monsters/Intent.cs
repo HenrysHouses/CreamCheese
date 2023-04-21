@@ -73,7 +73,11 @@ namespace EnemyAIEnums
         ExtraTargetsOnBoard,
         SelfHealthAt50,
         SelfHealthAt25,
-        HasNotBuffed
+        HasNotBuffed,
+        AnyEnemyHealth50,
+        AnyEnemyHealth25,
+        AnyEnemyDamaged,
+        AnyEnemyDebuffed
     }
 
     public enum IntentType
@@ -95,7 +99,9 @@ namespace EnemyAIEnums
         AttackExtraTarget,
         DoubleAttack,
         FenrirDoubleAttack,
-        ReinforceSelf
+        ReinforceSelf,
+        HealEnemy,
+        CleanseEnemy
     }
 
 }
