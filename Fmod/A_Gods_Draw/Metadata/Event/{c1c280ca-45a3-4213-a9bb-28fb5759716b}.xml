@@ -277,6 +277,9 @@
 		<property name="timelockedOffset">
 			<value>0.80000000000000027</value>
 		</property>
+		<relationship name="fadeInCurve">
+			<destination>{8884eec1-fea0-4512-9f02-6ae653a1cdfd}</destination>
+		</relationship>
 		<relationship name="fadeOutCurve">
 			<destination>{7c60ca45-1c8c-48ca-bea9-176d10fc21ce}</destination>
 		</relationship>
@@ -429,6 +432,14 @@
 		</relationship>
 	</object>
 	<object class="MixerBusPanner" id="{e8fed7e1-d9ce-45dd-82fc-0c7ac73724c0}" />
+	<object class="FadeCurve" id="{8884eec1-fea0-4512-9f02-6ae653a1cdfd}">
+		<relationship name="startPoint">
+			<destination>{116b747a-ea60-4b33-82a3-90c5cfca491c}</destination>
+		</relationship>
+		<relationship name="endPoint">
+			<destination>{ae31f501-aa00-4697-ba1b-91f374ba906a}</destination>
+		</relationship>
+	</object>
 	<object class="FadeCurve" id="{7c60ca45-1c8c-48ca-bea9-176d10fc21ce}">
 		<relationship name="startPoint">
 			<destination>{d2c422c6-241b-4a8f-8f1a-84db0318a11a}</destination>
@@ -504,9 +515,28 @@
 	<object class="MixerBusFader" id="{b1436832-0888-4390-a29a-388fff86bc2e}" />
 	<object class="MixerBusFader" id="{cad3ae16-e2d6-4938-96d9-31bead09b974}" />
 	<object class="MixerBusFader" id="{55ab7da3-8794-4294-9ca2-f68465a2f6c9}" />
-	<object class="AutomationPoint" id="{d2c422c6-241b-4a8f-8f1a-84db0318a11a}">
+	<object class="AutomationPoint" id="{116b747a-ea60-4b33-82a3-90c5cfca491c}">
 		<property name="position">
 			<value>0</value>
+		</property>
+		<property name="value">
+			<value>0</value>
+		</property>
+		<property name="curveShape">
+			<value>0.390251517</value>
+		</property>
+	</object>
+	<object class="AutomationPoint" id="{ae31f501-aa00-4697-ba1b-91f374ba906a}">
+		<property name="position">
+			<value>1.2499999999999998</value>
+		</property>
+		<property name="value">
+			<value>1</value>
+		</property>
+	</object>
+	<object class="AutomationPoint" id="{d2c422c6-241b-4a8f-8f1a-84db0318a11a}">
+		<property name="position">
+			<value>0.02</value>
 		</property>
 		<property name="value">
 			<value>1</value>

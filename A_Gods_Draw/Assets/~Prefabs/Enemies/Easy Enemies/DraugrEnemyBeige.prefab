@@ -214,10 +214,10 @@ MonoBehaviour:
   clickable: 1
   EnemyActions:
   - ActionType: 10
-    ActionConditions: 0c000000
+    ActionConditions: 0f000000
     AllRequired: 0
-    MinStrength: 2
-    MaxStrength: 4
+    MinStrength: 1
+    MaxStrength: 3
     UseStrengthMod: 0
     StrengthModConditions: 01000000
     AllRequiredForMod: 0
@@ -231,7 +231,7 @@ MonoBehaviour:
     Weigth: 2
     Priority: 0
     TurnsToPerform: 0
-    ActionVFX: {fileID: 2783697208436553965, guid: 93fb6a762d5aa0d4aa54c77a218fff78, type: 3}
+    ActionVFX: {fileID: 3717083252991183605, guid: 564348771e1c87d4ca2d019702583dc3, type: 3}
     ActionSFX:
       Guid:
         Data1: 0
@@ -292,7 +292,7 @@ MonoBehaviour:
         Data4: 0
       Path: 
   - ActionType: 2
-    ActionConditions: 
+    ActionConditions: 02000000
     AllRequired: 0
     MinStrength: 2
     MaxStrength: 4
@@ -306,7 +306,7 @@ MonoBehaviour:
     ClearOnConditionFalse: 0
     WeigthMod: 0
     AddedWeigth: 0
-    Weigth: 2
+    Weigth: 1
     Priority: 0
     TurnsToPerform: 0
     ActionVFX: {fileID: 0}

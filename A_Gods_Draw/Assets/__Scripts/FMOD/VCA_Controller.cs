@@ -21,21 +21,28 @@ public class VCA_Controller : MonoBehaviour
         slider = GetComponent<Slider>();
     }
 
+
+    void update()
+    {
+        if(soundplayed)
+        {
+            timer += Time.deltaTime;
+            if(timer > 2)
+            {
+                timer = 0;
+                soundplayed = false;
+            }
+        }
+    }
+
     public void SetVolunme(float volume)
     {
         vcaController.setVolume(volume); 
         if(vcaName == "SFX")
         {
-            if(!soundplayed)
+            
             SoundPlayer.PlaySound(SFXtestSound,gameObject);
-            soundplayed = true;
-
-            timer += Time.deltaTime;
-            if(timer > 2)
-            {
-            soundplayed = false;
-            timer = 0;
-            }
+                
             
         }
     }
