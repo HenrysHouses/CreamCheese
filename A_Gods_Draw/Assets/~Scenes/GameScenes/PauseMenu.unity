@@ -158,8 +158,8 @@ RectTransform:
   - {fileID: 1898381645}
   - {fileID: 1388579143}
   - {fileID: 619575466}
-  - {fileID: 1378533910}
   - {fileID: 1681294294}
+  - {fileID: 1378533910}
   m_Father: {fileID: 914404591}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -711,7 +711,7 @@ RectTransform:
   m_GameObject: {fileID: 619575465}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 5, y: 5, z: 5}
+  m_LocalScale: {x: 3, y: 3, z: 3}
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 1984157047}
@@ -723,7 +723,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 0, y: 206}
+  m_AnchoredPosition: {x: 0, y: 264}
   m_SizeDelta: {x: 160, y: 20}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &619575467
@@ -802,6 +802,13 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   vcaName: Master
+  SFXtestSound:
+    Guid:
+      Data1: 0
+      Data2: 0
+      Data3: 0
+      Data4: 0
+    Path: 
 --- !u!1 &749351908
 GameObject:
   m_ObjectHideFlags: 0
@@ -1582,7 +1589,7 @@ RectTransform:
   m_GameObject: {fileID: 1378533909}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 5, y: 5, z: 5}
+  m_LocalScale: {x: 3, y: 3, z: 3}
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 1204612367}
@@ -1590,11 +1597,11 @@ RectTransform:
   - {fileID: 576119991}
   - {fileID: 1377757474}
   m_Father: {fileID: 147881226}
-  m_RootOrder: 5
+  m_RootOrder: 6
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 0, y: -390}
+  m_AnchoredPosition: {x: 0, y: -133}
   m_SizeDelta: {x: 160, y: 20}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1378533911
@@ -1673,6 +1680,13 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   vcaName: SFX
+  SFXtestSound:
+    Guid:
+      Data1: -1548347263
+      Data2: 1274967729
+      Data3: -634438230
+      Data4: -241711831
+    Path: event:/Combat/Card Combat/Exhaust
 --- !u!1 &1388579142
 GameObject:
   m_ObjectHideFlags: 0
@@ -1701,7 +1715,7 @@ RectTransform:
   m_GameObject: {fileID: 1388579142}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1.5, y: 1.5, z: 1.5}
+  m_LocalScale: {x: 3, y: 3, z: 3}
   m_ConstrainProportionsScale: 1
   m_Children:
   - {fileID: 2001272010}
@@ -1710,7 +1724,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: -604, y: -386}
+  m_AnchoredPosition: {x: -530, y: -244}
   m_SizeDelta: {x: 160, y: 30}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1388579144
@@ -2138,7 +2152,7 @@ RectTransform:
   m_GameObject: {fileID: 1681294293}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 5, y: 5, z: 5}
+  m_LocalScale: {x: 3, y: 3, z: 3}
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 749351909}
@@ -2146,11 +2160,11 @@ RectTransform:
   - {fileID: 1042204998}
   - {fileID: 832377805}
   m_Father: {fileID: 147881226}
-  m_RootOrder: 6
+  m_RootOrder: 5
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 0, y: -68}
+  m_AnchoredPosition: {x: 0, y: 76}
   m_SizeDelta: {x: 160, y: 20}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1681294295
@@ -2229,6 +2243,13 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   vcaName: Music
+  SFXtestSound:
+    Guid:
+      Data1: 0
+      Data2: 0
+      Data3: 0
+      Data4: 0
+    Path: 
 --- !u!1 &1723359780
 GameObject:
   m_ObjectHideFlags: 0

@@ -10,6 +10,9 @@ public class VCA_Controller : MonoBehaviour
     public string vcaName;
 
     private Slider slider;
+    public EventReference SFXtestSound;
+    private bool soundplayed;
+    private float timer;
 
     // Start is called before the first frame update
     void Start()
@@ -20,6 +23,20 @@ public class VCA_Controller : MonoBehaviour
 
     public void SetVolunme(float volume)
     {
-        vcaController.setVolume(volume);
+        vcaController.setVolume(volume); 
+        if(vcaName == "SFX")
+        {
+            if(!soundplayed)
+            SoundPlayer.PlaySound(SFXtestSound,gameObject);
+            soundplayed = true;
+
+            timer += Time.deltaTime;
+            if(timer > 2)
+            {
+            soundplayed = false;
+            timer = 0;
+            }
+            
+        }
     }
 }
