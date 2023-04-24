@@ -59,6 +59,11 @@ public class Monster_Editor : Editor
                 GUILayout.BeginVertical("Action " + i, "window");
                 actionDropdowns[i] = EditorGUILayout.Foldout(actionDropdowns[i], "Action " + i, true, EditorStyles.foldoutHeader);
 
+                SerializedProperty _actionSelection = EnemyActions.GetArrayElementAtIndex(i);
+
+                _actionSelection.Next(true);//Action type
+                EditorGUILayout.PropertyField(_actionSelection);
+
                 if(!actionDropdowns[i])
                 {
 
@@ -91,10 +96,6 @@ public class Monster_Editor : Editor
 
                 EditorGUI.indentLevel++;
 
-                SerializedProperty _actionSelection = EnemyActions.GetArrayElementAtIndex(i);
-
-                _actionSelection.Next(true);//Action type
-                EditorGUILayout.PropertyField(_actionSelection);
                 _actionSelection.Next(false);//Action conditions
                 EditorGUILayout.PropertyField(_actionSelection);
                 if(_actionSelection.arraySize > 1)
