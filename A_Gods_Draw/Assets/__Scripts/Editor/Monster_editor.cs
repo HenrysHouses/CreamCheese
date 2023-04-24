@@ -114,10 +114,9 @@ public class Monster_Editor : Editor
                 EditorGUILayout.PropertyField(_actionSelection);
                 EditorGUILayout.EndHorizontal();
 
-                useStrengthMod = EditorGUILayout.Toggle("Use Strength modifications", useStrengthMod);
                 _actionSelection.Next(false);//UseStrengthMod
-                _actionSelection.boolValue = useStrengthMod;
-                if(useStrengthMod)
+                _actionSelection.boolValue = EditorGUILayout.Toggle("Use Strength modifications", _actionSelection.boolValue);
+                if(_actionSelection.boolValue)
                 {
 
                     EditorGUI.indentLevel++;
@@ -153,10 +152,9 @@ public class Monster_Editor : Editor
 
                 }
 
-                useWeigthMod = EditorGUILayout.Toggle("Use Weigth modifications", useWeigthMod);
                 _actionSelection.Next(false);//UseWeigthMod
-                _actionSelection.boolValue = useWeigthMod;
-                if(useWeigthMod)
+                _actionSelection.boolValue = EditorGUILayout.Toggle("Use Weigth modifications", _actionSelection.boolValue);
+                if(_actionSelection.boolValue)
                 {
 
                     EditorGUI.indentLevel++;
