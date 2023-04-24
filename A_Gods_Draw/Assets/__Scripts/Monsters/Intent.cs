@@ -33,6 +33,7 @@ public abstract class Intent
     public virtual bool AttackedLastTurn(){return false;}
     public virtual bool DidActionLastTurn(){return false;}
     public virtual bool BuffedLastTurn(){return false;}
+    public virtual bool SameAction(MonsterAction _action){return false;}
 
     public int GetCurrStrengh() => strength;
     public int SetCurrStrengh(int newS) => strength = newS;
@@ -71,20 +72,13 @@ namespace EnemyAIEnums
         PlayerHealthAt50,
         NotSameAction,
         ExtraTargetsOnBoard,
-        SelfHealthAt50,
-        SelfHealthAt25,
+        SelfHealthAtHalf,
+        SelfHealthAtQuarter,
         HasNotBuffed,
-        AnyEnemyHealth50,
-        AnyEnemyHealth25,
+        AnyEnemyHealthHalf,
+        AnyEnemyHealthQuarter,
         AnyEnemyDamaged,
         AnyEnemyDebuffed
-    }
-
-    public enum WeigthConditions
-    {
-        None,
-        ActionNotUsed,
-        ActionUsed
     }
 
     public enum IntentType
@@ -98,17 +92,18 @@ namespace EnemyAIEnums
 
     public enum EnemyIntent
     {
-        BuffAttackers,
-        Defend,
-        AttackGod,
-        AttackPlayer,
+        BuffEnemy = 0,
+        Defend = 1,
+        AttackGod = 2,
+        AttackPlayer = 3,
         None = 5,
-        AttackExtraTarget,
-        DoubleAttack,
-        FenrirDoubleAttack,
-        ReinforceSelf,
-        HealEnemy,
-        CleanseEnemy
+        AttackExtraTarget = 4,
+        DoubleAttack = 6,
+        FenrirDoubleAttack = 7,
+        ReinforceSelf = 8,
+        HealEnemy = 9,
+        CleanseEnemy = 10,
+        BuffSelf = 11
     }
 
 }

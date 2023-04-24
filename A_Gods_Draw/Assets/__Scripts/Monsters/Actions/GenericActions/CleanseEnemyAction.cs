@@ -19,19 +19,24 @@ public class CleanseEnemyAction : MonsterAction
 
         Monster[] _enemies = _board.getLivingEnemies();
 
-        if(_enemies.Length > 1)
+        int _cleansed = 0;
+        foreach(Monster _enemyToCheck in _enemies)
         {
-            
-            for(int i = 0; i < _enemies.Length; i++)
+
+            if(_cleansed == _strength)
+                break;
+
+            if(_enemyToCheck.HasDebuff())
             {
 
-                _enemies[i].RemoveDebuffs();
+                _cleansed++;
+                _enemyToCheck.RemoveDebuffs();
+                if(ActionSettings.ActionVFX)
+                    GameObject.Instantiate(ActionSettings.ActionVFX, _enemyToCheck.transform.position, Quaternion.identity);
 
             }
 
         }
-        else
-            _enemies[0].RemoveDebuffs();
 
         Monster _enemy = _source as Monster;
         if(_enemy)

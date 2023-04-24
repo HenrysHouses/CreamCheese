@@ -27,8 +27,8 @@ public class MinionIntent : Intent
             switch(actions[i].ActionType)
             {
 
-                case EnemyIntent.BuffAttackers:
-                _newAction = new BuffAttackersAction(actions[i].MinStrength + _scale, actions[i].MaxStrength + _scale);
+                case EnemyIntent.BuffEnemy:
+                _newAction = new BuffEnemyAction(actions[i].MinStrength + _scale, actions[i].MaxStrength + _scale);
                 break;
 
                 case EnemyIntent.AttackGod:
@@ -65,6 +65,10 @@ public class MinionIntent : Intent
 
                 case EnemyIntent.CleanseEnemy:
                 _newAction = new CleanseEnemyAction(actions[i].MinStrength + _scale, actions[i].MaxStrength + _scale);
+                break;
+
+                case EnemyIntent.BuffSelf:
+                _newAction = new BuffSelfAction(actions[i].MinStrength + _scale, actions[i].MaxStrength + _scale);
                 break;
 
             }
@@ -119,6 +123,20 @@ public class MinionIntent : Intent
     {
         if(PreviousAction != null && PreviousAction.ActionIntentType == IntentType.Buff)
             return true;
+
+        return false;
+    }
+
+    public override bool SameAction(MonsterAction _action)
+    {
+        if(_action == null)
+        {
+            if(actionSelected != PreviousAction)
+                return true;
+        }
+        else
+            if(_action == PreviousAction)
+                return true;
 
         return false;
     }

@@ -210,7 +210,33 @@ MonoBehaviour:
   BoardElementInfo: {fileID: 0}
   ClassName: Monster
   clickable: 1
-  EnemyActions: []
+  EnemyActions:
+  - ActionType: 0
+    ActionConditions: 
+    AllRequired: 0
+    MinStrength: 0
+    MaxStrength: 0
+    UseStrengthMod: 0
+    StrengthModConditions: 
+    AllRequiredForMod: 0
+    ModifiedStrength: 0
+    UseWeigthMod: 0
+    WeigthModConditions: 
+    AllRequiredForWeigthMod: 0
+    ClearOnConditionFalse: 0
+    WeigthMod: 0
+    AddedWeigth: 0
+    Weigth: 0
+    Priority: 0
+    TurnsToPerform: 0
+    ActionVFX: {fileID: 0}
+    ActionSFX:
+      Guid:
+        Data1: 0
+        Data2: 0
+        Data3: 0
+        Data4: 0
+      Path: 
   deathParticleVFX: {fileID: 2505349679200391838, guid: 05a4cc1903228714997c82ae6e193f32, type: 3}
   slashParticleVFX: {fileID: 2505349679200391838, guid: 05a4cc1903228714997c82ae6e193f32, type: 3}
   MonsterRenderers:

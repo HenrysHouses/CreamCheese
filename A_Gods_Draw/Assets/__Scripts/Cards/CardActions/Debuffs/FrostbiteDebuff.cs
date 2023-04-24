@@ -27,7 +27,7 @@ public class FrostbiteDebuff : DebuffBase
 
         }
         
-        thisMonster.DeBuff(Stacks);
+        thisMonster.Weaken(Stacks);
 
     }
 

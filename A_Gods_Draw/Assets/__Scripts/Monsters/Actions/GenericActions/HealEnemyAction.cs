@@ -41,7 +41,6 @@ public class HealEnemyAction : MonsterAction
         }
 
         _lowEnemy.ReceiveHealth(_strength);
-        Debug.Log("Healed successfully");
         if(ActionSettings.ActionVFX)
             GameObject.Instantiate(ActionSettings.ActionVFX, _lowEnemy.transform.position, Quaternion.identity);
 

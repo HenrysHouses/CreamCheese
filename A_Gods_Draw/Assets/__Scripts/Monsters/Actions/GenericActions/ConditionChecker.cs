@@ -24,91 +24,8 @@ public static class ConditionChecker
             {
 
                 _passed = false;
-                switch(_action.ActionConditions[j])
-                {
-
-                    case ActionConditions.None:
-                    _passed = true;
-                    break;
-
-                    case ActionConditions.LastAlive:
-                    if(_board.getLivingEnemies().Length == 1)
-                    {
-                        _passed = true;
-                    }
-                    break;
-
-                    case ActionConditions.GodPlayed:
-                    if(_board.isGodPlayed)
-                    {
-                        _passed = true;
-                    }
-                    break;
-
-                    case ActionConditions.HasNotDefended:
-                    if(!_intent.DefendedLastTurn())
-                    {
-                        _passed = true;
-                    }
-                    break;
-
-                    case ActionConditions.HasNotAttacked:
-                    if(!_intent.AttackedLastTurn())
-                    {
-                        _passed = true;
-                    }
-                    break;
-
-                    case ActionConditions.HasNotActed:
-                    if(!_intent.DidActionLastTurn())
-                    {
-                        _passed = true;
-                    }
-                    break;
-
-                    case ActionConditions.PlayerHealthAt50:
-                    if(_board.Player.Playerhealth < Mathf.RoundToInt(_board.Player.MaxPlayerHealth / 2))
-                    {
-                        _passed = true;
-                    }
-                    break;
-
-                    case ActionConditions.NotSameAction:
-                    if(!_action.Action.Equals(_intent.PreviousAction))
-                    {
-                        _passed = true;
-                    }
-                    break;
-
-                    case ActionConditions.ExtraTargetsOnBoard:
-                    if(_board.ActiveExtraEnemyTargets != null)
-                    {
-                        _passed = true;
-                    }
-                    break;
-
-                    case ActionConditions.SelfHealthAt50:
-                    if(_intent.Self.GetHealth() < Mathf.RoundToInt(_intent.Self.GetMaxHealth() / 2))
-                    {
-                        _passed = true;
-                    }
-                    break;
-
-                    case ActionConditions.SelfHealthAt25:
-                    if(_intent.Self.GetHealth() < Mathf.RoundToInt(_intent.Self.GetMaxHealth() / 4))
-                    {
-                        _passed = true;
-                    }
-                    break;
-
-                    case ActionConditions.HasNotBuffed:
-                    if(!_intent.BuffedLastTurn())
-                    {
-                        _passed = true;
-                    }
-                    break;
-
-                }
+                
+                SwitchOnCondition(_action.ActionConditions[j], ref _passed, _board, _intent, _action.Action);
 
                 if(!_passed && _allNeeded)
                 {
@@ -179,88 +96,8 @@ public static class ConditionChecker
         {
 
             _passed = false;
-            switch(_conditions[i])
-            {
-
-                case ActionConditions.None:
-                _passed = true;
-                break;
-
-                case ActionConditions.LastAlive:
-                if(_board.getLivingEnemies().Length == 1)
-                {
-                    _passed = true;
-                }
-                break;
-
-                case ActionConditions.GodPlayed:
-                if(_board.isGodPlayed)
-                {
-                    _passed = true;
-                }
-                break;
-
-                case ActionConditions.HasNotDefended:
-                if(!_intent.DefendedLastTurn())
-                {
-                    _passed = true;
-                }
-                break;
-
-                case ActionConditions.HasNotAttacked:
-                if(!_intent.AttackedLastTurn())
-                {
-                    _passed = true;
-                }
-                break;
-
-                case ActionConditions.HasNotActed:
-                if(!_intent.DidActionLastTurn())
-                {
-                    _passed = true;
-                }
-                break;
-
-                case ActionConditions.PlayerHealthAt50:
-                if(_board.Player.Playerhealth < Mathf.RoundToInt(_board.Player.MaxPlayerHealth / 2))
-                {
-                    _passed = true;
-                }
-                break;
-
-                case ActionConditions.NotSameAction:
-                    _passed = true;
-                break;
-
-                case ActionConditions.ExtraTargetsOnBoard:
-                if(_board.ActiveExtraEnemyTargets != null)
-                {
-                    _passed = true;
-                }
-                break;
-
-                case ActionConditions.SelfHealthAt50:
-                if(_intent.Self.GetHealth() < Mathf.RoundToInt(_intent.Self.GetMaxHealth() / 2))
-                {
-                    _passed = true;
-                }
-                break;
-
-                case ActionConditions.SelfHealthAt25:
-                if(_intent.Self.GetHealth() < Mathf.RoundToInt(_intent.Self.GetMaxHealth() / 4))
-                {
-                    _passed = true;
-                }
-                break;
-
-                case ActionConditions.HasNotBuffed:
-                if(!_intent.BuffedLastTurn())
-                {
-                    _passed = true;
-                }
-                break;
-
-            }
+            
+            SwitchOnCondition(_conditions[i], ref _passed, _board, _intent);
 
             if(!_passed && _allConditionsNeeded)
                 return false;
@@ -271,6 +108,141 @@ public static class ConditionChecker
         }
 
         return true;
+
+    }
+
+    private static void SwitchOnCondition(ActionConditions _condition, ref bool _passed, BoardStateController _board, Intent _intent, MonsterAction _action = null)
+    {
+
+        switch(_condition)
+        {
+
+            case ActionConditions.None:
+            _passed = true;
+            break;
+
+            case ActionConditions.LastAlive:
+            if(_board.getLivingEnemies().Length == 1)
+            {
+                _passed = true;
+            }
+            break;
+
+            case ActionConditions.GodPlayed:
+            if(_board.isGodPlayed)
+            {
+                _passed = true;
+            }
+            break;
+
+            case ActionConditions.HasNotDefended:
+            if(!_intent.DefendedLastTurn())
+            {
+                _passed = true;
+            }
+            break;
+
+            case ActionConditions.HasNotAttacked:
+            if(!_intent.AttackedLastTurn())
+            {
+                _passed = true;
+            }
+            break;
+
+            case ActionConditions.HasNotActed:
+            if(!_intent.DidActionLastTurn())
+            {
+                _passed = true;
+            }
+            break;
+
+            case ActionConditions.PlayerHealthAt50:
+            if(_board.Player.Playerhealth < Mathf.RoundToInt(_board.Player.MaxPlayerHealth / 2))
+            {
+                _passed = true;
+            }
+            break;
+
+            case ActionConditions.NotSameAction:
+            if(!_intent.SameAction(_action))
+            {
+                _passed = true;
+            }
+            break;
+
+            case ActionConditions.ExtraTargetsOnBoard:
+            if(_board.ActiveExtraEnemyTargets != null)
+            {
+                _passed = true;
+            }
+            break;
+
+            case ActionConditions.SelfHealthAtHalf:
+            if(_intent.Self.GetHealth() < Mathf.RoundToInt(_intent.Self.GetMaxHealth() / 2))
+            {
+                _passed = true;
+            }
+            break;
+
+            case ActionConditions.SelfHealthAtQuarter:
+            if(_intent.Self.GetHealth() < Mathf.RoundToInt(_intent.Self.GetMaxHealth() / 4))
+            {
+                _passed = true;
+            }
+            break;
+
+            case ActionConditions.HasNotBuffed:
+            if(!_intent.BuffedLastTurn())
+            {
+                _passed = true;
+            }
+            break;
+
+            case ActionConditions.AnyEnemyHealthHalf:
+            foreach (Monster _enemy in _board.getLivingEnemies())
+            {
+                if(_enemy.GetHealth() > _enemy.GetMaxHealth() / 2)
+                    continue;
+                
+                _passed = true;
+                break;
+            }
+            break;
+
+            case ActionConditions.AnyEnemyHealthQuarter:
+            foreach (Monster _enemy in _board.getLivingEnemies())
+            {
+                if(_enemy.GetHealth() > _enemy.GetMaxHealth() / 4)
+                    continue;
+                
+                _passed = true;
+                break;
+            }
+            break;
+
+            case ActionConditions.AnyEnemyDamaged:
+            foreach (Monster _enemy in _board.getLivingEnemies())
+            {
+                if(_enemy.GetHealth() >= _enemy.GetMaxHealth())
+                    continue;
+                
+                _passed = true;
+                break;
+            }
+            break;
+
+            case ActionConditions.AnyEnemyDebuffed:
+            foreach (Monster _enemy in _board.getLivingEnemies())
+            {
+                if(_enemy.HasDebuff())
+                    continue;
+                
+                _passed = true;
+                break;
+            }
+            break;
+
+        }
 
     }
 

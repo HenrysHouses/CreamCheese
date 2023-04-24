@@ -284,7 +284,7 @@ public class Monster : BoardElement
 
     }
 
-    public void DeBuff(int _amount, bool _onlyOnAttack = false)
+    public void Weaken(int _amount, bool _onlyOnAttack = false)
     {
 
         if(_onlyOnAttack && enemyIntent.ActionSelected.ActionIntentType == IntentType.Attack )
@@ -296,7 +296,7 @@ public class Monster : BoardElement
 
     }
 
-    public void Buff(int _amount)
+    public void Strengthen(int _amount)
     {
 
         BuffStrength += _amount; //Fix this
@@ -314,6 +314,35 @@ public class Monster : BoardElement
             _debuffs[i].RemoveDebuff();
 
         }
+
+    }
+
+    public DebuffBase TryGetDebuff(System.Type _debuffType)
+    {
+
+        DebuffBase[] _debuffs = GetComponents<DebuffBase>();
+
+        for(int i = 0; i < _debuffs.Length; i++)
+        {
+
+            if(_debuffs[i].GetType() == _debuffType)
+                return _debuffs[i];
+
+        }
+
+        return null;
+
+    }
+    
+    public bool HasDebuff()
+    {
+
+        DebuffBase _debuffCheck = GetComponent<DebuffBase>();
+
+        if(_debuffCheck != null)
+            return true;
+
+        return false;
 
     }
 
