@@ -10,7 +10,8 @@ public class PauseMenu : MonoBehaviour
 {
     public static bool gameIsPaused;
     public Button quitButton;
-    public Button resumeButton;
+    public Button resumeButton, optionsButton, backButton;
+    public Slider master_SFX_Slider, music_Slider, SFX_Slider;
     public GameObject panel;
 
     // Start is called before the first frame update
@@ -19,6 +20,11 @@ public class PauseMenu : MonoBehaviour
         quitButton.gameObject.SetActive(false);
         resumeButton.gameObject.SetActive(false);
         panel.SetActive(false);
+
+        master_SFX_Slider.gameObject.SetActive(false);
+        SFX_Slider.gameObject.SetActive(false);
+        music_Slider.gameObject.SetActive(false);
+        backButton.gameObject.SetActive(false);
     }
 
     // Update is called once per frame
@@ -26,12 +32,12 @@ public class PauseMenu : MonoBehaviour
     {
         if (Input.GetKeyDown(KeyCode.Escape))
         {
-            
+
             if (Time.timeScale == 1f)
                 gameIsPaused = true;
             else
                 gameIsPaused = false;
-            
+
             PauseGame();
             Cursor.visible = true;
         }
@@ -62,5 +68,31 @@ public class PauseMenu : MonoBehaviour
         panel.SetActive(false);
         resumeButton.gameObject.SetActive(false);
         quitButton.gameObject.SetActive(false);
+    }
+
+
+    public void OptionsMenu()
+    {
+        resumeButton.gameObject.SetActive(false);
+        quitButton.gameObject.SetActive(false);
+        backButton.gameObject.SetActive(true);
+        optionsButton.gameObject.SetActive(false);
+
+        master_SFX_Slider.gameObject.SetActive(true);
+        SFX_Slider.gameObject.SetActive(true);
+        music_Slider.gameObject.SetActive(true);
+
+    }
+
+    public void backFromOptions()
+    {
+        resumeButton.gameObject.SetActive(true);
+        quitButton.gameObject.SetActive(true);
+        optionsButton.gameObject.SetActive(true);
+
+        master_SFX_Slider.gameObject.SetActive(false);
+        SFX_Slider.gameObject.SetActive(false);
+        music_Slider.gameObject.SetActive(false);
+        backButton.gameObject.SetActive(false);
     }
 }
