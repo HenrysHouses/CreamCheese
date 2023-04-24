@@ -215,12 +215,23 @@ MonoBehaviour:
   EnemyActions:
   - ActionType: 3
     ActionConditions: 00000000
+    AllRequired: 0
     MinStrength: 2
     MaxStrength: 6
+    UseStrengthMod: 0
+    StrengthModConditions: 
+    AllRequiredForMod: 0
+    ModifiedStrength: 0
+    UseWeigthMod: 0
+    WeigthModConditions: 
+    AllRequiredForWeigthMod: 0
+    ClearOnConditionFalse: 0
+    WeigthMod: 0
+    AddedWeigth: 0
     Weigth: 4
     Priority: 0
     TurnsToPerform: 0
-    AllRequired: 0
+    ActionVFX: {fileID: 0}
     ActionSFX:
       Guid:
         Data1: 0
@@ -230,12 +241,23 @@ MonoBehaviour:
       Path: 
   - ActionType: 0
     ActionConditions: 00000000
+    AllRequired: 0
     MinStrength: 2
     MaxStrength: 6
+    UseStrengthMod: 0
+    StrengthModConditions: 
+    AllRequiredForMod: 0
+    ModifiedStrength: 0
+    UseWeigthMod: 0
+    WeigthModConditions: 
+    AllRequiredForWeigthMod: 0
+    ClearOnConditionFalse: 0
+    WeigthMod: 0
+    AddedWeigth: 0
     Weigth: 4
     Priority: 0
     TurnsToPerform: 0
-    AllRequired: 0
+    ActionVFX: {fileID: 3717083252991183605, guid: 8378739080a8854468aad5a04f9a5f69, type: 3}
     ActionSFX:
       Guid:
         Data1: 0
@@ -245,12 +267,23 @@ MonoBehaviour:
       Path: 
   - ActionType: 2
     ActionConditions: 02000000
+    AllRequired: 0
     MinStrength: 1
     MaxStrength: 4
+    UseStrengthMod: 0
+    StrengthModConditions: 
+    AllRequiredForMod: 0
+    ModifiedStrength: 0
+    UseWeigthMod: 0
+    WeigthModConditions: 
+    AllRequiredForWeigthMod: 0
+    ClearOnConditionFalse: 0
+    WeigthMod: 0
+    AddedWeigth: 0
     Weigth: 1
     Priority: 0
     TurnsToPerform: 0
-    AllRequired: 0
+    ActionVFX: {fileID: 0}
     ActionSFX:
       Guid:
         Data1: 0
@@ -305,13 +338,6 @@ MonoBehaviour:
       Data3: -43431291
       Data4: -1906492248
     Path: event:/Card Effects/CardShield
-  ability_SFX:
-    Guid:
-      Data1: -50251825
-      Data2: 1140817054
-      Data3: -1457995116
-      Data4: 1746539433
-    Path: event:/Combat/Enemy/Enemy Ability
   hurt_SFX:
     Guid:
       Data1: 55962543
@@ -319,13 +345,6 @@ MonoBehaviour:
       Data3: 823004837
       Data4: -1532201799
     Path: event:/Combat/Enemy/EnemyKilled
-  attacking_SFX:
-    Guid:
-      Data1: 1118862281
-      Data2: 1238309055
-      Data3: 1298832056
-      Data4: -1814946090
-    Path: event:/Combat/Enemy/Enemy Attack
   animator: {fileID: 8458236436935724629}
 --- !u!1 &6909398467659061486
 GameObject:
