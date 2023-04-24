@@ -26,7 +26,7 @@ public class ActionSelection
     [Tooltip("If the increased weight be removed when condition isn't met")]
     public bool ClearOnConditionFalse;
     [Tooltip("How much weight to add/remove")]
-    public int ModifiedWeigth;
+    public int WeigthMod;
     public int AddedWeigth;
     [Tooltip("Determines the chance of this action happening when 2 or more actions of same priority is possible")]
     public int Weigth;
@@ -35,6 +35,7 @@ public class ActionSelection
     [Tooltip("How many turns this action takes to perform, as in, if 1, will not happen first turn")]
     public int TurnsToPerform;
     public MonsterAction Action;
+    public GameObject ActionVFX;
     public EventReference ActionSFX;
 
 }

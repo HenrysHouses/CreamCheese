@@ -272,10 +272,12 @@ public class Monster : BoardElement
     public void ReceiveHealth(int _amount)
     {
 
-        if(!HealingDisabled)
+        if(HealingDisabled)
             return;
 
-        Mathf.Clamp(currentHealth += _amount, 0, maxHealth);
+        //add barrier for overheal
+
+        currentHealth = Mathf.Clamp(currentHealth += _amount, 0, maxHealth);
 
         UpdateHealthUI();
         setOutline(outlineSize, Color.green, 0.25f);
@@ -318,7 +320,7 @@ public class Monster : BoardElement
     protected void UpdateHealthUI()
     {
 
-        healthText.text = (currentHealth + barrier) + "/" + maxHealth;
+        healthText.text = (currentHealth + barrier).ToString();
         healthBar.value = currentHealth;
         barrierBar.value = barrier;
             

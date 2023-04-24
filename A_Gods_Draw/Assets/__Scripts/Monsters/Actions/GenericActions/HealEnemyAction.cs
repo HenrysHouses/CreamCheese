@@ -9,7 +9,7 @@ public class HealEnemyAction : MonsterAction
     public HealEnemyAction(int minimumStrength, int maximumStrength) : base(minimumStrength, maximumStrength)
     {
         ActionID = (int)EnemyIntent.HealEnemy;
-        actionIcon = Resources.Load<Sprite>("EnemyData/Icons/Icon_Sword_IMG_v1");
+        actionIcon = Resources.Load<Sprite>("EnemyData/Icons/Icon_Heart_IMG_v1");
         desc = "This enemy will heal the enemy with the least health";
         ActionIntentType = IntentType.Special;
     }
@@ -41,6 +41,9 @@ public class HealEnemyAction : MonsterAction
         }
 
         _lowEnemy.ReceiveHealth(_strength);
+        Debug.Log("Healed successfully");
+        if(ActionSettings.ActionVFX)
+            GameObject.Instantiate(ActionSettings.ActionVFX, _lowEnemy.transform.position, Quaternion.identity);
 
         Monster _enemy = _source as Monster;
         if(_enemy)

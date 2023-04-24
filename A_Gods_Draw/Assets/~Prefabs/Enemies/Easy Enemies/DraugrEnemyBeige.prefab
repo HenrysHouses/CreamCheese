@@ -213,44 +213,25 @@ MonoBehaviour:
   ClassName: Monster
   clickable: 1
   EnemyActions:
-  - ActionType: 3
+  - ActionType: 10
     ActionConditions: 00000000
-    MinStrength: 1
-    MaxStrength: 4
-    Weigth: 4
-    Priority: 0
-    TurnsToPerform: 0
     AllRequired: 0
-    ActionSFX:
-      Guid:
-        Data1: 0
-        Data2: 0
-        Data3: 0
-        Data4: 0
-      Path: 
-  - ActionType: 1
-    ActionConditions: 03000000
-    MinStrength: 1
-    MaxStrength: 4
-    Weigth: 4
-    Priority: 0
-    TurnsToPerform: 0
-    AllRequired: 0
-    ActionSFX:
-      Guid:
-        Data1: 0
-        Data2: 0
-        Data3: 0
-        Data4: 0
-      Path: 
-  - ActionType: 2
-    ActionConditions: 02000000
     MinStrength: 2
-    MaxStrength: 6
-    Weigth: 1
+    MaxStrength: 4
+    UseStrengthMod: 0
+    StrengthModConditions: 01000000
+    AllRequiredForMod: 0
+    ModifiedStrength: 6
+    UseWeigthMod: 0
+    WeigthModConditions: 07000000
+    AllRequiredForWeigthMod: 0
+    ClearOnConditionFalse: 0
+    WeigthMod: 0
+    AddedWeigth: 0
+    Weigth: 2
     Priority: 0
     TurnsToPerform: 0
-    AllRequired: 0
+    ActionVFX: {fileID: 2783697208436553965, guid: 93fb6a762d5aa0d4aa54c77a218fff78, type: 3}
     ActionSFX:
       Guid:
         Data1: 0
@@ -305,13 +286,6 @@ MonoBehaviour:
       Data3: -43431291
       Data4: -1906492248
     Path: event:/Card Effects/CardShield
-  ability_SFX:
-    Guid:
-      Data1: -50251825
-      Data2: 1140817054
-      Data3: -1457995116
-      Data4: 1746539433
-    Path: event:/Combat/Enemy/Enemy Ability
   hurt_SFX:
     Guid:
       Data1: 55962543
@@ -319,13 +293,6 @@ MonoBehaviour:
       Data3: 823004837
       Data4: -1532201799
     Path: event:/Combat/Enemy/EnemyKilled
-  attacking_SFX:
-    Guid:
-      Data1: 1118862281
-      Data2: 1238309055
-      Data3: 1298832056
-      Data4: -1814946090
-    Path: event:/Combat/Enemy/Enemy Attack
   animator: {fileID: 8458236436935724629}
 --- !u!1 &6909398467659061486
 GameObject:

@@ -204,6 +204,8 @@ public class Monster_Editor : Editor
                 EditorGUILayout.PropertyField(_actionSelection);
                 _actionSelection.Next(false);//TurnsToPerform
                 EditorGUILayout.PropertyField(_actionSelection);
+                _actionSelection.Next(false);//VFX
+                EditorGUILayout.PropertyField(_actionSelection);
                 _actionSelection.Next(false);//SFX
                 EditorGUILayout.PropertyField(_actionSelection);
 

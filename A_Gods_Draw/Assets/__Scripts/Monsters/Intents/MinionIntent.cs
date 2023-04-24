@@ -59,6 +59,14 @@ public class MinionIntent : Intent
                 _newAction = new ReinforceSelfAction(actions[i].MinStrength + _scale, actions[i].MaxStrength + _scale);
                 break;
 
+                case EnemyIntent.HealEnemy:
+                _newAction = new HealEnemyAction(actions[i].MinStrength + _scale, actions[i].MaxStrength + _scale);
+                break;
+
+                case EnemyIntent.CleanseEnemy:
+                _newAction = new CleanseEnemyAction(actions[i].MinStrength + _scale, actions[i].MaxStrength + _scale);
+                break;
+
             }
 
             actions[i].Action = _newAction;
@@ -161,6 +169,31 @@ public class MinionIntent : Intent
             }
             else
                 strength = Random.Range(actionSelected.MinStrength, actionSelected.MaxStrength + 1) + Self.BuffStrength;
+
+        }
+
+        for(int i = 0; i < actions.Length; i++)
+        {
+
+            if(actions[i].UseWeigthMod)
+                continue;
+
+            if(ConditionChecker.CheckConditions(actions[i].WeigthModConditions, actions[i].AllRequiredForWeigthMod, _board, this))
+            {
+
+                actions[i].Weigth += actions[i].WeigthMod;
+                actions[i].AddedWeigth += actions[i].WeigthMod;
+                continue;
+
+            }
+
+            if(actions[i].ClearOnConditionFalse)
+            {
+
+                actions[i].Weigth -= actions[i].AddedWeigth;
+                actions[i].AddedWeigth = 0;
+
+            }
 
         }
 
