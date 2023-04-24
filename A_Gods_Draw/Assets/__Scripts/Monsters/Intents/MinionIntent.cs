@@ -6,7 +6,7 @@ using FMODUnity;
 using EnemyAIEnums;
 
 public class MinionIntent : Intent
-{
+{//Loop through actionSelections and check for all if they should check weight mods
 
     private ActionSelection[] actions;
     private IdlingAction idleAction;

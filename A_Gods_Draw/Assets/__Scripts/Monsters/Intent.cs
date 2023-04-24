@@ -60,7 +60,7 @@ public abstract class Intent
 namespace EnemyAIEnums
 {
 
-    public enum Conditions
+    public enum ActionConditions
     {
         None = 0,
         LastAlive,
@@ -78,6 +78,13 @@ namespace EnemyAIEnums
         AnyEnemyHealth25,
         AnyEnemyDamaged,
         AnyEnemyDebuffed
+    }
+
+    public enum WeigthConditions
+    {
+        None,
+        ActionNotUsed,
+        ActionUsed
     }
 
     public enum IntentType
