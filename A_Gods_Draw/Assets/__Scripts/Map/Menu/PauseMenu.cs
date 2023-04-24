@@ -73,6 +73,7 @@ public class PauseMenu : MonoBehaviour
 
     public void OptionsMenu()
     {
+        Time.timeScale = 0;
         resumeButton.gameObject.SetActive(false);
         quitButton.gameObject.SetActive(false);
         backButton.gameObject.SetActive(true);
