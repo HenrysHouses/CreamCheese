@@ -9,10 +9,10 @@ using HH.MultiSceneTools;
 public class PauseMenu : MonoBehaviour
 {
     public static bool gameIsPaused;
-    public Button quitButton;
-    public Button resumeButton, optionsButton, backButton;
-    public Slider master_SFX_Slider, music_Slider, SFX_Slider;
-    public GameObject panel;
+    public Button resumeButton, optionsButton, backButton, quitButton;
+    public GameObject sliders, panel;
+
+    private float timeScale;
 
     // Start is called before the first frame update
     void Start()
@@ -21,26 +21,26 @@ public class PauseMenu : MonoBehaviour
         resumeButton.gameObject.SetActive(false);
         panel.SetActive(false);
 
-        master_SFX_Slider.gameObject.SetActive(false);
-        SFX_Slider.gameObject.SetActive(false);
-        music_Slider.gameObject.SetActive(false);
+        sliders.SetActive(false);
         backButton.gameObject.SetActive(false);
     }
 
     // Update is called once per frame
     void Update()
     {
+        timeScale = Time.timeScale;
+
         if (Input.GetKeyDown(KeyCode.Escape))
         {
 
-            if (Time.timeScale == 1f)
+            if (timeScale == 1f)
+            {
                 gameIsPaused = true;
+            }
             else
             {
                 gameIsPaused = false;
-                master_SFX_Slider.gameObject.SetActive(false);
-                SFX_Slider.gameObject.SetActive(false);
-                music_Slider.gameObject.SetActive(false);
+                sliders.SetActive(false);
                 backButton.gameObject.SetActive(false);
             }
 
@@ -51,6 +51,7 @@ public class PauseMenu : MonoBehaviour
 
     public void PauseGame()
     {
+
         if (Time.timeScale == 1f)
         {
             Time.timeScale = 0f;
@@ -82,13 +83,10 @@ public class PauseMenu : MonoBehaviour
     {
         resumeButton.gameObject.SetActive(false);
         quitButton.gameObject.SetActive(false);
-        backButton.gameObject.SetActive(true);
         optionsButton.gameObject.SetActive(false);
 
-        master_SFX_Slider.gameObject.SetActive(true);
-        SFX_Slider.gameObject.SetActive(true);
-        music_Slider.gameObject.SetActive(true);
-
+        sliders.SetActive(true);
+        backButton.gameObject.SetActive(true);
     }
 
     public void backFromOptions()
@@ -97,9 +95,7 @@ public class PauseMenu : MonoBehaviour
         quitButton.gameObject.SetActive(true);
         optionsButton.gameObject.SetActive(true);
 
-        master_SFX_Slider.gameObject.SetActive(false);
-        SFX_Slider.gameObject.SetActive(false);
-        music_Slider.gameObject.SetActive(false);
+        sliders.SetActive(false);
         backButton.gameObject.SetActive(false);
     }
 }
