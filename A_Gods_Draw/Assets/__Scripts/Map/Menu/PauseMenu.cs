@@ -36,7 +36,13 @@ public class PauseMenu : MonoBehaviour
             if (Time.timeScale == 1f)
                 gameIsPaused = true;
             else
+            {
                 gameIsPaused = false;
+                master_SFX_Slider.gameObject.SetActive(false);
+                SFX_Slider.gameObject.SetActive(false);
+                music_Slider.gameObject.SetActive(false);
+                backButton.gameObject.SetActive(false);
+            }
 
             PauseGame();
             Cursor.visible = true;
@@ -50,6 +56,7 @@ public class PauseMenu : MonoBehaviour
             Time.timeScale = 0f;
             panel.SetActive(true);
             resumeButton.gameObject.SetActive(true);
+            optionsButton.gameObject.SetActive(true);
             quitButton.gameObject.SetActive(true);
         }
         else
@@ -73,7 +80,6 @@ public class PauseMenu : MonoBehaviour
 
     public void OptionsMenu()
     {
-        Time.timeScale = 0;
         resumeButton.gameObject.SetActive(false);
         quitButton.gameObject.SetActive(false);
         backButton.gameObject.SetActive(true);
