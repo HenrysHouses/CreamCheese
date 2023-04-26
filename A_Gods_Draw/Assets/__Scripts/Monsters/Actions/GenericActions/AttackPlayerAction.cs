@@ -3,6 +3,7 @@
 using UnityEngine;
 using FMODUnity;
 using EnemyAIEnums;
+using System.Collections;
 
 [System.Serializable]
 public class AttackPlayerAction : MonsterAction
@@ -15,8 +16,9 @@ public class AttackPlayerAction : MonsterAction
         ActionIntentType = IntentType.Attack;
     }
 
-    public override void PerformAction(BoardStateController _board, int _strength, object _source)
+    public override IEnumerator PerformAction(BoardStateController _board, int _strength, object _source)
     {
+        
         _board.Player.DealDamage(_strength);
 
         Monster _enemy = _source as Monster;
@@ -25,5 +27,8 @@ public class AttackPlayerAction : MonsterAction
             _enemy.animator.SetTrigger("Attack");
             _enemy.PlaySound(ActionSFX);
         }
+
+        yield return null;
+
     }
 }

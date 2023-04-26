@@ -9,7 +9,7 @@ using UnityEngine;
 using EnemyAIEnums;
 
 [System.Serializable]
-public abstract class Action
+public abstract class Action : MonoBehaviour
 {
     protected int ActionID; // Ex: constructor -> ActionID = EnemyIntent.Attack;
     public int ID => this != null ? ActionID : (int)EnemyIntent.None;

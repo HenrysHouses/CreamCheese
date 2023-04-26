@@ -3,6 +3,7 @@
 using UnityEngine;
 using FMODUnity;
 using EnemyAIEnums;
+using System.Collections;
 
 public class AttackGodAction : MonsterAction
 {
@@ -14,7 +15,7 @@ public class AttackGodAction : MonsterAction
         ActionIntentType = IntentType.Attack;
     }
 
-    public override void PerformAction(BoardStateController _board, int _strength, object _source)
+    public override IEnumerator PerformAction(BoardStateController _board, int _strength, object _source)
     {
         if (_board.playedGodCard != null)
         {
@@ -27,6 +28,8 @@ public class AttackGodAction : MonsterAction
             }
 
         }
+
+        yield return null;
         
     }
 }
