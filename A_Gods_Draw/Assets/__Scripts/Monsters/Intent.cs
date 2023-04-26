@@ -46,15 +46,16 @@ public abstract class Intent
         return actionSelected?.Explanation;
     }
 
-    public void Act(BoardStateController _board, UnityEngine.Object _source)
+    public MonsterAction Act(BoardStateController _board, UnityEngine.Object _source)
     {
         if (actionSelected != null)
         {
             if (actionSelected.ID == (int)EnemyIntent.None)
-                return;
+                return null;
 
             actionSelected.Execute(_board, strength, _source);
         }
+        return actionSelected;
     }
 }
 

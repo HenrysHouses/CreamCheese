@@ -546,6 +546,7 @@ public class Monster : BoardElement
         if(enemyIntent != null)
         {
             enemyIntent.Act(board, this);
+            TurnController.shouldWaitForAnims = true;
             StartCoroutine(WaitForAnims());
         }
     }
@@ -560,7 +561,7 @@ public class Monster : BoardElement
 
     IEnumerator WaitForAnims()
     {
-        yield return new WaitForSeconds(0.5f);
+        yield return new WaitForSeconds(1.2f);
 
         TurnController.shouldWaitForAnims = false;
     }
