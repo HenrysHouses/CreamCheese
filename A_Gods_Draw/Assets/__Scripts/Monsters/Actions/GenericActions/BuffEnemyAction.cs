@@ -1,5 +1,6 @@
 using UnityEngine;
 using System.Collections.Generic;
+using System.Collections;
 using System.Linq;
 using EnemyAIEnums;
 
@@ -13,7 +14,7 @@ public class BuffEnemyAction : MonsterAction
         ActionIntentType = IntentType.Buff;
     }
 
-    public override void PerformAction(BoardStateController _board, int _strength, object _source)
+    public override IEnumerator PerformAction(BoardStateController _board, int _strength, object _source)
     {
         List<Monster> _monsters = _board.getLivingEnemies().ToList();
         _monsters.Remove(Self);
@@ -25,5 +26,8 @@ public class BuffEnemyAction : MonsterAction
             if(ActionSettings.ActionVFX)
                 GameObject.Instantiate(ActionSettings.ActionVFX, _monsters[_targetIndex].transform.position, Quaternion.identity);
         }
+
+        yield return null;
+
     }
 }

@@ -3,6 +3,7 @@
 using UnityEngine;
 using FMODUnity;
 using EnemyAIEnums;
+using System.Collections;
 
 public class DefendAction : MonsterAction
 {
@@ -16,8 +17,12 @@ public class DefendAction : MonsterAction
         ActionIntentType = IntentType.Defend;
     }
 
-    public override void PerformAction(BoardStateController _board, int _strength, object _source)
+    public override IEnumerator PerformAction(BoardStateController _board, int _strength, object _source)
     {
+        
         Self.Defend(_strength);
+
+        yield return null;
+
     }
 }

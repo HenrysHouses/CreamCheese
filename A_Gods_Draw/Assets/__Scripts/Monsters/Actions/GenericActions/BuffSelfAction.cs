@@ -13,10 +13,13 @@ public class BuffSelfAction : MonsterAction
         ActionIntentType = IntentType.Buff;
     }
 
-    public override void PerformAction(BoardStateController _board, int _strength, object _source)
+    public override IEnumerator PerformAction(BoardStateController _board, int _strength, object _source)
     {
         Self.Strengthen(_strength);
         if(ActionSettings.ActionVFX)
             GameObject.Instantiate(ActionSettings.ActionVFX, Self.transform.position, Quaternion.identity);
+        
+        yield return null;
+
     }
 }

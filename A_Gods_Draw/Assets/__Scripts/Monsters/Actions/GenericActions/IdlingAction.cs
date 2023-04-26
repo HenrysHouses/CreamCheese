@@ -15,8 +15,11 @@ public class IdlingAction : MonsterAction
         ActionIntentType = IntentType.Idling;
     }
 
-    public override void PerformAction(BoardStateController _board, int _strength, object _source)
+    public override IEnumerator PerformAction(BoardStateController _board, int _strength, object _source)
     {
+
+        yield return null;
+
     }
 
 }

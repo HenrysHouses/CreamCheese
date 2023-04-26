@@ -15,7 +15,7 @@ public class ReinforceSelfAction : MonsterAction
         ActionIntentType = IntentType.Special;
     }
 
-    public override void PerformAction(BoardStateController _board, int _strength, object _source)
+    public override IEnumerator PerformAction(BoardStateController _board, int _strength, object _source)
     {
         Self.ApplyBarrier(Mathf.RoundToInt(Self.GetMaxHealth() / 2));
 
@@ -24,6 +24,9 @@ public class ReinforceSelfAction : MonsterAction
         {
             _enemy.PlaySound(ActionSFX);
         }
+
+        yield return null;
+
     }
     
 }
