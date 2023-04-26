@@ -10,7 +10,7 @@ public class CleanseEnemyAction : MonsterAction
     {
         ActionID = (int)EnemyIntent.CleanseEnemy;
         actionIcon = Resources.Load<Sprite>("EnemyData/Icons/Icon_Sword_IMG_v1");
-        desc = "This enemy will remove all debuffs on all enemies";
+        desc = "This enemy will remove all debuffs on x enemies";
         ActionIntentType = IntentType.Special;
     }
 
