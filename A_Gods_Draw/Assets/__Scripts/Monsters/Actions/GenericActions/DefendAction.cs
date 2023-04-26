@@ -17,12 +17,10 @@ public class DefendAction : MonsterAction
         ActionIntentType = IntentType.Defend;
     }
 
-    public override IEnumerator PerformAction(BoardStateController _board, int _strength, object _source)
+    public override void PerformAction(BoardStateController _board, int _strength, object _source)
     {
         
         Self.Defend(_strength);
-
-        yield return null;
 
     }
 }

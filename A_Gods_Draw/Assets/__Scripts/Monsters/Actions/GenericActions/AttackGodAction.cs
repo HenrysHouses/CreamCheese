@@ -15,7 +15,7 @@ public class AttackGodAction : MonsterAction
         ActionIntentType = IntentType.Attack;
     }
 
-    public override IEnumerator PerformAction(BoardStateController _board, int _strength, object _source)
+    public override void PerformAction(BoardStateController _board, int _strength, object _source)
     {
         if (_board.playedGodCard != null)
         {
@@ -27,9 +27,6 @@ public class AttackGodAction : MonsterAction
                 _enemy.PlaySound(ActionSFX);
             }
 
-        }
-
-        yield return null;
-        
+        }        
     }
 }

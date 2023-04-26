@@ -14,7 +14,7 @@ public class CleanseEnemyAction : MonsterAction
         ActionIntentType = IntentType.Special;
     }
 
-    public override IEnumerator PerformAction(BoardStateController _board, int _strength, object _source)
+    public override void PerformAction(BoardStateController _board, int _strength, object _source)
     {
 
         Monster[] _enemies = _board.getLivingEnemies();
@@ -43,8 +43,6 @@ public class CleanseEnemyAction : MonsterAction
         {
             _enemy.PlaySound(ActionSFX);
         }
-
-        yield return null;
 
     }
     

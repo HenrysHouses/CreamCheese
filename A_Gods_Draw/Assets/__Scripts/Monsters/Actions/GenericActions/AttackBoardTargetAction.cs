@@ -17,11 +17,11 @@ public class AttackBoardTargetAction : MonsterAction
 
     }
 
-    public override IEnumerator PerformAction(BoardStateController _board, int _strength, object _source)
+    public override void PerformAction(BoardStateController _board, int _strength, object _source)
     {
         
         if(_board.ActiveExtraEnemyTargets.Count <= 0)
-            yield return null;
+            return;
 
         _board.ActiveExtraEnemyTargets[Random.Range(0, _board.ActiveExtraEnemyTargets.Count)].DealDamage(_strength);
 
@@ -31,8 +31,6 @@ public class AttackBoardTargetAction : MonsterAction
             _enemy.animator.SetTrigger("Attack");
             _enemy.PlaySound(ActionSFX);
         }
-
-        yield return null;
         
     }
 

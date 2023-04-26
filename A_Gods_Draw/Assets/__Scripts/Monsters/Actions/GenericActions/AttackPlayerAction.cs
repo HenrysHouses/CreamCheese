@@ -16,7 +16,7 @@ public class AttackPlayerAction : MonsterAction
         ActionIntentType = IntentType.Attack;
     }
 
-    public override IEnumerator PerformAction(BoardStateController _board, int _strength, object _source)
+    public override void PerformAction(BoardStateController _board, int _strength, object _source)
     {
         
         _board.Player.DealDamage(_strength);
@@ -27,8 +27,6 @@ public class AttackPlayerAction : MonsterAction
             _enemy.animator.SetTrigger("Attack");
             _enemy.PlaySound(ActionSFX);
         }
-
-        yield return null;
 
     }
 }

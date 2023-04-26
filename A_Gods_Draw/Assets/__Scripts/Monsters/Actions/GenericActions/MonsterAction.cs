@@ -31,7 +31,7 @@ public abstract class MonsterAction : Action
 
         if(TurnsLeft <= 0)
         {
-            StartCoroutine(PerformAction(_board, _strength, _source));
+            PerformAction(_board, _strength, _source);
             IsLocked = false;
             return;
         }
@@ -41,7 +41,7 @@ public abstract class MonsterAction : Action
 
     }
 
-    public virtual IEnumerator PerformAction(BoardStateController _board, int _strength, object _source)
-    {yield return null;}
+    public virtual void PerformAction(BoardStateController _board, int _strength, object _source)
+    {}
 
 }

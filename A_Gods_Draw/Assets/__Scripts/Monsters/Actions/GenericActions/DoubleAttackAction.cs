@@ -52,7 +52,7 @@ public class DoubleAttackAction : MonsterAction
 
     }
 
-    public override IEnumerator PerformAction(BoardStateController _board, int _strength, object _source)
+    public override void PerformAction(BoardStateController _board, int _strength, object _source)
     {
 
         for(int i = 0; i < Targets.Count; i++)
@@ -71,8 +71,6 @@ public class DoubleAttackAction : MonsterAction
             _enemy.animator.SetTrigger("Attack");
             _enemy.PlaySound(ActionSFX);
         }
-
-        yield return null;
 
     }
 
