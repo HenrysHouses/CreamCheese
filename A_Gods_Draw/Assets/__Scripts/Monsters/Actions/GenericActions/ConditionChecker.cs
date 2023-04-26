@@ -234,7 +234,7 @@ public static class ConditionChecker
             case ActionConditions.AnyEnemyDebuffed:
             foreach (Monster _enemy in _board.getLivingEnemies())
             {
-                if(_enemy.HasDebuff())
+                if(!_enemy.HasDebuff())
                     continue;
                 
                 _passed = true;
