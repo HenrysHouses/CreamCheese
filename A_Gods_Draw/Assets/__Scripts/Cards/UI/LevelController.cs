@@ -66,7 +66,7 @@ public class LevelController : MonoBehaviour
                 break;
 
             if(i == 0)
-                unlocks += "Unlocks:\n";
+                unlocks += "";
 
             unlocks += "Level " + i + ": " + upgradePath.Upgrades[i].getDescription(true) + "\n";
         }
