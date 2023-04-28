@@ -11,11 +11,13 @@ public abstract class MonsterAction : Action
     {
         MinStrength = minimumStrength;
         MaxStrength = maximumStrength;
-        Targets = new List<IMonsterTarget>();
+        ITargets = new List<IMonsterTarget>();
+        MonsterTargets = new List<Monster>();
     }
 
     public int MinStrength, MaxStrength, TurnsToPerform, TurnsLeft;
-    public List<IMonsterTarget> Targets;
+    public List<IMonsterTarget> ITargets;
+    public List<Monster> MonsterTargets;
     public EventReference ActionSFX;
     public Monster Self;
     public bool IsLocked;

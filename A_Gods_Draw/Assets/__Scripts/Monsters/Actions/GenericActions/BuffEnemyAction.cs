@@ -16,16 +16,28 @@ public class BuffEnemyAction : MonsterAction
 
     public override void PerformAction(BoardStateController _board, int _strength, object _source)
     {
-        List<Monster> _monsters = _board.getLivingEnemies().ToList();
-        _monsters.Remove(Self);
-
-        if(_monsters.Count != 0)
-        {
-            int _targetIndex = Random.Range(0, _monsters.Count);
-            _monsters[_targetIndex].Strengthen(_strength);
-            if(ActionSettings.ActionVFX)
-                GameObject.Instantiate(ActionSettings.ActionVFX, _monsters[_targetIndex].transform.position, Quaternion.identity);
-        }
+        
+        MonsterTargets[0].Strengthen(_strength);
+        if(ActionSettings.ActionVFX)
+            GameObject.Instantiate(ActionSettings.ActionVFX, MonsterTargets[0].transform.position, Quaternion.identity);
 
     }
+
+    public override void SelectTargets(BoardStateController _board)
+    {
+
+        MonsterTargets.Clear();
+        
+        List<Monster> _targets = _board.getLivingEnemies().ToList();
+        _targets.Remove(Self);
+
+        if(_targets.Count <= 0)
+            return;
+
+        MonsterTargets.Add(_targets[Random.Range(0, _targets.Count)]);
+
+        MonsterTargets[0].TargetedByEnemy(Self, Color.magenta);
+
+    }
+
 }

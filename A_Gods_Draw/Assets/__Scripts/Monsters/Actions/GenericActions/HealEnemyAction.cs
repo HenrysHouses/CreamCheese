@@ -17,6 +17,23 @@ public class HealEnemyAction : MonsterAction
     public override void PerformAction(BoardStateController _board, int _strength, object _source)
     {
 
+        MonsterTargets[0].ReceiveHealth(_strength);
+        if(ActionSettings.ActionVFX)
+            GameObject.Instantiate(ActionSettings.ActionVFX, MonsterTargets[0].transform.position, Quaternion.identity);
+
+        Monster _enemy = _source as Monster;
+        if(_enemy)
+        {
+            _enemy.PlaySound(ActionSFX);
+        }
+
+    }
+
+    public override void SelectTargets(BoardStateController _board)
+    {
+
+        MonsterTargets.Clear();
+
         Monster[] _enemies = _board.getLivingEnemies();
         Monster _lowEnemy = _enemies[0];
 
@@ -40,15 +57,9 @@ public class HealEnemyAction : MonsterAction
 
         }
 
-        _lowEnemy.ReceiveHealth(_strength);
-        if(ActionSettings.ActionVFX)
-            GameObject.Instantiate(ActionSettings.ActionVFX, _lowEnemy.transform.position, Quaternion.identity);
+        MonsterTargets.Add(_lowEnemy);
 
-        Monster _enemy = _source as Monster;
-        if(_enemy)
-        {
-            _enemy.PlaySound(ActionSFX);
-        }
+        _lowEnemy.TargetedByEnemy(Self, Color.green);
 
     }
     
