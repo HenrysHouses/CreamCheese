@@ -34,6 +34,11 @@ public class CardReaderController : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        if(GameManager.instance.PauseMenuIsOpen)
+        {
+            return;
+        }
+
         setPathToCamera();
         FindCard();
         UpdateInspectTarget();

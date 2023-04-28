@@ -70,6 +70,11 @@ public class ChooseCardReward : MonoBehaviour
     // bool hasClicked = false;
     private void Update()
     {
+        if(GameManager.instance.PauseMenuIsOpen)
+        {
+            return;
+        }
+
         if (!confirmed)
             checkSelected();
 
