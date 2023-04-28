@@ -241,7 +241,7 @@ public class Monster : BoardElement
                 targetedByEnemies[i].ReSelectTargets(Board);
             
             animator.SetTrigger("Dying");
-            animator.SetInteger("Dying", Random.Range(0,2));
+            animator.SetInteger("Dying", Random.Range(0,4));
             Invoke(nameof(Die), animator.GetCurrentAnimatorStateInfo(0).length);
         }
 

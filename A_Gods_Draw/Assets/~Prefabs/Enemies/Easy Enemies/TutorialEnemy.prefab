@@ -213,7 +213,8 @@ MonoBehaviour:
   ClassName: TutorialMonster
   clickable: 1
   EnemyActions: []
-  deathParticleVFX: {fileID: 2505349679200391838, guid: 05a4cc1903228714997c82ae6e193f32, type: 3}
+  Board: {fileID: 0}
+  deathParticleVFX: {fileID: 5287897919713805375, guid: f4e970dc5cfd4f443927313f6d87952d, type: 3}
   slashParticleVFX: {fileID: 2505349679200391838, guid: 05a4cc1903228714997c82ae6e193f32, type: 3}
   MonsterRenderers:
   - {fileID: 8634234059421542785}
@@ -260,13 +261,6 @@ MonoBehaviour:
       Data3: -43431291
       Data4: -1906492248
     Path: event:/Card Effects/CardShield
-  ability_SFX:
-    Guid:
-      Data1: -50251825
-      Data2: 1140817054
-      Data3: -1457995116
-      Data4: 1746539433
-    Path: event:/Combat/Enemy/Enemy Ability
   hurt_SFX:
     Guid:
       Data1: 55962543
@@ -274,13 +268,6 @@ MonoBehaviour:
       Data3: 823004837
       Data4: -1532201799
     Path: event:/Combat/Enemy/EnemyKilled
-  attacking_SFX:
-    Guid:
-      Data1: 1118862281
-      Data2: 1238309055
-      Data3: 1298832056
-      Data4: -1814946090
-    Path: event:/Combat/Enemy/Enemy Attack
   animator: {fileID: 8458236436935724629}
   attackSFX:
     Guid:
