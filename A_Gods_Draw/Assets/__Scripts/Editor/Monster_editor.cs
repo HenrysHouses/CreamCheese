@@ -12,13 +12,16 @@ public class Monster_Editor : Editor
     private EnemyIntent actionSelected;
     private bool actionListDropdown, useStrengthMod, useWeigthMod;
     private float sliderVal;
-    private List<bool> actionDropdowns;
+    private List<bool> actionDropdowns, actionCondDd, strengthCondDd, weightCondDd;
 
     private void OnEnable()
     {
 
         EnemyActions = serializedObject.FindProperty("EnemyActions");
         actionDropdowns = new List<bool>(EnemyActions.arraySize);
+        actionCondDd = new List<bool>();
+        strengthCondDd = new List<bool>();
+        weightCondDd = new List<bool>();
         actionListDropdown = false;
 
     }
@@ -97,7 +100,66 @@ public class Monster_Editor : Editor
                 EditorGUI.indentLevel++;
 
                 _actionSelection.Next(false);//Action conditions
-                EditorGUILayout.PropertyField(_actionSelection);
+                SerializedProperty _actionConditions = _actionSelection;
+
+                if(actionCondDd.Count-1 < _actionConditions.arraySize)
+                    actionCondDd.Add(false);
+
+                actionCondDd[i] = EditorGUILayout.Foldout(actionCondDd[i], "Action Conditions", true, EditorStyles.foldoutHeader);
+
+                if(actionCondDd[i])
+                {
+
+                    EditorGUI.indentLevel++;
+                    GUILayout.BeginVertical("Conditions", "window");
+
+                    if(_actionConditions.arraySize == 0)
+                        if(GUILayout.Button("+", EditorStyles.miniButtonLeft))
+                            _actionConditions.InsertArrayElementAtIndex(_actionConditions.arraySize);
+
+                    for(int j = 0; j < _actionConditions.arraySize; j++)
+                    {
+
+                        //EditorGUILayout.BeginHorizontal();
+
+                        SerializedProperty _actionCondition = _actionConditions.GetArrayElementAtIndex(j);
+                        _actionCondition.Next(true);
+                        EditorGUILayout.PropertyField(_actionCondition);
+                        _actionCondition.Next(false);
+                        EditorGUILayout.PropertyField(_actionCondition);
+
+                        //EditorGUILayout.EndHorizontal();
+
+                        EditorGUILayout.BeginHorizontal();
+
+                        if(GUILayout.Button("+", EditorStyles.miniButtonLeft))
+                        {
+
+                            _actionConditions.InsertArrayElementAtIndex(_actionConditions.arraySize);
+
+                        }
+
+                        if(GUILayout.Button("-", EditorStyles.miniButtonRight))
+                        {
+            
+                            int _arraySize = _actionConditions.arraySize;
+                            _actionConditions.DeleteArrayElementAtIndex(j);
+                            if(_actionConditions.arraySize == _arraySize)
+                                _actionConditions.DeleteArrayElementAtIndex(j);
+
+                        }
+
+                        EditorGUILayout.EndHorizontal();
+
+                        EditorGUILayout.Space();
+
+                    }
+
+                    GUILayout.EndVertical();
+                    EditorGUI.indentLevel--;
+
+                }
+
                 if(_actionSelection.arraySize > 1)
                 {
 

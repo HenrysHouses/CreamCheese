@@ -36,7 +36,7 @@ public class BuffEnemyAction : MonsterAction
 
         MonsterTargets.Add(_targets[Random.Range(0, _targets.Count)]);
 
-        MonsterTargets[0].TargetedByEnemy(Self, Color.magenta);
+        MonsterTargets[0].TargetedByEnemy(Self, Color.red + Color.blue);
 
     }
 

@@ -25,7 +25,7 @@ public static class ConditionChecker
 
                 _passed = false;
                 
-                SwitchOnCondition(_action.ActionConditions[j], ref _passed, _board, _intent, _action.Action);
+                SwitchOnCondition(_action.ActionConditions[j].Condition, ref _passed, _board, _intent, _action.Action, _action.ActionConditions[j].InvertCondition);
 
                 if(!_passed && _allNeeded)
                 {
@@ -83,7 +83,7 @@ public static class ConditionChecker
 
     }
 
-    public static bool CheckConditions(ActionConditions[] _conditions, bool _allConditionsNeeded, BoardStateController _board, Intent _intent)
+    public static bool CheckConditions(ActionCondition[] _conditions, bool _allConditionsNeeded, BoardStateController _board, Intent _intent)
     {
 
         List<int> _possibleActions = new List<int>();
@@ -97,7 +97,7 @@ public static class ConditionChecker
 
             _passed = false;
             
-            SwitchOnCondition(_conditions[i], ref _passed, _board, _intent);
+            SwitchOnCondition(_conditions[i].Condition, ref _passed, _board, _intent, null, _conditions[i].InvertCondition);
 
             if(!_passed && _allConditionsNeeded)
                 return false;
@@ -105,13 +105,15 @@ public static class ConditionChecker
             if(!_passed)
                 continue;
 
+            return true;
+
         }
 
-        return true;
+        return false;
 
     }
 
-    private static void SwitchOnCondition(ActionConditions _condition, ref bool _passed, BoardStateController _board, Intent _intent, MonsterAction _action = null)
+    private static void SwitchOnCondition(ActionConditions _condition, ref bool _passed, BoardStateController _board, Intent _intent, MonsterAction _action = null, bool _invertCondition = false)
     {
 
         switch(_condition)
@@ -242,7 +244,17 @@ public static class ConditionChecker
             }
             break;
 
+            case ActionConditions.IsBuffed:
+            if(_intent.Self.BuffStrength > 0)
+            {
+                _passed = true;
+            }
+            break;
+
         }
+
+        if(_invertCondition)
+            _passed = !_passed;
 
     }
 

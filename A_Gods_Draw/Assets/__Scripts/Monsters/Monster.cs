@@ -242,6 +242,7 @@ public class Monster : BoardElement
             
             animator.SetInteger("Dying", Random.Range(0,4));
             animator.SetTrigger("Dying");
+            Debug.Log(animator.GetCurrentAnimatorStateInfo(0).length + " Length of anim");
             Invoke(nameof(Die), animator.GetCurrentAnimatorStateInfo(0).length);
         }
 

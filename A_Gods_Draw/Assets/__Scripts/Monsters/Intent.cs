@@ -80,7 +80,8 @@ namespace EnemyAIEnums
         AnyEnemyHealthHalf,
         AnyEnemyHealthQuarter,
         AnyEnemyDamaged,
-        AnyEnemyDebuffed
+        AnyEnemyDebuffed,
+        IsBuffed
     }
 
     public enum IntentType
