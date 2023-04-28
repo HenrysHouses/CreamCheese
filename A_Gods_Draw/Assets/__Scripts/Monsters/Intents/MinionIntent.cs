@@ -193,7 +193,7 @@ public class MinionIntent : Intent
         for(int i = 0; i < actions.Length; i++)
         {
 
-            if(actions[i].UseWeigthMod)
+            if(!actions[i].UseWeigthMod)
                 continue;
 
             if(ConditionChecker.CheckConditions(actions[i].WeigthModConditions, actions[i].AllRequiredForWeigthMod, _board, this))
