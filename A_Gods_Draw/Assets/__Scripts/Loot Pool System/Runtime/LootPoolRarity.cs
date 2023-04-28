@@ -37,7 +37,7 @@ public class LootPoolRarity
         }
     }
 
-    public ItemPool_ScriptableObject RollRarity()
+    public ItemPool_ScriptableObject RollRarity(out RarityType RarityDropped)
     {
         float _roll = Random.Range(0f,100f);
         float chance = 0;
@@ -47,10 +47,12 @@ public class LootPoolRarity
             {
 
                 Debug.Log(RarityIndex[i].Chance + chance + "/"+ _roll);
+                RarityDropped = RarityIndex[i].Rarity;
                 return RarityIndex[i].ItemPool;
             }
             chance += RarityIndex[i].Chance;
         }
+        RarityDropped = RarityType.None;
         return null;
     }
 
@@ -111,5 +113,6 @@ public enum RarityType
     Uncommon,
     Rare,
     Legendary,
-    Unique
+    Unique,
+    None
 }

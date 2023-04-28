@@ -3,9 +3,9 @@
  * Henrik
  * 
  */
+using UnityEngine;
 
-
-public abstract class rune
+public class rune : Object
 {
     public RuneData RuneData;
     public bool hasTriggeredThisTurn;

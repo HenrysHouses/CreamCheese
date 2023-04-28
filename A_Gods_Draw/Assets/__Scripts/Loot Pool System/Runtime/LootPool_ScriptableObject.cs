@@ -9,4 +9,11 @@ public class LootPool_ScriptableObject : ScriptableObject
     private void OnValidate() {
         Rarities.updateRarityIndex();
     }
+
+    public ItemPool_ScriptableObject Roll(out RarityType DroppedRarity)
+    {
+        ItemPool_ScriptableObject pool = Rarities.RollRarity(out RarityType drop);
+        DroppedRarity = drop;
+        return pool;
+    } 
 }

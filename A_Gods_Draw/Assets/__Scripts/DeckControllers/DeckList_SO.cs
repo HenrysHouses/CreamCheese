@@ -93,6 +93,17 @@ public class DeckListData
             }
         }
     }
+
+    public Card_SO[] getCurrentCards()
+    {
+        Card_SO[] card_s = new Card_SO[deckListData.Count];
+
+        for (int i = 0; i < deckListData.Count; i++)
+        {
+            card_s[i] = deckListData[i].CardType;
+        }
+        return card_s;
+    }
     
     public CardQuantityContainer GetDeckData()
     {

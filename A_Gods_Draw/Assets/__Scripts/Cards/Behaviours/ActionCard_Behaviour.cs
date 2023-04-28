@@ -599,7 +599,7 @@ public class ActionCard_Behaviour : Card_Behaviour
     void AddNewGlyph(CardActionEnum Glyph)
     {
         CardAction act = CardAction.GetAction(Glyph);
-        Debug.Log("adding: " + act.GetType() + " to: " + card_so.cardName);
+        // Debug.Log("adding: " + act.GetType() + " to: " + card_so.cardName);
 
         // act.action_SFX = _actionGroup.actionStats[i].action_SFX; // this should be read from a scriptable object for the target action
         // act.PlayOnPlacedOrTriggered_SFX = _actionGroup.actionStats[i].PlayOnPlacedOrTriggered_SFX;
