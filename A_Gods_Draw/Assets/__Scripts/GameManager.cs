@@ -40,6 +40,7 @@ public class GameManager : MonoBehaviour
     [SerializeField] EventDescription eventDescription;
 
     static public int timesDefeatedBoss = 0;
+    public bool PauseMenuIsOpen;
 
 
     private void Awake()
