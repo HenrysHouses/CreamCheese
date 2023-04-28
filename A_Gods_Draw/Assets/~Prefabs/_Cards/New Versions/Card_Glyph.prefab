@@ -12,7 +12,7 @@ GameObject:
   - component: {fileID: 1463847087691833208}
   - component: {fileID: -5285957334975476948}
   - component: {fileID: 4827559881836118017}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: Card_Glyph
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -150,6 +150,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   PopupInfo: {fileID: 11400000, guid: 3a41e2f8c9dee684cb796d01ab2b3afe, type: 2}
   CreateInstance: 0
+  instanceCreated: 0
 --- !u!65 &4827559881836118017
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -172,7 +173,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 3819122115370255675}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: Mesh
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -265,6 +266,10 @@ PrefabInstance:
     - target: {fileID: 8969253460698472771, guid: 2bb7c841b5e317e41a965e4722780fb7, type: 3}
       propertyPath: m_Name
       value: Icon_Rock__PRE_v1
+      objectReference: {fileID: 0}
+    - target: {fileID: 8969253460698472771, guid: 2bb7c841b5e317e41a965e4722780fb7, type: 3}
+      propertyPath: m_Layer
+      value: 6
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 2bb7c841b5e317e41a965e4722780fb7, type: 3}
