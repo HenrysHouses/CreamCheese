@@ -115,6 +115,9 @@ public class TurnController : CombatFSM
 
     protected override void FSMUpdate()
     {
+        if(GameManager.instance.PauseMenuIsOpen)
+            return;
+
         CheckFailSafe();
 
         if(BoardStateController.isEncounterInstantiated)
@@ -168,6 +171,9 @@ public class TurnController : CombatFSM
 
     public void EndTurn()
     {
+        if(GameManager.instance.PauseMenuIsOpen)
+            return;
+
         if (CurrentState is MainState)
         {
             shouldEndTurn = true;
