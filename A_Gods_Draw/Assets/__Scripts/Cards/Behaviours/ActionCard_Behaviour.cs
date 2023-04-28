@@ -548,18 +548,21 @@ public class ActionCard_Behaviour : Card_Behaviour
         SelectedTargets.Clear();
     }
 
-    public void ApplyLevels(CardExperience CurrentLevel)
+    /// <returns>If the levels changed the description</returns>
+    public bool ApplyLevels(CardExperience CurrentLevel)
     {
+        bool changed = false;
         stats.UpgradePath.Experience = CurrentLevel;
 
         for (int i = 0; i < CurrentLevel.Level; i++)
         {
             if(stats.UpgradePath.Upgrades.Length-1 < i)
-                return;
+                return false;
 
             CardUpgradeType upgradeType = stats.UpgradePath.Upgrades[i].UpgradeType;
             ModifiableCardValue modifiableCardValue = stats.UpgradePath.Upgrades[i].ValueSelection;
 
+            changed = true;
             switch(upgradeType)
             {
                 case CardUpgradeType.AddGlyph:
@@ -574,6 +577,8 @@ public class ActionCard_Behaviour : Card_Behaviour
                     break;
             }
         }
+
+        return changed;
     }
 
     void RemoveGlyph(CardActionEnum Glyph)
@@ -585,8 +590,10 @@ public class ActionCard_Behaviour : Card_Behaviour
                 Debug.Log("removing: " + _actionGroup.actions[i].GetType() + "from: " + card_so.cardName);
                 _actionGroup.actions.RemoveAt(i);
                 _actionGroup.actionStats.RemoveAt(i);
+                elements.level.destroyGlyph(Glyph);
             }
         }
+        elements.Description.setDescription(card_so.getEffectFormatted(stats));
     }
 
     void AddNewGlyph(CardActionEnum Glyph)
@@ -603,6 +610,25 @@ public class ActionCard_Behaviour : Card_Behaviour
         CardActionData _newAction = new CardActionData();
         _newAction.actionEnum = Glyph;
         _actionGroup.actionStats.Add(_newAction);
+
+
+        CardActionEnum[] glyphs = new CardActionEnum[1];
+        glyphs[0] = Glyph;
+
+        spawnTemporaryGlyphs(glyphs, false, true);   
+    }
+
+    public void spawnTemporaryGlyphs(CardActionEnum[] Glyphs, bool Temporary, bool updateDescription)
+    {
+        elements.level.instantiateIcons(Glyphs, Temporary);      
+        stats.UpgradePath.SetGlyphs(stats.getGlyphs(card_so.type));
+        elements.level.updateGlyphPositions();
+
+        if(updateDescription)
+        {
+            string formattedEffect = card_so.getEffectFormatted(stats);
+            elements.Description.setDescription(formattedEffect);
+        }
     }
 
     void upgradeModifiableValue(ModifiableCardValue Modify, int Value)

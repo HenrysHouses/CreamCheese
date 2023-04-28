@@ -23,27 +23,32 @@ public class ActionCard_ScriptableObject : Card_SO
         cardStats.UpgradePath.SetGlyphs(cardStats.getGlyphs(CardType.None));
     }
 
-    public string getEffectFormatted()
+    public string getEffectFormatted(CardStats overrideStats = null)
     {
         string output = "Not Assigned";
+        CardStats targetStats = cardStats;
+
+
+        if(overrideStats != null)
+            targetStats = overrideStats;
 
         if(effect == "")
             return output;
 
-        if(cardStats == null)
+        if(targetStats == null)
             return effect;
 
-        output = string.Format(effect, cardStats.strength);
+        output = string.Format(effect, targetStats.strength);
 
-        string targetName = cardStats.SelectionType.getName();
+        string targetName = targetStats.SelectionType.getName();
     
-        if(cardStats.SelectionType.getName().Equals("ActionCard_Behaviour"))
+        if(targetStats.SelectionType.getName().Equals("ActionCard_Behaviour"))
             targetName = "Card";
-        if(cardStats.SelectionType.getName().Equals("GodCard_Behaviour"))
+        if(targetStats.SelectionType.getName().Equals("GodCard_Behaviour"))
             targetName = "God Card";
-        if(cardStats.SelectionType.getName().Equals("Card_Behaviour"))
+        if(targetStats.SelectionType.getName().Equals("Card_Behaviour"))
             targetName = "Any type of card";
-        if(cardStats.SelectionType.getName().Equals("OfferingDebuff"))
+        if(targetStats.SelectionType.getName().Equals("OfferingDebuff"))
             targetName = "Offering";
 
         string[] split = output.Split('|');
@@ -55,35 +60,34 @@ public class ActionCard_ScriptableObject : Card_SO
 
         for (int i = 1; i < split.Length; i++)
         {
-            if(cardStats.numberOfTargets > 1)
+            if(targetStats.numberOfTargets > 1)
             {   
-                if(cardStats.actionGroup.actionStats[0].actionEnum.Equals(CardActionEnum.Defence))
-                    output += string.Format("from up to {0} {1}s", cardStats.numberOfTargets, targetName);
+                if(targetStats.actionGroup.actionStats[0].actionEnum.Equals(CardActionEnum.Defence))
+                    output += string.Format("from up to {0} {1}s", targetStats.numberOfTargets, targetName);
                 else
-                    output += string.Format("to up to {0} {1}s", cardStats.numberOfTargets, targetName);
+                    output += string.Format("to up to {0} {1}s", targetStats.numberOfTargets, targetName);
             }
             else
             {
-                if(cardStats.actionGroup.actionStats[0].actionEnum.Equals(CardActionEnum.Defence))
+                if(targetStats.actionGroup.actionStats[0].actionEnum.Equals(CardActionEnum.Defence))
                     output += "from one " + targetName;
                 else
                     output += "to one " + targetName;
             }
-            output += split[i];
         }
 
 
         bool space = true;
 
-        for (int i = 0; i < cardStats.actionGroup.actionStats.Count; i++)
+        for (int i = 0; i < targetStats.actionGroup.actionStats.Count; i++)
         {
-            if(cardStats.actionGroup.actionStats[i].actionEnum == CardActionEnum.Attack)
+            if(targetStats.actionGroup.actionStats[i].actionEnum == CardActionEnum.Attack)
                 continue;
 
-            if(cardStats.actionGroup.actionStats[i].actionEnum == CardActionEnum.Defence)
+            if(targetStats.actionGroup.actionStats[i].actionEnum == CardActionEnum.Defence)
                 continue;
 
-            if(cardStats.actionGroup.actionStats[i].actionEnum == CardActionEnum.Buff)
+            if(targetStats.actionGroup.actionStats[i].actionEnum == CardActionEnum.Buff)
                 continue;
 
             if(space)
@@ -91,8 +95,14 @@ public class ActionCard_ScriptableObject : Card_SO
                 output += "\n\n";   
                 space = false;
             }
-            output += cardStats.actionGroup.actionStats[i].actionEnum.ToString() + "\n";
+            output += targetStats.actionGroup.actionStats[i].actionEnum.ToString();
+
+            if(i < targetStats.actionGroup.actionStats.Count-1)
+                output += "\n";
         }
+
+        if(split.Length > 1)
+            output += split[1];
         return output;
     }
     public static string getEffectFormatted(Card_Behaviour targetCard)
@@ -158,7 +168,7 @@ public class ActionCard_ScriptableObject : Card_SO
 
                 if(space)
                 {
-                    output += "\n\n";   
+                    // output += "\n\n";   
                     space = false;
                 }
 
@@ -365,15 +375,16 @@ public struct CardExperience
         float NeededForLevel = upgrades[0].RequiredXP; 
 
 
-        if(currentExperience.Level > 1)
+        if(currentExperience.Level > 0)
         {
-            previousRequirement = upgrades[currentExperience.Level-2].RequiredXP;
-            NeededForLevel = upgrades[currentExperience.Level-1].RequiredXP - previousRequirement;
+            previousRequirement = upgrades[currentExperience.Level-1].RequiredXP;
+            NeededForLevel = upgrades[currentExperience.Level].RequiredXP - previousRequirement;
         }
 
         float progress = (currentExperience.XP - previousRequirement) / NeededForLevel;
         progress *= 100;
         
+
         return (int)progress;
     }
 
