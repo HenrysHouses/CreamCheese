@@ -69,6 +69,7 @@ public class BuffCardAction : CardAction
 
     private void AddGlyphs(ActionCard_Behaviour target, ActionGroup source)
     {
+        List<CardActionEnum> AddedGlyphs = new List<CardActionEnum>();
         for (int i = 0; i < source.actionStats.Count; i++)
         {   
             CardActionEnum Glyph = source.actionStats[i].actionEnum;
@@ -82,6 +83,7 @@ public class BuffCardAction : CardAction
             if(Glyph == CardActionEnum.Offering)
                 continue;
 
+            AddedGlyphs.Add(Glyph);
             CardAction act = CardAction.GetAction(Glyph);
             Debug.Log("adding: " + act.GetType() + " to: " + target.name);
 
@@ -95,6 +97,7 @@ public class BuffCardAction : CardAction
             _newAction.actionEnum = Glyph;
             target.stats.actionGroup.actionStats.Add(_newAction);
         }
+        target.spawnTemporaryGlyphs(AddedGlyphs.ToArray(), false, true);
     }
 
     protected override void UpdateNeededLanes(ActionCard_Behaviour _Behaviour)

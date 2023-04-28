@@ -45,7 +45,7 @@ public struct CardUpgrade
                 if(isNextLevel)
                     description += "Remove Glyph: " + RemovableGlyph[RemoveGlyphIndex];
                 else
-                    description += "Destroyed: " + AddGlyph + "\n";
+                    description += "Destroyed: " + RemovableGlyph[RemoveGlyphIndex] + "\n";
                 break;
 
             default:

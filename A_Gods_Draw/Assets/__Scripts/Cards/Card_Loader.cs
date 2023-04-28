@@ -59,7 +59,7 @@ public struct CardElements
     public TextMeshPro strength;
     public EventReference OnClickSFX;
     public UIPopup Description;
-    public UIPopup Effect;
+    // public UIPopup Effect;
     public LevelController level;
 }
 
@@ -71,8 +71,6 @@ public struct CardElements
 public class Card_Loader : MonoBehaviour
 {
     [SerializeField] Texture transparentMetallic;
-    [SerializeField] PathController IconPath;
-    [SerializeField] GameObject IconPrefab;
     [SerializeField] CardElements elements;
     [SerializeField] bool LoadCardPlayData = false;
     public CardPlayData _card;
@@ -160,12 +158,23 @@ public class Card_Loader : MonoBehaviour
     /// <param name="card">Data required to build the prefab and get its Levels and current Up</param>
     public void Set(CardPlayData card)
     {
+        bool preventDescriptionUpdate = false;
         _card = card;
 
         elements.cardName.text = _card.CardType.cardName;
         elements.cardName.ForceMeshUpdate();
 
-        
+        if(elements.level != null && card.CardType is ActionCard_ScriptableObject)
+        {
+            elements.level.set(GetComponent<Card_Selector>(), card);
+        }
+
+        if(elements.Description != null)
+        {
+            Popup_ScriptableObject copy = ScriptableObject.CreateInstance<Popup_ScriptableObject>();
+            elements.Description.PopupInfo.Clone(ref copy);
+            elements.Description.PopupInfo = copy;
+        }
 
        // if(elements.Description != null)
        // {
@@ -180,10 +189,6 @@ public class Card_Loader : MonoBehaviour
             elements.ArtRenderer.material.SetTexture("_MainTex", _card.CardType.Background);
         if(_card.CardType.Art)
             elements.ArtRenderer.material.SetTexture("_ArtTex", _card.CardType.Art);
-        
-        // Might remove
-        // elements.desc.text = card_so.effect;
-        // elements.desc.ForceMeshUpdate();
 
         if (_card.CardType is GodCard_ScriptableObject)
         {
@@ -222,29 +227,23 @@ public class Card_Loader : MonoBehaviour
             {
                 CB = gameObject.AddComponent<ActionCard_Behaviour>();
                 (CB as ActionCard_Behaviour).Initialize(Action_Card, elements);
-                (CB as ActionCard_Behaviour).ApplyLevels(card.Experience);
+                preventDescriptionUpdate = (CB as ActionCard_Behaviour).ApplyLevels(card.Experience);
             }
-            instantiateIcons(Action_Card.cardStats.getGlyphs(Action_Card.type));
+            elements.level.instantiateIcons(Action_Card.cardStats.getGlyphs(Action_Card.type));
         }
 
-        if(elements.Description != null)
+        if(elements.Description.PopupInfo  && !preventDescriptionUpdate)
         {
-            Popup_ScriptableObject copy = ScriptableObject.CreateInstance<Popup_ScriptableObject>();
-            elements.Description.PopupInfo.Clone(ref copy);
-             
             ActionCard_ScriptableObject info = card.CardType as ActionCard_ScriptableObject;
-             
-            if(info)
-                copy.Info = info.getEffectFormatted();
-            else
-                copy.Info = card.CardType.effect;
             
-            elements.Description.PopupInfo = copy;
+            if(info)
+                elements.Description.PopupInfo.Info = info.getEffectFormatted();
+            else
+                elements.Description.PopupInfo.Info = card.CardType.effect;
         }
 
         if(elements.level != null && card.CardType is ActionCard_ScriptableObject _Action_Card)
         {
-            elements.level.set(GetComponent<Card_Selector>(), card);
             CardUpgrade[] upgrades = _Action_Card.cardStats.UpgradePath.Upgrades;
 
 
@@ -262,30 +261,6 @@ public class Card_Loader : MonoBehaviour
                 
                 elements.level.setDescriptionShowAllLevels();
             }
-        }
-    }
-
-    private void instantiateIcons(CardActionEnum[] glyphs, bool spawnAsDisplay = false)
-    {
-        if(glyphs == null)
-            return;
-
-        if(glyphs.Length <= 0)
-            return;
-
-        float pos = 1/(glyphs.Length+1f);
-
-        for (int i = 0; i < glyphs.Length; i++)
-        {
-            GameObject icon = Instantiate(IconPrefab);
-            OrientedPoint OP = IconPath.GetEvenPathOP(pos * (i+1));
-            icon.transform.position = OP.pos;
-            icon.transform.SetParent(IconPath.transform.parent, spawnAsDisplay);
-            icon.transform.localEulerAngles = Vector3.zero;
-            icon.transform.localScale = Vector3.one;
-
-            Card_Selector selector = GetComponent<Card_Selector>();
-            icon.GetComponent<GlyphController>().setGlyph(glyphs[i], selector);
         }
     }
 }

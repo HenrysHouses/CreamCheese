@@ -3,7 +3,7 @@ using UnityEngine;
 public class UIPopup : MonoBehaviour
 {
     public Popup_ScriptableObject PopupInfo;
-    public bool CreateInstance;
+    public bool CreateInstance, instanceCreated;
     bool hasPopup;
     
     void Start()
@@ -57,9 +57,14 @@ public class UIPopup : MonoBehaviour
 
     public void setDescription(string description)
     {
-        Popup_ScriptableObject tempInfo = PopupInfo;
-        PopupInfo = ScriptableObject.CreateInstance<Popup_ScriptableObject>();
-        tempInfo.Clone(ref PopupInfo);
+        if(!instanceCreated)
+        {
+            Popup_ScriptableObject tempInfo = PopupInfo;
+            PopupInfo = ScriptableObject.CreateInstance<Popup_ScriptableObject>();
+            tempInfo.Clone(ref PopupInfo);
+            instanceCreated = true;
+        }
+
         PopupInfo.Info = description;
     }
 }
