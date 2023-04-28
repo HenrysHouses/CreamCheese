@@ -69,6 +69,13 @@ public class BoardStateController : MonoBehaviour
         Encounter_SO[] possibleEncounters = EncounterLoader.LoadAllEncountersOf(GameManager.instance.nextCombatType);
         Debug.Log(GameManager.instance.nextCombatType);
         _Enemies = EncounterLoader.InstantiateRandomEncounter(possibleEncounters, EnemyParent, out _Encounter);
+
+        for(int i = 0; i < _Enemies.Length; i++)
+        {
+
+            _Enemies[i].Board = this;
+
+        }
         
         foreach (var field in Battlefields)
         {

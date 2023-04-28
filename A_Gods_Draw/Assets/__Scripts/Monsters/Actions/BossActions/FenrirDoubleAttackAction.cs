@@ -20,16 +20,16 @@ public class FenrirDoubleAttackAction : MonsterAction
     public override void SelectTargets(BoardStateController _board)
     {
 
-        if(Targets.Count > 0)
+        if(ITargets.Count > 0)
         {
 
-            foreach (IMonsterTarget _target in Targets)
+            foreach (IMonsterTarget _target in ITargets)
             {
 
                 _target.UnTargeted();
                 
             }
-            Targets.Clear();
+            ITargets.Clear();
 
         } 
         BoardTarget[] _targets = _board.ActiveExtraEnemyTargets.ToArray();
@@ -41,16 +41,16 @@ public class FenrirDoubleAttackAction : MonsterAction
         {
 
             if(_board.isGodPlayed && Random.Range(0, 2) == 0)
-                Targets.Add(_board.playedGodCard);
+                ITargets.Add(_board.playedGodCard);
             else
-                Targets.Add(_board.Player);
+                ITargets.Add(_board.Player);
 
         }
         else
         {
 
             _tempIndex = Random.Range(0, _targets.Length);
-            Targets.Add(_targets[_tempIndex]);
+            ITargets.Add(_targets[_tempIndex]);
 
         }
         
@@ -60,9 +60,9 @@ public class FenrirDoubleAttackAction : MonsterAction
         {
 
             if(_board.isGodPlayed && Random.Range(0, 2) == 0)
-                Targets.Add(_board.playedGodCard);
+                ITargets.Add(_board.playedGodCard);
             else
-                Targets.Add(_board.Player);
+                ITargets.Add(_board.Player);
 
         }
         else
@@ -75,11 +75,11 @@ public class FenrirDoubleAttackAction : MonsterAction
                     _tempIndex2 = Random.Range(0, _targets.Length);
                 } while (_tempIndex == _tempIndex2);
             
-            Targets.Add(_targets[_tempIndex2]);
+            ITargets.Add(_targets[_tempIndex2]);
 
         }
 
-        foreach (IMonsterTarget _target in Targets)
+        foreach (IMonsterTarget _target in ITargets)
         {
 
             _target.Targeted();
@@ -91,15 +91,15 @@ public class FenrirDoubleAttackAction : MonsterAction
     public override void PerformAction(BoardStateController _board, int _strength, object _source)
     {
 
-        for(int i = 0; i < Targets.Count; i++)
+        for(int i = 0; i < ITargets.Count; i++)
         {
 
-            if(Targets[i] != null)
-                Targets[i].DealDamage(_strength);
+            if(ITargets[i] != null)
+                ITargets[i].DealDamage(_strength);
 
         }
 
-        Targets.Clear();
+        ITargets.Clear();
 
         Monster _enemy = _source as Monster;
         if(_enemy)

@@ -20,7 +20,7 @@ public class DoubleAttackAction : MonsterAction
     public override void SelectTargets(BoardStateController _board)
     {
         
-        Targets.Clear();
+        ITargets.Clear();
         if(_board.isGodPlayed)
         {
 
@@ -28,9 +28,9 @@ public class DoubleAttackAction : MonsterAction
             {
 
                 if(Random.Range(0, 2) == 0)
-                    Targets.Add(_board.playedGodCard.GetComponent<IMonsterTarget>());
+                    ITargets.Add(_board.playedGodCard.GetComponent<IMonsterTarget>());
                 else
-                    Targets.Add(_board.Player.GetComponent<IMonsterTarget>());
+                    ITargets.Add(_board.Player.GetComponent<IMonsterTarget>());
                 
             }
 
@@ -38,12 +38,12 @@ public class DoubleAttackAction : MonsterAction
         else
         {
 
-            Targets.Add(_board.Player.GetComponent<IMonsterTarget>());
-            Targets.Add(_board.Player.GetComponent<IMonsterTarget>());
+            ITargets.Add(_board.Player.GetComponent<IMonsterTarget>());
+            ITargets.Add(_board.Player.GetComponent<IMonsterTarget>());
 
         }
 
-        foreach (IMonsterTarget _target in Targets)
+        foreach (IMonsterTarget _target in ITargets)
         {
 
             _target.Targeted();
@@ -55,15 +55,15 @@ public class DoubleAttackAction : MonsterAction
     public override void PerformAction(BoardStateController _board, int _strength, object _source)
     {
 
-        for(int i = 0; i < Targets.Count; i++)
+        for(int i = 0; i < ITargets.Count; i++)
         {
 
-            if(Targets[i] != null)
-                Targets[i].DealDamage(_strength);
+            if(ITargets[i] != null)
+                ITargets[i].DealDamage(_strength);
 
         }
 
-        Targets.Clear();
+        ITargets.Clear();
 
         Monster _enemy = _source as Monster;
         if(_enemy)

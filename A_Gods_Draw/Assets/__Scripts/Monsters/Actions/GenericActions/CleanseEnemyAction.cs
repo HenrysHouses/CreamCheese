@@ -17,6 +17,27 @@ public class CleanseEnemyAction : MonsterAction
     public override void PerformAction(BoardStateController _board, int _strength, object _source)
     {
 
+        for(int i = 0; i < MonsterTargets.Count; i++)
+        {
+
+            MonsterTargets[i].RemoveDebuffs();
+            if(ActionSettings.ActionVFX)
+                GameObject.Instantiate(ActionSettings.ActionVFX, MonsterTargets[i].transform.position, Quaternion.identity);
+
+        }
+
+        Monster _enemy = _source as Monster;
+        if(_enemy)
+        {
+            _enemy.PlaySound(ActionSFX);
+        }
+
+    }
+
+    public override void SelectTargets(BoardStateController _board)
+    {
+
+        int _strength = Self.GetIntent().GetStrength;
         Monster[] _enemies = _board.getLivingEnemies();
 
         int _cleansed = 0;
@@ -30,18 +51,12 @@ public class CleanseEnemyAction : MonsterAction
             {
 
                 _cleansed++;
-                _enemyToCheck.RemoveDebuffs();
-                if(ActionSettings.ActionVFX)
-                    GameObject.Instantiate(ActionSettings.ActionVFX, _enemyToCheck.transform.position, Quaternion.identity);
+                MonsterTargets.Add(_enemyToCheck);
+
+                _enemyToCheck.TargetedByEnemy(Self, Color.yellow);
 
             }
 
-        }
-
-        Monster _enemy = _source as Monster;
-        if(_enemy)
-        {
-            _enemy.PlaySound(ActionSFX);
         }
 
     }

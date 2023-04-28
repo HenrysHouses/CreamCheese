@@ -15,6 +15,7 @@ public abstract class Intent
     }
 
     protected int strength;
+    public int GetStrength => strength;
     
     public Monster Self;
     protected MonsterAction actionSelected;

@@ -15,6 +15,8 @@ public class Monster : BoardElement
     protected Intent enemyIntent;
     protected int defendFor, queuedDefence;
     private List<ActionCard_Behaviour> targetedByCards;
+    private List<Monster> targetedByEnemies;
+    public BoardStateController Board;
 
     //VFX
     [Header("VFX")]
@@ -84,6 +86,7 @@ public class Monster : BoardElement
 
         damageSources = new Dictionary<ActionCard_Behaviour, int>();
         targetedByCards = new List<ActionCard_Behaviour>();
+        targetedByEnemies = new List<Monster>();
         debuffDisplays = new Dictionary<Sprite, GameObject>();
 
     }
@@ -230,24 +233,16 @@ public class Monster : BoardElement
         {
 
             currentHealth = 0;
-            SoundPlayer.PlaySound(death_SFX,gameObject);
-            if (deathParticleVFX != null)
-            {
-                GameObject spawn = Instantiate(deathParticleVFX, transform.position, Quaternion.identity);
-                DestroyOrder test = spawn.GetComponent<DestroyOrder>();
-                if (test != null)
-                {
-
-                    spawn.GetComponent<DestroyOrder>().destroyVFX();
-                }
-            }
 
             for(int i = 0; i < targetedByCards.Count; i++)
                 targetedByCards[i].EnemyDied(this);
+
+            for(int i = 0; i < targetedByEnemies.Count; i++)
+                targetedByEnemies[i].ReSelectTargets(Board);
             
             animator.SetTrigger("Dying");
             animator.SetInteger("Dying", Random.Range(0,2));
-            Destroy(this.gameObject, animator.GetCurrentAnimatorStateInfo(0).length);
+            Invoke(nameof(Die), animator.GetCurrentAnimatorStateInfo(0).length);
         }
 
         UpdateHealthUI();
@@ -255,6 +250,25 @@ public class Monster : BoardElement
         setOutline(outlineSize, Color.red, 0.25f);
 
         return _damageTaken;
+
+    }
+
+    private void Die()
+    {
+
+        SoundPlayer.PlaySound(death_SFX,gameObject);
+        if (deathParticleVFX != null)
+        {
+            GameObject spawn = Instantiate(deathParticleVFX, transform.position, Quaternion.identity);
+            DestroyOrder test = spawn.GetComponent<DestroyOrder>();
+            if (test != null)
+            {
+                spawn.GetComponent<DestroyOrder>().destroyVFX();
+            }
+        }
+
+
+        Destroy(gameObject);
 
     }
 
@@ -531,11 +545,11 @@ public class Monster : BoardElement
 
     private void UpdateOutline()
     {
-        outlineRemainingTime = Mathf.Clamp01(outlineRemainingTime - Time.deltaTime);
+        outlineRemainingTime -= Time.deltaTime;
         
         if(outlineShouldTurnOff)
             setOutline(0, Color.white);
-        else if (outlineRemainingTime == 0)
+        else if (outlineRemainingTime <= 0)
         {
             outlineShouldTurnOff = true;
         }
@@ -543,12 +557,26 @@ public class Monster : BoardElement
 
     public void Act(BoardStateController board)
     {
+
+        targetedByEnemies.Clear();
+        setOutline(0, Color.white);
+
         if(enemyIntent != null)
         {
             enemyIntent.Act(board, this);
             TurnController.shouldWaitForAnims = true;
             StartCoroutine(WaitForAnims());
         }
+
+    }
+
+    public void TargetedByEnemy(Monster _enemy, Color _color)
+    {
+
+        targetedByEnemies.Add(_enemy);
+
+        setOutline(outlineSize, _color, 10000);
+
     }
 
     public void PlaySound(EventReference _sfx)
