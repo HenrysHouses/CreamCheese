@@ -19,7 +19,7 @@ public class ColliderButton : MonoBehaviour
 
     void OnMouseDown()
     {
-        if(!isInteractable)
+        if(!isInteractable || GameManager.instance.PauseMenuIsOpen)
             return;
         
         OnClick?.Invoke();

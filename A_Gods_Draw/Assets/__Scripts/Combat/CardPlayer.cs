@@ -49,6 +49,9 @@ public class CardPlayer : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        if(GameManager.instance.PauseMenuIsOpen)
+            return;
+
         // Place the card on the board
         if (_selectedCard && _selectedCard.CardIsReady())
         {

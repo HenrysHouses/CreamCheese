@@ -16,9 +16,11 @@ public class Card_InspectingPopup : MonoBehaviour
 
         descriptions[0].text = card.description; //lore
 
-        string unlocks = targetObject.GetComponentInChildren<LevelController>().setDescriptionShowAllLevels();
+        LevelController controller = targetObject.GetComponentInChildren<LevelController>();
+        string unlocks = "None";
+        // On cards with no levels controller is null
+        if(controller)
+            unlocks = targetObject.GetComponentInChildren<LevelController>().setDescriptionShowAllLevels();
         descriptions[1].text = unlocks; //unlocks
     }
-
-
 }

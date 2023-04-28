@@ -15,6 +15,11 @@ public class CardRewardDisableParticles : MonoBehaviour
 
     private void Update()
     {
+        if(GameManager.instance.PauseMenuIsOpen)
+        {
+            return;
+        }
+
         if (Input.GetMouseButtonUp(0))
         {
             pressedThisFrame = false;

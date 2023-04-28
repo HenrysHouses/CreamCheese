@@ -23,6 +23,9 @@ public class EndTurnButton : MonoBehaviour
 
     private void OnMouseDown()
     {
+        if(GameManager.instance.PauseMenuIsOpen)
+            return;
+
         if(CanEndTurn)
         {
             SoundPlayer.PlaySound(endTurn_SFX,gameObject);
@@ -33,7 +36,8 @@ public class EndTurnButton : MonoBehaviour
 
     void OnMouseOver()
     {
-        setOutlineSize(OnSize);
+        if(!GameManager.instance.PauseMenuIsOpen)
+            setOutlineSize(OnSize);
     }
 
     void OnMouseExit()

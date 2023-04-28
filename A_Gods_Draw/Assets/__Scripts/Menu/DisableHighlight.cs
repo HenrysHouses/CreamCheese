@@ -18,7 +18,7 @@ public class DisableHighlight : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if(shouldDisable)
+        if(shouldDisable || GameManager.instance.PauseMenuIsOpen)
             highlight.SetActive(false);
 
         if(shouldDisable == false && highlight.activeSelf)

@@ -30,6 +30,9 @@ public class PopupHold : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        if(GameManager.instance.PauseMenuIsOpen)
+            return;
+
         Vector3 point = new Vector3();
         Vector2 mousePos = new Vector2();
 
