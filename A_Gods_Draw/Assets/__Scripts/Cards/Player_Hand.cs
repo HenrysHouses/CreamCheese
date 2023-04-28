@@ -98,6 +98,9 @@ public class Player_Hand : MonoBehaviour
 
     private void Update()
     {
+        if(GameManager.instance.PauseMenuIsOpen)
+            return;
+
         for (int i = 0; i < CardSelectionAnimators.Count; i++)
         {
             if (CardSelectionAnimators[i].Selector.holdingOver)
