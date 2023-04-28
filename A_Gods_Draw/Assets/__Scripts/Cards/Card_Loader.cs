@@ -160,7 +160,6 @@ public class Card_Loader : MonoBehaviour
     /// <param name="card">Data required to build the prefab and get its Levels and current Up</param>
     public void Set(CardPlayData card)
     {
-        Debug.Log(card.CardType.cardName);
         _card = card;
 
         elements.cardName.text = _card.CardType.cardName;
