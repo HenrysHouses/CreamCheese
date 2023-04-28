@@ -19,9 +19,9 @@ public class Monster_Editor : Editor
 
         EnemyActions = serializedObject.FindProperty("EnemyActions");
         actionDropdowns = new List<bool>(EnemyActions.arraySize);
-        actionCondDd = new List<bool>();
-        strengthCondDd = new List<bool>();
-        weightCondDd = new List<bool>();
+        actionCondDd = new List<bool>(EnemyActions.arraySize);
+        strengthCondDd = new List<bool>(EnemyActions.arraySize);
+        weightCondDd = new List<bool>(EnemyActions.arraySize);
         actionListDropdown = false;
 
     }
@@ -100,9 +100,12 @@ public class Monster_Editor : Editor
                 EditorGUI.indentLevel++;
 
                 _actionSelection.Next(false);//Action conditions
-                SerializedProperty _actionConditions = _actionSelection;
 
-                if(actionCondDd.Count-1 < _actionConditions.arraySize)
+                SerializedProperty _actionConditions = _actionSelection;
+                if(_actionConditions.arraySize == 0)
+                        _actionConditions.InsertArrayElementAtIndex(_actionConditions.arraySize);
+
+                while(actionCondDd.Count-1 < i)
                     actionCondDd.Add(false);
 
                 actionCondDd[i] = EditorGUILayout.Foldout(actionCondDd[i], "Action Conditions", true, EditorStyles.foldoutHeader);
@@ -113,22 +116,16 @@ public class Monster_Editor : Editor
                     EditorGUI.indentLevel++;
                     GUILayout.BeginVertical("Conditions", "window");
 
-                    if(_actionConditions.arraySize == 0)
-                        if(GUILayout.Button("+", EditorStyles.miniButtonLeft))
-                            _actionConditions.InsertArrayElementAtIndex(_actionConditions.arraySize);
-
                     for(int j = 0; j < _actionConditions.arraySize; j++)
                     {
 
-                        //EditorGUILayout.BeginHorizontal();
+                        EditorGUILayout.LabelField("Element: " + j);
 
                         SerializedProperty _actionCondition = _actionConditions.GetArrayElementAtIndex(j);
                         _actionCondition.Next(true);
                         EditorGUILayout.PropertyField(_actionCondition);
                         _actionCondition.Next(false);
                         EditorGUILayout.PropertyField(_actionCondition);
-
-                        //EditorGUILayout.EndHorizontal();
 
                         EditorGUILayout.BeginHorizontal();
 
@@ -186,7 +183,62 @@ public class Monster_Editor : Editor
                     GUILayout.BeginVertical("Strength Mod Settings", "window");
                     
                     _actionSelection.Next(false);//StrengthModConditions
-                    EditorGUILayout.PropertyField(_actionSelection);
+
+                    SerializedProperty _strengthConditions = _actionSelection;
+                    if(_strengthConditions.arraySize == 0)
+                        _strengthConditions.InsertArrayElementAtIndex(_strengthConditions.arraySize);
+
+                    while(strengthCondDd.Count-1 < i)
+                        strengthCondDd.Add(false);
+
+                    strengthCondDd[i] = EditorGUILayout.Foldout(strengthCondDd[i], "Action Conditions", true, EditorStyles.foldoutHeader);
+
+                    if(strengthCondDd[i])
+                    {
+
+                        EditorGUI.indentLevel++;
+                        GUILayout.BeginVertical("Conditions", "window");
+
+                        for(int j = 0; j < _strengthConditions.arraySize; j++)
+                        {
+
+                            EditorGUILayout.LabelField("Element: " + j);
+
+                            SerializedProperty _strengthCondition = _strengthConditions.GetArrayElementAtIndex(j);
+                            _strengthCondition.Next(true);
+                            EditorGUILayout.PropertyField(_strengthCondition);
+                            _strengthCondition.Next(false);
+                            EditorGUILayout.PropertyField(_strengthCondition);
+
+                            EditorGUILayout.BeginHorizontal();
+
+                            if(GUILayout.Button("+", EditorStyles.miniButtonLeft))
+                            {
+
+                                _strengthConditions.InsertArrayElementAtIndex(_strengthConditions.arraySize);
+
+                            }
+
+                            if(GUILayout.Button("-", EditorStyles.miniButtonRight))
+                            {
+                
+                                int _arraySize = _strengthConditions.arraySize;
+                                _strengthConditions.DeleteArrayElementAtIndex(j);
+                                if(_strengthConditions.arraySize == _arraySize)
+                                    _strengthConditions.DeleteArrayElementAtIndex(j);
+
+                            }
+
+                            EditorGUILayout.EndHorizontal();
+
+                            EditorGUILayout.Space();
+
+                        }
+
+                        GUILayout.EndVertical();
+                        EditorGUI.indentLevel--;
+
+                    }
 
                     if(_actionSelection.arraySize > 1)
                     {
@@ -224,7 +276,62 @@ public class Monster_Editor : Editor
                     GUILayout.BeginVertical("Weigth Mod Settings", "window");
                     
                     _actionSelection.Next(false);//weigthModConditions
-                    EditorGUILayout.PropertyField(_actionSelection);
+                    
+                    SerializedProperty _weightConditions = _actionSelection;
+                    if(_weightConditions.arraySize == 0)
+                        _weightConditions.InsertArrayElementAtIndex(_weightConditions.arraySize);
+
+                    while(weightCondDd.Count-1 < i)
+                        weightCondDd.Add(false);
+
+                    weightCondDd[i] = EditorGUILayout.Foldout(weightCondDd[i], "Action Conditions", true, EditorStyles.foldoutHeader);
+
+                    if(weightCondDd[i])
+                    {
+
+                        EditorGUI.indentLevel++;
+                        GUILayout.BeginVertical("Conditions", "window");
+
+                        for(int j = 0; j < _weightConditions.arraySize; j++)
+                        {
+
+                            EditorGUILayout.LabelField("Element: " + j);
+
+                            SerializedProperty _weightCondition = _weightConditions.GetArrayElementAtIndex(j);
+                            _weightCondition.Next(true);
+                            EditorGUILayout.PropertyField(_weightCondition);
+                            _weightCondition.Next(false);
+                            EditorGUILayout.PropertyField(_weightCondition);
+
+                            EditorGUILayout.BeginHorizontal();
+
+                            if(GUILayout.Button("+", EditorStyles.miniButtonLeft))
+                            {
+
+                                _weightConditions.InsertArrayElementAtIndex(_weightConditions.arraySize);
+
+                            }
+
+                            if(GUILayout.Button("-", EditorStyles.miniButtonRight))
+                            {
+                
+                                int _arraySize = _weightConditions.arraySize;
+                                _weightConditions.DeleteArrayElementAtIndex(j);
+                                if(_weightConditions.arraySize == _arraySize)
+                                    _weightConditions.DeleteArrayElementAtIndex(j);
+
+                            }
+
+                            EditorGUILayout.EndHorizontal();
+
+                            EditorGUILayout.Space();
+
+                        }
+
+                        GUILayout.EndVertical();
+                        EditorGUI.indentLevel--;
+
+                    }
 
                     if(_actionSelection.arraySize > 1)
                     {

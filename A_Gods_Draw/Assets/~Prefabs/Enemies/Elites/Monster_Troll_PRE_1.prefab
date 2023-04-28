@@ -214,16 +214,18 @@ MonoBehaviour:
   clickable: 1
   EnemyActions:
   - ActionType: 3
-    ActionConditions: 00000000
+    ActionConditions:
+    - Condition: 0
+      InvertCondition: 0
     AllRequired: 0
     MinStrength: 8
     MaxStrength: 16
     UseStrengthMod: 0
-    StrengthModConditions: 
+    StrengthModConditions: []
     AllRequiredForMod: 0
     ModifiedStrength: 0
     UseWeigthMod: 0
-    WeigthModConditions: 
+    WeigthModConditions: []
     AllRequiredForWeigthMod: 0
     ClearOnConditionFalse: 0
     WeigthMod: 0
@@ -240,16 +242,18 @@ MonoBehaviour:
         Data4: 0
       Path: 
   - ActionType: 8
-    ActionConditions: 00000000
+    ActionConditions:
+    - Condition: 9
+      InvertCondition: 0
     AllRequired: 0
     MinStrength: 6
     MaxStrength: 12
     UseStrengthMod: 0
-    StrengthModConditions: 
+    StrengthModConditions: []
     AllRequiredForMod: 0
     ModifiedStrength: 0
     UseWeigthMod: 0
-    WeigthModConditions: 
+    WeigthModConditions: []
     AllRequiredForWeigthMod: 0
     ClearOnConditionFalse: 0
     WeigthMod: 0

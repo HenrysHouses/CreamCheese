@@ -214,19 +214,25 @@ MonoBehaviour:
   clickable: 1
   EnemyActions:
   - ActionType: 10
-    ActionConditions: 0f000000
+    ActionConditions:
+    - Condition: 15
+      InvertCondition: 0
     AllRequired: 0
     MinStrength: 1
     MaxStrength: 3
     UseStrengthMod: 0
-    StrengthModConditions: 01000000
+    StrengthModConditions:
+    - Condition: 0
+      InvertCondition: 0
     AllRequiredForMod: 0
     ModifiedStrength: 6
-    UseWeigthMod: 0
-    WeigthModConditions: 07000000
+    UseWeigthMod: 1
+    WeigthModConditions:
+    - Condition: 15
+      InvertCondition: 0
     AllRequiredForWeigthMod: 0
-    ClearOnConditionFalse: 0
-    WeigthMod: 0
+    ClearOnConditionFalse: 1
+    WeigthMod: 1
     AddedWeigth: 0
     Weigth: 2
     Priority: 0
@@ -240,16 +246,18 @@ MonoBehaviour:
         Data4: 0
       Path: 
   - ActionType: 3
-    ActionConditions: 00000000
+    ActionConditions:
+    - Condition: 0
+      InvertCondition: 0
     AllRequired: 0
     MinStrength: 2
     MaxStrength: 6
     UseStrengthMod: 0
-    StrengthModConditions: 01000000
+    StrengthModConditions: []
     AllRequiredForMod: 0
     ModifiedStrength: 6
     UseWeigthMod: 0
-    WeigthModConditions: 07000000
+    WeigthModConditions: []
     AllRequiredForWeigthMod: 0
     ClearOnConditionFalse: 0
     WeigthMod: 0
@@ -266,16 +274,18 @@ MonoBehaviour:
         Data4: 0
       Path: 
   - ActionType: 1
-    ActionConditions: 00000000
+    ActionConditions:
+    - Condition: 3
+      InvertCondition: 0
     AllRequired: 0
     MinStrength: 3
     MaxStrength: 6
     UseStrengthMod: 0
-    StrengthModConditions: 01000000
+    StrengthModConditions: []
     AllRequiredForMod: 0
     ModifiedStrength: 6
     UseWeigthMod: 0
-    WeigthModConditions: 07000000
+    WeigthModConditions: []
     AllRequiredForWeigthMod: 0
     ClearOnConditionFalse: 0
     WeigthMod: 0
@@ -292,16 +302,18 @@ MonoBehaviour:
         Data4: 0
       Path: 
   - ActionType: 2
-    ActionConditions: 02000000
+    ActionConditions:
+    - Condition: 2
+      InvertCondition: 0
     AllRequired: 0
     MinStrength: 2
     MaxStrength: 4
     UseStrengthMod: 0
-    StrengthModConditions: 01000000
+    StrengthModConditions: []
     AllRequiredForMod: 0
     ModifiedStrength: 6
     UseWeigthMod: 0
-    WeigthModConditions: 07000000
+    WeigthModConditions: []
     AllRequiredForWeigthMod: 0
     ClearOnConditionFalse: 0
     WeigthMod: 0

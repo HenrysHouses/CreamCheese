@@ -214,16 +214,18 @@ MonoBehaviour:
   clickable: 1
   EnemyActions:
   - ActionType: 0
-    ActionConditions: 00000000
+    ActionConditions:
+    - Condition: 1
+      InvertCondition: 1
     AllRequired: 0
     MinStrength: 1
     MaxStrength: 4
     UseStrengthMod: 0
-    StrengthModConditions: 
+    StrengthModConditions: []
     AllRequiredForMod: 0
     ModifiedStrength: 0
     UseWeigthMod: 0
-    WeigthModConditions: 
+    WeigthModConditions: []
     AllRequiredForWeigthMod: 0
     ClearOnConditionFalse: 0
     WeigthMod: 0
@@ -240,16 +242,18 @@ MonoBehaviour:
         Data4: 1746539433
       Path: event:/Combat/Enemy/Enemy Ability
   - ActionType: 1
-    ActionConditions: 03000000
+    ActionConditions:
+    - Condition: 3
+      InvertCondition: 0
     AllRequired: 0
     MinStrength: 1
     MaxStrength: 4
     UseStrengthMod: 0
-    StrengthModConditions: 
+    StrengthModConditions: []
     AllRequiredForMod: 0
     ModifiedStrength: 0
     UseWeigthMod: 0
-    WeigthModConditions: 
+    WeigthModConditions: []
     AllRequiredForWeigthMod: 0
     ClearOnConditionFalse: 0
     WeigthMod: 0
@@ -266,16 +270,18 @@ MonoBehaviour:
         Data4: -1982789950
       Path: event:/Combat/Enemy/EnemyShielding
   - ActionType: 2
-    ActionConditions: 02000000
+    ActionConditions:
+    - Condition: 2
+      InvertCondition: 0
     AllRequired: 0
     MinStrength: 1
     MaxStrength: 4
     UseStrengthMod: 0
-    StrengthModConditions: 
+    StrengthModConditions: []
     AllRequiredForMod: 0
     ModifiedStrength: 0
     UseWeigthMod: 0
-    WeigthModConditions: 
+    WeigthModConditions: []
     AllRequiredForWeigthMod: 0
     ClearOnConditionFalse: 0
     WeigthMod: 0
@@ -292,16 +298,18 @@ MonoBehaviour:
         Data4: 0
       Path: 
   - ActionType: 3
-    ActionConditions: 04000000
+    ActionConditions:
+    - Condition: 0
+      InvertCondition: 0
     AllRequired: 0
     MinStrength: 3
     MaxStrength: 4
     UseStrengthMod: 0
-    StrengthModConditions: 
+    StrengthModConditions: []
     AllRequiredForMod: 0
     ModifiedStrength: 0
     UseWeigthMod: 0
-    WeigthModConditions: 
+    WeigthModConditions: []
     AllRequiredForWeigthMod: 0
     ClearOnConditionFalse: 0
     WeigthMod: 0
@@ -318,16 +326,20 @@ MonoBehaviour:
         Data4: 0
       Path: 
   - ActionType: 9
-    ActionConditions: 0c000000
+    ActionConditions:
+    - Condition: 12
+      InvertCondition: 0
     AllRequired: 0
     MinStrength: 2
     MaxStrength: 4
     UseStrengthMod: 0
-    StrengthModConditions: 
+    StrengthModConditions: []
     AllRequiredForMod: 0
     ModifiedStrength: 0
     UseWeigthMod: 1
-    WeigthModConditions: 0d000000
+    WeigthModConditions:
+    - Condition: 0
+      InvertCondition: 0
     AllRequiredForWeigthMod: 0
     ClearOnConditionFalse: 1
     WeigthMod: 2

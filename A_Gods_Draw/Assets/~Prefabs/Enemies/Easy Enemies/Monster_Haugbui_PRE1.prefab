@@ -214,16 +214,18 @@ MonoBehaviour:
   clickable: 1
   EnemyActions:
   - ActionType: 3
-    ActionConditions: 04000000
+    ActionConditions:
+    - Condition: 0
+      InvertCondition: 0
     AllRequired: 0
     MinStrength: 2
     MaxStrength: 6
     UseStrengthMod: 0
-    StrengthModConditions: 
+    StrengthModConditions: []
     AllRequiredForMod: 0
     ModifiedStrength: 0
     UseWeigthMod: 0
-    WeigthModConditions: 
+    WeigthModConditions: []
     AllRequiredForWeigthMod: 0
     ClearOnConditionFalse: 0
     WeigthMod: 0
@@ -240,16 +242,20 @@ MonoBehaviour:
         Data4: 0
       Path: 
   - ActionType: 0
-    ActionConditions: 00000000
+    ActionConditions:
+    - Condition: 1
+      InvertCondition: 1
     AllRequired: 0
     MinStrength: 6
     MaxStrength: 12
     UseStrengthMod: 0
-    StrengthModConditions: 
+    StrengthModConditions: []
     AllRequiredForMod: 0
     ModifiedStrength: 0
     UseWeigthMod: 1
-    WeigthModConditions: 0b000000
+    WeigthModConditions:
+    - Condition: 11
+      InvertCondition: 0
     AllRequiredForWeigthMod: 0
     ClearOnConditionFalse: 1
     WeigthMod: 1
@@ -266,16 +272,18 @@ MonoBehaviour:
         Data4: 0
       Path: 
   - ActionType: 2
-    ActionConditions: 0200000004000000
+    ActionConditions:
+    - Condition: 2
+      InvertCondition: 0
     AllRequired: 1
     MinStrength: 1
     MaxStrength: 4
     UseStrengthMod: 0
-    StrengthModConditions: 
+    StrengthModConditions: []
     AllRequiredForMod: 0
     ModifiedStrength: 0
     UseWeigthMod: 0
-    WeigthModConditions: 
+    WeigthModConditions: []
     AllRequiredForWeigthMod: 0
     ClearOnConditionFalse: 0
     WeigthMod: 0
@@ -292,16 +300,18 @@ MonoBehaviour:
         Data4: 0
       Path: 
   - ActionType: 9
-    ActionConditions: 0c000000
+    ActionConditions:
+    - Condition: 14
+      InvertCondition: 0
     AllRequired: 1
     MinStrength: 4
     MaxStrength: 6
     UseStrengthMod: 0
-    StrengthModConditions: 
+    StrengthModConditions: []
     AllRequiredForMod: 0
     ModifiedStrength: 0
     UseWeigthMod: 0
-    WeigthModConditions: 
+    WeigthModConditions: []
     AllRequiredForWeigthMod: 0
     ClearOnConditionFalse: 0
     WeigthMod: 0
