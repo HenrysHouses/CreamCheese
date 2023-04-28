@@ -16,6 +16,9 @@ public class BuffEnemyAction : MonsterAction
 
     public override void PerformAction(BoardStateController _board, int _strength, object _source)
     {
+
+        if(MonsterTargets.Count == 0)
+            return;
         
         MonsterTargets[0].Strengthen(_strength);
         if(ActionSettings.ActionVFX)
