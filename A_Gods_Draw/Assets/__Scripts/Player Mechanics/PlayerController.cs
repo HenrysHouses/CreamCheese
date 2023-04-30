@@ -32,13 +32,11 @@ public class PlayerController : BoardElement , IMonsterTarget
     public void DealDamage(int amount, UnityEngine.Object _source = null)
     {
         
-        // Debug.Log("Damage taken:" + -amount);
         playerTracker.UpdateHealth(-amount);
 
         if (playerTracker.Health < 0)
             playerTracker.Health = 0;
 
-        Debug.LogError("Camera shakes and take dmg shows even tho ur not taking dmg");
         //TakeDamageCamera(); // Sets the camera to the healhtdial //TODO: setr this somewhere where the player takes dmg
         healthTxt.text = "HP: " + playerTracker.Health.ToString();
         SceneManager.SetActiveScene(gameObject.scene);
