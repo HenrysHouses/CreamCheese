@@ -9,7 +9,7 @@ public class ItemPool_ScriptableObject : ScriptableObject
     [SerializeField, ReadOnly] float _TotalWeights;
     [field:SerializeField] public ItemDrop[] Items;
 
-    public T getDroppedItem<T>() where T : Object
+    public Object getDroppedItem(bool contentIsText)
     {
         float _RolledItem = Random.Range(0f, _TotalWeights);
 
@@ -18,12 +18,12 @@ public class ItemPool_ScriptableObject : ScriptableObject
             if(Items[i].UpperRange < _RolledItem)
                 continue;
 
-            return Items[i].Item as T;
+            return Items[i].Item;
         }
         return null;
     }
 
-    public T getDroppedItem<T>(Object[] Excluding = null) where T : Object
+    public Object getDroppedItem(Object[] Excluding = null, bool contentIsText = false)
     {
         // Create loot pool with excluded items
         ItemPool_ScriptableObject excludedLootPool = Clone();
@@ -33,12 +33,23 @@ public class ItemPool_ScriptableObject : ScriptableObject
         {
             for (int j = 0; j < Excluding.Length; j++)
             {
-                if(excludedLootPool.Items[i].Item.Equals(Excluding[j]))
-                    continue;
+                if(!contentIsText)
+                {
+                    if(excludedLootPool.Items[i].Item.Equals(Excluding[j]))
+                        continue;
+                }
+                else
+                {
+                    if(excludedLootPool.Items[i].Item.ToString().Contains(Excluding[j].GetType().ToString()))
+                        continue;
+                }
 
                 if(j == Excluding.Length-1)
                     itemDrops.Add(excludedLootPool.Items[i]);
             }
+
+            if(Excluding.Length == 0)
+                itemDrops.Add(excludedLootPool.Items[i]);
         }
 
         excludedLootPool.Items = itemDrops.ToArray();
@@ -53,7 +64,9 @@ public class ItemPool_ScriptableObject : ScriptableObject
             if(excludedLootPool.Items[i].UpperRange < _RolledItem)
                 continue;
 
-            return excludedLootPool.Items[i].Item as T;
+            Object droppedItem = excludedLootPool.Items[i].Item;
+            Debug.Log(droppedItem.ToString());
+            return droppedItem;
         }
         return null;
     }

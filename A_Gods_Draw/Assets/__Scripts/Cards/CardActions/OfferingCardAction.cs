@@ -12,6 +12,7 @@ public class OfferingCardAction : CardAction
         thing = Object.Instantiate(Resources.Load<GameObject>("Offering_PRE"));
         board.placeThingOnLane(thing.GetComponent<BoardElement>());
         playSFX(source.gameObject);
+        Debug.Log("happens for each target?");
     }
 
     protected override void UpdateNeededLanes(ActionCard_Behaviour source)

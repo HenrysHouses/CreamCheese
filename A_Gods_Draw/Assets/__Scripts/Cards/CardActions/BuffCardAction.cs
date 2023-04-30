@@ -85,7 +85,7 @@ public class BuffCardAction : CardAction
 
             AddedGlyphs.Add(Glyph);
             CardAction act = CardAction.GetAction(Glyph);
-            Debug.Log("adding: " + act.GetType() + " to: " + target.name);
+            Debug.Log("adding: " + act.GetType() + " to: " + target.CardSO.cardName);
 
             // act.action_SFX = _actionGroup.actionStats[i].action_SFX; // this should be read from a scriptable object for the target action
             // act.PlayOnPlacedOrTriggered_SFX = _actionGroup.actionStats[i].PlayOnPlacedOrTriggered_SFX;
@@ -97,6 +97,7 @@ public class BuffCardAction : CardAction
             _newAction.actionEnum = Glyph;
             target.stats.actionGroup.actionStats.Add(_newAction);
         }
+        Debug.Log("buff glyphs");
         target.spawnTemporaryGlyphs(AddedGlyphs.ToArray(), false, true);
     }
 

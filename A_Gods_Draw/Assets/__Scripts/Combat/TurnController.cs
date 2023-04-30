@@ -349,8 +349,6 @@ public class TurnController : CombatFSM
             {
                 CardAnimations[i].OnAnimStartSound.AddListener(CardSound);
 
-                Debug.Log(_Hand.CardSelectionAnimators.Count + ": " + i);
-
                 if(i >= _Hand.CardSelectionAnimators.Count)
                     break;
 
