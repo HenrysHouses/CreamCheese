@@ -503,8 +503,8 @@ public class ActionCard_Behaviour : Card_Behaviour
             }
         }
 
-        foreach (var target in SelectedTargets)
-        {
+        // foreach (var target in SelectedTargets)
+        // {
             foreach (CardAction action in _actionGroup.actions)
             {
                 action.OnLanePlaced(controller.GetBoard(), this);
@@ -516,7 +516,7 @@ public class ActionCard_Behaviour : Card_Behaviour
                     action.OnLanePlaced(controller.GetBoard(), this);
                 }
             }
-        }
+        // }
 
         
 
@@ -599,7 +599,7 @@ public class ActionCard_Behaviour : Card_Behaviour
     void AddNewGlyph(CardActionEnum Glyph)
     {
         CardAction act = CardAction.GetAction(Glyph);
-        // Debug.Log("adding: " + act.GetType() + " to: " + card_so.cardName);
+        Debug.Log("adding: " + act.GetType() + " to: " + card_so.cardName);
 
         // act.action_SFX = _actionGroup.actionStats[i].action_SFX; // this should be read from a scriptable object for the target action
         // act.PlayOnPlacedOrTriggered_SFX = _actionGroup.actionStats[i].PlayOnPlacedOrTriggered_SFX;
@@ -621,7 +621,7 @@ public class ActionCard_Behaviour : Card_Behaviour
     public void spawnTemporaryGlyphs(CardActionEnum[] Glyphs, bool Temporary, bool updateDescription)
     {
         elements.level.instantiateIcons(Glyphs, Temporary);      
-        stats.UpgradePath.SetGlyphs(stats.getGlyphs(card_so.type));
+        stats.UpgradePath.SetGlyphs(stats.getGlyphs(card_so.type), true);
         elements.level.updateGlyphPositions();
 
         if(updateDescription)

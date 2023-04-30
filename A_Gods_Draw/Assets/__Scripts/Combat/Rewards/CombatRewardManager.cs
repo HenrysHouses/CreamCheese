@@ -13,7 +13,10 @@ public class CombatRewardManager : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-
+        // player.addRune(new ChaosRune(1, RuneState.Active));
+        // player.addRune(new WealthRune(1, RuneState.Active));
+        // player.addRune(new StrengthRune(1, RuneState.Active));
+        rollItem();
     }
 
     void rollItem()
@@ -34,23 +37,28 @@ public class CombatRewardManager : MonoBehaviour
             return;
 
         ItemPool_ScriptableObject _RarityDrop = targetLootPool.LootPool.Roll(out RarityType _rarityType);
+        Debug.Log("Dropped " + _rarityType + ": " + _RarityDrop);
 
         if(targetReward == NodeType.Elite)
         {
-            rune DroppedRune = _RarityDrop.getDroppedItem<rune>(player.CurrentRunes.ToArray() as Object[]);
-            Card_SO DroppedCard;
+            var DroppedRune = _RarityDrop.getDroppedItem(player.CurrentRunes.ToArray() as Object[], true);
 
-            if(DroppedRune == null)
+            // Debug.Log(DroppedRune.ToString());
+            Debug.Log(DroppedRune);
+
+            if(DroppedRune)
             {
-                DroppedCard = CardDrop(_RarityDrop, true);
-                spawnCard();
+                spawnRune();
             }
             else
-                spawnRune();
+            {
+                // Card_SO DroppedCard = CardDrop(_RarityDrop, true);
+                // spawnCard();
+            }
         }
         else if(targetReward == NodeType.RuneReward)
         {
-            rune DroppedRune = _RarityDrop.getDroppedItem<rune>(player.CurrentRunes.ToArray() as Object[]);
+            Object DroppedRune = _RarityDrop.getDroppedItem(player.CurrentRunes.ToArray() as Object[]);
             spawnRune();
         }
         else
@@ -63,27 +71,30 @@ public class CombatRewardManager : MonoBehaviour
     Card_SO CardDrop(ItemPool_ScriptableObject ItemPool, RarityType rarityType)
     {
         if(rarityType == RarityType.Unique)
-            return ItemPool.getDroppedItem<Card_SO>(player.CurrentDeck.deckData.getCurrentCards());           
+            return ItemPool.getDroppedItem(player.CurrentDeck.deckData.getCurrentCards()) as Card_SO;           
         else
-            return ItemPool.getDroppedItem<Card_SO>();
+            return ItemPool.getDroppedItem(false) as Card_SO;
     }
 
     Card_SO CardDrop(ItemPool_ScriptableObject ItemPool, bool UniqueDropsOverride = false)
     {
         if(UniqueDropsOverride)
-            return ItemPool.getDroppedItem<Card_SO>(player.CurrentDeck.deckData.getCurrentCards());           
+            return ItemPool.getDroppedItem(player.CurrentDeck.deckData.getCurrentCards()) as Card_SO;           
         else
-            return ItemPool.getDroppedItem<Card_SO>();
+            return ItemPool.getDroppedItem(false) as Card_SO;
     }
 
     void spawnRune()
     {
-        GameObject RuneObj = Instantiate(RunePrefab);
+        Debug.Log("spawn rune");
+        // GameObject RuneObj = Instantiate(RunePrefab);
+
     }
 
     void spawnCard()
     {
-        GameObject RuneObj = Instantiate(CardPrefab);
+        Debug.Log("spawn card");
+        // GameObject RuneObj = Instantiate(CardPrefab);
     }
 }
 

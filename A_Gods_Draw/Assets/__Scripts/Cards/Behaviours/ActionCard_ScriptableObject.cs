@@ -326,14 +326,34 @@ public struct CardUpgradePath
     public CardExperience Experience;
     public CardUpgrade[] Upgrades;
 
-    public void SetGlyphs(CardActionEnum[] Glyphs)
+    public void SetGlyphs(CardActionEnum[] Glyphs, bool KeepBaseAction = false)
     {
         if(Upgrades == null)
             return;
      
+        // prevent removal of the main action on the card. ie Attack/defence
+        List<CardActionEnum> newRemovable = new List<CardActionEnum>(1+Glyphs.Length);
+
+        // add base action if it has any
+        if(Upgrades.Length > 0 && KeepBaseAction)
+        {
+            if(Upgrades[0].RemovableGlyph[0] == CardActionEnum.Attack || Upgrades[0].RemovableGlyph[0] == CardActionEnum.Defence)
+                newRemovable.Add(Upgrades[0].RemovableGlyph[0]);
+        }
+
+        // add the remaining actions
+        for (int i = 0; i < Glyphs.Length; i++)
+        {
+            newRemovable.Add(Glyphs[i]);
+        }
+
+        // apply
         for (int i = 0; i < Upgrades.Length; i++)
         {
-            Upgrades[i].RemovableGlyph = Glyphs;
+            for (int j = 1; j < Upgrades[i].RemovableGlyph.Length; j++)
+            {
+                Upgrades[i].RemovableGlyph = newRemovable.ToArray();
+            }
         }
     }
 
