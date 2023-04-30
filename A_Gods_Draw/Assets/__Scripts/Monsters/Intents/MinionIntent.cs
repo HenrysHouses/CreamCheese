@@ -77,6 +77,7 @@ public class MinionIntent : Intent
             _newAction.Self = _self;
             _newAction.ActionSFX = actions[i].ActionSFX;
             _newAction.TurnsToPerform = actions[i].TurnsToPerform;
+            _newAction.TurnsLeft = actions[i].TurnsToPerform;
             _newAction.ActionSettings = actions[i];
 
         }
@@ -144,7 +145,10 @@ public class MinionIntent : Intent
     public override void CancelIntent()
     {
         if(actionSelected != null)
+        {
             actionSelected.IsLocked = false;
+            actionSelected.TurnsLeft = actionSelected.TurnsToPerform;
+        }
         actionSelected = idleAction;
         strength = 0;
     }

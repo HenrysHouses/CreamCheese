@@ -35,6 +35,7 @@ public abstract class MonsterAction : Action
         {
             PerformAction(_board, _strength, _source);
             IsLocked = false;
+            TurnsLeft = TurnsToPerform;
             return;
         }
 
