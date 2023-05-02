@@ -3732,6 +3732,10 @@ MonoBehaviour:
       intensity: 1.5
       speed: 0.5
       color: {r: 0.735849, g: 0.53685564, b: 0.30891773, a: 0}
+    - light: {fileID: 1428959150}
+      intensity: 7.26
+      speed: 0
+      color: {r: 0.56078434, g: 0.61960787, b: 1, a: 0}
     name: Combat
   - lightSetting:
     - light: {fileID: 1077008403}
@@ -3782,6 +3786,10 @@ MonoBehaviour:
       intensity: 0
       speed: 0
       color: {r: 0, g: 0, b: 0, a: 0}
+    - light: {fileID: 1428959150}
+      intensity: 7.26
+      speed: 0
+      color: {r: 0.56078434, g: 0.61960787, b: 1, a: 0}
     name: RuneReward
   - lightSetting:
     - light: {fileID: 1077008403}
@@ -3832,6 +3840,10 @@ MonoBehaviour:
       intensity: 0
       speed: 0
       color: {r: 0, g: 0, b: 0, a: 0}
+    - light: {fileID: 1428959150}
+      intensity: 7.26
+      speed: 0
+      color: {r: 0.56078434, g: 0.61960787, b: 1, a: 0}
     name: Map
   - lightSetting:
     - light: {fileID: 1077008403}
@@ -3882,6 +3894,10 @@ MonoBehaviour:
       intensity: 0
       speed: 0
       color: {r: 0, g: 0, b: 0, a: 0}
+    - light: {fileID: 1428959150}
+      intensity: 7.26
+      speed: 0
+      color: {r: 0.56078434, g: 0.61960787, b: 1, a: 0}
     name: CardReward
   - lightSetting:
     - light: {fileID: 1955311915}
@@ -3932,6 +3948,10 @@ MonoBehaviour:
       intensity: 0
       speed: 0
       color: {r: 0, g: 0, b: 0, a: 0}
+    - light: {fileID: 1428959150}
+      intensity: 7.26
+      speed: 0
+      color: {r: 0.56078434, g: 0.61960787, b: 1, a: 0}
     name: RestPlace
   - lightSetting:
     - light: {fileID: 1955311915}
@@ -3982,6 +4002,10 @@ MonoBehaviour:
       intensity: 0
       speed: 0
       color: {r: 0, g: 0, b: 0, a: 0}
+    - light: {fileID: 1428959150}
+      intensity: 7.26
+      speed: 0
+      color: {r: 0.56078434, g: 0.61960787, b: 1, a: 0}
     name: MainMenu
   - lightSetting:
     - light: {fileID: 1955311915}
@@ -4032,6 +4056,10 @@ MonoBehaviour:
       intensity: 0
       speed: 0
       color: {r: 0, g: 0, b: 0, a: 0}
+    - light: {fileID: 1428959150}
+      intensity: 7.26
+      speed: 0
+      color: {r: 0.56078434, g: 0.61960787, b: 1, a: 0}
     name: DeckLibrary
   - lightSetting:
     - light: {fileID: 1955311915}
@@ -4075,13 +4103,17 @@ MonoBehaviour:
       speed: 0.5
       color: {r: 0, g: 0, b: 0, a: 0}
     - light: {fileID: 767810597}
-      intensity: 3
-      speed: 0.5
-      color: {r: 0.4627451, g: 0.24705882, b: 0, a: 0}
+      intensity: 2
+      speed: 0
+      color: {r: 0.36862746, g: 0.2901961, b: 0.18039216, a: 0}
     - light: {fileID: 173100}
       intensity: 0.5
-      speed: 0.5
+      speed: 0
       color: {r: 0.6415094, g: 0.43699878, b: 0.20274118, a: 0}
+    - light: {fileID: 1428959150}
+      intensity: 0
+      speed: 0
+      color: {r: 0, g: 0, b: 0, a: 0}
     name: StarterDeck
 --- !u!1001 &1294280971
 PrefabInstance:
@@ -4272,6 +4304,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1428959149}
   - component: {fileID: 1428959150}
+  - component: {fileID: 1428959151}
   m_Layer: 0
   m_Name: Spot Light (1)
   m_TagString: Untagged
@@ -4309,7 +4342,7 @@ Light:
   m_Intensity: 7.26
   m_Range: 4.04
   m_SpotAngle: 64.2
-  m_InnerSpotAngle: 7.8
+  m_InnerSpotAngle: 6
   m_CookieSize: 10
   m_Shadows:
     m_Type: 2
@@ -4356,6 +4389,23 @@ Light:
   m_UseViewFrustumForShadowCasterCull: 1
   m_ShadowRadius: 0
   m_ShadowAngle: 0
+--- !u!114 &1428959151
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1428959148}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 0c302a2b95973d24989f37a61269e86b, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  lightSettings:
+    light: {fileID: 1428959150}
+    intensity: 0
+    speed: 0
+    color: {r: 0, g: 0, b: 0, a: 0}
 --- !u!1001 &1456735033
 PrefabInstance:
   m_ObjectHideFlags: 0
