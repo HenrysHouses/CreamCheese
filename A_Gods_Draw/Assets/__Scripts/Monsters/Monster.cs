@@ -245,7 +245,7 @@ public class Monster : BoardElement
             for(int i = 0; i < targetedByEnemies.Count; i++)
                 targetedByEnemies[i].targetedBy.ReSelectTargets(Board);
             
-            animator.SetInteger("Dying", Random.Range(0,4));
+            animator.SetInteger("RandomDeath", Random.Range(0,3));
             animator.SetTrigger("Dying");
             Debug.Log(animator.GetCurrentAnimatorStateInfo(0).length + " Length of anim");
             Invoke(nameof(Die), animator.GetCurrentAnimatorStateInfo(0).length);
