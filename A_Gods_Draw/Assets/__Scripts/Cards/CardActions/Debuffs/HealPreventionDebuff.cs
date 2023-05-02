@@ -23,9 +23,9 @@ public class HealPreventionDebuff : DebuffBase
     public override void TickDebuff(int _ticks = 1)
     {
 
-        thisMonster.UpdateEffectDisplay(Resources.Load<Sprite>("EnemyData/Icons/Glyph_HealPrevention_IMG_v1 2"), Stacks, "HealPrevention\nPrevents any healing on this enemy");
 
         Stacks -= _ticks;
+        thisMonster.UpdateEffectDisplay(Resources.Load<Sprite>("EnemyData/Icons/Glyph_HealPrevention_IMG_v1 2"), Stacks, "HealPrevention\nPrevents any healing on this enemy");
         if(Stacks > 0)
             return;
 
