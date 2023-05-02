@@ -15,7 +15,12 @@ public class Monster : BoardElement
     protected Intent enemyIntent;
     protected int defendFor, queuedDefence;
     private List<ActionCard_Behaviour> targetedByCards;
-    private List<Monster> targetedByEnemies;
+    public struct TargetedByInfo
+    {
+        public Monster targetedBy;
+        public Color color;
+    }
+    private List<TargetedByInfo> targetedByEnemies;
     public BoardStateController Board;
 
     //VFX
@@ -86,7 +91,7 @@ public class Monster : BoardElement
 
         damageSources = new Dictionary<ActionCard_Behaviour, int>();
         targetedByCards = new List<ActionCard_Behaviour>();
-        targetedByEnemies = new List<Monster>();
+        targetedByEnemies = new List<TargetedByInfo>();
         debuffDisplays = new Dictionary<Sprite, GameObject>();
 
     }
@@ -238,7 +243,7 @@ public class Monster : BoardElement
                 targetedByCards[i].EnemyDied(this);
 
             for(int i = 0; i < targetedByEnemies.Count; i++)
-                targetedByEnemies[i].ReSelectTargets(Board);
+                targetedByEnemies[i].targetedBy.ReSelectTargets(Board);
             
             animator.SetInteger("Dying", Random.Range(0,4));
             animator.SetTrigger("Dying");
@@ -356,6 +361,23 @@ public class Monster : BoardElement
 
         if(_debuffCheck != null)
             return true;
+
+        return false;
+
+    }
+
+    public bool HasDebuffNextRound()
+    {
+
+        DebuffBase[] _debuffs = GetComponents<DebuffBase>();
+
+        for(int i = 0; i < _debuffs.Length; i++)
+        {
+
+            if(_debuffs[i].Stacks > 1)
+                return true;
+
+        }
 
         return false;
 
@@ -533,6 +555,12 @@ public class Monster : BoardElement
             outlineShouldTurnOff = false;
             outlineRemainingTime = duration;
         }
+        else if(targetedByEnemies.Count > 0)
+        {
+            setOutline(outlineSize, targetedByEnemies[targetedByEnemies.Count-1].color, 10000);
+            UpdateOutline();
+            return;
+        }
 
         foreach (var rend in MonsterRenderers)
         {
@@ -574,7 +602,11 @@ public class Monster : BoardElement
     public void TargetedByEnemy(Monster _enemy, Color _color)
     {
 
-        targetedByEnemies.Add(_enemy);
+        TargetedByInfo _info = new TargetedByInfo();
+        _info.color = _color;
+        _info.targetedBy = _enemy;
+
+        targetedByEnemies.Add(_info);
 
         setOutline(outlineSize, _color, 10000);
 

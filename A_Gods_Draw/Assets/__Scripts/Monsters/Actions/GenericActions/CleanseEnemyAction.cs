@@ -47,7 +47,7 @@ public class CleanseEnemyAction : MonsterAction
             if(_cleansed == _strength)
                 break;
 
-            if(_enemyToCheck.HasDebuff())
+            if(_enemyToCheck.HasDebuffNextRound())
             {
 
                 _cleansed++;
