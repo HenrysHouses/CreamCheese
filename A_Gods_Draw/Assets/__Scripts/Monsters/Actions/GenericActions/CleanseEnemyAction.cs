@@ -9,7 +9,7 @@ public class CleanseEnemyAction : MonsterAction
     public CleanseEnemyAction(int minimumStrength, int maximumStrength) : base(minimumStrength, maximumStrength)
     {
         ActionID = (int)EnemyIntent.CleanseEnemy;
-        actionIcon = Resources.Load<Sprite>("EnemyData/Icons/Icon_Sword_IMG_v1");
+        actionIcon = Resources.Load<Sprite>("EnemyData/Icons/CleanseIcon");
         desc = "This enemy will remove all debuffs on x enemies";
         ActionIntentType = IntentType.Special;
     }
