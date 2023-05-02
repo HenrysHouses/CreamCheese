@@ -21,24 +21,30 @@ public class PoisonDebuff : DebuffBase
 
     }
 
-    public override void TickDebuff(int _ticks = 1)
+    public override void OnCardsPlayedTickDebuff(int _ticks = 1)
     {
-        thisMonster.UpdateEffectDisplay(Resources.Load<Sprite>("ImageResources/poisonDrop"), Stacks, "Poison\nDeals damage equals to stacks\nper turn");
-        
-        if(!wasAppliedThisTurn)
+
+        if(wasAppliedThisTurn)
         {
-            thisMonster.TakeDamage(Stacks, true);
-            Stacks -= _ticks;
 
-            if(Stacks <= 0)
-                Destroy(this);
+            wasAppliedThisTurn = false;
+            return;
+
         }
-        else
-            wasAppliedThisTurn = false;        
+
+        thisMonster.TakeDamage(Stacks, true);
+        Stacks -= _ticks;
+        thisMonster.UpdateEffectDisplay(Resources.Load<Sprite>("ImageResources/poisonDrop"), Stacks, "Poison\nDeals damage equals to stacks\nper turn");
+        if(Stacks <= 0)
+            Destroy(this);
+
     }
 
-    public override void PreActTickDebuff(int _ticks = 1)
+    public override void OnDrawActTickDebuff(int _ticks = 1)
     {
+
         thisMonster.UpdateQueuedPoison(Stacks);
+
     }
+
 }

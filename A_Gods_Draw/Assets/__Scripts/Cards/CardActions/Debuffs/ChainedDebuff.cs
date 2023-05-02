@@ -19,7 +19,7 @@ public class ChainedDebuff : DebuffBase
 
     }
 
-    public override void PreActTickDebuff(int _ticks = 1)
+    public override void OnCardsPlayedTickDebuff(int _ticks = 1)
     {
         
         Stacks -= _ticks;

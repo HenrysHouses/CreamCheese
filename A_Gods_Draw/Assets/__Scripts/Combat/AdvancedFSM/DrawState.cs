@@ -61,7 +61,7 @@ public class DrawState : CombatFSMState
             foreach (DebuffBase _debuff in monster.GetComponents<DebuffBase>())
             {
 
-                _debuff.PreActTickDebuff();
+                _debuff.OnDrawActTickDebuff();
                 
             }
         }

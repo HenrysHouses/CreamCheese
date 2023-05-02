@@ -50,6 +50,20 @@ public class CardsState : CombatFSMState
                     if (thing)
                         Object.Destroy(thing.gameObject);
                 }
+                foreach (Monster monster in Controller.GetBoard().getLivingEnemies())
+                {
+
+                    if(!monster.gameObject.TryGetComponent<DebuffBase>(out DebuffBase _debuffCheck))
+                        continue;
+
+                    foreach (DebuffBase _debuff in monster.GetComponents<DebuffBase>())
+                    {
+
+                        _debuff.OnCardsPlayedTickDebuff();
+                        
+                    }
+
+                }
                 Controller.GetBoard().thingsInLane.Clear();
                 readyToMoveOn = true;
             }
