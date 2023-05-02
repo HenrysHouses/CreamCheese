@@ -12,6 +12,9 @@ public class SceneIntensityEffect : MonoBehaviour
 
     }
 
+    /// <summary>
+    /// intensity goes from 0-1
+    /// </summary>
     public virtual void UpdateIntensity(float _intensity){}
 
     private void OnDestroy()

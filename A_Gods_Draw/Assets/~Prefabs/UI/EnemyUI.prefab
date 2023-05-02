@@ -201,7 +201,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 1, y: 0.5}
   m_AnchorMax: {x: 1, y: 0.5}
-  m_AnchoredPosition: {x: -0.9000015, y: 4.999999}
+  m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: 25, y: 10}
   m_Pivot: {x: 1, y: 0.5}
 --- !u!222 &1620485996574069336
@@ -266,7 +266,7 @@ MonoBehaviour:
   m_fontSizeMin: 18
   m_fontSizeMax: 72
   m_fontStyle: 0
-  m_HorizontalAlignment: 2
+  m_HorizontalAlignment: 1
   m_VerticalAlignment: 256
   m_textAlignment: 65535
   m_characterSpacing: 0
@@ -443,7 +443,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: 20/20
+  m_text: 20
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 9353041454a43e84e9f91f6cc6a161e6, type: 2}
   m_sharedMaterial: {fileID: 8251495377888384954, guid: 9353041454a43e84e9f91f6cc6a161e6, type: 2}
@@ -454,13 +454,13 @@ MonoBehaviour:
     serializedVersion: 2
     rgba: 4294967295
   m_fontColor: {r: 1, g: 1, b: 1, a: 1}
-  m_enableVertexGradient: 0
+  m_enableVertexGradient: 1
   m_colorMode: 3
   m_fontColorGradient:
-    topLeft: {r: 1, g: 1, b: 1, a: 1}
-    topRight: {r: 1, g: 1, b: 1, a: 1}
+    topLeft: {r: 1, g: 0, b: 0.051016808, a: 1}
+    topRight: {r: 0.9622642, g: 0.64907444, b: 0.66135633, a: 1}
     bottomLeft: {r: 1, g: 1, b: 1, a: 1}
-    bottomRight: {r: 1, g: 1, b: 1, a: 1}
+    bottomRight: {r: 0.3679245, g: 0.11280705, b: 0.11280705, a: 1}
   m_fontColorGradientPreset: {fileID: 0}
   m_spriteAsset: {fileID: 0}
   m_tintAllSprites: 0
@@ -470,13 +470,13 @@ MonoBehaviour:
   m_faceColor:
     serializedVersion: 2
     rgba: 4294967295
-  m_fontSize: 20
-  m_fontSizeBase: 20
+  m_fontSize: 14
+  m_fontSizeBase: 14
   m_fontWeight: 400
   m_enableAutoSizing: 0
   m_fontSizeMin: 18
   m_fontSizeMax: 72
-  m_fontStyle: 16
+  m_fontStyle: 17
   m_HorizontalAlignment: 2
   m_VerticalAlignment: 512
   m_textAlignment: 65535
@@ -864,6 +864,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   PopupInfo: {fileID: 11400000, guid: 3979ade34a2720944acadbf7c90f1542, type: 2}
   CreateInstance: 1
+  instanceCreated: 0
 --- !u!65 &7131602531811371359
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -1414,7 +1415,7 @@ MonoBehaviour:
   m_ChildAlignment: 6
   m_StartCorner: 2
   m_StartAxis: 0
-  m_CellSize: {x: 15, y: 15}
+  m_CellSize: {x: 20, y: 20}
   m_Spacing: {x: 3, y: 3}
   m_Constraint: 0
   m_ConstraintCount: 2
@@ -1717,6 +1718,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   PopupInfo: {fileID: 11400000, guid: ca6ce86642aa1c048b9bb6a37d1ffd1b, type: 2}
   CreateInstance: 0
+  instanceCreated: 0
 --- !u!1 &5625920548718786284
 GameObject:
   m_ObjectHideFlags: 0
@@ -1809,6 +1811,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   PopupInfo: {fileID: 11400000, guid: 9e76fa86340d1a8409c52e16e3ba4ecf, type: 2}
   CreateInstance: 0
+  instanceCreated: 0
 --- !u!65 &6322851044025375152
 BoxCollider:
   m_ObjectHideFlags: 0
