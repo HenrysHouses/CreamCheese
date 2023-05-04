@@ -66,8 +66,6 @@ public class GodCard_Behaviour : Card_Behaviour , IMonsterTarget
             card_so.StartDialogue(GodDialogueTrigger.Hurt, source);
         }
 
-        godPlacement.UpdateUI();
-
         if (health <= 0)
         {
             health = 0;
@@ -81,6 +79,7 @@ public class GodCard_Behaviour : Card_Behaviour , IMonsterTarget
             animator.SetTrigger("Die");
             return;
         }
+        godPlacement.UpdateUI();
         animator.SetTrigger("TakingDamage");
     }
 

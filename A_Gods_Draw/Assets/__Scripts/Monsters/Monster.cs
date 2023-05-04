@@ -232,13 +232,12 @@ public class Monster : BoardElement
 
         }
 
-        if(_damageTaken > 0)
-            animator.SetTrigger("TakingDMG");
-
         currentHealth -= _damageTaken;
 
         if (currentHealth <= 0)
             StartCoroutine(nameof(Die));
+        else if(_damageTaken > 0)
+            animator.SetTrigger("TakingDMG");
 
         UpdateHealthUI();
         UpdateDefenceUI();
@@ -262,6 +261,7 @@ public class Monster : BoardElement
         
         animator.SetInteger("RandomDeath", Random.Range(0,3));
         animator.SetTrigger("Dying");
+        animator.Update(Time.deltaTime);
 
         yield return new WaitForSeconds(animator.GetCurrentAnimatorStateInfo(0).length);
 
