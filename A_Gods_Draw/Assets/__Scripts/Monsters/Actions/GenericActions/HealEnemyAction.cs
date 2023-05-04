@@ -35,6 +35,10 @@ public class HealEnemyAction : MonsterAction
         MonsterTargets.Clear();
 
         Monster[] _enemies = _board.getLivingEnemies();
+
+        if(_enemies.Length == 0)
+            return;
+
         Monster _lowEnemy = _enemies[0];
 
         if(_enemies.Length > 1)

@@ -19,7 +19,10 @@ public class BuffAllCardAction : CardAction
         {
 
             if(_card.GetCardType == CardType.Attack)
+            {
                 _card.Buff(_source.stats.strength, false);
+                _card.UpdateQueuedDamage(true);
+            }
         }
     }
 

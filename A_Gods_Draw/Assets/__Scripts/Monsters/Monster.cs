@@ -192,6 +192,9 @@ public class Monster : BoardElement
     public int TakeDamage(int _amount, bool _bypassDefence = false)
     {
 
+        if(_amount >= 1000)
+            StartCoroutine(nameof(Die));
+
         int _damageTaken = 0;
 
         if (_amount > defendFor && !_bypassDefence)
@@ -235,20 +238,7 @@ public class Monster : BoardElement
         currentHealth -= _damageTaken;
 
         if (currentHealth <= 0)
-        {
-
-            currentHealth = 0;
-
-            for(int i = 0; i < targetedByCards.Count; i++)
-                targetedByCards[i].EnemyDied(this);
-
-            for(int i = 0; i < targetedByEnemies.Count; i++)
-                targetedByEnemies[i].targetedBy.ReSelectTargets(Board);
-            
-            animator.SetInteger("RandomDeath", Random.Range(0,3));
-            animator.SetTrigger("Dying");
-            Invoke(nameof(Die), animator.GetCurrentAnimatorStateInfo(0).length);
-        }
+            StartCoroutine(nameof(Die));
 
         UpdateHealthUI();
         UpdateDefenceUI();
@@ -258,8 +248,22 @@ public class Monster : BoardElement
 
     }
 
-    private void Die()
+    private IEnumerator Die()
     {
+
+        ZeroBars();
+        currentHealth = 0;
+
+        for(int i = 0; i < targetedByCards.Count; i++)
+            targetedByCards[i].EnemyDied(this);
+
+        for(int i = 0; i < targetedByEnemies.Count; i++)
+            targetedByEnemies[i].targetedBy.ReSelectTargets(Board);
+        
+        animator.SetInteger("RandomDeath", Random.Range(0,3));
+        animator.SetTrigger("Dying");
+
+        yield return new WaitForSeconds(animator.GetCurrentAnimatorStateInfo(0).length);
 
         SoundPlayer.PlaySound(death_SFX,gameObject);
         if (deathParticleVFX != null)
@@ -271,7 +275,6 @@ public class Monster : BoardElement
                 spawn.GetComponent<DestroyOrder>().destroyVFX();
             }
         }
-
 
         Destroy(gameObject);
 
@@ -379,6 +382,16 @@ public class Monster : BoardElement
         }
 
         return false;
+
+    }
+
+    protected void ZeroBars()
+    {
+
+        healthText.text = (0).ToString();
+        healthBar.value = 0;
+        barrierBar.value = 0;
+        afterDamageBar.value = 0;
 
     }
 

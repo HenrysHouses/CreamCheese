@@ -87,6 +87,9 @@ public class GodCard_Behaviour : Card_Behaviour , IMonsterTarget
     protected override void OnBeingSelected()
     {
         controller.GodPlacement.SetGod(this);
+        foreach (ActionCard_Behaviour _card in controller.GetBoard().allPlayedCards)
+            _card.UpdateQueuedDamage();
+
         Debug.LogWarning("Temporary fix");
         action.OnPlay(controller.GetBoard(), card_so.strength);
         //Play(controller.GetBoard());
