@@ -641,7 +641,7 @@ Light:
   serializedVersion: 10
   m_Type: 2
   m_Shape: 0
-  m_Color: {r: 1, g: 0.53494525, b: 0, a: 1}
+  m_Color: {r: 0.8980392, g: 1, b: 0, a: 1}
   m_Intensity: 10
   m_Range: 1
   m_SpotAngle: 30
@@ -897,7 +897,7 @@ Light:
   serializedVersion: 10
   m_Type: 2
   m_Shape: 0
-  m_Color: {r: 1, g: 0.53494525, b: 0, a: 1}
+  m_Color: {r: 0.8980392, g: 1, b: 0, a: 1}
   m_Intensity: 10
   m_Range: 1
   m_SpotAngle: 30
@@ -1191,6 +1191,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   PopupInfo: {fileID: 11400000, guid: 6c976613acd68a0408427127ded9ecd6, type: 2}
   CreateInstance: 0
+  instanceCreated: 0
 --- !u!114 &462599425
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -3354,8 +3355,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1b536e216bbd27d458fd574b3bcccea4, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  scale: 10
-  speed: 0.05
+  scale: 50
+  speed: 0.1
   MakeSourceStationary: 1
   positionOffset: 0
 --- !u!108 &2059920312
@@ -3369,9 +3370,9 @@ Light:
   serializedVersion: 10
   m_Type: 2
   m_Shape: 0
-  m_Color: {r: 1, g: 0.47070253, b: 0, a: 1}
-  m_Intensity: 20
-  m_Range: 0.2
+  m_Color: {r: 0.8980392, g: 1, b: 0, a: 1}
+  m_Intensity: 10
+  m_Range: 0.5
   m_SpotAngle: 30
   m_InnerSpotAngle: 21.80208
   m_CookieSize: 10
