@@ -249,14 +249,7 @@ public class ActionCard_Behaviour : Card_Behaviour
                 ChangeCursor.instance.UtilityCursor();
 
             //camera position by card type
-            if(cardType == CardType.Attack || cardType == CardType.Defence)
-            {
-                CameraMovement.instance.SetCameraView(CameraView.EnemyCloseUp);
-            }
-            else if(cardType == CardType.Buff)
-            {
-                CameraMovement.instance.SetCameraView(CameraView.CardCloseUp);
-            }
+            CameraMovement.instance.SetCameraView(stats.TargetingView);
         }
     }
 
