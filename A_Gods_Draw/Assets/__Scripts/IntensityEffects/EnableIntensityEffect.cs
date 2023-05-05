@@ -6,26 +6,35 @@ public class EnableIntensityEffect : SceneIntensityEffect
 {
 
     [SerializeField]
-    private float intensityThreshold;
-    [SerializeField]
-    private GameObject[] objectsToEnable;
+    private IntensityEffectSettings[] objectsToEnable;
+    private struct IntensityEffectSettings
+    {
+
+        public GameObject Object;
+        public float Threshold;
+
+    }
 
     private void Start()
     {
 
         for(int i = 0; i < objectsToEnable.Length; i++)
-            objectsToEnable[i].SetActive(false);
+            objectsToEnable[i].Object.SetActive(false);
 
     }
 
     public override void UpdateIntensity(float _intensity)
     {
-        
-        if(intensityThreshold > _intensity)
-            return;
 
         for(int i = 0; i < objectsToEnable.Length; i++)
-            objectsToEnable[i].SetActive(true);
+        {
+
+            if(_intensity >= objectsToEnable[i].Threshold)
+                objectsToEnable[i].Object.SetActive(true);
+            else
+                objectsToEnable[i].Object.SetActive(false);
+
+        }
 
     }
 

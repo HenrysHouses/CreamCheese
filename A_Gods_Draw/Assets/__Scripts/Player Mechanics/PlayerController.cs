@@ -27,6 +27,7 @@ public class PlayerController : BoardElement , IMonsterTarget
         healthTxt.text = "HP: " + playerTracker.Health.ToString();
         cam = Camera.main.GetComponent<CameraMovement>();
         damageflash = GameObject.Find("LowHealthFlash").GetComponent<lowhealthflash>();
+        GameManager.instance.EffectIntensity = (float)playerTracker.Health / (float)playerTracker.MaxHealth;
     }
 
     public void DealDamage(int amount, UnityEngine.Object _source = null)
