@@ -9,7 +9,7 @@ public class PoisonDebuff : DebuffBase
     public override void RemoveDebuff()
     {
 
-        thisMonster.UpdateEffectDisplay(Resources.Load<Sprite>("ImageResources/poisonDrop"), 0, "Poison\nDeals damage equals to stacks\nper turn");
+        thisMonster.UpdateEffectDisplay(Resources.Load<Sprite>("ImageResources/Icon_Poisoned_IMG_v2"), 0, "Poison\nDeals damage equals to stacks\nper turn");
         Destroy(this);
 
     }
@@ -17,7 +17,7 @@ public class PoisonDebuff : DebuffBase
     private void Start()
     {
 
-        thisMonster.UpdateEffectDisplay(Resources.Load<Sprite>("ImageResources/poisonDrop"), Stacks, "Poison\nDeals damage equals to stacks\nper turn");
+        thisMonster.UpdateEffectDisplay(Resources.Load<Sprite>("ImageResources/Icon_Poisoned_IMG_v2"), Stacks, "Poison\nDeals damage equals to stacks\nper turn");
 
     }
 
@@ -34,7 +34,7 @@ public class PoisonDebuff : DebuffBase
 
         thisMonster.TakeDamage(Stacks, true);
         Stacks -= _ticks;
-        thisMonster.UpdateEffectDisplay(Resources.Load<Sprite>("ImageResources/poisonDrop"), Stacks, "Poison\nDeals damage equals to stacks\nper turn");
+        thisMonster.UpdateEffectDisplay(Resources.Load<Sprite>("ImageResources/Icon_Poisoned_IMG_v2"), Stacks, "Poison\nDeals damage equals to stacks\nper turn");
         if(Stacks <= 0)
             Destroy(this);
 

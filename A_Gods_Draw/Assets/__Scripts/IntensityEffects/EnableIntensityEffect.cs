@@ -7,10 +7,11 @@ public class EnableIntensityEffect : SceneIntensityEffect
 
     [SerializeField]
     private IntensityEffectSettings[] objectsToEnable;
+    [System.Serializable]
     public struct IntensityEffectSettings
     {
 
-        public GameObject Object;
+        public GameObject VFXObject;
         public float Threshold;
         public bool Enabled;
 
@@ -20,7 +21,7 @@ public class EnableIntensityEffect : SceneIntensityEffect
     {
 
         for(int i = 0; i < objectsToEnable.Length; i++)
-            objectsToEnable[i].Object.SetActive(false);
+            objectsToEnable[i].VFXObject.SetActive(false);
 
     }
 
@@ -31,9 +32,9 @@ public class EnableIntensityEffect : SceneIntensityEffect
         {
 
             if(_intensity >= objectsToEnable[i].Threshold)
-                objectsToEnable[i].Object.SetActive(objectsToEnable[i].Enabled);
+                objectsToEnable[i].VFXObject.SetActive(objectsToEnable[i].Enabled);
             else
-                objectsToEnable[i].Object.SetActive(!objectsToEnable[i].Enabled);
+                objectsToEnable[i].VFXObject.SetActive(!objectsToEnable[i].Enabled);
 
         }
 
