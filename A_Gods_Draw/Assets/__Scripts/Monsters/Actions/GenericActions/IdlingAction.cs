@@ -10,7 +10,7 @@ public class IdlingAction : MonsterAction
     public IdlingAction(int minimumStrength, int maximumStrength) : base(minimumStrength, maximumStrength)
     {
         ActionID = (int)EnemyIntent.None;
-        actionIcon = Resources.Load<Sprite>("EnemyData/Icons/Icon_Buff_IMG_v7");
+        actionIcon = Resources.Load<Sprite>("ImageResources/Icon_ZZZ_IMG_v1");
         desc = "This enemy is waiting for this turn";
         ActionIntentType = IntentType.Idling;
     }
