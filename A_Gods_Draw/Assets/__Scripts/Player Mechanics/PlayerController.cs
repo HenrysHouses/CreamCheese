@@ -3,7 +3,7 @@
 using UnityEngine;
 using TMPro;
 using UnityEngine.UI;
-using DitzeGames.Effects;
+using CameraShaker.Effects;
 using UnityEngine.SceneManagement;
 
 public class PlayerController : BoardElement , IMonsterTarget
@@ -37,6 +37,7 @@ public class PlayerController : BoardElement , IMonsterTarget
         if (playerTracker.Health < 0)
             playerTracker.Health = 0;
 
+    
         //TakeDamageCamera(); // Sets the camera to the healhtdial //TODO: setr this somewhere where the player takes dmg
         healthTxt.text = "HP: " + playerTracker.Health.ToString();
         SceneManager.SetActiveScene(gameObject.scene);

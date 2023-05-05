@@ -9,7 +9,7 @@ using System;
 using System.Collections.Generic;
 using UnityEngine;
 using FMODUnity;
-using DitzeGames.Effects;
+using CameraShaker.Effects;
 using EnemyAIEnums;
 
 public class BoardStateController : MonoBehaviour

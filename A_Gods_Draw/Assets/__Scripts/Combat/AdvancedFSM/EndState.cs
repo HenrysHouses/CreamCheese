@@ -16,6 +16,7 @@ public class EndState : CombatFSMState
     TurnController Controller;
     PlayerTracker _player;
     
+    
     bool WonCombat;
 
     public EndState(TurnController controller, PlayerTracker player)
@@ -78,6 +79,7 @@ public class EndState : CombatFSMState
         }
         if (Controller.GetBoard().isEnemyDefeated)
         {
+            
             UnityEngine.Debug.Log("saved");
             bool defeatedBoss = false;
             if (Controller.GetBoard().Encounter.name.Contains("Boss"))

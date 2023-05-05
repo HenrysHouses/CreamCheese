@@ -42,6 +42,7 @@ public struct CardUpgrade
                 break;
 
             case CardUpgradeType.RemoveGlyph:
+                Debug.Log(RemovableGlyph.Length);
                 if(isNextLevel)
                     description += "Remove Glyph: " + RemovableGlyph[RemoveGlyphIndex];
                 else

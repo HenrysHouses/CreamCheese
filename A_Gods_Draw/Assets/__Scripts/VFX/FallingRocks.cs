@@ -1,5 +1,5 @@
 using UnityEngine;
-using DitzeGames.Effects;
+using CameraShaker.Effects;
 
 public class FallingRocks : MonoBehaviour
 {

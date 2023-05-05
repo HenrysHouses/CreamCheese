@@ -1,6 +1,6 @@
 using UnityEngine;
 
-namespace DitzeGames.Effects
+namespace CameraShaker.Effects
 {
 
     /// <summary>
