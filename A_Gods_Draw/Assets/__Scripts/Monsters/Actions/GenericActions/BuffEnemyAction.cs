@@ -24,6 +24,13 @@ public class BuffEnemyAction : MonsterAction
         if(ActionSettings.ActionVFX)
             GameObject.Instantiate(ActionSettings.ActionVFX, MonsterTargets[0].transform.position, Quaternion.identity);
 
+        Monster _enemy = _source as Monster;
+        if(_enemy)
+        {
+            _enemy.animator.SetTrigger("Buffing");
+            _enemy.PlaySound(ActionSFX);
+        }
+
     }
 
     public override void SelectTargets(BoardStateController _board)

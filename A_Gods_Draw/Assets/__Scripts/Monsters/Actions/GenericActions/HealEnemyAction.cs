@@ -24,6 +24,7 @@ public class HealEnemyAction : MonsterAction
         Monster _enemy = _source as Monster;
         if(_enemy)
         {
+            _enemy.animator.SetTrigger("Buffing");
             _enemy.PlaySound(ActionSFX);
         }
 
