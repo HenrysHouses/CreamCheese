@@ -294,6 +294,10 @@ public class DeckController : MonoBehaviour
         pDiscard.Clear();
         shuffleLibrary();
         OnShuffleDiscard?.Invoke();
+
+        if(animations.Length == 0)
+            return null;
+
         return animations;
     }
     

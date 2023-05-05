@@ -299,9 +299,17 @@ public class TurnController : CombatFSM
 
         CardAnimations = deckController.shuffleDiscard(drawDelay);
 
+        if(CardAnimations == null)
+        {
+            isShuffling = false;
+            animsAreDone();
+            yield break;
+        }
+
         if(CardAnimations.Length == 0)
         {
             isShuffling = false;
+            animsAreDone();
             yield break;
         }
 
@@ -350,6 +358,13 @@ public class TurnController : CombatFSM
             setDiscardPathToHandPosition(position);
             CardAnimations = deckController.discardCard(_data, delayBetweenCards);
             
+            if(CardAnimations == null)
+            {
+                isDiscarding = false;
+                animsAreDone();
+                yield break;
+            }
+
             for (int i = _data.Length - 1; i >= 0; i--)
             {
                 CardAnimations[i].OnAnimStartSound.AddListener(CardSound);
@@ -418,6 +433,13 @@ public class TurnController : CombatFSM
         {
             CardPlayData[] data = new CardPlayData[]{card_b.GetComponent<Card_Loader>()._card};
             CardAnimations = deckController.discardCard(data, delayBetweenCards);
+
+            if(CardAnimations == null)
+            {
+                isDiscarding = false;
+                animsAreDone();
+                yield break;
+            }
 
             // Dialogue discard trigger
             if(BoardStateController.playedGodCard is not null && CardAnimations[0] is not null)
