@@ -13,6 +13,7 @@ GameObject:
   - component: {fileID: 1205421816499665920}
   - component: {fileID: 1665977337440721670}
   - component: {fileID: 6632498378365928716}
+  - component: {fileID: 1917849916781254983}
   m_Layer: 8
   m_Name: RuneSelector
   m_TagString: Untagged
@@ -28,12 +29,11 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 790803883009184499}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -0.1897, y: 0.6255, z: -0.714}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 8048907155479433315}
-  - {fileID: 7694126152523854474}
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -51,6 +51,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   RuneName: {fileID: 2185856888306427488}
   RuneDescription: {fileID: 6632498378365928716}
+  Rune: {fileID: 0}
 --- !u!65 &1205421816499665920
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -62,7 +63,7 @@ BoxCollider:
   m_IsTrigger: 0
   m_Enabled: 1
   serializedVersion: 2
-  m_Size: {x: 0.21, y: -0.05, z: 0.21}
+  m_Size: {x: 0.21, y: 0.21, z: -0.05}
   m_Center: {x: 0, y: 0, z: 0}
 --- !u!114 &1665977337440721670
 MonoBehaviour:
@@ -76,6 +77,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b156c0c36c07986419758b7257251fbe, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  UpRightRotation: {x: 0, y: 0, z: 0, w: 0}
+  isBeingInspected: 0
+  isWaitingToReturn: 0
 --- !u!114 &6632498378365928716
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -89,6 +93,22 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   PopupInfo: {fileID: 11400000, guid: 63c0d2efaeefc0b4ea5fe7bdab9549eb, type: 2}
+  CreateInstance: 0
+  instanceCreated: 0
+--- !u!114 &1917849916781254983
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 790803883009184499}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a60403af63bd99b48b4190baee393f0d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  chooseCardReward: {fileID: 0}
+  chooseRuneReward: {fileID: 0}
 --- !u!1 &4562146147472336918
 GameObject:
   m_ObjectHideFlags: 0
@@ -114,17 +134,17 @@ RectTransform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 4562146147472336918}
-  m_LocalRotation: {x: 0.7071068, y: 0, z: 0, w: 0.7071068}
-  m_LocalPosition: {x: 0, y: 0, z: 0.0029}
-  m_LocalScale: {x: 0.0081903115, y: 0.016708609, z: 0.0026237688}
+  m_LocalRotation: {x: 0.5, y: -0.5, z: -0.5, w: 0.5}
+  m_LocalPosition: {x: 0, y: 0, z: 0.0135933235}
+  m_LocalScale: {x: 0.080096126, y: 0.07831916, z: 0.093623355}
   m_ConstrainProportionsScale: 0
   m_Children: []
-  m_Father: {fileID: 9183674045852911513}
+  m_Father: {fileID: 8048907155479433315}
   m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 90, y: -180, z: -180}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 0, y: 0.018}
+  m_AnchoredPosition: {x: 0.6422902, y: 0}
   m_SizeDelta: {x: 20, y: 5}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!23 &3659325836281485026
@@ -288,15 +308,16 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 7944278827065897817}
-  m_LocalRotation: {x: -0, y: -0, z: 0.7071068, w: 0.7071068}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalRotation: {x: 0.49982238, y: -0.5000456, z: -0.49995476, w: -0.5001773}
+  m_LocalPosition: {x: -8.2607275e-11, y: 0.001993166, z: 0.0019937188}
   m_LocalScale: {x: 0.02802472, y: 0.10225601, z: 0.21334}
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 3645799560569243891}
+  - {fileID: 7694126152523854474}
   m_Father: {fileID: 9183674045852911513}
   m_RootOrder: 0
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 90}
+  m_LocalEulerAnglesHint: {x: -90, y: 0, z: 449.975}
 --- !u!33 &3108604501106504916
 MeshFilter:
   m_ObjectHideFlags: 0

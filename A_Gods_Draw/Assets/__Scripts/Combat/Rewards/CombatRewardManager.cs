@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using Map;
+using System.Reflection;
 
 public class CombatRewardManager : MonoBehaviour
 {
@@ -9,13 +10,13 @@ public class CombatRewardManager : MonoBehaviour
     [SerializeField] PlayerTracker player;
     [SerializeField] GameObject RunePrefab;
     [SerializeField] GameObject CardPrefab;
+    [SerializeField] Transform[] SpawnPosition;
+    [SerializeField] ChooseCardReward CardRewardController;
+    [SerializeField] ChooseRuneReward RuneRewardController;
 
     // Start is called before the first frame update
     void Start()
     {
-        // player.addRune(new ChaosRune(1, RuneState.Active));
-        // player.addRune(new WealthRune(1, RuneState.Active));
-        // player.addRune(new StrengthRune(1, RuneState.Active));
         rollItem();
     }
 
@@ -41,17 +42,21 @@ public class CombatRewardManager : MonoBehaviour
 
         if(targetReward == NodeType.Elite)
         {
-            var DroppedRune = _RarityDrop.getDroppedItem(player.CurrentRunes.ToArray() as Object[], true);
 
-            // Debug.Log(DroppedRune.ToString());
-            Debug.Log(DroppedRune);
+            if(player.CurrentRunes.Count >= 2)
+                Debug.Log(player.CurrentRunes[0] + " - " + player.CurrentRunes[1]);
+
+            Object DroppedRune = null;
+            DroppedRune = _RarityDrop.getDroppedItem(player.CurrentRunes.ToArray() as Object[], true);
 
             if(DroppedRune)
             {
-                spawnRune();
+                RuneType targetRune = getRuneType(DroppedRune.name);
+                spawnRune(targetRune);
             }
             else
             {
+                Debug.LogError("No runes");
                 // Card_SO DroppedCard = CardDrop(_RarityDrop, true);
                 // spawnCard();
             }
@@ -59,13 +64,28 @@ public class CombatRewardManager : MonoBehaviour
         else if(targetReward == NodeType.RuneReward)
         {
             Object DroppedRune = _RarityDrop.getDroppedItem(player.CurrentRunes.ToArray() as Object[]);
-            spawnRune();
+            RuneType targetRune = getRuneType(DroppedRune.ToString());
+            spawnRune(targetRune);
         }
         else
         {
             Card_SO DroppedCard = CardDrop(_RarityDrop, _rarityType);
             spawnCard();
         }
+    }
+
+    public RuneType getRuneType(string script)
+    {
+        if(script.Contains("WealthRune"))    
+            return RuneType.FeWealth;
+        
+        if(script.Contains("ChaosRune"))    
+            return RuneType.TursChaos;
+
+        if(script.Contains("StrengthRune"))    
+            return RuneType.UrrStrength;
+
+        return RuneType.None;
     }
 
     Card_SO CardDrop(ItemPool_ScriptableObject ItemPool, RarityType rarityType)
@@ -84,11 +104,17 @@ public class CombatRewardManager : MonoBehaviour
             return ItemPool.getDroppedItem(false) as Card_SO;
     }
 
-    void spawnRune()
+    void spawnRune(RuneType rune)
     {
         Debug.Log("spawn rune");
-        // GameObject RuneObj = Instantiate(RunePrefab);
+        GameObject RuneObj = Instantiate(RunePrefab);
+        RuneObj.GetComponent<RuneSelector>().set(rune);
 
+        RuneObj.transform.SetParent(SpawnPosition[1]);
+        RuneObj.transform.localPosition = Vector3.zero;
+        RuneObj.transform.localRotation = Quaternion.identity;
+
+        RuneObj.GetComponent<CardRewardConfirmation>().chooseRuneReward = RuneRewardController;
     }
 
     void spawnCard()

@@ -65,7 +65,6 @@ public class ItemPool_ScriptableObject : ScriptableObject
                 continue;
 
             Object droppedItem = excludedLootPool.Items[i].Item;
-            Debug.Log(droppedItem.ToString());
             return droppedItem;
         }
         return null;

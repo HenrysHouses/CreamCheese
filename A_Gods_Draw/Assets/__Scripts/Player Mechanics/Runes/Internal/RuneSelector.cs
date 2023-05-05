@@ -11,7 +11,7 @@ public class RuneSelector : MonoBehaviour
 {
     public TextMeshPro RuneName;
     public UIPopup RuneDescription;
-    public rune Rune;
+    [HideInInspector] public rune Rune;
     public void set(RuneType type)
     {
         switch(type)
@@ -32,12 +32,18 @@ public class RuneSelector : MonoBehaviour
                 Debug.Log("this rune has not been implemented: " + type);
                 break;
         }   
-        if(Rune != null)
+
+        Debug.Log(Rune.hasTriggeredThisGame);
+
+        if(Rune.GetType() != typeof(rune))
         {
             RuneName.text = Rune.RuneData.Name.ToString();
             RuneDescription.setDescription(Rune.RuneData.Description);
         }
         else
+        {
+            Debug.Log("Rune not implemented: destroyed");
             Destroy(gameObject);
+        }
     }
 }

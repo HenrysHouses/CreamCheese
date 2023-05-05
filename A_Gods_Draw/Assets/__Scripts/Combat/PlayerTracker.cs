@@ -16,10 +16,11 @@ public class PlayerTracker : ScriptableObject
 
     // player's runes here
     [SerializeField] private List<RuneData> _runeData = new List<RuneData>();
-    public List<rune> CurrentRunes = new List<rune>();
+    [HideInInspector] public List<rune> CurrentRunes = new List<rune>();
 
     private void OnEnable() {
         _runeData.Clear();
+        CurrentRunes.Clear();
     }
 
     public void UpdateHealth(int difference)
