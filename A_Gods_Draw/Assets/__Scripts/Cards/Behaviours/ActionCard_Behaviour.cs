@@ -214,7 +214,6 @@ public class ActionCard_Behaviour : Card_Behaviour
             return false;
 
         // controller.GetBoard().playedGodCard.Buff(this);
-        Debug.LogWarning("something funky might be here");
         return true;
     }
 
