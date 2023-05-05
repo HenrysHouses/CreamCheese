@@ -477,10 +477,20 @@ public class ActionCard_Behaviour : Card_Behaviour
         if(_damageInfo.Item1)
         {
 
+            List<Monster> _updated = new List<Monster>();
             foreach (Monster _monster in AllTargets)
             {
 
-                _monster.UpdateQueuedDamage(this, _damageInfo.Item2, _buffUpdate);
+                if(_updated.Contains(_monster))
+                    _monster.UpdateQueuedDamage(this, _damageInfo.Item2, false);
+                else
+                {
+
+                    _monster.UpdateQueuedDamage(this, _damageInfo.Item2, _buffUpdate);
+                    _updated.Add(_monster);
+
+                }
+                
                 
             }
 
