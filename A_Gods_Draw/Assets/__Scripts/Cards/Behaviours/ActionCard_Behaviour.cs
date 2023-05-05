@@ -262,7 +262,7 @@ public class ActionCard_Behaviour : Card_Behaviour
 
     protected override IEnumerator Play(BoardStateController board)
     {
-        if(cardType == CardType.Buff)
+        if (cardType == CardType.Buff)
         {
             BuffCardAction Buff = CardAction.GetAction(CardActionEnum.Buff) as BuffCardAction;
 
@@ -499,6 +499,8 @@ public class ActionCard_Behaviour : Card_Behaviour
     }
     protected override void OnPlacedInLane()
     {
+        ChangeCursor.instance.DefaultCursor();
+
         base.OnPlacedInLane();
 
         if(cardType != CardType.Buff)
