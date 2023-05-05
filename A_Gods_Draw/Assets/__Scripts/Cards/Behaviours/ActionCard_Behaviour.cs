@@ -249,20 +249,13 @@ public class ActionCard_Behaviour : Card_Behaviour
                 ChangeCursor.instance.UtilityCursor();
 
             //camera position by card type
-            if(cardType == CardType.Attack || cardType == CardType.Defence)
-            {
-                CameraMovement.instance.SetCameraView(CameraView.EnemyCloseUp);
-            }
-            else if(cardType == CardType.Buff)
-            {
-                CameraMovement.instance.SetCameraView(CameraView.CardCloseUp);
-            }
+            CameraMovement.instance.SetCameraView(stats.TargetingView);
         }
     }
 
     protected override IEnumerator Play(BoardStateController board)
     {
-        if(cardType == CardType.Buff)
+        if (cardType == CardType.Buff)
         {
             BuffCardAction Buff = CardAction.GetAction(CardActionEnum.Buff) as BuffCardAction;
 
@@ -499,6 +492,8 @@ public class ActionCard_Behaviour : Card_Behaviour
     }
     protected override void OnPlacedInLane()
     {
+        ChangeCursor.instance.DefaultCursor();
+
         base.OnPlacedInLane();
 
         if(cardType != CardType.Buff)

@@ -469,6 +469,7 @@ public class CardStats
         clone.SelectionType.Index = this.SelectionType.Index;
         clone.UpgradePath = this.UpgradePath;
         clone.correspondingGod = this.correspondingGod;
+        clone.TargetingView = this.TargetingView;
         return clone;
     }
 
