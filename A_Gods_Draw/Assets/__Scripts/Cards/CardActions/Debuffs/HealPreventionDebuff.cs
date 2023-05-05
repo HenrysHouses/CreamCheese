@@ -5,6 +5,13 @@ using UnityEngine;
 public class HealPreventionDebuff : DebuffBase
 {
 
+    public override void UpdateDebuffDisplay()
+    {
+        
+        thisMonster.UpdateEffectDisplay(Resources.Load<Sprite>("EnemyData/Icons/Glyph_HealPrevention_IMG_v1 2"), Stacks, "HealPrevention\nPrevents any healing on this enemy");
+
+    }
+
     private void Start()
     {
 

@@ -5,6 +5,13 @@ using UnityEngine;
 public class FrostbiteDebuff : DebuffBase
 {
 
+    public override void UpdateDebuffDisplay()
+    {
+        
+        thisMonster.UpdateEffectDisplay(Resources.Load<Sprite>("EnemyData/Icons/Glyph_Frostbite_IMG_v1 1"), Stacks, "Frostbite\nWeakens the enemy's actions ");
+
+    }
+
     public override void RemoveDebuff()
     {
         
@@ -16,8 +23,14 @@ public class FrostbiteDebuff : DebuffBase
     public override void OnDrawActTickDebuff(int _ticks = 1)
     {
 
-        Stacks -= _ticks;
+        thisMonster.Weaken(Stacks);
         thisMonster.UpdateEffectDisplay(Resources.Load<Sprite>("EnemyData/Icons/Glyph_Frostbite_IMG_v1 1"), Stacks, "Frostbite\nWeakens the enemy's actions ");
+        Stacks -= _ticks;
+        
+    }
+
+    public override void TickDebuff(int _ticks = 1)
+    {
 
         if(Stacks <= 0)
         {
@@ -27,8 +40,6 @@ public class FrostbiteDebuff : DebuffBase
 
         }
         
-        thisMonster.Weaken(Stacks);
-
     }
 
     private void Start()

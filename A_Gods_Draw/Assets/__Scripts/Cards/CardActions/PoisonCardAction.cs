@@ -20,6 +20,7 @@ public class PoisonCardAction : CardAction
             if(target.gameObject.TryGetComponent<PoisonDebuff>(out _poison))
             {
                 _poison.Stacks += _source.stats.strength;
+                _poison.UpdateDebuffDisplay();
             }
             else
             {

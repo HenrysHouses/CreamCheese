@@ -314,6 +314,9 @@ public class Monster : BoardElement
         else if(!_onlyOnAttack)
             enemyIntent.SetCurrStrengh((int)Mathf.Clamp(enemyIntent.GetCurrStrengh() - _amount, 0, Mathf.Infinity));
 
+        if(enemyIntent.GetID() == EnemyIntent.CleanseEnemy)
+            ReSelectTargets(Board);
+
         UpdateIntentUI();
 
     }

@@ -48,6 +48,7 @@ public class ChainCardAction : CardAction
                     {
 
                         _chained.Stacks += source.stats.strength;
+                        _chained.UpdateDebuffDisplay();
 
                     }
                     else

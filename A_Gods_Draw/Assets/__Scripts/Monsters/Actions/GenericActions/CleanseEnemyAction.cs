@@ -17,6 +17,9 @@ public class CleanseEnemyAction : MonsterAction
     public override void PerformAction(BoardStateController _board, int _strength, object _source)
     {
 
+        if(MonsterTargets.Count == 0)
+            return;
+
         for(int i = 0; i < MonsterTargets.Count; i++)
         {
 
@@ -37,6 +40,8 @@ public class CleanseEnemyAction : MonsterAction
 
     public override void SelectTargets(BoardStateController _board)
     {
+
+        MonsterTargets.Clear();
 
         int _strength = Self.GetIntent().GetStrength;
         Monster[] _enemies = _board.getLivingEnemies();

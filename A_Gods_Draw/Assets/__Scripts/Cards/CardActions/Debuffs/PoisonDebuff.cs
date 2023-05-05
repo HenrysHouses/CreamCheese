@@ -6,6 +6,15 @@ public class PoisonDebuff : DebuffBase
 {
     bool wasAppliedThisTurn = true;
 
+    public override void UpdateDebuffDisplay()
+    {
+        
+        thisMonster.UpdateEffectDisplay(Resources.Load<Sprite>("ImageResources/Icon_Poisoned_IMG_v2"), Stacks, "Poison\nDeals damage equals to stacks\nper turn");
+        if(!wasAppliedThisTurn)
+            thisMonster.UpdateQueuedPoison(Stacks);
+
+    }
+
     public override void RemoveDebuff()
     {
 

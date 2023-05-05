@@ -19,6 +19,7 @@ public class FrostbiteCardAction : CardAction
             {
 
                 _frostbite.Stacks += _source.stats.strength;
+                _frostbite.UpdateDebuffDisplay();
 
             }
             else

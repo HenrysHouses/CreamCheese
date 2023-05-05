@@ -22,6 +22,7 @@ public class HealPreventionCardAction : CardAction
             {
 
                 _healPrev.Stacks += _source.stats.strength;
+                _healPrev.UpdateDebuffDisplay();
 
             }
             else

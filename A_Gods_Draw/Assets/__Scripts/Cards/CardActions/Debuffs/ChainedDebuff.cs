@@ -5,6 +5,13 @@ using UnityEngine;
 public class ChainedDebuff : DebuffBase
 {
 
+    public override void UpdateDebuffDisplay()
+    {
+        
+        thisMonster.UpdateEffectDisplay(Resources.Load<Sprite>("ImageResources/Icon_Chain_v1"), Stacks, "Chains\nPrevents enemies to take action");
+
+    }
+
     private void Start()
     {
         thisMonster.UpdateEffectDisplay(Resources.Load<Sprite>("ImageResources/Icon_Chain_v1"), Stacks, "Chains\nPrevents enemies to take action");

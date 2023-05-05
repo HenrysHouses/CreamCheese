@@ -17,5 +17,6 @@ public class DebuffBase : MonoBehaviour
     public virtual void OnDrawActTickDebuff(int _ticks = 1){}
 
     public virtual void RemoveDebuff(){}
+    public virtual void UpdateDebuffDisplay(){}
 
 }

@@ -9,7 +9,7 @@ public class BuffEnemyAction : MonsterAction
     public BuffEnemyAction(int minimumStrength, int maximumStrength) : base(minimumStrength, maximumStrength)
     {
         ActionID = (int)EnemyIntent.BuffEnemy;
-        actionIcon = Resources.Load<Sprite>("EnemyData/Icons/Icon_Buff_IMG_v9");
+        actionIcon = Resources.Load<Sprite>("EnemyData/Icons/Icon_Buff_IMG_v11");
         desc = "This enemy will buff a random enemy";
         ActionIntentType = IntentType.Buff;
     }
