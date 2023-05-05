@@ -206,6 +206,10 @@ public class DeckController : MonoBehaviour
                 animations[i].OnAnimCompletionTrigger.AddListener(OnDiscardChange.Invoke);
             }
         }
+
+        if(animations.Length == 0)
+            return null;
+
         return animations;
     }
 

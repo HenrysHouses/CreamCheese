@@ -19,6 +19,8 @@ public class DiscardState : CombatFSMState
 
     public override void Reason(bool override_ = false)
     {
+        UnityEngine.Debug.Log("Discard Step: hadDiscarded - " + hasDiscarded + ", Discard is Anim - " + Controller.isDiscardAnimating + ", Waiting For Anims - " + TurnController.shouldWaitForAnims);
+
         bool shouldTrigger = hasDiscarded 
                         && !Controller.isDiscardAnimating 
                         && !TurnController.shouldWaitForAnims;

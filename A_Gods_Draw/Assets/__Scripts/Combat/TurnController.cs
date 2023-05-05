@@ -118,6 +118,8 @@ public class TurnController : CombatFSM
         if(GameManager.instance.PauseMenuIsOpen)
             return;
 
+        // Debug.Log("waiting for anims: " + shouldWaitForAnims);
+
         CheckFailSafe();
 
         if(BoardStateController.isEncounterInstantiated)
@@ -334,6 +336,9 @@ public class TurnController : CombatFSM
     IEnumerator discardAllTrigger(float delayBetweenCards)
     {
         isDiscarding = true;
+
+        Debug.Log("discarding all");
+      
         yield return new WaitUntil(() => !DrawAnimator.isAnimating && !ShuffleAnimator.isAnimating);
         yield return new WaitUntil(() => CardAnimations == null);
 
