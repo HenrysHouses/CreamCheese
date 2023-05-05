@@ -91,7 +91,7 @@ namespace Map
                 case NodeType.Enemy:
                     sceneTransition.TransitionScene(false, "Combat");
                     int randomNummer = UnityEngine.Random.Range(0, 2);
-                    if (randomNummer == 0)
+                    if (randomNummer == 0 || mapNode.Node.point.y == 0)
                     {
                         GameManager.instance.nextCombatType = EncounterDifficulty.Easy;
                         Debug.Log("Encounter is Easy");
