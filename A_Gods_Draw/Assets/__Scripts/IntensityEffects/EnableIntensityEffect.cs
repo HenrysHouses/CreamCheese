@@ -7,11 +7,12 @@ public class EnableIntensityEffect : SceneIntensityEffect
 
     [SerializeField]
     private IntensityEffectSettings[] objectsToEnable;
-    private struct IntensityEffectSettings
+    public struct IntensityEffectSettings
     {
 
         public GameObject Object;
         public float Threshold;
+        public bool Enabled;
 
     }
 
@@ -30,9 +31,9 @@ public class EnableIntensityEffect : SceneIntensityEffect
         {
 
             if(_intensity >= objectsToEnable[i].Threshold)
-                objectsToEnable[i].Object.SetActive(true);
+                objectsToEnable[i].Object.SetActive(objectsToEnable[i].Enabled);
             else
-                objectsToEnable[i].Object.SetActive(false);
+                objectsToEnable[i].Object.SetActive(!objectsToEnable[i].Enabled);
 
         }
 
