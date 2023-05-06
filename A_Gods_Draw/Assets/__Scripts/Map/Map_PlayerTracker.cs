@@ -117,25 +117,15 @@ namespace Map
                 //    Debug.LogWarning("Should card type be none?, fix card type");
                 //    break;
                 case NodeType.AttackReward:
-                    sceneTransition.TransitionScene(false, "CardReward");
-                    Debug.Log(CardType.Attack);
-                    break;
                 case NodeType.DefenceReward:
-                    sceneTransition.TransitionScene(false, "CardReward");
-                    Debug.Log(CardType.Defence);
-                    break;
                 case NodeType.BuffReward:
-                    sceneTransition.TransitionScene(false, "CardReward");
-                    Debug.Log(CardType.Buff);
-                    break;
                 case NodeType.GodReward:
-                    sceneTransition.TransitionScene(false, "CardReward");
-                    Debug.Log(CardType.God);
-                    break;
                 case NodeType.RuneReward:
-                    sceneTransition.TransitionScene(false, "RuneReward");
-                    Debug.Log("rune scene");
+                    GameManager.instance.nextRewardType = NodeType.Enemy;
+                    sceneTransition.TransitionScene(false, "CombatRewards");
+                    Debug.Log(mapNode.Node.nodeType);
                     break;
+
                 case NodeType.Boss:
                     sceneTransition.TransitionScene(false, "Combat");
                     GameManager.instance.nextCombatType = EncounterDifficulty.Boss;

@@ -15,7 +15,8 @@ public class PlayerTracker : ScriptableObject
     public DeckList_SO CurrentDeck;
 
     // player's runes here
-    [SerializeField] private List<RuneData> _runeData = new List<RuneData>();
+    [field:SerializeField] public List<RuneData> _runeData {get; private set;} = new List<RuneData>();
+
     [HideInInspector] public List<rune> CurrentRunes = new List<rune>();
 
     private void OnEnable() {
@@ -53,10 +54,8 @@ public class PlayerTracker : ScriptableObject
 
         CurrentRunes.Add(rune);
         
-        foreach (var _rune in CurrentRunes)
-        {
-            _runeData.Add(_rune.RuneData);
-        }
+        int lastIndex = CurrentRunes.Count-1;
+        _runeData.Add(CurrentRunes[lastIndex].RuneData);
     }
 
     public void triggerRune(TurnController controller, CombatState trigger)

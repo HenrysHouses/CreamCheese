@@ -43,7 +43,7 @@ public class ChooseRuneReward : MonoBehaviour
             findRune();
     }
 
-    bool hasClicked = false;
+    // bool hasClicked = false;
     void findRune()
     {
         if(GameManager.instance.PauseMenuIsOpen)
@@ -106,16 +106,12 @@ public class ChooseRuneReward : MonoBehaviour
             Path.endPoint.position = RuneController.renderers[(int)SelectedRune.RuneData.Name].renderers[0].transform.parent.position;
             Path.recalculatePath();
 
-            Debug.Log("something");
-
             CameraMovement.instance.SetCameraView(CameraView.RuneAfterPick);
             
             RuneAnimationT = 0;
 
             while(RuneAnimationT < 1)
             {
-                Debug.Log("something animating");
-
                 OrientedPoint OP = Path.GetEvenPathOP(RuneAnimationT);
                 obj.transform.position = OP.pos;
                 RuneAnimationT += Time.deltaTime * animSpeed;

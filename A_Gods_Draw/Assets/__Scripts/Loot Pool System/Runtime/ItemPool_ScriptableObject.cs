@@ -31,22 +31,35 @@ public class ItemPool_ScriptableObject : ScriptableObject
         
         for (int i = 0; i < excludedLootPool.Items.Length; i++)
         {
+            bool shouldSkip = false;
             for (int j = 0; j < Excluding.Length; j++)
             {
                 if(!contentIsText)
                 {
                     if(excludedLootPool.Items[i].Item.Equals(Excluding[j]))
-                        continue;
+                    {
+                        shouldSkip = true;
+                        break;
+                    }
                 }
                 else
                 {
-                    if(excludedLootPool.Items[i].Item.ToString().Contains(Excluding[j].GetType().ToString()))
-                        continue;
+                    string targetText = excludedLootPool.Items[i].Item.name;
+                    string excludedText = Excluding[j].GetType().ToString();
+
+                    if(targetText.Contains(excludedText))
+                    {
+                        shouldSkip = true;
+                        break;
+                    }
                 }
 
-                if(j == Excluding.Length-1)
+                if(j == Excluding.Length-1 && !shouldSkip)
                     itemDrops.Add(excludedLootPool.Items[i]);
             }
+
+            if(shouldSkip)
+                continue;
 
             if(Excluding.Length == 0)
                 itemDrops.Add(excludedLootPool.Items[i]);

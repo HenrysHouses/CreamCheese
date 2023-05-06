@@ -9,6 +9,7 @@ public class ReaderTarget : MonoBehaviour
     Quaternion _defaultRotation;
     public bool isBeingInspected;
     public bool isWaitingToReturn;
+    public DisableHighlight information;
 
     void Start()
     {

@@ -42,7 +42,7 @@ public class ChooseCardReward : MonoBehaviour
 
 
     //disable board text when selected
-    [SerializeField] GameObject[] boardText;
+    // [SerializeField] GameObject[] boardText;
 
     private void Start()
     {
@@ -61,9 +61,12 @@ public class ChooseCardReward : MonoBehaviour
         for (int i = 0; i < rewardOptions.Length; i++)
         {
             Card_Loader loader = rewardOptions[i].GetComponentInChildren<Card_Loader>();
+
+            if(loader == null)
+                continue;
+
             rewardOptions[i].GetComponentInChildren<Card_InspectingPopup>().SetDescriptions(loader.GetCardSO as ActionCard_ScriptableObject, rewardOptions[i].gameObject);
             descObjects.Add(rewardOptions[i].transform.GetChild(0).GetChild(0).gameObject);
-            Debug.Log(descObjects[i]);
         }
     }
 
@@ -80,18 +83,18 @@ public class ChooseCardReward : MonoBehaviour
 
         if (CardInspector.isInspecting)
         {
-            boardText[0].SetActive(false);
-            boardText[1].SetActive(false);
+            // boardText[0].SetActive(false);
+            // boardText[1].SetActive(false);
             if(isClicked)
             {
                 foreach (Transform objects in deckpileParticle.transform)
                 {
                     EnableParticleSystems(objects);
-                    for (int i = 0; i < rewardOptions.Length; i++)
-                    {
-                        if(rewardOptions[i].transform == CardInspector.getTarget().transform)
-                            descObjects[i].SetActive(true);
-                    }
+                    // for (int i = 0; i < rewardOptions.Length; i++)
+                    // {
+                    //     if(rewardOptions[i].transform == CardInspector.getTarget().transform && descObjects[i] != null)
+                    //         descObjects[i].SetActive(true);
+                    // }
                 }
                 isClicked = false;
             }
@@ -176,8 +179,8 @@ public class ChooseCardReward : MonoBehaviour
 
     void checkSelected()
     {
-        boardText[0].SetActive(true);
-        boardText[1].SetActive(true);
+        // boardText[0].SetActive(true);
+        // boardText[1].SetActive(true);
         //deckpileParticle.SetActive(false);
         if (!isClicked)
         {
@@ -187,6 +190,9 @@ public class ChooseCardReward : MonoBehaviour
                 isClicked = true;
             }
         }
+
+        if(shouldConfirmSelection)
+            Debug.Log("here we go");
         
         for (int i = 0; i < rewardOptions.Length; i++)
         {

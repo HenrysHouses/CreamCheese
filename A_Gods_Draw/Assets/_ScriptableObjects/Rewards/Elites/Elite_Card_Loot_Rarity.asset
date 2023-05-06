@@ -10,13 +10,13 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: a5fa834284575d5459109409d403ab22, type: 3}
-  m_Name: Elite_Loot_Rarity
+  m_Name: Elite_Card_Loot_Rarity
   m_EditorClassIdentifier: 
   Rarities:
     Common:
       Rarity: 0
       Chance: 100
-      ItemPool: {fileID: 11400000, guid: fa67778ef8858e2489b63e3ca63573aa, type: 2}
+      ItemPool: {fileID: 11400000, guid: ceb511a0c3dc95f4ba2129bb6094e79d, type: 2}
     Uncommon:
       Rarity: 1
       Chance: 0
@@ -31,5 +31,21 @@ MonoBehaviour:
       ItemPool: {fileID: 0}
     Unique:
       Rarity: 4
+      Chance: 0
+      ItemPool: {fileID: 0}
+    RarityIndex:
+    - Rarity: 0
+      Chance: 100
+      ItemPool: {fileID: 11400000, guid: ceb511a0c3dc95f4ba2129bb6094e79d, type: 2}
+    - Rarity: 0
+      Chance: 0
+      ItemPool: {fileID: 0}
+    - Rarity: 0
+      Chance: 0
+      ItemPool: {fileID: 0}
+    - Rarity: 0
+      Chance: 0
+      ItemPool: {fileID: 0}
+    - Rarity: 4
       Chance: 0
       ItemPool: {fileID: 0}

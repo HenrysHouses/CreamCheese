@@ -379,7 +379,7 @@ public class ActionCard_Behaviour : Card_Behaviour
                         _target.UpdateQueuedDamage(this, _tempDmg, _buffUpdate);
 
                 }
-                damageTotal += _tempDmg;
+                // damageTotal += _tempDmg;
 
             }
             else if(action is LeachCardAction)
