@@ -409,7 +409,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d8ccd56f93dc0e249b31ffa3ab0704d4, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  <highlight>k__BackingField: {fileID: 1302255216656320589}
+  <highlight>k__BackingField: {fileID: 6872165448868401396}
 --- !u!114 &-8422494374462897592
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -425,6 +425,7 @@ MonoBehaviour:
   UpRightRotation: {x: 0, y: 0, z: 0, w: 0}
   isBeingInspected: 0
   isWaitingToReturn: 0
+  information: {fileID: 1302255215861667753}
 --- !u!114 &6846014619528425569
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -439,6 +440,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   PopupInfo: {fileID: 11400000, guid: 3a41e2f8c9dee684cb796d01ab2b3afe, type: 2}
   CreateInstance: 0
+  instanceCreated: 0
 --- !u!114 &5618248167256907893
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1244,7 +1246,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &5152891765694716286
 Transform:
   m_ObjectHideFlags: 0
@@ -1806,6 +1808,10 @@ PrefabInstance:
       propertyPath: elements.Description
       value: 
       objectReference: {fileID: 6846014619528425569}
+    - target: {fileID: 1744794354158232398, guid: 2b9c09d2241bf534da856d40436506a0, type: 3}
+      propertyPath: addComponentAutomatically
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 1744794354158232399, guid: 2b9c09d2241bf534da856d40436506a0, type: 3}
       propertyPath: m_RootOrder
       value: 1
@@ -1868,7 +1874,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 7012421240186367696, guid: 2b9c09d2241bf534da856d40436506a0, type: 3}
       propertyPath: m_IsActive
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 2b9c09d2241bf534da856d40436506a0, type: 3}

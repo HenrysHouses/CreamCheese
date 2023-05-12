@@ -79,16 +79,23 @@ public class EndState : CombatFSMState
         }
         if (Controller.GetBoard().isEnemyDefeated)
         {
-            
-            UnityEngine.Debug.Log("saved");
+            string EncounterName = Controller.GetBoard().Encounter.name;
             bool defeatedBoss = false;
-            if (Controller.GetBoard().Encounter.name.Contains("Boss"))
+            bool combatReward = false;
+
+            if (EncounterName.Contains("Boss"))
             {
                 GameManager.timesDefeatedBoss++;
                 defeatedBoss = true;
             }
 
-            Controller.StartCoroutine(Controller.ExitCombat(defeatedBoss));
+            
+            if (EncounterName.Contains("Elite") || EncounterName.Contains("Boss"))
+            {
+                combatReward = true;
+            }
+
+            Controller.StartCoroutine(Controller.ExitCombat(defeatedBoss, combatReward));
             WonCombat = true;
         }
     }

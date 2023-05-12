@@ -5,7 +5,7 @@
  */
 using UnityEngine;
 
-public class rune : Object
+public abstract class rune : Object
 {
     public RuneData RuneData;
     public bool hasTriggeredThisTurn;
@@ -69,7 +69,8 @@ public enum RuneType
 {
     UrrStrength = 0,
     FeWealth = 1,
-    TursChaos = 2
+    TursChaos = 2,
+    None = 100
 }
 
 public enum RuneState

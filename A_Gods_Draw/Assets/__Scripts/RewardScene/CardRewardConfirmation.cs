@@ -4,10 +4,21 @@ using UnityEngine;
 
 public class CardRewardConfirmation : MonoBehaviour
 {
-    [SerializeField] ChooseCardReward chooseCardReward;
+    public ChooseCardReward chooseCardReward;
+    public ChooseRuneReward chooseRuneReward;
 
     private void OnMouseDown()
     {
-        chooseCardReward.shouldConfirmSelection = true;
+        if(chooseCardReward)
+        {
+            chooseCardReward.shouldConfirmSelection = true;
+            Debug.Log("confirm card");
+        }
+
+        if(chooseRuneReward)
+        {
+            chooseRuneReward.shouldConfirmSelection = true;
+            Debug.Log("confirm card");
+        }
     }
 }

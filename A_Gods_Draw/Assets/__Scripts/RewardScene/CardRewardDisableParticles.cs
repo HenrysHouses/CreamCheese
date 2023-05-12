@@ -46,7 +46,7 @@ public class CardRewardDisableParticles : MonoBehaviour
 
                 foreach (Transform otherObj in cardObjects)
                 {
-                    if (otherObj.GetChild(0).gameObject != obj)
+                    if (otherObj.gameObject != obj)
                     {
                         DisableParticleSystems(otherObj);
                     }

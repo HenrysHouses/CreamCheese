@@ -11,7 +11,7 @@ public class LootPoolRarity
     [SerializeField] private RarityChance Legendary = new RarityChance(RarityType.Legendary);
     [SerializeField] private RarityChance Unique = new RarityChance(RarityType.Unique);
 
-    private RarityChance[] RarityIndex;
+    [SerializeField] private RarityChance[] RarityIndex;
 
     public float GetChanceOf(RarityType rarity) 
     {
@@ -41,6 +41,7 @@ public class LootPoolRarity
     {
         float _roll = Random.Range(0f,100f);
         float chance = 0;
+
         for (int i = 0; i < RarityIndex.Length; i++)
         {
             if(RarityIndex[i].Chance + chance > _roll)

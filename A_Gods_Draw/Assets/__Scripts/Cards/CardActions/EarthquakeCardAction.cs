@@ -11,11 +11,13 @@ public class EarthquakeCardAction : CardAction
         isReady = false;
         playSFX(_source.gameObject);
 
-        foreach(Monster _target in _board.getLivingEnemies())
+        foreach(Monster livingEnemy in _board.getLivingEnemies())
         {
-
-            _target.TakeDamage(_source.stats.strength);
-
+            foreach (BoardElement cardTarget in _source.AllTargets)
+            {
+                if(livingEnemy.gameObject != cardTarget.gameObject)
+                    livingEnemy.TakeDamage(_source.stats.strength);
+            }
         }
 
         // Playing VFX for each action

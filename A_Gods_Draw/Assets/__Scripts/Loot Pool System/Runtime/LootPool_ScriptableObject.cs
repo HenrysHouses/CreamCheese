@@ -10,10 +10,9 @@ public class LootPool_ScriptableObject : ScriptableObject
         Rarities.updateRarityIndex();
     }
 
-    public ItemPool_ScriptableObject Roll(out RarityType DroppedRarity)
+    public ItemPool_ScriptableObject Roll()
     {
         ItemPool_ScriptableObject pool = Rarities.RollRarity(out RarityType drop);
-        DroppedRarity = drop;
         return pool;
     } 
 }

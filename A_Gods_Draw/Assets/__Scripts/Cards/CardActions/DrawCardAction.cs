@@ -13,7 +13,7 @@ public class DrawCardAction : CardAction
     {
         isReady = false;
 
-        currentCard.Controller.DrawCardExtra = source.stats.strength;
+        currentCard.Controller.DrawCardExtra++;
         playSFX(source.gameObject);
 
         // Playing VFX for each action

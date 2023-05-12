@@ -78,11 +78,12 @@ public class CardReaderController : MonoBehaviour
         // inspectorTarget.transform.rotation = MainCam.transform.rotation;
         _target.transform.Rotate(RotationOffset, Space.Self);
         
-        HighlightDisabler = _target.GetComponents<DisableHighlight>();
+        HighlightDisabler = _target.GetComponentsInChildren<DisableHighlight>();
         if(HighlightDisabler.Length > 0)
         {
             foreach (var highlight in HighlightDisabler)
             {
+                highlight.highlight.SetActive(true);
                 highlight.StayEnabled();
             }
         }

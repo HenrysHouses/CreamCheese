@@ -191,20 +191,24 @@ public class TurnController : CombatFSM
         death.dying = true;
     }
 
-    public IEnumerator ExitCombat(bool LoadWinScreen)
+    public IEnumerator ExitCombat(bool LoadWinScreen, bool CombatReward)
     {
         deckController.clear();
-        yield return new WaitForSeconds(6);
-        if(LoadWinScreen)
+        yield return new WaitForSeconds(3);
+        if(CombatReward)
         {
-
-            StartCoroutine(LoadingScreen.Instance.EnterLoadingScreen("WinScreen", collectionLoadMode.Difference));
+            _SceneTransition.TransitionScene(false, "CombatRewards");
         }
         else
         {
             _SceneTransition.TransitionScene(false, "Map");
             // MultiSceneLoader.loadCollection("Map", collectionLoadMode.Difference);
         }
+
+        // if(LoadWinScreen)
+        // {
+        //     StartCoroutine(LoadingScreen.Instance.EnterLoadingScreen("WinScreen", collectionLoadMode.Difference));
+        // }
         Map.Map_Manager.SavingMap();
     }
 
