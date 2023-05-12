@@ -13,6 +13,9 @@ public class FrostbiteCardAction : CardAction
 
         foreach (Monster target in _source.AllTargets)
         {
+
+            if(target == null)
+                yield break;
             
             FrostbiteDebuff _frostbite;
             if(target.gameObject.TryGetComponent<FrostbiteDebuff>(out _frostbite))
