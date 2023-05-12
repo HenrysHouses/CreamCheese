@@ -7,6 +7,7 @@ class ActionGlyphID
 {
     public CardActionEnum GlyphType;
     public Texture IconTexture;
+    public Color Color = Color.white;
     [TextArea(3, 6)]
     public string Description;
     public bool DefaultState = true;
@@ -42,6 +43,7 @@ public class GlyphController : MonoBehaviour
             {
                 meshRenderer.material.SetTexture("_EmissionTex", CardGlyphs[i].IconTexture);
                 meshRenderer.material.SetTexture("_ArtTex", CardGlyphs[i].IconTexture);
+                meshRenderer.material.SetColor("_ArtColor", CardGlyphs[i].Color);
             }
             
             if(CardGlyphs[i].DefaultState)
