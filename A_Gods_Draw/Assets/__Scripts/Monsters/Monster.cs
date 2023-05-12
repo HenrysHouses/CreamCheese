@@ -497,6 +497,7 @@ public class Monster : BoardElement
             queuedDefence = 0;
             Defending = false;
             animator.SetBool("isBlocking", true);
+            animator.SetTrigger("Blocking");
 
         }
         else
