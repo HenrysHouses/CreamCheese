@@ -13,10 +13,17 @@ public class EarthquakeCardAction : CardAction
 
         foreach(Monster livingEnemy in _board.getLivingEnemies())
         {
-            foreach (BoardElement cardTarget in _source.AllTargets)
+            if(_source.AllTargets.Length == 0) // deal damage to enemies if all targets are dead
             {
-                if(livingEnemy.gameObject != cardTarget.gameObject)
-                    livingEnemy.TakeDamage(_source.stats.strength);
+                livingEnemy.TakeDamage(_source.stats.strength);
+            }
+            else // dont deal extra damage to target enemy
+            {
+                foreach (BoardElement cardTarget in _source.AllTargets)
+                {
+                    if(livingEnemy.gameObject != cardTarget.gameObject)
+                        livingEnemy.TakeDamage(_source.stats.strength);
+                }
             }
         }
 
