@@ -306,13 +306,13 @@ public class Monster : BoardElement
 
     }
 
-    public void Weaken(int _amount, bool _onlyOnAttack = false)
+    public void Weaken(int _amount = 0, bool _onlyOnAttack = false)
     {
 
         if(_onlyOnAttack && enemyIntent.ActionSelected.ActionIntentType == IntentType.Attack )
             enemyIntent.SetCurrStrengh((int)Mathf.Clamp(enemyIntent.GetCurrStrengh() - _amount, 0, Mathf.Infinity));
         else if(!_onlyOnAttack)
-            enemyIntent.SetCurrStrengh((int)Mathf.Clamp(enemyIntent.GetCurrStrengh() - _amount, 0, Mathf.Infinity));
+            enemyIntent.SetCurrStrengh((int)Mathf.Clamp(enemyIntent.GetCurrStrengh() / 2, 0, Mathf.Infinity));
 
         if(enemyIntent.GetID() == EnemyIntent.CleanseEnemy)
             ReSelectTargets(Board);
