@@ -4068,7 +4068,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 919132149155446097, guid: d94cfb2820277f944ba2eb051d467448, type: 3}
       propertyPath: m_IsActive
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: d94cfb2820277f944ba2eb051d467448, type: 3}
@@ -4301,49 +4301,9 @@ PrefabInstance:
     m_TransformParent: {fileID: 0}
     m_Modifications:
     - target: {fileID: 538809319, guid: ddc4bad2b0ee6e244bdf61158c2c88ef, type: 3}
-      propertyPath: dying
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 538809319, guid: ddc4bad2b0ee6e244bdf61158c2c88ef, type: 3}
       propertyPath: music
       value: 
       objectReference: {fileID: 1430546627}
-    - target: {fileID: 538809319, guid: ddc4bad2b0ee6e244bdf61158c2c88ef, type: 3}
-      propertyPath: camEffs
-      value: 
-      objectReference: {fileID: 0}
-    - target: {fileID: 538809319, guid: ddc4bad2b0ee6e244bdf61158c2c88ef, type: 3}
-      propertyPath: stonerumble.Path
-      value: event:/Player/Dying
-      objectReference: {fileID: 0}
-    - target: {fileID: 538809319, guid: ddc4bad2b0ee6e244bdf61158c2c88ef, type: 3}
-      propertyPath: stonerumble.Guid.Data1
-      value: 641739063
-      objectReference: {fileID: 0}
-    - target: {fileID: 538809319, guid: ddc4bad2b0ee6e244bdf61158c2c88ef, type: 3}
-      propertyPath: stonerumble.Guid.Data2
-      value: 1223561901
-      objectReference: {fileID: 0}
-    - target: {fileID: 538809319, guid: ddc4bad2b0ee6e244bdf61158c2c88ef, type: 3}
-      propertyPath: stonerumble.Guid.Data3
-      value: 1066311347
-      objectReference: {fileID: 0}
-    - target: {fileID: 538809319, guid: ddc4bad2b0ee6e244bdf61158c2c88ef, type: 3}
-      propertyPath: stonerumble.Guid.Data4
-      value: -1364927806
-      objectReference: {fileID: 0}
-    - target: {fileID: 3764061939425114106, guid: ddc4bad2b0ee6e244bdf61158c2c88ef, type: 3}
-      propertyPath: m_fontSize
-      value: 164.05
-      objectReference: {fileID: 0}
-    - target: {fileID: 3764061939425114106, guid: ddc4bad2b0ee6e244bdf61158c2c88ef, type: 3}
-      propertyPath: m_sharedMaterial
-      value: 
-      objectReference: {fileID: 8251495377888384954, guid: 9353041454a43e84e9f91f6cc6a161e6, type: 2}
-    - target: {fileID: 3764061939425114106, guid: ddc4bad2b0ee6e244bdf61158c2c88ef, type: 3}
-      propertyPath: m_fontColor32.rgba
-      value: 16777215
-      objectReference: {fileID: 0}
     - target: {fileID: 4014377452529241331, guid: ddc4bad2b0ee6e244bdf61158c2c88ef, type: 3}
       propertyPath: m_Name
       value: StoneFallingAnimation
@@ -4358,7 +4318,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 6724060446729763688, guid: ddc4bad2b0ee6e244bdf61158c2c88ef, type: 3}
       propertyPath: m_LocalPosition.y
-      value: 2.905
+      value: 3.84
       objectReference: {fileID: 0}
     - target: {fileID: 6724060446729763688, guid: ddc4bad2b0ee6e244bdf61158c2c88ef, type: 3}
       propertyPath: m_LocalPosition.z
@@ -4391,10 +4351,6 @@ PrefabInstance:
     - target: {fileID: 6724060446729763688, guid: ddc4bad2b0ee6e244bdf61158c2c88ef, type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: -4.071
-      objectReference: {fileID: 0}
-    - target: {fileID: 8477876361521221324, guid: ddc4bad2b0ee6e244bdf61158c2c88ef, type: 3}
-      propertyPath: m_IsActive
-      value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: ddc4bad2b0ee6e244bdf61158c2c88ef, type: 3}
@@ -14388,6 +14344,27 @@ MeshFilter:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1978170787}
   m_Mesh: {fileID: 5765640242738347513, guid: 69df698a6ecbd2c4aa8833d16710908b, type: 3}
+--- !u!1 &1988581074 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 6428133457712899137, guid: c7e3748b2ea2959468877d698a05921e, type: 3}
+  m_PrefabInstance: {fileID: 6428133457010704126}
+  m_PrefabAsset: {fileID: 0}
+--- !u!114 &1988581077
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1988581074}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4eab96b682efa0e4daf428e7e09c43c1, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  speed: 10
+  speed2: 0
+  ymin: 0.58
+  ymax: 0.59
 --- !u!1 &2015906919
 GameObject:
   m_ObjectHideFlags: 0
