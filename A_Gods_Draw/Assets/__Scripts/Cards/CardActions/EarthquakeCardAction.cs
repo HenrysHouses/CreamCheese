@@ -7,7 +7,6 @@ public class EarthquakeCardAction : CardAction
 
     public override IEnumerator OnAction(BoardStateController _board, ActionCard_Behaviour _source)
     {
-
         isReady = false;
         playSFX(_source.gameObject);
 
@@ -31,7 +30,6 @@ public class EarthquakeCardAction : CardAction
         if(_source.AllTargets.Length > 0)
             _board.StartCoroutine(playTriggerVFX(_source.gameObject, _source.AllTargets[0] as Monster));
         yield return new WaitUntil(() => _VFX == null || !_VFX.isAnimating);
-
         yield return new WaitForSeconds(0.3f);
 
         isReady = true;
@@ -41,5 +39,4 @@ public class EarthquakeCardAction : CardAction
     {
         _VFX = new ActionVFX(false, 0, "", "Action VFX/Splash_VFX", 2);
     }
-
 }
