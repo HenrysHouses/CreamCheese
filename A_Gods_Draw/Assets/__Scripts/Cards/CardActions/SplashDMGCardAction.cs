@@ -12,23 +12,39 @@ public class SplashDMGCardAction : CardAction
         //StartAnimations...
         playSFX(source.gameObject);
 
+
+
         for (int i = 0; i < source.AllTargets.Length; i++)
         {
             for (int j = 0; j < board.Enemies.Length; j++)
             {
-                if(board.Enemies[i].transform != null)
-                    board.StartCoroutine(playTriggerVFX(
-                        source.AllTargets[i].gameObject, 
-                        board.Enemies[i].transform, 
-                        new Vector3(0, 0 ,-0.2f)));
+                Debug.Log("trigghgggggggerss");
+                if(board.Enemies[i] != null)
+                {
+                    if(board.Enemies[i].GetHealth() > 0)
+                        board.StartCoroutine(playTriggerVFX(
+                            source.AllTargets[i].gameObject, 
+                            board.Enemies[i].transform, 
+                            new Vector3(0, 0 ,-0.2f)));
+                }
 
-                
                 if(j-1 >= 0)
-                    board.Enemies[j-1].TakeDamage((int)((source.stats.strength / 2f) + 0.6f));
+                {
+                    if(board.Enemies[j-1] != null)
+                    {
+                        if(board.Enemies[j-1].GetHealth() > 0)
+                            board.Enemies[j-1].TakeDamage((int)((source.stats.strength / 2f) + 0.6f));
+                    }
+                }
 
                 if(j+1 < board.Enemies.Length)
-                    board.Enemies[j+1].TakeDamage((int)((source.stats.strength / 2f) + 0.6f));
-
+                {
+                    if(board.Enemies[j+1] != null)
+                    {
+                        if(board.Enemies[j+1].GetHealth() > 0)
+                            board.Enemies[j+1].TakeDamage((int)((source.stats.strength / 2f) + 0.6f));
+                    }
+                }
             }
         }
 
