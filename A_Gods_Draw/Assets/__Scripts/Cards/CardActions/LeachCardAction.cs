@@ -8,27 +8,38 @@ public class LeachCardAction : CardAction
 
     public override IEnumerator OnAction(BoardStateController _board, ActionCard_Behaviour _source)
     {
-
         isReady = false;
+        playSFX(_source.gameObject);
 
-        foreach(Monster _target in _source.AllTargets)
+        foreach (Monster target in _source.AllTargets)
         {
-            playSFX(_source.gameObject);
-            _board.StartCoroutine(playTriggerVFX(_source.gameObject, _target));
-            yield return new WaitUntil(() => !_VFX.isAnimating);
-            int _damageDealt = _target.TakeDamage(_source.stats.strength);
-            _board.Player.Heal(_damageDealt);
+            
+            LeachDebuff _leach;
+            if(target.gameObject.TryGetComponent<LeachDebuff>(out _leach))
+            {
+
+                _leach.Stacks += _source.stats.strength;
+                _leach.UpdateDebuffDisplay();
+
+            }
+            else
+            {
+
+                _leach = target.gameObject.AddComponent<LeachDebuff>();
+                _leach.Stacks = _source.stats.strength;
+                _leach.thisMonster = target;
+                target.Leached = true;
+
+            }
+
         }
-
-        // _source.stats.Targets.Clear();
-
-        // Playing VFX for each action
+        
+        _board.StartCoroutine(playTriggerVFX(_source.gameObject, _board.Player.transform, new Vector3(0, 1, 0)));
         yield return new WaitUntil(() => _VFX == null || !_VFX.isAnimating);
 
         yield return new WaitForSeconds(0.3f);
 
         isReady = true;
-
     }
 
     public override void SetActionVFX()

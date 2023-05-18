@@ -62,7 +62,7 @@ public class Monster : BoardElement
 
     //Effects
     [HideInInspector]
-    public bool HealingDisabled, Defending;
+    public bool HealingDisabled, Leached, Defending;
     [HideInInspector]
     public int BuffStrength;
 
@@ -216,23 +216,40 @@ public class Monster : BoardElement
 
         }
 
-        if(barrier - _damageTaken <= 0)
+        int _leachFor = 0;
+
+        if(barrier > 0) 
         {
 
-            int _barrierTemp = barrier;
-            barrier = 0;
-            _damageTaken -= _barrierTemp;
+            if(barrier - _damageTaken <= 0)
+            {
 
-        }
-        else
-        {
+                int _barrierTemp = barrier;
+                barrier = 0;
+                _damageTaken -= _barrierTemp;
 
-            barrier -= _damageTaken;
-            _damageTaken = 0;
+                if(Leached)
+                    _leachFor += _barrierTemp;
+
+            }
+            else
+            {
+
+                if(Leached)
+                    _leachFor += _damageTaken;
+
+                barrier -= _damageTaken;
+                _damageTaken = 0;
+
+            }
 
         }
 
         currentHealth -= _damageTaken;
+        setOutline(outlineSize, Color.red, 0.25f);
+
+        if(Leached)
+            Board.Player.Heal(currentHealth < 0 ? _damageTaken + currentHealth + _leachFor : _damageTaken + _leachFor);
 
         if (currentHealth <= 0)
             StartCoroutine(nameof(Die));
@@ -241,7 +258,6 @@ public class Monster : BoardElement
 
         UpdateHealthUI();
         UpdateDefenceUI();
-        setOutline(outlineSize, Color.red, 0.25f);
 
         return _damageTaken;
 
@@ -296,8 +312,6 @@ public class Monster : BoardElement
 
         if(HealingDisabled)
             return;
-
-        //add barrier for overheal
 
         currentHealth = Mathf.Clamp(currentHealth += _amount, 0, maxHealth);
 

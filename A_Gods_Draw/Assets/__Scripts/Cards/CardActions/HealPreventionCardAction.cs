@@ -5,9 +5,6 @@ using UnityEngine;
 [System.Serializable]
 public class HealPreventionCardAction : CardAction
 {
-    // public override void SetClickableTargets(BoardStateController board, bool to = true)
-    // {
-    // }
 
     public override IEnumerator OnAction(BoardStateController _board, ActionCard_Behaviour _source)
     {
@@ -37,9 +34,6 @@ public class HealPreventionCardAction : CardAction
 
         }
         
-        // source.stats.Targets.Clear();
-
-        // Playing VFX for each action
         _board.StartCoroutine(playTriggerVFX(_source.gameObject, _board.Player.transform, new Vector3(0, 1, 0)));
         yield return new WaitUntil(() => _VFX == null || !_VFX.isAnimating);
 
