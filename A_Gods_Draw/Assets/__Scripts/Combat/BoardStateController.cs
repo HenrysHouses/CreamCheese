@@ -100,6 +100,12 @@ public class BoardStateController : MonoBehaviour
 
     public Monster[] getLivingEnemies()
     {
+        if(_Enemies == null)
+        {
+            Debug.LogWarning("Enemies has not been instantiated");
+            return null;
+        }
+
         List<Monster> livingEnemies = new List<Monster>();
         for (int i = 0; i < _Enemies.Length; i++)
         {
