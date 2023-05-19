@@ -8,6 +8,7 @@
 using System.Collections;
 using UnityEngine;
 using FMODUnity;
+using System;
 using HH.MultiSceneTools.Examples;
 using HH.MultiSceneTools;
 
@@ -523,7 +524,7 @@ public class TurnController : CombatFSM
 
     public void addExperience(CardStats card)
     {
-        int ID = card.UpgradePath.Experience.ID;
+        Guid ID = card.UpgradePath.Experience.ID;
 
         for (int i = 0; i < deckController.deckData.Count; i++)
         {

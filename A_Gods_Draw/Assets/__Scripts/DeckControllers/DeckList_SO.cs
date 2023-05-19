@@ -27,7 +27,9 @@ public class DeckList_SO : ScriptableObject
     public static void playerObtainCard(Card_SO card_SO)
     {
         CardPlayData newCard = new CardPlayData(card_SO);
-        newCard.Experience.createNewUniqueID();
+        CardExperience experience = newCard.Experience;
+        experience.createGUID();
+        newCard.Experience = experience;
 
         playerDeck.deckData.deckListData.Add(newCard);
         GameSaver.SaveData(playerDeck.deckData.GetDeckData());
@@ -221,24 +223,22 @@ public struct CardPlayData
         Experience.XP = copy.Experience.XP;
         Experience.Level = copy.Experience.Level;
         Experience.ID = copy.Experience.ID;
+        Experience._displayID = Experience.ID.ToString();
     }
 
     public CardPlayData(Card_SO Card)
     {
         Experience = new CardExperience();
-
-        if(Card == null)
-            Experience.createNewUniqueID();
-        else
-            Experience.ID = -1;
+        
+        Experience.createGUID();
 
         CardType = Card;
     }
 
-    public void Clear()
-    {
-        CardType = null;
-        Experience.XP = 0;
-        Experience.Level = 0;
-    }
+    // public void Clear()
+    // {
+    //     CardType = null;
+    //     Experience.XP = 0;
+    //     Experience.Level = 0;
+    // }
 }

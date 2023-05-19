@@ -7,6 +7,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 using FMODUnity;
+using System;
 using System.IO;
 using System.Runtime.Serialization.Formatters.Binary;
 
@@ -369,21 +370,33 @@ public struct CardExperience
 {
     public int XP;
     public int Level;
-    public int ID;
-    static List<int> ExistingIDs = new List<int>();
+    public Guid ID;
+    public string _displayID;
+    // static List<int> ExistingIDs = new List<int>();
 
-    public CardExperience(int _XP, int _Lvl, int _ID)
+    public CardExperience(int _XP, int _Lvl, Guid _ID)
     {
         XP = _XP;
         Level = _Lvl;
         
-        if(_ID < 0)
+        if(_ID == Guid.Empty)
         {
-            ID = 0;
-            this.createNewUniqueID();
+            ID = Guid.NewGuid();       
         }
         else
+        {
             ID = _ID;
+        }
+        _displayID = ID.ToString();
+    }
+
+    public void createGUID()
+    {
+        // Debug.Log(ID);
+        this.ID = Guid.NewGuid();
+        // Debug.Log(ID);
+        _displayID = ID.ToString();
+        // _displayID = "fdsjkfhdjk";
     }
 
     public static int getLevelProgress(CardUpgrade[] upgrades, CardExperience currentExperience)
@@ -408,41 +421,30 @@ public struct CardExperience
         return (int)progress;
     }
 
-    public void createNewUniqueID()
-    {
-        if(ExistingIDs.Contains(ID))
-            return;
+    
 
-        ID = 0;
-        while(ExistingIDs.Contains(ID))
-        {
-            ID++;
-        }
-        ExistingIDs.Add(ID);
-    }
+    // public static void ClearUnusedIDs(DeckListData deck)
+    // {
+    //     List<int> _foundIDs = new List<int>();
+    //     for (int i = 0; i < deck.Count; i++)
+    //     {
+    //         _foundIDs.Add(deck.deckListData[i].Experience.ID);
+    //     }
 
-    public static void ClearUnusedIDs(DeckListData deck)
-    {
-        List<int> _foundIDs = new List<int>();
-        for (int i = 0; i < deck.Count; i++)
-        {
-            _foundIDs.Add(deck.deckListData[i].Experience.ID);
-        }
+    //     List<int> _removeIds = new List<int>();
+    //     for (int i = 0; i < ExistingIDs.Count; i++)
+    //     {
+    //         if(_foundIDs.Contains(ExistingIDs[i]))
+    //             continue;
 
-        List<int> _removeIds = new List<int>();
-        for (int i = 0; i < ExistingIDs.Count; i++)
-        {
-            if(_foundIDs.Contains(ExistingIDs[i]))
-                continue;
+    //         _removeIds.Add(ExistingIDs[i]);
+    //     }
 
-            _removeIds.Add(ExistingIDs[i]);
-        }
-
-        for (int i = 0; i < _removeIds.Count; i++)
-        {
-            ExistingIDs.Remove(_removeIds[i]);
-        }
-    }
+    //     for (int i = 0; i < _removeIds.Count; i++)
+    //     {
+    //         ExistingIDs.Remove(_removeIds[i]);
+    //     }
+    // }
 }
 
 [System.Serializable]
