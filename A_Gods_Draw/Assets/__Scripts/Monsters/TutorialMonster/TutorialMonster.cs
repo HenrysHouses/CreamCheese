@@ -12,14 +12,11 @@ public class TutorialMonster : Monster
     protected override void Start()
     {
         
-        enemyIntent = new TutorialMonsterIntent(attackSFX, attackGodSFX, defendSFX);
+        enemyIntent = new TutorialMonsterIntent(this, attackSFX, attackGodSFX, defendSFX);
         enemyIntent.Self = this;
         healthBarColor = healthBarFill.color;
         barrierBarColor = barrierBarFill.color;
         
-
-        TutorialMonsterIntent temp = enemyIntent as TutorialMonsterIntent;
-        temp.defendAction.toDefend = this;
     }
 
     internal override void DecideIntent(BoardStateController board)

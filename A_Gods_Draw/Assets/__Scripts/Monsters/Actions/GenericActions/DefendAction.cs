@@ -7,7 +7,6 @@ using System.Collections;
 
 public class DefendAction : MonsterAction
 {
-    public Monster toDefend;
 
     public DefendAction(int minimumStrength, int maximumStrength) : base(minimumStrength, maximumStrength)
     {
@@ -23,4 +22,5 @@ public class DefendAction : MonsterAction
         Self.Defend(_strength);
 
     }
+
 }
