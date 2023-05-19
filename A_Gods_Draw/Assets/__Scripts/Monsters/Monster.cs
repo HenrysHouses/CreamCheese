@@ -70,7 +70,7 @@ public class Monster : BoardElement
     [SerializeField, Header("Sounds")]
     private EventReference death_SFX;
     [SerializeField]
-    private EventReference block_SFX, hurt_SFX;
+    private EventReference block_SFX;
 
     // Animation
     [Header("Animation")]

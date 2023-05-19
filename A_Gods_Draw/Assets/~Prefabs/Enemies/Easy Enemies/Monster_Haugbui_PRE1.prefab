@@ -357,17 +357,17 @@ MonoBehaviour:
   defendUI: {fileID: 8499019722414731956}
   buffImageGameObject: {fileID: 3412733905544491465}
   damageIndicatorColor: {r: 0.8396226, g: 0.32211933, b: 0.32211933, a: 1}
-  maxHealth: 16
+  maxHealth: 14
   HealingDisabled: 0
   Defending: 0
   BuffStrength: 0
   death_SFX:
     Guid:
-      Data1: 55962543
-      Data2: 1104511573
-      Data3: 823004837
-      Data4: -1532201799
-    Path: event:/Combat/Enemy/EnemyKilled
+      Data1: 1720229317
+      Data2: 1259355710
+      Data3: 674784935
+      Data4: -1453636766
+    Path: event:/Combat/Enemy/EnemyDead
   block_SFX:
     Guid:
       Data1: -1202444277
@@ -375,13 +375,6 @@ MonoBehaviour:
       Data3: -43431291
       Data4: -1906492248
     Path: event:/Card Effects/CardShield
-  hurt_SFX:
-    Guid:
-      Data1: 55962543
-      Data2: 1104511573
-      Data3: 823004837
-      Data4: -1532201799
-    Path: event:/Combat/Enemy/EnemyKilled
   animator: {fileID: 8458236436935724629}
 --- !u!1 &6909398467659061486
 GameObject:
@@ -723,6 +716,18 @@ PrefabInstance:
       value: 100
       objectReference: {fileID: 0}
     - target: {fileID: 5909729180482902452, guid: 56d8a4a3985409c499f5cc485b33024d, type: 3}
+      propertyPath: m_LocalScale.x
+      value: 0.008409
+      objectReference: {fileID: 0}
+    - target: {fileID: 5909729180482902452, guid: 56d8a4a3985409c499f5cc485b33024d, type: 3}
+      propertyPath: m_LocalScale.y
+      value: 0.008409
+      objectReference: {fileID: 0}
+    - target: {fileID: 5909729180482902452, guid: 56d8a4a3985409c499f5cc485b33024d, type: 3}
+      propertyPath: m_LocalScale.z
+      value: 0.008409
+      objectReference: {fileID: 0}
+    - target: {fileID: 5909729180482902452, guid: 56d8a4a3985409c499f5cc485b33024d, type: 3}
       propertyPath: m_LocalPosition.x
       value: 0
       objectReference: {fileID: 0}
@@ -756,7 +761,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 5909729180482902452, guid: 56d8a4a3985409c499f5cc485b33024d, type: 3}
       propertyPath: m_AnchoredPosition.y
-      value: 0.6
+      value: 0.563
       objectReference: {fileID: 0}
     - target: {fileID: 5909729180482902452, guid: 56d8a4a3985409c499f5cc485b33024d, type: 3}
       propertyPath: m_LocalEulerAnglesHint.x

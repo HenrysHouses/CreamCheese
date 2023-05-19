@@ -11,7 +11,7 @@ public class InstakillCardAction : CardAction
 
         foreach (var enemy in source.AllTargets)
         {
-            if (Random.Range(1, 20) <= source.stats.strength)
+            if (Random.Range(1, 30) <= source.stats.strength)
             {
                 // Playing VFX
                 playSFX(source.gameObject);
@@ -25,7 +25,7 @@ public class InstakillCardAction : CardAction
 
     public override void SetActionVFX()
     {
-        _VFX = new ActionVFX(false, 0, "", "", 0);
-        Debug.LogError("Instant Kill has no VFX");
+        _VFX = new ActionVFX(false, 0, "", "Action VFX/Instakill_VFX", 2);
+       // Debug.LogError("Instant Kill has no VFX");
     }
 }

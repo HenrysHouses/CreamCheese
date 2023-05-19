@@ -14,7 +14,7 @@ public class CardReaderController : MonoBehaviour
     [SerializeField] PathController path;
     [SerializeField] float cameraOffset = 1, cameraXOffset = 0, cameraYOffset = 0;
     [SerializeField] float speed = 1;
-    [SerializeField] bool RotateUpRight;
+    [SerializeField] bool RotateUpRight, useRotation;
     [SerializeField] Vector3 RotationOffset;
     public bool isInspecting => inspectorTarget;
     float inspectorTime;
@@ -121,6 +121,8 @@ public class CardReaderController : MonoBehaviour
         if(RotateUpRight)
             inspectorTarget.transform.localRotation = Quaternion.Lerp(inspectorTarget.DefaultRotation, inspectorTarget.UpRightRotation, inspectorTime);
         inspectorTarget.transform.position = OP.pos;
+        if(useRotation)
+             inspectorTarget.transform.rotation = OP.rot;
 
         if(inspectorTime == 1 && !shouldReturn)
             inspectorTarget.isWaitingToReturn = true;

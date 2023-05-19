@@ -135,7 +135,11 @@ public enum CameraView
     CardReward,
     Library,
     BoardTopView,
-    TakingDamage
+    TakingDamage,
+    Map_EarlyEncounter,
+    Map_MidEncounter,
+    Map_LateEncounter,
+    DestroyCard
 }
 
 [System.Serializable]
