@@ -245,15 +245,17 @@ MonoBehaviour:
   damageIndicatorColor: {r: 0.8392157, g: 0.32156864, b: 0.32156864, a: 1}
   maxHealth: 6
   HealingDisabled: 0
+  Leached: 0
+  Weakened: 0
   Defending: 0
   BuffStrength: 0
   death_SFX:
     Guid:
-      Data1: 55962543
-      Data2: 1104511573
-      Data3: 823004837
-      Data4: -1532201799
-    Path: event:/Combat/Enemy/EnemyKilled
+      Data1: 1720229317
+      Data2: 1259355710
+      Data3: 674784935
+      Data4: -1453636766
+    Path: event:/Combat/Enemy/EnemyDead
   block_SFX:
     Guid:
       Data1: -1202444277
@@ -261,21 +263,14 @@ MonoBehaviour:
       Data3: -43431291
       Data4: -1906492248
     Path: event:/Card Effects/CardShield
-  hurt_SFX:
-    Guid:
-      Data1: 55962543
-      Data2: 1104511573
-      Data3: 823004837
-      Data4: -1532201799
-    Path: event:/Combat/Enemy/EnemyKilled
   animator: {fileID: 8458236436935724629}
   attackSFX:
     Guid:
-      Data1: 0
-      Data2: 0
-      Data3: 0
-      Data4: 0
-    Path: 
+      Data1: 1118862281
+      Data2: 1238309055
+      Data3: 1298832056
+      Data4: -1814946090
+    Path: event:/Combat/Enemy/Enemy Attack
   attackGodSFX:
     Guid:
       Data1: 0
@@ -285,11 +280,11 @@ MonoBehaviour:
     Path: 
   defendSFX:
     Guid:
-      Data1: 0
-      Data2: 0
-      Data3: 0
-      Data4: 0
-    Path: 
+      Data1: -2009519262
+      Data2: 1250953349
+      Data3: 705129880
+      Data4: -1982789950
+    Path: event:/Combat/Enemy/EnemyShielding
 --- !u!1 &6909398467659061486
 GameObject:
   m_ObjectHideFlags: 0

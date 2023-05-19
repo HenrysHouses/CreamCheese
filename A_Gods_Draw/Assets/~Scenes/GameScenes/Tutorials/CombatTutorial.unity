@@ -3649,64 +3649,51 @@ MonoBehaviour:
   CurrentDialogue: {fileID: 0}
   TutorialSteps:
     TutorialPages:
-    - text: "In A God's Draw there are 4 main card types \nwhich comes in different
-        colors:\nRed:  Attack\nBlue:  Defence\nPurple:  Buff\nYellow:  Utility\nGold:
-        Gods"
-      speed: 0.035
+    - text: As a mortal.. You must use wit, courage and intelect to defeat your opponents
+      speed: 0.05
       OnComplete:
         m_PersistentCalls:
           m_Calls: []
       StepTrigger: {fileID: 1157809424}
       IsComplete: 0
-    - text: 'Enemies show what they intend to do on their turn.
+    - text: 'This enemy is going to block next turn, hover your cursor over that
+        shield icon to see what they are planning!
 
-        This enemy
-        is going gain block next turn. Attack it before it does!'
-      speed: 0.035
+
+        Then use a RED attack
+        card to strike!'
+      speed: 0.05
       OnComplete:
         m_PersistentCalls:
           m_Calls: []
       StepTrigger: {fileID: 1542688838}
       IsComplete: 0
-    - text: 'Once you end your turn your played cards activate,
-
-        then all
-        still living enemies act their intent.
-
-        Blow the war horn to end
-        your turn.'
+    - text: Now blow the horn of battle when you want to end your turn!
       speed: 0.035
       OnComplete:
         m_PersistentCalls:
           m_Calls: []
       StepTrigger: {fileID: 1821668928}
       IsComplete: 0
-    - text: Attack again to break through its defences!
+    - text: Very good! Now play another red attack card, then add a purple buff to
+        it so the card can increase it strength!
       speed: 0.035
       OnComplete:
         m_PersistentCalls:
           m_Calls: []
       StepTrigger: {fileID: 2015481739}
       IsComplete: 0
-    - text: 'Watch out! Attack incomming,
-
-        defend yourself with a defence
-        card'
+    - text: Now the enemy is gonna attack! Remember too look at their intent icons
+        to see what their actions are.. Use a Blue defend card to defend yourself
       speed: 0.035
       OnComplete:
         m_PersistentCalls:
           m_Calls: []
       StepTrigger: {fileID: 1186952922}
       IsComplete: 0
-    - text: 'God cards are special cards that stay as long as they are alive.
-
-        They
-        provide unique abilities and empower cards!
-
-        Play Tyr to chain the
-        enemy and strike!
-
-'
+    - text: As the mortal you are, you will get help from gods with magnificant powers.
+        Every god has a different power, and can boost cards related to them. Play
+        Tyr who chains his enemeis and win this battle!
       speed: 0.035
       OnComplete:
         m_PersistentCalls:
@@ -3716,11 +3703,11 @@ MonoBehaviour:
     <TransformName>k__BackingField: MainCamera
     <SFX>k__BackingField:
       Guid:
-        Data1: 0
-        Data2: 0
-        Data3: 0
-        Data4: 0
-      Path: 
+        Data1: -1023993072
+        Data2: 1313796185
+        Data3: -1845500527
+        Data4: 74687593
+      Path: event:/Combat/God/Tyr/TyrDialouge
   EnableBoard:
   - {fileID: 1153125839}
   - {fileID: 1580440613}

@@ -104,6 +104,7 @@
 		</property>
 		<relationship name="modulators">
 			<destination>{dbd92281-f1ee-42a5-92f8-9239a7dfbfa3}</destination>
+			<destination>{c712bccb-c53b-4043-9b7b-1682da296d18}</destination>
 		</relationship>
 		<relationship name="sounds">
 			<destination>{ed9a57f6-d894-4582-a5c1-46a19f2f0867}</destination>
@@ -144,6 +145,23 @@
 		</property>
 		<property name="amount">
 			<value>9</value>
+		</property>
+	</object>
+	<object class="ADSRModulator" id="{c712bccb-c53b-4043-9b7b-1682da296d18}">
+		<property name="nameOfPropertyBeingModulated">
+			<value>pitch</value>
+		</property>
+		<property name="decayTime">
+			<value>620</value>
+		</property>
+		<property name="sustainValue">
+			<value>66</value>
+		</property>
+		<property name="releaseTime">
+			<value>39999.9961</value>
+		</property>
+		<property name="releaseShape">
+			<value>-0.547808826</value>
 		</property>
 	</object>
 	<object class="EventSound" id="{ed9a57f6-d894-4582-a5c1-46a19f2f0867}">
