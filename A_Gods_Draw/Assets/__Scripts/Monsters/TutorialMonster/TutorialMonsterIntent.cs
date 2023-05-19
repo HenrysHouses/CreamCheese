@@ -14,10 +14,13 @@ public class TutorialMonsterIntent : Intent
 
         attackPlayerAction = new AttackPlayerAction(4, 4);
         attackPlayerAction.ActionSFX = _attackSFX;
+        attackPlayerAction.Self = Self;
         attackGodAction = new AttackGodAction(2, 2);
         attackGodAction.ActionSFX = _attackGodSFX;
+        attackGodAction.Self = Self;
         defendAction = new DefendAction(1, 1);
         defendAction.ActionSFX = _defendSFX;
+        defendAction.Self = Self;
 
     }
 
