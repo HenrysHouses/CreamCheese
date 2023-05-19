@@ -134,6 +134,7 @@ public class TurnController : CombatFSM
         if(!_SceneTransition.isTransitioning && !BoardStateController.isEncounterInstantiated)
         {
             BoardStateController.spawnEncounter();
+            Debug.Log("sadsadsad");
         }
     }
 
