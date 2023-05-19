@@ -122,7 +122,7 @@ public class GodCard_Behaviour : Card_Behaviour , IMonsterTarget
                         break;
                 }
                 Debug.Log("Dialogue source: " + source);
-                DialogueController.instance.SpawnDialogue(data.dialogue, Vector2.zero);
+                DialogueController.instance.SpawnDialogueUI(data.dialogue, Vector2.zero);
                 break;
             default:
                 throw new NotImplementedException();

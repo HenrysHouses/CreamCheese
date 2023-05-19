@@ -27,7 +27,7 @@ public abstract class TutorialController : MonoBehaviour
 
     void spawnTutorial()
     {
-        CurrentDialogue = DialogueController.instance.SpawnDialogue(TutorialSteps, true);
+        CurrentDialogue = DialogueController.instance.SpawnDialogueUI(TutorialSteps, Vector2.zero, true);
         currentStep = CurrentDialogue.getCurrentPage() as TutorialSentence;
         currentStep.WaitForTrigger();
     } 
