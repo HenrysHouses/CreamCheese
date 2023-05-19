@@ -66,11 +66,16 @@ public class CombatTutorial : TutorialController
     IEnumerator PlayAttackCardOnEnemy()
     {
         monster = turnController.GetBoard().getLivingEnemies()[0] as TutorialMonster;
+        yield return new WaitUntil(() => monster != null);
         monster.TutorialIntentOverride(turnController.GetBoard(), TutorialActions.Defend);
+        Debug.Log("yesees");
         yield return new WaitUntil(() => turnController.state == CombatState.MainPhase);
+        Debug.Log("main phase");
         yield return new WaitUntil(() => turnController._Hand.isEmpty());
+        Debug.Log("end your turn yess");
         Horn.turnEnd.AddListener(HasEndedTurn);
         Horn.CanEndTurn = true;
+        deckController.clear();
         completeTutorialRoutine(PlayAttack_Trigger, 1);
     }
 

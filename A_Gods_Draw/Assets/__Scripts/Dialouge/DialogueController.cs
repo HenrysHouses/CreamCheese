@@ -69,17 +69,23 @@ public class DialogueController : MonoBehaviour
         return null;
     }
 
-    public void SpawnDialogue(Dialogue dialogue, Vector2 rectAnchor)
+    public DialogueBox SpawnDialogueUI(IDialogue dialogue, Vector2 rectAnchor, bool replace = false)
     {
         foreach (var holder in dialogueTransform)
         {
             if(holder.TransformName == dialogue.TransformName)
             {
                 if(holder.hasDialogue())
-                    return;
+                {
+                    if(replace)
+                        holder.destroyDialogue();
+                    else
+                        return null;
+                }
 
                 GameObject spawn = Instantiate(dialoguePrefabUI);
-                spawn.GetComponent<DialogueBox>().SetDialogue(dialogue);
+                DialogueBox Box = spawn.GetComponent<DialogueBox>();
+                Box.SetDialogue(dialogue);
                 spawn.transform.SetParent(holder.transform);
                 spawn.transform.localScale = Vector3.one;
 
@@ -89,11 +95,13 @@ public class DialogueController : MonoBehaviour
                     _transform.anchoredPosition = rectAnchor;
                     _transform.localPosition = Vector3.zero;
                     _transform.localRotation = Quaternion.identity;
-                    return;
+                    return Box;
                 }
+                return Box;
             }
         }
         Debug.LogWarning(dialogue.TransformName + " Dialogue Transform was not found");
+        return null;
     }
 
     void OnDestroy()

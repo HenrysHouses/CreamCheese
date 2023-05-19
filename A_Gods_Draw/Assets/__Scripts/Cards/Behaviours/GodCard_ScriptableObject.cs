@@ -73,7 +73,7 @@ public class GodCard_ScriptableObject : Card_SO
                 // Debug.Log("Dialogue source: " + source + ", type: " + trigger);
 
                 OnDialogue?.Invoke("isSpeaking");
-                DialogueController.instance.SpawnDialogue(data.dialogue, Vector2.zero);
+                DialogueController.instance.SpawnDialogueUI(data.dialogue, Vector2.zero);
                 break;
             case GodDialogueTrigger.Hurt:
             case GodDialogueTrigger.SeeEnemy:
@@ -90,7 +90,7 @@ public class GodCard_ScriptableObject : Card_SO
                 {
                     break;
                 }
-                DialogueController.instance.SpawnDialogue(data.dialogue, Vector2.zero);
+                DialogueController.instance.SpawnDialogueUI(data.dialogue, Vector2.zero);
                 Debug.Log("Dialogue source: " + damageSourceName + "(Monster), type: " + trigger);                
                 OnDialogue?.Invoke("isSpeaking");
                 break;
