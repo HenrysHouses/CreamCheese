@@ -532,8 +532,6 @@ public class ActionCard_Behaviour : Card_Behaviour
     {
         TurnController.shouldWaitForAnims = true;
 
-        Debug.Log("Errors happen here");
-
         StartCoroutine(Play(controller.GetBoard()));
     }
     public override void CancelSelection()

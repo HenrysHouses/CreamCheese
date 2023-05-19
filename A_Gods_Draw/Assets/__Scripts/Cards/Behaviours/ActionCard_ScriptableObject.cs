@@ -386,17 +386,15 @@ public struct CardExperience
         else
         {
             ID = _ID;
+            Debug.LogError(ID);
         }
         _displayID = ID.ToString();
     }
 
     public void createGUID()
     {
-        // Debug.Log(ID);
         this.ID = Guid.NewGuid();
-        // Debug.Log(ID);
         _displayID = ID.ToString();
-        // _displayID = "fdsjkfhdjk";
     }
 
     public static int getLevelProgress(CardUpgrade[] upgrades, CardExperience currentExperience)

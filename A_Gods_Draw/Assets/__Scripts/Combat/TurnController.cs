@@ -134,7 +134,6 @@ public class TurnController : CombatFSM
         if(!_SceneTransition.isTransitioning && !BoardStateController.isEncounterInstantiated)
         {
             BoardStateController.spawnEncounter();
-            Debug.Log("sadsadsad");
         }
     }
 
@@ -201,7 +200,6 @@ public class TurnController : CombatFSM
         {
             if(GameManager.instance.shouldGenerateNewMap)
             {
-                Debug.Log(LoadingScreen.IsAnimating);
                 StartCoroutine(LoadingScreen.Instance.EnterLoadingScreen("StarterDeck", collectionLoadMode.Difference));
             }
             else
@@ -216,7 +214,6 @@ public class TurnController : CombatFSM
         }
         else
         {
-            Debug.Log("djsadshajk");
             _SceneTransition.TransitionScene(false, "Map");
             // MultiSceneLoader.loadCollection("Map", collectionLoadMode.Difference);
         }
@@ -365,8 +362,6 @@ public class TurnController : CombatFSM
     {
         isDiscarding = true;
 
-        Debug.Log("discarding all");
-      
         yield return new WaitUntil(() => !DrawAnimator.isAnimating && !ShuffleAnimator.isAnimating);
         yield return new WaitUntil(() => CardAnimations == null);
 
@@ -436,7 +431,6 @@ public class TurnController : CombatFSM
 
 
         // CardPathAnim lastAnim = null;
-        Debug.Log(card_b);
         Transform ClosestPos = DiscardPositions[0];
         foreach (var pos in DiscardPositions)
         {
@@ -447,7 +441,6 @@ public class TurnController : CombatFSM
         DiscardStartPoint.rotation = ClosestPos.rotation;
         DiscardStartPoint.localScale = ClosestPos.localScale;
         DiscardAnimController.recalculatePath();
-        Debug.Log(DiscardStartPoint.name);
 
         if (card_b != null)
         {

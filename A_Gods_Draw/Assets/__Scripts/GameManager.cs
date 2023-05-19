@@ -27,7 +27,7 @@ public class GameManager : MonoBehaviour
 
     }
     public static GameManager instance;
-    EncounterDifficulty nextCombatDiff;
+    [SerializeField] EncounterDifficulty nextCombatDiff;
     [SerializeField]
     NodeType nextReward;
 

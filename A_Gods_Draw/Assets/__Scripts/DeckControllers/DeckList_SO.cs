@@ -220,10 +220,9 @@ public struct CardPlayData
     public CardPlayData(CardPlayData copy)
     {
         CardType = copy.CardType;
-        Experience.XP = copy.Experience.XP;
-        Experience.Level = copy.Experience.Level;
-        Experience.ID = copy.Experience.ID;
-        Experience._displayID = Experience.ID.ToString();
+
+        CardExperience _XP = new CardExperience(copy.Experience.XP, copy.Experience.Level, copy.Experience.ID);
+        Experience = _XP;
     }
 
     public CardPlayData(Card_SO Card)
