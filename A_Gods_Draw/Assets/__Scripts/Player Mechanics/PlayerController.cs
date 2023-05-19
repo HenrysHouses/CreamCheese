@@ -27,7 +27,7 @@ public class PlayerController : BoardElement , IMonsterTarget
         healthTxt.text = "HP: " + playerTracker.Health.ToString();
         cam = Camera.main.GetComponent<CameraMovement>();
         damageflash = GameObject.Find("LowHealthFlash").GetComponent<lowhealthflash>();
-        GameManager.instance.EffectIntensity = (float)playerTracker.Health / (float)playerTracker.MaxHealth;
+        GameManager.instance.UpdateEffectIntensity(1 - ((float)playerTracker.Health / (float)playerTracker.MaxHealth), false);
     }
 
     public void DealDamage(int amount, UnityEngine.Object _source = null)
@@ -42,7 +42,7 @@ public class PlayerController : BoardElement , IMonsterTarget
         //TakeDamageCamera(); // Sets the camera to the healhtdial //TODO: setr this somewhere where the player takes dmg
         healthTxt.text = "HP: " + playerTracker.Health.ToString();
         SceneManager.SetActiveScene(gameObject.scene);
-        GameManager.instance.EffectIntensity = (float)playerTracker.Health / (float)playerTracker.MaxHealth;
+        GameManager.instance.UpdateEffectIntensity(1 - ((float)playerTracker.Health / (float)playerTracker.MaxHealth), true);
 
         cam.SetCameraView(CameraView.Reset); // Resets the camera view after taking damage
         if(amount <= 0)

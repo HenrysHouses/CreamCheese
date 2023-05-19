@@ -8,7 +8,7 @@ public class DamageLights : SceneIntensityEffect
     [SerializeField]
     private GameObject[] lights;
 
-    public override void UpdateIntensity(float _intensity)
+    public override void UpdateIntensity(float _intensity, bool _updateFromDamage = false)
     {
         
         int _count = Mathf.RoundToInt(_intensity * ((float)lights.Length + 1f));

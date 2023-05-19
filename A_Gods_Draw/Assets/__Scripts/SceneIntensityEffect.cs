@@ -5,7 +5,7 @@ using UnityEngine;
 public class SceneIntensityEffect : MonoBehaviour
 {
 
-    private void Start()
+    protected virtual void Start()
     {
 
         GameManager.instance.AddSceneIntensityEffect(this);
@@ -15,7 +15,7 @@ public class SceneIntensityEffect : MonoBehaviour
     /// <summary>
     /// intensity goes from 0-1
     /// </summary>
-    public virtual void UpdateIntensity(float _intensity){}
+    public virtual void UpdateIntensity(float _intensity, bool _updateFromDamage = false){}
 
     private void OnDestroy()
     {

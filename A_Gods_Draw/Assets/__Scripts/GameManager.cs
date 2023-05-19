@@ -19,18 +19,12 @@ public class GameManager : MonoBehaviour
     public bool shouldDestroyCardInDeck {get; private set;}
     private List<SceneIntensityEffect> intensityEffects;
     private float effectIntensity;
-    public float EffectIntensity
+    public void UpdateEffectIntensity(float _intensity, bool _updateFromDamaged)
     {
-        get
-        {
-            return effectIntensity;
-        }
 
-        set
-        {
-            effectIntensity = value;
-            UpdateSceneEffects();
-        }
+        effectIntensity = _intensity;
+        UpdateSceneEffects(_updateFromDamaged);
+
     }
     public static GameManager instance;
     EncounterDifficulty nextCombatDiff;
@@ -69,13 +63,13 @@ public class GameManager : MonoBehaviour
         loadGameData();
     }
 
-    private void UpdateSceneEffects()
+    private void UpdateSceneEffects(bool _updateFromDamage = false)
     {
 
         foreach (SceneIntensityEffect _intensityEffect in intensityEffects)
         {
 
-            _intensityEffect.UpdateIntensity(effectIntensity);
+            _intensityEffect.UpdateIntensity(effectIntensity, _updateFromDamage);
             
         }
 
