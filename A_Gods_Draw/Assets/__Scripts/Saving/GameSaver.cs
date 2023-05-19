@@ -42,6 +42,13 @@ public static class GameSaver
         Debug.Log(json);
     }
 
+    public static void SavePlayerData(PlayerDataContainer _playerData)
+    {
+
+        
+
+    } 
+
     public static DeckListData LoadData()
     {
         using StreamReader streamReader = new StreamReader(persistantPath); // <- path for us to see in assets, persistantPath is what should be used
