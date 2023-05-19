@@ -41,7 +41,6 @@ public class DrawState : CombatFSMState
         {
             return;
         }
-
         Controller.Draw(Controller.DrawStepCardAmount + Controller.DrawCardExtra);
         
         ActivateRune(Controller);

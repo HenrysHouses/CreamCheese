@@ -47,6 +47,7 @@ public class GodCard_Behaviour : Card_Behaviour , IMonsterTarget
     {
         stats = new CardStats();
         CardExperience _XP = new CardExperience(0,0,experience.ID);
+        stats.UpgradePath.Experience = _XP;
     }
 
     protected override IEnumerator Play(BoardStateController board)
@@ -207,7 +208,6 @@ public class GodCard_Behaviour : Card_Behaviour , IMonsterTarget
         data.CardType = card_so;
 
         CardExperience _XP = new CardExperience(stats.UpgradePath.Experience.XP, stats.UpgradePath.Experience.Level, stats.UpgradePath.Experience.ID);
-
         data.Experience = _XP;
         return data;
     }

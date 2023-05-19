@@ -50,8 +50,10 @@ public class LevelController : MonoBehaviour
             unlocks += upgradePath.Upgrades[i].getDescription(false);
         }
 
-        if(level < upgradePath.Upgrades.Length)
+        if(level < upgradePath.Upgrades.Length && level > -1)
         {
+            // Debug.Log(level + " < " + upgradePath.Upgrades.Length);
+
             unlocks += "\nNext Unlock:\n";
             unlocks += upgradePath.Upgrades[level].getDescription(true);
         }

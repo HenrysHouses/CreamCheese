@@ -668,6 +668,8 @@ public class ActionCard_Behaviour : Card_Behaviour
         CardPlayData data = new CardPlayData();
         data.CardType = card_so;
 
+        Debug.Log(card_so + ": " + stats.UpgradePath.Experience.ID);
+
         CardExperience _XP = new CardExperience(stats.UpgradePath.Experience.XP, stats.UpgradePath.Experience.Level, stats.UpgradePath.Experience.ID);
 
         data.Experience = _XP;

@@ -132,13 +132,13 @@ public class DeckController : MonoBehaviour
         pBoard.Add(card);
     }
 
-    public void TransferExperienceToHand(CardPlayData ID)
+    public void TransferExperienceToHand(CardPlayData UniqueCard)
     {
         for (int i = 0; i < pHand.Count; i++)
         {
-            if(pHand[i].Experience.ID == ID.Experience.ID)
+            if(pHand[i].Experience.ID == UniqueCard.Experience.ID)
             {
-                pHand[i] = new CardPlayData(ID);
+                pHand[i] = new CardPlayData(UniqueCard);
                 return;
             }
         }
@@ -175,6 +175,7 @@ public class DeckController : MonoBehaviour
             Card_Loader _Loader = cards[i].GetComponentInChildren<Card_Loader>();
             _Loader.addComponentAutomatically = false;
             _Loader.Set(pLibrary[0]);
+            // Debug.LogError(pLibrary[0].Experience.ID);
             animations[i] = new CardPathAnim(pLibrary[0], Draw_SFX, cards[i], GodDialogueTrigger.Draw);
             pLibrary.Remove(pLibrary[0]);
         }

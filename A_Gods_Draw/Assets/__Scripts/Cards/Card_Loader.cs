@@ -227,6 +227,7 @@ public class Card_Loader : MonoBehaviour
             {
                 CB = gameObject.AddComponent<ActionCard_Behaviour>();
                 (CB as ActionCard_Behaviour).Initialize(Action_Card, elements);
+
                 preventDescriptionUpdate = (CB as ActionCard_Behaviour).ApplyLevels(card.Experience);
             }
             elements.level.instantiateIcons(Action_Card.cardStats.getGlyphs(Action_Card.type));

@@ -266,7 +266,6 @@ public class TurnController : CombatFSM
                 trigger.OnCardCompletionTrigger.AddListener(_Hand.AddCard);
                 trigger.OnAnimStartSound.AddListener(CardSound);
 
-
                 // Dialogue draw trigger
                 if(trigger._card.CardType is GodCard_ScriptableObject _God)
                 {
@@ -532,7 +531,7 @@ public class TurnController : CombatFSM
 
     public void addExperience(CardStats card)
     {
-        Guid ID = card.UpgradePath.Experience.ID;
+        string ID = card.UpgradePath.Experience.ID;
 
         for (int i = 0; i < deckController.deckData.Count; i++)
         {
@@ -564,7 +563,7 @@ public class TurnController : CombatFSM
                 return;
             }
 
-            Debug.Log(_Card.cardName + ", ID: " + _CardState.Experience.ID + " just got more experience! at index " + i + " in the deckmanager deck. Previous XP: " + _CardState.Experience.XP);
+            Debug.Log(_Card.cardName + ", ID: " + _CardState.Experience.ID + " just got more experience! at index " + i + " in the deckmanager deck. Previous XP: " + _CardState.Experience.XP + " -> " + _CardState.Experience.XP+1);
             _CardState.Experience.XP++;
             card.UpgradePath.Experience.XP++;
 

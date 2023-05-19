@@ -173,7 +173,7 @@ public class BoardStateController : MonoBehaviour
                 playedGodCard.DealDamage(1000000, gameObject);
             }
 
-            AnimationCurve curve = new AnimationCurve( new Keyframe (0,0), new Keyframe (1,1));
+            // AnimationCurve curve = new AnimationCurve( new Keyframe (0,0), new Keyframe (1,1));
             playedGodCard = card as GodCard_Behaviour;
             SoundPlayer.PlaySound(playedGodCard.CardSO.enterBattlefield_SFX, gameObject);
             SoundPlayer.PlaySound(playedGodCard.CardSO.otherSFX, gameObject);
