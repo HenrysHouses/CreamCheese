@@ -205,7 +205,10 @@ public class GodCard_Behaviour : Card_Behaviour , IMonsterTarget
     {
         CardPlayData data = new CardPlayData();
         data.CardType = card_so;
-        data.Experience.ID = stats.UpgradePath.Experience.ID;
+
+        CardExperience _XP = new CardExperience(stats.UpgradePath.Experience.XP, stats.UpgradePath.Experience.Level, stats.UpgradePath.Experience.ID);
+
+        data.Experience = _XP;
         return data;
     }
 
