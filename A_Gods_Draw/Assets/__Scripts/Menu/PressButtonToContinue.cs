@@ -12,7 +12,7 @@ public class PressButtonToContinue : MonoBehaviour
 
     bool shouldLoad = false;
 
-    void Awake()
+    void Start()
     {
         Map.Map currentSave;
 
@@ -23,6 +23,8 @@ public class PressButtonToContinue : MonoBehaviour
             PressToContinueText.SetActive(false);
             gameObject.SetActive(false);
         }
+        else
+            GameManager.instance.shouldGenerateNewMap = true;
     }
 
     // Update is called once per frame

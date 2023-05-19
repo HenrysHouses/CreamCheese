@@ -197,12 +197,26 @@ public class TurnController : CombatFSM
     {
         deckController.clear();
         yield return new WaitForSeconds(3);
+        if(GameManager.instance.nextCombatType == EncounterDifficulty.Tutorial)
+        {
+            if(GameManager.instance.shouldGenerateNewMap)
+            {
+                Debug.Log(LoadingScreen.IsAnimating);
+                StartCoroutine(LoadingScreen.Instance.EnterLoadingScreen("StarterDeck", collectionLoadMode.Difference));
+            }
+            else
+                _SceneTransition.TransitionScene(false, "MainMenu");
+            // _SceneTransition.TransitionScene(false, "StarterDeck");
+            yield break;
+        }
+
         if(CombatReward)
         {
             _SceneTransition.TransitionScene(false, "CombatRewards");
         }
         else
         {
+            Debug.Log("djsadshajk");
             _SceneTransition.TransitionScene(false, "Map");
             // MultiSceneLoader.loadCollection("Map", collectionLoadMode.Difference);
         }

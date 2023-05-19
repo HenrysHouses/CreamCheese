@@ -69,15 +69,12 @@ public class CombatTutorial : TutorialController
     {
         Horn.CanEndTurn = false;
         yield return new WaitUntil(() => turnController.GetBoard() != null);
-        Debug.Log("First attack: 1", this);
         yield return new WaitUntil(() => turnController.isCombatStarted);
         yield return new WaitUntil(() => turnController.GetBoard().getLivingEnemies().Length > 0);
-        Debug.Log("First attack: 2", this);
         monster = turnController.GetBoard().getLivingEnemies()[0] as TutorialMonster;
         monster.TutorialIntentOverride(turnController.GetBoard(), TutorialActions.Defend);
         yield return new WaitUntil(() => turnController.state == CombatState.MainPhase);
         yield return new WaitUntil(() => turnController._Hand.isEmpty());
-        Debug.Log("First attack: 3", this);
         deckController.clear();
         completeTutorialRoutine(PlayAttack_Trigger, 1);
     }
@@ -88,10 +85,8 @@ public class CombatTutorial : TutorialController
 
     IEnumerator EndTurn()
     {
-        Debug.Log("end turn: 1", this);
         Horn.CanEndTurn = true;
         yield return new WaitUntil(() => turnController.state == CombatState.EndStep);
-        Debug.Log("end turn: 2", this);
         Horn.CanEndTurn = false;
         // EndedTurn = false;
         deckController.clear();
@@ -107,15 +102,11 @@ public class CombatTutorial : TutorialController
     public DeckController deckController;
     IEnumerator AttackAgain()
     {
-        Debug.Log("second attack: 1", this);
 
         yield return new WaitUntil(() => turnController.state == CombatState.MainPhase);
-        Debug.Log("second attack: 2", this);
         yield return new WaitUntil(() => turnController._Hand.isEmpty());
-        Debug.Log("second attack: 3", this);
         Horn.CanEndTurn = true;
         yield return new WaitUntil(() => turnController.state == CombatState.EndStep);
-        Debug.Log("second attack: 4", this);
         deckController.clear();
         CardPlayData defenceCard = new CardPlayData(Resources.Load<Card_SO>("Cards/Shield/Defence_BattlleWornShield_CardSO"));
         deckController.AddCardToLib(defenceCard);
@@ -130,15 +121,11 @@ public class CombatTutorial : TutorialController
     public TutorialStepTrigger defend_Trigger;
     IEnumerator DefendYourself()
     {
-        Debug.Log("defend: 1", this);
-        
         monster.TutorialIntentOverride(turnController.GetBoard(), TutorialActions.AttackPlayer);
         yield return new WaitUntil(() => turnController.state == CombatState.MainPhase);
         yield return new WaitUntil(() => turnController._Hand.isEmpty());
-        Debug.Log("defend: 2", this);
         Horn.CanEndTurn = true;
         yield return new WaitUntil(() => turnController.state == CombatState.CombatEnemyStep);
-        Debug.Log("defend: 3", this);
         yield return new WaitUntil(() => turnController.state == CombatState.EndStep);
         Horn.CanEndTurn = false;
         monster.TutorialIntentOverride(turnController.GetBoard(), TutorialActions.AttackPlayer);
@@ -147,13 +134,17 @@ public class CombatTutorial : TutorialController
         deckController.AddCardToLib(GodCard);
         CardPlayData attackCard = new CardPlayData(Resources.Load<Card_SO>("Cards/Attack/Attack_Gramr_CardSO"));
         deckController.AddCardToLib(attackCard);
-        Debug.Log("defend: 4", this);
+        
+        completeTutorialRoutine(defend_Trigger, 4);
+
+        StartCoroutine(PlayGodCard());
+    }
+
+    IEnumerator PlayGodCard()
+    {
         yield return new WaitUntil(() => turnController.state == CombatState.MainPhase);
-        Debug.Log("defend: 5", this);
         yield return new WaitUntil(() => turnController._Hand.isEmpty());
         Horn.CanEndTurn = true;
         // yield return new WaitUntil(() => turnController._Hand.isEmpty());
-        Debug.Log("defend: 6", this);
-        completeTutorialRoutine(defend_Trigger, 4);
     }
 }
