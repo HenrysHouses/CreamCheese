@@ -147,13 +147,20 @@ public class CombatTutorial : TutorialController
         deckController.AddCardToLib(GodCard);
         CardPlayData attackCard = new CardPlayData(Resources.Load<Card_SO>("Cards/Attack/Attack_Gramr_CardSO"));
         deckController.AddCardToLib(attackCard);
-        Debug.Log("defend: 4", this);
+        
+        completeTutorialRoutine(defend_Trigger, 4);
+
+        StartCoroutine(PlayGodCard());
+    }
+
+    IEnumerator PlayGodCard()
+    {
+        Debug.Log("God: 1", this);
         yield return new WaitUntil(() => turnController.state == CombatState.MainPhase);
-        Debug.Log("defend: 5", this);
+        Debug.Log("god: 2", this);
         yield return new WaitUntil(() => turnController._Hand.isEmpty());
         Horn.CanEndTurn = true;
         // yield return new WaitUntil(() => turnController._Hand.isEmpty());
-        Debug.Log("defend: 6", this);
-        completeTutorialRoutine(defend_Trigger, 4);
+        Debug.Log("god: 3", this);
     }
 }
