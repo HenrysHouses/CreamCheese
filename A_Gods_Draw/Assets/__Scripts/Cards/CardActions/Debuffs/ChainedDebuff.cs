@@ -39,9 +39,14 @@ public class ChainedDebuff : DebuffBase
             return;
     
         }
-
-        thisMonster.CancelIntent();
         
+    }
+
+    public override void OnDrawActTickDebuff(int _ticks = 1)
+    {
+        
+        thisMonster.CancelIntent();
+
     }
 
 }

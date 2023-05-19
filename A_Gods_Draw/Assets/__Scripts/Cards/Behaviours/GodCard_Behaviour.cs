@@ -19,6 +19,7 @@ public class GodCard_Behaviour : Card_Behaviour , IMonsterTarget
     protected new GodCard_ScriptableObject card_so;
     public GodCard_ScriptableObject CardSO => card_so;
     public Animator animator;
+    private List<Monster> targettedBy;
 
     public void Initialize(GodCard_ScriptableObject card, CardElements elements)
     {
@@ -33,6 +34,7 @@ public class GodCard_Behaviour : Card_Behaviour , IMonsterTarget
         GodColor color = GodColorGetter.find(card.godAction);
         GlowMat.SetColor("_MainColor", color.MainColor);
         GlowMat.SetColor("_SecondColor", color.SecondaryColor);
+        targettedBy = new List<Monster>();
     }
 
 
@@ -75,6 +77,8 @@ public class GodCard_Behaviour : Card_Behaviour , IMonsterTarget
                 godPlacement.UpdateUI();
                 godPlacement.RemoveGod();
             }
+            for(int i = 0; i < targettedBy.Count; i++)
+                targettedBy[i].ReSelectTargets(controller.GetBoard());
             controller.GodDied(this);
             animator.SetTrigger("Die");
             return;

@@ -16,6 +16,7 @@ public class FrostbiteDebuff : DebuffBase
     {
         
         thisMonster.UpdateEffectDisplay(Resources.Load<Sprite>("EnemyData/Icons/Glyph_Frostbite_IMG_v1 1"), 0, "Frostbite\nWeakens the enemy's actions ");
+        thisMonster.Weakened = false;
         Destroy(this);
 
     }
@@ -23,7 +24,6 @@ public class FrostbiteDebuff : DebuffBase
     public override void OnDrawActTickDebuff(int _ticks = 1)
     {
 
-        thisMonster.Weaken();
         thisMonster.UpdateEffectDisplay(Resources.Load<Sprite>("EnemyData/Icons/Glyph_Frostbite_IMG_v1 1"), Stacks, "Frostbite\nWeakens the enemy's actions ");
         Stacks -= _ticks;
         
@@ -46,6 +46,7 @@ public class FrostbiteDebuff : DebuffBase
     {
 
         OnDrawActTickDebuff();
+        thisMonster.Weaken();
 
     }
 }

@@ -62,7 +62,7 @@ public class Monster : BoardElement
 
     //Effects
     [HideInInspector]
-    public bool HealingDisabled, Leached, Defending;
+    public bool HealingDisabled, Leached, Weakened, Defending;
     [HideInInspector]
     public int BuffStrength;
 
@@ -335,10 +335,10 @@ public class Monster : BoardElement
 
     }
 
-    public void Strengthen(int _amount)
+    public void Buff(int _amount)
     {
 
-        BuffStrength += _amount; //Fix this
+        BuffStrength += _amount;
 
     }
 

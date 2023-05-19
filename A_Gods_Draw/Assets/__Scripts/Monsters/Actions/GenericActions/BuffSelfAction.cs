@@ -16,7 +16,7 @@ public class BuffSelfAction : MonsterAction
     public override void PerformAction(BoardStateController _board, int _strength, object _source)
     {
         
-        Self.Strengthen(_strength);
+        Self.Buff(_strength);
         if(ActionSettings.ActionVFX)
             GameObject.Instantiate(ActionSettings.ActionVFX, Self.transform.position, Quaternion.identity);
 

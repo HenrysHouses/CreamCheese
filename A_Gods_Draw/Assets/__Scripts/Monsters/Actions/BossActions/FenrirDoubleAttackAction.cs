@@ -94,8 +94,11 @@ public class FenrirDoubleAttackAction : MonsterAction
         for(int i = 0; i < ITargets.Count; i++)
         {
 
-            if(ITargets[i] != null)
-                ITargets[i].DealDamage(_strength);
+            if(ITargets[i] == null)
+                continue;
+            
+            ITargets[i].DealDamage(_strength);
+            ITargets[i].UnTargeted(Self.gameObject);
 
         }
 

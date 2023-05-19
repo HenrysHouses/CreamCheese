@@ -172,7 +172,7 @@ public class MinionIntent : Intent
         if(actionSelected.IsLocked)
         {
 
-            strength += Self.BuffStrength;
+            strength += Self.BuffStrength / 2;
             return;
 
         }
@@ -191,6 +191,9 @@ public class MinionIntent : Intent
             }
             else
                 strength = Random.Range(actionSelected.MinStrength, actionSelected.MaxStrength + 1) + Self.BuffStrength;
+
+            if(Self.Weakened)
+                strength = strength / 2;
 
         }
 

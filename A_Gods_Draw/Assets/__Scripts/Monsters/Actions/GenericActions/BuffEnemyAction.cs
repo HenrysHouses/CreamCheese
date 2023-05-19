@@ -20,7 +20,7 @@ public class BuffEnemyAction : MonsterAction
         if(MonsterTargets.Count == 0)
             return;
         
-        MonsterTargets[0].Strengthen(_strength);
+        MonsterTargets[0].Buff(_strength);
         if(ActionSettings.ActionVFX)
             GameObject.Instantiate(ActionSettings.ActionVFX, MonsterTargets[0].transform.position, Quaternion.identity);
 
