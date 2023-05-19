@@ -563,7 +563,7 @@ public class TurnController : CombatFSM
                 return;
             }
 
-            Debug.Log(_Card.cardName + ", ID: " + _CardState.Experience.ID + " just got more experience! at index " + i + " in the deckmanager deck. Previous XP: " + _CardState.Experience.XP + " -> " + _CardState.Experience.XP+1);
+            Debug.Log(_Card.cardName + ", ID: " + _CardState.Experience.ID + " just got more experience! at index " + i + " in the deckmanager deck. Previous XP: " + _CardState.Experience.XP + " -> " + (_CardState.Experience.XP+1));
             _CardState.Experience.XP++;
             card.UpgradePath.Experience.XP++;
 
