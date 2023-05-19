@@ -123,11 +123,6 @@ NavMeshSettings:
     debug:
       m_Flags: 0
   m_NavMeshData: {fileID: 0}
---- !u!1 &23355652 stripped
-GameObject:
-  m_CorrespondingSourceObject: {fileID: 8033436254671390896, guid: 24b5665651593e84799b0bac945f83d9, type: 3}
-  m_PrefabInstance: {fileID: 827599226}
-  m_PrefabAsset: {fileID: 0}
 --- !u!4 &93392049 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 5522742991034495171, guid: 63685add614311c418d4a0cedb71b820, type: 3}
@@ -579,6 +574,7 @@ MonoBehaviour:
   UpRightRotation: {x: 0, y: 0, z: 0, w: 0}
   isBeingInspected: 0
   isWaitingToReturn: 0
+  information: {fileID: 0}
   AddToDeck: {fileID: 0}
   index: 0
 --- !u!1 &288580670
@@ -1084,9 +1080,9 @@ Light:
   serializedVersion: 10
   m_Type: 2
   m_Shape: 0
-  m_Color: {r: 1, g: 0.47070253, b: 0, a: 1}
-  m_Intensity: 20
-  m_Range: 0.2
+  m_Color: {r: 0.8980392, g: 1, b: 0, a: 1}
+  m_Intensity: 3
+  m_Range: 1
   m_SpotAngle: 30
   m_InnerSpotAngle: 21.80208
   m_CookieSize: 10
@@ -1309,6 +1305,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   chooseCardReward: {fileID: 1101464425}
+  chooseRuneReward: {fileID: 0}
 --- !u!1001 &502972406
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -2625,9 +2622,6 @@ MonoBehaviour:
   EndOfPath: {fileID: 341081202}
   EndPosition: {fileID: 462599430}
   deckpileParticle: {fileID: 462599422}
-  boardText:
-  - {fileID: 23355652}
-  - {fileID: 2071485317}
 --- !u!4 &1101464426
 Transform:
   m_ObjectHideFlags: 0
@@ -2751,6 +2745,7 @@ MonoBehaviour:
   UpRightRotation: {x: 0, y: 0, z: 0, w: 0}
   isBeingInspected: 0
   isWaitingToReturn: 0
+  information: {fileID: 0}
   AddToDeck: {fileID: 0}
   index: 0
 --- !u!114 &1403764511 stripped
@@ -3148,9 +3143,9 @@ Light:
   serializedVersion: 10
   m_Type: 2
   m_Shape: 0
-  m_Color: {r: 1, g: 0.47070253, b: 0, a: 1}
-  m_Intensity: 20
-  m_Range: 0.2
+  m_Color: {r: 0.8980392, g: 1, b: 0, a: 1}
+  m_Intensity: 3
+  m_Range: 1
   m_SpotAngle: 30
   m_InnerSpotAngle: 21.80208
   m_CookieSize: 10
@@ -3371,8 +3366,8 @@ Light:
   m_Type: 2
   m_Shape: 0
   m_Color: {r: 0.8980392, g: 1, b: 0, a: 1}
-  m_Intensity: 10
-  m_Range: 0.5
+  m_Intensity: 3
+  m_Range: 1
   m_SpotAngle: 30
   m_InnerSpotAngle: 21.80208
   m_CookieSize: 10
@@ -3468,6 +3463,7 @@ MonoBehaviour:
   UpRightRotation: {x: 0, y: 0, z: 0, w: 0}
   isBeingInspected: 0
   isWaitingToReturn: 0
+  information: {fileID: 0}
   AddToDeck: {fileID: 0}
   index: 0
 --- !u!1 &2071485317
