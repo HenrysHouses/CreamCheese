@@ -669,9 +669,10 @@ public class ActionCard_Behaviour : Card_Behaviour
     {
         CardPlayData data = new CardPlayData();
         data.CardType = card_so;
-        data.Experience.XP = stats.UpgradePath.Experience.XP;
-        data.Experience.Level = stats.UpgradePath.Experience.Level;
-        data.Experience.ID = stats.UpgradePath.Experience.ID;
+
+        CardExperience _XP = new CardExperience(stats.UpgradePath.Experience.XP, stats.UpgradePath.Experience.Level, stats.UpgradePath.Experience.ID);
+
+        data.Experience = _XP;
         return data;
     }
 }

@@ -407,7 +407,7 @@ public struct CardExperience
         float previousRequirement = 0; 
         float NeededForLevel = upgrades[0].RequiredXP; 
 
-        if(currentExperience.Level > 0 )
+        if(currentExperience.Level > 0 && currentExperience.Level < upgrades.Length)
         {
             Debug.LogWarning(currentExperience.Level + " / " + upgrades.Length);
             previousRequirement = upgrades[currentExperience.Level-1].RequiredXP;
