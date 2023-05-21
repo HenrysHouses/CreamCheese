@@ -1,6 +1,6 @@
 using UnityEngine;
 using UnityEditor;
-
+#if UNITY_EDITOR
 [CustomEditor(typeof(DeckList_SO))]
 public class DeckList_Editor : Editor
 {
@@ -25,3 +25,4 @@ public class DeckList_Editor : Editor
         }
     }
 }
+#endif
