@@ -382,13 +382,13 @@ public class ActionCard_Behaviour : Card_Behaviour
                 // damageTotal += _tempDmg;
 
             }
-            else if(action is LeachCardAction)
+            /*else if(action is LeachCardAction)
             {
 
                 dealsDamage = true;
                 damageTotal += stats.strength;
 
-            }
+            }*/
             else if(action is SplashDMGCardAction)
             {
 
@@ -434,13 +434,13 @@ public class ActionCard_Behaviour : Card_Behaviour
                 damageTotal += _tempDmg;
 
             }
-            else if(action is LeachCardAction)
+            /*else if(action is LeachCardAction)
             {
 
                 dealsDamage = true;
                 damageTotal += stats.strength;
 
-            }
+            }*/
             else if(action is SplashDMGCardAction)
             {
 
