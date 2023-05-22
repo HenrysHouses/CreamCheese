@@ -12,26 +12,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c67fb43748f6d2c4d9e51c278391516e, type: 3}
   m_Name: Player Tracker
   m_EditorClassIdentifier: 
+  PlayerData:
+    TimesDefeatedBoss: 0
+    PlayerHealth: 30
+    Runes: []
   Health: 30
   MaxHealth: 30
   HealthChanges: 
   CurrentDeck: {fileID: 11400000, guid: 79f54d6a0268d644381e0b3bda208b5b, type: 2}
-  _runeData:
-  - State: 0
-    Strength: 1
-    Name: 2
-    Trigger: 2
-    Description: Deal 1 damage to each enemy at start of combat
-  - State: 0
-    Strength: 1
-    Name: 2
-    Trigger: 2
-    Description: Deal 1 damage to each enemy at start of combat
-  - State: 0
-    Strength: 1
-    Name: 1
-    Trigger: 2
-    Description: Draw one extra card each turn
-  CurrentRunes:
-  - {fileID: 0}
-  - {fileID: 0}
+  <_runeData>k__BackingField: []
+  CurrentRunes: []

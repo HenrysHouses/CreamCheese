@@ -164,10 +164,10 @@ public class Card_Loader : MonoBehaviour
         elements.cardName.text = _card.CardType.cardName;
         elements.cardName.ForceMeshUpdate();
 
-        if(elements.level != null && card.CardType is ActionCard_ScriptableObject)
-        {
+        // if(elements.level != null && card.CardType is ActionCard_ScriptableObject)
+        // {
             elements.level.set(GetComponent<Card_Selector>(), card);
-        }
+        // }
 
         if(elements.Description != null)
         {

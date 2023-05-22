@@ -190,9 +190,6 @@ public class ChooseCardReward : MonoBehaviour
                 isClicked = true;
             }
         }
-
-        if(shouldConfirmSelection)
-            Debug.Log("here we go");
         
         for (int i = 0; i < rewardOptions.Length; i++)
         {

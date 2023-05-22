@@ -106,6 +106,26 @@ public class ActionCard_ScriptableObject : Card_SO
             output += split[1];
         return output;
     }
+
+    public string getGodBuffActions(CardStats overrideStats = null)
+    {
+        string output = "Not Assigned";
+        CardStats targetStats = cardStats;
+
+
+        if(overrideStats != null)
+            targetStats = overrideStats;
+
+        for (int i = 0; i < targetStats.godBuffActions.actionStats.Count; i++)
+        {
+            if(i > 0)
+                output += "\n";
+            else
+                output = "";
+            output += targetStats.godBuffActions.actionStats[i].actionEnum.ToString();
+        }
+        return output;
+    }
     public static string getEffectFormatted(Card_Behaviour targetCard)
     {
         string output = "Not Assigned";
