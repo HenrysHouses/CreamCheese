@@ -20,6 +20,8 @@ public class GodCard_Behaviour : Card_Behaviour , IMonsterTarget
     public GodCard_ScriptableObject CardSO => card_so;
     public Animator animator;
     private List<Monster> targettedBy;
+    private Coroutine OnSelectedRoutine;
+    private GodConfirmation GodSlot;
 
     public void Initialize(GodCard_ScriptableObject card, CardElements elements)
     {
@@ -88,15 +90,74 @@ public class GodCard_Behaviour : Card_Behaviour , IMonsterTarget
         animator.SetTrigger("TakingDamage");
     }
 
+    public override void MissClick()
+    {
+        if(!gameObject)
+            return;
+        StopAllCoroutines();
+        OnSelectedRoutine = null;
+        GodSlot = null;
+        ChangeCursor.instance.DefaultCursor();
+    }
+
+    public override bool ShouldCancelSelection()
+    {
+        if(OnSelectedRoutine == null && GodSlot == null)
+            return true;
+        return false;    
+    }
+
+    public override bool CardIsReady()
+    {
+        if(GodSlot)
+            return true;
+        return false;
+    }
+
+    internal override void OnClickOnSelected()
+    {
+        base.OnClickOnSelected();
+        GodSlot = TurnController.PlayerClick() as GodConfirmation;
+
+        if(!GodSlot)
+            MissClick();
+    }
+
+    private IEnumerator ConfirmingGodPlacement()
+    {
+        CameraMovement.instance.SetCameraView(CameraView.BoardTopView);
+        
+        Debug.Log("wat");        
+        yield return new WaitUntil(() => GodSlot != null);
+
+        if(GodSlot is GodConfirmation)
+        {
+            CameraMovement.instance.SetCameraView(CameraView.Reset);
+            TurnController.shouldWaitForAnims = false;
+
+            // places god
+            controller.GodPlacement.SetGod(this);
+            foreach (ActionCard_Behaviour _card in controller.GetBoard().allPlayedCards)
+                _card.UpdateQueuedDamage();
+
+            action.OnPlay(controller.GetBoard(), card_so.strength);
+            ChangeCursor.instance.DefaultCursor();
+        }
+        else
+            MissClick();
+
+    }
+    
     protected override void OnBeingSelected()
     {
-        controller.GodPlacement.SetGod(this);
-        foreach (ActionCard_Behaviour _card in controller.GetBoard().allPlayedCards)
-            _card.UpdateQueuedDamage();
+        if (OnSelectedRoutine == null)
+        {
+            TurnController.shouldWaitForAnims = true;
+            OnSelectedRoutine = StartCoroutine(ConfirmingGodPlacement());
 
-        Debug.LogWarning("Temporary fix");
-        action.OnPlay(controller.GetBoard(), card_so.strength);
-        //Play(controller.GetBoard());
+            //change cursor type
+            ChangeCursor.instance.GodCursor();
+        }
     }
 
     public override void OnAction()

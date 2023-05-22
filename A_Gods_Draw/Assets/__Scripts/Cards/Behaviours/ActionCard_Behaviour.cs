@@ -126,7 +126,7 @@ public class ActionCard_Behaviour : Card_Behaviour
     {
         return cardIsReady && onPlayerHand;
     }
-    public void MissClick()
+    public override void MissClick()
     {
         missedClick = true;
         CancelSelection();

@@ -41,6 +41,8 @@ public abstract class Card_Behaviour : BoardElement
     public virtual bool CardIsReady() { return true; }
     public abstract void OnAction();
 
+    public virtual void MissClick() => CancelSelection();
+
     public void Placed()
     {
         // resizing the collider when exiting the player hand
