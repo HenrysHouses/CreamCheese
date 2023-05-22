@@ -72,9 +72,8 @@ public class EndState : CombatFSMState
            // ??? 
            // MultiSceneLoader.loadCollection("Death", collectionLoadMode.Difference);
         //    DeathCrumbling death;
-           
-             Controller.PlayerDying();
-            _player.Health = 10;
+            GameManager.instance.newGame();
+            Controller.PlayerDying();
             return;
         }
         if (Controller.GetBoard().isEnemyDefeated)

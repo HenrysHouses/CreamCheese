@@ -11,24 +11,36 @@ public class LevelController : MonoBehaviour
     [SerializeField] UIPopup Description;
     Card_Selector Card_Selector;
     ActionCard_ScriptableObject _Card;
+    GodCard_ScriptableObject _God;
     CardUpgradePath upgradePath;
     CardExperience experience;
 
     List<GameObject> SpawnedGlyphs = new List<GameObject>();
     List<CardActionEnum> glyphsOrder = new List<CardActionEnum>();
+    bool HasGodGlyph;
     
     public void set(Card_Selector selector, CardPlayData data)
     {
+        Card_Selector = selector;
+        experience = data.Experience;
+
         if(data.CardType is not ActionCard_ScriptableObject ActionCard)
         {
-            gameObject.SetActive(false);
-            return;
-        }
+            Debug.Log("god gelpghsj");
 
-        Card_Selector = selector;
-        _Card = ActionCard;
-        upgradePath = _Card.cardStats.UpgradePath;
-        experience = data.Experience;
+            _God = data.CardType as GodCard_ScriptableObject;
+            GodActionEnum GodAction = _God.godAction;
+
+            instantiateGodIcon(GodAction);
+            gameObject.SetActive(false);
+            Destroy(this);
+            // return;
+        }
+        else
+        {
+            _Card = ActionCard;
+            upgradePath = _Card.cardStats.UpgradePath;
+        }
     }
 
     public void setDescriptionToLevel(int level)
@@ -123,17 +135,45 @@ public class LevelController : MonoBehaviour
         return true;
     }
 
+    /// <summary>Spawn the designated god glyph</summary>
+    /// <param name="spawnAsDisplay">Dont know why this was required but it was needed outside of combat</param>
+    public void instantiateGodIcon(GodActionEnum God, bool spawnAsDisplay = false)
+    {
+        Debug.Log("GodFlyph aws attemped");
+
+        if(God == GodActionEnum.None)
+            return;
+
+        GameObject icon = Instantiate(IconPrefab);
+        OrientedPoint OP = IconPath.GetEvenPathOP(0.5f);
+        icon.transform.position = OP.pos;
+        icon.transform.SetParent(IconPath.transform.parent, spawnAsDisplay);
+        icon.transform.localEulerAngles = Vector3.zero;
+        icon.transform.localScale = Vector3.one;
+        icon.GetComponent<GlyphController>().setGlyph(_God.godAction, Card_Selector, "", true);
+
+        Debug.Log("GodFlyph aws spawned");
+    }
+
+    /// <summary>Spawn Glyph Icons on Action Cards</summary>
+    /// <param name="glyphs">Which glyphs to spawn on the card</param>
+    /// <param name="spawnAsDisplay">Dont know why this was required but it was needed outside of combat</param>
     public void instantiateIcons(CardActionEnum[] glyphs, bool spawnAsDisplay = false)
     {
-        if(glyphs == null)
+        float godGlyph = 0;
+        if(_Card.cardStats.correspondingGod != GodActionEnum.None && !HasGodGlyph)
+            godGlyph = 1;
+
+        if(glyphs == null && godGlyph == 0)
             return;
 
-        if(glyphs.Length <= 0)
+        if(glyphs.Length <= 0 && godGlyph == 0)
             return;
 
-        float pos = 1/(glyphs.Length+1f);
 
-        for (int i = 0; i < glyphs.Length; i++)
+        float pos = 1/(glyphs.Length+1f+godGlyph);
+
+        for (int i = 0; i < glyphs.Length + godGlyph; i++)
         {
             GameObject icon = Instantiate(IconPrefab);
             OrientedPoint OP = IconPath.GetEvenPathOP(pos * (i+1));
@@ -142,9 +182,24 @@ public class LevelController : MonoBehaviour
             icon.transform.localEulerAngles = Vector3.zero;
             icon.transform.localScale = Vector3.one;
 
-            icon.GetComponent<GlyphController>().setGlyph(glyphs[i], Card_Selector);
+            if(godGlyph == 1 && i == 0)
+            {
+                icon.GetComponent<GlyphController>().setGlyph(_Card.cardStats.correspondingGod, Card_Selector, _Card.getGodBuffActions());
+                // glyphsOrder.Add(_Card.cardStats.correspondingGod);
+                HasGodGlyph = true;
+            }
+            else if(godGlyph == 1)
+            {
+                icon.GetComponent<GlyphController>().setGlyph(glyphs[i-1], Card_Selector);
+                glyphsOrder.Add(glyphs[i-1]);
+            }
+            else
+            {
+                icon.GetComponent<GlyphController>().setGlyph(glyphs[i], Card_Selector);
+                glyphsOrder.Add(glyphs[i]);
+            }
+
             SpawnedGlyphs.Add(icon);
-            glyphsOrder.Add(glyphs[i]);
         }
     }
 
@@ -154,6 +209,9 @@ public class LevelController : MonoBehaviour
         {
             if(Glyph == glyphsOrder[i])
             {
+                if(SpawnedGlyphs[i].GetComponent<GlyphController>().isGodGlyph)
+                    continue;
+
                 glyphsOrder.RemoveAt(i);
                 Destroy(SpawnedGlyphs[i]);
                 SpawnedGlyphs.RemoveAt(i);
