@@ -352,10 +352,10 @@ public class CardPlayer : MonoBehaviour
         {
             for (int i = 0; i < hits.Length; i++)
             {
-                Card_Behaviour _Loader = hits[i].collider.GetComponent<Card_Behaviour>();
-                if (_Loader)
-                    if (_Loader.CanBeSelected())
-                        return _Loader;
+                Card_Behaviour _Behaviour = hits[i].collider.GetComponent<Card_Behaviour>();
+                if (_Behaviour)
+                    if (_Behaviour.CanBeSelected())
+                        return _Behaviour;
             }
 
         }

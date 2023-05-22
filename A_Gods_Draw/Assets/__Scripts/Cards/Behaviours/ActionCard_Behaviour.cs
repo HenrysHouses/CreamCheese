@@ -32,6 +32,7 @@ public class ActionCard_Behaviour : Card_Behaviour
     public CardType GetCardType => cardType;
     public ActionCard_ScriptableObject CardSO => card_so;
     Collider thisCollider;
+    Color OriginalOrmColor;
 
     private void Update() {
         if(CheckForGod())
@@ -39,10 +40,21 @@ public class ActionCard_Behaviour : Card_Behaviour
         else
             elements.Glow.SetActive(false);
 
-        if(!CanBeSelected() && !IsOnBoard)
-            thisCollider.enabled = false;
+        if(!CanBeSelected() && !IsOnBoard && onPlayerHand)
+        {
+            elements.OrmRenderer.material.SetColor("_Color", Color.black);
+            elements.CardRenderer.material.SetColor("_Color", new Color(0.18f,0.18f,0.18f));
+            elements.ArtRenderer.material.SetColor("_ArtColor", new Color(0.18f,0.18f,0.18f));
+            elements.ArtRenderer.material.SetColor("_Color", new Color(0.18f,0.18f,0.18f));
+            Debug.Log("why");
+        }
         else 
-            thisCollider.enabled = true;
+        {
+            elements.OrmRenderer.material.SetColor("_Color", OriginalOrmColor);
+            elements.CardRenderer.material.SetColor("_Color", Color.white);
+            elements.ArtRenderer.material.SetColor("_ArtColor", Color.white);
+            elements.ArtRenderer.material.SetColor("_Color", new Color(0.4f, 0.4f, 0.4f));
+        }
     }
 
     private IEnumerator SelectingTargets()
@@ -170,6 +182,7 @@ public class ActionCard_Behaviour : Card_Behaviour
         GlowMat.SetColor("_SecondColor", color.SecondaryColor);
 
         thisCollider = GetComponent<Collider>();
+        OriginalOrmColor = elements.OrmRenderer.material.GetColor("_Color");
     }
     public void Buff(int value, bool isMult)
     {
