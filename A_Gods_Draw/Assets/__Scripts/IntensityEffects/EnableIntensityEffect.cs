@@ -14,8 +14,8 @@ public class EnableIntensityEffect : SceneIntensityEffect
         public GameObject VFXObject;
         public float Threshold;
         public bool Enable;
-        [Tooltip("if false, the effect can be triggered at the start of the scene without taking damag first")]
-        public bool ActivateOnDamage;
+        [Tooltip("if false, the effect can be triggered at the start of the scene without taking damage first")]
+        public bool ActivateOnDamage, ShouldLoop;
 
     }
 
@@ -35,7 +35,7 @@ public class EnableIntensityEffect : SceneIntensityEffect
         for(int i = 0; i < objectsToEnable.Length; i++)
         {
 
-            if(objectsToEnable[i].ActivateOnDamage && !_updateFromDamage)
+            if((objectsToEnable[i].ActivateOnDamage && !_updateFromDamage) || (!objectsToEnable[i].ShouldLoop && !_updateFromDamage))
                 continue;
 
             if(_intensity >= objectsToEnable[i].Threshold)
