@@ -26,8 +26,6 @@ public class LevelController : MonoBehaviour
 
         if(data.CardType is not ActionCard_ScriptableObject ActionCard)
         {
-            Debug.Log("god gelpghsj");
-
             _God = data.CardType as GodCard_ScriptableObject;
             GodActionEnum GodAction = _God.godAction;
 
@@ -139,8 +137,6 @@ public class LevelController : MonoBehaviour
     /// <param name="spawnAsDisplay">Dont know why this was required but it was needed outside of combat</param>
     public void instantiateGodIcon(GodActionEnum God, bool spawnAsDisplay = false)
     {
-        Debug.Log("GodFlyph aws attemped");
-
         if(God == GodActionEnum.None)
             return;
 
@@ -151,8 +147,6 @@ public class LevelController : MonoBehaviour
         icon.transform.localEulerAngles = Vector3.zero;
         icon.transform.localScale = Vector3.one;
         icon.GetComponent<GlyphController>().setGlyph(_God.godAction, Card_Selector, "", true);
-
-        Debug.Log("GodFlyph aws spawned");
     }
 
     /// <summary>Spawn Glyph Icons on Action Cards</summary>

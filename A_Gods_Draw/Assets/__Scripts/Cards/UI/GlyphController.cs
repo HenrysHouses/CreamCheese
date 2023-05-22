@@ -97,10 +97,4 @@ public class GlyphController : MonoBehaviour
         if(Card_Selector)
             Card_Selector.OnMouseExit();
     }
-
-    void OnDestroy()
-    {
-        if(isOnGod)
-            Debug.Log("Glyph was destroyed");
-    }
 }
