@@ -46,7 +46,6 @@ public class ActionCard_Behaviour : Card_Behaviour
             elements.CardRenderer.material.SetColor("_Color", new Color(0.18f,0.18f,0.18f));
             elements.ArtRenderer.material.SetColor("_ArtColor", new Color(0.18f,0.18f,0.18f));
             elements.ArtRenderer.material.SetColor("_Color", new Color(0.18f,0.18f,0.18f));
-            Debug.Log("why");
         }
         else 
         {
