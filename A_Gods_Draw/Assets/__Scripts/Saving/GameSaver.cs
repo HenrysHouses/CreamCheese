@@ -11,6 +11,7 @@ public static class GameSaver
 {
     private static string path = "";
     private static string persistantPath = "";
+    private static string playerDataPath { get { return Path.Combine(Application.persistentDataPath, "PlayerData.json");}}
 
     public static void InitializeSaving()
     {
@@ -40,14 +41,8 @@ public static class GameSaver
         writer.Write(json);
         
         Debug.Log(json);
+        writer.Close();
     }
-
-    public static void SavePlayerData(PlayerDataContainer _playerData)
-    {
-
-        
-
-    } 
 
     public static DeckListData LoadData()
     {
@@ -79,5 +74,27 @@ public static class GameSaver
             SaveData(loadedDeck.GetDeckData());
 
         return loadedDeck;
+    }
+
+    public static void SavePlayerData(PlayerDataContainer _playerData)
+    {
+        string _json = JsonUtility.ToJson(_playerData);
+
+        StreamWriter _writer = new StreamWriter(playerDataPath);
+        _writer.Write(_json);
+        _writer.Close();
+    }
+
+    public static PlayerDataContainer LoadPlayerData()
+    {
+        if(!File.Exists(playerDataPath))
+            SavePlayerData(new PlayerDataContainer(0, 30, new RuneData[0]));
+
+        StreamReader _reader = new StreamReader(playerDataPath);
+        string _json = _reader.ReadToEnd();
+
+        PlayerDataContainer _data = JsonUtility.FromJson<PlayerDataContainer>(_json);
+        _reader.Close();
+        return _data;
     }
 }

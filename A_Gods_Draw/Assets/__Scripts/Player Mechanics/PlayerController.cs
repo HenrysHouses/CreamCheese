@@ -102,6 +102,13 @@ public class PlayerController : BoardElement , IMonsterTarget
         
     }
 
+    private void OnDestroy()
+    {
+
+        GameSaver.SavePlayerData(new PlayerDataContainer(GameManager.timesDefeatedBoss, Playerhealth, new RuneData[0]));
+
+    }
+
     // public override string setClassName()
     // {
     //     return GetType().Name;

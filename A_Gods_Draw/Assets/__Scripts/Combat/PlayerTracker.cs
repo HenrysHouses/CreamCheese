@@ -9,6 +9,7 @@ using UnityEngine;
 [CreateAssetMenu(menuName = "PlayerTracker")]
 public class PlayerTracker : ScriptableObject
 {
+    public PlayerDataContainer PlayerData;
     public int Health;
     public int MaxHealth;
     [HideInInspector] public List<int> HealthChanges = new List<int>();
@@ -22,6 +23,14 @@ public class PlayerTracker : ScriptableObject
     private void OnEnable() {
         _runeData.Clear();
         CurrentRunes.Clear();
+        PlayerData = GameSaver.LoadPlayerData();
+        Health = PlayerData.PlayerHealth;
+    }
+
+    public void LoadPlayerData()
+    {
+        PlayerData = GameSaver.LoadPlayerData();
+        resetHealth();
     }
 
     public void UpdateHealth(int difference)

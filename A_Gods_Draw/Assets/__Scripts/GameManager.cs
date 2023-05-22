@@ -93,6 +93,7 @@ public class GameManager : MonoBehaviour
     {
         DeckListData deckList = GameSaver.LoadData();
         PlayerTracker.setDeck(deckList);
+        timesDefeatedBoss = PlayerTracker.PlayerData.TimesDefeatedBoss;
     }
 
     public void newGame()
@@ -102,6 +103,8 @@ public class GameManager : MonoBehaviour
         PlayerTracker.CurrentRunes.Clear();
         CardQuantityContainer newSave = new CardQuantityContainer();
         GameSaver.SaveData(newSave);
+        GameSaver.SavePlayerData(new PlayerDataContainer(0, 30, new RuneData[0]));
+        PlayerTracker.LoadPlayerData();
         loadGameData();
     }
 
