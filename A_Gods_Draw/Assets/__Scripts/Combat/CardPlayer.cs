@@ -26,6 +26,7 @@ public class CardPlayer : MonoBehaviour
     Camera mainCam;
     [SerializeField] LayerMask cardLayer;
     [SerializeField] LayerMask laneLayer;
+    [SerializeField] GodConfirmation godConfirmation;
 
     bool shouldCancelSelection;
     List<GameObject> MeshSelections = new List<GameObject>();
@@ -73,6 +74,11 @@ public class CardPlayer : MonoBehaviour
                     setCardHighlight();
                     break;
             }
+        }
+
+        if(_selectedCard is GodCard_Behaviour god)
+        {
+            godConfirmation.shouldGlow(true);
         }
 
         // ? not sure
@@ -134,6 +140,7 @@ public class CardPlayer : MonoBehaviour
                     shouldCancelSelection = true;
                     path.controlPoints[0].position = _currSelectedCard.targetHandPos;
                     clearTargetMeshes();
+                    godConfirmation.shouldGlow(false);
                 }
             }
         }
@@ -269,6 +276,7 @@ public class CardPlayer : MonoBehaviour
 
     void removeSelection()
     {
+        godConfirmation.shouldGlow(false);
         shouldCancelSelection = false;
         _selectedCard = null;
         
@@ -356,6 +364,7 @@ public class CardPlayer : MonoBehaviour
 
     void placeCard(Card_Behaviour behaviour)
     {
+        godConfirmation.shouldGlow(false);
         Card_Loader loader = behaviour.GetComponent<Card_Loader>();
         GodCard_Behaviour _God = behaviour as GodCard_Behaviour;
         deckController.MoveCardToBoard(behaviour.getCardPlayData());
