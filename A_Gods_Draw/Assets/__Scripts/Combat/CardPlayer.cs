@@ -29,7 +29,7 @@ public class CardPlayer : MonoBehaviour
 
     bool shouldCancelSelection;
     List<GameObject> MeshSelections = new List<GameObject>();
-    Card_Behaviour _selectedCard;
+    [SerializeField] Card_Behaviour _selectedCard;
     Card_Selector _currSelectedCard;
     [SerializeField] PathController path;
     [SerializeField] Transform CardHoverPos, BuffCardHoverPos;
@@ -84,8 +84,7 @@ public class CardPlayer : MonoBehaviour
         if (Input.GetKeyUp(KeyCode.Mouse1) && _selectedCard != null)
         {
             hasClickedLastFrame = true;
-            ActionCard_Behaviour actionCard_ = _selectedCard as ActionCard_Behaviour;
-            actionCard_.MissClick(); 
+            _selectedCard.MissClick(); 
         }
 
         // Selects a card
@@ -178,11 +177,14 @@ public class CardPlayer : MonoBehaviour
                 _selectedCard.transform.position = OP.pos;
                 SelectedCardT = Mathf.Clamp01(SelectedCardT + Time.deltaTime * cardSelectSpeed);
 
-                Transform targetOrigin = getCurrSelectionMesh().GetChild(1);
-                targetOrigin.position = _selectedCard.transform.position;    
-                Vector3 localPos = targetOrigin.transform.localPosition;
-                localPos.z += 0.1f;
-                targetOrigin.transform.localPosition = localPos;
+                if(getCurrSelectionMesh())
+                {
+                    Transform targetOrigin = getCurrSelectionMesh().GetChild(1);
+                    targetOrigin.position = _selectedCard.transform.position;    
+                    Vector3 localPos = targetOrigin.transform.localPosition;
+                    localPos.z += 0.1f;
+                    targetOrigin.transform.localPosition = localPos;
+                }
 
                 if(_selectedCard is not ActionCard_Behaviour _card || !_card.GetCardType.Equals(CardType.Buff))
                         return;
@@ -201,7 +203,8 @@ public class CardPlayer : MonoBehaviour
     {
         Vector3 mousePos = Input.mousePosition;
         mousePos.z = mainCam.nearClipPlane + 1;
-        getCurrSelectionMesh().GetChild(0).position = mainCam.ScreenToWorldPoint(mousePos);
+        if(getCurrSelectionMesh())
+            getCurrSelectionMesh().GetChild(0).position = mainCam.ScreenToWorldPoint(mousePos);
     }
 
     /// <summary>Destroys all procedural targeting meshes</summary>
