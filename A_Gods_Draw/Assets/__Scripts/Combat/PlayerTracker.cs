@@ -5,6 +5,7 @@
 
 using System.Collections.Generic;
 using UnityEngine;
+using System.Linq;
 
 [CreateAssetMenu(menuName = "PlayerTracker")]
 public class PlayerTracker : ScriptableObject
@@ -21,16 +22,34 @@ public class PlayerTracker : ScriptableObject
     [HideInInspector] public List<rune> CurrentRunes = new List<rune>();
 
     private void OnEnable() {
-        _runeData.Clear();
         CurrentRunes.Clear();
-        PlayerData = GameSaver.LoadPlayerData();
+        PlayerData = LoadPlayerData();
+        _runeData = PlayerData.Runes.ToList();
         Health = PlayerData.PlayerHealth;
     }
 
-    public void LoadPlayerData()
+    public PlayerDataContainer LoadPlayerData()
     {
         PlayerData = GameSaver.LoadPlayerData();
-        resetHealth();
+        return PlayerData;
+    }
+
+    public void SavePlayerData()
+    {
+
+        if(PlayerData == null)
+        {
+
+            PlayerData = LoadPlayerData();
+
+        }
+
+        PlayerData.PlayerHealth = Health;
+        PlayerData.TimesDefeatedBoss = GameManager.timesDefeatedBoss;
+        PlayerData.Runes = _runeData.ToArray();
+
+        GameSaver.SavePlayerData(PlayerData);
+
     }
 
     public void UpdateHealth(int difference)

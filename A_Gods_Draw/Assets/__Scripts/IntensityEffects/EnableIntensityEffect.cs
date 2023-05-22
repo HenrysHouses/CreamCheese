@@ -18,6 +18,7 @@ public class EnableIntensityEffect : SceneIntensityEffect
         public bool ActivateOnDamage, ShouldLoop;
 
     }
+    private float prevIntensity;
 
     protected override void Start()
     {
@@ -38,12 +39,14 @@ public class EnableIntensityEffect : SceneIntensityEffect
             if((objectsToEnable[i].ActivateOnDamage && !_updateFromDamage) || (!objectsToEnable[i].ShouldLoop && !_updateFromDamage))
                 continue;
 
-            if(_intensity >= objectsToEnable[i].Threshold)
+            if(_intensity >= objectsToEnable[i].Threshold && objectsToEnable[i].Threshold > prevIntensity)
                 objectsToEnable[i].VFXObject.SetActive(objectsToEnable[i].Enable);
             else
                 objectsToEnable[i].VFXObject.SetActive(!objectsToEnable[i].Enable);
 
         }
+
+        prevIntensity = _intensity;
 
     }
 
