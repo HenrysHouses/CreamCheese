@@ -46,6 +46,8 @@ public class ActionCard_Behaviour : Card_Behaviour
             elements.CardRenderer.material.SetColor("_Color", new Color(0.18f,0.18f,0.18f));
             elements.ArtRenderer.material.SetColor("_ArtColor", new Color(0.18f,0.18f,0.18f));
             elements.ArtRenderer.material.SetColor("_Color", new Color(0.18f,0.18f,0.18f));
+            elements.cardName.color = Color.gray;
+            elements.strength.color = Color.gray;
         }
         else 
         {
@@ -53,6 +55,8 @@ public class ActionCard_Behaviour : Card_Behaviour
             elements.CardRenderer.material.SetColor("_Color", Color.white);
             elements.ArtRenderer.material.SetColor("_ArtColor", Color.white);
             elements.ArtRenderer.material.SetColor("_Color", new Color(0.4f, 0.4f, 0.4f));
+            elements.cardName.color = Color.white;
+            elements.strength.color = Color.white;
         }
     }
 
