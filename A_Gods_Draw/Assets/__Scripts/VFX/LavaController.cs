@@ -20,6 +20,7 @@ public class LavaController : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+       // Debug.Log("player current health is" + playerHealth.currHealth);
         if (!testing)
         {
 
@@ -36,7 +37,7 @@ public class LavaController : MonoBehaviour
         {
             LavaOn();
             lavaplain.SetActive(true);
-            float step = lavaplainSpeed * Time.deltaTime;
+            float step = lavaplainSpeed * Time.deltaTime; 
             lavaplain.transform.position = Vector3.MoveTowards(lavaplain.transform.position, lavaplainpos2.position, step);
 
         }
