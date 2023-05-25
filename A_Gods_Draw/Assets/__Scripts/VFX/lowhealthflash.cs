@@ -7,7 +7,10 @@ public class lowhealthflash : MonoBehaviour
 {
     public float timerSpeed;
     private float timerForFlash;
+    private float timer;
     public float amount;
+
+    public float timeuntilFlash;
     public Image image;
     public bool lowHealth, flashRedWhenHit;
 
@@ -29,17 +32,24 @@ public class lowhealthflash : MonoBehaviour
 
         if (flashRedWhenHit)
         {
+            timer += Time.deltaTime;
+            if (timer > timeuntilFlash)
 
-            Color lerpedColor = Color.Lerp(new Color(1, 1, 1, 1f), new Color(1, 1, 1, 0f), Mathf.PingPong(timerForFlash, 1f));
-            timerForFlash += Time.deltaTime;
-            image.color = lerpedColor;
-            if (timerForFlash > 1)
             {
-                image.color = new Color(1, 1, 1, 0);
-                timerForFlash = 0;
-                flashRedWhenHit = false;
+                Color lerpedColor = Color.Lerp(new Color(1, 1, 1, 1f), new Color(1, 1, 1, 0f), Mathf.PingPong(timerForFlash, 1f));
+                timerForFlash += Time.deltaTime * timerSpeed;
+                image.color = lerpedColor;
+                if (timerForFlash > 0.8)
+                {
+                    image.color = new Color(1, 1, 1, 0);
+                    timerForFlash = 0;
+                    flashRedWhenHit = false;
+                    timer = 0;
+
+                }
 
             }
+
 
         }
     }
