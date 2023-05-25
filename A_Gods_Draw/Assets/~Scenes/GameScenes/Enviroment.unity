@@ -492,15 +492,23 @@ PrefabInstance:
       objectReference: {fileID: 1756677326}
     - target: {fileID: 1787014613, guid: eae8a8273c27bf2429e043871b35f356, type: 3}
       propertyPath: timerforLights
-      value: 15
+      value: 18
       objectReference: {fileID: 0}
     - target: {fileID: 4745654587508252553, guid: eae8a8273c27bf2429e043871b35f356, type: 3}
       propertyPath: lengthInSec
-      value: 16
+      value: 20
+      objectReference: {fileID: 0}
+    - target: {fileID: 4745654587508252553, guid: eae8a8273c27bf2429e043871b35f356, type: 3}
+      propertyPath: InitialModule.maxNumParticles
+      value: 10000
       objectReference: {fileID: 0}
     - target: {fileID: 4745654587508252553, guid: eae8a8273c27bf2429e043871b35f356, type: 3}
       propertyPath: InitialModule.startSpeed.scalar
       value: 0.3
+      objectReference: {fileID: 0}
+    - target: {fileID: 4745654587508252553, guid: eae8a8273c27bf2429e043871b35f356, type: 3}
+      propertyPath: InitialModule.startLifetime.scalar
+      value: 16
       objectReference: {fileID: 0}
     - target: {fileID: 4745654587508252553, guid: eae8a8273c27bf2429e043871b35f356, type: 3}
       propertyPath: InitialModule.startSpeed.minScalar
@@ -508,7 +516,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 4745654587508252553, guid: eae8a8273c27bf2429e043871b35f356, type: 3}
       propertyPath: InitialModule.gravityModifier.scalar
-      value: 0.09
+      value: 0.02
       objectReference: {fileID: 0}
     - target: {fileID: 4745654587508252553, guid: eae8a8273c27bf2429e043871b35f356, type: 3}
       propertyPath: CollisionModule.m_Planes.Array.data[0]
@@ -12257,7 +12265,7 @@ PrefabInstance:
       objectReference: {fileID: 1756677326}
     - target: {fileID: 1787014613, guid: eae8a8273c27bf2429e043871b35f356, type: 3}
       propertyPath: timerforLights
-      value: 15
+      value: 18
       objectReference: {fileID: 0}
     - target: {fileID: 4745654587508252553, guid: eae8a8273c27bf2429e043871b35f356, type: 3}
       propertyPath: looping
@@ -12265,7 +12273,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 4745654587508252553, guid: eae8a8273c27bf2429e043871b35f356, type: 3}
       propertyPath: lengthInSec
-      value: 16
+      value: 20
+      objectReference: {fileID: 0}
+    - target: {fileID: 4745654587508252553, guid: eae8a8273c27bf2429e043871b35f356, type: 3}
+      propertyPath: InitialModule.maxNumParticles
+      value: 10000
       objectReference: {fileID: 0}
     - target: {fileID: 4745654587508252553, guid: eae8a8273c27bf2429e043871b35f356, type: 3}
       propertyPath: InitialModule.startSpeed.scalar
@@ -12273,7 +12285,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 4745654587508252553, guid: eae8a8273c27bf2429e043871b35f356, type: 3}
       propertyPath: InitialModule.startLifetime.scalar
-      value: 5
+      value: 16
       objectReference: {fileID: 0}
     - target: {fileID: 4745654587508252553, guid: eae8a8273c27bf2429e043871b35f356, type: 3}
       propertyPath: InitialModule.startSpeed.minScalar
@@ -12281,7 +12293,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 4745654587508252553, guid: eae8a8273c27bf2429e043871b35f356, type: 3}
       propertyPath: InitialModule.gravityModifier.scalar
-      value: 0.09
+      value: 0.02
       objectReference: {fileID: 0}
     - target: {fileID: 4745654587508252553, guid: eae8a8273c27bf2429e043871b35f356, type: 3}
       propertyPath: CollisionModule.m_Planes.Array.data[0]
@@ -18088,7 +18100,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 836125992}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: -1.99, z: 0}
+  m_LocalPosition: {x: 0, y: -1.68, z: 0}
   m_LocalScale: {x: 1.9635229, y: 1.9635229, z: 1.9635229}
   m_ConstrainProportionsScale: 0
   m_Children:
@@ -18772,7 +18784,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   howFastTurnOn: 2
   howfasttoturnOff: 7
-  timerforLights: 17
+  timerforLights: 20
   lava: {fileID: 1756677326}
 --- !u!108 &960198775
 Light:
@@ -19568,7 +19580,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1084980407}
   m_LocalRotation: {x: 0.04659265, y: 0.29880288, z: 0.00022204217, w: 0.95317686}
-  m_LocalPosition: {x: 0.61, y: -13.490002, z: 1.98}
+  m_LocalPosition: {x: 0.61, y: -15.71, z: 1.98}
   m_LocalScale: {x: 0.31941, y: 0.31941, z: 1.003714}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -19892,7 +19904,7 @@ PrefabInstance:
       objectReference: {fileID: 1756677326}
     - target: {fileID: 1787014613, guid: eae8a8273c27bf2429e043871b35f356, type: 3}
       propertyPath: timerforLights
-      value: 15
+      value: 18
       objectReference: {fileID: 0}
     - target: {fileID: 4745654587508252553, guid: eae8a8273c27bf2429e043871b35f356, type: 3}
       propertyPath: looping
@@ -19900,7 +19912,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 4745654587508252553, guid: eae8a8273c27bf2429e043871b35f356, type: 3}
       propertyPath: lengthInSec
-      value: 16
+      value: 20
+      objectReference: {fileID: 0}
+    - target: {fileID: 4745654587508252553, guid: eae8a8273c27bf2429e043871b35f356, type: 3}
+      propertyPath: InitialModule.maxNumParticles
+      value: 10000
       objectReference: {fileID: 0}
     - target: {fileID: 4745654587508252553, guid: eae8a8273c27bf2429e043871b35f356, type: 3}
       propertyPath: InitialModule.startSize.scalar
@@ -19912,7 +19928,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 4745654587508252553, guid: eae8a8273c27bf2429e043871b35f356, type: 3}
       propertyPath: InitialModule.startLifetime.scalar
-      value: 5
+      value: 16
       objectReference: {fileID: 0}
     - target: {fileID: 4745654587508252553, guid: eae8a8273c27bf2429e043871b35f356, type: 3}
       propertyPath: InitialModule.startSpeed.minScalar
@@ -19924,7 +19940,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 4745654587508252553, guid: eae8a8273c27bf2429e043871b35f356, type: 3}
       propertyPath: InitialModule.gravityModifier.scalar
-      value: 0.09
+      value: 0.02
       objectReference: {fileID: 0}
     - target: {fileID: 4745654587508252553, guid: eae8a8273c27bf2429e043871b35f356, type: 3}
       propertyPath: CollisionModule.m_Planes.Array.data[0]
@@ -20203,7 +20219,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   howFastTurnOn: 1
   howfasttoturnOff: 4
-  timerforLights: 17
+  timerforLights: 20
   lava: {fileID: 1756677326}
 --- !u!1 &1251920383
 GameObject:
@@ -20920,7 +20936,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1301185361}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: -1.99, z: 0}
+  m_LocalPosition: {x: 0, y: -1.68, z: 0}
   m_LocalScale: {x: 1.3975797, y: 1.3975797, z: 1.3975797}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -22000,31 +22016,7 @@ PrefabInstance:
       objectReference: {fileID: 1756677326}
     - target: {fileID: 1787014613, guid: eae8a8273c27bf2429e043871b35f356, type: 3}
       propertyPath: timerforLights
-      value: 15
-      objectReference: {fileID: 0}
-    - target: {fileID: 4745654587508252553, guid: eae8a8273c27bf2429e043871b35f356, type: 3}
-      propertyPath: looping
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 4745654587508252553, guid: eae8a8273c27bf2429e043871b35f356, type: 3}
-      propertyPath: lengthInSec
-      value: 16
-      objectReference: {fileID: 0}
-    - target: {fileID: 4745654587508252553, guid: eae8a8273c27bf2429e043871b35f356, type: 3}
-      propertyPath: InitialModule.startSpeed.scalar
-      value: 0.3
-      objectReference: {fileID: 0}
-    - target: {fileID: 4745654587508252553, guid: eae8a8273c27bf2429e043871b35f356, type: 3}
-      propertyPath: InitialModule.startLifetime.scalar
-      value: 5
-      objectReference: {fileID: 0}
-    - target: {fileID: 4745654587508252553, guid: eae8a8273c27bf2429e043871b35f356, type: 3}
-      propertyPath: InitialModule.startSpeed.minScalar
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 4745654587508252553, guid: eae8a8273c27bf2429e043871b35f356, type: 3}
-      propertyPath: InitialModule.gravityModifier.scalar
-      value: 0.09
+      value: 18
       objectReference: {fileID: 0}
     - target: {fileID: 4745654587508252553, guid: eae8a8273c27bf2429e043871b35f356, type: 3}
       propertyPath: CollisionModule.m_Planes.Array.data[0]
@@ -22043,12 +22035,8 @@ PrefabInstance:
       value: 7
       objectReference: {fileID: 0}
     - target: {fileID: 4745654587508252555, guid: eae8a8273c27bf2429e043871b35f356, type: 3}
-      propertyPath: m_LocalScale.x
-      value: 0.2145462
-      objectReference: {fileID: 0}
-    - target: {fileID: 4745654587508252555, guid: eae8a8273c27bf2429e043871b35f356, type: 3}
       propertyPath: m_LocalPosition.x
-      value: -0.05
+      value: -0.94
       objectReference: {fileID: 0}
     - target: {fileID: 4745654587508252555, guid: eae8a8273c27bf2429e043871b35f356, type: 3}
       propertyPath: m_LocalPosition.y
@@ -22056,7 +22044,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 4745654587508252555, guid: eae8a8273c27bf2429e043871b35f356, type: 3}
       propertyPath: m_LocalPosition.z
-      value: 9.463
+      value: 9.406
       objectReference: {fileID: 0}
     - target: {fileID: 4745654587508252555, guid: eae8a8273c27bf2429e043871b35f356, type: 3}
       propertyPath: m_LocalRotation.w
@@ -23267,7 +23255,7 @@ MonoBehaviour:
   lavaplain: {fileID: 836125992}
   lavaplainpos1: {fileID: 1301185362}
   lavaplainpos2: {fileID: 155201677}
-  lavaplainSpeed: 0.035
+  lavaplainSpeed: 0.015
   turnOnLava: 0
   testing: 0
   playerHealth: {fileID: 2132736954}
@@ -23742,7 +23730,7 @@ PrefabInstance:
       objectReference: {fileID: 1756677326}
     - target: {fileID: 1787014613, guid: eae8a8273c27bf2429e043871b35f356, type: 3}
       propertyPath: timerforLights
-      value: 16
+      value: 18
       objectReference: {fileID: 0}
     - target: {fileID: 4745654587508252553, guid: eae8a8273c27bf2429e043871b35f356, type: 3}
       propertyPath: looping
@@ -23750,7 +23738,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 4745654587508252553, guid: eae8a8273c27bf2429e043871b35f356, type: 3}
       propertyPath: lengthInSec
-      value: 16
+      value: 20
+      objectReference: {fileID: 0}
+    - target: {fileID: 4745654587508252553, guid: eae8a8273c27bf2429e043871b35f356, type: 3}
+      propertyPath: InitialModule.maxNumParticles
+      value: 10000
       objectReference: {fileID: 0}
     - target: {fileID: 4745654587508252553, guid: eae8a8273c27bf2429e043871b35f356, type: 3}
       propertyPath: InitialModule.startSpeed.scalar
@@ -23758,7 +23750,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 4745654587508252553, guid: eae8a8273c27bf2429e043871b35f356, type: 3}
       propertyPath: InitialModule.startLifetime.scalar
-      value: 5
+      value: 16
       objectReference: {fileID: 0}
     - target: {fileID: 4745654587508252553, guid: eae8a8273c27bf2429e043871b35f356, type: 3}
       propertyPath: InitialModule.startSpeed.minScalar
@@ -23770,7 +23762,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 4745654587508252553, guid: eae8a8273c27bf2429e043871b35f356, type: 3}
       propertyPath: InitialModule.gravityModifier.scalar
-      value: 0.09
+      value: 0.02
       objectReference: {fileID: 0}
     - target: {fileID: 4745654587508252553, guid: eae8a8273c27bf2429e043871b35f356, type: 3}
       propertyPath: CollisionModule.m_Planes.Array.data[0]
@@ -35831,7 +35823,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 1787014613, guid: eae8a8273c27bf2429e043871b35f356, type: 3}
       propertyPath: timerforLights
-      value: 15
+      value: 18
       objectReference: {fileID: 0}
     - target: {fileID: 1787014613, guid: eae8a8273c27bf2429e043871b35f356, type: 3}
       propertyPath: howfasttoturnOff
@@ -35843,7 +35835,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 4745654587508252553, guid: eae8a8273c27bf2429e043871b35f356, type: 3}
       propertyPath: lengthInSec
-      value: 16
+      value: 20
       objectReference: {fileID: 0}
     - target: {fileID: 4745654587508252553, guid: eae8a8273c27bf2429e043871b35f356, type: 3}
       propertyPath: LightsModule.light
@@ -35858,12 +35850,16 @@ PrefabInstance:
       value: 1000
       objectReference: {fileID: 0}
     - target: {fileID: 4745654587508252553, guid: eae8a8273c27bf2429e043871b35f356, type: 3}
+      propertyPath: InitialModule.maxNumParticles
+      value: 10000
+      objectReference: {fileID: 0}
+    - target: {fileID: 4745654587508252553, guid: eae8a8273c27bf2429e043871b35f356, type: 3}
       propertyPath: InitialModule.startSpeed.scalar
       value: 0.3
       objectReference: {fileID: 0}
     - target: {fileID: 4745654587508252553, guid: eae8a8273c27bf2429e043871b35f356, type: 3}
       propertyPath: InitialModule.startLifetime.scalar
-      value: 5
+      value: 16
       objectReference: {fileID: 0}
     - target: {fileID: 4745654587508252553, guid: eae8a8273c27bf2429e043871b35f356, type: 3}
       propertyPath: InitialModule.startSpeed.minScalar
@@ -35875,7 +35871,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 4745654587508252553, guid: eae8a8273c27bf2429e043871b35f356, type: 3}
       propertyPath: InitialModule.gravityModifier.scalar
-      value: 0.09
+      value: 0.02
       objectReference: {fileID: 0}
     - target: {fileID: 4745654587508252553, guid: eae8a8273c27bf2429e043871b35f356, type: 3}
       propertyPath: CollisionModule.m_Planes.Array.data[0]

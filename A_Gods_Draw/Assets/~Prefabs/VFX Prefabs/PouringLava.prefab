@@ -109,7 +109,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   howFastTurnOn: 2
   howfasttoturnOff: 7
-  timerforLights: 11
+  timerforLights: 15
   lava: {fileID: 0}
 --- !u!1 &4745654587508252554
 GameObject:
@@ -138,7 +138,7 @@ Transform:
   m_GameObject: {fileID: 4745654587508252554}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 2.590908, z: 0.596}
-  m_LocalScale: {x: 0.18683004, y: 0.18683001, z: 0.18683004}
+  m_LocalScale: {x: 0.2145462, y: 0.18683001, z: 0.18683004}
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 1787014611}
@@ -153,7 +153,7 @@ ParticleSystem:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 4745654587508252554}
   serializedVersion: 8
-  lengthInSec: 13
+  lengthInSec: 20
   simulationSpeed: 1
   stopAction: 0
   cullingMode: 0
@@ -228,7 +228,7 @@ ParticleSystem:
     startLifetime:
       serializedVersion: 2
       minMaxState: 0
-      scalar: 5
+      scalar: 16
       minScalar: 5
       maxCurve:
         serializedVersion: 2
@@ -281,7 +281,7 @@ ParticleSystem:
     startSpeed:
       serializedVersion: 2
       minMaxState: 3
-      scalar: 1
+      scalar: 0.3
       minScalar: 0
       maxCurve:
         serializedVersion: 2
@@ -713,14 +713,14 @@ ParticleSystem:
         m_PostInfinity: 2
         m_RotationOrder: 4
     randomizeRotationDirection: 0
-    maxNumParticles: 1000
+    maxNumParticles: 10000
     customEmitterVelocity: {x: 0, y: 0, z: 0}
     size3D: 0
     rotation3D: 0
     gravityModifier:
       serializedVersion: 2
       minMaxState: 0
-      scalar: 0.1
+      scalar: 0.02
       minScalar: 0
       maxCurve:
         serializedVersion: 2
