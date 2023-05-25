@@ -48,7 +48,7 @@ public class LavaController : MonoBehaviour
                 lavas.SetActive(false);
             }
             float step = lavaplainSpeed * Time.deltaTime;
-            lavaplain.transform.position = Vector3.MoveTowards(lavaplain.transform.position, lavaplainpos1.position, step);
+            lavaplain.transform.position = Vector3.MoveTowards(lavaplain.transform.position, lavaplainpos1.position, step * 3);
 
         }
     }
