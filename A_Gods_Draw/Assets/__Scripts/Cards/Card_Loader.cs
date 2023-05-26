@@ -61,6 +61,7 @@ public struct CardElements
     public UIPopup Description;
     // public UIPopup Effect;
     public LevelController level;
+    public GameObject LevelUpVFX;
 }
 
 
@@ -150,6 +151,11 @@ public class Card_Loader : MonoBehaviour
             elements.OrmRenderer.material.SetFloat("_UseShadows",0);
             elements.CardRenderer.material.SetFloat("_UseShadows",0);
         }
+    }
+
+    public void instantiateLvLUpVFX()
+    {
+        Debug.Log("Spawn Level Up VFX here", gameObject); 
     }
 
     //------------------------------------------

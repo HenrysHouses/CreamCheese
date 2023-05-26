@@ -174,4 +174,16 @@ public class Player_Hand : MonoBehaviour
 
         CardSelectionAnimators[index].cardAnimation.SetBool("ShowCard", false);
     }
+
+    public Card_Loader findCard(string ID)
+    {
+        for (int i = 0; i < CardSelectionAnimators.Count; i++)
+        {
+            Debug.Log("checking: " + CardSelectionAnimators[i]._card.Experience.ID);
+
+            if(CardSelectionAnimators[i]._card.Experience.ID == ID)
+                return CardSelectionAnimators[i].loader;
+        }
+        return null;
+    }
 }

@@ -35,7 +35,12 @@ public class BoardStateController : MonoBehaviour
     public bool isGodPlayed => playedGodCard;
     [HideInInspector] public GodCard_Behaviour playedGodCard;
     [HideInInspector] public List<BoardElement> thingsInLane;
-    public ActionCard_Behaviour getCardInLane(int i) => placedCards[i];
+    public ActionCard_Behaviour getCardInLane(int i)
+    {
+        if(i < placedCards.Count)
+            return placedCards[i];
+        return null;
+    } 
 
     public bool isEnemyDefeated
     {

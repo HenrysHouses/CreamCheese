@@ -15,7 +15,7 @@ using HH.MultiSceneTools;
 public class TurnController : CombatFSM
 {
     // * Combat Mechanic references
-    [SerializeField] BoardStateController BoardStateController;
+    [SerializeField] BoardStateController boardStateController;
     [field:SerializeField] public PlayerTracker player {get; private set;}
     [SerializeField] GodPlacement godPlace;
     [SerializeField] DeckController deckController;
@@ -104,9 +104,9 @@ public class TurnController : CombatFSM
 
         _Hand.RemoveCard(god.GetComponent<Card_Loader>());
 
-        GodCard_ScriptableObject _Card_SO = BoardStateController.playedGodCard.CardSO;
+        GodCard_ScriptableObject _Card_SO = boardStateController.playedGodCard.CardSO;
         _Card_SO.StartDialogue(GodDialogueTrigger.Dying, _Card_SO);
-        BoardStateController.playedGodCard = null;
+        boardStateController.playedGodCard = null;
     }
 
     public void SetTransition(Transition t) 
@@ -123,7 +123,7 @@ public class TurnController : CombatFSM
 
         CheckFailSafe();
 
-        if(BoardStateController.isEncounterInstantiated)
+        if(boardStateController.isEncounterInstantiated)
         {
             CurrentState.Reason();
             CurrentState.Act();
@@ -131,9 +131,9 @@ public class TurnController : CombatFSM
 
         state = CurrentStateID;
 
-        if(!_SceneTransition.isTransitioning && !BoardStateController.isEncounterInstantiated)
+        if(!_SceneTransition.isTransitioning && !boardStateController.isEncounterInstantiated)
         {
-            BoardStateController.spawnEncounter();
+            boardStateController.spawnEncounter();
         }
     }
 
@@ -168,7 +168,7 @@ public class TurnController : CombatFSM
 
         StopAllCoroutines();
         shouldWaitForAnims = false;
-        BoardStateController.removeNullEnemies(); // ! this may be bad idk yet
+        boardStateController.removeNullEnemies(); // ! this may be bad idk yet
         Debug.Log("fail safe trigger");
     }
 
@@ -271,9 +271,9 @@ public class TurnController : CombatFSM
                 {
                     trigger.OnCardDrawDialogue.AddListener(_God.StartDialogue);
                 }
-                else if(BoardStateController.playedGodCard is not null)
+                else if(boardStateController.playedGodCard is not null)
                 {
-                    GodCard_ScriptableObject _God_SO = BoardStateController.playedGodCard.CardSO;
+                    GodCard_ScriptableObject _God_SO = boardStateController.playedGodCard.CardSO;
                     trigger.OnCardDrawDialogue.AddListener(_God_SO.StartDialogue);
                 }   
             }
@@ -395,9 +395,9 @@ public class TurnController : CombatFSM
                 // yield return new WaitForSeconds(delayBetweenCards);
 
                 // Dialogue discard trigger
-                if(BoardStateController.playedGodCard is not null)
+                if(boardStateController.playedGodCard is not null)
                 {
-                    CardAnimations[i].OnCardDrawDialogue.AddListener(BoardStateController.playedGodCard.CardSO.StartDialogue);
+                    CardAnimations[i].OnCardDrawDialogue.AddListener(boardStateController.playedGodCard.CardSO.StartDialogue);
 
                 }
                 else if(_Loader.GetCardSO.type == CardType.God)
@@ -454,8 +454,8 @@ public class TurnController : CombatFSM
             }
 
             // Dialogue discard trigger
-            if(BoardStateController.playedGodCard is not null && CardAnimations[0] is not null)
-                CardAnimations[0].OnCardDrawDialogue.AddListener(BoardStateController.playedGodCard.CardSO.StartDialogue);
+            if(boardStateController.playedGodCard is not null && CardAnimations[0] is not null)
+                CardAnimations[0].OnCardDrawDialogue.AddListener(boardStateController.playedGodCard.CardSO.StartDialogue);
 
             CardAnimations[0].OnAnimCompletionTrigger.AddListener(animsAreDone);
             _Hand.RemoveCard(card_b.GetComponent<Card_Loader>());
@@ -502,8 +502,8 @@ public class TurnController : CombatFSM
             CardPathAnim anim = deckController.DiscardCardOnBoard(card_b.getCardPlayData(), 0, isExhausted);
 
             // Dialogue discard trigger
-            if(BoardStateController.playedGodCard is not null && anim is not null)
-                anim.OnCardDrawDialogue.AddListener(BoardStateController.playedGodCard.CardSO.StartDialogue);
+            if(boardStateController.playedGodCard is not null && anim is not null)
+                anim.OnCardDrawDialogue.AddListener(boardStateController.playedGodCard.CardSO.StartDialogue);
 
             _Hand.RemoveCard(card_b.GetComponent<Card_Loader>());
         }
@@ -572,6 +572,14 @@ public class TurnController : CombatFSM
             if(_CardState.Experience.XP >= unlocks.Upgrades[_CardState.Experience.Level].RequiredXP)
             {
                 Debug.Log("level up");
+
+                Card_Loader targetCard = _Hand.findCard(ID);
+
+                if(targetCard != null)
+                {
+                    targetCard.instantiateLvLUpVFX();
+                }
+
                 _CardState.Experience.Level++;
                 card.UpgradePath.Experience.Level++;
                 deckController.deckData.deckListData[i] = new CardPlayData(_CardState);
@@ -581,7 +589,7 @@ public class TurnController : CombatFSM
     }
 
     // * --- Getters ---
-    public BoardStateController GetBoard() { return BoardStateController; }
+    public BoardStateController GetBoard() { return boardStateController; }
 
     public Card_Behaviour SelectedCard => selectedCard;
     public GodPlacement GodPlacement => godPlace;
