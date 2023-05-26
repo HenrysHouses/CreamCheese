@@ -33,6 +33,7 @@ public class CombatTutorial : TutorialController
 
         if (isTutorialStep(4))
             startTutorialRoutine(DefendYourself());
+
         if (isTutorialStep(5))
             startTutorialRoutine(GlyphExplain());
     }
@@ -93,8 +94,9 @@ public class CombatTutorial : TutorialController
         Horn.CanEndTurn = false;
         // EndedTurn = false;
         deckController.clear();
-        CardPlayData attackCard = new CardPlayData(Resources.Load<Card_SO>("Cards/Attack/Attack_Gramr_CardSO"));
+        CardPlayData attackCard = new CardPlayData(Resources.Load<Card_SO>("Cards/Attack/Attack_TyrsBlessedSword_CardSO"));
         deckController.AddCardToLib(attackCard);
+        Debug.Log("card name " + attackCard);
         CardPlayData buffCard = new CardPlayData(Resources.Load<Card_SO>("Cards/Buff/Buff_Bifrost_CardSO"));
         deckController.AddCardToLib(buffCard);
         completeTutorialRoutine(EndTurn1st_Trigger, 2);
@@ -135,8 +137,10 @@ public class CombatTutorial : TutorialController
         deckController.clear();
         CardPlayData GodCard = new CardPlayData(Resources.Load<Card_SO>("Cards/Gods/God_Tyr_CardSO"));
         deckController.AddCardToLib(GodCard);
-        CardPlayData attackCard = new CardPlayData(Resources.Load<Card_SO>("Cards/Attack/Attack_Gramr_CardSO"));
+        CardPlayData attackCard = new CardPlayData(Resources.Load<Card_SO>("Cards/Attack/Attack_TyrsBlessedSword_CardSO"));
         deckController.AddCardToLib(attackCard);
+        CardPlayData defenceCard = new CardPlayData(Resources.Load<Card_SO>("Cards/Shield/Defence_BattlleWornShield_CardSO"));
+        deckController.AddCardToLib(defenceCard);
 
         completeTutorialRoutine(defend_Trigger, 4);
 
@@ -148,18 +152,27 @@ public class CombatTutorial : TutorialController
         yield return new WaitUntil(() => turnController.state == CombatState.MainPhase);
         yield return new WaitUntil(() => turnController._Hand.isEmpty());
         Horn.CanEndTurn = true;
+
         // yield return new WaitUntil(() => turnController._Hand.isEmpty());
     }
 
     IEnumerator GlyphExplain()
     {
-        monster.TutorialIntentOverride(turnController.GetBoard(), TutorialActions.AttackPlayer);
+
+       // monster.TutorialIntentOverride(turnController.GetBoard(), TutorialActions.AttackPlayer);
         yield return new WaitUntil(() => turnController.state == CombatState.MainPhase);
         yield return new WaitUntil(() => turnController._Hand.isEmpty());
         Horn.CanEndTurn = true;
         yield return new WaitUntil(() => turnController.state == CombatState.CombatEnemyStep);
         yield return new WaitUntil(() => turnController.state == CombatState.EndStep);
         Horn.CanEndTurn = false;
+        deckController.clear();
+        CardPlayData buffcard = new CardPlayData(Resources.Load<Card_SO>("Cards/Buff/Buff_SkinfaxiandHrimfaxi_CardSO"));
+        deckController.AddCardToLib(buffcard);
+        CardPlayData attackcard = new CardPlayData(Resources.Load<Card_SO>("Cards/Attack/Attack_TyrsBlessedSword_CardSO"));
+        deckController.AddCardToLib(attackcard);
+        
+        completeTutorialRoutine(defend_Trigger, 5);
 
     }
 }

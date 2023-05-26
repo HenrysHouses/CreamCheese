@@ -33,6 +33,6 @@ public class AttackCardAction : CardAction
 
     public override void SetActionVFX()
     {
-        _VFX = new ActionVFX(true, 1, "Action VFX/AxeAttack_VFX", "Action VFX/Effect_SlashEffect_VFX", 2);
+        _VFX = new ActionVFX(true, 1, "Action VFX/sword_VFX", "Action VFX/Effect_SlashEffect_VFX", 2);
     }
 }
