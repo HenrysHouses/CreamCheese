@@ -4,7 +4,8 @@ using UnityEngine;
 
 public class CombatTutorial : TutorialController
 {
-    protected override void Start() {
+    protected override void Start()
+    {
         GameManager.instance.nextCombatType = EncounterDifficulty.Tutorial;
 
         for (int i = 0; i < EnableBoard.Length; i++)
@@ -18,20 +19,22 @@ public class CombatTutorial : TutorialController
 
     public override void CheckTutorialConditions()
     {
-        if(isTutorialStep(0))
+        if (isTutorialStep(0))
             startTutorialRoutine(PressAnyButtonToContinue(Step1_Trigger));
-        
-        if(isTutorialStep(1))
+
+        if (isTutorialStep(1))
             startTutorialRoutine(PlayAttackCardOnEnemy());
-    
-        if(isTutorialStep(2))
+
+        if (isTutorialStep(2))
             startTutorialRoutine(EndTurn());
 
-        if(isTutorialStep(3))
+        if (isTutorialStep(3))
             startTutorialRoutine(AttackAgain());
 
-        if(isTutorialStep(4))
+        if (isTutorialStep(4))
             startTutorialRoutine(DefendYourself());
+        if (isTutorialStep(5))
+            startTutorialRoutine(GlyphExplain());
     }
 
     public GameObject[] EnableBoard;
@@ -42,18 +45,18 @@ public class CombatTutorial : TutorialController
         bool isAllowedToContinue = false;
         bool previousState = CurrentDialogue.fullPageIsDisplaying;
 
-        while(isAllowedToContinue == false)
+        while (isAllowedToContinue == false)
         {
             yield return new WaitForEndOfFrame();
 
-            if(CurrentDialogue.fullPageIsDisplaying == previousState && CurrentDialogue.fullPageIsDisplaying)
+            if (CurrentDialogue.fullPageIsDisplaying == previousState && CurrentDialogue.fullPageIsDisplaying)
             {
                 isAllowedToContinue = true;
             }
             previousState = CurrentDialogue.fullPageIsDisplaying;
         }
 
-        yield return new WaitUntil(() => Input.anyKeyDown); 
+        yield return new WaitUntil(() => Input.anyKeyDown);
 
         for (int i = 0; i < EnableBoard.Length; i++)
         {
@@ -134,7 +137,7 @@ public class CombatTutorial : TutorialController
         deckController.AddCardToLib(GodCard);
         CardPlayData attackCard = new CardPlayData(Resources.Load<Card_SO>("Cards/Attack/Attack_Gramr_CardSO"));
         deckController.AddCardToLib(attackCard);
-        
+
         completeTutorialRoutine(defend_Trigger, 4);
 
         StartCoroutine(PlayGodCard());
@@ -146,5 +149,17 @@ public class CombatTutorial : TutorialController
         yield return new WaitUntil(() => turnController._Hand.isEmpty());
         Horn.CanEndTurn = true;
         // yield return new WaitUntil(() => turnController._Hand.isEmpty());
+    }
+
+    IEnumerator GlyphExplain()
+    {
+        monster.TutorialIntentOverride(turnController.GetBoard(), TutorialActions.AttackPlayer);
+        yield return new WaitUntil(() => turnController.state == CombatState.MainPhase);
+        yield return new WaitUntil(() => turnController._Hand.isEmpty());
+        Horn.CanEndTurn = true;
+        yield return new WaitUntil(() => turnController.state == CombatState.CombatEnemyStep);
+        yield return new WaitUntil(() => turnController.state == CombatState.EndStep);
+        Horn.CanEndTurn = false;
+
     }
 }
