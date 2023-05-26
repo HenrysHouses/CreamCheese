@@ -9,7 +9,7 @@ public class AttackCardAction : CardAction
     {
         isReady = false;
 
-        yield return new WaitForSeconds(0.2f);
+       // yield return new WaitForSeconds(0.2f);
         foreach (Monster target in source.AllTargets)
         {
             if (target)
@@ -22,7 +22,7 @@ public class AttackCardAction : CardAction
                 playSFX(source.gameObject);
                 yield return new WaitUntil(() => !_VFX.isAnimating);
                 target.TakeDamage(source.stats.strength);
-                yield return new WaitForSeconds(0.1f);
+                //yield return new WaitForSeconds(0.1f);
             }
         }
 

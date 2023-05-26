@@ -35,7 +35,20 @@ public class CombatTutorial : TutorialController
             startTutorialRoutine(DefendYourself());
 
         if (isTutorialStep(5))
+            startTutorialRoutine(PlayGodCard());
+
+        if (isTutorialStep(6))
+            startTutorialRoutine(GodGlyphsExplain());
+
+
+        if (isTutorialStep(7))
             startTutorialRoutine(GlyphExplain());
+
+        if (isTutorialStep(8))
+            startTutorialRoutine(Utilitycards());
+        
+        if(isTutorialStep(9))
+            startTutorialRoutine(FinalStep());
     }
 
     public GameObject[] EnableBoard;
@@ -132,18 +145,12 @@ public class CombatTutorial : TutorialController
         Horn.CanEndTurn = true;
         yield return new WaitUntil(() => turnController.state == CombatState.CombatEnemyStep);
         yield return new WaitUntil(() => turnController.state == CombatState.EndStep);
-        Horn.CanEndTurn = false;
         monster.TutorialIntentOverride(turnController.GetBoard(), TutorialActions.AttackPlayer);
         deckController.clear();
         CardPlayData GodCard = new CardPlayData(Resources.Load<Card_SO>("Cards/Gods/God_Tyr_CardSO"));
         deckController.AddCardToLib(GodCard);
-        CardPlayData attackCard = new CardPlayData(Resources.Load<Card_SO>("Cards/Attack/Attack_TyrsBlessedSword_CardSO"));
-        deckController.AddCardToLib(attackCard);
-        CardPlayData defenceCard = new CardPlayData(Resources.Load<Card_SO>("Cards/Shield/Defence_BattlleWornShield_CardSO"));
-        deckController.AddCardToLib(defenceCard);
-
         completeTutorialRoutine(defend_Trigger, 4);
-
+        Horn.CanEndTurn = false;
         StartCoroutine(PlayGodCard());
     }
 
@@ -151,28 +158,92 @@ public class CombatTutorial : TutorialController
     {
         yield return new WaitUntil(() => turnController.state == CombatState.MainPhase);
         yield return new WaitUntil(() => turnController._Hand.isEmpty());
+        monster.CancelIntent();
         Horn.CanEndTurn = true;
+        deckController.clear();
+        yield return new WaitUntil(() => turnController.state == CombatState.EndStep);
+
+
+
+
+
+        completeTutorialRoutine(defend_Trigger, 5);
 
         // yield return new WaitUntil(() => turnController._Hand.isEmpty());
+    }
+
+    IEnumerator GodGlyphsExplain()
+    {
+        deckController.clear();
+        CardPlayData attackCard = new CardPlayData(Resources.Load<Card_SO>("Cards/Attack/Attack_TyrsBlessedSword_CardSO"));
+        deckController.AddCardToLib(attackCard);
+        CardPlayData defenceCard = new CardPlayData(Resources.Load<Card_SO>("Cards/Shield/Defence_BattlleWornShield_CardSO"));
+        deckController.AddCardToLib(defenceCard);
+        // yield return new WaitUntil(() => turnController.state == CombatState.MainPhase);
+        yield return new WaitUntil(() => turnController.state == CombatState.EndStep);
+        completeTutorialRoutine(EndTurn1st_Trigger,6);
+
     }
 
     IEnumerator GlyphExplain()
     {
 
-       // monster.TutorialIntentOverride(turnController.GetBoard(), TutorialActions.AttackPlayer);
-        yield return new WaitUntil(() => turnController.state == CombatState.MainPhase);
-        yield return new WaitUntil(() => turnController._Hand.isEmpty());
-        Horn.CanEndTurn = true;
-        yield return new WaitUntil(() => turnController.state == CombatState.CombatEnemyStep);
-        yield return new WaitUntil(() => turnController.state == CombatState.EndStep);
-        Horn.CanEndTurn = false;
+        monster.TutorialIntentOverride(turnController.GetBoard(), TutorialActions.Defend);
         deckController.clear();
         CardPlayData buffcard = new CardPlayData(Resources.Load<Card_SO>("Cards/Buff/Buff_SkinfaxiandHrimfaxi_CardSO"));
         deckController.AddCardToLib(buffcard);
         CardPlayData attackcard = new CardPlayData(Resources.Load<Card_SO>("Cards/Attack/Attack_TyrsBlessedSword_CardSO"));
         deckController.AddCardToLib(attackcard);
-        
-        completeTutorialRoutine(defend_Trigger, 5);
+        CardPlayData defencecard = new CardPlayData(Resources.Load<Card_SO>("Cards/Shield/Defence_BattlleWornShield_CardSO"));
+        deckController.AddCardToLib(defencecard);
+        Horn.CanEndTurn = true;
 
+        yield return new WaitUntil(() => turnController.state == CombatState.MainPhase);
+        yield return new WaitUntil(() => turnController.state == CombatState.EndStep);
+
+
+
+        completeTutorialRoutine(EndTurn1st_Trigger, 7);
+
+    }
+
+    IEnumerator Utilitycards()
+    {
+
+        deckController.clear();
+        Horn.CanEndTurn = false;
+        CardPlayData utility = new CardPlayData(Resources.Load<Card_SO>("Cards/Utility/Utility_HymirsCauldron_CardSO"));
+        deckController.AddCardToLib(utility);
+        CardPlayData attackcard = new CardPlayData(Resources.Load<Card_SO>("Cards/Attack/Attack_TyrsBlessedSword_CardSO"));
+        deckController.AddCardToLib(attackcard);
+        yield return new WaitUntil(() => turnController.state == CombatState.DrawStep);
+        yield return new WaitUntil(() => turnController.state == CombatState.MainPhase);
+        Horn.CanEndTurn = true;
+
+        completeTutorialRoutine(EndTurn1st_Trigger,8);
+
+
+    }
+
+
+
+    IEnumerator FinalStep()
+    {
+        yield return new WaitUntil(() => turnController.state == CombatState.EndStep);
+        Horn.CanEndTurn = false;
+        deckController.clear();
+        CardPlayData utility = new CardPlayData(Resources.Load<Card_SO>("Cards/Utility/Utility_HymirsCauldron_CardSO"));
+        deckController.AddCardToLib(utility);
+        CardPlayData attackcard = new CardPlayData(Resources.Load<Card_SO>("Cards/Attack/Attack_TyrsBlessedSword_CardSO"));
+        deckController.AddCardToLib(attackcard);
+        deckController.AddCardToLib(attackcard);
+        CardPlayData buffcard = new CardPlayData(Resources.Load<Card_SO>("Cards/Buff/Buff_SkinfaxiandHrimfaxi_CardSO"));
+        CardPlayData buffCard1 = new CardPlayData(Resources.Load<Card_SO>("Cards/Buff/Buff_Bifrost_CardSO"));
+        deckController.AddCardToLib(buffcard);
+        deckController.AddCardToLib(buffCard1);
+        yield return new WaitUntil(() => turnController.state == CombatState.MainPhase);
+        Horn.CanEndTurn = true;
+
+        
     }
 }
