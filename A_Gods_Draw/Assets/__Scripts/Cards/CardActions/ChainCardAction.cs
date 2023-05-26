@@ -11,7 +11,7 @@ public class ChainCardAction : CardAction
         //StartAnimations...
 
         //yield return new WaitUntil(() => true);
-        yield return new WaitForSeconds(0.1f);
+        // yield return new WaitForSeconds(0.1f);
         playSFX(source.gameObject);
 
         if(board.ActiveBattleFieldType == BattlefieldID.Fenrir)

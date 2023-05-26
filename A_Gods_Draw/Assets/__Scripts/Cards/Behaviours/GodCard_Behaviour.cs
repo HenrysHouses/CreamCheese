@@ -125,9 +125,8 @@ public class GodCard_Behaviour : Card_Behaviour , IMonsterTarget
 
     private IEnumerator ConfirmingGodPlacement()
     {
-        CameraMovement.instance.SetCameraView(CameraView.BoardTopView);
+        CameraMovement.instance.SetCameraView(CameraView.BoardTopView, true);
         
-        Debug.Log("wat");        
         yield return new WaitUntil(() => GodSlot != null);
 
         if(GodSlot is GodConfirmation)

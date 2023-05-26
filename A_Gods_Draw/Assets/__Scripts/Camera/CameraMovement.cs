@@ -23,6 +23,7 @@ public class CameraMovement : MonoBehaviour
     private CamPos endPosition, startPosition;
     float lerptime;
     bool isAtLocation;
+    public bool lockInputs;
 
     void Awake()
     {
@@ -50,17 +51,19 @@ public class CameraMovement : MonoBehaviour
             battleMusicG.SetActive(true);
         }
 
-        bool goDown = Input.GetKeyDown(KeyCode.S);
-        bool goRight = Input.GetKeyDown(KeyCode.D);
-        bool goUp = Input.GetKeyDown(KeyCode.W);
-        bool goLeft = Input.GetKeyDown(KeyCode.A);
-        // bool goMap = MultiSceneLoader.getLoadedCollectionTitle.Equals("Map");
-        // bool GoCardReward = MultiSceneLoader.getLoadedCollectionTitle.Equals("CardReward");
-        // bool GoRuneReward = MultiSceneLoader.getLoadedCollectionTitle.Equals("RuneReward");
-        // bool GoLibrary = MultiSceneLoader.getLoadedCollectionTitle.Equals("DeckLibrary");
-        // bool GoTutorial = MultiSceneLoader.getLoadedCollectionTitle.Equals("HowToPlay");
-        // bool resetView = goLeft && Input.GetKeyDown(KeyCode.D) || goRight && Input.GetKeyDown(KeyCode.A);
-       
+        bool goDown = false;
+        bool goRight = false;
+        bool goUp = false;
+        bool goLeft = false;
+
+        if(!lockInputs)
+        {
+            goDown = Input.GetKeyDown(KeyCode.S);
+            goRight = Input.GetKeyDown(KeyCode.D);
+            goUp = Input.GetKeyDown(KeyCode.W);
+            goLeft = Input.GetKeyDown(KeyCode.A);
+        }
+        
         if (goDown)
             SetCameraView(CameraView.Down);
 
@@ -89,7 +92,7 @@ public class CameraMovement : MonoBehaviour
         TemporaryPosition.transform.rotation = transform.rotation;
     }
 
-    public void SetCameraView(CameraView view)
+    public void SetCameraView(CameraView view, bool LockView = false)
     {
         SetStartPosition();
         lerptime = 0;
@@ -102,6 +105,12 @@ public class CameraMovement : MonoBehaviour
                 // Debug.Log("Camera is " + endPosition.cv);
             }
         }
+
+        if(view == CameraView.Reset)
+            lockInputs = false;
+
+        if(LockView)
+            lockInputs = true;
     }
 
     public CamPos GetCamPos(CameraView view)

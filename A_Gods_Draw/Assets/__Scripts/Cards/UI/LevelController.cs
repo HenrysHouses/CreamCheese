@@ -18,6 +18,7 @@ public class LevelController : MonoBehaviour
     List<GameObject> SpawnedGlyphs = new List<GameObject>();
     List<CardActionEnum> glyphsOrder = new List<CardActionEnum>();
     bool HasGodGlyph;
+    bool SkipSetWhenDestroyed;
     
     public void set(Card_Selector selector, CardPlayData data)
     {
@@ -30,9 +31,12 @@ public class LevelController : MonoBehaviour
             GodActionEnum GodAction = _God.godAction;
 
             instantiateGodIcon(GodAction);
-            gameObject.SetActive(false);
-            Destroy(this);
-            // return;
+
+            if(SkipSetWhenDestroyed)
+            {
+                gameObject.SetActive(false);
+                Destroy(this);
+            }
         }
         else
         {
@@ -242,5 +246,10 @@ public class LevelController : MonoBehaviour
     {
         if(Card_Selector)
             Card_Selector.OnMouseExit();
+    }
+
+    void OnDestroy()
+    {
+        SkipSetWhenDestroyed = true;
     }
 }

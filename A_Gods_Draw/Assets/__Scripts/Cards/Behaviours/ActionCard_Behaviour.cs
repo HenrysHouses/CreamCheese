@@ -64,7 +64,7 @@ public class ActionCard_Behaviour : Card_Behaviour
     {
         CheckForGod();
 
-        CameraMovement.instance.SetCameraView(stats.TargetingView);
+        CameraMovement.instance.SetCameraView(stats.TargetingView, true);
         
         for (int i = 0; i < stats.numberOfTargets; i++)
         {
