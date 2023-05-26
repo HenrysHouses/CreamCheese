@@ -37,6 +37,7 @@ public class EarthquakeCardAction : CardAction
 
     public override void SetActionVFX()
     {
-        _VFX = new ActionVFX(false, 0, "", "Action VFX/Splash_VFX", 2);
+        //_VFX = new ActionVFX(false, 0, "", "Action VFX/Splash_VFX", 2);
+        _VFX = new ActionVFX(false, 0, "", "Assets/Resources/Action VFX/Earthquake_VFX.prefab", 2);
     }
 }
