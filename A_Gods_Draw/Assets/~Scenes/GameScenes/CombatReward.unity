@@ -372,14 +372,14 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 278925342}
-  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalRotation: {x: 0.58233213, y: -0, z: -0, w: 0.81295097}
   m_LocalPosition: {x: 0.242, y: 1.191, z: -0.45}
   m_LocalScale: {x: 0.99999994, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 1791665311}
   m_RootOrder: 6
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+  m_LocalEulerAnglesHint: {x: 71.229, y: 0, z: 0}
 --- !u!114 &278925344
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -405,12 +405,12 @@ Light:
   m_GameObject: {fileID: 278925342}
   m_Enabled: 1
   serializedVersion: 10
-  m_Type: 2
+  m_Type: 0
   m_Shape: 0
   m_Color: {r: 0.9528302, g: 0.7405708, b: 0.49798858, a: 1}
-  m_Intensity: 10
-  m_Range: 1
-  m_SpotAngle: 30
+  m_Intensity: 4
+  m_Range: 1.008626
+  m_SpotAngle: 98
   m_InnerSpotAngle: 21.80208
   m_CookieSize: 10
   m_Shadows:
@@ -543,6 +543,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   shouldSetViewOnStart: 0
   View: 0
+  LockCamera: 0
 --- !u!65 &393324323
 BoxCollider:
   m_ObjectHideFlags: 0
