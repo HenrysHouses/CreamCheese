@@ -195,6 +195,7 @@ public class TurnController : CombatFSM
     public IEnumerator ExitCombat(bool LoadWinScreen, bool CombatReward)
     {
         deckController.clear();
+        GameManager.instance.PlayerTracker.SavePlayerData();
         yield return new WaitForSeconds(3);
         if(GameManager.instance.nextCombatType == EncounterDifficulty.Tutorial)
         {
