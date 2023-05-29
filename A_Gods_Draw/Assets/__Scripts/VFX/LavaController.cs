@@ -10,6 +10,7 @@ public class LavaController : MonoBehaviour
     public float lavaplainSpeed;
     public bool turnOnLava = false, testing;
     public HealthCounterController playerHealth;
+    public int healtLavaShouldSpawn;
     // Start is called before the first frame update
     void Start()
     {
@@ -24,10 +25,10 @@ public class LavaController : MonoBehaviour
         if (!testing)
         {
 
-            if (playerHealth.currHealth < 10)
+            if (playerHealth.currHealth < healtLavaShouldSpawn)
                 turnOnLava = true;
 
-            if (playerHealth.currHealth > 10)
+            if (playerHealth.currHealth > healtLavaShouldSpawn)
                 turnOnLava = false;
 
         }
