@@ -222,7 +222,6 @@ public class Monster : BoardElement
             animator.SetTrigger("TakingDMGDefended");
             SoundPlayer.PlaySound(block_SFX, gameObject);
             defendFor -= _amount;
-            return 0;
 
         }
 
