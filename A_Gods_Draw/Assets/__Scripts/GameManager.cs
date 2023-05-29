@@ -131,11 +131,4 @@ public class GameManager : MonoBehaviour
     {
         shouldDestroyCardInDeck = false;
     }
-
-    private void OnDestroy()
-    {
-
-        PlayerTracker.SavePlayerData();
-        
-    }
 }

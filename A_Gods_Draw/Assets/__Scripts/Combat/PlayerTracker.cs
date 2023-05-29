@@ -44,14 +44,12 @@ public class PlayerTracker : ScriptableObject
                 WealthRune _tempWealthRune = new WealthRune(1, RuneState.Active);
                 _tempWealthRune.RuneData = _data;
                 CurrentRunes.Add(_tempWealthRune);
-                Debug.Log("Loaded Rune: " + _data.Name);
                 break;            
 
                 case RuneType.TursChaos:
                 ChaosRune _tempChaosRune = new ChaosRune(1, RuneState.Active);
                 _tempChaosRune.RuneData = _data;
                 CurrentRunes.Add(_tempChaosRune);
-                Debug.Log("Loaded Rune: " + _data.Name);
                 break;
 
                 // case RuneType.UrrStrength:
@@ -78,6 +76,7 @@ public class PlayerTracker : ScriptableObject
 
     public void SavePlayerData()
     {
+        Debug.Log("Saved player data");
 
         if(PlayerData == null)
         {
@@ -126,6 +125,7 @@ public class PlayerTracker : ScriptableObject
         
         int lastIndex = CurrentRunes.Count-1;
         _runeData.Add(CurrentRunes[lastIndex].RuneData);
+        SavePlayerData();
     }
 
     public void triggerRune(TurnController controller, CombatState trigger)

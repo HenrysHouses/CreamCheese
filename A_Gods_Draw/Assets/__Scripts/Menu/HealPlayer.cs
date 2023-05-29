@@ -15,5 +15,6 @@ public class HealPlayer : MonoBehaviour
         Map.Map_Manager.SavingMap();
         if (player.Health < player.MaxHealth)
             player.UpdateHealth(HealAmount);
+        player.SavePlayerData();
     }
 }

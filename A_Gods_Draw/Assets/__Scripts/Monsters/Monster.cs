@@ -136,6 +136,8 @@ public class Monster : BoardElement
             healthBarFill.color = healthBarColor;
 
 #if UNITY_EDITOR
+        if(Input.GetKeyDown(KeyCode.L))
+            TakeDamage(1, true);
         if(KillEnemy)
             StartCoroutine(nameof(Die));
 #endif

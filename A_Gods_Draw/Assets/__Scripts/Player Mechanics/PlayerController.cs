@@ -69,7 +69,6 @@ public class PlayerController : BoardElement , IMonsterTarget
 
         cam.SetCameraView(CameraView.TakingDamage);
         
-
     }
 
     private void OnMouseOver()
@@ -100,13 +99,6 @@ public class PlayerController : BoardElement , IMonsterTarget
     public void UnTargeted(GameObject _sourceGO = null)
     {
         
-    }
-
-    private void OnDestroy()
-    {
-
-        playerTracker.SavePlayerData();
-
     }
 
     // public override string setClassName()
