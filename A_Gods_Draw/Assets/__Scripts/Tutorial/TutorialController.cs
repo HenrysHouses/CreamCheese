@@ -5,6 +5,8 @@ using UnityEngine;
 public abstract class TutorialController : MonoBehaviour
 {
     public DialogueBox CurrentDialogue;
+
+  //  public GameObject tutorialBox;
     public TutorialDialogue TutorialSteps;
     Coroutine currentRoutine;
     TutorialSentence currentStep;
@@ -13,6 +15,7 @@ public abstract class TutorialController : MonoBehaviour
     protected virtual void Start()
     {
         spawnTutorial();
+       // tutorialBox = GameObject.Find("TutorialTextBackground");
     }
     
     protected virtual void Update()
@@ -30,6 +33,7 @@ public abstract class TutorialController : MonoBehaviour
         CurrentDialogue = DialogueController.instance.SpawnDialogueUI(TutorialSteps, Vector2.zero, true);
         currentStep = CurrentDialogue.getCurrentPage() as TutorialSentence;
         currentStep.WaitForTrigger();
+       // tutorialBox.SetActive(true);
     } 
 
     void nextTutPage()

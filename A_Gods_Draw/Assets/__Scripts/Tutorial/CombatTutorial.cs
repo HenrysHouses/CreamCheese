@@ -1,20 +1,28 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class CombatTutorial : TutorialController
 {
+    public GameObject tutorialStone;
+    public GameObject textbox, tableController,hornMesh;
     protected override void Start()
     {
+        textbox = GameObject.Find("TutorialTextBackground");
+       // textBox.enabled = false;
         GameManager.instance.nextCombatType = EncounterDifficulty.Tutorial;
 
         for (int i = 0; i < EnableBoard.Length; i++)
         {
+            
             EnableBoard[i].SetActive(false);
         }
         Horn.CanEndTurn = false;
-
+        hornMesh.GetComponent<MeshRenderer>().enabled = false;
+        
         base.Start();
+        
     }
 
     public override void CheckTutorialConditions()
@@ -40,14 +48,16 @@ public class CombatTutorial : TutorialController
         if (isTutorialStep(6))
             startTutorialRoutine(GodGlyphsExplain());
 
-
         if (isTutorialStep(7))
             startTutorialRoutine(GlyphExplain());
 
         if (isTutorialStep(8))
             startTutorialRoutine(Utilitycards());
-        
-        if(isTutorialStep(9))
+
+        if (isTutorialStep(9))
+            startTutorialRoutine(Uppgrades());
+
+        if (isTutorialStep(10))
             startTutorialRoutine(FinalStep());
     }
 
@@ -56,6 +66,8 @@ public class CombatTutorial : TutorialController
 
     protected IEnumerator PressAnyButtonToContinue(TutorialStepTrigger trigger)
     {
+       // stoneAnim.SetBool("StoneIn", true);
+        textbox.SetActive(true);
         bool isAllowedToContinue = false;
         bool previousState = CurrentDialogue.fullPageIsDisplaying;
 
@@ -68,6 +80,7 @@ public class CombatTutorial : TutorialController
                 isAllowedToContinue = true;
             }
             previousState = CurrentDialogue.fullPageIsDisplaying;
+           // stoneAnim.SetBool("StoneIn", false);
         }
 
         yield return new WaitUntil(() => Input.anyKeyDown);
@@ -84,6 +97,13 @@ public class CombatTutorial : TutorialController
 
     IEnumerator PlayAttackCardOnEnemy()
     {
+      //  stoneAnim.SetBool("StoneIn", true);
+
+        if (CurrentDialogue.fullPageIsDisplaying)
+        {
+         //   stoneAnim.SetBool("StoneIn", false);
+        }
+
         Horn.CanEndTurn = false;
         yield return new WaitUntil(() => turnController.GetBoard() != null);
         yield return new WaitUntil(() => turnController.isCombatStarted);
@@ -102,6 +122,8 @@ public class CombatTutorial : TutorialController
 
     IEnumerator EndTurn()
     {
+        hornMesh.GetComponent<MeshRenderer>().enabled = true;
+        hornMesh.GetComponent<Animation>().Play();
         Horn.CanEndTurn = true;
         yield return new WaitUntil(() => turnController.state == CombatState.EndStep);
         Horn.CanEndTurn = false;
@@ -179,9 +201,11 @@ public class CombatTutorial : TutorialController
         deckController.AddCardToLib(attackCard);
         CardPlayData defenceCard = new CardPlayData(Resources.Load<Card_SO>("Cards/Shield/Defence_BattlleWornShield_CardSO"));
         deckController.AddCardToLib(defenceCard);
+        CardPlayData buffCard = new CardPlayData(Resources.Load<Card_SO>("Cards/Buff/Buff_Bifrost_CardSO"));
+        deckController.AddCardToLib(buffCard);
         // yield return new WaitUntil(() => turnController.state == CombatState.MainPhase);
         yield return new WaitUntil(() => turnController.state == CombatState.EndStep);
-        completeTutorialRoutine(EndTurn1st_Trigger,6);
+        completeTutorialRoutine(EndTurn1st_Trigger, 6);
 
     }
 
@@ -219,13 +243,34 @@ public class CombatTutorial : TutorialController
         yield return new WaitUntil(() => turnController.state == CombatState.DrawStep);
         yield return new WaitUntil(() => turnController.state == CombatState.MainPhase);
         Horn.CanEndTurn = true;
-
-        completeTutorialRoutine(EndTurn1st_Trigger,8);
+        yield return new WaitUntil(() => turnController.state == CombatState.EndStep);
+        completeTutorialRoutine(EndTurn1st_Trigger, 8);
 
 
     }
 
 
+    IEnumerator Uppgrades()
+    {
+
+
+        deckController.clear();
+        monster.TutorialIntentOverride(turnController.GetBoard(), TutorialActions.Defend);
+        CardPlayData defencecard = new CardPlayData(Resources.Load<Card_SO>("Cards/Shield/Defence_BattlleWornShield_CardSO"));
+        defencecard.Experience.XP = 4;
+        deckController.AddCardToLib(defencecard);
+        CardPlayData attack = new CardPlayData(Resources.Load<Card_SO>("Cards/Attack/Attack_TyrsBlessedSword_CardSO"));
+        attack.Experience.XP = 9;
+        deckController.AddCardToLib(attack);
+
+        yield return new WaitUntil(() => turnController.state == CombatState.EndStep);
+
+
+        completeTutorialRoutine(EndTurn1st_Trigger, 9);
+
+
+
+    }
 
     IEnumerator FinalStep()
     {
@@ -243,7 +288,8 @@ public class CombatTutorial : TutorialController
         deckController.AddCardToLib(buffCard1);
         yield return new WaitUntil(() => turnController.state == CombatState.MainPhase);
         Horn.CanEndTurn = true;
+         textbox.SetActive(true);
 
-        
+
     }
 }
