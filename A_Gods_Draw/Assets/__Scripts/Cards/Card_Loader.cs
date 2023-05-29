@@ -153,9 +153,13 @@ public class Card_Loader : MonoBehaviour
         }
     }
 
-    public void instantiateLvLUpVFX()
+    public void instantiateLvLUpVFX(int fromLvl, int toLvl)
     {
-        Debug.Log("Spawn Level Up VFX here", gameObject); 
+        GameObject VFX = Instantiate(elements.LevelUpVFX);
+        LvlUp_VFX _controller = VFX.GetComponent<LvlUp_VFX>();
+        _controller.CurrentLevel = fromLvl;
+        _controller.NextLevel = toLvl;
+        VFX.transform.SetParent(transform, false);
     }
 
     //------------------------------------------

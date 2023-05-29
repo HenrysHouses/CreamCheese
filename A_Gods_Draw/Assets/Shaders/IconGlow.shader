@@ -20,7 +20,12 @@ Shader "Unlit/GlowOutline"
         _IconTexturte ("Icon", 2D) = "white" {}
         _IconTransparency ("Icon Transparency", Range(0,1)) = 1
         _IconSize ("Icon Size", float) = 1
+        [Toggle] _UseParticleLifetime("Use Particle Lifetime as Intensity", float) = 0
         _GlowPower ("Intensity", Range(0,2)) = 1
+        _GlowFill ("Fill", Range(0,1)) = 0
+        _InnerCircle ("Innter Circle", Range(0,1)) = 0.7
+        _OuterCircle ("Outer Circle", Range(0,1)) = 1
+
     }
     SubShader
     {
@@ -45,14 +50,16 @@ Shader "Unlit/GlowOutline"
             {
                 float4 vertex : POSITION;
                 float3 normal : NORMAL;
-                float2 uv : TEXCOORD0;
+                float2 uv : TEXCOORD1;
+                float3 ParticleLifetime : TEXCOORD0;
             };
 
             struct Interpolators
             {
-                float2 uv : TEXCOORD0;
+                float2 uv : TEXCOORD1;
                 UNITY_FOG_COORDS(1)
                 float4 vertex : SV_POSITION;
+                float3 ParticleLifetime : TEXCOORD0;
             };
 
             sampler2D _MainTex;
@@ -76,12 +83,20 @@ Shader "Unlit/GlowOutline"
             float _UVOffset;
             float _GlowPower;
             float _IconTransparency;
+            float _GlowFill;
+            float _InnerCircle;
+            float _OuterCircle;
+            float _UseParticleLifetime;
+
+            #define TAU 6.2831855
+            #define PI 3.14159265359
 
             Interpolators vert (MeshData v)
             {
                 Interpolators o;
                 o.vertex = UnityObjectToClipPos(v.vertex + v.normal * _Size);
                 o.uv = TRANSFORM_TEX(v.uv, _MaskTex);
+                o.ParticleLifetime = v.ParticleLifetime;
                 // o.wPos = mul( unity_ObjectToWorld, v.vertex); 
                 // o.worldNormal = UnityObjectToWorldNormal( v.normal ); // mesh normals
                 // TRANSFER_SCREENPOSITION(o)
@@ -116,6 +131,8 @@ Shader "Unlit/GlowOutline"
 
             fixed4 frag (Interpolators i) : SV_Target
             {
+                _GlowPower = _UseParticleLifetime == 1 ? Remap(1-i.ParticleLifetime.z, 0, 1, 0, 2) : _GlowPower;
+
                 float2 centredUV = (i.uv - _Origin) * _UVOffset;
                 float radialGradient = RadialGradient(centredUV, 0);
                 float circleGradient = length(centredUV);
@@ -152,12 +169,35 @@ Shader "Unlit/GlowOutline"
                 fixed4 combinedCol = fixed4(lerp(_MainColor.rgb, _SecondColor.rgb, col2), col2);
                 combinedCol = lerp(IconCol, combinedCol, _GlowPower*0.5);
                 combinedCol.a *= IconCol;
-                // return combinedCol;
-                // IconCol = lerp(IconCol, combinedCol, IconCol);
-                // IconCol.a *= combinedCol.a;
 
+                // Generating Circle
+                centredUV = i.uv - float2(0.5, 0.5);
+                float _point = length(centredUV);
+                float outer = step(_point, _OuterCircle);
+                float inner = 1-step(_point, _InnerCircle);
+                float circle = outer * inner;
 
-                return outColor + combinedCol * iconMask; 
+                // Generating Fill
+                float angle = atan2(centredUV.y, centredUV.x); // compute angle in radians
+
+                // Rotate angle
+                float rotateBy = 90;
+                angle += radians(rotateBy);
+                angle += angle < 0.0 ? 3.141592 * 2 : 0;
+                float correctionBias = 0.5/rotateBy;
+                float _Offset = rotateBy * correctionBias; // Corrects the gradient range when rotated
+                float gradient = (angle + 3.141592) / (2.0 * 3.141592) - _Offset; // convert angle to a value between 0 and 1 
+                gradient = step(gradient, _GlowFill);
+
+                // intersection fade
+                // float depth = tex2Dproj(_CameraDepthTexture, UNITY_PROJ_COORD(IN.screenPos));
+                // depth = LinearEyeDepth(depth);
+    
+                // float fogDiff = saturate((depth - IN.screenPos.w) / _FogThreshold);
+                // float intersectionDiff = saturate((depth - IN.screenPos.w) / _IntersectionThreshold);
+
+                // return IconCol;
+                return (outColor * gradient * circle) + combinedCol * iconMask;
             }
             ENDCG
         }

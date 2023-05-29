@@ -578,7 +578,7 @@ public class TurnController : CombatFSM
 
                 if(targetCard != null)
                 {
-                    targetCard.instantiateLvLUpVFX();
+                    targetCard.instantiateLvLUpVFX(_CardState.Experience.Level, _CardState.Experience.Level+1);
                 }
 
                 _CardState.Experience.Level++;

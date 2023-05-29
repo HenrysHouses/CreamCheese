@@ -106,7 +106,6 @@ Shader "HenryCustom/LevelDisplay_Dissolve"
             o.Albedo = c.rgb;
             clip(dissolveMap.a - _Cutoff);
 
-
             o.Metallic = _UseMetallicMap < 0 ? _Metallic : metallicMap;
             o.Occlusion = _UseOcclusionMap < 0 ? _Occlusion : occlusionMap;
 
@@ -121,7 +120,10 @@ Shader "HenryCustom/LevelDisplay_Dissolve"
             float _point = length(Pos);
             float outer = step(_point, _OuterCircle);
             float inner = 1-step(_point, _InnerCircle);
+            float outerMask = step(_point, 2);
+            float innerMask = 1-step(_point, _InnerCircle);
             float circle = outer * inner;
+            float circleMask = 1-(outerMask * innerMask);
             // Generating Fill
             float angle = atan2(Pos.y, Pos.x); // compute angle in radians
 
@@ -140,10 +142,10 @@ Shader "HenryCustom/LevelDisplay_Dissolve"
             
             Pos += float2(0.5, 0.5) + _LevelTexture_ST.zw;
             Pos *= _LevelTexture_ST.xy;
-            // Pos = RotateUV(Pos, radians(90));
-            fixed4 LevelCol = tex2D(_LevelTexture, Pos);
+            Pos = RotateUV(Pos, radians(180));
+            fixed4 LevelCol = tex2D(_LevelTexture, Pos) * circleMask;
             o.Albedo += lerp(o.Albedo, LevelCol, LevelCol.a);
-            o.Emission += LevelCol.x;
+            o.Emission += LevelCol.x * circleMask;
         }
         ENDCG
     }

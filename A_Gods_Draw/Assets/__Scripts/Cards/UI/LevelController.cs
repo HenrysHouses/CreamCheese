@@ -14,6 +14,7 @@ public class LevelController : MonoBehaviour
     GodCard_ScriptableObject _God;
     CardUpgradePath upgradePath;
     CardExperience experience;
+    [SerializeField] Texture2D[] LevelTextures;
 
     List<GameObject> SpawnedGlyphs = new List<GameObject>();
     List<CardActionEnum> glyphsOrder = new List<CardActionEnum>();
@@ -115,7 +116,7 @@ public class LevelController : MonoBehaviour
         else
             targetLevel = Experience.Level;
 
-        tex = Resources.Load<Texture>("Textures/LineCount_" + targetLevel);
+        tex = LevelTextures[targetLevel];
 
         float previousRequirement = 0; 
         float NeededForLevel = Upgrades[0].RequiredXP; 

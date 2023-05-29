@@ -179,8 +179,6 @@ public class Player_Hand : MonoBehaviour
     {
         for (int i = 0; i < CardSelectionAnimators.Count; i++)
         {
-            Debug.Log("checking: " + CardSelectionAnimators[i]._card.Experience.ID);
-
             if(CardSelectionAnimators[i]._card.Experience.ID == ID)
                 return CardSelectionAnimators[i].loader;
         }
