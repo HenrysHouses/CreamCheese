@@ -40,6 +40,7 @@ public class PoisonCardAction : CardAction
 
     public override void SetActionVFX()
     {
-        _VFX = new ActionVFX(false, 0, "", "Action VFX/PoisonSplat_VFX", 2);
+        //_VFX = new ActionVFX(false, 0, "", "Action VFX/PoisonSplat_VFX", 2);
+        _VFX = new ActionVFX(false, 0, "", "Action VFX/Poison_VFX", 2);
     }
 }
