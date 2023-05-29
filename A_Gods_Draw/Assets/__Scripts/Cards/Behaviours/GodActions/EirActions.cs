@@ -33,7 +33,7 @@ public class EirActions : GodCardAction
     {
         EnterTheBattleFieldVFX = Resources.Load<GameObject>("Action VFX/FloralBarrier_Ground_VFX");
         EffectedTargetVFX = Resources.Load<GameObject>("Action VFX/FloralBarrier_Enemy_VFX");
-        ETB_VFX_Lifetime = 3;
+        ETB_VFX_Lifetime = 5;
         Effected_VFX_Lifetime = 7;
     }
 }
