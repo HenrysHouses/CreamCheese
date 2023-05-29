@@ -22,9 +22,9 @@ public class PlayerTracker : ScriptableObject
     [HideInInspector] public List<rune> CurrentRunes = new List<rune>();
 
     private void OnEnable() {
+#if UNITY_EDITOR
         LoadPlayerData();
-        ProcessRunes();
-        Health = PlayerData.PlayerHealth;
+#endif
     }
 
     private void ProcessRunes()
@@ -37,17 +37,21 @@ public class PlayerTracker : ScriptableObject
         foreach(RuneData _data in _runeData)
         {
 
-            rune _tempRune = null;
-
-            switch (_data.Name)
+            switch(_data.Name)
             {
                 
                 case RuneType.FeWealth:
-                _tempRune = new WealthRune(1, RuneState.Active);
+                WealthRune _tempWealthRune = new WealthRune(1, RuneState.Active);
+                _tempWealthRune.RuneData = _data;
+                CurrentRunes.Add(_tempWealthRune);
+                Debug.Log("Loaded Rune: " + _data.Name);
                 break;            
 
                 case RuneType.TursChaos:
-                _tempRune = new ChaosRune(1, RuneState.Active);
+                ChaosRune _tempChaosRune = new ChaosRune(1, RuneState.Active);
+                _tempChaosRune.RuneData = _data;
+                CurrentRunes.Add(_tempChaosRune);
+                Debug.Log("Loaded Rune: " + _data.Name);
                 break;
 
                 // case RuneType.UrrStrength:
@@ -60,13 +64,6 @@ public class PlayerTracker : ScriptableObject
 
             }
 
-            if(_tempRune == null)
-                continue;
-
-            _tempRune.RuneData = _data;
-            CurrentRunes.Add(_tempRune);
-            Debug.Log("Loaded Rune: " + _data.Name);
-
         }
 
     }
@@ -74,6 +71,7 @@ public class PlayerTracker : ScriptableObject
     public PlayerDataContainer LoadPlayerData()
     {
         PlayerData = GameSaver.LoadPlayerData();
+        Health = PlayerData.PlayerHealth;
         ProcessRunes();
         return PlayerData;
     }

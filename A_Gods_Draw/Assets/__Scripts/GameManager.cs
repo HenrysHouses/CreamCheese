@@ -54,6 +54,7 @@ public class GameManager : MonoBehaviour
         RuntimeManager.LoadBank("MonsterEffects", true);
         RuntimeManager.LoadBank("GodEffects", true);
         //RuntimeManager.LoadBank("Master", true);
+        
 
         intensityEffects = new List<SceneIntensityEffect>();
     }
@@ -61,6 +62,7 @@ public class GameManager : MonoBehaviour
     private void Start()
     {
         loadGameData();
+        PlayerTracker.LoadPlayerData();
     }
 
     private void UpdateSceneEffects(bool _updateFromDamage = false)
