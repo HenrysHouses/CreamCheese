@@ -14,7 +14,7 @@ public class LightScenes : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        SetLight(MultiSceneToolsConfig.instance.getCurrCollection(), collectionLoadMode.Difference);
+        SetLight(MultiSceneLoader.currentlyLoaded, collectionLoadMode.Difference);
         MultiSceneLoader.OnSceneCollectionLoaded.AddListener(SetLight);
     }
 

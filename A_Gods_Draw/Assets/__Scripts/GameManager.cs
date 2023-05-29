@@ -9,10 +9,12 @@ using Map;
 using FMOD.Studio;
 using FMODUnity;
 using System.Collections.Generic;
+using HH.MultiSceneTools;
 
 public class GameManager : MonoBehaviour
 {
     // [SerializeField] DeckManager_SO deckManager;
+    [SerializeField] SceneCollection TitleScreen;
     [SerializeField] public PlayerTracker PlayerTracker;
 
     public bool shouldGenerateNewMap;
@@ -63,6 +65,7 @@ public class GameManager : MonoBehaviour
     {
         loadGameData();
         PlayerTracker.LoadPlayerData();
+        MultiSceneLoader.loadCollection(TitleScreen, collectionLoadMode.Difference);
     }
 
     private void UpdateSceneEffects(bool _updateFromDamage = false)
