@@ -1,8 +1,5 @@
-// Written by Javier
-
 using System.Collections.Generic;
 using UnityEngine;
-using FMODUnity;
 using EnemyAIEnums;
 
 public class MinionIntent : Intent
@@ -84,16 +81,6 @@ public class MinionIntent : Intent
 
     }
 
-    public T GetAction<T>() where T : Action
-    {
-        for (int i = 0; i < actions.Length; i++)
-        {
-            if(actions[i].Action is T)
-                return actions[i].Action as T;
-        }
-        return null;
-    }
-
     public override bool DefendedLastTurn()
     {
 
@@ -172,7 +159,11 @@ public class MinionIntent : Intent
         if(actionSelected.IsLocked)
         {
 
-            strength += Self.BuffStrength / 2;
+            if(Self.Weakened)
+                strength += Self.BuffStrength;
+            else
+                strength += Self.BuffStrength / 2;
+
             return;
 
         }

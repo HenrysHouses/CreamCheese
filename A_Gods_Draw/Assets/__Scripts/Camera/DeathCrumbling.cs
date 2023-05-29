@@ -40,11 +40,11 @@ public class DeathCrumbling : MonoBehaviour
         if (trulyDead)
         {
             // LoadingScreen.Instance.EnterLoadingScreen("CutScene", collectionLoadMode.Difference);
-            MultiSceneLoader.loadCollection("MainMenu", collectionLoadMode.Difference);
             GameManager.instance.PlayerTracker.resetHealth();
             GameManager.instance.PlayerTracker.CurrentRunes.Clear();
             CardQuantityContainer newSave = new CardQuantityContainer();
             GameSaver.SaveData(newSave);
+            MultiSceneLoader.loadCollection("TitleCard", collectionLoadMode.Difference);
 
         }
 

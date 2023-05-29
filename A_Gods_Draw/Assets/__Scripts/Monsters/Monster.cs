@@ -75,6 +75,9 @@ public class Monster : BoardElement
     // Animation
     [Header("Animation")]
     public Animator animator;
+#if UNITY_EDITOR
+    public bool KillEnemy;
+#endif
 
     private void Awake()
     {
@@ -131,6 +134,11 @@ public class Monster : BoardElement
         }
         else
             healthBarFill.color = healthBarColor;
+
+#if UNITY_EDITOR
+        if(KillEnemy)
+            StartCoroutine(nameof(Die));
+#endif
 
     }
 

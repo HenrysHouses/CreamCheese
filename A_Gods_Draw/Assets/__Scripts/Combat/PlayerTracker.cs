@@ -22,15 +22,59 @@ public class PlayerTracker : ScriptableObject
     [HideInInspector] public List<rune> CurrentRunes = new List<rune>();
 
     private void OnEnable() {
-        CurrentRunes.Clear();
-        PlayerData = LoadPlayerData();
-        _runeData = PlayerData.Runes.ToList();
+        LoadPlayerData();
+        ProcessRunes();
         Health = PlayerData.PlayerHealth;
+    }
+
+    private void ProcessRunes()
+    {
+
+        _runeData.Clear();
+        CurrentRunes.Clear();
+        _runeData = PlayerData.Runes.ToList();
+
+        foreach(RuneData _data in _runeData)
+        {
+
+            rune _tempRune = null;
+
+            switch (_data.Name)
+            {
+                
+                case RuneType.FeWealth:
+                _tempRune = new WealthRune(1, RuneState.Active);
+                break;            
+
+                case RuneType.TursChaos:
+                _tempRune = new ChaosRune(1, RuneState.Active);
+                break;
+
+                // case RuneType.UrrStrength:
+                //     Rune = new StrengthRune(1, RuneState.Active);
+                //     break;
+
+                default:
+                Debug.Log("this rune has not been implemented: " + _data.Name);
+                break;
+
+            }
+
+            if(_tempRune == null)
+                continue;
+
+            _tempRune.RuneData = _data;
+            CurrentRunes.Add(_tempRune);
+            Debug.Log("Loaded Rune: " + _data.Name);
+
+        }
+
     }
 
     public PlayerDataContainer LoadPlayerData()
     {
         PlayerData = GameSaver.LoadPlayerData();
+        ProcessRunes();
         return PlayerData;
     }
 
