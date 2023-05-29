@@ -184,7 +184,7 @@ public class MinionIntent : Intent
                 strength = Random.Range(actionSelected.MinStrength, actionSelected.MaxStrength + 1) + Self.BuffStrength;
 
             if(Self.Weakened)
-                strength = strength / 2;
+                strength = (int)Mathf.Clamp(strength / 2, 1, Mathf.Infinity);
 
         }
 
