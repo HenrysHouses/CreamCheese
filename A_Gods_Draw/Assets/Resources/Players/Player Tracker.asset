@@ -14,11 +14,21 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   PlayerData:
     TimesDefeatedBoss: 0
-    PlayerHealth: 30
-    Runes: []
-  Health: 30
+    PlayerHealth: 26
+    Runes:
+    - State: 0
+      Strength: 1
+      Name: 1
+      Trigger: 2
+      Description: Draw one extra card each turn
+  Health: 26
   MaxHealth: 30
   HealthChanges: 
   CurrentDeck: {fileID: 11400000, guid: 79f54d6a0268d644381e0b3bda208b5b, type: 2}
-  <_runeData>k__BackingField: []
+  <_runeData>k__BackingField:
+  - State: 0
+    Strength: 1
+    Name: 1
+    Trigger: 2
+    Description: Draw one extra card each turn
   CurrentRunes: []
