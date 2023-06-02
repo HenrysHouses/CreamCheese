@@ -33,13 +33,14 @@ public class FrostbiteCardAction : CardAction
                 _frostbite.thisMonster = target;
 
             }
+            _board.StartCoroutine(playTriggerVFX(_source.gameObject, target.transform, new Vector3(0, 0, 0)));
 
         }
         
         // source.stats.Targets.Clear();
 
         // Playing VFX for each action
-        _board.StartCoroutine(playTriggerVFX(_source.gameObject, _board.Player.transform, new Vector3(0, 1, 0)));
+        //_board.StartCoroutine(playTriggerVFX(_source.gameObject, _board.Player.transform, new Vector3(0, 1, 0)));
         yield return new WaitUntil(() => _VFX == null || !_VFX.isAnimating);
 
         yield return new WaitForSeconds(0.3f);
@@ -49,6 +50,7 @@ public class FrostbiteCardAction : CardAction
 
     public override void SetActionVFX()
     {
-        _VFX = new ActionVFX(false, 0, "", "Action VFX/Frostbite_VFX", 5);
+        //_VFX = new ActionVFX(false, 0, "", "Action VFX/Frostbite_VFX", 5);
+        _VFX = new ActionVFX(false, 0, "", "Action VFX/IceSpikes_VFX", 5);
     }
 }
