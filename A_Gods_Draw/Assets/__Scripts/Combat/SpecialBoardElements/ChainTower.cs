@@ -6,7 +6,7 @@ using FMODUnity;
 public class ChainTower : BoardTarget
 {
 
-
+    private static int chainsDestroyed;
     [SerializeField]
     private GameObject gfx, damageEffect, chainbreak;
     [SerializeField]
@@ -31,8 +31,6 @@ public class ChainTower : BoardTarget
         Board = Component.FindObjectOfType<BoardStateController>();
         Board.AddBoardTarget(this);
         DeactivateOutline();
-       
-        
 
     }
 
@@ -120,11 +118,15 @@ public class ChainTower : BoardTarget
         gfx.SetActive(false);
         IsActive = false;
         Board.ActiveExtraEnemyTargets.Remove(this);
+        if(chainsDestroyed % 2 == 0)
+        {
+
+            GameObject.FindObjectOfType<DeckController>().AddCardToLib(specialGleipnirCard);
+            Instantiate(gleipnirAnimObj,Vector3.zero,Quaternion.identity);
+            
+        }
         
-        GameObject.FindObjectOfType<DeckController>().AddCardToLib(specialGleipnirCard);
-        Instantiate(gleipnirAnimObj,Vector3.zero,Quaternion.identity);  
-       
-        
+        chainsDestroyed++;
 
     }
 
