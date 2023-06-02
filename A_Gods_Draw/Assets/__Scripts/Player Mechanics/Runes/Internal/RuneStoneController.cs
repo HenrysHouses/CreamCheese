@@ -10,7 +10,14 @@ public class RuneStoneController : MonoBehaviour
 {
     [SerializeField] PlayerTracker playerState;
     public List<RuneData> runes;
-    public runeRenderer[] renderers;
+    public GameObject[] renderers;
+
+    void Awake()
+    {
+        renderers[0].GetComponent<UIPopup>().setDescription(new StrengthRune(1, RuneState.Active).RuneData.Description);
+        renderers[1].GetComponent<UIPopup>().setDescription(new WealthRune(1, RuneState.Active).RuneData.Description);
+        renderers[2].GetComponent<UIPopup>().setDescription(new ChaosRune(1, RuneState.Active).RuneData.Description);
+    }
 
     void Update()
     {
@@ -71,13 +78,13 @@ public class RuneStoneController : MonoBehaviour
                 switch(playRune.RuneData.State)
                 {
                     case RuneState.Active:
-                        renderers[rune.ID].setColor(Color.cyan);
+                        renderers[rune.ID].SetActive(true);
                         break;
                     case RuneState.Temporary:
-                        renderers[rune.ID].setColor(Color.red);
+                        // renderers[rune.ID].setColor(Color.red);
                         break;
                     case RuneState.Disabled:
-                        renderers[rune.ID].setColor(Color.gray);
+                        renderers[rune.ID].SetActive(false);
                         break;
                 }
             }
@@ -85,16 +92,16 @@ public class RuneStoneController : MonoBehaviour
     }
 }
 
-[System.Serializable]
-public class runeRenderer
-{
-    public Renderer[] renderers;
+// [System.Serializable]
+// public class runeRenderer
+// {
+//     public Renderer[] renderers;
 
-    public void setColor(Color color)
-    {
-        foreach (var rend in renderers)
-        {
-            rend.material.color = color;
-        }
-    }
-}
+//     public void setColor(Color color)
+//     {
+//         foreach (var rend in renderers)
+//         {
+//             rend.material.color = color;
+//         }
+//     }
+// }

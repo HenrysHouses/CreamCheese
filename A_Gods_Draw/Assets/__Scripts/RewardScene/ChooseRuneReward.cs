@@ -91,7 +91,6 @@ public class ChooseRuneReward : MonoBehaviour
 
         if (shouldConfirmSelection)
         {
-            Debug.Log("configrmsdksadnk");
             StartCoroutine(PickRune(SelectedRune, runeObj));
         }
         shouldConfirmSelection = false;
@@ -103,7 +102,7 @@ public class ChooseRuneReward : MonoBehaviour
         {
             Inspector.enabled = false;
             Path.startPoint.position = obj.transform.position;
-            Path.endPoint.position = RuneController.renderers[(int)SelectedRune.RuneData.Name].renderers[0].transform.parent.position;
+            Path.endPoint.position = RuneController.renderers[(int)SelectedRune.RuneData.Name].transform.position;
             Path.recalculatePath();
 
             CameraMovement.instance.SetCameraView(CameraView.RuneAfterPick);

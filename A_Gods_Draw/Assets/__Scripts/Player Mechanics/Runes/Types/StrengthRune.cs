@@ -12,7 +12,7 @@ public class StrengthRune : rune
 
     public StrengthRune(int str, RuneState state) : base(str, state)
     {
-        string desc = "First card you play each combat is buffed by X";
+        string desc = "First card you play each combat is buffed by " + str;
 
         this.RuneData = new RuneData(RuneType.UrrStrength, desc, CombatState.DrawStep);
         this.RuneData.Strength = str;

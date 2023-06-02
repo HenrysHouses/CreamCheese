@@ -9,8 +9,8 @@ using TMPro;
 
 public class RuneSelector : MonoBehaviour
 {
-    public TextMeshPro RuneName;
     public UIPopup RuneDescription;
+    [SerializeField] GameObject[] Meshes;
     [HideInInspector] public rune Rune;
     public void set(RuneType type)
     {
@@ -18,10 +18,12 @@ public class RuneSelector : MonoBehaviour
         {
             case RuneType.FeWealth:
                 Rune = new WealthRune(1, RuneState.Active);
+                Meshes[0].SetActive(true);
                 break;            
 
             case RuneType.TursChaos:
                 Rune = new ChaosRune(1, RuneState.Active);
+                Meshes[1].SetActive(true);
                 break;
 
             // case RuneType.UrrStrength:
@@ -37,7 +39,6 @@ public class RuneSelector : MonoBehaviour
 
         if(Rune.GetType() != typeof(rune))
         {
-            RuneName.text = Rune.RuneData.Name.ToString();
             RuneDescription.setDescription(Rune.RuneData.Description);
         }
         else

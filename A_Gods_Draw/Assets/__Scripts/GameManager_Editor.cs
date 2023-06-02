@@ -11,6 +11,7 @@ public class GameManager_Editor : Editor {
         if(GUILayout.Button("Clear PlayerPrefs"))
         {
             PlayerPrefs.DeleteAll();
+            GameSaver.SavePlayerData(new PlayerDataContainer(0, 30, new RuneData[0]));
         }
     }
 }
