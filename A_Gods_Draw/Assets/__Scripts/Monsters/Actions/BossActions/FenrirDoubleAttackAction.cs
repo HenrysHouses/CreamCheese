@@ -7,6 +7,8 @@ using EnemyAIEnums;
 public class FenrirDoubleAttackAction : MonsterAction
 {
 
+    public int ChainsDestroyed;
+
     public FenrirDoubleAttackAction(int minimumStrength, int maximumStrength) : base(minimumStrength, maximumStrength)
     {
 

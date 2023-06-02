@@ -35,6 +35,7 @@ public abstract class Intent
     public virtual bool DidActionLastTurn(){return false;}
     public virtual bool BuffedLastTurn(){return false;}
     public virtual bool SameAction(MonsterAction _action){return false;}
+    public virtual ActionSelection TryGetActionSelectionForType(EnemyIntent _intentType){return null;}
 
     public int GetCurrStrengh() => strength;
     public int SetCurrStrengh(int newS) => strength = newS;

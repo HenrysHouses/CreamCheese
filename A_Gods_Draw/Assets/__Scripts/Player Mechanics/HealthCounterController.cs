@@ -42,6 +42,7 @@ public class HealthCounterController : MonoBehaviour
     public float[] gearSpeed;
     public float[] gearRotateAmount;
     [SerializeField] Transform[] gear;
+    [SerializeField] private ParticleSystem particles;
 
     void Start()
     {
@@ -86,6 +87,7 @@ public class HealthCounterController : MonoBehaviour
 
             Damage = Mathf.Min(Damage + healthDifference * -1, Health);
             TriggerGearAnim(GearAnimSpeed * -1);
+            particles.Play();
             return true;
         }
 
