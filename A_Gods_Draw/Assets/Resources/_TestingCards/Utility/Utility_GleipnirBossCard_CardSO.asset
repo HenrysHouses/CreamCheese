@@ -18,9 +18,7 @@ MonoBehaviour:
   cardName: Gleipnir
   description: A magic chain made by the dwarfs of Svartalfheim. It was the only
     fetter that could bind Fenrir, and is he bound till the day of Ragnarok
-  effect: 'If Tyr is in play
-
-    target 2 enemies'
+  effect: Chains the wolf down to the stone
   cardStats:
     TargetingView: 6
     SelectionType:
@@ -62,22 +60,7 @@ MonoBehaviour:
           HitVFXLifeSpan: 0
     correspondingGod: 1
     godBuffActions:
-      actionStats:
-      - actionEnum: 4
-        action_SFX:
-          Guid:
-            Data1: 552836838
-            Data2: 1087258852
-            Data3: -1051546197
-            Data4: -1194664592
-          Path: event:/GlyphsVFXs/Chained
-        _VFX:
-          FollowPath: 0
-          isAnimating: 0
-          PathSpeed: 0
-          trigger_VFX: {fileID: 0}
-          hit_VFX: {fileID: 0}
-          HitVFXLifeSpan: 2
+      actionStats: []
     UpgradePath:
       Experience:
         XP: 0
