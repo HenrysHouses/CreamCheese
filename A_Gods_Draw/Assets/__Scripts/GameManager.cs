@@ -10,6 +10,7 @@ using FMOD.Studio;
 using FMODUnity;
 using System.Collections.Generic;
 using HH.MultiSceneTools;
+using UnityEngine.SceneManagement;
 
 public class GameManager : MonoBehaviour
 {
@@ -65,7 +66,9 @@ public class GameManager : MonoBehaviour
     {
         loadGameData();
         PlayerTracker.LoadPlayerData();
-        MultiSceneLoader.loadCollection(TitleScreen, collectionLoadMode.Difference);
+
+        if(SceneManager.sceneCount == 1)
+            MultiSceneLoader.loadCollection(TitleScreen, collectionLoadMode.Difference);
     }
 
     private void UpdateSceneEffects(bool _updateFromDamage = false)
