@@ -11,6 +11,7 @@ using HH.MultiSceneTools;
 public class CameraMovement : MonoBehaviour
 {
 
+    public CameraView cameraViewContainer;
     [SerializeField] CamPos[] _CamPossies;
     [SerializeField] CamPos TemporaryPosition;
     public static CameraMovement instance;
@@ -24,6 +25,7 @@ public class CameraMovement : MonoBehaviour
     float lerptime;
     bool isAtLocation;
     public bool lockInputs;
+
 
     void Awake()
     {
@@ -64,8 +66,12 @@ public class CameraMovement : MonoBehaviour
             goLeft = Input.GetKeyDown(KeyCode.A);
         }
         
-        if (goDown)
+        if (goDown && cameraViewContainer != CameraView.Reset)
+            SetCameraView(CameraView.Reset);
+        else if(goDown)
+        {
             SetCameraView(CameraView.Down);
+        }
 
         if (goLeft)
             SetCameraView(CameraView.Left);
@@ -73,8 +79,14 @@ public class CameraMovement : MonoBehaviour
         if (goRight)
             SetCameraView(CameraView.Right);
 
-        if (goUp)
+        if (goUp && cameraViewContainer != CameraView.Reset)
             SetCameraView(CameraView.Reset);
+
+        else if(goUp)
+        {
+            SetCameraView(CameraView.Up);
+            
+        }
 
         if(endPosition.transform.position != transform.position)
         {
@@ -96,6 +108,7 @@ public class CameraMovement : MonoBehaviour
     {
         SetStartPosition();
         lerptime = 0;
+        cameraViewContainer = view;
 
         for (int i = 0; i < _CamPossies.Length; i++)
         {
