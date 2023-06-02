@@ -39,6 +39,9 @@ public class TyrActions : GodCardAction
 
             }
 
+            if(_reActivations > 0)
+                board.getLivingEnemies()[0].ReSelectTargets(board);
+
         }
         else
         {

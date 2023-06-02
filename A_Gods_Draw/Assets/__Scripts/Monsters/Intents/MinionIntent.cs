@@ -171,17 +171,11 @@ public class MinionIntent : Intent
         if(actionSelected != idleAction)
         {
 
+            strength = Random.Range(actionSelected.MinStrength, actionSelected.MaxStrength + 1) + Self.BuffStrength;
+
             if(actionSelected.ActionSettings.UseStrengthMod)
-            {
-
                 if(ConditionChecker.CheckConditions(actionSelected.ActionSettings.ActionConditions, actionSelected.ActionSettings.AllRequiredForMod, _board, this))
-                    strength = actionSelected.ActionSettings.ModifiedStrength + Self.BuffStrength;
-                else
-                    strength = Random.Range(actionSelected.MinStrength, actionSelected.MaxStrength + 1) + Self.BuffStrength;
-
-            }
-            else
-                strength = Random.Range(actionSelected.MinStrength, actionSelected.MaxStrength + 1) + Self.BuffStrength;
+                    strength += actionSelected.ActionSettings.ModifiedStrength;
 
             if(Self.Weakened)
                 strength = (int)Mathf.Clamp(strength / 2, 1, Mathf.Infinity);

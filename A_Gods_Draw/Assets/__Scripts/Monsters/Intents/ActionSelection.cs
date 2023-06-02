@@ -26,7 +26,7 @@ public class ActionSelection
     public ActionCondition[] StrengthModConditions;
     [Tooltip("If all conditions has to be met for the mod to be applied")]
     public bool AllRequiredForMod;
-    [Tooltip("If the condition above is met, the strenght will be set to this value")]
+    [Tooltip("If the condition above is met, this value will be added to strength")]
     public int ModifiedStrength;
     public bool UseWeigthMod;
     public ActionCondition[] WeigthModConditions;

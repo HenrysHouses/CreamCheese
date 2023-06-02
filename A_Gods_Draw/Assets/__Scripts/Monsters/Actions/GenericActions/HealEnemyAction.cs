@@ -18,6 +18,7 @@ public class HealEnemyAction : MonsterAction
     {
 
         MonsterTargets[0].ReceiveHealth(_strength);
+        Self.RemoveTargetEnemy(MonsterTargets[0]);
         if(ActionSettings.ActionVFX)
             GameObject.Instantiate(ActionSettings.ActionVFX, MonsterTargets[0].transform.position, Quaternion.identity);
 
@@ -65,6 +66,7 @@ public class HealEnemyAction : MonsterAction
         MonsterTargets.Add(_lowEnemy);
 
         _lowEnemy.TargetedByEnemy(Self, Color.green);
+        Self.AddTargetEnemy(_lowEnemy);
 
     }
     

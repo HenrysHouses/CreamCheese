@@ -7,8 +7,6 @@ using EnemyAIEnums;
 public class FenrirDoubleAttackAction : MonsterAction
 {
 
-    public int ChainsDestroyed;
-
     public FenrirDoubleAttackAction(int minimumStrength, int maximumStrength) : base(minimumStrength, maximumStrength)
     {
 
@@ -33,7 +31,7 @@ public class FenrirDoubleAttackAction : MonsterAction
             }
             ITargets.Clear();
 
-        } 
+        }
         BoardTarget[] _targets = _board.ActiveExtraEnemyTargets.ToArray();
 
         int _chance = Random.Range(0, 4);

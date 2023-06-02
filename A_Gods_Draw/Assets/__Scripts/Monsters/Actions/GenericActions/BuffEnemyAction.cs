@@ -21,6 +21,7 @@ public class BuffEnemyAction : MonsterAction
             return;
         
         MonsterTargets[0].Buff(_strength);
+        Self.RemoveTargetEnemy(MonsterTargets[0]);
         if(ActionSettings.ActionVFX)
             GameObject.Instantiate(ActionSettings.ActionVFX, MonsterTargets[0].transform.position, Quaternion.identity);
 

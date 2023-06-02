@@ -24,6 +24,7 @@ public class CleanseEnemyAction : MonsterAction
         {
 
             MonsterTargets[i].RemoveDebuffs();
+            Self.RemoveTargetEnemy(MonsterTargets[i]);
             if(ActionSettings.ActionVFX)
                 GameObject.Instantiate(ActionSettings.ActionVFX, MonsterTargets[i].transform.position, Quaternion.identity);
 
@@ -60,6 +61,7 @@ public class CleanseEnemyAction : MonsterAction
                 MonsterTargets.Add(_enemyToCheck);
 
                 _enemyToCheck.TargetedByEnemy(Self, Color.yellow);
+                Self.AddTargetEnemy(_enemyToCheck);
 
             }
 

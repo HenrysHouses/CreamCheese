@@ -21,6 +21,8 @@ public class Monster : BoardElement
         public Color color;
     }
     private List<TargetedByInfo> targetedByEnemies;
+    private List<Monster> targetedEnemies;
+    private List<IMonsterTarget> targets;
     public BoardStateController Board;
 
     //VFX
@@ -285,8 +287,10 @@ public class Monster : BoardElement
 
         for(int i = 0; i < targetedByEnemies.Count; i++)
             targetedByEnemies[i].targetedBy.ReSelectTargets(Board);
+
+        RemoveTargets();
         
-        animator.SetInteger("RandomDeath", Random.Range(0,3));
+        animator.SetInteger("RandomDeath", Random.Range(0,5));
         animator.SetTrigger("Dying");
         animator.Update(Time.deltaTime);
 
@@ -508,6 +512,7 @@ public class Monster : BoardElement
     {
 
         enemyIntent.CancelIntent();
+        RemoveTargets();
         UpdateIntentUI();
 
     }
@@ -553,6 +558,53 @@ public class Monster : BoardElement
         enemyIntent.LateDecideIntent(_board);
         UpdateIntentUI();
         BuffStrength = 0;
+
+    }
+
+    public void AddTargetEnemy(Monster _target)
+    {
+
+        targetedEnemies.Add(_target);
+
+    }
+
+    public void AddTargetEnemy(Monster[] _targets)
+    {
+
+        for(int i = 0; i < _targets.Length; i++)
+            targetedEnemies.Add(_targets[i]);
+
+    }
+
+    public void RemoveTargetEnemy(Monster _target)
+    {
+
+        targetedEnemies.Remove(_target);
+        _target.RemoveTargetedBy(this);
+
+    }
+
+    public void RemoveTargetEnemy(Monster[] _targets)
+    {
+
+        for(int i = 0; i < _targets.Length; i++)
+        {
+
+            targetedEnemies.Remove(_targets[i]);
+            _targets[i].RemoveTargetedBy(this);
+        
+        }
+
+    }
+
+    public void RemoveTargets()
+    {
+
+        for(int i = 0; i < targetedEnemies.Count; i++)
+            targetedEnemies[i].RemoveTargetedBy(this);
+
+        for(int i = 0; i < targets.Count; i++)
+            targets[i].UnTargeted(gameObject);
 
     }
 
@@ -650,6 +702,19 @@ public class Monster : BoardElement
         targetedByEnemies.Add(_info);
 
         setOutline(outlineSize, _color, 10000);
+
+    }
+
+    public void RemoveTargetedBy(Monster _enemy)
+    {
+
+        for(int i = 0; i < targetedByEnemies.Count; i++)
+        {
+
+            if(targetedByEnemies[i].targetedBy == _enemy)
+                targetedByEnemies.RemoveAt(i);
+
+        }
 
     }
 

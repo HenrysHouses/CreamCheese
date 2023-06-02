@@ -29,4 +29,35 @@ public class AttackGodAction : MonsterAction
 
         }        
     }
+
+    public override void SelectTargets(BoardStateController _board)
+    {
+        
+        if(ITargets.Count > 0)
+        {
+
+            foreach (IMonsterTarget _target in ITargets)
+            {
+
+                _target.UnTargeted();
+                
+            }
+            ITargets.Clear();
+
+        }
+
+        if(!_board.isGodPlayed)
+        {
+
+            Self.DecideIntent(_board);
+            Self.LateDecideIntent(_board);
+            return;
+
+        }
+
+        ITargets.Add(_board.playedGodCard);
+        _board.playedGodCard.Targeted();
+
+    }
+
 }
