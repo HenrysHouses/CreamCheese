@@ -97,6 +97,8 @@ public class Monster : BoardElement
         damageSources = new Dictionary<ActionCard_Behaviour, int>();
         targetedByCards = new List<ActionCard_Behaviour>();
         targetedByEnemies = new List<TargetedByInfo>();
+        targetedEnemies = new List<Monster>();
+        targets = new List<IMonsterTarget>();
         debuffDisplays = new Dictionary<Sprite, GameObject>();
 
     }
@@ -712,7 +714,12 @@ public class Monster : BoardElement
         {
 
             if(targetedByEnemies[i].targetedBy == _enemy)
+            {
+
+                outlineShouldTurnOff = true;
                 targetedByEnemies.RemoveAt(i);
+
+            }
 
         }
 

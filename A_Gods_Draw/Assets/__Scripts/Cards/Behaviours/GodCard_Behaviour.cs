@@ -13,6 +13,8 @@ public class GodCard_Behaviour : Card_Behaviour , IMonsterTarget
 {
     int health;
     int maxHealth;
+    private float outlineSize;
+    private Renderer[] renderers;
     public int Health => health;
     GodCardAction action;
     GodPlacement godPlacement;
@@ -37,6 +39,8 @@ public class GodCard_Behaviour : Card_Behaviour , IMonsterTarget
         GlowMat.SetColor("_MainColor", color.MainColor);
         GlowMat.SetColor("_SecondColor", color.SecondaryColor);
         targettedBy = new List<Monster>();
+        renderers = gameObject.GetComponentsInChildren<Renderer>();
+        outlineSize = 0.26f;
     }
 
 
@@ -274,11 +278,29 @@ public class GodCard_Behaviour : Card_Behaviour , IMonsterTarget
 
     public void Targeted(GameObject _sourceGO = null)
     {
+
+        foreach (Renderer _renderer in renderers)
+        {
+            if(_renderer.materials.Length > 1)
+            {
+                _renderer.materials[1].SetFloat("_Size", outlineSize);            
+                _renderer.materials[1].SetColor("_Color", Color.red);            
+            }
+        }
         
     }
 
     public void UnTargeted(GameObject _sourceGO = null)
     {
+
+        foreach (Renderer _renderer in renderers)
+        {
+            if(_renderer.materials.Length > 1)
+            {
+                _renderer.materials[1].SetFloat("_Size", 0);            
+                _renderer.materials[1].SetColor("_Color", Color.red);            
+            }
+        }
         
     }
 }

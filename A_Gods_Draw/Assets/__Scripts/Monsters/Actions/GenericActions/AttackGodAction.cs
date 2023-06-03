@@ -20,6 +20,7 @@ public class AttackGodAction : MonsterAction
         if (_board.playedGodCard != null)
         {
             _board.playedGodCard.DealDamage(_strength, _source as UnityEngine.Object);
+            _board.playedGodCard.UnTargeted(_source as UnityEngine.GameObject);
             Monster _enemy = _source as Monster;
             if(_enemy)
             {
