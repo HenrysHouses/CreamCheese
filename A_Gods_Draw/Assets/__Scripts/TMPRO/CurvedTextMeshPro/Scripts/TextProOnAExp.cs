@@ -37,7 +37,7 @@ namespace ntw.CurvedTextMeshPro
         /// </summary>
         [SerializeField]
         [Tooltip("The base of the exponential curve")]
-        private float m_expBase = 1.3f;
+        public float m_expBase = 1.17f;
 
         /// <summary>
         /// Previous value of <see cref="m_expBase"/>
@@ -79,5 +79,6 @@ namespace ntw.CurvedTextMeshPro
             //(I do some calculations using derivative of the exp function for the orientation)
             return Matrix4x4.TRS(new Vector3(newMideBaselinePos.x, newMideBaselinePos.y, 0), Quaternion.AngleAxis(Mathf.Atan(Mathf.Log(m_expBase) * y0) * Mathf.Rad2Deg, Vector3.forward), Vector3.one);
         }
+
     }
 }
