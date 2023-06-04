@@ -9,7 +9,7 @@ public class TurnOffBox : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        
+        toTurnOff.SetActive(false);
     }
 
     // Update is called once per frame
