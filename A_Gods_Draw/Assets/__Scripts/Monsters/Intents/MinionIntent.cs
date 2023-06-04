@@ -153,7 +153,8 @@ public class MinionIntent : Intent
             actionSelected = idleAction;
 
     }
-    public override void LateDecideIntent(BoardStateController _board)
+
+    public override void LateIntentUpdate(BoardStateController _board)
     {
 
         if(actionSelected.IsLocked)
@@ -210,4 +211,55 @@ public class MinionIntent : Intent
         actionSelected.SelectTargets(_board);
 
     }
+}
+
+namespace EnemyAIEnums
+{
+
+    public enum ActionConditions
+    {
+        None = 0,
+        LastAlive,
+        GodPlayed,
+        HasNotDefended,
+        HasNotAttacked,
+        HasNotActed,
+        PlayerHealthAt50,
+        NotSameAction,
+        ExtraTargetsOnBoard,
+        SelfHealthAtHalf,
+        SelfHealthAtQuarter,
+        HasNotBuffed,
+        AnyEnemyHealthHalf,
+        AnyEnemyHealthQuarter,
+        AnyEnemyDamaged,
+        AnyEnemyDebuffed,
+        IsBuffed
+    }
+
+    public enum IntentType
+    {
+        Attack,
+        Defend,
+        Buff,
+        Special,
+        Idling
+    }
+
+    public enum EnemyIntent
+    {
+        BuffEnemy = 0,
+        Defend = 1,
+        AttackGod = 2,
+        AttackPlayer = 3,
+        None = 5,
+        AttackExtraTarget = 4,
+        DoubleAttack = 6,
+        FenrirDoubleAttack = 7,
+        ReinforceSelf = 8,
+        HealEnemy = 9,
+        CleanseEnemy = 10,
+        BuffSelf = 11
+    }
+
 }

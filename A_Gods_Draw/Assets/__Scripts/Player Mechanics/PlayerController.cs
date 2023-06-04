@@ -101,6 +101,8 @@ public class PlayerController : BoardElement , IMonsterTarget
         
     }
 
+    public Transform GetTransform() => transform;
+
     // public override string setClassName()
     // {
     //     return GetType().Name;

@@ -303,4 +303,6 @@ public class GodCard_Behaviour : Card_Behaviour , IMonsterTarget
         }
         
     }
+
+    public Transform GetTransform() => transform;
 }

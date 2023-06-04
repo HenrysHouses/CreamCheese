@@ -21,6 +21,7 @@ public class AttackGodAction : MonsterAction
         {
             _board.playedGodCard.DealDamage(_strength, _source as UnityEngine.Object);
             _board.playedGodCard.UnTargeted(_source as UnityEngine.GameObject);
+            Self.RemoveMonsterTarget(_board.playedGodCard);
             Monster _enemy = _source as Monster;
             if(_enemy)
             {
@@ -51,13 +52,14 @@ public class AttackGodAction : MonsterAction
         {
 
             Self.DecideIntent(_board);
-            Self.LateDecideIntent(_board);
+            Self.LateIntentUpdate(_board);
             return;
 
         }
 
         ITargets.Add(_board.playedGodCard);
         _board.playedGodCard.Targeted();
+        Self.AddMonsterTarget(_board.playedGodCard);
 
     }
 

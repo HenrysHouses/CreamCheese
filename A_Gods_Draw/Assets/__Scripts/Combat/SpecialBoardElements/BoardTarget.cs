@@ -21,5 +21,6 @@ public abstract class BoardTarget : MonoBehaviour , IMonsterTarget
     public virtual void UnTargeted(GameObject _sourceGO){}
     protected abstract void DeActivate();
     public abstract void ReActivate();
+    public virtual Transform GetTransform() => transform;
 
 }

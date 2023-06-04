@@ -24,11 +24,13 @@ public class Monster : BoardElement
     private List<Monster> targetedEnemies;
     private List<IMonsterTarget> targets;
     public BoardStateController Board;
+    private Quaternion originRot;
 
     //VFX
     [Header("VFX")]
     public GameObject deathParticleVFX;
-    public GameObject slashParticleVFX;
+    [SerializeField, Tooltip("Should self asign to any object names (GFXParent)")]
+    private Transform gfxParent;
     [SerializeField] Renderer[] MonsterRenderers;
     public float outlineSize = 0.01f;
     private bool outlineShouldTurnOff;
@@ -78,6 +80,7 @@ public class Monster : BoardElement
     [Header("Animation")]
     public Animator animator;
 #if UNITY_EDITOR
+    [Header("Dev options")]
     public bool KillEnemy;
 #endif
 
@@ -109,6 +112,7 @@ public class Monster : BoardElement
         enemyIntent = new MinionIntent(ref EnemyActions, this);
         healthBarColor = healthBarFill.color;
         barrierBarColor = barrierBarFill.color;
+        originRot = gfxParent.rotation;
 
     }
 
@@ -515,6 +519,7 @@ public class Monster : BoardElement
 
         enemyIntent.CancelIntent();
         RemoveTargets();
+        ResetFacingDirection();
         UpdateIntentUI();
 
     }
@@ -553,13 +558,69 @@ public class Monster : BoardElement
 
     }
 
-    //Just in case a monster needs to know what other enemies will do to decide for itself
-    internal void LateDecideIntent(BoardStateController _board)
+    internal void LateIntentUpdate(BoardStateController _board)
     {
 
-        enemyIntent.LateDecideIntent(_board);
+        enemyIntent.LateIntentUpdate(_board);
         UpdateIntentUI();
         BuffStrength = 0;
+
+        FaceTargets();
+
+    }
+
+    private void ResetFacingDirection()
+    {
+
+        gfxParent.rotation = originRot;
+
+    }
+
+    private void FaceTargets()
+    {
+
+        Vector3 _avaragePos = new Vector3(0,0,0);
+
+        if(targetedEnemies.Count > 0)
+        {
+
+            int i = 0;
+
+            for(; i < targetedEnemies.Count; i++)
+            {
+
+                if(targetedEnemies[i] != this)
+                    _avaragePos += targetedEnemies[i].transform.position;
+
+            }
+
+            if(i > 0)
+                _avaragePos /= i;
+
+        }
+        else if(targets.Count > 0)
+        {
+
+            int i = 0;
+
+            for(; i < targets.Count; i++)
+                _avaragePos += targets[i].GetTransform().position;
+
+            _avaragePos /= i;
+
+        }
+
+        if(_avaragePos == Vector3.zero)
+        {
+
+            ResetFacingDirection();
+            return;
+
+        }
+
+        _avaragePos.y = gfxParent.position.y;
+
+        gfxParent.rotation = Quaternion.LookRotation(_avaragePos - gfxParent.position, Vector3.up);
 
     }
 
@@ -596,6 +657,20 @@ public class Monster : BoardElement
             _targets[i].RemoveTargetedBy(this);
         
         }
+
+    }
+
+    public void AddMonsterTarget(IMonsterTarget _target)
+    {
+
+        targets.Add(_target);
+
+    }
+
+    public void RemoveMonsterTarget(IMonsterTarget _target)
+    {
+
+        targets.Remove(_target);
 
     }
 
