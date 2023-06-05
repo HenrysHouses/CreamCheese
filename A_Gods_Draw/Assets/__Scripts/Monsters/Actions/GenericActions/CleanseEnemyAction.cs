@@ -17,14 +17,11 @@ public class CleanseEnemyAction : MonsterAction
     public override void PerformAction(BoardStateController _board, int _strength, object _source)
     {
 
-        for(int i = 0; i < MonsterTargets.Count; i++)
-        {
+        for(int i = 0; i < Self.GetIntent().GetStrength; i++)
+            MonsterTargets[0].GetComponent<DebuffBase>().RemoveDebuff();
 
-            MonsterTargets[i].GetComponent<DebuffBase>().RemoveDebuff();
-            if(ActionSettings.ActionVFX)
-                GameObject.Instantiate(ActionSettings.ActionVFX, MonsterTargets[i].transform.position, Quaternion.identity);
-
-        }
+        if(ActionSettings.ActionVFX)
+            GameObject.Instantiate(ActionSettings.ActionVFX, MonsterTargets[0].transform.position, Quaternion.identity);
 
         ResetTargets();
 
@@ -42,7 +39,6 @@ public class CleanseEnemyAction : MonsterAction
 
         ResetTargets();
 
-        int _strength = Self.GetIntent().GetStrength;
         Monster[] _enemies = _board.getLivingEnemies();
         List<Monster> _debuffedEnemies = new List<Monster>();
 

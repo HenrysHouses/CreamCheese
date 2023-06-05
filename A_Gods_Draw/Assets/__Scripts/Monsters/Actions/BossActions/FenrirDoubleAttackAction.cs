@@ -20,18 +20,8 @@ public class FenrirDoubleAttackAction : MonsterAction
     public override void SelectTargets(BoardStateController _board)
     {
 
-        if(ITargets.Count > 0)
-        {
+        ResetTargets();
 
-            foreach (IMonsterTarget _target in ITargets)
-            {
-
-                _target.UnTargeted();
-                
-            }
-            ITargets.Clear();
-
-        }
         BoardTarget[] _targets = _board.ActiveExtraEnemyTargets.ToArray();
 
         int _chance = Random.Range(0, 4);
@@ -82,7 +72,7 @@ public class FenrirDoubleAttackAction : MonsterAction
         foreach (IMonsterTarget _target in ITargets)
         {
 
-            _target.Targeted();
+            _target.Targeted(Self.gameObject);
             
         }
 
@@ -98,11 +88,10 @@ public class FenrirDoubleAttackAction : MonsterAction
                 continue;
             
             ITargets[i].DealDamage(_strength);
-            ITargets[i].UnTargeted(Self.gameObject);
 
         }
 
-        ITargets.Clear();
+        ResetTargets();
 
         Monster _enemy = _source as Monster;
         if(_enemy)

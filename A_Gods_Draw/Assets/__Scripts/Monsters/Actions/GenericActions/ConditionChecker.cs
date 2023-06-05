@@ -19,6 +19,10 @@ public static class ConditionChecker
         {
 
             ActionSelection _action = _actions[i];
+
+            if(_action.Weigth <= 0)
+                continue;
+
             bool _allNeeded = _action.AllRequired, _passed;
             for(int j = 0; j < _action.ActionConditions.Length; j++)
             {
