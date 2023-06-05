@@ -73,8 +73,9 @@ public static class ConditionChecker
             {
 
                 _checkVal += _actions[_possibleActions[i]].Weigth;
+                Debug.Log("Random num was: " + _rnd + "| and Check value was: " + _checkVal + "| added weigth was: " + _actions[_possibleActions[i]].Weigth + "for action: " + _actions[_possibleActions[i]].ActionType + "| Enemy: " + _intent.Self.gameObject.name);
 
-                if(_rnd <= _checkVal)
+                if(_rnd < _checkVal)
                     return _actions[_possibleActions[i]].Action;
 
             }
