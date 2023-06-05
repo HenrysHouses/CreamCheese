@@ -845,7 +845,7 @@ public class Monster : BoardElement
         {
 
             Animator.Update(Time.deltaTime);
-            animLenght = 5;
+            animLenght = Animator.GetCurrentAnimatorStateInfo(0).length;
 
         }
         else

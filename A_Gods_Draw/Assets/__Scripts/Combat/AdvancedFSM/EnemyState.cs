@@ -22,7 +22,7 @@ public class EnemyState : CombatFSMState
 
     public override void Reason(bool override_ = false)
     {
-        if (numOfEnemiesActed >= Controller.GetBoard().getLivingEnemies().Length)
+        if (numOfEnemiesActed >= Controller.GetBoard().getLivingEnemies().Length && !TurnController.shouldWaitForAnims)
         {
             Controller.PerformTransition(Transition.EnterEnd);
             numOfEnemiesActed = 0;
