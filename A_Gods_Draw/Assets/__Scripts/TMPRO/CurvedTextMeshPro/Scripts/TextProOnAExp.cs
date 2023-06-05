@@ -48,7 +48,7 @@ namespace ntw.CurvedTextMeshPro
         /// Method executed at every frame that checks if some parameters have been changed
         /// </summary>
         /// <returns></returns>
-        protected override bool ParametersHaveChanged()
+        public override bool ParametersHaveChanged()
         {
             //check if paramters have changed and update the old values for next frame iteration
             bool retVal = m_expBase != m_oldExpBase;
