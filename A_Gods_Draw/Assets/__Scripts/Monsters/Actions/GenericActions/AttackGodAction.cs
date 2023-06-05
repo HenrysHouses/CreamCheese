@@ -17,11 +17,14 @@ public class AttackGodAction : MonsterAction
 
     public override void PerformAction(BoardStateController _board, int _strength, object _source)
     {
+
         if (_board.playedGodCard != null)
         {
+
             _board.playedGodCard.DealDamage(_strength, _source as UnityEngine.Object);
-            _board.playedGodCard.UnTargeted(_source as UnityEngine.GameObject);
-            Self.RemoveMonsterTarget(_board.playedGodCard);
+
+            ResetTargets();
+
             Monster _enemy = _source as Monster;
             if(_enemy)
             {
@@ -30,10 +33,13 @@ public class AttackGodAction : MonsterAction
             }
 
         }        
+
     }
 
     public override void SelectTargets(BoardStateController _board)
     {
+
+        ResetTargets();
         
         if(ITargets.Count > 0)
         {
@@ -48,16 +54,8 @@ public class AttackGodAction : MonsterAction
 
         }
 
-        if(!_board.isGodPlayed)
-        {
-
-            Self.DecideIntent(_board);
-            Self.LateIntentUpdate(_board);
-            return;
-
-        }
-
         ITargets.Add(_board.playedGodCard);
+
         _board.playedGodCard.Targeted();
         Self.AddMonsterTarget(_board.playedGodCard);
 

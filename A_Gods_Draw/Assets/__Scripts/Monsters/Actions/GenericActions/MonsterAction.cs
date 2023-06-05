@@ -46,5 +46,15 @@ public abstract class MonsterAction : Action
 
     public virtual void PerformAction(BoardStateController _board, int _strength, object _source)
     {}
+    public virtual void ResetTargets()
+    {
+
+        Self.RemoveMonsterTarget(ITargets.ToArray());
+        ITargets.Clear();
+
+        Self.RemoveTargetEnemy(MonsterTargets.ToArray());
+        MonsterTargets.Clear();
+
+    }
 
 }

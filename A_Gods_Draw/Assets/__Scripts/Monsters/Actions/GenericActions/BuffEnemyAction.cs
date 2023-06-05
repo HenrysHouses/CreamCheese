@@ -21,9 +21,10 @@ public class BuffEnemyAction : MonsterAction
             return;
         
         MonsterTargets[0].Buff(_strength);
-        Self.RemoveTargetEnemy(MonsterTargets[0]);
         if(ActionSettings.ActionVFX)
             GameObject.Instantiate(ActionSettings.ActionVFX, MonsterTargets[0].transform.position, Quaternion.identity);
+
+        ResetTargets();
 
         Monster _enemy = _source as Monster;
         if(_enemy)
@@ -37,7 +38,7 @@ public class BuffEnemyAction : MonsterAction
     public override void SelectTargets(BoardStateController _board)
     {
 
-        MonsterTargets.Clear();
+        ResetTargets();
         
         List<Monster> _targets = _board.getLivingEnemies().ToList();
         _targets.Remove(Self);
@@ -48,6 +49,7 @@ public class BuffEnemyAction : MonsterAction
         MonsterTargets.Add(_targets[Random.Range(0, _targets.Count)]);
 
         MonsterTargets[0].TargetedByEnemy(Self, Color.red + Color.blue);
+        Self.AddTargetEnemy(MonsterTargets[0]);
 
     }
 

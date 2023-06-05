@@ -17,18 +17,16 @@ public class CleanseEnemyAction : MonsterAction
     public override void PerformAction(BoardStateController _board, int _strength, object _source)
     {
 
-        if(MonsterTargets.Count == 0)
-            return;
-
         for(int i = 0; i < MonsterTargets.Count; i++)
         {
 
-            MonsterTargets[i].RemoveDebuffs();
-            Self.RemoveTargetEnemy(MonsterTargets[i]);
+            MonsterTargets[i].GetComponent<DebuffBase>().RemoveDebuff();
             if(ActionSettings.ActionVFX)
                 GameObject.Instantiate(ActionSettings.ActionVFX, MonsterTargets[i].transform.position, Quaternion.identity);
 
         }
+
+        ResetTargets();
 
         Monster _enemy = _source as Monster;
         if(_enemy)
@@ -42,30 +40,20 @@ public class CleanseEnemyAction : MonsterAction
     public override void SelectTargets(BoardStateController _board)
     {
 
-        MonsterTargets.Clear();
+        ResetTargets();
 
         int _strength = Self.GetIntent().GetStrength;
         Monster[] _enemies = _board.getLivingEnemies();
+        List<Monster> _debuffedEnemies = new List<Monster>();
 
-        int _cleansed = 0;
         foreach(Monster _enemyToCheck in _enemies)
-        {
-
-            if(_cleansed == _strength)
-                break;
-
             if(_enemyToCheck.HasDebuffNextRound())
-            {
+                _debuffedEnemies.Add(_enemyToCheck);
 
-                _cleansed++;
-                MonsterTargets.Add(_enemyToCheck);
-
-                _enemyToCheck.TargetedByEnemy(Self, Color.yellow);
-                Self.AddTargetEnemy(_enemyToCheck);
-
-            }
-
-        }
+        MonsterTargets.Add(_debuffedEnemies[Random.Range(0, _debuffedEnemies.Count)]);
+        
+        MonsterTargets[0].TargetedByEnemy(Self, Color.yellow);
+        Self.AddTargetEnemy(MonsterTargets[0]);
 
     }
     

@@ -294,7 +294,7 @@ public class Monster : BoardElement
         for(int i = 0; i < targetedByEnemies.Count; i++)
             targetedByEnemies[i].targetedBy.ReSelectTargets(Board);
 
-        RemoveTargets();
+        RemoveAllTargets();
         
         animator.SetInteger("RandomDeath", Random.Range(0,5));
         animator.SetTrigger("Dying");
@@ -518,9 +518,13 @@ public class Monster : BoardElement
     {
 
         enemyIntent.CancelIntent();
-        RemoveTargets();
+        RemoveAllTargets();
+        defendFor = 0;
+        animator.SetBool("isBlocking", false);
+        animator.SetTrigger("Blocking");
         ResetFacingDirection();
         UpdateIntentUI();
+        UpdateDefenceUI();
 
     }
 
@@ -671,17 +675,29 @@ public class Monster : BoardElement
     {
 
         targets.Remove(_target);
+        _target.UnTargeted(gameObject);
 
     }
 
-    public void RemoveTargets()
+    public void RemoveMonsterTarget(IMonsterTarget[] _targets)
     {
 
-        for(int i = 0; i < targetedEnemies.Count; i++)
-            targetedEnemies[i].RemoveTargetedBy(this);
+        for(int i = 0; i < _targets.Length; i++)
+        {
 
-        for(int i = 0; i < targets.Count; i++)
-            targets[i].UnTargeted(gameObject);
+            targets.Remove(_targets[i]);
+            _targets[i].UnTargeted(gameObject);
+        
+        }
+        
+    }
+
+    public void RemoveAllTargets()
+    {
+
+        RemoveTargetEnemy(targetedEnemies.ToArray());
+
+        RemoveMonsterTarget(targets.ToArray());
 
     }
 

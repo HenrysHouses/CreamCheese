@@ -18,9 +18,10 @@ public class HealEnemyAction : MonsterAction
     {
 
         MonsterTargets[0].ReceiveHealth(_strength);
-        Self.RemoveTargetEnemy(MonsterTargets[0]);
         if(ActionSettings.ActionVFX)
             GameObject.Instantiate(ActionSettings.ActionVFX, MonsterTargets[0].transform.position, Quaternion.identity);
+            
+        ResetTargets();
 
         Monster _enemy = _source as Monster;
         if(_enemy)
@@ -34,7 +35,7 @@ public class HealEnemyAction : MonsterAction
     public override void SelectTargets(BoardStateController _board)
     {
 
-        MonsterTargets.Clear();
+        ResetTargets();
 
         Monster[] _enemies = _board.getLivingEnemies();
 
