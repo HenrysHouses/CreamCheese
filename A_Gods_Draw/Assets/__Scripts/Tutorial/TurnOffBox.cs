@@ -15,11 +15,11 @@ public class TurnOffBox : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if (MultiSceneToolsConfig.instance.currentLoadedCollection.Title == "CameraTutorial")
+        if (MultiSceneLoader.currentlyLoaded.Title == "CameraTutorial")
         {
             toTurnOff.SetActive(true);
         }
-        else  if (MultiSceneToolsConfig.instance.currentLoadedCollection.Title == "CombatTutorial")
+        else  if (MultiSceneLoader.currentlyLoaded.Title == "CombatTutorial")
         {
             toTurnOff.SetActive(true);
         }

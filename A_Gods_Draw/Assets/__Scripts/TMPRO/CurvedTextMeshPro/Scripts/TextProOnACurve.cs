@@ -142,7 +142,7 @@ namespace ntw.CurvedTextMeshPro
         /// Method executed at every frame that checks if some parameters have been changed
         /// </summary>
         /// <returns></returns>
-        protected abstract bool ParametersHaveChanged();
+        public abstract bool ParametersHaveChanged();
 
         /// <summary>
         /// Computes the transformation matrix that maps the offsets of the vertices of each single character from
