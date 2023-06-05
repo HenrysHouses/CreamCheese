@@ -175,7 +175,7 @@ public class MinionIntent : Intent
             strength = Random.Range(actionSelected.MinStrength, actionSelected.MaxStrength + 1) + Self.BuffStrength;
 
             if(actionSelected.ActionSettings.UseStrengthMod)
-                if(ConditionChecker.CheckConditions(actionSelected.ActionSettings.ActionConditions, actionSelected.ActionSettings.AllRequiredForMod, _board, this))
+                if(ConditionChecker.CheckConditions(actionSelected.ActionSettings.StrengthModConditions, actionSelected.ActionSettings.AllRequiredForMod, _board, this))
                     strength += actionSelected.ActionSettings.ModifiedStrength;
 
             if(Self.Weakened)
@@ -234,7 +234,10 @@ namespace EnemyAIEnums
         AnyEnemyHealthQuarter,
         AnyEnemyDamaged,
         AnyEnemyDebuffed,
-        IsBuffed
+        IsBuffed,
+        FenrirBeaten1,
+        FenrirBeaten2,
+        FenrirBeaten3
     }
 
     public enum IntentType

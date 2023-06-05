@@ -43,6 +43,7 @@ public static class ConditionChecker
                     continue;
 
                 AddAction(ref _possibleActions, i);
+                //Debug.Log("Action passed: " + _actions[i].ActionType); Left for debbuging purposes
 
                 if(_action.Priority > _highestPrio)
                     _highestPrio = _action.Priority;
@@ -63,6 +64,7 @@ public static class ConditionChecker
             for(int i = 0; i < _possibleActions.Count; i++)
             {
 
+                //Debug.Log("Added weigth for action: " + _actions[_possibleActions[i]].ActionType);
                 _maxRange += _actions[_possibleActions[i]].Weigth;
 
             }
@@ -73,7 +75,8 @@ public static class ConditionChecker
             {
 
                 _checkVal += _actions[_possibleActions[i]].Weigth;
-                Debug.Log("Random num was: " + _rnd + "| and Check value was: " + _checkVal + "| added weigth was: " + _actions[_possibleActions[i]].Weigth + "for action: " + _actions[_possibleActions[i]].ActionType + "| Enemy: " + _intent.Self.gameObject.name);
+                /*Debug.Log("Random num was: " + _rnd + "| and Check value was: " + _checkVal + "| added weigth was: " + _actions[_possibleActions[i]].Weigth + 
+                " for action: " + _actions[_possibleActions[i]].ActionType + " i = " + _possibleActions[i] + "| Enemy: " + _intent.Self.gameObject.name); Left for debugging purposes*/ 
 
                 if(_rnd < _checkVal)
                     return _actions[_possibleActions[i]].Action;
@@ -251,6 +254,27 @@ public static class ConditionChecker
 
             case ActionConditions.IsBuffed:
             if(_intent.Self.BuffStrength > 0)
+            {
+                _passed = true;
+            }
+            break;
+
+            case ActionConditions.FenrirBeaten1:
+            if(GameManager.timesDefeatedBoss >= 1)
+            {
+                _passed = true;
+            }
+            break;
+
+            case ActionConditions.FenrirBeaten2:
+            if(GameManager.timesDefeatedBoss >= 2)
+            {
+                _passed = true;
+            }
+            break;
+
+            case ActionConditions.FenrirBeaten3:
+            if(GameManager.timesDefeatedBoss >= 3)
             {
                 _passed = true;
             }
