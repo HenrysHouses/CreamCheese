@@ -79,6 +79,7 @@ public class Monster : BoardElement
     // Animation
     [Header("Animation")]
     public Animator Animator;
+    private float animLenght;
 #if UNITY_EDITOR
     [Header("Dev options")]
     public bool KillEnemy;
@@ -526,6 +527,7 @@ public class Monster : BoardElement
 
         enemyIntent.CancelIntent();
         RemoveAllTargets();
+        ResetFacingDirection();
 
         if(defendFor > 0)
         {
@@ -716,6 +718,7 @@ public class Monster : BoardElement
     {
 
         enemyIntent.ActionSelected.SelectTargets(_board);
+        FaceTargets();
 
     }
     
@@ -784,15 +787,15 @@ public class Monster : BoardElement
     public void Act(BoardStateController board)
     {
 
-        targetedByEnemies.Clear();
         setOutline(0, Color.white);
 
+        defendFor = 0;
+        UpdateDefenceUI();
+
         if(enemyIntent != null)
-        {
             enemyIntent.Act(board, this);
-            TurnController.shouldWaitForAnims = true;
-            StartCoroutine(WaitForAnims());
-        }
+
+        StartWaitForAnims();
 
     }
 
@@ -835,11 +838,30 @@ public class Monster : BoardElement
 
     }
 
-    IEnumerator WaitForAnims()
+    public void StartWaitForAnims()
     {
-        yield return new WaitForSeconds(1.2f);
 
+        if(enemyIntent.GetID() != EnemyIntent.None)
+        {
+
+            Animator.Update(Time.deltaTime);
+            animLenght = 5;
+
+        }
+        else
+            animLenght = 0.2f;
+
+        StartCoroutine(nameof(WaitForAnims));
+
+    }
+
+    private IEnumerator WaitForAnims()
+    {
+
+        TurnController.shouldWaitForAnims = true;
+        yield return new WaitForSeconds(animLenght);
         TurnController.shouldWaitForAnims = false;
+
     }
 
 }
