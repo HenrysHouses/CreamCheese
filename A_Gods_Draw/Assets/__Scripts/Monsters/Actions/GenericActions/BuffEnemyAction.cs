@@ -29,7 +29,7 @@ public class BuffEnemyAction : MonsterAction
         Monster _enemy = _source as Monster;
         if(_enemy)
         {
-            _enemy.animator.SetTrigger("Buffing");
+            _enemy.Animator.SetTrigger("Buffing");
             _enemy.PlaySound(ActionSFX);
         }
 
@@ -44,7 +44,12 @@ public class BuffEnemyAction : MonsterAction
         _targets.Remove(Self);
 
         if(_targets.Count <= 0)
+        {
+
+            Self.CancelIntent();
             return;
+
+        }
 
         MonsterTargets.Add(_targets[Random.Range(0, _targets.Count)]);
 

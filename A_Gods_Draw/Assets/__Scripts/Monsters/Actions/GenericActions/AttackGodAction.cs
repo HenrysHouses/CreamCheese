@@ -28,7 +28,7 @@ public class AttackGodAction : MonsterAction
             Monster _enemy = _source as Monster;
             if(_enemy)
             {
-                _enemy.animator.SetTrigger("Attack");
+                _enemy.Animator.SetTrigger("Attack");
                 _enemy.PlaySound(ActionSFX);
             }
 

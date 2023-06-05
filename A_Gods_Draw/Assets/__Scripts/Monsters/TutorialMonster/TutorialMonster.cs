@@ -28,14 +28,14 @@ public class TutorialMonster : Monster
             defendFor = queuedDefence;
             queuedDefence = 0;
             Defending = false;
-            animator.SetBool("isBlocking", true);
+            Animator.SetBool("isBlocking", true);
 
         }
         else
         {
 
             defendFor = 0;
-            animator.SetBool("isBlocking", false);
+            Animator.SetBool("isBlocking", false);
 
         }
 

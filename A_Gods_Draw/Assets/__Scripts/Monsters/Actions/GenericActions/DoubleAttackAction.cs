@@ -20,7 +20,8 @@ public class DoubleAttackAction : MonsterAction
     public override void SelectTargets(BoardStateController _board)
     {
         
-        ITargets.Clear();
+        ResetTargets();
+
         if(_board.isGodPlayed)
         {
 
@@ -63,12 +64,12 @@ public class DoubleAttackAction : MonsterAction
 
         }
 
-        ITargets.Clear();
+        ResetTargets();
 
         Monster _enemy = _source as Monster;
         if(_enemy)
         {
-            _enemy.animator.SetTrigger("Attack");
+            _enemy.Animator.SetTrigger("Attack");
             _enemy.PlaySound(ActionSFX);
         }
 

@@ -28,7 +28,7 @@ public class CleanseEnemyAction : MonsterAction
         Monster _enemy = _source as Monster;
         if(_enemy)
         {
-            _enemy.animator.SetTrigger("Buffing");
+            _enemy.Animator.SetTrigger("Buffing");
             _enemy.PlaySound(ActionSFX);
         }
 
@@ -45,6 +45,14 @@ public class CleanseEnemyAction : MonsterAction
         foreach(Monster _enemyToCheck in _enemies)
             if(_enemyToCheck.HasDebuffNextRound())
                 _debuffedEnemies.Add(_enemyToCheck);
+
+        if(_debuffedEnemies.Count == 0)
+        {
+
+            Self.CancelIntent();
+            return;
+
+        }
 
         MonsterTargets.Add(_debuffedEnemies[Random.Range(0, _debuffedEnemies.Count)]);
         

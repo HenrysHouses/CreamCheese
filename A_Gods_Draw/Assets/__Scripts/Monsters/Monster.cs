@@ -78,7 +78,7 @@ public class Monster : BoardElement
 
     // Animation
     [Header("Animation")]
-    public Animator animator;
+    public Animator Animator;
 #if UNITY_EDITOR
     [Header("Dev options")]
     public bool KillEnemy;
@@ -205,8 +205,15 @@ public class Monster : BoardElement
 
     public void Defend(int _amount)
     {
+
         queuedDefence += _amount;
         Defending = true;
+        Animator.SetBool("isBlocking", true);
+        Animator.SetTrigger("Blocking");
+        defendFor = queuedDefence;
+        UpdateDefenceUI();
+        defendFor = 0;
+
     }
 
     public int TakeDamage(int _amount, bool _bypassDefence = false)
@@ -229,7 +236,7 @@ public class Monster : BoardElement
         else
         {
             
-            animator.SetTrigger("TakingDMGDefended");
+            Animator.SetTrigger("TakingDMGDefended");
             SoundPlayer.PlaySound(block_SFX, gameObject);
             defendFor -= _amount;
 
@@ -273,7 +280,7 @@ public class Monster : BoardElement
         if (currentHealth <= 0)
             StartCoroutine(nameof(Die));
         else if(_damageTaken > 0)
-            animator.SetTrigger("TakingDMG");
+            Animator.SetTrigger("TakingDMG");
 
         UpdateHealthUI();
         UpdateDefenceUI();
@@ -288,19 +295,19 @@ public class Monster : BoardElement
         ZeroBars();
         currentHealth = 0;
 
+        RemoveAllTargets();
+
         for(int i = 0; i < targetedByCards.Count; i++)
             targetedByCards[i].EnemyDied(this);
 
         for(int i = 0; i < targetedByEnemies.Count; i++)
             targetedByEnemies[i].targetedBy.ReSelectTargets(Board);
-
-        RemoveAllTargets();
         
-        animator.SetInteger("RandomDeath", Random.Range(0,5));
-        animator.SetTrigger("Dying");
-        animator.Update(Time.deltaTime);
+        Animator.SetInteger("RandomDeath", Random.Range(0,5));
+        Animator.SetTrigger("Dying");
+        Animator.Update(Time.deltaTime);
 
-        yield return new WaitForSeconds(animator.GetCurrentAnimatorStateInfo(0).length);
+        yield return new WaitForSeconds(Animator.GetCurrentAnimatorStateInfo(0).length);
 
         SoundPlayer.PlaySound(death_SFX,gameObject);
         if (deathParticleVFX != null)
@@ -519,10 +526,15 @@ public class Monster : BoardElement
 
         enemyIntent.CancelIntent();
         RemoveAllTargets();
-        defendFor = 0;
-        animator.SetBool("isBlocking", false);
-        animator.SetTrigger("Blocking");
-        ResetFacingDirection();
+
+        if(defendFor > 0)
+        {
+
+            defendFor = 0;
+            Animator.SetBool("isBlocking", false);
+
+        }
+        
         UpdateIntentUI();
         UpdateDefenceUI();
 
@@ -537,15 +549,14 @@ public class Monster : BoardElement
             defendFor = queuedDefence;
             queuedDefence = 0;
             Defending = false;
-            animator.SetBool("isBlocking", true);
-            animator.SetTrigger("Blocking");
+            Animator.SetBool("isBlocking", true);
 
         }
         else
         {
 
             defendFor = 0;
-            animator.SetBool("isBlocking", false);
+            Animator.SetBool("isBlocking", false);
 
         }
 
