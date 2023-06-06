@@ -219,6 +219,8 @@ MonoBehaviour:
       InvertCondition: 1
     - Condition: 14
       InvertCondition: 0
+    - Condition: 17
+      InvertCondition: 1
     AllRequired: 1
     MinStrength: 6
     MaxStrength: 12
@@ -238,34 +240,6 @@ MonoBehaviour:
     Priority: 0
     TurnsToPerform: 0
     ActionVFX: {fileID: 2783697208436553965, guid: 93fb6a762d5aa0d4aa54c77a218fff78, type: 3}
-    ActionSFX:
-      Guid:
-        Data1: 544756346
-        Data2: 1258098380
-        Data3: 857095067
-        Data4: 1698563813
-      Path: event:/Combat/Enemy/Enemy Ability New
-  - ActionType: 1
-    ActionConditions:
-    - Condition: 0
-      InvertCondition: 0
-    AllRequired: 0
-    MinStrength: 1
-    MaxStrength: 4
-    UseStrengthMod: 0
-    StrengthModConditions: []
-    AllRequiredForMod: 0
-    ModifiedStrength: 0
-    UseWeigthMod: 0
-    WeigthModConditions: []
-    AllRequiredForWeigthMod: 0
-    ClearOnConditionFalse: 0
-    WeigthMod: 0
-    AddedWeigth: 0
-    Weigth: 1
-    Priority: 0
-    TurnsToPerform: 0
-    ActionVFX: {fileID: 0}
     ActionSFX:
       Guid:
         Data1: 544756346
@@ -293,7 +267,97 @@ MonoBehaviour:
     Weigth: 2
     Priority: 0
     TurnsToPerform: 0
-    ActionVFX: {fileID: 3717083252991183605, guid: 8378739080a8854468aad5a04f9a5f69, type: 3}
+    ActionVFX: {fileID: 0}
+    ActionSFX:
+      Guid:
+        Data1: 544756346
+        Data2: 1258098380
+        Data3: 857095067
+        Data4: 1698563813
+      Path: event:/Combat/Enemy/Enemy Ability New
+  - ActionType: 14
+    ActionConditions:
+    - Condition: 14
+      InvertCondition: 0
+    - Condition: 17
+      InvertCondition: 0
+    AllRequired: 1
+    MinStrength: 3
+    MaxStrength: 8
+    UseStrengthMod: 0
+    StrengthModConditions: []
+    AllRequiredForMod: 0
+    ModifiedStrength: 0
+    UseWeigthMod: 0
+    WeigthModConditions: []
+    AllRequiredForWeigthMod: 0
+    ClearOnConditionFalse: 0
+    WeigthMod: 0
+    AddedWeigth: 0
+    Weigth: 2
+    Priority: 0
+    TurnsToPerform: 0
+    ActionVFX: {fileID: 2783697208436553965, guid: 93fb6a762d5aa0d4aa54c77a218fff78, type: 3}
+    ActionSFX:
+      Guid:
+        Data1: 544756346
+        Data2: 1258098380
+        Data3: 857095067
+        Data4: 1698563813
+      Path: event:/Combat/Enemy/Enemy Ability New
+  - ActionType: 16
+    ActionConditions:
+    - Condition: 15
+      InvertCondition: 0
+    - Condition: 17
+      InvertCondition: 0
+    AllRequired: 1
+    MinStrength: 3
+    MaxStrength: 8
+    UseStrengthMod: 0
+    StrengthModConditions: []
+    AllRequiredForMod: 0
+    ModifiedStrength: 0
+    UseWeigthMod: 0
+    WeigthModConditions: []
+    AllRequiredForWeigthMod: 0
+    ClearOnConditionFalse: 0
+    WeigthMod: 0
+    AddedWeigth: 0
+    Weigth: 1
+    Priority: 0
+    TurnsToPerform: 0
+    ActionVFX: {fileID: 2783697208436553965, guid: 74f298fff0dd2a34997ed0a0a43a523f, type: 3}
+    ActionSFX:
+      Guid:
+        Data1: -1066434047
+        Data2: 1172917976
+        Data3: -226219585
+        Data4: -754466224
+      Path: event:/GlyphsVFXs/HealingEnemy
+  - ActionType: 17
+    ActionConditions:
+    - Condition: 12
+      InvertCondition: 0
+    - Condition: 17
+      InvertCondition: 0
+    AllRequired: 1
+    MinStrength: 3
+    MaxStrength: 8
+    UseStrengthMod: 0
+    StrengthModConditions: []
+    AllRequiredForMod: 0
+    ModifiedStrength: 0
+    UseWeigthMod: 0
+    WeigthModConditions: []
+    AllRequiredForWeigthMod: 0
+    ClearOnConditionFalse: 0
+    WeigthMod: 0
+    AddedWeigth: 0
+    Weigth: 1
+    Priority: 0
+    TurnsToPerform: 0
+    ActionVFX: {fileID: 2783697208436553965, guid: 62f49592ec6cefc4dbd9de0a2c00c432, type: 3}
     ActionSFX:
       Guid:
         Data1: 544756346

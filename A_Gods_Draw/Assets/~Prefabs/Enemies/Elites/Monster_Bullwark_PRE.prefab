@@ -219,6 +219,8 @@ MonoBehaviour:
       InvertCondition: 1
     - Condition: 9
       InvertCondition: 1
+    - Condition: 17
+      InvertCondition: 1
     AllRequired: 1
     MinStrength: 6
     MaxStrength: 10
@@ -238,15 +240,17 @@ MonoBehaviour:
     ActionVFX: {fileID: 0}
     ActionSFX:
       Guid:
-        Data1: 0
-        Data2: 0
-        Data3: 0
-        Data4: 0
-      Path: 
+        Data1: -2009519262
+        Data2: 1250953349
+        Data3: 705129880
+        Data4: -1982789950
+      Path: event:/Combat/Enemy/EnemyShielding
   - ActionType: 8
     ActionConditions:
-    - Condition: 1
+    - Condition: 9
       InvertCondition: 0
+    - Condition: 17
+      InvertCondition: 1
     AllRequired: 1
     MinStrength: 1
     MaxStrength: 1
@@ -268,18 +272,18 @@ MonoBehaviour:
     ActionVFX: {fileID: 0}
     ActionSFX:
       Guid:
-        Data1: 0
-        Data2: 0
-        Data3: 0
-        Data4: 0
-      Path: 
+        Data1: -2009519262
+        Data2: 1250953349
+        Data3: 705129880
+        Data4: -1982789950
+      Path: event:/Combat/Enemy/EnemyShielding
   - ActionType: 3
     ActionConditions:
-    - Condition: 1
-      InvertCondition: 0
+    - Condition: 17
+      InvertCondition: 1
     AllRequired: 1
-    MinStrength: 4
-    MaxStrength: 6
+    MinStrength: 6
+    MaxStrength: 8
     UseStrengthMod: 1
     StrengthModConditions:
     - Condition: 10
@@ -299,7 +303,41 @@ MonoBehaviour:
     Weigth: 1
     Priority: 0
     TurnsToPerform: 0
-    ActionVFX: {fileID: 3273590495200156951, guid: f2908f3673965cb4390dc705aca60e85, type: 3}
+    ActionVFX: {fileID: 0}
+    ActionSFX:
+      Guid:
+        Data1: 1118862281
+        Data2: 1238309055
+        Data3: 1298832056
+        Data4: -1814946090
+      Path: event:/Combat/Enemy/Enemy Attack
+  - ActionType: 3
+    ActionConditions:
+    - Condition: 17
+      InvertCondition: 1
+    AllRequired: 1
+    MinStrength: 8
+    MaxStrength: 10
+    UseStrengthMod: 1
+    StrengthModConditions:
+    - Condition: 10
+      InvertCondition: 0
+    AllRequiredForMod: 0
+    ModifiedStrength: 12
+    UseWeigthMod: 0
+    WeigthModConditions:
+    - Condition: 1
+      InvertCondition: 0
+    - Condition: 7
+      InvertCondition: 1
+    AllRequiredForWeigthMod: 1
+    ClearOnConditionFalse: 0
+    WeigthMod: -100
+    AddedWeigth: 0
+    Weigth: 1
+    Priority: 0
+    TurnsToPerform: 0
+    ActionVFX: {fileID: 0}
     ActionSFX:
       Guid:
         Data1: 1118862281
@@ -1224,7 +1262,7 @@ PrefabInstance:
     - target: {fileID: -2165757241471867308, guid: bb20cc6fb6503ab42a5f2aafd1b4ab58, type: 3}
       propertyPath: m_Materials.Array.data[0]
       value: 
-      objectReference: {fileID: 2100000, guid: e092e16b99689d94caead2d24c15584a, type: 2}
+      objectReference: {fileID: 2100000, guid: 7df506aeb1b928b4882e203cf5b5211c, type: 2}
     - target: {fileID: -2165757241471867308, guid: bb20cc6fb6503ab42a5f2aafd1b4ab58, type: 3}
       propertyPath: m_Materials.Array.data[1]
       value: 

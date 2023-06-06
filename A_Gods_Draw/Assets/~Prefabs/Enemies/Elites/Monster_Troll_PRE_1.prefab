@@ -247,8 +247,8 @@ MonoBehaviour:
   EnemyActions:
   - ActionType: 3
     ActionConditions:
-    - Condition: 0
-      InvertCondition: 0
+    - Condition: 17
+      InvertCondition: 1
     AllRequired: 0
     MinStrength: 8
     MaxStrength: 16
@@ -277,7 +277,9 @@ MonoBehaviour:
     ActionConditions:
     - Condition: 9
       InvertCondition: 0
-    AllRequired: 0
+    - Condition: 17
+      InvertCondition: 1
+    AllRequired: 1
     MinStrength: 6
     MaxStrength: 12
     UseStrengthMod: 0
@@ -286,6 +288,66 @@ MonoBehaviour:
     ModifiedStrength: 0
     UseWeigthMod: 0
     WeigthModConditions: []
+    AllRequiredForWeigthMod: 0
+    ClearOnConditionFalse: 0
+    WeigthMod: 0
+    AddedWeigth: 0
+    Weigth: 2
+    Priority: 0
+    TurnsToPerform: 0
+    ActionVFX: {fileID: 0}
+    ActionSFX:
+      Guid:
+        Data1: -2009519262
+        Data2: 1250953349
+        Data3: 705129880
+        Data4: -1982789950
+      Path: event:/Combat/Enemy/EnemyShielding
+  - ActionType: 8
+    ActionConditions:
+    - Condition: 9
+      InvertCondition: 0
+    - Condition: 17
+      InvertCondition: 0
+    AllRequired: 1
+    MinStrength: 6
+    MaxStrength: 12
+    UseStrengthMod: 0
+    StrengthModConditions: []
+    AllRequiredForMod: 0
+    ModifiedStrength: 0
+    UseWeigthMod: 0
+    WeigthModConditions: []
+    AllRequiredForWeigthMod: 0
+    ClearOnConditionFalse: 0
+    WeigthMod: 0
+    AddedWeigth: 0
+    Weigth: 2
+    Priority: 0
+    TurnsToPerform: 0
+    ActionVFX: {fileID: 0}
+    ActionSFX:
+      Guid:
+        Data1: -2009519262
+        Data2: 1250953349
+        Data3: 705129880
+        Data4: -1982789950
+      Path: event:/Combat/Enemy/EnemyShielding
+  - ActionType: 12
+    ActionConditions:
+    - Condition: 17
+      InvertCondition: 0
+    AllRequired: 0
+    MinStrength: 6
+    MaxStrength: 12
+    UseStrengthMod: 0
+    StrengthModConditions: []
+    AllRequiredForMod: 0
+    ModifiedStrength: 0
+    UseWeigthMod: 0
+    WeigthModConditions:
+    - Condition: 0
+      InvertCondition: 0
     AllRequiredForWeigthMod: 0
     ClearOnConditionFalse: 0
     WeigthMod: 0
