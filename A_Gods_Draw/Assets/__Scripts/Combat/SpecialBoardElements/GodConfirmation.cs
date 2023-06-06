@@ -16,7 +16,7 @@ public class GodConfirmation : BoardElement
     [SerializeField] bool pulse;
     bool wasPulsing;
     [SerializeField] float intensity = 0;
-    bool wasClicked;
+    public bool wasClicked {get; private set;}
     float _time;
     // Update is called once per frame
     void Update()
