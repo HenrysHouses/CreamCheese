@@ -5,6 +5,7 @@
 
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Events;
 using System.Linq;
 
 [CreateAssetMenu(menuName = "PlayerTracker")]
@@ -17,6 +18,7 @@ public class PlayerTracker : ScriptableObject
     public DeckList_SO CurrentDeck;
 
     // player's runes here
+    public UnityEvent<List<rune>, bool> OnPlayerGainRune;
     [field:SerializeField] public List<RuneData> _runeData {get; private set;} = new List<RuneData>();
 
     [HideInInspector] public List<rune> CurrentRunes = new List<rune>();
@@ -115,6 +117,7 @@ public class PlayerTracker : ScriptableObject
 
     public void addRune(rune rune)
     {
+        Debug.Log("added rune");
         foreach (var runesData in _runeData)
         {
             if(runesData.Name == rune.RuneData.Name)
@@ -126,6 +129,7 @@ public class PlayerTracker : ScriptableObject
         int lastIndex = CurrentRunes.Count-1;
         _runeData.Add(CurrentRunes[lastIndex].RuneData);
         SavePlayerData();
+        OnPlayerGainRune?.Invoke(CurrentRunes, false);
     }
 
     public void triggerRune(TurnController controller, CombatState trigger)

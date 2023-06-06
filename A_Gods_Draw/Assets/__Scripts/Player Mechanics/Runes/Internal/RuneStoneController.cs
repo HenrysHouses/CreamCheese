@@ -9,6 +9,7 @@ using UnityEngine;
 public class RuneStoneController : MonoBehaviour
 {
     [SerializeField] PlayerTracker playerState;
+    [SerializeField] Explosion_VFX GainRuneVFX;
     public List<RuneData> runes;
     public GameObject[] renderers;
 
@@ -17,11 +18,14 @@ public class RuneStoneController : MonoBehaviour
         renderers[0].GetComponent<UIPopup>().setDescription(new StrengthRune(1, RuneState.Active).RuneData.Description);
         renderers[1].GetComponent<UIPopup>().setDescription(new WealthRune(1, RuneState.Active).RuneData.Description);
         renderers[2].GetComponent<UIPopup>().setDescription(new ChaosRune(1, RuneState.Active).RuneData.Description);
+    
+        playerState.OnPlayerGainRune.AddListener(updateRunes);
     }
 
-    void Update()
+    void Start()
     {
-        updateRunes(playerState);
+        updateRunes(playerState.CurrentRunes, true);
+        GainRuneVFX.gameObject.SetActive(false);
     }
 
     private void getRunes(List<rune> Runes = null)
@@ -64,13 +68,16 @@ public class RuneStoneController : MonoBehaviour
         }
     }
 
-    void updateRunes(PlayerTracker player)
+    void updateRunes(List<rune> currentRunes, bool skipVFX)
     {
-        getRunes(player.CurrentRunes);
+        if(runes.Equals(currentRunes))
+            return;
+
+        getRunes(currentRunes);
 
         foreach (var rune in runes)
         {
-            foreach (var playRune in player.CurrentRunes)
+            foreach (var playRune in currentRunes)
             {
                 if(!rune.Name.Equals(playRune.RuneData.Name))
                     continue;
@@ -79,6 +86,8 @@ public class RuneStoneController : MonoBehaviour
                 {
                     case RuneState.Active:
                         renderers[rune.ID].SetActive(true);
+                        if(!skipVFX)
+                            playVFX(renderers[rune.ID].transform);
                         break;
                     case RuneState.Temporary:
                         // renderers[rune.ID].setColor(Color.red);
@@ -88,8 +97,17 @@ public class RuneStoneController : MonoBehaviour
                         break;
                 }
             }
-        }        
+        }
     }
+
+    void playVFX(Transform position)
+    {
+        Debug.Log("playing vfx");
+        GainRuneVFX.transform.localPosition = position.localPosition + Vector3.right * 0.2f;
+        StartCoroutine(GainRuneVFX.StartExplosion());
+    }
+
+    public bool shouldWaitForVFX() => GainRuneVFX.isPlaying;
 }
 
 // [System.Serializable]
