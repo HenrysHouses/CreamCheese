@@ -23,12 +23,13 @@ public static class ConditionChecker
             if(_action.Weigth <= 0)
                 continue;
 
-            bool _allNeeded = _action.AllRequired, _passed;
+            bool _allNeeded = _action.AllRequired, _passed = false;
             for(int j = 0; j < _action.ActionConditions.Length; j++)
             {
 
                 _passed = false;
                 
+                Debug.Log("Checking condition " + _action.ActionConditions[j].Condition + " is invert " + _action.ActionConditions[j].InvertCondition);
                 SwitchOnCondition(_action.ActionConditions[j].Condition, ref _passed, _board, _intent, _action.Action, _action.ActionConditions[j].InvertCondition);
 
                 if(!_passed && _allNeeded)
@@ -43,19 +44,25 @@ public static class ConditionChecker
                     continue;
 
                 AddAction(ref _possibleActions, i);
-                //Debug.Log("Action passed: " + _actions[i].ActionType); Left for debbuging purposes
-
-                if(_action.Priority > _highestPrio)
-                    _highestPrio = _action.Priority;
 
             }
 
-        }
+            if(!_passed)
+                continue;
+            Debug.Log("Action passed: " + _action.ActionType + " prio: " + _action.Priority);
+            if(_action.Priority > _highestPrio)
+                _highestPrio = _action.Priority;
 
+        }
+        Debug.Log("Posacts: " + _possibleActions.Count);
         if(_possibleActions.Count > 1)
             for(int i = 0; i < _possibleActions.Count; i++)
                 if(_actions[_possibleActions[i]].Priority < _highestPrio)
                     _possibleActions.RemoveAt(i);
+        Debug.Log("Posacts after: " + _possibleActions.Count);
+
+        for(int i= 0; i < _possibleActions.Count; i++)
+            Debug.Log("Possible actions within prio level: " + _actions[_possibleActions[i]].ActionType + " | prio: " + _actions[_possibleActions[i]].Priority);
         
         if(_possibleActions.Count > 1)
         {
@@ -64,7 +71,7 @@ public static class ConditionChecker
             for(int i = 0; i < _possibleActions.Count; i++)
             {
 
-                //Debug.Log("Added weigth for action: " + _actions[_possibleActions[i]].ActionType);
+                Debug.Log("Added weigth for action: " + _actions[_possibleActions[i]].ActionType);
                 _maxRange += _actions[_possibleActions[i]].Weigth;
 
             }
@@ -75,8 +82,8 @@ public static class ConditionChecker
             {
 
                 _checkVal += _actions[_possibleActions[i]].Weigth;
-                /*Debug.Log("Random num was: " + _rnd + "| and Check value was: " + _checkVal + "| added weigth was: " + _actions[_possibleActions[i]].Weigth + 
-                " for action: " + _actions[_possibleActions[i]].ActionType + " i = " + _possibleActions[i] + "| Enemy: " + _intent.Self.gameObject.name); Left for debugging purposes*/ 
+                Debug.Log("Random num was: " + _rnd + "| and Check value was: " + _checkVal + "| added weigth was: " + _actions[_possibleActions[i]].Weigth + "| PRIO: " +_actions[_possibleActions[i]].Priority +
+                " for action: " + _actions[_possibleActions[i]].ActionType + " i = " + _possibleActions[i] + "| Enemy: " + _intent.Self.gameObject.name);
 
                 if(_rnd < _checkVal)
                     return _actions[_possibleActions[i]].Action;
