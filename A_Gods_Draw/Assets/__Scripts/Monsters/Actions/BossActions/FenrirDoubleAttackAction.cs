@@ -11,7 +11,7 @@ public class FenrirDoubleAttackAction : MonsterAction
     {
 
         ActionID = (int)EnemyIntent.AttackPlayer;
-        actionIcon = Resources.Load<Sprite>("EnemyData/Icons/Icon_AttackingChain_IMG_v1");
+        actionIcon = Resources.Load<Sprite>("EnemyData/Icons/Icon_AttackingChain_IMG_v2");
         desc = "Fenrir will attack you or the chains at random twice,\nthe more chains he breaks the more he will attack you";
         ActionIntentType = IntentType.Attack;
 

@@ -247,8 +247,8 @@ MonoBehaviour:
   EnemyActions:
   - ActionType: 3
     ActionConditions:
-    - Condition: 0
-      InvertCondition: 0
+    - Condition: 17
+      InvertCondition: 1
     AllRequired: 0
     MinStrength: 2
     MaxStrength: 6
@@ -277,7 +277,9 @@ MonoBehaviour:
     ActionConditions:
     - Condition: 1
       InvertCondition: 1
-    AllRequired: 0
+    - Condition: 17
+      InvertCondition: 1
+    AllRequired: 1
     MinStrength: 6
     MaxStrength: 12
     UseStrengthMod: 0
