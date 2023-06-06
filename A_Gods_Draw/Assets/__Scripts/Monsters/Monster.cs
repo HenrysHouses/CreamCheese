@@ -310,7 +310,9 @@ public class Monster : BoardElement
         for(int i = 0; i < targetedByEnemies.Count; i++)
             targetedByEnemies[i].targetedBy.ReSelectTargets(Board);
         
-        Animator.SetInteger("RandomDeath", Random.Range(0,5));
+        Animator.SetInteger("RandomDeath", Random.Range(0,4));
+        if(Random.Range(0, 100) == 0)
+            Animator.speed = 0.05f;
         Animator.SetTrigger("Dying");
         Animator.Update(Time.deltaTime);
 
