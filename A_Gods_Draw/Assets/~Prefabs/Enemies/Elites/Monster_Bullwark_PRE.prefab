@@ -195,8 +195,8 @@ BoxCollider:
   m_IsTrigger: 0
   m_Enabled: 1
   serializedVersion: 2
-  m_Size: {x: 0.53396773, y: 0.9967827, z: 0.26534963}
-  m_Center: {x: 0.0056462125, y: 0.07, z: 0.03350556}
+  m_Size: {x: 0.53396773, y: 0.99678314, z: 0.15254752}
+  m_Center: {x: 0.005646225, y: 0.069999956, z: 0.08990673}
 --- !u!114 &2630011422123998013
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -300,25 +300,25 @@ MonoBehaviour:
     ClearOnConditionFalse: 0
     WeigthMod: -100
     AddedWeigth: 0
-    Weigth: 1
+    Weigth: 2
     Priority: 0
     TurnsToPerform: 0
     ActionVFX: {fileID: 0}
     ActionSFX:
       Guid:
-        Data1: 1118862281
-        Data2: 1238309055
-        Data3: 1298832056
-        Data4: -1814946090
-      Path: event:/Combat/Enemy/Enemy Attack
-  - ActionType: 3
+        Data1: -395794772
+        Data2: 1144077970
+        Data3: 1876799371
+        Data4: 423059306
+      Path: event:/Combat/Enemy/Enemy AttackTrue
+  - ActionType: 12
     ActionConditions:
-    - Condition: 17
-      InvertCondition: 1
+    - Condition: 0
+      InvertCondition: 0
     AllRequired: 1
-    MinStrength: 8
-    MaxStrength: 10
-    UseStrengthMod: 1
+    MinStrength: 4
+    MaxStrength: 6
+    UseStrengthMod: 0
     StrengthModConditions:
     - Condition: 10
       InvertCondition: 0
@@ -340,11 +340,81 @@ MonoBehaviour:
     ActionVFX: {fileID: 0}
     ActionSFX:
       Guid:
-        Data1: 1118862281
-        Data2: 1238309055
-        Data3: 1298832056
-        Data4: -1814946090
-      Path: event:/Combat/Enemy/Enemy Attack
+        Data1: -395794772
+        Data2: 1144077970
+        Data3: 1876799371
+        Data4: 423059306
+      Path: event:/Combat/Enemy/Enemy AttackTrue
+  - ActionType: 12
+    ActionConditions:
+    - Condition: 17
+      InvertCondition: 0
+    AllRequired: 1
+    MinStrength: 6
+    MaxStrength: 10
+    UseStrengthMod: 0
+    StrengthModConditions:
+    - Condition: 10
+      InvertCondition: 0
+    AllRequiredForMod: 0
+    ModifiedStrength: 12
+    UseWeigthMod: 0
+    WeigthModConditions:
+    - Condition: 1
+      InvertCondition: 0
+    - Condition: 7
+      InvertCondition: 1
+    AllRequiredForWeigthMod: 1
+    ClearOnConditionFalse: 0
+    WeigthMod: -100
+    AddedWeigth: 0
+    Weigth: 2
+    Priority: 0
+    TurnsToPerform: 0
+    ActionVFX: {fileID: 0}
+    ActionSFX:
+      Guid:
+        Data1: -395794772
+        Data2: 1144077970
+        Data3: 1876799371
+        Data4: 423059306
+      Path: event:/Combat/Enemy/Enemy AttackTrue
+  - ActionType: 14
+    ActionConditions:
+    - Condition: 17
+      InvertCondition: 0
+    - Condition: 12
+      InvertCondition: 0
+    AllRequired: 1
+    MinStrength: 6
+    MaxStrength: 10
+    UseStrengthMod: 0
+    StrengthModConditions:
+    - Condition: 10
+      InvertCondition: 0
+    AllRequiredForMod: 0
+    ModifiedStrength: 12
+    UseWeigthMod: 0
+    WeigthModConditions:
+    - Condition: 1
+      InvertCondition: 0
+    - Condition: 7
+      InvertCondition: 1
+    AllRequiredForWeigthMod: 1
+    ClearOnConditionFalse: 0
+    WeigthMod: -100
+    AddedWeigth: 0
+    Weigth: 2
+    Priority: 0
+    TurnsToPerform: 0
+    ActionVFX: {fileID: 2783697208436553965, guid: 93fb6a762d5aa0d4aa54c77a218fff78, type: 3}
+    ActionSFX:
+      Guid:
+        Data1: 1831103377
+        Data2: 1206335613
+        Data3: 1071892913
+        Data4: -660255455
+      Path: event:/GlyphsVFXs/Healing
   Board: {fileID: 0}
   deathParticleVFX: {fileID: 5287897919713805375, guid: f4e970dc5cfd4f443927313f6d87952d, type: 3}
   gfxParent: {fileID: 1690271735679914943}
