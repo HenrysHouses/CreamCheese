@@ -309,6 +309,8 @@ MonoBehaviour:
     ActionConditions:
     - Condition: 2
       InvertCondition: 0
+    - Condition: 17
+      InvertCondition: 1
     AllRequired: 1
     MinStrength: 1
     MaxStrength: 4
@@ -337,6 +339,8 @@ MonoBehaviour:
     ActionConditions:
     - Condition: 14
       InvertCondition: 0
+    - Condition: 17
+      InvertCondition: 1
     AllRequired: 1
     MinStrength: 4
     MaxStrength: 6
@@ -344,13 +348,53 @@ MonoBehaviour:
     StrengthModConditions: []
     AllRequiredForMod: 0
     ModifiedStrength: 0
-    UseWeigthMod: 0
-    WeigthModConditions: []
-    AllRequiredForWeigthMod: 0
-    ClearOnConditionFalse: 0
-    WeigthMod: 0
+    UseWeigthMod: 1
+    WeigthModConditions:
+    - Condition: 14
+      InvertCondition: 0
+    - Condition: 7
+      InvertCondition: 0
+    AllRequiredForWeigthMod: 1
+    ClearOnConditionFalse: 1
+    WeigthMod: 2
     AddedWeigth: 0
     Weigth: 1
+    Priority: 0
+    TurnsToPerform: 0
+    ActionVFX: {fileID: 2783697208436553965, guid: 93fb6a762d5aa0d4aa54c77a218fff78, type: 3}
+    ActionSFX:
+      Guid:
+        Data1: -1066434047
+        Data2: 1172917976
+        Data3: -226219585
+        Data4: -754466224
+      Path: event:/GlyphsVFXs/HealingEnemy
+  - ActionType: 17
+    ActionConditions:
+    - Condition: 14
+      InvertCondition: 0
+    - Condition: 17
+      InvertCondition: 0
+    AllRequired: 1
+    MinStrength: 4
+    MaxStrength: 6
+    UseStrengthMod: 0
+    StrengthModConditions: []
+    AllRequiredForMod: 0
+    ModifiedStrength: 0
+    UseWeigthMod: 1
+    WeigthModConditions:
+    - Condition: 14
+      InvertCondition: 0
+    - Condition: 17
+      InvertCondition: 0
+    - Condition: 7
+      InvertCondition: 0
+    AllRequiredForWeigthMod: 1
+    ClearOnConditionFalse: 1
+    WeigthMod: 2
+    AddedWeigth: 0
+    Weigth: 2
     Priority: 0
     TurnsToPerform: 0
     ActionVFX: {fileID: 0}
@@ -361,6 +405,64 @@ MonoBehaviour:
         Data3: -226219585
         Data4: -754466224
       Path: event:/GlyphsVFXs/HealingEnemy
+  - ActionType: 12
+    ActionConditions:
+    - Condition: 17
+      InvertCondition: 0
+    AllRequired: 1
+    MinStrength: 4
+    MaxStrength: 10
+    UseStrengthMod: 0
+    StrengthModConditions: []
+    AllRequiredForMod: 0
+    ModifiedStrength: 0
+    UseWeigthMod: 0
+    WeigthModConditions: []
+    AllRequiredForWeigthMod: 0
+    ClearOnConditionFalse: 0
+    WeigthMod: 0
+    AddedWeigth: 0
+    Weigth: 4
+    Priority: 0
+    TurnsToPerform: 0
+    ActionVFX: {fileID: 0}
+    ActionSFX:
+      Guid:
+        Data1: -395794772
+        Data2: 1144077970
+        Data3: 1876799371
+        Data4: 423059306
+      Path: event:/Combat/Enemy/Enemy AttackTrue
+  - ActionType: 13
+    ActionConditions:
+    - Condition: 17
+      InvertCondition: 0
+    - Condition: 2
+      InvertCondition: 0
+    AllRequired: 1
+    MinStrength: 4
+    MaxStrength: 10
+    UseStrengthMod: 0
+    StrengthModConditions: []
+    AllRequiredForMod: 0
+    ModifiedStrength: 0
+    UseWeigthMod: 0
+    WeigthModConditions: []
+    AllRequiredForWeigthMod: 0
+    ClearOnConditionFalse: 0
+    WeigthMod: 0
+    AddedWeigth: 0
+    Weigth: 2
+    Priority: 0
+    TurnsToPerform: 0
+    ActionVFX: {fileID: 0}
+    ActionSFX:
+      Guid:
+        Data1: -395794772
+        Data2: 1144077970
+        Data3: 1876799371
+        Data4: 423059306
+      Path: event:/Combat/Enemy/Enemy AttackTrue
   Board: {fileID: 0}
   deathParticleVFX: {fileID: 5287897919713805375, guid: f4e970dc5cfd4f443927313f6d87952d, type: 3}
   gfxParent: {fileID: 8819871175207810070}

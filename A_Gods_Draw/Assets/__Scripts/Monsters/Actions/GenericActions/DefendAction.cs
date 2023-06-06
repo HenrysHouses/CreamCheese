@@ -21,6 +21,10 @@ public class DefendAction : MonsterAction
         
         Self.Defend(_strength);
 
+        Monster _enemy = _source as Monster;
+        if(_enemy)
+            _enemy.PlaySound(ActionSFX);
+
     }
 
 }
