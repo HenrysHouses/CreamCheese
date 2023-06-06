@@ -5,16 +5,16 @@ using UnityEngine;
 public class LavaController : MonoBehaviour
 {
     public GameObject[] lava;
-    public GameObject lavaplain;
+    public GameObject lavaplain, lokiFire;
     public Transform lavaplainpos1, lavaplainpos2;
     public float lavaplainSpeed;
-    public bool turnOnLava = false, testing;
+    public bool turnOnLava = false, testing, fireOn;
     public HealthCounterController playerHealth;
     public int healtLavaShouldSpawn;
     // Start is called before the first frame update
     void Start()
     {
-
+        lokiFire.SetActive(false);
 
     }
 
@@ -37,6 +37,11 @@ public class LavaController : MonoBehaviour
         if (turnOnLava)
         {
             LavaOn();
+            if(fireOn)
+            {
+                lokiFire.SetActive(true);
+
+            }
             lavaplain.SetActive(true);
             float step = lavaplainSpeed * Time.deltaTime; 
             lavaplain.transform.position = Vector3.MoveTowards(lavaplain.transform.position, lavaplainpos2.position, step);
@@ -47,6 +52,7 @@ public class LavaController : MonoBehaviour
             foreach (GameObject lavas in lava)
             {
                 lavas.SetActive(false);
+                lokiFire.SetActive(false);
             }
             float step = lavaplainSpeed * Time.deltaTime;
             lavaplain.transform.position = Vector3.MoveTowards(lavaplain.transform.position, lavaplainpos1.position, step * 3);

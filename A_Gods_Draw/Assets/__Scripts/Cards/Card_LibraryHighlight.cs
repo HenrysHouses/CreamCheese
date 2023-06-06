@@ -6,34 +6,36 @@ public class Card_LibraryHighlight : MonoBehaviour
 {
     public GameObject highlight;
     [SerializeField] ReaderTarget CardInspector;
+    IsHovering targetCollider;
     bool hasHighlight;
+    bool hovering;
+
+    void Start()
+    {
+        targetCollider = GetComponentInParent<IsHovering>();
+    }
 
     private void Update()
     {
-        if (CardInspector.isBeingInspected)
+        if (CardInspector.isBeingInspected || hovering || targetCollider.isHovering)
         {
             highlight.SetActive(true);
             hasHighlight = true;
+        }
+        else
+        {
+            highlight.SetActive(false);
+            hasHighlight = false;
         }
     }
 
     private void OnMouseEnter()
     {
-        if (!hasHighlight)
-        {
-            highlight.SetActive(true);
-            hasHighlight = true;
-        }
+        hovering = true;
     }
-
-    
 
     private void OnMouseExit()
     {
-        if(hasHighlight)
-        {
-            highlight.SetActive(false);
-            hasHighlight = false;
-        }
+        hovering = false;
     }
 }
