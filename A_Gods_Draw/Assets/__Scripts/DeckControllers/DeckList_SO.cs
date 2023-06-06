@@ -44,7 +44,7 @@ public class DeckList_SO : ScriptableObject
 
     public static DeckList_SO getStarterDeck()
     {
-        DeckList_SO starterDeck = Resources.Load<DeckList_SO>("DeckLists/StarterDeck");
+        DeckList_SO starterDeck = Resources.Load<DeckList_SO>("DeckLists/StarterDeck_Tyr");
 
         Debug.Log("Loaded starter deck!");
 

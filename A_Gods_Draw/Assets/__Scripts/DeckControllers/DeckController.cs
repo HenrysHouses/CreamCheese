@@ -39,7 +39,7 @@ public class DeckController : MonoBehaviour
             return starterDeck;
         }
 
-        starterDeck = Resources.Load<DeckList_SO>("DeckLists/StarterDeck");
+        starterDeck = Resources.Load<DeckList_SO>("DeckLists/StarterDeck_Tyr");
         Debug.Log("Loaded starter deck!");
         return starterDeck;
     }

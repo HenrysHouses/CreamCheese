@@ -47,7 +47,6 @@ public class HealthCounterController : MonoBehaviour
     {
         float DamageAlreadyTaken = (float)(player.MaxHealth - player.Health)/(float)player.MaxHealth;
         TotalDamageTaken += (int)(DamageAlreadyTaken * MaxDamageDifference);
-        Debug.Log("taken " + DamageAlreadyTaken * MaxDamageDifference + "% damage");
     }
 
     // Update is called once per frame
