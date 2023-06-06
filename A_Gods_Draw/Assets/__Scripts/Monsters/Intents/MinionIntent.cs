@@ -68,6 +68,26 @@ public class MinionIntent : Intent
                 _newAction = new BuffSelfAction(actions[i].MinStrength + _scale, actions[i].MaxStrength + _scale);
                 break;
 
+                case EnemyIntent.Attack_Defend:
+                _newAction = new Attack_DefendAction(actions[i].MinStrength + _scale, actions[i].MaxStrength + _scale);
+                break;
+
+                case EnemyIntent.AttackGod_Defend:
+                _newAction = new AttackGod_DefendAction(actions[i].MinStrength + _scale, actions[i].MaxStrength + _scale);
+                break;
+
+                case EnemyIntent.Attack_Heal:
+                _newAction = new Attack_HealAction(actions[i].MinStrength + _scale, actions[i].MaxStrength + _scale);
+                break;
+
+                case EnemyIntent.Cleanse_Buff:
+                _newAction = new Cleanse_BuffAction(actions[i].MinStrength + _scale, actions[i].MaxStrength + _scale);
+                break;
+
+                case EnemyIntent.Cleanse_Heal:
+                _newAction = new Cleanse_HealAction(actions[i].MinStrength + _scale, actions[i].MaxStrength + _scale);
+                break;
+
             }
 
             actions[i].Action = _newAction;
@@ -262,7 +282,12 @@ namespace EnemyAIEnums
         ReinforceSelf = 8,
         HealEnemy = 9,
         CleanseEnemy = 10,
-        BuffSelf = 11
+        BuffSelf = 11,
+        Attack_Defend = 12,
+        AttackGod_Defend = 13,
+        Attack_Heal = 14,
+        Cleanse_Buff = 15,
+        Cleanse_Heal = 16
     }
 
 }

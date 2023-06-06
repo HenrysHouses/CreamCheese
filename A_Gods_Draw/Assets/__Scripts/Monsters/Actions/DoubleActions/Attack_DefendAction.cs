@@ -1,19 +1,16 @@
-// Written by Javier
-
-using UnityEngine;
-using FMODUnity;
-using EnemyAIEnums;
 using System.Collections;
+using System.Collections.Generic;
+using UnityEngine;
+using EnemyAIEnums;
 
-[System.Serializable]
-public class AttackPlayerAction : MonsterAction
+public class Attack_DefendAction : MonsterAction
 {
-    
-    public AttackPlayerAction(int minimumStrength, int maximumStrength) : base(minimumStrength, maximumStrength)
+
+    public Attack_DefendAction(int minimumStrength, int maximumStrength) : base(minimumStrength, maximumStrength)
     {
-        ActionID = (int)EnemyIntent.AttackPlayer;
+        ActionID = (int)EnemyIntent.Attack_Defend;
         actionIcon = Resources.Load<Sprite>("EnemyData/Icons/Icon_Sword_IMG_v1");
-        desc = "This enemy will attack the player";
+        desc = "This enemy will attack the player and defend itself";
         ActionIntentType = IntentType.Attack;
     }
 
@@ -28,8 +25,9 @@ public class AttackPlayerAction : MonsterAction
 
             _enemy.Animator.SetTrigger("Attack");
             _enemy.PlaySound(ActionSFX);
-
+            
         }
+        Self.Defend(_strength);
 
     }
 

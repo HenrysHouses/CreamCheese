@@ -787,7 +787,11 @@ public class Monster : BoardElement
     public void Act(BoardStateController board)
     {
 
-        setOutline(0, Color.white);
+        damageSources.Clear();
+        queuedDamage = 0;
+        queuedPierce = 0;
+        queuedPoison = 0;
+        UpdateHealthDamageUI();
 
         defendFor = 0;
         UpdateDefenceUI();

@@ -3,22 +3,24 @@ using System.Collections.Generic;
 using UnityEngine;
 using EnemyAIEnums;
 
-public class CleanseEnemyAction : MonsterAction
+public class Cleanse_BuffAction : MonsterAction
 {
 
-    public CleanseEnemyAction(int minimumStrength, int maximumStrength) : base(minimumStrength, maximumStrength)
+    public Cleanse_BuffAction(int minimumStrength, int maximumStrength) : base(minimumStrength, maximumStrength)
     {
         ActionID = (int)EnemyIntent.CleanseEnemy;
         actionIcon = Resources.Load<Sprite>("EnemyData/Icons/CleanseIcon");
-        desc = "This enemy will remove x debuffs on an enemy";
+        desc = "This enemy will remove 1 debuff on an enemy and buff them for x";
         ActionIntentType = IntentType.Special;
     }
 
     public override void PerformAction(BoardStateController _board, int _strength, object _source)
     {
 
-        for(int i = 0; i < Self.GetIntent().GetStrength; i++)
-            MonsterTargets[0].GetComponent<DebuffBase>().RemoveDebuff();
+        if(MonsterTargets[0].TryGetComponent<DebuffBase>(out DebuffBase _debuff))
+            _debuff.RemoveDebuff();
+
+        MonsterTargets[0].Buff(_strength);
 
         if(ActionSettings.ActionVFX)
             GameObject.Instantiate(ActionSettings.ActionVFX, MonsterTargets[0].transform.position, Quaternion.identity);
@@ -31,7 +33,7 @@ public class CleanseEnemyAction : MonsterAction
 
             _enemy.Animator.SetTrigger("Buffing");
             _enemy.PlaySound(ActionSFX);
-            
+
         }
 
     }
@@ -58,9 +60,9 @@ public class CleanseEnemyAction : MonsterAction
 
         MonsterTargets.Add(_debuffedEnemies[Random.Range(0, _debuffedEnemies.Count)]);
         
-        MonsterTargets[0].TargetedByEnemy(Self, Color.yellow);
+        MonsterTargets[0].TargetedByEnemy(Self, Color.yellow + (Color.red + Color.blue));
         Self.AddTargetEnemy(MonsterTargets[0]);
 
     }
-    
+
 }

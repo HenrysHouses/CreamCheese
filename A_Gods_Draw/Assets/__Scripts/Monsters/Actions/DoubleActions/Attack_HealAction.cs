@@ -3,15 +3,15 @@ using System.Collections.Generic;
 using UnityEngine;
 using EnemyAIEnums;
 
-public class HealEnemyAction : MonsterAction
+public class Attack_HealAction : MonsterAction
 {
 
-    public HealEnemyAction(int minimumStrength, int maximumStrength) : base(minimumStrength, maximumStrength)
+    public Attack_HealAction(int minimumStrength, int maximumStrength) : base(minimumStrength, maximumStrength)
     {
-        ActionID = (int)EnemyIntent.HealEnemy;
+        ActionID = (int)EnemyIntent.Attack_Heal;
         actionIcon = Resources.Load<Sprite>("EnemyData/Icons/Icon_Heart_IMG_v1");
-        desc = "This enemy will heal the enemy with the least health";
-        ActionIntentType = IntentType.Special;
+        desc = "This enemy will attack the player\nand heal the lowest health enemy";
+        ActionIntentType = IntentType.Attack;
     }
 
     public override void PerformAction(BoardStateController _board, int _strength, object _source)
@@ -23,13 +23,15 @@ public class HealEnemyAction : MonsterAction
 
         ResetTargets();
 
+        _board.Player.DealDamage(_strength);
+
         Monster _enemy = _source as Monster;
         if(_enemy)
         {
 
-            _enemy.Animator.SetTrigger("Buffing");
+            _enemy.Animator.SetTrigger("Attack");
             _enemy.PlaySound(ActionSFX);
-            
+
         }
 
     }
@@ -72,5 +74,5 @@ public class HealEnemyAction : MonsterAction
         Self.AddTargetEnemy(_lowEnemy);
 
     }
-    
+
 }
