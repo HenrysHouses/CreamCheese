@@ -9,7 +9,7 @@ public class Cleanse_BuffAction : MonsterAction
     public Cleanse_BuffAction(int minimumStrength, int maximumStrength) : base(minimumStrength, maximumStrength)
     {
         ActionID = (int)EnemyIntent.CleanseEnemy;
-        actionIcon = Resources.Load<Sprite>("EnemyData/Icons/CleanseIcon");
+        actionIcon = Resources.Load<Sprite>("EnemyData/Icons/Icon_Cleanse_Buff_IMG_v1");
         desc = "This enemy will remove 1 debuff on an enemy and buff them for x";
         ActionIntentType = IntentType.Special;
     }

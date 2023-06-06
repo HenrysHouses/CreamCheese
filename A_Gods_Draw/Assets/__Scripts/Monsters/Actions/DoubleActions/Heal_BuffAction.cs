@@ -9,7 +9,7 @@ public class Heal_BuffAction : MonsterAction
     public Heal_BuffAction(int minimumStrength, int maximumStrength) : base(minimumStrength, maximumStrength)
     {
         ActionID = (int)EnemyIntent.Heal_Buff;
-        actionIcon = Resources.Load<Sprite>("EnemyData/Icons/Icon_Heart_IMG_v1");
+        actionIcon = Resources.Load<Sprite>("EnemyData/Icons/Icon_Heal_Buff_IMG_1");
         desc = "This enemy will heal the lowest enemy for x\nand buff them for x";
         ActionIntentType = IntentType.Attack;
     }

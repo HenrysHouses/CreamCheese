@@ -8,7 +8,7 @@ public class AttackGod_DefendAction : MonsterAction
     public AttackGod_DefendAction(int minimumStrength, int maximumStrength) : base(minimumStrength, maximumStrength)
     {
         ActionID = (int)EnemyIntent.AttackGod;
-        actionIcon = Resources.Load<Sprite>("EnemyData/Icons/Icon_GodAttack_IMG_v1");
+        actionIcon = Resources.Load<Sprite>("EnemyData/Icons/Icon_Shield_AttackGod_IMG_v1");
         desc = "This enemy will attack the God card in play and defend itself";
         ActionIntentType = IntentType.Attack;
     }

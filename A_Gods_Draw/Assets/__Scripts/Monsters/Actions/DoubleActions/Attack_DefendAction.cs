@@ -9,7 +9,7 @@ public class Attack_DefendAction : MonsterAction
     public Attack_DefendAction(int minimumStrength, int maximumStrength) : base(minimumStrength, maximumStrength)
     {
         ActionID = (int)EnemyIntent.Attack_Defend;
-        actionIcon = Resources.Load<Sprite>("EnemyData/Icons/Icon_Sword_IMG_v1");
+        actionIcon = Resources.Load<Sprite>("EnemyData/Icons/Icon_Sword_Shield_IMG_v1");
         desc = "This enemy will attack the player and defend itself";
         ActionIntentType = IntentType.Attack;
     }

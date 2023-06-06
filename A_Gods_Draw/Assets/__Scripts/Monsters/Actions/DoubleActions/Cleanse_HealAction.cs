@@ -9,7 +9,7 @@ public class Cleanse_HealAction : MonsterAction
     public Cleanse_HealAction(int minimumStrength, int maximumStrength) : base(minimumStrength, maximumStrength)
     {
         ActionID = (int)EnemyIntent.CleanseEnemy;
-        actionIcon = Resources.Load<Sprite>("EnemyData/Icons/CleanseIcon");
+        actionIcon = Resources.Load<Sprite>("EnemyData/Icons/Icon_Heal_Cleanse_IMG_v1");
         desc = "This enemy will remove 1 debuff on an enemy and heal them for x";
         ActionIntentType = IntentType.Special;
     }
