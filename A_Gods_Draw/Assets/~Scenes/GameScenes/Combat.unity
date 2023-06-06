@@ -2516,7 +2516,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 1723487158, guid: dca578950366b0e48875be5b27e35e30, type: 3}
       propertyPath: m_IsActive
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 1816788246, guid: dca578950366b0e48875be5b27e35e30, type: 3}
       propertyPath: m_LocalPosition.x
@@ -11471,6 +11471,44 @@ PrefabInstance:
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 821220db41dc492429b043bed02e17dc, type: 3}
+--- !u!1 &1421827901 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 919132149155446097, guid: 821220db41dc492429b043bed02e17dc, type: 3}
+  m_PrefabInstance: {fileID: 1421827900}
+  m_PrefabAsset: {fileID: 0}
+--- !u!95 &1421827902
+Animator:
+  serializedVersion: 4
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1421827901}
+  m_Enabled: 1
+  m_Avatar: {fileID: 0}
+  m_Controller: {fileID: 9100000, guid: a298a6e4dd3c112478c78d1172166dca, type: 2}
+  m_CullingMode: 0
+  m_UpdateMode: 0
+  m_ApplyRootMotion: 0
+  m_LinearVelocityBlending: 0
+  m_StabilizeFeet: 0
+  m_WarningMessage: 
+  m_HasTransformHierarchy: 1
+  m_AllowConstantClipSamplingOptimization: 1
+  m_KeepAnimatorControllerStateOnDisable: 0
+--- !u!114 &1421827904
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1421827901}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 8fb05184dd3bbba4f9aa4c374e395a23, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  lokiAnimator: {fileID: 1421827902}
 --- !u!1 &1430546627
 GameObject:
   m_ObjectHideFlags: 0
