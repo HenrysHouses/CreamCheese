@@ -15,19 +15,18 @@ public class HealthCounterController : MonoBehaviour
     [SerializeField] PlayerTracker player;
     [SerializeField] EventReference HealthTick_SFX;
     [SerializeField] ParamRef HealthTick_Parameter;
-    public int currHealth => Health-Damage; 
-    /// <summary>how many health points the player has had</summary> // this is offset by 50
-    public int MaxHealth = 100;
-    int Health = 200;
-    /// <summary>how much total damage the player has taken</summary> // this is offset by 50
-    int Damage = 100;
+    public int currHealth => TotalHealthGained-TotalDamageTaken; 
+
+    int MaxDamageDifference = 100;
+    [SerializeField] int TotalHealthGained = 200;
+    [SerializeField] int TotalDamageTaken = 100;
     // Health Visualization
     [SerializeField] PathController pathController;
     [SerializeField] Transform HealthObj1, HealthObj2;
     [SerializeField] Transform DamageObj1, DamageObj2;
     
-    float HealthT = 0;
-    float DamageT = 0;
+    [SerializeField] float HealthT = 0;
+    [SerializeField] float DamageT = 0;
     [SerializeField] float offset;
     [SerializeField] float HealthAnimSpeed = 1;
     [SerializeField] float healingDelay = 0.5f;
@@ -46,8 +45,9 @@ public class HealthCounterController : MonoBehaviour
 
     void Start()
     {
-        initPlayerHealth();
-        MaxHealth = player.MaxHealth;
+        float DamageAlreadyTaken = (float)(player.MaxHealth - player.Health)/(float)player.MaxHealth;
+        TotalDamageTaken += (int)(DamageAlreadyTaken * MaxDamageDifference);
+        Debug.Log("taken " + DamageAlreadyTaken * MaxDamageDifference + "% damage");
     }
 
     // Update is called once per frame
@@ -62,12 +62,6 @@ public class HealthCounterController : MonoBehaviour
         DoHealthAnim();
     }
 
-    void initPlayerHealth()
-    {
-        Health = MaxHealth * 2;
-        Damage = Health - player.Health;
-    }
-
     public void checkPlayerStatus()
     {
         if(!healthIsAnimating && !gearIsAnimating)
@@ -75,7 +69,18 @@ public class HealthCounterController : MonoBehaviour
             if(player.HealthChanges.Count <= 0)
                 return;
 
-            updateHealth(player.HealthChanges[0]);
+            int moveAmount = player.HealthChanges[0];
+
+            // if(moveAmount < 0)
+            //     moveAmount *= -1;
+
+            float percent = (float)moveAmount/(float)player.MaxHealth;
+
+            Debug.Log(moveAmount + " / " + player.MaxHealth + " = " + percent);
+
+            Debug.Log((int)(percent * MaxDamageDifference));
+
+            updateHealth((int)(percent * MaxDamageDifference));
             player.HealthChanges.RemoveAt(0);
         }
     }
@@ -84,19 +89,18 @@ public class HealthCounterController : MonoBehaviour
     {
         if(healthDifference < 0 && currHealth != 0)
         {
-
-            Damage = Mathf.Min(Damage + healthDifference * -1, Health);
+            TotalDamageTaken = Mathf.Min(TotalDamageTaken + healthDifference * -1, TotalHealthGained);
             TriggerGearAnim(GearAnimSpeed * -1);
             particles.Play();
             return true;
         }
 
-        if(currHealth < 0 && currHealth >= 100)
+        if(currHealth == player.MaxHealth)
             return false;
 
-        if(healthDifference > 0 && currHealth < 100)
+        if(healthDifference > 0 && currHealth < player.MaxHealth)
         {
-            Health += Mathf.Min(healthDifference, MaxHealth - currHealth);    
+            TotalHealthGained += Mathf.Min(healthDifference, MaxDamageDifference - currHealth);    
             TriggerGearAnim(GearAnimSpeed);
             return true;
         }
@@ -106,7 +110,7 @@ public class HealthCounterController : MonoBehaviour
 
     void DoHealthAnim()
     {
-        if(!healthIsAnimating && (Health != HealthT || Damage != DamageT))
+        if(!healthIsAnimating && (TotalHealthGained != HealthT || TotalDamageTaken != DamageT))
         {
             StartCoroutine(AnimateHealth());
         }
@@ -119,22 +123,30 @@ public class HealthCounterController : MonoBehaviour
     {
         healthIsAnimating = true;
 
-        while(HealthT < Health || DamageT < Damage)
+        while(HealthT < TotalHealthGained || DamageT < TotalDamageTaken)
         {   
             // new position
-            if(HealthT < Health)
+            if(HealthT < TotalHealthGained)
                 HealthT += 1;
-            if(DamageT < Damage)
+            if(DamageT < TotalDamageTaken)
                 DamageT += 1;
 
             // Health Positions // ! this code could be shorter
-            OrientedPoint op = pathController.GetEvenPathOP((((HealthT/(MaxHealth*2)) * HealthAnimSpeed) + offset)%1);
+
+
+            
+            float t1 = HealthT/MaxDamageDifference*2;
+            float _Health_1_T = ((t1 * HealthAnimSpeed) + offset)%1; 
+            OrientedPoint op = pathController.GetEvenPathOP(_Health_1_T);
             HealthObj1.position = op.pos;
-            op = pathController.GetEvenPathOP(((HealthT/(MaxHealth*2)) * HealthAnimSpeed)%1);
+            float _Health_2_T = (t1 * HealthAnimSpeed)%1;
+            op = pathController.GetEvenPathOP(_Health_2_T);
             HealthObj2.position = op.pos;
 
             // Damage Positions
-            op = pathController.GetEvenPathOP(((DamageT/(MaxHealth*2) * HealthAnimSpeed) + offset)%1);
+            float t2 = DamageT/MaxDamageDifference*2;
+            float _Damage_1_T = ((t2 * HealthAnimSpeed) + offset)%1;
+            op = pathController.GetEvenPathOP(_Damage_1_T);
             DamageObj1.position = op.pos;
             
             Vector3 dir = op.rot * DamageObj1.forward;
@@ -147,7 +159,8 @@ public class HealthCounterController : MonoBehaviour
                 DamageObj1.Rotate(new Vector3(0,0,1), Space.Self);
             }
 
-            op = pathController.GetEvenPathOP(((DamageT/(MaxHealth*2)) * HealthAnimSpeed)%1);
+            float _Damage_2_T = (t2 * HealthAnimSpeed)%1;
+            op = pathController.GetEvenPathOP(_Damage_2_T);
             DamageObj2.position = op.pos;
 
             dir = op.rot * DamageObj2.forward;
@@ -161,7 +174,7 @@ public class HealthCounterController : MonoBehaviour
 
             Vector3 pos1 = DamageObj1.transform.localPosition;
             Vector3 pos2 = DamageObj2.transform.localPosition;
-            float zOffset = Mathf.Lerp(0.0518f, 0.0176f, (float)currHealth/(float)MaxHealth);
+            float zOffset = Mathf.Lerp(0.0518f, 0.0176f, (float)currHealth/(float)MaxDamageDifference);
             pos1.z = zOffset;
             pos2.z = zOffset;
             DamageObj1.transform.localPosition = pos1;

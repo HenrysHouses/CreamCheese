@@ -12,8 +12,8 @@ public class HealthDial_Editor : Editor {
     public override void OnInspectorGUI() {
         base.OnInspectorGUI();
         
-        if(EditorGUILayout.LinkButton("Update dial"))
-            script.checkPlayerStatus();
+        // if(EditorGUILayout.LinkButton("Update dial"))
+        //     script.checkPlayerStatus();
     }
 }
 #endif

@@ -97,11 +97,17 @@ public class PlayerTracker : ScriptableObject
 
     public void UpdateHealth(int difference)
     {
+        Debug.Log(difference);
         int totalDiff = difference;
-        if(Health + difference > MaxHealth)
-            totalDiff = MaxHealth - Health;
+        
+        // if(Health - totalDiff <= 0)
+        //     totalDiff = Health + difference;
+        
+        // if(Health + difference > MaxHealth)
+        //     totalDiff = MaxHealth;
 
         Health = Mathf.Clamp(Health + difference, 0, MaxHealth);
+        Debug.Log(totalDiff);
         HealthChanges.Add(totalDiff);
     }
 
