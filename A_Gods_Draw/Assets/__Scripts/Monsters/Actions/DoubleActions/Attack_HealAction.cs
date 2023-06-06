@@ -9,7 +9,7 @@ public class Attack_HealAction : MonsterAction
     public Attack_HealAction(int minimumStrength, int maximumStrength) : base(minimumStrength, maximumStrength)
     {
         ActionID = (int)EnemyIntent.Attack_Heal;
-        actionIcon = Resources.Load<Sprite>("EnemyData/Icons/Icon_Heart_IMG_v1");
+        actionIcon = Resources.Load<Sprite>("EnemyData/Icons/Icon_Heal_Attack_IMG_1");
         desc = "This enemy will attack the player\nand heal the lowest health enemy";
         ActionIntentType = IntentType.Attack;
     }
