@@ -46,8 +46,7 @@ public class LootPoolRarity
         {
             if(RarityIndex[i].Chance + chance > _roll)
             {
-
-                Debug.Log(RarityIndex[i].Chance + chance + "/"+ _roll);
+                // Debug.Log(RarityIndex[i].Chance + chance + "/"+ _roll);
                 RarityDropped = RarityIndex[i].Rarity;
                 return RarityIndex[i].ItemPool;
             }

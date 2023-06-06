@@ -72,6 +72,8 @@ public class ItemPool_ScriptableObject : ScriptableObject
         // Roll dropped item
         float _RolledItem = Random.Range(0f, excludedLootPool._TotalWeights);
 
+        Debug.Log("Rolled weight: " + _RolledItem + " / " + excludedLootPool._TotalWeights);
+
         for (int i = 0; i < excludedLootPool.Items.Length; i++)
         {
             if(excludedLootPool.Items[i].UpperRange < _RolledItem)

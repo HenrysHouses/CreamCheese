@@ -89,7 +89,10 @@ public class ChooseRuneReward : MonoBehaviour
 
         // Debug.Log(SelectedRune + " / " + runeObj);
 
-        if (shouldConfirmSelection)
+        if(runeObj == null)
+            return;
+
+        if(Input.GetMouseButtonDown(0))
         {
             StartCoroutine(PickRune(SelectedRune, runeObj));
         }
@@ -101,26 +104,31 @@ public class ChooseRuneReward : MonoBehaviour
         if(SelectedRune.GetType() != typeof(rune))
         {
             Inspector.enabled = false;
-            Path.startPoint.position = obj.transform.position;
-            Path.endPoint.position = RuneController.renderers[(int)SelectedRune.RuneData.Name].transform.position;
+            Path.BezierStart.position = obj.transform.position;
+            Path.BezierEnd.position = RuneController.renderers[(int)SelectedRune.RuneData.Name].transform.position;
             Path.recalculatePath();
 
             CameraMovement.instance.SetCameraView(CameraView.RuneAfterPick);
             
-            RuneAnimationT = 0;
-
-            while(RuneAnimationT < 1)
-            {
-                OrientedPoint OP = Path.GetEvenPathOP(RuneAnimationT);
-                obj.transform.position = OP.pos;
-                RuneAnimationT += Time.deltaTime * animSpeed;
-                yield return new WaitForEndOfFrame();
-            }
+            PathAnimationHelper animationHelper = obj.GetComponent<PathAnimationHelper>();
+            animationHelper.Set(Path, true, false);
+            animationHelper.startAnimating("GainRune");
+            yield return new WaitUntil(() => !animationHelper.isAnimating);
+            // RuneAnimationT = 0;
+            Debug.Log("should have stopped animating");
+            // while(RuneAnimationT < 1)
+            // {
+            //     OrientedPoint OP = Path.GetEvenPathOP(RuneAnimationT);
+            //     obj.transform.position = OP.pos;
+            //     RuneAnimationT += Time.deltaTime * animSpeed;
+            //     yield return new WaitForEndOfFrame();
+            // }
 
             _player.addRune(SelectedRune);
             Destroy(obj);
             Map.Map_Manager.SavingMap();
-            yield return new WaitForSeconds(1);
+            // yield return new WaitForSeconds(1);
+            yield return new WaitUntil(() => !RuneController.shouldWaitForVFX());
             CameraMovement.instance.SetCameraView(CameraView.Up);
             MultiSceneLoader.loadCollection("Map", collectionLoadMode.Difference);
         }

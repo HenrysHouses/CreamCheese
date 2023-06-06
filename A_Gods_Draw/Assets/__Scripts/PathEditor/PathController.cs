@@ -21,11 +21,22 @@ public class PathController : MonoBehaviour
 	[SerializeField, Range(0,1)] float tTest = 0;
 	[HideInInspector] public Transform startPoint;
 	[HideInInspector] public Transform endPoint;
+	public Transform BezierStart 
+	{
+		get {return controlPoints[0];}
+	}
+	public Transform BezierEnd 
+	{
+		get {return controlPoints[controlPoints.Count-1];}
+	}
+	
 	public List<Transform> controlPoints = new List<Transform>();
 	
 	public OrientedPoint[] evenlySpacedPoints;
 	private float length;
 	
+	
+
 	/// <summary>Get position of control points</summary>
 	/// <param name="pair">curve point</param>
 	/// <param name="i">sub controlpoint for the curve</param>
