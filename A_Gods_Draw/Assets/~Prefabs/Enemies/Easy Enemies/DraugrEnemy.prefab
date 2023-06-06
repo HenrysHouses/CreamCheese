@@ -397,6 +397,70 @@ MonoBehaviour:
         Data3: 1876799371
         Data4: 423059306
       Path: event:/Combat/Enemy/Enemy AttackTrue
+  - ActionType: 3
+    ActionConditions:
+    - Condition: 17
+      InvertCondition: 1
+    - Condition: 16
+      InvertCondition: 0
+    AllRequired: 1
+    MinStrength: 3
+    MaxStrength: 4
+    UseStrengthMod: 0
+    StrengthModConditions: []
+    AllRequiredForMod: 0
+    ModifiedStrength: 0
+    UseWeigthMod: 0
+    WeigthModConditions:
+    - Condition: 7
+      InvertCondition: 1
+    AllRequiredForWeigthMod: 0
+    ClearOnConditionFalse: 0
+    WeigthMod: -1
+    AddedWeigth: 0
+    Weigth: 1
+    Priority: 1
+    TurnsToPerform: 0
+    ActionVFX: {fileID: 0}
+    ActionSFX:
+      Guid:
+        Data1: -395794772
+        Data2: 1144077970
+        Data3: 1876799371
+        Data4: 423059306
+      Path: event:/Combat/Enemy/Enemy AttackTrue
+  - ActionType: 12
+    ActionConditions:
+    - Condition: 17
+      InvertCondition: 0
+    - Condition: 16
+      InvertCondition: 0
+    AllRequired: 1
+    MinStrength: 4
+    MaxStrength: 8
+    UseStrengthMod: 0
+    StrengthModConditions: []
+    AllRequiredForMod: 0
+    ModifiedStrength: 0
+    UseWeigthMod: 0
+    WeigthModConditions:
+    - Condition: 7
+      InvertCondition: 1
+    AllRequiredForWeigthMod: 0
+    ClearOnConditionFalse: 0
+    WeigthMod: -1
+    AddedWeigth: 0
+    Weigth: 1
+    Priority: 1
+    TurnsToPerform: 0
+    ActionVFX: {fileID: 0}
+    ActionSFX:
+      Guid:
+        Data1: -395794772
+        Data2: 1144077970
+        Data3: 1876799371
+        Data4: 423059306
+      Path: event:/Combat/Enemy/Enemy AttackTrue
   Board: {fileID: 0}
   deathParticleVFX: {fileID: 5287897919713805375, guid: f4e970dc5cfd4f443927313f6d87952d, type: 3}
   gfxParent: {fileID: 6275259443688672500}
