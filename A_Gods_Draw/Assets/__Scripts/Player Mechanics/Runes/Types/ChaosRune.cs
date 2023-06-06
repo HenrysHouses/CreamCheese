@@ -3,9 +3,12 @@
  * Henrik
  * 
  */
+using UnityEngine;
 
 public class ChaosRune : rune
 {
+    GameObject VFX;
+
     public override void RuneEffect(TurnController controller)
     {
         if(hasTriggeredThisGame)
@@ -19,6 +22,8 @@ public class ChaosRune : rune
         }
 
         triggerOnceEachGame();
+
+        Instantiate(VFX);
     }
 
     public ChaosRune(int str, RuneState state) : base(str, state)
@@ -28,6 +33,8 @@ public class ChaosRune : rune
         this.RuneData = new RuneData(RuneType.TursChaos, desc, CombatState.DrawStep);
         this.RuneData.Strength = str;
         this.RuneData.State = state;
+
+        VFX = Resources.Load<GameObject>("Action VFX/ChaosRune_VFX");
     }
 
     public ChaosRune(int str) : base(str)
@@ -37,5 +44,7 @@ public class ChaosRune : rune
         this.RuneData = new RuneData(RuneType.TursChaos, desc, CombatState.DrawStep);
         this.RuneData.Strength = str;
         this.RuneData.State = RuneState.Active;
+
+        VFX = Resources.Load<GameObject>("Action VFX/ChaosRune_VFX");
     }
 }

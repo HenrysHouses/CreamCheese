@@ -16,6 +16,7 @@ GameObject:
   - component: {fileID: 1917849916781254983}
   - component: {fileID: 340619691236177084}
   - component: {fileID: 4482698131354683769}
+  - component: {fileID: 1297828219714473265}
   m_Layer: 8
   m_Name: RuneSelector
   m_TagString: Untagged
@@ -154,6 +155,114 @@ MonoBehaviour:
   pathPosition: 0
   <isAnimating>k__BackingField: 0
   flipRotation: 0
+--- !u!96 &1297828219714473265
+TrailRenderer:
+  serializedVersion: 2
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 790803883009184499}
+  m_Enabled: 1
+  m_CastShadows: 1
+  m_ReceiveShadows: 1
+  m_DynamicOccludee: 1
+  m_StaticShadowCaster: 0
+  m_MotionVectors: 0
+  m_LightProbeUsage: 0
+  m_ReflectionProbeUsage: 0
+  m_RayTracingMode: 0
+  m_RayTraceProcedural: 0
+  m_RenderingLayerMask: 1
+  m_RendererPriority: 0
+  m_Materials:
+  - {fileID: 2100000, guid: 754904e89adb8154eb01940803aa22e2, type: 2}
+  m_StaticBatchInfo:
+    firstSubMesh: 0
+    subMeshCount: 0
+  m_StaticBatchRoot: {fileID: 0}
+  m_ProbeAnchor: {fileID: 0}
+  m_LightProbeVolumeOverride: {fileID: 0}
+  m_ScaleInLightmap: 1
+  m_ReceiveGI: 1
+  m_PreserveUVs: 0
+  m_IgnoreNormalsForChartDetection: 0
+  m_ImportantGI: 0
+  m_StitchLightmapSeams: 1
+  m_SelectedEditorRenderState: 3
+  m_MinimumChartSize: 4
+  m_AutoUVMaxDistance: 0.5
+  m_AutoUVMaxAngle: 89
+  m_LightmapParameters: {fileID: 0}
+  m_SortingLayerID: 0
+  m_SortingLayer: 0
+  m_SortingOrder: 0
+  m_Time: 0.3
+  m_Parameters:
+    serializedVersion: 3
+    widthMultiplier: 1
+    widthCurve:
+      serializedVersion: 2
+      m_Curve:
+      - serializedVersion: 3
+        time: 0
+        value: 0.047620803
+        inSlope: 0
+        outSlope: 0
+        tangentMode: 0
+        weightedMode: 0
+        inWeight: 0.33333334
+        outWeight: 0.33333334
+      - serializedVersion: 3
+        time: 0.99516904
+        value: 0
+        inSlope: -0.21616547
+        outSlope: -0.21616547
+        tangentMode: 0
+        weightedMode: 0
+        inWeight: 0.27669898
+        outWeight: 0
+      m_PreInfinity: 2
+      m_PostInfinity: 2
+      m_RotationOrder: 4
+    colorGradient:
+      serializedVersion: 2
+      key0: {r: 1, g: 1, b: 1, a: 1}
+      key1: {r: 1, g: 1, b: 1, a: 1}
+      key2: {r: 0, g: 0, b: 0, a: 0}
+      key3: {r: 0, g: 0, b: 0, a: 0}
+      key4: {r: 0, g: 0, b: 0, a: 0}
+      key5: {r: 0, g: 0, b: 0, a: 0}
+      key6: {r: 0, g: 0, b: 0, a: 0}
+      key7: {r: 0, g: 0, b: 0, a: 0}
+      ctime0: 0
+      ctime1: 65535
+      ctime2: 0
+      ctime3: 0
+      ctime4: 0
+      ctime5: 0
+      ctime6: 0
+      ctime7: 0
+      atime0: 0
+      atime1: 65535
+      atime2: 0
+      atime3: 0
+      atime4: 0
+      atime5: 0
+      atime6: 0
+      atime7: 0
+      m_Mode: 0
+      m_NumColorKeys: 2
+      m_NumAlphaKeys: 2
+    numCornerVertices: 0
+    numCapVertices: 0
+    alignment: 0
+    textureMode: 0
+    shadowBias: 0.5
+    generateLightingData: 0
+  m_MinVertexDistance: 0.1
+  m_Autodestruct: 0
+  m_Emitting: 1
 --- !u!1 &7944278827065897817
 GameObject:
   m_ObjectHideFlags: 0
@@ -256,14 +365,18 @@ PrefabInstance:
     - target: {fileID: -7511558181221131132, guid: ba386cea8600d6342ac141bbfcb08e9b, type: 3}
       propertyPath: m_Materials.Array.data[0]
       value: 
-      objectReference: {fileID: 2100000, guid: c082b4f6512b0744180a809d32a3a56a, type: 2}
+      objectReference: {fileID: 2100000, guid: 3d58d35241b96cd429b7b8223ebe063c, type: 2}
+    - target: {fileID: -5754084199372789682, guid: ba386cea8600d6342ac141bbfcb08e9b, type: 3}
+      propertyPath: m_Mesh
+      value: 
+      objectReference: {fileID: 61627955681857025, guid: 672f1c13a6220fc48b91e45d1776b95c, type: 3}
     - target: {fileID: 919132149155446097, guid: ba386cea8600d6342ac141bbfcb08e9b, type: 3}
       propertyPath: m_Name
       value: Mesh_Rune_Elgr_MDL (1)
       objectReference: {fileID: 0}
     - target: {fileID: 919132149155446097, guid: ba386cea8600d6342ac141bbfcb08e9b, type: 3}
       propertyPath: m_IsActive
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: ba386cea8600d6342ac141bbfcb08e9b, type: 3}
@@ -456,7 +569,11 @@ PrefabInstance:
     - target: {fileID: -7511558181221131132, guid: ba10644817f81f6489c3f9fe7b690d0f, type: 3}
       propertyPath: m_Materials.Array.data[0]
       value: 
-      objectReference: {fileID: 2100000, guid: c082b4f6512b0744180a809d32a3a56a, type: 2}
+      objectReference: {fileID: 2100000, guid: 3d58d35241b96cd429b7b8223ebe063c, type: 2}
+    - target: {fileID: -5754084199372789682, guid: ba10644817f81f6489c3f9fe7b690d0f, type: 3}
+      propertyPath: m_Mesh
+      value: 
+      objectReference: {fileID: 3878734231065354827, guid: 1633c7a3ca3c9d44f9e66b4a4b49f44f, type: 3}
     - target: {fileID: 919132149155446097, guid: ba10644817f81f6489c3f9fe7b690d0f, type: 3}
       propertyPath: m_Name
       value: Mesh_Rune_Jera_MDL (1)
@@ -538,7 +655,11 @@ PrefabInstance:
     - target: {fileID: -7511558181221131132, guid: ee3f0018828a8454ca5785983f9ee24e, type: 3}
       propertyPath: m_Materials.Array.data[0]
       value: 
-      objectReference: {fileID: 2100000, guid: c082b4f6512b0744180a809d32a3a56a, type: 2}
+      objectReference: {fileID: 2100000, guid: 3d58d35241b96cd429b7b8223ebe063c, type: 2}
+    - target: {fileID: -5754084199372789682, guid: ee3f0018828a8454ca5785983f9ee24e, type: 3}
+      propertyPath: m_Mesh
+      value: 
+      objectReference: {fileID: -1594056829991262837, guid: 79766350dcd6c4842a85e5502d62a680, type: 3}
     - target: {fileID: 919132149155446097, guid: ee3f0018828a8454ca5785983f9ee24e, type: 3}
       propertyPath: m_Name
       value: Mesh_Rune_Urr_MDL (1)
@@ -974,7 +1095,11 @@ PrefabInstance:
     - target: {fileID: -7511558181221131132, guid: 136b2f8fb117b454ea33a7b2a3759eac, type: 3}
       propertyPath: m_Materials.Array.data[0]
       value: 
-      objectReference: {fileID: 2100000, guid: c082b4f6512b0744180a809d32a3a56a, type: 2}
+      objectReference: {fileID: 2100000, guid: 3d58d35241b96cd429b7b8223ebe063c, type: 2}
+    - target: {fileID: -5754084199372789682, guid: 136b2f8fb117b454ea33a7b2a3759eac, type: 3}
+      propertyPath: m_Mesh
+      value: 
+      objectReference: {fileID: -3485128929634530273, guid: 14e61840e270b2d4dbf36ec54b906ca8, type: 3}
     - target: {fileID: 919132149155446097, guid: 136b2f8fb117b454ea33a7b2a3759eac, type: 3}
       propertyPath: m_Name
       value: Mesh_Rune_Fe_MDL (1)
@@ -1056,7 +1181,11 @@ PrefabInstance:
     - target: {fileID: -7511558181221131132, guid: 35ef564e88899ba498c9e16e79336463, type: 3}
       propertyPath: m_Materials.Array.data[0]
       value: 
-      objectReference: {fileID: 2100000, guid: c082b4f6512b0744180a809d32a3a56a, type: 2}
+      objectReference: {fileID: 2100000, guid: 3d58d35241b96cd429b7b8223ebe063c, type: 2}
+    - target: {fileID: -5754084199372789682, guid: 35ef564e88899ba498c9e16e79336463, type: 3}
+      propertyPath: m_Mesh
+      value: 
+      objectReference: {fileID: -8473046371645391202, guid: fe4399e143e323d458c4bbd8239db987, type: 3}
     - target: {fileID: 919132149155446097, guid: 35ef564e88899ba498c9e16e79336463, type: 3}
       propertyPath: m_Name
       value: Mesh_Rune_Turs_MDL (1)
