@@ -6,23 +6,23 @@ using UnityEngine.UI;
 public class CombatTutorial : TutorialController
 {
     public GameObject tutorialStone;
-    public GameObject textbox, tableController,hornMesh;
+    public GameObject textbox, tableController, hornMesh;
     protected override void Start()
     {
         textbox = GameObject.Find("TutorialTextBackground");
-       // textBox.enabled = false;
+        // textBox.enabled = false;
         GameManager.instance.nextCombatType = EncounterDifficulty.Tutorial;
 
         for (int i = 0; i < EnableBoard.Length; i++)
         {
-            
+
             EnableBoard[i].SetActive(false);
         }
         Horn.CanEndTurn = false;
         hornMesh.GetComponent<MeshRenderer>().enabled = false;
-        
+
         base.Start();
-        
+
     }
 
     public override void CheckTutorialConditions()
@@ -66,7 +66,9 @@ public class CombatTutorial : TutorialController
 
     protected IEnumerator PressAnyButtonToContinue(TutorialStepTrigger trigger)
     {
-       // stoneAnim.SetBool("StoneIn", true);
+        textbox = GameObject.Find("TutorialTextBackground");
+
+        // stoneAnim.SetBool("StoneIn", true);
         textbox.SetActive(true);
         bool isAllowedToContinue = false;
         bool previousState = CurrentDialogue.fullPageIsDisplaying;
@@ -80,7 +82,7 @@ public class CombatTutorial : TutorialController
                 isAllowedToContinue = true;
             }
             previousState = CurrentDialogue.fullPageIsDisplaying;
-           // stoneAnim.SetBool("StoneIn", false);
+            // stoneAnim.SetBool("StoneIn", false);
         }
 
         yield return new WaitUntil(() => Input.anyKeyDown);
@@ -97,11 +99,11 @@ public class CombatTutorial : TutorialController
 
     IEnumerator PlayAttackCardOnEnemy()
     {
-      //  stoneAnim.SetBool("StoneIn", true);
+        //  stoneAnim.SetBool("StoneIn", true);
 
         if (CurrentDialogue.fullPageIsDisplaying)
         {
-         //   stoneAnim.SetBool("StoneIn", false);
+            //   stoneAnim.SetBool("StoneIn", false);
         }
 
         Horn.CanEndTurn = false;
@@ -134,7 +136,9 @@ public class CombatTutorial : TutorialController
         Debug.Log("card name " + attackCard);
         CardPlayData buffCard = new CardPlayData(Resources.Load<Card_SO>("Cards/Buff/Buff_Bifrost_CardSO"));
         deckController.AddCardToLib(buffCard);
+       // monster.TutorialIntentOverride(turnController.GetBoard(), TutorialActions.AttackPlayer);
         completeTutorialRoutine(EndTurn1st_Trigger, 2);
+
     }
 
     public TutorialMonster monster;
@@ -288,7 +292,7 @@ public class CombatTutorial : TutorialController
         deckController.AddCardToLib(buffCard1);
         yield return new WaitUntil(() => turnController.state == CombatState.MainPhase);
         Horn.CanEndTurn = true;
-         textbox.SetActive(true);
+        textbox.SetActive(true);
 
 
     }

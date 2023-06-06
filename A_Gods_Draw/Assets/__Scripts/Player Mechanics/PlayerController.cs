@@ -48,10 +48,14 @@ public class PlayerController : BoardElement , IMonsterTarget
         if(amount <= 0)
             return;
 
-        CameraEffects.ShakeOnce(0.2f,5);
+        Invoke(nameof(BigBoiShake),0.6f);
+
         damageflash.flashRedWhenHit = true;
+        
 
     }
+
+    private void BigBoiShake() => CameraEffects.ShakeOnce(0.2f,5);
 
     public void Heal(int amount)
     {
