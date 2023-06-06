@@ -279,7 +279,9 @@ MonoBehaviour:
     ActionConditions:
     - Condition: 2
       InvertCondition: 0
-    AllRequired: 0
+    - Condition: 17
+      InvertCondition: 1
+    AllRequired: 1
     MinStrength: 1
     MaxStrength: 4
     UseStrengthMod: 0
@@ -305,14 +307,12 @@ MonoBehaviour:
       Path: event:/Combat/Enemy/Enemy AttackTrue
   - ActionType: 3
     ActionConditions:
-    - Condition: 0
-      InvertCondition: 0
     - Condition: 17
       InvertCondition: 1
     AllRequired: 1
     MinStrength: 3
     MaxStrength: 4
-    UseStrengthMod: 1
+    UseStrengthMod: 0
     StrengthModConditions:
     - Condition: 17
       InvertCondition: 0

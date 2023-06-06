@@ -121,9 +121,10 @@ public class GodCard_Behaviour : Card_Behaviour , IMonsterTarget
     internal override void OnClickOnSelected()
     {
         base.OnClickOnSelected();
+        
         GodSlot = TurnController.PlayerClick() as GodConfirmation;
 
-        if(!GodSlot)
+        if(!GodSlot.wasClicked)
             MissClick();
     }
 
@@ -148,7 +149,6 @@ public class GodCard_Behaviour : Card_Behaviour , IMonsterTarget
         }
         else
             MissClick();
-
     }
     
     protected override void OnBeingSelected()
