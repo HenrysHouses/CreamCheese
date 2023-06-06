@@ -129,12 +129,12 @@ public class Player_Hand : MonoBehaviour
             float zPos;
             if (i == 0)
             {
-                zPos = Mathf.PingPong(((float)(i) * 2), 1f) * (float)-0.05f;
+                zPos = Mathf.PingPong(((float)(i) * 2), 1f) * (float)-0.06f;
 
             }
             else
             {
-                zPos = Mathf.PingPong(((float)(i) * 2) / (CardSelectionAnimators.Count - cardoffset), 1f) * (float)-0.05f;
+                zPos = Mathf.PingPong(((float)(i) * 2) / (CardSelectionAnimators.Count - cardoffset), 1f) * (float)-0.06f;
             }
 
             CardSelectionAnimators[i].Selector.setHandPos(new Vector3(firstCardPos + (0.15f * i), 0f, zPos));

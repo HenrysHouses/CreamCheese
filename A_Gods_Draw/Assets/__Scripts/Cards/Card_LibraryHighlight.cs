@@ -17,7 +17,16 @@ public class Card_LibraryHighlight : MonoBehaviour
 
     private void Update()
     {
-        if (CardInspector.isBeingInspected || hovering || targetCollider.isHovering)
+        bool hasCollider = false;
+        if(targetCollider != null)
+        {
+            if(targetCollider.isHovering)
+            {
+                hasCollider = true;
+
+            }
+        }
+        if (CardInspector.isBeingInspected || hovering || hasCollider)
         {
             highlight.SetActive(true);
             hasHighlight = true;
