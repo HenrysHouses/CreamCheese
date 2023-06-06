@@ -87,6 +87,10 @@ public class MinionIntent : Intent
                 case EnemyIntent.Cleanse_Heal:
                 _newAction = new Cleanse_HealAction(actions[i].MinStrength + _scale, actions[i].MaxStrength + _scale);
                 break;
+                
+                case EnemyIntent.Heal_Buff:
+                _newAction = new Heal_BuffAction(actions[i].MinStrength + _scale, actions[i].MaxStrength + _scale);
+                break;
 
             }
 
@@ -287,7 +291,8 @@ namespace EnemyAIEnums
         AttackGod_Defend = 13,
         Attack_Heal = 14,
         Cleanse_Buff = 15,
-        Cleanse_Heal = 16
+        Cleanse_Heal = 16,
+        Heal_Buff = 17
     }
 
 }

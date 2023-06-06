@@ -204,13 +204,19 @@ public class Monster : BoardElement
 
     }
 
-    public void Defend(int _amount)
+    public void Defend(int _amount, bool _triggerAnim = true)
     {
+
+        if(_triggerAnim)
+        {
+
+            Animator.SetBool("isBlocking", true);
+            Animator.SetTrigger("Blocking");
+        
+        }
 
         queuedDefence += _amount;
         Defending = true;
-        Animator.SetBool("isBlocking", true);
-        Animator.SetTrigger("Blocking");
         defendFor = queuedDefence;
         UpdateDefenceUI();
         defendFor = 0;
@@ -552,6 +558,7 @@ public class Monster : BoardElement
             queuedDefence = 0;
             Defending = false;
             Animator.SetBool("isBlocking", true);
+            Animator.SetTrigger("Blocking");
 
         }
         else

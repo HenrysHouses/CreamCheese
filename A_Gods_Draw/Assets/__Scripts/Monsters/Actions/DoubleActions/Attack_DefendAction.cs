@@ -27,7 +27,7 @@ public class Attack_DefendAction : MonsterAction
             _enemy.PlaySound(ActionSFX);
             
         }
-        Self.Defend(_strength);
+        Self.Defend(_strength, false);
 
     }
 
