@@ -28,6 +28,7 @@ public class AwakeCombatState : CombatFSMState
         Controller.isCombatStarted = true;
         hasShuffled = false;
         ResetRuneTurnTriggers(Controller);
+        ResetRuneAllRunes(Controller);
     }
 
     /// <summary>Triggers Runes, Resets rune triggers, Library shuffle</summary>

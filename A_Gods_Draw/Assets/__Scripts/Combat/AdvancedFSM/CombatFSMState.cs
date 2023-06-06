@@ -6,6 +6,7 @@
 using UnityEngine;
 using System.Collections;
 using System.Collections.Generic;
+using System;
 
 /// <summary>
 /// This class is adapted and modified from the FSM implementation class available on UnifyCommunity website
@@ -116,6 +117,16 @@ public abstract class CombatFSMState
     public void ResetRuneTurnTriggers(TurnController controller)
     {
         controller.player.resetTurnRunes(stateID);
+    }
+
+    public void ResetRuneAllRunes(TurnController controller)
+    {
+        Debug.Log("remove this if runes are broken");
+
+        for (int i = 0; i < Enum.GetNames(typeof(CombatState)).Length; i++)
+        {
+            controller.player.resetTurnRunes((CombatState)i);
+        }
     }
 
     /// <summary>Resets the rune triggers that triggers once per combat</summary>
