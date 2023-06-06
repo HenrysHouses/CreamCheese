@@ -635,7 +635,7 @@ public class ActionCard_Behaviour : Card_Behaviour
 
         spawnTemporaryGlyphs(glyphs, false, true);   
 
-        UpdateQueuedDamage(true);
+       // UpdateQueuedDamage(true);
     }
 
     public void spawnTemporaryGlyphs(CardActionEnum[] Glyphs, bool Temporary, bool updateDescription)

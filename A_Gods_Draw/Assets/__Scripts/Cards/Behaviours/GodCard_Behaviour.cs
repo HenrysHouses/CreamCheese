@@ -124,8 +124,14 @@ public class GodCard_Behaviour : Card_Behaviour , IMonsterTarget
         
         GodSlot = TurnController.PlayerClick() as GodConfirmation;
 
+        if(GodSlot == null)
+        {
+            MissClick();
+            return;
+        }
         if(!GodSlot.wasClicked)
             MissClick();
+        
     }
 
     private IEnumerator ConfirmingGodPlacement()
