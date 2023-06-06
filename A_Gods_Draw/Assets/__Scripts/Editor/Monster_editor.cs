@@ -54,7 +54,7 @@ public class Monster_Editor : Editor
             for(int i = 0; i < EnemyActions.arraySize; i++)
             {
 
-                EditorGUILayout.Space();
+                EditorGUILayout.Space(20);
 
                 if((actionDropdowns.Count - 1) < i)
                     actionDropdowns.Add(false);
