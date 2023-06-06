@@ -204,7 +204,7 @@ public class Monster : BoardElement
 
     }
 
-    public void Defend(int _amount)
+    public virtual void Defend(int _amount)
     {
 
         queuedDefence += _amount;

@@ -19,6 +19,14 @@ public class TutorialMonster : Monster
         
     }
 
+    public virtual void Defend(int _amount)
+    {
+
+        queuedDefence += _amount;
+        Defending = true;
+
+    }
+
     internal override void DecideIntent(BoardStateController board)
     {
 
