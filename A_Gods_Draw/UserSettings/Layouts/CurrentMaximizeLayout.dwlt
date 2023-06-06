@@ -23,7 +23,7 @@ MonoBehaviour:
   m_MinSize: {x: 300, y: 200}
   m_MaxSize: {x: 24288, y: 16192}
   vertical: 0
-  controlID: 29319
+  controlID: 35468
 --- !u!114 &2
 MonoBehaviour:
   m_ObjectHideFlags: 52
@@ -94,23 +94,23 @@ MonoBehaviour:
       serializedVersion: 2
       x: 0
       y: 21
-      width: 1920
-      height: 947
-    m_Scale: {x: 0.8768518, y: 0.87685186}
-    m_Translation: {x: 960, y: 473.5}
+      width: 943
+      height: 650
+    m_Scale: {x: 0.49114582, y: 0.49114582}
+    m_Translation: {x: 471.5, y: 325}
     m_MarginLeft: 0
     m_MarginRight: 0
     m_MarginTop: 0
     m_MarginBottom: 0
     m_LastShownAreaInsideMargins:
       serializedVersion: 2
-      x: -1094.8258
-      y: -540
-      width: 2189.6516
-      height: 1080
+      x: -960
+      y: -661.71796
+      width: 1920
+      height: 1323.4359
     m_MinimalGUI: 1
-  m_defaultScale: 0.87685186
-  m_LastWindowPixelSize: {x: 1920, y: 968}
+  m_defaultScale: 0.49114582
+  m_LastWindowPixelSize: {x: 943, y: 671}
   m_ClearInEditMode: 1
   m_NoCameraWarning: 1
   m_LowResolutionForAspectRatios: 01000000000000000000
@@ -140,7 +140,7 @@ MonoBehaviour:
   m_MinSize: {x: 300, y: 200}
   m_MaxSize: {x: 24288, y: 16192}
   vertical: 1
-  controlID: 29320
+  controlID: 35469
 --- !u!114 &4
 MonoBehaviour:
   m_ObjectHideFlags: 52
@@ -166,7 +166,7 @@ MonoBehaviour:
   m_MinSize: {x: 300, y: 100}
   m_MaxSize: {x: 24288, y: 8096}
   vertical: 0
-  controlID: 29321
+  controlID: 35470
 --- !u!114 &5
 MonoBehaviour:
   m_ObjectHideFlags: 52
@@ -223,10 +223,10 @@ MonoBehaviour:
     m_SaveData: []
   m_SceneHierarchy:
     m_TreeViewState:
-      scrollPos: {x: 0, y: 230}
-      m_SelectedIDs: 46a9ecff
-      m_LastClickedID: -1267386
-      m_ExpandedIDs: 9ca7ecff26a8ecff2aa8ecff46a9ecffa0bcecff8006edff0a07edff0e07edff2a08edff841bedff2cd5f5ff7e60fdff0861fdff0c61fdffca61fdff1262fdff1c62fdff2862fdff8275fdfff0ccfdffcae6fdff92fcfdff1cfdfdff20fdfdffdefdfdff26fefdff30fefdff3cfefdff7e13feff6c8dffff02fbffff04fbffff06fbffff4a9c000084a000006ca500004ee8000048e90000d8e900001aea0000baea000032f200002cf30000fef300009ef400002c84020026850200f8850200988602007e9b0200789c02004a9d0200ea9d0200
+      scrollPos: {x: 0, y: 0}
+      m_SelectedIDs: 
+      m_LastClickedID: 0
+      m_ExpandedIDs: 9ca7ecff26a8ecff2aa8ecff46a9ecffa0bcecff8006edff0a07edff0e07edff2a08edff841bedff2cd5f5ff7e60fdff0861fdff0c61fdffca61fdff1262fdff1c62fdff2862fdff8275fdfff0ccfdffcae6fdff92fcfdff1cfdfdff20fdfdffdefdfdff26fefdff30fefdff3cfefdff7e13feff6c8dffff02fbffff04fbffff06fbffff4a9c000084a000006ca500004ee8000048e90000d8e900001aea0000baea000032f200002cf30000fef300009ef40000b42102002c84020026850200f8850200988602007e9b0200789c02004a9d0200ea9d0200
       m_RenameOverlay:
         m_UserAcceptedRename: 0
         m_Name: 
@@ -554,11 +554,11 @@ MonoBehaviour:
   m_Rotation:
     m_Target: {x: 0.1674576, y: 0.02630281, z: -0.004469083, w: 0.98552144}
     speed: 2
-    m_Value: {x: -0.16745761, y: -0.02630281, z: 0.004469083, w: -0.98552144}
+    m_Value: {x: 0.16745707, y: 0.026302729, z: -0.004469069, w: 0.9855184}
   m_Size:
     m_Target: 1.1897879
     speed: 2
-    m_Value: 1.2458512
+    m_Value: 1.1897879
   m_Ortho:
     m_Target: 0
     speed: 2
@@ -754,7 +754,7 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 1
   m_Script: {fileID: 12006, guid: 0000000000000000e000000000000000, type: 0}
-  m_Name: ConsoleWindow
+  m_Name: ProjectBrowser
   m_EditorClassIdentifier: 
   m_Children: []
   m_Position:
@@ -763,14 +763,14 @@ MonoBehaviour:
     y: 692
     width: 1920
     height: 295
-  m_MinSize: {x: 100, y: 121}
-  m_MaxSize: {x: 4000, y: 4021}
-  m_ActualView: {fileID: 15}
+  m_MinSize: {x: 230, y: 250}
+  m_MaxSize: {x: 10000, y: 10000}
+  m_ActualView: {fileID: 14}
   m_Panes:
   - {fileID: 14}
   - {fileID: 15}
-  m_Selected: 1
-  m_LastSelected: 0
+  m_Selected: 0
+  m_LastSelected: 1
 --- !u!114 &14
 MonoBehaviour:
   m_ObjectHideFlags: 52
@@ -812,21 +812,21 @@ MonoBehaviour:
     m_SkipHidden: 0
     m_SearchArea: 1
     m_Folders:
-    - Assets/Resources/Encounters/Medium
+    - Assets/~Prefabs/Enemies/Elites
     m_Globs: []
     m_OriginalText: 
   m_ViewMode: 1
   m_StartGridSize: 72
   m_LastFolders:
-  - Assets/Resources/Encounters/Medium
+  - Assets/~Prefabs/Enemies/Elites
   m_LastFoldersGridSize: 72
   m_LastProjectPath: C:\Users\kevin\Projects\Unity\GitRepos\CreamCheese\A_Gods_Draw
   m_LockTracker:
     m_IsLocked: 1
   m_FolderTreeState:
-    scrollPos: {x: 0, y: 1303}
-    m_SelectedIDs: 5c620100
-    m_LastClickedID: 90716
+    scrollPos: {x: 0, y: 1603}
+    m_SelectedIDs: f4730000
+    m_LastClickedID: 29684
     m_ExpandedIDs: 00000000de710000e0710000e2710000e4710000e6710000e8710000ea710000ec710000ee710000f0710000f2710000f4710000f6710000f8710000fa710000
     m_RenameOverlay:
       m_UserAcceptedRename: 0
