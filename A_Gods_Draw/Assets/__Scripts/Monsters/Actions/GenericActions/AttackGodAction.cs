@@ -39,8 +39,6 @@ public class AttackGodAction : MonsterAction
     public override void SelectTargets(BoardStateController _board)
     {
 
-        ResetTargets();
-        
         if(ITargets.Count > 0)
         {
 
@@ -50,7 +48,16 @@ public class AttackGodAction : MonsterAction
                 _target.UnTargeted();
                 
             }
-            ITargets.Clear();
+
+        }
+
+        ResetTargets();
+
+        if(!_board.playedGodCard)
+        {
+
+            Self.CancelIntent();
+            return;
 
         }
 
