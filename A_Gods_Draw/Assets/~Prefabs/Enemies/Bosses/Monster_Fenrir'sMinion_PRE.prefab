@@ -249,8 +249,6 @@ MonoBehaviour:
     ActionConditions:
     - Condition: 16
       InvertCondition: 0
-    - Condition: 17
-      InvertCondition: 1
     AllRequired: 1
     MinStrength: 6
     MaxStrength: 8
@@ -265,7 +263,7 @@ MonoBehaviour:
     WeigthMod: 0
     AddedWeigth: 0
     Weigth: 10
-    Priority: 0
+    Priority: 1
     TurnsToPerform: 0
     ActionVFX: {fileID: 2783697208436553965, guid: 93fb6a762d5aa0d4aa54c77a218fff78, type: 3}
     ActionSFX:
@@ -278,8 +276,6 @@ MonoBehaviour:
   - ActionType: 1
     ActionConditions:
     - Condition: 4
-      InvertCondition: 1
-    - Condition: 17
       InvertCondition: 1
     AllRequired: 1
     MinStrength: 2
@@ -295,7 +291,7 @@ MonoBehaviour:
     WeigthMod: 0
     AddedWeigth: 0
     Weigth: 5
-    Priority: 0
+    Priority: 1
     TurnsToPerform: 0
     ActionVFX: {fileID: 0}
     ActionSFX:
@@ -308,9 +304,7 @@ MonoBehaviour:
   - ActionType: 2
     ActionConditions:
     - Condition: 2
-      InvertCondition: 1
-    - Condition: 17
-      InvertCondition: 1
+      InvertCondition: 0
     AllRequired: 1
     MinStrength: 2
     MaxStrength: 6
@@ -337,8 +331,8 @@ MonoBehaviour:
       Path: event:/Combat/Enemy/Enemy AttackTrue
   - ActionType: 1
     ActionConditions:
-    - Condition: 17
-      InvertCondition: 1
+    - Condition: 0
+      InvertCondition: 0
     AllRequired: 1
     MinStrength: 2
     MaxStrength: 6
@@ -365,8 +359,8 @@ MonoBehaviour:
       Path: event:/Combat/Enemy/EnemyShielding
   - ActionType: 0
     ActionConditions:
-    - Condition: 17
-      InvertCondition: 1
+    - Condition: 7
+      InvertCondition: 0
     AllRequired: 1
     MinStrength: 2
     MaxStrength: 6

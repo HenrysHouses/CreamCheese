@@ -92,6 +92,10 @@ public class MinionIntent : Intent
                 _newAction = new Heal_BuffAction(actions[i].MinStrength + _scale, actions[i].MaxStrength + _scale);
                 break;
 
+                case EnemyIntent.BuffAll:
+                _newAction = new MultiBuffEnemyAction(actions[i].MinStrength + _scale, actions[i].MaxStrength + _scale);
+                break;
+
             }
 
             actions[i].Action = _newAction;
@@ -293,7 +297,8 @@ namespace EnemyAIEnums
         Cleanse_Buff = 15,
         Cleanse_Heal = 16,
         Heal_Buff = 17,
-        SummonEnemies = 18
+        SummonEnemies = 18,
+        BuffAll = 19
 
     }
 

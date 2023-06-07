@@ -331,9 +331,9 @@ MonoBehaviour:
   ClassName: Monster
   clickable: 1
   EnemyActions:
-  - ActionType: 0
+  - ActionType: 19
     ActionConditions:
-    - Condition: 0
+    - Condition: 5
       InvertCondition: 0
     AllRequired: 0
     MinStrength: 8
@@ -349,16 +349,16 @@ MonoBehaviour:
     WeigthMod: 0
     AddedWeigth: 0
     Weigth: 4
-    Priority: 0
+    Priority: 1
     TurnsToPerform: 0
-    ActionVFX: {fileID: 0}
+    ActionVFX: {fileID: 3717083252991183605, guid: 8378739080a8854468aad5a04f9a5f69, type: 3}
     ActionSFX:
       Guid:
-        Data1: -395794772
-        Data2: 1144077970
-        Data3: 1876799371
-        Data4: 423059306
-      Path: event:/Combat/Enemy/Enemy AttackTrue
+        Data1: 544756346
+        Data2: 1258098380
+        Data3: 857095067
+        Data4: 1698563813
+      Path: event:/Combat/Enemy/Enemy Ability New
   - ActionType: 10
     ActionConditions:
     - Condition: 11
@@ -367,7 +367,7 @@ MonoBehaviour:
       InvertCondition: 0
     - Condition: 17
       InvertCondition: 1
-    AllRequired: 0
+    AllRequired: 1
     MinStrength: 1
     MaxStrength: 1
     UseStrengthMod: 0
@@ -383,7 +383,7 @@ MonoBehaviour:
     WeigthMod: 1
     AddedWeigth: 0
     Weigth: 3
-    Priority: 0
+    Priority: 1
     TurnsToPerform: 0
     ActionVFX: {fileID: 3717083252991183605, guid: 564348771e1c87d4ca2d019702583dc3, type: 3}
     ActionSFX:
@@ -415,7 +415,7 @@ MonoBehaviour:
     WeigthMod: 1
     AddedWeigth: 0
     Weigth: 3
-    Priority: 0
+    Priority: 1
     TurnsToPerform: 0
     ActionVFX: {fileID: 3717083252991183605, guid: 564348771e1c87d4ca2d019702583dc3, type: 3}
     ActionSFX:
