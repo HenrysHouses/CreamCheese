@@ -287,6 +287,20 @@ public static class ConditionChecker
             }
             break;
 
+            case ActionConditions.FenrirBoardTargetCheck:
+            if(_board.ActiveExtraEnemyTargets.Count - 1 > Random.Range(0, _board.AllExtraEnemyTargets.Count))
+            {
+                _passed = true;
+            }
+            break;
+
+            case ActionConditions.HasNotPerformedSpecialAction:
+            if(!_intent.SpecialActionLastTurn())
+            {
+                _passed = true;
+            }
+            break;
+
         }
 
         if(_invertCondition)

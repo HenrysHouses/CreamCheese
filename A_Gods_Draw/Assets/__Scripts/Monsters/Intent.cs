@@ -34,6 +34,7 @@ public abstract class Intent
     public virtual bool AttackedLastTurn(){return false;}
     public virtual bool DidActionLastTurn(){return false;}
     public virtual bool BuffedLastTurn(){return false;}
+    public virtual bool SpecialActionLastTurn(){return false;}
     public virtual bool SameAction(MonsterAction _action){return false;}
     public virtual ActionSelection TryGetActionSelectionForType(EnemyIntent _intentType){return null;}
 

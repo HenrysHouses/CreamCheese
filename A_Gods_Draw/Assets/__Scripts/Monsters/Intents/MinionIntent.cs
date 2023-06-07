@@ -143,6 +143,14 @@ public class MinionIntent : Intent
         return false;
     }
 
+    public override bool SpecialActionLastTurn()
+    {
+        if(PreviousAction != null && PreviousAction.ActionIntentType == IntentType.Special)
+            return true;
+
+        return false;
+    }
+
     public override bool SameAction(MonsterAction _action)
     {
         if(_action == null)
@@ -265,7 +273,9 @@ namespace EnemyAIEnums
         IsBuffed,
         FenrirBeaten1,
         FenrirBeaten2,
-        FenrirBeaten3
+        FenrirBeaten3,
+        FenrirBoardTargetCheck,
+        HasNotPerformedSpecialAction,
     }
 
     public enum IntentType
