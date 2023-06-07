@@ -336,8 +336,8 @@ MonoBehaviour:
     - Condition: 5
       InvertCondition: 0
     AllRequired: 0
-    MinStrength: 4
-    MaxStrength: 8
+    MinStrength: 3
+    MaxStrength: 6
     UseStrengthMod: 0
     StrengthModConditions: []
     AllRequiredForMod: 0
@@ -400,8 +400,8 @@ MonoBehaviour:
     - Condition: 17
       InvertCondition: 1
     AllRequired: 0
-    MinStrength: 10
-    MaxStrength: 16
+    MinStrength: 3
+    MaxStrength: 6
     UseStrengthMod: 0
     StrengthModConditions: []
     AllRequiredForMod: 0
@@ -415,7 +415,7 @@ MonoBehaviour:
     WeigthMod: 1
     AddedWeigth: 0
     Weigth: 3
-    Priority: 1
+    Priority: 0
     TurnsToPerform: 0
     ActionVFX: {fileID: 3717083252991183605, guid: 564348771e1c87d4ca2d019702583dc3, type: 3}
     ActionSFX:
@@ -430,8 +430,8 @@ MonoBehaviour:
     - Condition: 4
       InvertCondition: 1
     AllRequired: 0
-    MinStrength: 4
-    MaxStrength: 8
+    MinStrength: 3
+    MaxStrength: 6
     UseStrengthMod: 0
     StrengthModConditions: []
     AllRequiredForMod: 0
@@ -455,19 +455,72 @@ MonoBehaviour:
         Data3: 857095067
         Data4: 1698563813
       Path: event:/Combat/Enemy/Enemy Ability New
+  - ActionType: 7
+    ActionConditions:
+    - Condition: 1
+      InvertCondition: 0
+    AllRequired: 0
+    MinStrength: 6
+    MaxStrength: 12
+    UseStrengthMod: 0
+    StrengthModConditions: []
+    AllRequiredForMod: 0
+    ModifiedStrength: 0
+    UseWeigthMod: 0
+    WeigthModConditions:
+    - Condition: 15
+      InvertCondition: 0
+    AllRequiredForWeigthMod: 0
+    ClearOnConditionFalse: 0
+    WeigthMod: 1
+    AddedWeigth: 0
+    Weigth: 2
+    Priority: 1
+    TurnsToPerform: 0
+    ActionVFX: {fileID: 0}
+    ActionSFX:
+      Guid:
+        Data1: -61608993
+        Data2: 1303707487
+        Data3: 614884509
+        Data4: -1996338528
+      Path: event:/Combat/Enemy/EnemyDoubleAttack
+  - ActionType: 10
+    ActionConditions:
+    - Condition: 1
+      InvertCondition: 0
+    AllRequired: 0
+    MinStrength: 1
+    MaxStrength: 1
+    UseStrengthMod: 0
+    StrengthModConditions: []
+    AllRequiredForMod: 0
+    ModifiedStrength: 0
+    UseWeigthMod: 0
+    WeigthModConditions:
+    - Condition: 15
+      InvertCondition: 0
+    AllRequiredForWeigthMod: 0
+    ClearOnConditionFalse: 0
+    WeigthMod: 1
+    AddedWeigth: 0
+    Weigth: 2
+    Priority: 1
+    TurnsToPerform: 0
+    ActionVFX: {fileID: 3717083252991183605, guid: 564348771e1c87d4ca2d019702583dc3, type: 3}
+    ActionSFX:
+      Guid:
+        Data1: 544756346
+        Data2: 1258098380
+        Data3: 857095067
+        Data4: 1698563813
+      Path: event:/Combat/Enemy/Enemy Ability New
   Board: {fileID: 0}
   deathParticleVFX: {fileID: 5287897919713805375, guid: f4e970dc5cfd4f443927313f6d87952d, type: 3}
   gfxParent: {fileID: 7472608004997553145}
   MonsterRenderers:
-  - {fileID: 8634234059421542785}
-  - {fileID: 2564847105676791254}
-  - {fileID: 4168794063607974793}
-  - {fileID: 5509576082408511472}
-  - {fileID: 4636529640823185689}
-  - {fileID: 6441641539791931643}
-  - {fileID: 7130872992803622673}
-  - {fileID: 7690748536429600200}
-  outlineSize: 0.24
+  - {fileID: 6420338406006126754}
+  outlineSize: 0.03
   effectsPanel: {fileID: 2283632382822048129}
   healthBar: {fileID: 143227982}
   poisonBar: {fileID: 1688961588}
@@ -1363,24 +1416,9 @@ Transform:
   m_CorrespondingSourceObject: {fileID: 7148100582718738842, guid: bb20cc6fb6503ab42a5f2aafd1b4ab58, type: 3}
   m_PrefabInstance: {fileID: 4785502971324214146}
   m_PrefabAsset: {fileID: 0}
---- !u!137 &2564847105676791254 stripped
-SkinnedMeshRenderer:
-  m_CorrespondingSourceObject: {fileID: -2165757241471867308, guid: bb20cc6fb6503ab42a5f2aafd1b4ab58, type: 3}
-  m_PrefabInstance: {fileID: 4785502971324214146}
-  m_PrefabAsset: {fileID: 0}
 --- !u!4 &2647771281448572283 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: -1812909498023395591, guid: bb20cc6fb6503ab42a5f2aafd1b4ab58, type: 3}
-  m_PrefabInstance: {fileID: 4785502971324214146}
-  m_PrefabAsset: {fileID: 0}
---- !u!137 &4168794063607974793 stripped
-SkinnedMeshRenderer:
-  m_CorrespondingSourceObject: {fileID: -309889088464920565, guid: bb20cc6fb6503ab42a5f2aafd1b4ab58, type: 3}
-  m_PrefabInstance: {fileID: 4785502971324214146}
-  m_PrefabAsset: {fileID: 0}
---- !u!137 &4636529640823185689 stripped
-SkinnedMeshRenderer:
-  m_CorrespondingSourceObject: {fileID: -9065246057410147685, guid: bb20cc6fb6503ab42a5f2aafd1b4ab58, type: 3}
   m_PrefabInstance: {fileID: 4785502971324214146}
   m_PrefabAsset: {fileID: 0}
 --- !u!4 &5035935760359246953 stripped
@@ -1391,11 +1429,6 @@ Transform:
 --- !u!4 &5151396664165497837 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 366175167995203695, guid: bb20cc6fb6503ab42a5f2aafd1b4ab58, type: 3}
-  m_PrefabInstance: {fileID: 4785502971324214146}
-  m_PrefabAsset: {fileID: 0}
---- !u!137 &5509576082408511472 stripped
-SkinnedMeshRenderer:
-  m_CorrespondingSourceObject: {fileID: 1016819387684469874, guid: bb20cc6fb6503ab42a5f2aafd1b4ab58, type: 3}
   m_PrefabInstance: {fileID: 4785502971324214146}
   m_PrefabAsset: {fileID: 0}
 --- !u!1 &5668039928808085203 stripped
@@ -1428,24 +1461,9 @@ Transform:
   m_CorrespondingSourceObject: {fileID: -8021001004253913084, guid: bb20cc6fb6503ab42a5f2aafd1b4ab58, type: 3}
   m_PrefabInstance: {fileID: 4785502971324214146}
   m_PrefabAsset: {fileID: 0}
---- !u!137 &6441641539791931643 stripped
-SkinnedMeshRenderer:
-  m_CorrespondingSourceObject: {fileID: -7274215818598423687, guid: bb20cc6fb6503ab42a5f2aafd1b4ab58, type: 3}
-  m_PrefabInstance: {fileID: 4785502971324214146}
-  m_PrefabAsset: {fileID: 0}
---- !u!137 &7130872992803622673 stripped
-SkinnedMeshRenderer:
-  m_CorrespondingSourceObject: {fileID: -6873488442665753453, guid: bb20cc6fb6503ab42a5f2aafd1b4ab58, type: 3}
-  m_PrefabInstance: {fileID: 4785502971324214146}
-  m_PrefabAsset: {fileID: 0}
 --- !u!4 &7205703118231874422 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: -6803169544883306252, guid: bb20cc6fb6503ab42a5f2aafd1b4ab58, type: 3}
-  m_PrefabInstance: {fileID: 4785502971324214146}
-  m_PrefabAsset: {fileID: 0}
---- !u!137 &8634234059421542785 stripped
-SkinnedMeshRenderer:
-  m_CorrespondingSourceObject: {fileID: -5351556495836364285, guid: bb20cc6fb6503ab42a5f2aafd1b4ab58, type: 3}
   m_PrefabInstance: {fileID: 4785502971324214146}
   m_PrefabAsset: {fileID: 0}
 --- !u!1001 &7340458121802551721
@@ -1577,12 +1595,29 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: -5194673340452264902, guid: 8dc03a7bc3405dc46a3ee5bb7384b262, type: 3}
+      propertyPath: m_Materials.Array.size
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: -5194673340452264902, guid: 8dc03a7bc3405dc46a3ee5bb7384b262, type: 3}
+      propertyPath: m_Materials.Array.data[1]
+      value: 
+      objectReference: {fileID: 2100000, guid: 2a13b0928255c4949a93e43887188375, type: 2}
     - target: {fileID: 919132149155446097, guid: 8dc03a7bc3405dc46a3ee5bb7384b262, type: 3}
       propertyPath: m_Name
       value: Wolk2-Attack
       objectReference: {fileID: 0}
+    - target: {fileID: 4419580648625135420, guid: 8dc03a7bc3405dc46a3ee5bb7384b262, type: 3}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 8dc03a7bc3405dc46a3ee5bb7384b262, type: 3}
+--- !u!137 &6420338406006126754 stripped
+SkinnedMeshRenderer:
+  m_CorrespondingSourceObject: {fileID: -5194673340452264902, guid: 8dc03a7bc3405dc46a3ee5bb7384b262, type: 3}
+  m_PrefabInstance: {fileID: 7994258624600628376}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1 &7075196851839918537 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 919132149155446097, guid: 8dc03a7bc3405dc46a3ee5bb7384b262, type: 3}
