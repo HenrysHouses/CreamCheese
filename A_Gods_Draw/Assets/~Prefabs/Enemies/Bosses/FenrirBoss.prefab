@@ -336,8 +336,8 @@ MonoBehaviour:
     - Condition: 5
       InvertCondition: 0
     AllRequired: 0
-    MinStrength: 8
-    MaxStrength: 12
+    MinStrength: 4
+    MaxStrength: 8
     UseStrengthMod: 0
     StrengthModConditions: []
     AllRequiredForMod: 0
@@ -425,13 +425,13 @@ MonoBehaviour:
         Data3: 614884509
         Data4: -1996338528
       Path: event:/Combat/Enemy/EnemyDoubleAttack
-  - ActionType: 0
+  - ActionType: 19
     ActionConditions:
-    - Condition: 0
-      InvertCondition: 0
+    - Condition: 4
+      InvertCondition: 1
     AllRequired: 0
-    MinStrength: 8
-    MaxStrength: 12
+    MinStrength: 4
+    MaxStrength: 8
     UseStrengthMod: 0
     StrengthModConditions: []
     AllRequiredForMod: 0
@@ -444,8 +444,8 @@ MonoBehaviour:
     ClearOnConditionFalse: 0
     WeigthMod: 1
     AddedWeigth: 0
-    Weigth: 3
-    Priority: 0
+    Weigth: 4
+    Priority: 1
     TurnsToPerform: 0
     ActionVFX: {fileID: 3717083252991183605, guid: 8378739080a8854468aad5a04f9a5f69, type: 3}
     ActionSFX:
