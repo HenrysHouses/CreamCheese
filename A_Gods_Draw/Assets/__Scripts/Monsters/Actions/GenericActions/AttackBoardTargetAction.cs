@@ -32,13 +32,17 @@ public class AttackBoardTargetAction : MonsterAction
 
         }
 
-        for(int i = 0; i < _targets.Count; i++)
-        {
+        int _randomNum = Random.Range(0, _targets.Count);
 
-            ITargets.Add(_targets[Random.Range(0, _targets.Count)]);
-            _targets[i].Targeted(Self.gameObject);
+        ITargets.Add(_targets[_randomNum]);
+        _targets[_randomNum].Targeted(Self.gameObject);
+        _targets.RemoveAt(_randomNum);
 
-        }
+        _randomNum = Random.Range(0, _targets.Count);
+
+        ITargets.Add(_targets[_randomNum]);
+        _targets[_randomNum].Targeted(Self.gameObject);
+        _targets.RemoveAt(_randomNum);
 
     }
 
