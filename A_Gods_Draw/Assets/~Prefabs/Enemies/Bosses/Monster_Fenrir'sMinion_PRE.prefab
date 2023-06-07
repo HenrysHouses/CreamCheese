@@ -250,8 +250,8 @@ MonoBehaviour:
     - Condition: 16
       InvertCondition: 0
     AllRequired: 1
-    MinStrength: 6
-    MaxStrength: 8
+    MinStrength: 1
+    MaxStrength: 1
     UseStrengthMod: 0
     StrengthModConditions: []
     AllRequiredForMod: 0
@@ -265,14 +265,14 @@ MonoBehaviour:
     Weigth: 10
     Priority: 1
     TurnsToPerform: 0
-    ActionVFX: {fileID: 2783697208436553965, guid: 93fb6a762d5aa0d4aa54c77a218fff78, type: 3}
+    ActionVFX: {fileID: 0}
     ActionSFX:
       Guid:
-        Data1: -1066434047
-        Data2: 1172917976
-        Data3: -226219585
-        Data4: -754466224
-      Path: event:/GlyphsVFXs/HealingEnemy
+        Data1: -395794772
+        Data2: 1144077970
+        Data3: 1876799371
+        Data4: 423059306
+      Path: event:/Combat/Enemy/Enemy AttackTrue
   - ActionType: 1
     ActionConditions:
     - Condition: 4
@@ -306,8 +306,8 @@ MonoBehaviour:
     - Condition: 2
       InvertCondition: 0
     AllRequired: 1
-    MinStrength: 2
-    MaxStrength: 6
+    MinStrength: 1
+    MaxStrength: 2
     UseStrengthMod: 0
     StrengthModConditions: []
     AllRequiredForMod: 0
@@ -357,34 +357,6 @@ MonoBehaviour:
         Data3: 705129880
         Data4: -1982789950
       Path: event:/Combat/Enemy/EnemyShielding
-  - ActionType: 0
-    ActionConditions:
-    - Condition: 7
-      InvertCondition: 0
-    AllRequired: 1
-    MinStrength: 2
-    MaxStrength: 6
-    UseStrengthMod: 0
-    StrengthModConditions: []
-    AllRequiredForMod: 0
-    ModifiedStrength: 0
-    UseWeigthMod: 0
-    WeigthModConditions: []
-    AllRequiredForWeigthMod: 0
-    ClearOnConditionFalse: 0
-    WeigthMod: 0
-    AddedWeigth: 0
-    Weigth: 1
-    Priority: 0
-    TurnsToPerform: 0
-    ActionVFX: {fileID: 3717083252991183605, guid: 8378739080a8854468aad5a04f9a5f69, type: 3}
-    ActionSFX:
-      Guid:
-        Data1: 544756346
-        Data2: 1258098380
-        Data3: 857095067
-        Data4: 1698563813
-      Path: event:/Combat/Enemy/Enemy Ability New
   Board: {fileID: 0}
   deathParticleVFX: {fileID: 5287897919713805375, guid: f4e970dc5cfd4f443927313f6d87952d, type: 3}
   gfxParent: {fileID: 6275259443688672500}
