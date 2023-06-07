@@ -288,7 +288,7 @@ public static class ConditionChecker
             break;
 
             case ActionConditions.FenrirBoardTargetCheck:
-            if(_board.ActiveExtraEnemyTargets.Count - 1 > Random.Range(0, _board.AllExtraEnemyTargets.Count))
+            if(_board.ActiveExtraEnemyTargets.Count > Random.Range(0, _board.AllExtraEnemyTargets.Count))
             {
                 _passed = true;
             }
