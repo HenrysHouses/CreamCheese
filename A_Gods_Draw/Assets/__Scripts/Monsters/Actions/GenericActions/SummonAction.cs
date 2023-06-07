@@ -1,9 +1,12 @@
-/*using System.Collections;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using EnemyAIEnums;
 
 public class SummonAction : MonsterAction
 {
+    private Vector3 avaviblePosition, currentMonsterPossies;
+    
 
     public SummonAction(int minimumStrength, int maximumStrength) : base(minimumStrength, maximumStrength)
     {
@@ -15,12 +18,19 @@ public class SummonAction : MonsterAction
 
     }
 
-    public override void Execute(BoardStateController BoardStateController, int strengh, UnityEngine.Object source)
+    public override void PerformAction(BoardStateController _board, int _strength, object _source)
     {
+
 
         //who knows...
 
     }
 
+    public override void SelectTargets(BoardStateController _board)
+    {
+        
+        //currentMonsterPossies
+        
+    }
+
 }
-*/

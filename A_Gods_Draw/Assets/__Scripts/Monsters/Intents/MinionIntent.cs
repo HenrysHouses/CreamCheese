@@ -292,7 +292,9 @@ namespace EnemyAIEnums
         Attack_Heal = 14,
         Cleanse_Buff = 15,
         Cleanse_Heal = 16,
-        Heal_Buff = 17
+        Heal_Buff = 17,
+        SummonEnemies = 18
+
     }
 
 }

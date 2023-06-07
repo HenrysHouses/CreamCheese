@@ -5326,7 +5326,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 5448733533976647798, guid: 4c43eded1f48dc94ea32c2d42add433e, type: 3}
       propertyPath: m_LocalPosition.y
-      value: 0.699
+      value: 0.663
       objectReference: {fileID: 0}
     - target: {fileID: 5448733533976647798, guid: 4c43eded1f48dc94ea32c2d42add433e, type: 3}
       propertyPath: m_LocalPosition.z
@@ -5360,6 +5360,10 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 6617730257949565721, guid: 4c43eded1f48dc94ea32c2d42add433e, type: 3}
+      propertyPath: m_Materials.Array.data[0]
+      value: 
+      objectReference: {fileID: 2100000, guid: f1dc8445d4ac6ed439f776f970acad58, type: 2}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 4c43eded1f48dc94ea32c2d42add433e, type: 3}
 --- !u!4 &1467268882 stripped
@@ -6499,6 +6503,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   shouldSetViewOnStart: 0
   View: 0
+  LockCamera: 0
 --- !u!114 &1931332711
 MonoBehaviour:
   m_ObjectHideFlags: 0

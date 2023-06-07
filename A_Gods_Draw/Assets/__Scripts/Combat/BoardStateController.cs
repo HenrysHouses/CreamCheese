@@ -32,6 +32,7 @@ public class BoardStateController : MonoBehaviour
     [HideInInspector] public List<ActionCard_Behaviour> placedCards;
     [HideInInspector] public List<ActionCard_Behaviour> allPlayedCards;
     [HideInInspector] public List<CardPlayData> ExhaustedCards;
+   // [HideInInspector] public List<Vector3> monsterPositions;
     public bool isGodPlayed => playedGodCard;
     [HideInInspector] public GodCard_Behaviour playedGodCard;
     [HideInInspector] public List<BoardElement> thingsInLane;
@@ -75,10 +76,15 @@ public class BoardStateController : MonoBehaviour
         Debug.Log(GameManager.instance.nextCombatType);
         _Enemies = EncounterLoader.InstantiateRandomEncounter(possibleEncounters, EnemyParent, out _Encounter);
 
+      //  monsterPositions = new List<Vector3>();
+
         for(int i = 0; i < _Enemies.Length; i++)
         {
+            
 
             _Enemies[i].Board = this;
+           // monsterPositions.Add(_Enemies[i].transform.position);
+            
 
         }
         
