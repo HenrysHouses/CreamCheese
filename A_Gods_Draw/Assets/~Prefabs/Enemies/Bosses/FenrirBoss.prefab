@@ -393,13 +393,13 @@ MonoBehaviour:
         Data3: 857095067
         Data4: 1698563813
       Path: event:/Combat/Enemy/Enemy Ability New
-  - ActionType: 7
+  - ActionType: 4
     ActionConditions:
     - Condition: 11
       InvertCondition: 1
-    - Condition: 17
-      InvertCondition: 1
-    AllRequired: 0
+    - Condition: 8
+      InvertCondition: 0
+    AllRequired: 1
     MinStrength: 3
     MaxStrength: 6
     UseStrengthMod: 0
@@ -415,16 +415,16 @@ MonoBehaviour:
     WeigthMod: 1
     AddedWeigth: 0
     Weigth: 3
-    Priority: 0
+    Priority: 1
     TurnsToPerform: 0
-    ActionVFX: {fileID: 3717083252991183605, guid: 564348771e1c87d4ca2d019702583dc3, type: 3}
+    ActionVFX: {fileID: 0}
     ActionSFX:
       Guid:
-        Data1: -61608993
-        Data2: 1303707487
-        Data3: 614884509
-        Data4: -1996338528
-      Path: event:/Combat/Enemy/EnemyDoubleAttack
+        Data1: -919647802
+        Data2: 1159589393
+        Data3: 217105047
+        Data4: -1930870158
+      Path: event:/GlyphsVFXs/Silence
   - ActionType: 19
     ActionConditions:
     - Condition: 4
@@ -455,11 +455,13 @@ MonoBehaviour:
         Data3: 857095067
         Data4: 1698563813
       Path: event:/Combat/Enemy/Enemy Ability New
-  - ActionType: 7
+  - ActionType: 4
     ActionConditions:
     - Condition: 1
       InvertCondition: 0
-    AllRequired: 0
+    - Condition: 8
+      InvertCondition: 0
+    AllRequired: 1
     MinStrength: 6
     MaxStrength: 12
     UseStrengthMod: 0
@@ -480,11 +482,11 @@ MonoBehaviour:
     ActionVFX: {fileID: 0}
     ActionSFX:
       Guid:
-        Data1: -61608993
-        Data2: 1303707487
-        Data3: 614884509
-        Data4: -1996338528
-      Path: event:/Combat/Enemy/EnemyDoubleAttack
+        Data1: -919647802
+        Data2: 1159589393
+        Data3: 217105047
+        Data4: -1930870158
+      Path: event:/GlyphsVFXs/Silence
   - ActionType: 10
     ActionConditions:
     - Condition: 1
@@ -515,6 +517,96 @@ MonoBehaviour:
         Data3: 857095067
         Data4: 1698563813
       Path: event:/Combat/Enemy/Enemy Ability New
+  - ActionType: 3
+    ActionConditions:
+    - Condition: 11
+      InvertCondition: 1
+    AllRequired: 1
+    MinStrength: 3
+    MaxStrength: 6
+    UseStrengthMod: 0
+    StrengthModConditions: []
+    AllRequiredForMod: 0
+    ModifiedStrength: 0
+    UseWeigthMod: 0
+    WeigthModConditions:
+    - Condition: 15
+      InvertCondition: 0
+    AllRequiredForWeigthMod: 0
+    ClearOnConditionFalse: 0
+    WeigthMod: 1
+    AddedWeigth: 0
+    Weigth: 2
+    Priority: 1
+    TurnsToPerform: 0
+    ActionVFX: {fileID: 0}
+    ActionSFX:
+      Guid:
+        Data1: 1339912751
+        Data2: 1330779452
+        Data3: -356730963
+        Data4: -1192027446
+      Path: event:/Combat/Enemy/EnemyHeavy Attack
+  - ActionType: 3
+    ActionConditions:
+    - Condition: 1
+      InvertCondition: 0
+    AllRequired: 1
+    MinStrength: 6
+    MaxStrength: 12
+    UseStrengthMod: 0
+    StrengthModConditions: []
+    AllRequiredForMod: 0
+    ModifiedStrength: 0
+    UseWeigthMod: 0
+    WeigthModConditions:
+    - Condition: 15
+      InvertCondition: 0
+    AllRequiredForWeigthMod: 0
+    ClearOnConditionFalse: 0
+    WeigthMod: 1
+    AddedWeigth: 0
+    Weigth: 3
+    Priority: 1
+    TurnsToPerform: 0
+    ActionVFX: {fileID: 0}
+    ActionSFX:
+      Guid:
+        Data1: 1339912751
+        Data2: 1330779452
+        Data3: -356730963
+        Data4: -1192027446
+      Path: event:/Combat/Enemy/EnemyHeavy Attack
+  - ActionType: 3
+    ActionConditions:
+    - Condition: 4
+      InvertCondition: 0
+    AllRequired: 1
+    MinStrength: 4
+    MaxStrength: 8
+    UseStrengthMod: 0
+    StrengthModConditions: []
+    AllRequiredForMod: 0
+    ModifiedStrength: 0
+    UseWeigthMod: 0
+    WeigthModConditions:
+    - Condition: 15
+      InvertCondition: 0
+    AllRequiredForWeigthMod: 0
+    ClearOnConditionFalse: 0
+    WeigthMod: 1
+    AddedWeigth: 0
+    Weigth: 1
+    Priority: 1
+    TurnsToPerform: 0
+    ActionVFX: {fileID: 0}
+    ActionSFX:
+      Guid:
+        Data1: 1339912751
+        Data2: 1330779452
+        Data3: -356730963
+        Data4: -1192027446
+      Path: event:/Combat/Enemy/EnemyHeavy Attack
   Board: {fileID: 0}
   deathParticleVFX: {fileID: 5287897919713805375, guid: f4e970dc5cfd4f443927313f6d87952d, type: 3}
   gfxParent: {fileID: 7472608004997553145}
