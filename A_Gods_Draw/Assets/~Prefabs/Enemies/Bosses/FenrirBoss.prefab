@@ -400,8 +400,8 @@ MonoBehaviour:
     - Condition: 8
       InvertCondition: 0
     AllRequired: 1
-    MinStrength: 3
-    MaxStrength: 6
+    MinStrength: 1
+    MaxStrength: 1
     UseStrengthMod: 0
     StrengthModConditions: []
     AllRequiredForMod: 0
@@ -462,8 +462,8 @@ MonoBehaviour:
     - Condition: 8
       InvertCondition: 0
     AllRequired: 1
-    MinStrength: 6
-    MaxStrength: 12
+    MinStrength: 1
+    MaxStrength: 1
     UseStrengthMod: 0
     StrengthModConditions: []
     AllRequiredForMod: 0
@@ -577,13 +577,15 @@ MonoBehaviour:
         Data3: -356730963
         Data4: -1192027446
       Path: event:/Combat/Enemy/EnemyHeavy Attack
-  - ActionType: 3
+  - ActionType: 19
     ActionConditions:
-    - Condition: 4
-      InvertCondition: 0
+    - Condition: 21
+      InvertCondition: 1
+    - Condition: 1
+      InvertCondition: 1
     AllRequired: 1
-    MinStrength: 4
-    MaxStrength: 8
+    MinStrength: 3
+    MaxStrength: 6
     UseStrengthMod: 0
     StrengthModConditions: []
     AllRequiredForMod: 0
@@ -596,7 +598,7 @@ MonoBehaviour:
     ClearOnConditionFalse: 0
     WeigthMod: 1
     AddedWeigth: 0
-    Weigth: 1
+    Weigth: 3
     Priority: 1
     TurnsToPerform: 0
     ActionVFX: {fileID: 0}
