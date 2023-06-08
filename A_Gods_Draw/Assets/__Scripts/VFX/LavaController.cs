@@ -27,7 +27,7 @@ public class LavaController : MonoBehaviour
         if (!testing)
         {
 
-            if (playerHealth.currHealth < healtLavaShouldSpawn)
+            if (playerHealth.currHealth <= healtLavaShouldSpawn)
                 turnOnLava = true;
 
             if (playerHealth.currHealth > healtLavaShouldSpawn)
