@@ -39,7 +39,7 @@ public class EnableIntensityEffect : SceneIntensityEffect
             if((objectsToEnable[i].ActivateOnDamage && !_updateFromDamage) || (!objectsToEnable[i].ShouldLoop && !_updateFromDamage))
                 continue;
 
-            if(_intensity >= objectsToEnable[i].Threshold && objectsToEnable[i].Threshold > prevIntensity)
+            if(_intensity >= objectsToEnable[i].Threshold /*&& objectsToEnable[i].Threshold > prevIntensity*/)
                 objectsToEnable[i].VFXObject.SetActive(objectsToEnable[i].Enable);
             else
                 objectsToEnable[i].VFXObject.SetActive(!objectsToEnable[i].Enable);
