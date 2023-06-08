@@ -1,4 +1,7 @@
 using UnityEngine;
+
+#if UNITY_EDITOR
+
 using UnityEditor;
 
 [CustomEditor(typeof(Explosion_VFX))]
@@ -17,3 +20,4 @@ public class Explosion_VFX_Editor : Editor {
         }
     }
 }
+#endif
