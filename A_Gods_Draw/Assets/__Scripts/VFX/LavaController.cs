@@ -6,6 +6,7 @@ public class LavaController : MonoBehaviour
 {
     public GameObject[] lava;
     public GameObject lavaplain, lokiFire;
+   // public ParticleSystem[] ps;
     public Transform lavaplainpos1, lavaplainpos2;
     public float lavaplainSpeed;
     public bool turnOnLava = false, testing, fireOn;
@@ -15,6 +16,7 @@ public class LavaController : MonoBehaviour
     void Start()
     {
         lokiFire.SetActive(false);
+
 
     }
 
@@ -49,8 +51,13 @@ public class LavaController : MonoBehaviour
         }
         else
         {
+           // foreach (ParticleSystem items in ps)
+           // {
+           //     items.Stop();
+           // }
             foreach (GameObject lavas in lava)
             {
+                
                 lavas.SetActive(false);
                 lokiFire.SetActive(false);
             }
