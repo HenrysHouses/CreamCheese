@@ -168,7 +168,7 @@ public class Card_Loader : MonoBehaviour
     /// <param name="card">Data required to build the prefab and get its Levels and current Up</param>
     public void Set(CardPlayData card)
     {
-        bool preventDescriptionUpdate = false;
+        bool UseUpgradedDescription = false;
         _card = card;
 
         elements.cardName.text = _card.CardType.cardName;
@@ -238,17 +238,19 @@ public class Card_Loader : MonoBehaviour
                 CB = gameObject.AddComponent<ActionCard_Behaviour>();
                 (CB as ActionCard_Behaviour).Initialize(Action_Card, elements);
 
-                preventDescriptionUpdate = (CB as ActionCard_Behaviour).ApplyLevels(card.Experience);
+                UseUpgradedDescription = (CB as ActionCard_Behaviour).ApplyLevels(card.Experience);
             }
             elements.level.instantiateIcons(Action_Card.cardStats.getGlyphs(Action_Card.type));
         }
 
-        if(elements.Description.PopupInfo  && !preventDescriptionUpdate)
+        if(elements.Description.PopupInfo)
         {
             ActionCard_ScriptableObject info = card.CardType as ActionCard_ScriptableObject;
             
-            if(info)
+            if(info && !UseUpgradedDescription)
                 elements.Description.PopupInfo.Info = info.getEffectFormatted();
+            else if(info)
+                elements.Description.PopupInfo.Info = info.getEffectFormatted(CB.stats);
             else
                 elements.Description.PopupInfo.Info = card.CardType.effect;
         }
