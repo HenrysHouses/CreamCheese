@@ -62,7 +62,8 @@ Shader "Custom/FresnelSurface"
             o.Alpha = c.a;
 
             // * Fresnel
-            o.Albedo += fresnel(_FresnelPower, V, N) * _FresnelColor;
+            // o.Albedo = fresnel(_FresnelPower, V, N) * _FresnelColor;
+            o.Emission += fresnel(_FresnelPower, V, N) * _FresnelColor;
         }
         ENDCG
     }
