@@ -553,6 +553,13 @@ public class ActionCard_Behaviour : Card_Behaviour
     public override void CancelSelection()
     {
         base.CancelSelection();
+
+        if(!gameObject)
+            return;
+
+        if(!this)
+            return;
+
         if (onSelectedRoutine != null)
             StopCoroutine(onSelectedRoutine);
         if (actionRoutine != null)
