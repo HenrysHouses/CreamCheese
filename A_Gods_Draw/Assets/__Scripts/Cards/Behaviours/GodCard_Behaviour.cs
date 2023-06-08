@@ -124,20 +124,13 @@ public class GodCard_Behaviour : Card_Behaviour , IMonsterTarget
         
         GodSlot = TurnController.PlayerClick() as GodConfirmation;
 
-        StartCoroutine(checkWasClicked(GodSlot));
-    }
-
-    IEnumerator checkWasClicked(GodConfirmation GodSlot)
-    {
-        yield return new WaitForEndOfFrame();
-
         if(GodSlot == null)
         {
             MissClick();
-            yield break;
+            return;
         }
-        if(!GodSlot.wasClicked)
-            MissClick();
+        // if(!GodSlot.wasClicked)
+        //     MissClick();
     }
 
     private IEnumerator ConfirmingGodPlacement()
