@@ -151,6 +151,7 @@ public class GodCard_Behaviour : Card_Behaviour , IMonsterTarget
 
             action.OnPlay(controller.GetBoard(), card_so.strength);
             ChangeCursor.instance.DefaultCursor();
+            CameraMovement.instance.SetCameraView(CameraView.Reset);
         }
         else
             MissClick();
@@ -300,6 +301,9 @@ public class GodCard_Behaviour : Card_Behaviour , IMonsterTarget
 
         foreach (Renderer _renderer in renderers)
         {
+            if(_renderer == null)
+                continue;
+            
             if(_renderer.materials.Length > 1)
             {
                 _renderer.materials[1].SetFloat("_Size", 0);            
