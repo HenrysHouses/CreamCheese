@@ -117,7 +117,7 @@ ParticleSystem:
     startLifetime:
       serializedVersion: 2
       minMaxState: 0
-      scalar: 0.4
+      scalar: 1.5
       minScalar: 5
       maxCurve:
         serializedVersion: 2
@@ -3993,7 +3993,7 @@ ParticleSystem:
     lifetime:
       serializedVersion: 2
       minMaxState: 0
-      scalar: 0.1
+      scalar: 0.02
       minScalar: 1
       maxCurve:
         serializedVersion: 2
@@ -8869,7 +8869,7 @@ ParticleSystem:
         m_RotationOrder: 4
     maxLights: 20
   TrailModule:
-    enabled: 1
+    enabled: 0
     mode: 0
     ratio: 1
     lifetime:
@@ -9704,7 +9704,6 @@ ParticleSystemRenderer:
   m_RendererPriority: 0
   m_Materials:
   - {fileID: 10301, guid: 0000000000000000f000000000000000, type: 0}
-  - {fileID: 2100000, guid: 3aaed9dfbb7f1e040aa139dc63d8b64a, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -9767,7 +9766,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 938086c90716fd847867b236037bbbce, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  DestroyTimer: 1
+  DestroyTimer: 2
 --- !u!1 &8159110985360890857
 GameObject:
   m_ObjectHideFlags: 0
