@@ -558,7 +558,7 @@ public class TurnController : CombatFSM
                 return;
             }
 
-            if(_CardState.Experience.Level == unlocks.Upgrades.Length-1)
+            if(_CardState.Experience.Level == unlocks.Upgrades.Length)
             {
                 Debug.Log("this card is max level");
                 return;
