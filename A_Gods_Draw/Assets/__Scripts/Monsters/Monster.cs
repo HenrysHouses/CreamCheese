@@ -282,7 +282,6 @@ public class Monster : BoardElement
 
         currentHealth -= _damageTaken;
         setOutline(outlineSize + 0.2f, Color.red, 0.15f);
-        GameObject.Instantiate(DamagedParticleVFX, transform.position, Quaternion.identity);
 
         if(Leached)
             Board.Player.Heal(currentHealth < 0 ? _damageTaken + currentHealth + _leachFor : _damageTaken + _leachFor);
@@ -290,7 +289,12 @@ public class Monster : BoardElement
         if (currentHealth <= 0)
             StartCoroutine(nameof(Die));
         else if(_damageTaken > 0)
+        {
+
             Animator.SetTrigger("TakingDMG");
+            GameObject.Instantiate(DamagedParticleVFX, transform.position, Quaternion.identity);
+
+        }
 
         UpdateHealthUI();
         UpdateDefenceUI();
