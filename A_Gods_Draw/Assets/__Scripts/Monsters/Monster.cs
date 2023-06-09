@@ -29,6 +29,7 @@ public class Monster : BoardElement
     //VFX
     [Header("VFX")]
     public GameObject deathParticleVFX;
+    public GameObject DamagedParticleVFX, BlockedParticleVFX;
     [SerializeField, Tooltip("Should self asign to any object names (GFXParent)")]
     private Transform gfxParent;
     [SerializeField] Renderer[] MonsterRenderers;
@@ -245,6 +246,7 @@ public class Monster : BoardElement
             
             Animator.SetTrigger("TakingDMGDefended");
             SoundPlayer.PlaySound(block_SFX, gameObject);
+            GameObject.Instantiate(BlockedParticleVFX, transform.position, Quaternion.identity);
             defendFor -= _amount;
 
         }
@@ -279,7 +281,8 @@ public class Monster : BoardElement
         }
 
         currentHealth -= _damageTaken;
-        setOutline(outlineSize, Color.red, 0.25f);
+        setOutline(outlineSize + 0.2f, Color.red, 0.15f);
+        GameObject.Instantiate(DamagedParticleVFX, transform.position, Quaternion.identity);
 
         if(Leached)
             Board.Player.Heal(currentHealth < 0 ? _damageTaken + currentHealth + _leachFor : _damageTaken + _leachFor);
