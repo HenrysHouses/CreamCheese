@@ -17,11 +17,12 @@ public class LevelController : MonoBehaviour
     [SerializeField] Texture2D[] LevelTextures;
 
     List<GameObject> SpawnedGlyphs = new List<GameObject>();
+    GameObject SpawnedGodGlyph;
     List<CardActionEnum> glyphsOrder = new List<CardActionEnum>();
     bool HasGodGlyph;
     bool SkipSetWhenDestroyed;
     
-    public void set(Card_Selector selector, CardPlayData data)
+    public void set(Card_Selector selector, CardPlayData data, bool spawnAsDisplay = false)
     {
         Card_Selector = selector;
         experience = data.Experience;
@@ -31,7 +32,7 @@ public class LevelController : MonoBehaviour
             _God = data.CardType as GodCard_ScriptableObject;
             GodActionEnum GodAction = _God.godAction;
 
-            instantiateGodIcon(GodAction);
+            instantiateGodIcon(GodAction, spawnAsDisplay);
 
             if(SkipSetWhenDestroyed)
             {
@@ -145,20 +146,39 @@ public class LevelController : MonoBehaviour
         if(God == GodActionEnum.None)
             return;
 
+        if(SpawnedGodGlyph != null)
+            Destroy(SpawnedGodGlyph);
+
         GameObject icon = Instantiate(IconPrefab);
+
+        if(spawnAsDisplay)
+            IconPath.recalculatePath();
         OrientedPoint OP = IconPath.GetEvenPathOP(0.5f);
         icon.transform.position = OP.pos;
         icon.transform.SetParent(IconPath.transform.parent, spawnAsDisplay);
         icon.transform.localEulerAngles = Vector3.zero;
         icon.transform.localScale = Vector3.one;
         icon.GetComponent<GlyphController>().setGlyph(_God.godAction, Card_Selector, "", true);
+
+        SpawnedGodGlyph = icon;
     }
 
     /// <summary>Spawn Glyph Icons on Action Cards</summary>
     /// <param name="glyphs">Which glyphs to spawn on the card</param>
     /// <param name="spawnAsDisplay">Dont know why this was required but it was needed outside of combat</param>
-    public void instantiateIcons(CardActionEnum[] glyphs, bool spawnAsDisplay = false)
+    public void instantiateIcons(CardActionEnum[] glyphs, bool spawnAsDisplay = false, bool reset = false)
     {
+        if(reset)
+        {
+            for (int i = 0; i < SpawnedGlyphs.Count; i++)
+            {
+                Destroy(SpawnedGlyphs[i]);
+            }
+
+            HasGodGlyph = false;
+            SpawnedGlyphs.Clear();
+        }
+
         float godGlyph = 0;
         if(_Card.cardStats.correspondingGod != GodActionEnum.None && !HasGodGlyph)
             godGlyph = 1;

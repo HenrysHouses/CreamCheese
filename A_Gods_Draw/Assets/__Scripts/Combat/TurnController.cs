@@ -569,12 +569,12 @@ public class TurnController : CombatFSM
             card.UpgradePath.Experience.XP++;
 
             deckController.deckData.deckListData[i] = new CardPlayData(_CardState);
+            Card_Loader targetCard = _Hand.findCard(ID);
 
             if(_CardState.Experience.XP >= unlocks.Upgrades[_CardState.Experience.Level].RequiredXP)
             {
                 Debug.Log("level up");
 
-                Card_Loader targetCard = _Hand.findCard(ID);
 
                 if(targetCard != null)
                 {
@@ -585,6 +585,13 @@ public class TurnController : CombatFSM
                 card.UpgradePath.Experience.Level++;
                 deckController.deckData.deckListData[i] = new CardPlayData(_CardState);
             }
+
+            if(targetCard != null)
+            {
+                bool maxLvl = card.UpgradePath.Upgrades.Length == card.UpgradePath.Experience.Level;
+                targetCard.elements.level.UpdateLevelFill(card.UpgradePath.Upgrades, card.UpgradePath.Experience, maxLvl);
+            }
+
             deckController.TransferExperienceToHand(_CardState);
         }
     }

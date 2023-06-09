@@ -72,7 +72,7 @@ public struct CardElements
 public class Card_Loader : MonoBehaviour
 {
     [SerializeField] Texture transparentMetallic;
-    [SerializeField] CardElements elements;
+    [field:SerializeField] public CardElements elements {get; private set;} 
     [SerializeField] bool LoadCardPlayData = false;
     public CardPlayData _card;
     Card_Behaviour CB;
@@ -168,6 +168,7 @@ public class Card_Loader : MonoBehaviour
     /// <param name="card">Data required to build the prefab and get its Levels and current Up</param>
     public void Set(CardPlayData card)
     {
+        bool isReset = _card.CardType != null;
         bool UseUpgradedDescription = false;
         _card = card;
 
@@ -176,7 +177,7 @@ public class Card_Loader : MonoBehaviour
 
         // if(elements.level != null && card.CardType is ActionCard_ScriptableObject)
         // {
-            elements.level.set(GetComponent<Card_Selector>(), card);
+            elements.level.set(GetComponent<Card_Selector>(), card, !addComponentAutomatically);
         // }
 
         if(elements.Description != null)
@@ -240,7 +241,7 @@ public class Card_Loader : MonoBehaviour
 
                 UseUpgradedDescription = (CB as ActionCard_Behaviour).ApplyLevels(card.Experience);
             }
-            elements.level.instantiateIcons(Action_Card.cardStats.getGlyphs(Action_Card.type));
+            elements.level.instantiateIcons(Action_Card.cardStats.getGlyphs(Action_Card.type), !addComponentAutomatically, isReset);
         }
 
         if(elements.Description.PopupInfo)
