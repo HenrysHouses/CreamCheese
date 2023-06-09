@@ -215,7 +215,10 @@ public class MinionIntent : Intent
                     strength += actionSelected.ActionSettings.ModifiedStrength;
 
             if(Self.Weakened)
+            {
                 strength = (int)Mathf.Clamp(strength / 2, 1, Mathf.Infinity);
+                Debug.Log("Is Weakened yessus good stuff poggies");
+            }
 
         }
 

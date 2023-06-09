@@ -47,6 +47,7 @@ public class FrostbiteDebuff : DebuffBase
 
         OnDrawActTickDebuff();
         thisMonster.Weaken();
+        thisMonster.Weakened = true;
 
     }
 }
