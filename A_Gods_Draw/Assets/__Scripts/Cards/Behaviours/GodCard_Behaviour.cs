@@ -147,7 +147,7 @@ public class GodCard_Behaviour : Card_Behaviour , IMonsterTarget
             // places god
             controller.GodPlacement.SetGod(this);
             foreach (ActionCard_Behaviour _card in controller.GetBoard().allPlayedCards)
-                _card.UpdateQueuedDamage();
+                _card.UpdateQueuedDamage(false, true);
 
             action.OnPlay(controller.GetBoard(), card_so.strength);
             ChangeCursor.instance.DefaultCursor();

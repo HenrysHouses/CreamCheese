@@ -367,12 +367,69 @@ public class ActionCard_Behaviour : Card_Behaviour
         return false;
 
     }
-    public (bool, int) CardAttackTotal(bool _buffUpdate)
+    public (bool, int) CardAttackTotal(bool _buffUpdate, bool _isFromGod = false)
     {
 
         int damageTotal = 0;
         bool dealsDamage = false;
         CardAction[] _actions = stats.actionGroup.actions.ToArray(), _godBuffActions = stats.godBuffActions.actions.ToArray();
+
+        if(_isFromGod)
+        {
+
+            foreach (CardAction action in _godBuffActions)
+            {
+
+                if(action is AttackCardAction)
+                {
+
+                    dealsDamage = true;
+                    damageTotal += stats.strength;
+
+                }
+                else if(action is EarthquakeCardAction)
+                {
+
+                    dealsDamage = true;
+                    int _tempDmg = stats.strength;
+                    foreach(Monster _target in controller.GetBoard().getLivingEnemies())
+                    {
+                        if(!IsMonsterTargeted(_target))
+                            _target.UpdateQueuedDamage(this, _tempDmg, _buffUpdate);
+
+                    }
+                    damageTotal += _tempDmg;
+
+                }
+                /*else if(action is LeachCardAction)
+                {
+
+                    dealsDamage = true;
+                    damageTotal += stats.strength;
+
+                }*/
+                else if(action is SplashDMGCardAction)
+                {
+
+                    dealsDamage = true;
+                    int _tempDmg = (int)((stats.strength / 2f) + 1f);
+                    foreach(Monster _target in controller.GetBoard().getLivingEnemies())
+                    {
+
+                        if(!IsMonsterTargeted(_target))
+                            _target.UpdateQueuedDamage(this, _tempDmg, _buffUpdate);
+
+                    }
+                    damageTotal += _tempDmg;
+
+                }
+                
+            }
+
+            return (dealsDamage, damageTotal);
+
+        }
+
         foreach (CardAction action in _actions)
         {
 
@@ -479,10 +536,10 @@ public class ActionCard_Behaviour : Card_Behaviour
 
     }
 
-    public void UpdateQueuedDamage(bool _buffUpdate = false)
+    public void UpdateQueuedDamage(bool _buffUpdate = false, bool _isFromGod = false)
     {
 
-        (bool, int) _damageInfo = CardAttackTotal(_buffUpdate);
+        (bool, int) _damageInfo = CardAttackTotal(_buffUpdate, _isFromGod);
         if(_damageInfo.Item1)
         {
 
