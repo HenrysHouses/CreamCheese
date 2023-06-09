@@ -1207,6 +1207,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   shouldSetViewOnStart: 0
   View: 0
+  LockCamera: 0
 --- !u!65 &462599426
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -1931,6 +1932,10 @@ PrefabInstance:
       propertyPath: m_characterSpacing
       value: 10
       objectReference: {fileID: 0}
+    - target: {fileID: 8033436254533132960, guid: 24b5665651593e84799b0bac945f83d9, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.size
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 8033436254533132964, guid: 24b5665651593e84799b0bac945f83d9, type: 3}
       propertyPath: m_IsActive
       value: 0
@@ -1951,7 +1956,8 @@ PrefabInstance:
       propertyPath: m_AnchoredPosition.y
       value: 339.1
       objectReference: {fileID: 0}
-    m_RemovedComponents: []
+    m_RemovedComponents:
+    - {fileID: 8033436254533132967, guid: 24b5665651593e84799b0bac945f83d9, type: 3}
   m_SourcePrefab: {fileID: 100100000, guid: 24b5665651593e84799b0bac945f83d9, type: 3}
 --- !u!1001 &827957185
 PrefabInstance:
@@ -2935,7 +2941,6 @@ GameObject:
   - component: {fileID: 1786796515}
   - component: {fileID: 1786796514}
   - component: {fileID: 1786796513}
-  - component: {fileID: 1786796512}
   m_Layer: 5
   m_Name: Go To Map
   m_TagString: Untagged
@@ -2964,18 +2969,6 @@ RectTransform:
   m_AnchoredPosition: {x: -198, y: -96}
   m_SizeDelta: {x: 160, y: 66.77}
   m_Pivot: {x: 0.5, y: 0.5}
---- !u!114 &1786796512
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1786796510}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 877a9cbcbedc7d74594a86cf75fba852, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!114 &1786796513
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -3019,19 +3012,7 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 1786796514}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls:
-      - m_Target: {fileID: 1786796512}
-        m_TargetAssemblyTypeName: TriggerSceneLoad, Assembly-CSharp
-        m_MethodName: LoadScene
-        m_Mode: 5
-        m_Arguments:
-          m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-          m_IntArgument: 0
-          m_FloatArgument: 0
-          m_StringArgument: Map
-          m_BoolArgument: 0
-        m_CallState: 2
+      m_Calls: []
 --- !u!114 &1786796514
 MonoBehaviour:
   m_ObjectHideFlags: 0

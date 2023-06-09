@@ -192,6 +192,9 @@ public class LevelController : MonoBehaviour
 
         float pos = 1/(glyphs.Length+1f+godGlyph);
 
+        if(spawnAsDisplay)
+            IconPath.recalculatePath();
+
         for (int i = 0; i < glyphs.Length + godGlyph; i++)
         {
             GameObject icon = Instantiate(IconPrefab);
