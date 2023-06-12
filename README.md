@@ -8,16 +8,18 @@ This is a student project by
 - Javier Villegas
 - Nicolay Johansen
 - Mathea Walberg
+- Julia Stokke
+- Kevin Hagfors
 
 While at the Games And Entertainment Technology course at Nord University
 
 # Try The Game
-https://thekingcharlie.itch.io/a-gods-draw
+[Itch.io](https://thekingcharlie.itch.io/a-gods-draw)
 
-https://www.youtube.com/watch?v=yK-aiaYRDqY&ab_channel=CharlieEik%C3%A5s
+[Trailer](https://youtu.be/0xupsY3WX14)
 
 # Contact us
 
-https://discord.com/invite/5yAKB3jq2s
+[Discord](https://discord.com/invite/5yAKB3jq2s)
 
-https://www.linkedin.com/company/86462653/admin/
+[LinkedIn](https://www.linkedin.com/company/86462653/admin/)
