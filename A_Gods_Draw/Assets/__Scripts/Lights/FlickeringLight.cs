@@ -139,6 +139,7 @@ public class FlickeringLight : MonoBehaviour {
 #if UNITY_EDITOR
 
 [CustomEditor(typeof(FlickeringLight))]
+[CanEditMultipleObjects]
 public class MyScriptEditor : Editor
 {
     public override void OnInspectorGUI()
